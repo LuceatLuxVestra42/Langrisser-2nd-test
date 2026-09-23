@@ -165,7 +165,7 @@ Do not add unrelated subsystems merely because they may be useful later.
 
 ## 9. Tooling and abstraction threshold
 
-Create a tool or abstraction when current work demonstrates a need for repeatability, correctness, reproducibility, or reduced maintenance burden.
+Create a tool or abstraction when current work demonstrates a need for repeatability, correctness, reproducibility, or reducing an observed current maintenance burden.
 
 Do not prebuild generic infrastructure for hypothetical future requirements.
 
@@ -244,7 +244,9 @@ Reopening should be local to the affected responsibility, not a global lifecycle
 
 ## 13. Legacy boundary
 
-Legacy may remain a useful predecessor for semantic responsibilities that have not yet been migrated.
+Legacy may remain an authoritative predecessor for semantic responsibilities that have not yet been migrated, but only for the semantic results actually relied upon.
+
+Predecessor authority does not by itself constitute admission evidence for new canonical data.
 
 Reuse from Legacy is selective.
 
