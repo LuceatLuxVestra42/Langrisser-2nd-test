@@ -104,7 +104,7 @@ However, the following are not enough by themselves:
 - generated output
 - a statement that the Legacy repository used the value
 
-Inherited authority is not the same as admission evidence.
+Predecessor status alone is not admission evidence. A B claim is reusable because its traceable, non-circular evidence and validation chain satisfies the conditions above.
 
 ### C — Unsupported assertion
 
@@ -325,9 +325,11 @@ Traceable evidence does not require copying every raw source into the production
 
 External Source Store, preserved snapshots, or other authorized storage may support ingestion, investigation, or re-verification.
 
-The repository should retain enough provenance to identify the evidence supporting admitted claims without requiring Legacy as a production dependency.
+Evidence supporting admitted canonical claims must remain traceable without requiring the Legacy repository.
 
-If a raw source is needed for normal regeneration, that is a production dependency and should be treated explicitly rather than hidden behind an undocumented fallback.
+This does not require copying every raw source into the production repository.
+
+Normal canonical validation, generation, generated validation, and frontend build should not depend on raw external sources. If a process requires raw source material, classify it as ingestion, investigation, or re-verification, or redesign the dependency rather than hiding it behind a fallback.
 
 ## 15. Source change and re-verification
 
@@ -335,7 +337,7 @@ A newer source snapshot does not automatically invalidate previously admitted cl
 
 Re-verification is warranted when:
 
-- the affected semantic responsibility is being migrated or investigated
+- the current task requires source-level confirmation beyond the existing admitted evidence
 - the source semantics changed
 - authoritative evidence creates a material contradiction
 - existing provenance is too weak to support a required current claim
