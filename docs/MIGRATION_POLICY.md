@@ -39,9 +39,11 @@ Predecessor authority does not imply:
 
 A Legacy technique or structure should be adopted only when current requirements independently justify it.
 
-## 3. Migrate claims, not artifacts
+## 3. Migrate responsibilities, admit claims
 
-The normal migration unit is a semantic claim or a small coherent set of claims, not a Legacy file, directory, Stage, checkpoint, or feature bundle.
+The normal migration unit is the smallest independently meaningful semantic responsibility. Within that responsibility, admit only the claims supported by evidence.
+
+Legacy files, directories, Stages, checkpoints, or feature bundles are not migration units.
 
 Potentially reusable material includes:
 
@@ -68,7 +70,7 @@ In practical migration work:
 - A claims may be admitted from direct traceable evidence
 - B claims may be reused without reopening the full raw-source investigation when the B conditions are satisfied
 - C claims remain unsupported and must not enter canonical data
-- D claims require resolution of the material contradiction before admission in the affected scope
+- A D claim must not be admitted as-is. Resolve, scope-split, or explicitly exclude the contradicted claim before admitting the affected portion; unrelated supported claims may proceed independently.
 
 Migration itself is not a reason to re-verify all B claims.
 
@@ -87,7 +89,7 @@ Acceptable support may include:
 - preserved source snapshots
 - authorized external source storage
 - source-native locators
-- stable commits or source versions
+- stable source versions, preserved commits, or locators that remain accessible independently of the Legacy repository
 - compact evidence notes
 - prior validation traces that satisfy B requirements
 
@@ -137,7 +139,9 @@ Examples of distinct responsibilities include:
 - asset identity and provenance
 - presentation eligibility
 
-If two concerns have different evidence, different semantics, or different completion criteria, migrate them separately.
+Different evidence may be tracked at claim level without creating a separate migration responsibility.
+
+Split migration responsibilities when the concerns are independently meaningful and have distinct semantic or completion boundaries.
 
 Do not let a broad Legacy artifact force unrelated responsibilities into one migration unit.
 
@@ -342,7 +346,8 @@ A semantic responsibility is migrated when all of the following are true for the
 - required validation passes
 - generated consumers, if any, are reproducible from new canonical data
 - normal production use does not require Legacy
-- material differences from relied-upon Legacy results are explained or intentionally accepted
+- Legacy differences that materially affect canonical validity, required downstream consumers, or remaining predecessor dependency are resolved
+- other non-blocking historical deviations may remain explicitly documented
 
 Migration completion is local to the responsibility.
 
