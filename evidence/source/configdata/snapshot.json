@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "purpose": "Preserved source evidence for HeroInfo record existence and raw Rank values only; not canonical data or generated output.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "releaseArchive": {
+      "assetId": 540460413,
+      "name": "configdata-source-v1-6475e63e.tar",
+      "sha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84"
+    }
+  },
+  "sourceFiles": {
+    "data/configdata/ConfigDataHeroInfo.json": {
+      "gitBlob": "728daab3370f0c7779449663ea02e638677944d4",
+      "sizeBytes": 16894185
+    },
+    "data/configdata/ConfigDataRankInfo.json": {
+      "gitBlob": "c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b",
+      "sizeBytes": 261
+    }
+  },
+  "preservedArtifacts": {
+    "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json": {
+      "gitBlob": "d1e7b44d8da9367c04a1480ac33ab5cc01c72f85",
+      "derivedFrom": "data/configdata/ConfigDataHeroInfo.json",
+      "selection": "Top-level records with source-native ID exactly 5, 6, or 8; copied as data records without semantic interpretation.",
+      "sourceFileUtf8Bytes": 16894185
+    },
+    "evidence/source/configdata/ConfigDataRankInfo.json": {
+      "gitBlob": "c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b",
+      "derivedFrom": "data/configdata/ConfigDataRankInfo.json",
+      "preservation": "Complete source file; preserved blob SHA is identical to source blob SHA."
+    }
+  },
+  "locators": [
+    {
+      "sourceRecord": "ConfigDataHeroInfo.json top-level array record",
+      "ID": 5,
+      "Rank": 3
+    },
+    {
+      "sourceRecord": "ConfigDataHeroInfo.json top-level array record",
+      "ID": 6,
+      "Rank": 4
+    },
+    {
+      "sourceRecord": "ConfigDataHeroInfo.json top-level array record",
+      "ID": 8,
+      "Rank": 4
+    }
+  ],
+  "scope": {
+    "supported": "The pinned snapshot contains one HeroInfo record each for ID 5, 6, and 8; these records carry raw Rank values 3, 4, and 4.",
+    "notEstablished": [
+      "Rank-to-rarity meaning",
+      "KR display name",
+      "portrait",
+      "Useable population meaning",
+      "relations"
+    ]
+  },
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}

@@ -1,1 +1,0 @@
-# Langrisser-2nd-test
