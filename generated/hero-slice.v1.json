@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "id": 5,
+      "nameEng": "Chris",
+      "portrait": "assets/portraits/hero-5.png"
+    },
+    {
+      "id": 6,
+      "nameEng": "Leon",
+      "portrait": "assets/portraits/hero-6.png"
+    },
+    {
+      "id": 8,
+      "nameEng": "Lana",
+      "portrait": "assets/portraits/hero-8.png"
+    }
+  ]
+}

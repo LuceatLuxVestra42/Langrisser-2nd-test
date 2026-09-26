@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "records": [
+    {
+      "id": 5,
+      "nameEng": "Chris",
+      "portrait": "assets/portraits/hero-5.png",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-slice.v1.json#heroId=5"
+      }
+    },
+    {
+      "id": 6,
+      "nameEng": "Leon",
+      "portrait": "assets/portraits/hero-6.png",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-slice.v1.json#heroId=6"
+      }
+    },
+    {
+      "id": 8,
+      "nameEng": "Lana",
+      "portrait": "assets/portraits/hero-8.png",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-slice.v1.json#heroId=8"
+      }
+    }
+  ]
+}
