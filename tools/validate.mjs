@@ -50,6 +50,7 @@ for (const record of canonical.records) {
 
   const portrait = portraitByHero.get(record.id);
   check(portrait, `missing portrait evidence record ${record.id}`);
+  check(portrait.charImageIdClass === 'A', `Hero ${record.id} P1 raw CharImage_ID must remain A`);
   check(portrait.relationClass === 'B' && portrait.heroPaintingRoleClass === 'B' && portrait.sourceAssetClass === 'B' && portrait.reproducibilityClass === 'B', `Hero ${record.id} P2–P5 must remain B`);
   check(sourceHero.CharImage_ID === portrait.charImageId, `Hero ${record.id} raw CharImage_ID does not match its source evidence value`);
   const charImage = charById.get(sourceHero.CharImage_ID);
