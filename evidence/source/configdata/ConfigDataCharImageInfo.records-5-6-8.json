@@ -1,0 +1,14 @@
+[
+  {
+    "ID": 5,
+    "HeroPainting": "UI/HeroPainting/SR_ABS/Prefab/Chris.prefab"
+  },
+  {
+    "ID": 6,
+    "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Leon.prefab"
+  },
+  {
+    "ID": 8,
+    "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Lana.prefab"
+  }
+]

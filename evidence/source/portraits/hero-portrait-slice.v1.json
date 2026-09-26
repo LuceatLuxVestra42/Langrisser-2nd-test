@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Minimum preserved portrait provenance for the first Hero slice. This file is evidence, not canonical data or a generated consumer.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "scope": {
+    "heroes": [5, 6, 8],
+    "configDataSnapshot": "2026-09-02",
+    "heroIdentityAndNameEng": "A",
+    "charImageRelationAndPortraitProvenance": "B",
+    "krDisplayName": "C_DEFERRED",
+    "rankToRarity": "C_DEFERRED"
+  },
+  "sourceRecords": {
+    "heroInfo": {
+      "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+      "path": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json",
+      "snapshotPath": "evidence/source/configdata/snapshot.json",
+      "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+      "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "sourceFile": "data/configdata/ConfigDataHeroInfo.json",
+      "sourceGitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "fieldsUsed": ["ID", "Name_Eng", "CharImage_ID"]
+    },
+    "charImageInfo": {
+      "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+      "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "sourceCommitDate": "2026-09-02T01:45:21Z",
+      "sourceFile": "data/configdata/ConfigDataCharImageInfo.json",
+      "sourceGitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+      "sourceBytes": 1593018,
+      "sourceSha256": "3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a",
+      "sourceRecordCount": 1378,
+      "preservedSubset": "evidence/source/configdata/ConfigDataCharImageInfo.records-5-6-8.json",
+      "selection": "Source records selected by explicit source-native ID 5, 6, and 8; only ID and HeroPainting are retained.",
+      "subsetDerivation": "Decoded from the pinned raw source file and verified against its Git blob SHA-1 and SHA-256 before selecting records."
+    }
+  },
+  "admissionBasis": {
+    "priorValidation": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "sourceTrace": {
+        "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+        "gitBlobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9"
+      },
+      "artworkValidation": {
+        "path": "data/validation/hero-page-stage5-5-2-artwork.v1.json",
+        "gitBlobSha1": "6e52ebf142d40d4a82709753e6c5a086dcfb299a"
+      },
+      "validatedClaim": "ConfigDataHeroInfo.CharImage_ID -> ConfigDataCharImageInfo.ID -> ConfigDataCharImageInfo.HeroPainting; 267/267 source Hero pointers resolve uniquely and HeroPainting is the large static Hero detail painting/prefab field.",
+      "class": "B",
+      "nonCircularAnchor": "Both ConfigData source files are separately identified by immutable Git blob locators in the same pinned source commit; the validation is downstream of those source records."
+    },
+    "limitations": [
+      "The new repository preserves only the three required CharImageInfo source rows, not the 1,593,018-byte full source table.",
+      "The preserved prior validation chain is inherited as B; this work did not independently rerun the Legacy validator.",
+      "The source client install package is version 1.1.113. The ConfigData snapshot and client package release identifiers are not independently declared as one synchronized release, so scope is limited to the explicit source IDs, paths, and extracted bundle records listed here.",
+      "Only the base HeroPainting artwork is admitted; alternate skins, rarity interpretation, and Korean display names are outside scope."
+    ],
+    "contradictions": []
+  },
+  "extraction": {
+    "clientBuild": {
+      "installVersion": "1.1.113",
+      "serverRegion": "not separately declared in the extraction script",
+      "packageUrl": "http://mhmnzupdate.zlongame.com/MHMNZ/InstallVersion/InstallPage_1.1.113_61.zip",
+      "packageName": "InstallPage_1.1.113_61.zip",
+      "packageBytes": 109027105
+    },
+    "procedure": {
+      "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+      "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "scriptPath": "scripts/build-hero-artwork-h-a5-index.py",
+      "scriptGitBlobSha1": "a13be98a59dadcfc95e2287c138ff56e76b86518",
+      "method": [
+        "Fetch the declared InstallPage package and verify its byte length.",
+        "Resolve the exact named bundle and verify bundle MD5, SHA-256, and CRC32.",
+        "Load the Unity bundle, locate the exact HeroPainting prefab container path, and inspect its serialized reference graph.",
+        "Follow the referenced Sprite path ID to its Texture2D path ID; each selected record has exactly one referenced Sprite.",
+        "Extract that Sprite as PNG and verify the extracted PNG SHA-256."
+      ],
+      "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+      "newRepositoryAssetTransfer": "The three extracted PNGs were copied byte-for-byte; no recompression or image edit was applied."
+    },
+    "bundles": {
+      "ui_heropainting_sr_abs.b": {
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageBytes": 109027105,
+        "bundleBytes": 4204670,
+        "bundleMd5": "50C4FFD5AB6F7CBD8A0B39117F9CA101",
+        "bundleSha256": "294750FF12725BF5B8DF906B6CFAB702AF6352F7BAAF2203553E3E5EACDE8ED2"
+      },
+      "ui_heropainting_ssr_abs.b": {
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageBytes": 109027105,
+        "bundleBytes": 25793935,
+        "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492"
+      }
+    }
+  },
+  "records": [
+    {
+      "heroId": 5,
+      "nameEng": "Chris",
+      "charImageId": 5,
+      "heroPainting": "UI/HeroPainting/SR_ABS/Prefab/Chris.prefab",
+      "relationClass": "B",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "bundleName": "ui_heropainting_sr_abs.b",
+      "prefabPathId": "3226902058170655958",
+      "spritePathId": "947309045040411833",
+      "texturePathId": "-8778693388439772692",
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-5.png",
+        "bytes": 139098,
+        "sha256": "1c0908c5afcd1ffe3fea1a97e24abc4afdb5018543e9702d1f9c6754f98e5126",
+        "width": 242,
+        "height": 626,
+        "legacySourcePath": "public/images/heroes/cards/5.png",
+        "legacyGitBlobSha1": "b80484e7de037756ed1e8e376ed5057b53ea7f82"
+      }
+    },
+    {
+      "heroId": 6,
+      "nameEng": "Leon",
+      "charImageId": 6,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Leon.prefab",
+      "relationClass": "B",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "bundleName": "ui_heropainting_ssr_abs.b",
+      "prefabPathId": "-3228372718114468391",
+      "spritePathId": "-1104089974757781077",
+      "texturePathId": "-3457852816210740779",
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-6.png",
+        "bytes": 327703,
+        "sha256": "2169231ff20b57d7906dce35def0da07fca601847b158ca5f2e725138a284557",
+        "width": 571,
+        "height": 845,
+        "legacySourcePath": "public/images/heroes/cards/6.png",
+        "legacyGitBlobSha1": "3477a7e0874c67384736988b9eb224b29f9827af"
+      }
+    },
+    {
+      "heroId": 8,
+      "nameEng": "Lana",
+      "charImageId": 8,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Lana.prefab",
+      "relationClass": "B",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "bundleName": "ui_heropainting_ssr_abs.b",
+      "prefabPathId": "-4057534697237037478",
+      "spritePathId": "-4421190083263692265",
+      "texturePathId": "5164473921919823217",
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-8.png",
+        "bytes": 246951,
+        "sha256": "5e00c596131194ed6ea7b49828ddf7527df08f8e074bfe8b643bece24ebccc02",
+        "width": 447,
+        "height": 758,
+        "legacySourcePath": "public/images/heroes/cards/8.png",
+        "legacyGitBlobSha1": "c2fb2d0fc6486ef0ebb5c0cb8032f911e7e59127"
+      }
+    }
+  ]
+}
