@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Compact surviving support for the inherited B portrait claims for Hero IDs 5, 6, and 8. It records the claim contents, source locators, and historical extraction method so the Legacy repository is not needed to understand the claims.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "authorityNote": "The B classifications remain inherited from the cited, traceable predecessor investigation. This compact record does not treat a predecessor PASS label or this repository validator as semantic authority, and it does not independently rerun the historical client-bundle extraction.",
+  "predecessor": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "validation": {
+      "sourceTrace": {
+        "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+        "gitBlobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9",
+        "recordedClaim": "HeroInfo.CharImage_ID joins to CharImageInfo.ID; the cited investigation reports unique resolution for its 267-record scope."
+      },
+      "artworkValidation": {
+        "path": "data/validation/hero-page-stage5-5-2-artwork.v1.json",
+        "gitBlobSha1": "6e52ebf142d40d4a82709753e6c5a086dcfb299a",
+        "recordedClaim": "The cited investigation distinguishes HeroPainting as the large static Hero detail painting/prefab field from head icons and Spine resources."
+      }
+    },
+    "sourceRecords": {
+      "heroInfo": {
+        "path": "data/configdata/ConfigDataHeroInfo.json",
+        "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+        "fields": ["ID", "CharImage_ID"]
+      },
+      "charImageInfo": {
+        "path": "data/configdata/ConfigDataCharImageInfo.json",
+        "gitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+        "fields": ["ID", "HeroPainting"]
+      }
+    }
+  },
+  "extraction": {
+    "clientBuild": {
+      "installVersion": "1.1.113",
+      "serverRegion": "not separately declared by the extraction procedure",
+      "packageName": "InstallPage_1.1.113_61.zip",
+      "packageUrl": "http://mhmnzupdate.zlongame.com/MHMNZ/InstallVersion/InstallPage_1.1.113_61.zip",
+      "packageBytes": 109027105
+    },
+    "script": {
+      "path": "scripts/build-hero-artwork-h-a5-index.py",
+      "gitBlobSha1": "a13be98a59dadcfc95e2287c138ff56e76b86518",
+      "relevantProcedure": [
+        "Check the declared InstallPage package size and locate the named bundle in its ZIP directory.",
+        "Verify the extracted bundle byte length, MD5, SHA-256, and CRC32 against the script's pinned values.",
+        "Load the Unity bundle and resolve the normalized HeroPainting prefab container path.",
+        "Traverse serialized PPtr references from the prefab graph; select only a unique renderable referenced Sprite and follow its Texture2D reference.",
+        "Extract the selected Sprite as PNG and compute its SHA-256."
+      ]
+    },
+    "bundles": {
+      "ui_heropainting_sr_abs.b": {
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleBytes": 4204670,
+        "md5": "50C4FFD5AB6F7CBD8A0B39117F9CA101",
+        "sha256": "294750FF12725BF5B8DF906B6CFAB702AF6352F7BAAF2203553E3E5EACDE8ED2",
+        "crc32": "BD688F0F"
+      },
+      "ui_heropainting_ssr_abs.b": {
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleBytes": 25793935,
+        "md5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "sha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+        "crc32": "4682CEA2"
+      }
+    }
+  },
+  "records": [
+    {
+      "heroId": 5,
+      "charImageId": 5,
+      "heroPainting": "UI/HeroPainting/SR_ABS/Prefab/Chris.prefab",
+      "bundle": {"name": "ui_heropainting_sr_abs.b", "bytes": 4204670, "sha256": "294750FF12725BF5B8DF906B6CFAB702AF6352F7BAAF2203553E3E5EACDE8ED2"},
+      "objectGraph": {"prefabPathId": "3226902058170655958", "spritePathId": "947309045040411833", "texturePathId": "-8778693388439772692", "selection": "unique renderable Sprite reached by serialized prefab PPtr traversal"},
+      "extractedPng": {"path": "assets/portraits/hero-5.png", "bytes": 139098, "sha256": "1c0908c5afcd1ffe3fea1a97e24abc4afdb5018543e9702d1f9c6754f98e5126", "dimensions": [242, 626]}
+    },
+    {
+      "heroId": 6,
+      "charImageId": 6,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Leon.prefab",
+      "bundle": {"name": "ui_heropainting_ssr_abs.b", "bytes": 25793935, "sha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492"},
+      "objectGraph": {"prefabPathId": "-3228372718114468391", "spritePathId": "-1104089974757781077", "texturePathId": "-3457852816210740779", "selection": "unique renderable Sprite reached by serialized prefab PPtr traversal"},
+      "extractedPng": {"path": "assets/portraits/hero-6.png", "bytes": 327703, "sha256": "2169231ff20b57d7906dce35def0da07fca601847b158ca5f2e725138a284557", "dimensions": [571, 845]}
+    },
+    {
+      "heroId": 8,
+      "charImageId": 8,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Lana.prefab",
+      "bundle": {"name": "ui_heropainting_ssr_abs.b", "bytes": 25793935, "sha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492"},
+      "objectGraph": {"prefabPathId": "-4057534697237037478", "spritePathId": "-4421190083263692265", "texturePathId": "5164473921919823217", "selection": "unique renderable Sprite reached by serialized prefab PPtr traversal"},
+      "extractedPng": {"path": "assets/portraits/hero-8.png", "bytes": 246951, "sha256": "5e00c596131194ed6ea7b49828ddf7527df08f8e074bfe8b643bece24ebccc02", "dimensions": [447, 758]}
+    }
+  ],
+  "limitations": [
+    "The two pinned ConfigData source blobs and predecessor validation/script locators are stable source anchors; the full source table, client install package, and Unity bundles are not copied into this repository.",
+    "The historical artwork semantic and extraction chain are inherited as B; this work preserves their relevant claims and locators without rerunning the Legacy validation or claiming a new A result.",
+    "The ConfigData snapshot and client install package are not independently declared as one synchronized release. Scope is limited to the explicit source IDs, paths, bundle records, object path IDs, and extracted PNG hashes recorded above.",
+    "The client server region is not separately declared by the extraction procedure. Korean localization, rarity, alternate skins, and population semantics are outside this evidence scope."
+  ]
+}

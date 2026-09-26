@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "purpose": "Preserved source evidence for HeroInfo record existence and raw Rank values only; not canonical data or generated output.",
+  "purpose": "Preserved source evidence for the existence and raw fields of the explicitly selected HeroInfo records; not canonical data or generated output.",
   "source": {
     "repository": "LuceatLuxVestra42/langrisser-future-guide",
     "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
@@ -54,13 +54,14 @@
     }
   ],
   "scope": {
-    "supported": "The pinned snapshot contains one HeroInfo record each for ID 5, 6, and 8; these records carry raw Rank values 3, 4, and 4.",
+    "supported": "The pinned snapshot contains one HeroInfo record each for the explicitly selected IDs 5, 6, and 8. Their source-native ID, Name, Name_Eng, CharImage_ID, and raw Rank fields are preserved and directly inspectable; raw Rank values are 3, 4, and 4. This is a slice-specific identity scope, not a population rule.",
     "notEstablished": [
       "Rank-to-rarity meaning",
       "KR display name",
-      "portrait",
+      "CharImage_ID-to-CharImageInfo relation or portrait meaning from this HeroInfo snapshot alone; the separately preserved portrait evidence supports a scoped inherited B claim",
       "Useable population meaning",
-      "relations"
+      "General playable/public Hero population semantics",
+      "Other Hero relations"
     ]
   },
   "canonical": false,

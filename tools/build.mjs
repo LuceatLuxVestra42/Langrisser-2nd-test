@@ -10,7 +10,6 @@ function run(script) {
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
-run('tools/generate.mjs');
 run('tools/validate.mjs');
 
 const output = await mkdtemp(join(tmpdir(), 'langrisser-hero-slice-build-'));

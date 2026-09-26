@@ -2,13 +2,16 @@
 
 This small static site exercises the first admitted Hero scope: source identity, `Name_Eng`, and base portrait provenance for IDs 5, 6, and 8. KR display names and rarity remain deferred.
 
+The identity scope is limited to the explicitly selected `ConfigDataHeroInfo` records with IDs 5, 6, and 8. Their presence does not establish that all records in `ConfigDataHeroInfo` belong to a playable or public Hero population.
+
 ## Local checks
 
 ```sh
-node tools/generate.mjs
 node tools/validate.mjs
 node tools/build.mjs
 ```
+
+`validate` and `build` are read-only with respect to tracked repository files. After changing canonical data, run `node tools/generate.mjs` explicitly, then rerun validation and build. Validation detects a stale generated consumer; build never repairs it.
 
 To view the page locally, serve the repository root with any static HTTP server and open `index.html`. The page reads only `generated/hero-slice.v1.json`; it does not load ConfigData or Legacy files.
 
