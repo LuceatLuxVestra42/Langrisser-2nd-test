@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "job-names-ko.v1.txt",
+  "repoPreservedPath": "evidence/localization/source/job-names-ko.v1.txt",
+  "originalProjectSourceName": "전직명.txt",
+  "sourceSha256": "2dca8e277a84abab67d9bc1527c74aa6268605f3e34643cb413fb09361f3c3b8",
+  "format": "UTF-8 tab-separated text",
+  "encoding": "UTF-8",
+  "delimiter": "TAB",
+  "header": [
+    "전직ID",
+    "중국명",
+    "한국명"
+  ],
+  "recordCount": 804,
+  "idField": "전직ID",
+  "cnNameField": "중국명",
+  "krNameField": "한국명",
+  "sourceRole": "job_localization_reference",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "sourceVersionStatus": "unknown",
+  "sourceProvenanceStatus": "incomplete",
+  "officialKrProvenanceStatus": "unverified",
+  "knownLimitations": [
+    "한국명 필드에 일부 상태 문자열(예: 한섭 미실장)이 혼재하므로 target 행은 usable display value인지 별도로 검사한다.",
+    "한국어 표기의 공식 한섭 provenance와 기준 버전은 확인되지 않았다.",
+    "이 source는 release 상태 authority가 아니다.",
+    "이 source로 relation을 생성하거나 중국명·한국명으로 JOIN하지 않는다.",
+    "JobInfo.ID와 이 파일의 전직ID namespace 해석은 B 수준 보조 근거에 한정한다."
+  ],
+  "claims": {
+    "rowValues": "A: preserved source row directly contains the keyed ID and text values.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality with ConfigDataJobInfo.ID; CN name is consistency-only.",
+    "officialKrName": "unverified"
+  }
+}

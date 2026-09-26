@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Job/Class ID keyed localization reference; official KR provenance unverified",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "records": [
+    {
+      "jobId": 817,
+      "nameCn": "战修女",
+      "nameKo": "워 프리스티스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=817",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 806,
+      "nameCn": "司祭",
+      "nameKo": "프리스트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=806",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 807,
+      "nameCn": "圣女",
+      "nameKo": "세인트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=807",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 803,
+      "nameCn": "主教",
+      "nameKo": "주교",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=803",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 812,
+      "nameCn": "女武神",
+      "nameKo": "발키리",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=812",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 813,
+      "nameCn": "公主",
+      "nameKo": "프린세스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=813",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 301,
+      "nameCn": "骑士",
+      "nameKo": "나이트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=301",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 303,
+      "nameCn": "强袭骑士",
+      "nameKo": "그랜드 나이트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=303",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 302,
+      "nameCn": "骑士长",
+      "nameKo": "하이랜더",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=302",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 202,
+      "nameCn": "剑士",
+      "nameKo": "소드맨",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=202",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 307,
+      "nameCn": "突击骑士",
+      "nameKo": "스트라이크 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=307",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 306,
+      "nameCn": "皇家骑士",
+      "nameKo": "로열 나이트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=306",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 701,
+      "nameCn": "魔术师",
+      "nameKo": "메이지",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=701",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 805,
+      "nameCn": "圣徒",
+      "nameKo": "마터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=805",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 702,
+      "nameCn": "大魔法师",
+      "nameKo": "아크 메이지",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=702",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 703,
+      "nameCn": "召唤师",
+      "nameKo": "서모너",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=703",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 810,
+      "nameCn": "圣者",
+      "nameKo": "세인트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=810",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 706,
+      "nameCn": "黑暗公主",
+      "nameKo": "다크 프린세스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=706",
+      "evidenceClass": "A"
+    }
+  ]
+}

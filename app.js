@@ -21,10 +21,10 @@ function addHero(hero) {
   details.append(name, id);
   const connections = document.createElement('ul');
   connections.className = 'job-connections';
-  connections.setAttribute('aria-label', `Job connection IDs for ${hero.nameEng}`);
+  connections.setAttribute('aria-label', `Job connections and Korean display names for ${hero.nameEng}`);
   for (const relation of hero.jobConnections) {
     const item = document.createElement('li');
-    item.textContent = `Connection ${relation.connectionId} → Job ${relation.jobId}`;
+    item.textContent = `Connection ${relation.connectionId} → ${relation.jobNameKo} (Job ${relation.jobId})`;
     connections.append(item);
   }
   article.append(image, details);

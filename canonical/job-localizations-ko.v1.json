@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Presentation localization lookup only; not Job identity or release status authority.",
+  "sourceScope": "KR display text from preserved project source; official KR provenance unverified",
+  "records": [
+    {
+      "jobId": 817,
+      "nameKo": "워 프리스티스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=817"
+    },
+    {
+      "jobId": 806,
+      "nameKo": "프리스트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=806"
+    },
+    {
+      "jobId": 807,
+      "nameKo": "세인트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=807"
+    },
+    {
+      "jobId": 803,
+      "nameKo": "주교",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=803"
+    },
+    {
+      "jobId": 812,
+      "nameKo": "발키리",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=812"
+    },
+    {
+      "jobId": 813,
+      "nameKo": "프린세스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=813"
+    },
+    {
+      "jobId": 301,
+      "nameKo": "나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=301"
+    },
+    {
+      "jobId": 303,
+      "nameKo": "그랜드 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=303"
+    },
+    {
+      "jobId": 302,
+      "nameKo": "하이랜더",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=302"
+    },
+    {
+      "jobId": 202,
+      "nameKo": "소드맨",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=202"
+    },
+    {
+      "jobId": 307,
+      "nameKo": "스트라이크 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=307"
+    },
+    {
+      "jobId": 306,
+      "nameKo": "로열 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=306"
+    },
+    {
+      "jobId": 701,
+      "nameKo": "메이지",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=701"
+    },
+    {
+      "jobId": 805,
+      "nameKo": "마터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=805"
+    },
+    {
+      "jobId": 702,
+      "nameKo": "아크 메이지",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=702"
+    },
+    {
+      "jobId": 703,
+      "nameKo": "서모너",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=703"
+    },
+    {
+      "jobId": 810,
+      "nameKo": "세인트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=810"
+    },
+    {
+      "jobId": 706,
+      "nameKo": "다크 프린세스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=706"
+    }
+  ]
+}

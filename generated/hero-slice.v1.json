@@ -9,32 +9,38 @@
         {
           "connectionId": 50,
           "jobId": 817,
-          "sourceField": "JobConnection_ID"
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "워 프리스티스"
         },
         {
           "connectionId": 51,
           "jobId": 806,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "프리스트"
         },
         {
           "connectionId": 52,
           "jobId": 807,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "세인트"
         },
         {
           "connectionId": 53,
           "jobId": 803,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "주교"
         },
         {
           "connectionId": 54,
           "jobId": 812,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "발키리"
         },
         {
           "connectionId": 55,
           "jobId": 813,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "프린세스"
         }
       ]
     },
@@ -46,32 +52,38 @@
         {
           "connectionId": 60,
           "jobId": 301,
-          "sourceField": "JobConnection_ID"
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "나이트"
         },
         {
           "connectionId": 61,
           "jobId": 303,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "그랜드 나이트"
         },
         {
           "connectionId": 62,
           "jobId": 302,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이랜더"
         },
         {
           "connectionId": 63,
           "jobId": 202,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드맨"
         },
         {
           "connectionId": 64,
           "jobId": 307,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "스트라이크 마스터"
         },
         {
           "connectionId": 65,
           "jobId": 306,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "로열 나이트"
         }
       ]
     },
@@ -83,32 +95,38 @@
         {
           "connectionId": 80,
           "jobId": 701,
-          "sourceField": "JobConnection_ID"
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "메이지"
         },
         {
           "connectionId": 81,
           "jobId": 805,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "마터"
         },
         {
           "connectionId": 82,
           "jobId": 702,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "아크 메이지"
         },
         {
           "connectionId": 83,
           "jobId": 703,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "서모너"
         },
         {
           "connectionId": 84,
           "jobId": 810,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "세인트"
         },
         {
           "connectionId": 85,
           "jobId": 706,
-          "sourceField": "UseableJobConnections_ID"
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "다크 프린세스"
         }
       ]
     }
