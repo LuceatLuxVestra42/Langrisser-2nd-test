@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "sp-job-names-ko.v1.txt",
+  "repoPreservedPath": "evidence/localization/source/sp-job-names-ko.v1.txt",
+  "originalProjectSourceName": "SP전직명.txt",
+  "sourceSha256": "646740684d7c16e00f51611c10afc4190e8319e00b2b813993f5721b6725ada1",
+  "format": "UTF-8 tab-separated text",
+  "encoding": "UTF-8",
+  "delimiter": "TAB",
+  "header": [
+    "전직ID",
+    "중국명",
+    "한국명"
+  ],
+  "recordCount": 25,
+  "idField": "전직ID",
+  "cnNameField": "중국명",
+  "krNameField": "한국명",
+  "sourceRole": "sp_job_localization_reference_candidate",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "sourceVersionStatus": "unknown",
+  "sourceProvenanceStatus": "incomplete",
+  "officialKrProvenanceStatus": "unverified",
+  "idNamespaceStatus": "unresolved",
+  "statusOnlyRows": [
+    {
+      "id": "1220",
+      "cnName": "魔导圣兽",
+      "krField": "한섭 미실장"
+    },
+    {
+      "id": "20243",
+      "cnName": "无上极剑",
+      "krField": "한섭 미실장"
+    },
+    {
+      "id": "20707",
+      "cnName": "初绽的圣约",
+      "krField": "한섭 미실장"
+    }
+  ],
+  "knownLimitations": [
+    "전직ID의 authoritative ConfigData namespace는 아직 확인되지 않았다.",
+    "한국명 필드에는 일부 status-only 값이 섞여 있다.",
+    "한국어 표기의 공식 한섭 provenance는 확인되지 않았다.",
+    "이 source는 release 상태 authority가 아니다.",
+    "이 source로 Hero↔SP relation을 생성하지 않는다.",
+    "이 source로 name JOIN이나 ID arithmetic을 하지 않는다.",
+    "canonical admission은 SP ID namespace 확인 전까지 deferred다.",
+    "status-only 값은 source KR field의 문자열을 기록할 뿐, 공식 release 사실이 아니다."
+  ]
+}
