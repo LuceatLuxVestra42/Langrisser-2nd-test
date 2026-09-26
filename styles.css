@@ -25,6 +25,7 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-details { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 16px 17px; }
 .hero-details h2 { margin: 0; font-size: 1.12rem; }
 .hero-id { margin: 0; color: #aab5c3; font-size: .82rem; white-space: nowrap; }
+.job-connections { margin: 0; padding: 0 16px 18px 34px; color: #c5cfdb; font-size: .82rem; line-height: 1.55; }
 .status { grid-column: 1 / -1; padding: 24px; color: #b4bfce; }
 .status-error { color: #ffb8ad; }
 

@@ -1,0 +1,650 @@
+[
+  {
+    "ID": 50,
+    "Job_ID": 817,
+    "JobLevels_ID": [
+      501,
+      502,
+      503
+    ],
+    "TalentSkill_IDs": [
+      3247,
+      3247,
+      3249,
+      3251,
+      3253,
+      3255
+    ],
+    "UISort": 1,
+    "PropertyRating": "BCABAD",
+    "Model": "Spine/General/Chris_ABS/Chris_BattleSister/Chris_BattleSister01_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 51,
+    "Job_ID": 806,
+    "JobLevels_ID": [
+      511,
+      512,
+      513,
+      514
+    ],
+    "TalentSkill_IDs": [
+      3247,
+      3247,
+      3249,
+      3251,
+      3253,
+      3255
+    ],
+    "UISort": 2,
+    "PropertyRating": "CCBCSD",
+    "Model": "Spine/General/Chris_ABS/Chris_fs/Chris_fs02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      50
+    ],
+    "IsJobOpen": true
+  },
+  {
+    "ID": 52,
+    "Job_ID": 807,
+    "JobLevels_ID": [
+      521,
+      522,
+      523,
+      524
+    ],
+    "TalentSkill_IDs": [
+      3247,
+      3247,
+      3249,
+      3251,
+      3253,
+      3255
+    ],
+    "UISort": 3,
+    "PropertyRating": "BCABAD",
+    "Model": "Spine/General/Chris_ABS/Chris_BattleSister/Chris_BattleSister02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      50
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      501,
+      502,
+      503,
+      504,
+      505
+    ]
+  },
+  {
+    "ID": 53,
+    "Job_ID": 803,
+    "JobLevels_ID": [
+      531,
+      532,
+      533,
+      534
+    ],
+    "TalentSkill_IDs": [
+      3247,
+      3247,
+      3249,
+      3251,
+      3253,
+      3255
+    ],
+    "UISort": 4,
+    "PropertyRating": "CCBCSD",
+    "Model": "Spine/General/Chris_ABS/Chris_Bishop/Chris_Bishop02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      50
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      501,
+      502,
+      503,
+      504,
+      505
+    ]
+  },
+  {
+    "ID": 54,
+    "Job_ID": 812,
+    "JobLevels_ID": [
+      541,
+      542,
+      543,
+      544,
+      545
+    ],
+    "TalentSkill_IDs": [
+      3247,
+      3247,
+      3249,
+      3251,
+      3253,
+      3255
+    ],
+    "UISort": 5,
+    "PropertyRating": "BCABAD",
+    "Model": "Spine/General/Chris_ABS/Chris_BattleSister/Chris_BattleSister03_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      52
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      501,
+      502,
+      503,
+      504,
+      505
+    ]
+  },
+  {
+    "ID": 55,
+    "Job_ID": 813,
+    "JobLevels_ID": [
+      551,
+      552,
+      553,
+      554,
+      555
+    ],
+    "TalentSkill_IDs": [
+      3247,
+      3247,
+      3249,
+      3251,
+      3253,
+      3255
+    ],
+    "UISort": 6,
+    "PropertyRating": "CCACSD",
+    "Model": "Spine/General/Chris_ABS/Chris_Bishop/Chris_Avatar03_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      53
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      501,
+      502,
+      503,
+      504,
+      505
+    ]
+  },
+  {
+    "ID": 60,
+    "Job_ID": 301,
+    "JobLevels_ID": [
+      601,
+      602,
+      603
+    ],
+    "TalentSkill_IDs": [
+      3067,
+      3067,
+      3067,
+      3072,
+      3077,
+      3082
+    ],
+    "UISort": 1,
+    "PropertyRating": "ASDBCC",
+    "Model": "Spine/General/Leon_ABS/Leon/Leon01_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 62,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 61,
+    "Job_ID": 303,
+    "JobLevels_ID": [
+      611,
+      612,
+      613,
+      614
+    ],
+    "TalentSkill_IDs": [
+      3067,
+      3067,
+      3067,
+      3072,
+      3077,
+      3082
+    ],
+    "UISort": 2,
+    "PropertyRating": "ASDBCC",
+    "Model": "Spine/General/Leon_ABS/Leon_AnimalBone/Leon_AnimalBone02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 62,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      60
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      601,
+      602,
+      603,
+      604,
+      605,
+      606
+    ]
+  },
+  {
+    "ID": 62,
+    "Job_ID": 302,
+    "JobLevels_ID": [
+      621,
+      622,
+      623,
+      624
+    ],
+    "TalentSkill_IDs": [
+      3067,
+      3067,
+      3067,
+      3072,
+      3077,
+      3082
+    ],
+    "UISort": 3,
+    "PropertyRating": "ASDBCC",
+    "Model": "Spine/General/Leon_ABS/Leon/Leon03_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 62,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      60
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      601,
+      602,
+      603,
+      604,
+      605,
+      606
+    ]
+  },
+  {
+    "ID": 63,
+    "Job_ID": 202,
+    "JobLevels_ID": [
+      631,
+      632,
+      633,
+      634
+    ],
+    "TalentSkill_IDs": [
+      3067,
+      3067,
+      3067,
+      3072,
+      3077,
+      3082
+    ],
+    "UISort": 4,
+    "PropertyRating": "ASDABB",
+    "Model": "Spine/General/Leon_ABS/Leon_zs/Leon_zs3_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      60
+    ],
+    "IsJobOpen": true
+  },
+  {
+    "ID": 64,
+    "Job_ID": 307,
+    "JobLevels_ID": [
+      641,
+      642,
+      643,
+      644,
+      645
+    ],
+    "TalentSkill_IDs": [
+      3067,
+      3067,
+      3067,
+      3072,
+      3077,
+      3082
+    ],
+    "UISort": 5,
+    "PropertyRating": "ASDBCC",
+    "Model": "Spine/General/Leon_ABS/Leon_AnimalBone/Leon_AnimalBone03_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 62,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      61
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      601,
+      602,
+      603,
+      604,
+      605,
+      606
+    ]
+  },
+  {
+    "ID": 65,
+    "Job_ID": 306,
+    "JobLevels_ID": [
+      651,
+      652,
+      653,
+      654,
+      655
+    ],
+    "TalentSkill_IDs": [
+      3067,
+      3067,
+      3067,
+      3072,
+      3077,
+      3082
+    ],
+    "UISort": 6,
+    "PropertyRating": "ASDBBC",
+    "Model": "Spine/General/Leon_ABS/Leon/Leon04_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 62,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      62
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      601,
+      602,
+      603,
+      604,
+      605,
+      606
+    ]
+  },
+  {
+    "ID": 80,
+    "Job_ID": 701,
+    "JobLevels_ID": [
+      801,
+      802,
+      803
+    ],
+    "TalentSkill_IDs": [
+      3196,
+      3196,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "UISort": 1,
+    "PropertyRating": "BDSCSC",
+    "Model": "Spine/General/Lana_ABS/Lana_Magic/Lana_Magic01_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 81,
+    "Job_ID": 805,
+    "JobLevels_ID": [
+      811,
+      812,
+      813,
+      814
+    ],
+    "TalentSkill_IDs": [
+      3196,
+      3196,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "UISort": 2,
+    "PropertyRating": "BCABSC",
+    "Model": "Spine/General/Lana_ABS/Lana_Pilgrim/Lana_Pilgrim02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      80
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      801,
+      802,
+      803,
+      899,
+      804,
+      805,
+      806
+    ]
+  },
+  {
+    "ID": 82,
+    "Job_ID": 702,
+    "JobLevels_ID": [
+      821,
+      822,
+      823,
+      824
+    ],
+    "TalentSkill_IDs": [
+      3196,
+      3196,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "UISort": 3,
+    "PropertyRating": "BDSCSC",
+    "Model": "Spine/General/Lana_ABS/Lana_Magic/Lana_Magic02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      80
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      801,
+      802,
+      803,
+      899,
+      804,
+      805,
+      806
+    ]
+  },
+  {
+    "ID": 83,
+    "Job_ID": 703,
+    "JobLevels_ID": [
+      831,
+      832,
+      833,
+      834
+    ],
+    "TalentSkill_IDs": [
+      3196,
+      3196,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "UISort": 4,
+    "PropertyRating": "BDACAC",
+    "Model": "Spine/General/Lana_ABS/Lana_Summoner/Lana_Summoner02_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      80
+    ],
+    "IsJobOpen": true
+  },
+  {
+    "ID": 84,
+    "Job_ID": 810,
+    "JobLevels_ID": [
+      841,
+      842,
+      843,
+      844,
+      845
+    ],
+    "TalentSkill_IDs": [
+      3196,
+      3196,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "UISort": 5,
+    "PropertyRating": "BCABSC",
+    "Model": "Spine/General/Lana_ABS/Lana_Pilgrim/Lana_Pilgrim03_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      81
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      801,
+      802,
+      803,
+      899,
+      804,
+      805,
+      806
+    ]
+  },
+  {
+    "ID": 85,
+    "Job_ID": 706,
+    "JobLevels_ID": [
+      851,
+      852,
+      853,
+      854,
+      855
+    ],
+    "TalentSkill_IDs": [
+      3196,
+      3196,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "UISort": 6,
+    "PropertyRating": "BDSCSC",
+    "Model": "Spine/General/Lana_ABS/Lana_Magic/Lana_Magic03_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      82
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      801,
+      802,
+      803,
+      899,
+      804,
+      805,
+      806
+    ]
+  }
+]

@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 export function renderGenerated(canonical) {
   const heroes = [...canonical.records]
     .sort((a, b) => a.id - b.id)
-    .map(({ id, nameEng, portrait }) => ({ id, nameEng, portrait }));
+    .map(({ id, nameEng, portrait, jobConnections }) => ({ id, nameEng, portrait, jobConnections }));
   return `${JSON.stringify({ schemaVersion: 1, heroes }, null, 2)}\n`;
 }
 

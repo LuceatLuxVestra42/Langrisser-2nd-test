@@ -19,7 +19,16 @@ function addHero(hero) {
   id.textContent = `Hero ID ${hero.id}`;
 
   details.append(name, id);
+  const connections = document.createElement('ul');
+  connections.className = 'job-connections';
+  connections.setAttribute('aria-label', `Job connection IDs for ${hero.nameEng}`);
+  for (const relation of hero.jobConnections) {
+    const item = document.createElement('li');
+    item.textContent = `Connection ${relation.connectionId} → Job ${relation.jobId}`;
+    connections.append(item);
+  }
   article.append(image, details);
+  article.append(connections);
   container.append(article);
 }
 

@@ -4,17 +4,113 @@
     {
       "id": 5,
       "nameEng": "Chris",
-      "portrait": "assets/portraits/hero-5.png"
+      "portrait": "assets/portraits/hero-5.png",
+      "jobConnections": [
+        {
+          "connectionId": 50,
+          "jobId": 817,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 51,
+          "jobId": 806,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 52,
+          "jobId": 807,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 53,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 54,
+          "jobId": 812,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 55,
+          "jobId": 813,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ]
     },
     {
       "id": 6,
       "nameEng": "Leon",
-      "portrait": "assets/portraits/hero-6.png"
+      "portrait": "assets/portraits/hero-6.png",
+      "jobConnections": [
+        {
+          "connectionId": 60,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 61,
+          "jobId": 303,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 62,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 63,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 64,
+          "jobId": 307,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 65,
+          "jobId": 306,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ]
     },
     {
       "id": 8,
       "nameEng": "Lana",
-      "portrait": "assets/portraits/hero-8.png"
+      "portrait": "assets/portraits/hero-8.png",
+      "jobConnections": [
+        {
+          "connectionId": 80,
+          "jobId": 701,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 81,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 82,
+          "jobId": 702,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 83,
+          "jobId": 703,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 84,
+          "jobId": 810,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 85,
+          "jobId": 706,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ]
     }
   ]
 }

@@ -31,6 +31,11 @@ const charById = new Map(charRows.map((record) => [record.ID, record]));
 const portraits = await readJson('evidence/source/portraits/hero-portrait-slice.v1.json');
 const portraitByHero = new Map(portraits.records.map((record) => [record.heroId, record]));
 const priorPortraitEvidence = await readJson('evidence/source/portraits/hero-portrait-prior-validation.v1.json');
+const jobEvidence = await readJson('evidence/source/jobs/hero-job-connection-slice.v1.json');
+const connectionRows = await readJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json');
+const jobRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json');
+const connectionById = new Map(connectionRows.map((record) => [record.ID, record]));
+const jobById = new Map(jobRows.map((record) => [record.ID, record]));
 check(portraits.canonical === false && portraits.generated === false, 'portrait evidence must remain source evidence');
 check(portraits.productionRuntimeDependency === false, 'evidence metadata must not become a runtime dependency');
 check(portraits.scope.krDisplayName === 'C_DEFERRED' && portraits.scope.rankToRarity === 'C_DEFERRED', 'deferred claim status drift');
@@ -49,16 +54,25 @@ check(priorPortraitEvidence.extraction.script.gitBlobSha1 === portraits.extracti
 check(priorPortraitEvidence.extraction.clientBuild.installVersion === portraits.extraction.clientBuild.installVersion, 'surviving client-build locator drift');
 check(priorPortraitEvidence.extraction.clientBuild.packageBytes === portraits.extraction.clientBuild.packageBytes, 'surviving client-package size locator drift');
 check(priorPortraitEvidence.records.length === 3, 'surviving portrait evidence must cover the selected slice only');
+check(jobEvidence.canonical === false && jobEvidence.generated === false && jobEvidence.productionRuntimeDependency === false, 'Job relation evidence must remain source-only');
+check(jobEvidence.sourceScope === canonical.sourceScope, 'Job relation evidence scope differs from canonical snapshot');
+check(jobEvidence.claims.heroFieldToConnectionId.class === 'B' && jobEvidence.claims.connectionJobIdToJobInfoId.class === 'B' && jobEvidence.claims.selectedRecordsExist.class === 'A', 'Job relation evidence classes drift');
+check(jobEvidence.limitations.some((item) => item.includes('not confirmed to match this exact snapshot')), 'Job relation version limitation must remain explicit');
+check(connectionRows.length === 18 && jobRows.length === 18, 'preserved Job relation source subsets must contain exactly the 18 selected rows');
+check(jobEvidence.records.length === 18, 'Job relation evidence manifest must cover exactly the selected relation rows');
+const admittedPairs = new Set();
+const expectedByHero = new Map([[5, 6], [6, 6], [8, 6]]);
 
 for (const record of canonical.records) {
-  exactKeys(record, ['id', 'nameEng', 'portrait', 'provenance'], `Hero ${record.id}`);
-  exactKeys(record.provenance, ['identity', 'nameEng', 'portrait'], `Hero ${record.id} provenance`);
+  exactKeys(record, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], `Hero ${record.id}`);
+  exactKeys(record.provenance, ['identity', 'nameEng', 'portrait', 'jobConnections'], `Hero ${record.id} provenance`);
   check(expected.get(record.id) === record.nameEng, `Hero ${record.id} Name_Eng differs from admitted expected value`);
   const sourceHero = heroInfoById.get(record.id);
   check(sourceHero, `missing HeroInfo source record ${record.id}`);
   check(sourceHero.Name_Eng === record.nameEng, `Hero ${record.id} Name_Eng differs from raw source`);
   check(record.provenance.identity.includes(`#ID=${record.id}`), `Hero ${record.id} identity provenance locator missing`);
   check(record.provenance.nameEng.includes(`#ID=${record.id}/Name_Eng`), `Hero ${record.id} Name_Eng provenance locator missing`);
+  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=${record.id}`, `Hero ${record.id} Job relation evidence locator missing`);
 
   const portrait = portraitByHero.get(record.id);
   check(portrait, `missing portrait evidence record ${record.id}`);
@@ -78,6 +92,23 @@ for (const record of canonical.records) {
   check(charImage.HeroPainting === portrait.heroPainting, `Hero ${record.id} HeroPainting differs from preserved source row`);
   check(record.provenance.portrait.endsWith(`#heroId=${record.id}`), `Hero ${record.id} portrait provenance locator missing`);
   check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonical portrait path differs from evidence`);
+  const sourceFields = new Map([[sourceHero.JobConnection_ID, 'JobConnection_ID'], ...sourceHero.UseableJobConnections_ID.map((connectionId) => [connectionId, 'UseableJobConnections_ID'])]);
+  check(record.jobConnections.length === expectedByHero.get(record.id), `Hero ${record.id} must have exactly the selected six Job connection records`);
+  const sourceIds = [sourceHero.JobConnection_ID, ...sourceHero.UseableJobConnections_ID];
+  check(JSON.stringify(record.jobConnections.map((item) => item.connectionId)) === JSON.stringify(sourceIds), `Hero ${record.id} Job connection IDs must follow the explicit raw HeroInfo fields in stored source order`);
+  for (const relation of record.jobConnections) {
+    exactKeys(relation, ['connectionId', 'jobId', 'sourceField'], `Hero ${record.id} Job relation`);
+    check(relation.sourceField === sourceFields.get(relation.connectionId), `Hero ${record.id} relation sourceField differs from raw HeroInfo`);
+    const key = `${record.id}:${relation.connectionId}`;
+    check(!admittedPairs.has(key), `duplicate Hero connection pair ${key}`);
+    admittedPairs.add(key);
+    const sourceRelation = connectionById.get(relation.connectionId);
+    check(sourceRelation, `missing preserved JobConnectionInfo.ID ${relation.connectionId}`);
+    check(sourceRelation.Job_ID === relation.jobId, `Hero ${record.id} connection ${relation.connectionId} Job_ID differs from canonical target`);
+    check(jobById.has(relation.jobId), `missing preserved JobInfo.ID ${relation.jobId}`);
+    const manifestRow = jobEvidence.records.find((item) => item.heroId === record.id && item.connectionId === relation.connectionId);
+    check(manifestRow && manifestRow.jobId === relation.jobId && manifestRow.sourceField === relation.sourceField, `Hero ${record.id} relation evidence locator mismatch for connection ${relation.connectionId}`);
+  }
   check(/^assets\/portraits\/hero-(5|6|8)\.png$/.test(record.portrait), `Hero ${record.id} portrait path outside slice asset scope`);
   check(/^[-]?\d+$/.test(portrait.prefabPathId) && /^[-]?\d+$/.test(portrait.spritePathId) && /^[-]?\d+$/.test(portrait.texturePathId), `Hero ${record.id} Unity path IDs must be exact decimal strings`);
   const assetPath = resolve(root, record.portrait);
@@ -95,6 +126,10 @@ const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
-check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['id', 'nameEng', 'portrait'])), 'generated consumer contains non-presentation fields');
+check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['id', 'jobConnections', 'nameEng', 'portrait'])), 'generated consumer contains non-presentation fields');
+for (const hero of generatedJson.heroes) {
+  const sourceHero = canonical.records.find((record) => record.id === hero.id);
+  check(JSON.stringify(hero.jobConnections) === JSON.stringify(sourceHero.jobConnections), `generated Job connections differ from canonical for Hero ${hero.id}`);
+}
 
 process.stdout.write('Hero slice validator: PASS (admitted evidence/canonical consistency, source locators, asset integrity, generated freshness; deferred semantics excluded)\n');

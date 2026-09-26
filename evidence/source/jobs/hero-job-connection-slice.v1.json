@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "purpose": "Minimal inherited evidence for the selected HeroInfo to JobConnectionInfo to JobInfo relation; not canonical, generated, or a production runtime dependency.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "releaseArchive": { "name": "configdata-source-v1-6475e63e.tar", "sha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84", "bytes": 308871680 }
+  },
+  "sourceFiles": {
+    "ConfigDataHeroInfo.json": { "gitBlob": "728daab3370f0c7779449663ea02e638677944d4", "sizeBytes": 16894185 },
+    "ConfigDataJobConnectionInfo.json": { "gitBlob": "cdad8d6fda6edd30c92fbcda53e0f63af1903139", "sizeBytes": 11498868 },
+    "ConfigDataJobInfo.json": { "gitBlob": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133", "sizeBytes": 2424034 }
+  },
+  "preservedSubsets": {
+    "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json": "Exactly records with source ID referenced by the selected HeroInfo fields; raw source records copied without semantic edits.",
+    "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json": "Exactly records with source ID referenced by the selected connection Job_ID values; raw source records copied without semantic edits."
+  },
+  "schemaEvidence": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "e749b69f95e5515fd6c744b2ea3ac1b099652d3e",
+    "path": "data/metadata/dump.cs",
+    "types": [
+      { "name": "ConfigDataHeroInfo", "typeDefIndex": 9224, "fields": { "JobConnection_ID": "protobuf field 32, int", "UseableJobConnections_ID": "protobuf field 33, repeated int" } },
+      { "name": "ConfigDataJobConnectionInfo", "typeDefIndex": 9387, "fields": { "ID": "protobuf field 2", "Job_ID": "protobuf field 6", "JobLevels_ID": "protobuf field 7" } },
+      { "name": "ConfigDataJobInfo", "typeDefIndex": 9390, "fields": { "ID": "protobuf field 2", "Name": "protobuf field 3" } }
+    ],
+    "runtimeContext": "HeroArchiveUIController.GetHeroFinalJobList(ConfigDataHeroInfo) returns List<ConfigDataJobConnectionInfo> (dump.cs near line 26305); config accessor interface exposes GetConfigDataJobConnectionInfo(key) and GetConfigDataJobInfo(key) (near line 443150). Decompiled method bodies are stubs, so this is corroboration, not standalone proof."
+  },
+  "priorInterpretationAnchor": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "contract": "data/hero-job-stage4-2.v1.json",
+    "parser": "scripts/prepare_hero_jobs_stage42.cjs",
+    "operation": "Parser resolves explicit Hero connection IDs against ConfigDataJobConnectionInfo.ID, then each JobConnection.Job_ID against ConfigDataJobInfo.ID. Reused only as traceable interpretation support; generated output and PASS status are not evidence."
+  },
+  "claims": {
+    "heroFieldToConnectionId": { "class": "B", "claim": "HeroInfo.JobConnection_ID and HeroInfo.UseableJobConnections_ID reference ConfigDataJobConnectionInfo.ID", "basis": "Preserved raw Hero records, protobuf field schema, and traceable prior parser/contract." },
+    "connectionJobIdToJobInfoId": { "class": "B", "claim": "ConfigDataJobConnectionInfo.Job_ID references ConfigDataJobInfo.ID", "basis": "Preserved raw connection records, protobuf field schema, and traceable prior parser/contract." },
+    "selectedRecordsExist": { "class": "A", "claim": "All selected connection and target Job records exist in the pinned snapshot", "basis": "Directly inspectable source record subsets and ID locators." }
+  },
+  "records": [
+    { "heroId": 5, "sourceField": "JobConnection_ID", "connectionId": 50, "jobId": 817 },
+    { "heroId": 5, "sourceField": "UseableJobConnections_ID", "connectionId": 51, "jobId": 806 },
+    { "heroId": 5, "sourceField": "UseableJobConnections_ID", "connectionId": 52, "jobId": 807 },
+    { "heroId": 5, "sourceField": "UseableJobConnections_ID", "connectionId": 53, "jobId": 803 },
+    { "heroId": 5, "sourceField": "UseableJobConnections_ID", "connectionId": 54, "jobId": 812 },
+    { "heroId": 5, "sourceField": "UseableJobConnections_ID", "connectionId": 55, "jobId": 813 },
+    { "heroId": 6, "sourceField": "JobConnection_ID", "connectionId": 60, "jobId": 301 },
+    { "heroId": 6, "sourceField": "UseableJobConnections_ID", "connectionId": 61, "jobId": 303 },
+    { "heroId": 6, "sourceField": "UseableJobConnections_ID", "connectionId": 62, "jobId": 302 },
+    { "heroId": 6, "sourceField": "UseableJobConnections_ID", "connectionId": 63, "jobId": 202 },
+    { "heroId": 6, "sourceField": "UseableJobConnections_ID", "connectionId": 64, "jobId": 307 },
+    { "heroId": 6, "sourceField": "UseableJobConnections_ID", "connectionId": 65, "jobId": 306 },
+    { "heroId": 8, "sourceField": "JobConnection_ID", "connectionId": 80, "jobId": 701 },
+    { "heroId": 8, "sourceField": "UseableJobConnections_ID", "connectionId": 81, "jobId": 805 },
+    { "heroId": 8, "sourceField": "UseableJobConnections_ID", "connectionId": 82, "jobId": 702 },
+    { "heroId": 8, "sourceField": "UseableJobConnections_ID", "connectionId": 83, "jobId": 703 },
+    { "heroId": 8, "sourceField": "UseableJobConnections_ID", "connectionId": 84, "jobId": 810 },
+    { "heroId": 8, "sourceField": "UseableJobConnections_ID", "connectionId": 85, "jobId": 706 }
+  ],
+  "limitations": [
+    "Snapshot scope is CN ConfigData 2026-09-02. The decompiled schema client build is not confirmed to match this exact snapshot, so relation interpretation remains inherited B rather than direct same-build A.",
+    "This admits only the field-to-ID relations and selected targets. It does not admit job tree, path order, recommendation, rank, unlock requirements, Korean job names, or display semantics."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}
