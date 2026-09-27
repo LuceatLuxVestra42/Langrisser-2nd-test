@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "ConfigDataJobInfo.records-sp-job-localization.v1.json",
+  "repoPreservedPath": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json",
+  "sourceRole": "selected_configdata_source_evidence",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02",
+    "path": "data/configdata/ConfigDataJobInfo.json",
+    "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+    "sha256": "2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf",
+    "bytes": 2424034,
+    "sourceVersionStatus": "unknown",
+    "sourceContract": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/contracts/configdata-source-pack-contract.v1.json",
+      "gitBlobSha1": "0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d",
+      "sha256": "5ae5443a7533760c9048d04355ad9445bb1f89812c10abced1c23d019d38df4d",
+      "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "sourceTreeGitSha1": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+      "semanticContentAuthority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT",
+      "release": {
+        "tag": "source-configdata-v1-6475e63e",
+        "archiveName": "configdata-source-v1-6475e63e.tar",
+        "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84"
+      }
+    }
+  },
+  "selection": {
+    "parser": "UTF-8 JSON parser; source is a JSON array",
+    "method": "Select records by exact numeric ID membership in the target set; retain only the source ID and Name fields. No name join, order matching, arithmetic, approximate matching, or value normalization.",
+    "selectedFields": [
+      "ID",
+      "Name"
+    ],
+    "selectedIds": [
+      128,
+      262,
+      368,
+      373,
+      377,
+      390,
+      414,
+      426,
+      437,
+      622,
+      633,
+      744,
+      769,
+      841,
+      858,
+      864,
+      878,
+      1097,
+      1119,
+      1214,
+      1220,
+      20229,
+      20243,
+      20707,
+      20811
+    ]
+  },
+  "recordCount": 25,
+  "recordsSha256": "a445816cbfc708851dfe70c95f65dc4743b4f0225ba24a7e773e71e3f09843fe",
+  "sourceScope": "The selected records preserve ConfigDataJobInfo ID and Name fields from the pinned ConfigData snapshot for SP source ID namespace comparison.",
+  "knownLimitations": [
+    "The source snapshot version beyond its pinned repository commit is unknown.",
+    "This selected subset supports record-level ID and Name comparison only; it does not establish Hero-to-SP relations, release state, or unlock conditions."
+  ]
+}

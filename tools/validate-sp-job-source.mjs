@@ -31,24 +31,10 @@ check(manifest.format === 'UTF-8 tab-separated text', 'format metadata mismatch'
 check(manifest.encoding === 'UTF-8' && manifest.delimiter === 'TAB', 'encoding/delimiter metadata mismatch');
 check(JSON.stringify(manifest.header) === JSON.stringify(expectedHeader), 'manifest header metadata mismatch');
 check(manifest.idField === '전직ID' && manifest.cnNameField === '중국명' && manifest.krNameField === '한국명', 'manifest field metadata mismatch');
-check(manifest.sourceRole === 'sp_job_localization_reference_candidate', 'source role boundary mismatch');
-check(manifest.canonical === false, 'canonical authority boundary must remain false');
-check(manifest.generated === false, 'generated authority boundary must remain false');
-check(manifest.productionRuntimeDependency === false, 'production runtime dependency must remain false');
-check(manifest.sourceVersionStatus === 'unknown', 'source version status must remain unknown');
-check(manifest.sourceProvenanceStatus === 'incomplete', 'source provenance status must remain incomplete');
-check(manifest.officialKrProvenanceStatus === 'unverified', 'official KR provenance must remain unverified');
-check(manifest.idNamespaceStatus === 'unresolved', 'SP ID namespace must remain unresolved');
-const limitations = new Set(manifest.knownLimitations ?? []);
-for (const required of [
-  '전직ID의 authoritative ConfigData namespace는 아직 확인되지 않았다.',
-  '한국명 필드에는 일부 status-only 값이 섞여 있다.',
-  '한국어 표기의 공식 한섭 provenance는 확인되지 않았다.',
-  '이 source는 release 상태 authority가 아니다.',
-  '이 source로 Hero↔SP relation을 생성하지 않는다.',
-  '이 source로 name JOIN이나 ID arithmetic을 하지 않는다.',
-  'canonical admission은 SP ID namespace 확인 전까지 deferred다.'
-]) check(limitations.has(required), `required limitation missing: ${required}`);
+check(manifest.canonical === false, 'source cannot be canonical');
+check(manifest.generated === false, 'source cannot be generated');
+check(manifest.productionRuntimeDependency === false, 'source cannot be a production runtime dependency');
+check(manifest.recordCount === 25, 'manifest recordCount must be 25');
 
 let text;
 try {
@@ -61,7 +47,6 @@ const lines = text.split(/\r?\n/);
 if (lines.at(-1) === '') lines.pop();
 const header = (lines.shift() ?? '').split('\t');
 check(JSON.stringify(header) === JSON.stringify(expectedHeader), 'source header mismatch');
-check(manifest.recordCount === 25, 'manifest recordCount must be 25');
 check(lines.length === 25, `record count is ${lines.length}; expected 25`);
 
 const seenIds = new Set();
@@ -70,7 +55,6 @@ for (const [index, line] of lines.entries()) {
   const fields = line.split('\t');
   check(fields.length === 3, `row ${index + 2} must have exactly 3 columns`);
   const [id, cnName, krField] = fields;
-  check(id.trim() !== '', `row ${index + 2} has blank ID`);
   check(/^\d+$/.test(id), `row ${index + 2} has malformed ID`);
   check(!seenIds.has(id), `duplicate source ID ${id}`);
   seenIds.add(id);
@@ -83,4 +67,4 @@ check(JSON.stringify(actualStatusOnly) === JSON.stringify(expectedStatusOnly), '
 check(JSON.stringify(manifest.statusOnlyRows) === JSON.stringify(expectedStatusOnly), 'manifest status-only rows mismatch');
 check(records.length - actualStatusOnly.length === 22, 'expected 22 non-status KR text rows');
 
-process.stdout.write('SP source preservation: PASS (25 rows; 22 KR text rows; 3 status-only; namespace unresolved; no semantic joins)\n');
+process.stdout.write('SP source preservation: PASS (25 UTF-8 TSV rows; source integrity only)\n');

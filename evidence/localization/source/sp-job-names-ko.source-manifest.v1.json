@@ -23,7 +23,6 @@
   "sourceVersionStatus": "unknown",
   "sourceProvenanceStatus": "incomplete",
   "officialKrProvenanceStatus": "unverified",
-  "idNamespaceStatus": "unresolved",
   "statusOnlyRows": [
     {
       "id": "1220",
@@ -42,13 +41,12 @@
     }
   ],
   "knownLimitations": [
-    "전직ID의 authoritative ConfigData namespace는 아직 확인되지 않았다.",
-    "한국명 필드에는 일부 status-only 값이 섞여 있다.",
-    "한국어 표기의 공식 한섭 provenance는 확인되지 않았다.",
+    "한국명 필드에는 일부 status-only 값(예: 한섭 미실장)이 혼재하므로 localization 후보 여부를 별도 해석한다.",
+    "한국어 표기의 공식 한섭 provenance와 기준 버전은 확인되지 않았다.",
     "이 source는 release 상태 authority가 아니다.",
     "이 source로 Hero↔SP relation을 생성하지 않는다.",
     "이 source로 name JOIN이나 ID arithmetic을 하지 않는다.",
-    "canonical admission은 SP ID namespace 확인 전까지 deferred다.",
+    "이 source 자체는 전직ID의 ConfigData namespace를 정의하지 않으며, namespace interpretation은 별도 evidence/semantic decision에서 소유한다.",
     "status-only 값은 source KR field의 문자열을 기록할 뿐, 공식 release 사실이 아니다."
   ]
 }
