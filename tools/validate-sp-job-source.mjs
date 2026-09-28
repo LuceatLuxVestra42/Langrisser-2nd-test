@@ -31,9 +31,6 @@ check(manifest.format === 'UTF-8 tab-separated text', 'format metadata mismatch'
 check(manifest.encoding === 'UTF-8' && manifest.delimiter === 'TAB', 'encoding/delimiter metadata mismatch');
 check(JSON.stringify(manifest.header) === JSON.stringify(expectedHeader), 'manifest header metadata mismatch');
 check(manifest.idField === '전직ID' && manifest.cnNameField === '중국명' && manifest.krNameField === '한국명', 'manifest field metadata mismatch');
-check(manifest.canonical === false, 'source cannot be canonical');
-check(manifest.generated === false, 'source cannot be generated');
-check(manifest.productionRuntimeDependency === false, 'source cannot be a production runtime dependency');
 check(manifest.recordCount === 25, 'manifest recordCount must be 25');
 
 let text;

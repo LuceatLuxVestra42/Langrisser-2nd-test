@@ -45,12 +45,26 @@ check(JSON.stringify(jobManifest.selection.selectedIds) === JSON.stringify(expec
 check(JSON.stringify(jobManifest.selection.selectedFields) === JSON.stringify(['ID', 'Name']), 'JobInfo selected fields mismatch');
 check(jobManifest.source.repository === 'LuceatLuxVestra42/langrisser-future-guide', 'upstream ConfigData repository locator mismatch');
 check(jobManifest.source.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'upstream ConfigData commit mismatch');
+check(jobManifest.source.commitDate === '2026-09-02', 'upstream ConfigData source commit date mismatch');
+check(jobManifest.source.bytes === 2424034, 'upstream ConfigData source byte length mismatch');
 check(jobManifest.source.path === 'data/configdata/ConfigDataJobInfo.json', 'upstream ConfigData file locator mismatch');
 check(jobManifest.source.gitBlobSha1 === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133', 'upstream ConfigData Git blob locator mismatch');
 check(jobManifest.source.sha256 === '2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf', 'upstream ConfigData source hash mismatch');
 check(jobManifest.source.sourceVersionStatus === 'unknown', 'unknown source version must remain explicit');
-check(jobManifest.source.sourceContract.semanticContentAuthority === 'PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT', 'source contract authority locator changed');
-check(jobManifest.source.sourceContract.sourceCommit === jobManifest.source.commit, 'source contract and source commit disagree');
+const sourceContract = jobManifest.source.sourceContract;
+check(sourceContract.repository === 'LuceatLuxVestra42/langrisser-future-guide', 'source contract repository locator mismatch');
+check(sourceContract.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff', 'source contract commit locator mismatch');
+check(sourceContract.path === 'data/contracts/configdata-source-pack-contract.v1.json', 'source contract path mismatch');
+check(sourceContract.gitBlobSha1 === '0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d', 'source contract Git blob locator mismatch');
+check(sourceContract.sha256 === '5ae5443a7533760c9048d04355ad9445bb1f89812c10abced1c23d019d38df4d', 'source contract hash mismatch');
+check(sourceContract.sourceCommit === jobManifest.source.commit, 'source contract and source commit disagree');
+check(sourceContract.sourceTreeGitSha1 === 'b18983f60cb054c2e6e094d64cdb98979211d7fc', 'source contract source tree locator mismatch');
+check(sourceContract.semanticContentAuthority === 'PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT', 'source contract authority locator changed');
+check(sourceContract.release.tag === 'source-configdata-v1-6475e63e', 'source pack release locator mismatch');
+check(sourceContract.release.archiveName === 'configdata-source-v1-6475e63e.tar', 'source pack archive locator mismatch');
+check(sourceContract.release.archiveSha256 === '65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84', 'source pack archive hash mismatch');
+check(jobManifest.selection.parser === 'UTF-8 JSON parser; source is a JSON array', 'source parser provenance mismatch');
+check(jobManifest.selection.method === 'Select records by exact numeric ID membership in the target set; retain only the source ID and Name fields. No name join, order matching, arithmetic, approximate matching, or value normalization.', 'source selection method provenance mismatch');
 
 const jobById = new Map();
 for (const [index, row] of subset.entries()) {
@@ -64,11 +78,18 @@ check(JSON.stringify([...jobById.keys()]) === JSON.stringify(expectedIds), 'JobI
 
 exactKeys(evidence, ['schemaVersion', 'canonical', 'generated', 'productionRuntimeDependency', 'evidenceScope', 'spSourceManifest', 'jobInfoSourceManifest', 'claims', 'limitations', 'records'], 'namespace evidence');
 check(evidence.schemaVersion === 1 && evidence.canonical === false && evidence.generated === false && evidence.productionRuntimeDependency === false, 'namespace evidence authority boundary changed');
+check(evidence.evidenceScope === 'SP source 전직ID와 ConfigDataJobInfo.ID의 직접 일치 및 같은 record의 Name과 SP source 중국명 일치. 25개 대상 record에 한정.', 'namespace evidence scope changed');
 check(evidence.spSourceManifest === spManifestPath && evidence.jobInfoSourceManifest === jobInfoManifestPath, 'namespace evidence source manifest locator mismatch');
 exactKeys(evidence.claims, ['sourceRowValues', 'jobInfoNamespaceLinkage', 'officialKrName', 'releaseStatus'], 'namespace evidence claims');
-check(evidence.claims.sourceRowValues.startsWith('A:'), 'SP source row claim must remain class A');
-check(evidence.claims.jobInfoNamespaceLinkage.startsWith('B:'), 'JobInfo namespace claim must remain class B');
+check(evidence.claims.sourceRowValues === 'A: preserved SP source row directly contains 전직ID, 중국명, 한국명.', 'SP source row claim must remain class A');
+check(evidence.claims.jobInfoNamespaceLinkage === 'B: the SP source ID directly equals ConfigDataJobInfo.ID; matching Name/CN is consistency evidence.', 'JobInfo namespace claim must remain class B');
 check(evidence.claims.officialKrName === 'unverified' && evidence.claims.releaseStatus === 'unresolved', 'unverified localization/release boundary changed');
+check(isDeepStrictEqual(evidence.limitations, [
+  'The SP source itself does not define the ConfigDataJobInfo ID namespace; this interpretation is recorded here as semantic evidence.',
+  '한국어 명칭의 official KR provenance는 확인되지 않았다.',
+  'status_marker rows are preserved for namespace traceability and are not localization names or release claims.',
+  'This evidence does not establish Hero-to-SP relations, SP tree/order, or unlock conditions.'
+]), 'namespace evidence limitations changed or were expanded');
 check(Array.isArray(evidence.records) && evidence.records.length === 25, 'namespace evidence must contain exactly 25 rows');
 
 const expectedRecords = [];
