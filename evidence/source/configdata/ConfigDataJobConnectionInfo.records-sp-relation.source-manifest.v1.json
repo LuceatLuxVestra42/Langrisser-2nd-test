@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "ConfigDataJobConnectionInfo.records-sp-relation.v1.json",
+  "repoPreservedPath": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json",
+  "sourceRole": "selected_configdata_source_evidence",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+    "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+    "sha256": "990009e6d751920173a7ec5aea47a8c89954aa7dacb7ef13c9ab40bbc6b6bb3a",
+    "bytes": 11498868,
+    "sourceVersionStatus": "unknown",
+    "sourceContract": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/contracts/configdata-source-pack-contract.v1.json",
+      "gitBlobSha1": "0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d",
+      "sha256": "5ae5443a7533760c9048d04355ad9445bb1f89812c10abced1c23d019d38df4d",
+      "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "sourceTreeGitSha1": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+      "semanticContentAuthority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT",
+      "release": {
+        "tag": "source-configdata-v1-6475e63e",
+        "archiveName": "configdata-source-v1-6475e63e.tar",
+        "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84"
+      }
+    }
+  },
+  "selection": {
+    "parser": "UTF-8 JSON parser; source is a JSON array",
+    "method": "Select source records whose numeric ID exactly equals a SPHeroInfo.JobConnection_ID; retain ID and Job_ID only. No name join, filename matching, order matching, arithmetic, approximate matching, or value normalization.",
+    "selectedFields": [
+      "ID",
+      "Job_ID"
+    ],
+    "selectedIds": [
+      22,
+      37,
+      47,
+      66,
+      76,
+      86,
+      96,
+      106,
+      116,
+      126,
+      136,
+      146,
+      256,
+      266,
+      276,
+      296,
+      336,
+      377,
+      405,
+      536,
+      556,
+      566,
+      606,
+      676,
+      895
+    ]
+  },
+  "sourceRecordCount": 30066,
+  "recordCount": 25,
+  "recordsSha256": "7a06c0d8efeb5d0ff199e7bb30b40e4d2074fb0f65bac1c95616fc09d8434452",
+  "sourceScope": "Minimum pinned ConfigData source fields needed for SPHeroInfo relation linkage.",
+  "knownLimitations": [
+    "Source version beyond the pinned repository commit is unknown.",
+    "This subset preserves only the listed source fields and does not establish unlock, path order, release state, localization, or UI semantics."
+  ]
+}

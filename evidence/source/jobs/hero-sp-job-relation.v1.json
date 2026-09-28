@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "evidenceScope": "All records in the pinned ConfigDataSPHeroInfo table and their direct ID-linked HeroInfo, JobConnectionInfo, and JobInfo records.",
+  "sourceManifests": {
+    "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.source-manifest.v1.json",
+    "heroInfo": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.source-manifest.v1.json",
+    "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.source-manifest.v1.json",
+    "jobInfo": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.source-manifest.v1.json"
+  },
+  "schemaEvidence": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "e749b69f95e5515fd6c744b2ea3ac1b099652d3e",
+    "path": "data/metadata/dump.cs",
+    "gitBlobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "types": [
+      {
+        "name": "ConfigDataSPHeroInfo",
+        "typeDefIndex": 10330,
+        "fields": {
+          "ID": "protobuf field 2, int",
+          "JobConnection_ID": "protobuf field 18, int"
+        }
+      },
+      {
+        "name": "ConfigDataHeroInfo",
+        "typeDefIndex": 9224,
+        "fields": {
+          "ID": "protobuf field 2, int"
+        }
+      },
+      {
+        "name": "ConfigDataJobConnectionInfo",
+        "typeDefIndex": 9387,
+        "fields": {
+          "ID": "protobuf field 2, int",
+          "Job_ID": "protobuf field 6, int"
+        }
+      },
+      {
+        "name": "ConfigDataJobInfo",
+        "typeDefIndex": 9390,
+        "fields": {
+          "ID": "protobuf field 2, int"
+        }
+      }
+    ],
+    "limitation": "Schema evidence is from a separately pinned decompiled metadata commit, not confirmed to be the exact client build for the ConfigData snapshot; relation interpretation remains class B."
+  },
+  "sourceValueClass": "A",
+  "claims": {
+    "spHeroIdToHeroInfoId": {
+      "class": "B",
+      "claim": "SPHeroInfo.ID and ConfigDataHeroInfo.ID are equal for each record in the pinned snapshot.",
+      "basis": "Direct numeric ID equality with selected source records; no name matching."
+    },
+    "spHeroConnectionToConnectionInfo": {
+      "class": "B",
+      "claim": "SPHeroInfo.JobConnection_ID equals ConfigDataJobConnectionInfo.ID.",
+      "basis": "Direct numeric ID equality with selected source records."
+    },
+    "connectionJobIdToJobInfoId": {
+      "class": "B",
+      "claim": "ConfigDataJobConnectionInfo.Job_ID equals ConfigDataJobInfo.ID.",
+      "basis": "Direct numeric ID equality with selected source records."
+    },
+    "selectedRecordsExist": {
+      "class": "A",
+      "claim": "All selected raw records are preserved from the same pinned ConfigData snapshot.",
+      "basis": "Record-level source locators and pinned source file hashes."
+    }
+  },
+  "population": {
+    "spHeroInfoRecords": 25,
+    "uniqueHeroIds": 25,
+    "uniqueJobConnectionIds": 25,
+    "uniqueSpJobIds": 25
+  },
+  "ownerAssessment": {
+    "existingRelationOwner": "canonical/heroes.v1.json#/records/*/jobConnections",
+    "existingEvidencePattern": "evidence/source/jobs/hero-job-connection-slice.v1.json",
+    "currentCanonicalHeroPopulation": [
+      5,
+      6,
+      8
+    ],
+    "admission": "deferred",
+    "reason": "The complete SPHeroInfo population covers 25 Heroes while the existing canonical Hero slice contains only IDs 5, 6, and 8. This evidence does not expand canonical Hero identity scope."
+  },
+  "records": [
+    {
+      "heroId": 12,
+      "spJobConnectionId": 126,
+      "spJobId": 368,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=12",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=12",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=126",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=368",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 33,
+      "spJobConnectionId": 336,
+      "spJobId": 841,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=33",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=33",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=336",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=841",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 60,
+      "spJobConnectionId": 606,
+      "spJobId": 1119,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=60",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=60",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=606",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1119",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 13,
+      "spJobConnectionId": 136,
+      "spJobId": 744,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=13",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=13",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=136",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=744",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 25,
+      "spJobConnectionId": 256,
+      "spJobId": 414,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=25",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=25",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=256",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=414",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 14,
+      "spJobConnectionId": 146,
+      "spJobId": 858,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=14",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=14",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=146",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=858",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 11,
+      "spJobConnectionId": 116,
+      "spJobId": 622,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=11",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=11",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=116",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=622",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 8,
+      "spJobConnectionId": 86,
+      "spJobId": 864,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=8",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=8",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=86",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=864",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 40,
+      "spJobConnectionId": 405,
+      "spJobId": 128,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=40",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=40",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=405",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=128",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 27,
+      "spJobConnectionId": 276,
+      "spJobId": 373,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=27",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=27",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=276",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=373",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 3,
+      "spJobConnectionId": 37,
+      "spJobId": 633,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=3",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=3",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=37",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=633",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 10,
+      "spJobConnectionId": 106,
+      "spJobId": 878,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=10",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=10",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=106",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=878",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 1,
+      "spJobConnectionId": 22,
+      "spJobId": 262,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=1",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=1",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=22",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=262",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 6,
+      "spJobConnectionId": 66,
+      "spJobId": 377,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=6",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=6",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=66",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=377",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 7,
+      "spJobConnectionId": 76,
+      "spJobId": 1214,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=7",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=7",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=76",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1214",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 4,
+      "spJobConnectionId": 47,
+      "spJobId": 769,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=4",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=4",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=47",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=769",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 53,
+      "spJobConnectionId": 536,
+      "spJobId": 426,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=53",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=536",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=426",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 29,
+      "spJobConnectionId": 296,
+      "spJobId": 20811,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=29",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=29",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=296",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20811",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 55,
+      "spJobConnectionId": 556,
+      "spJobId": 390,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=55",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=55",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=556",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=390",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 26,
+      "spJobConnectionId": 266,
+      "spJobId": 437,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=26",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=26",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=266",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=437",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 9,
+      "spJobConnectionId": 96,
+      "spJobId": 1097,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=9",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=9",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=96",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1097",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 89,
+      "spJobConnectionId": 895,
+      "spJobId": 20229,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=89",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=89",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=895",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20229",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 56,
+      "spJobConnectionId": 566,
+      "spJobId": 20707,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=56",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=56",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=566",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20707",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 67,
+      "spJobConnectionId": 676,
+      "spJobId": 20243,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=67",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=67",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=676",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20243",
+      "evidenceClass": "B"
+    },
+    {
+      "heroId": 37,
+      "spJobConnectionId": 377,
+      "spJobId": 1220,
+      "spHeroInfoLocator": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=37",
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=37",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=377",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1220",
+      "evidenceClass": "B"
+    }
+  ],
+  "limitations": [
+    "This evidence records only the direct Hero, JobConnection, and Job ID links.",
+    "No job tree/order, release status, Korean localization, unlock condition, or UI semantics are established.",
+    "This evidence does not admit canonical Hero↔SP relations."
+  ]
+}
