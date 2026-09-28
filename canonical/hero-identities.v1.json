@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "scope": "Current evidence-backed Hero identity union; not a claim of complete game population.",
+  "records": [
+    {
+      "heroId": 1,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=1"
+    },
+    {
+      "heroId": 3,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=3"
+    },
+    {
+      "heroId": 4,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=4"
+    },
+    {
+      "heroId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5"
+    },
+    {
+      "heroId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6"
+    },
+    {
+      "heroId": 7,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=7"
+    },
+    {
+      "heroId": 8,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8"
+    },
+    {
+      "heroId": 9,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=9"
+    },
+    {
+      "heroId": 10,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=10"
+    },
+    {
+      "heroId": 11,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=11"
+    },
+    {
+      "heroId": 12,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=12"
+    },
+    {
+      "heroId": 13,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=13"
+    },
+    {
+      "heroId": 14,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=14"
+    },
+    {
+      "heroId": 25,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=25"
+    },
+    {
+      "heroId": 26,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=26"
+    },
+    {
+      "heroId": 27,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=27"
+    },
+    {
+      "heroId": 29,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=29"
+    },
+    {
+      "heroId": 33,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=33"
+    },
+    {
+      "heroId": 37,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=37"
+    },
+    {
+      "heroId": 40,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=40"
+    },
+    {
+      "heroId": 53,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=53"
+    },
+    {
+      "heroId": 55,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=55"
+    },
+    {
+      "heroId": 56,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=56"
+    },
+    {
+      "heroId": 60,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=60"
+    },
+    {
+      "heroId": 67,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=67"
+    },
+    {
+      "heroId": 89,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=89"
+    }
+  ]
+}

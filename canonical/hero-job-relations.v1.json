@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "scope": "Current evidence-backed Hero-to-Job relation union; not a claim of complete game relation population.",
+  "records": [
+    {
+      "heroId": 1,
+      "jobId": 262,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=1"
+    },
+    {
+      "heroId": 3,
+      "jobId": 633,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=3"
+    },
+    {
+      "heroId": 4,
+      "jobId": 769,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=4"
+    },
+    {
+      "heroId": 5,
+      "jobId": 803,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=53"
+    },
+    {
+      "heroId": 5,
+      "jobId": 806,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=51"
+    },
+    {
+      "heroId": 5,
+      "jobId": 807,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=52"
+    },
+    {
+      "heroId": 5,
+      "jobId": 812,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=54"
+    },
+    {
+      "heroId": 5,
+      "jobId": 813,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=55"
+    },
+    {
+      "heroId": 5,
+      "jobId": 817,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=50"
+    },
+    {
+      "heroId": 6,
+      "jobId": 202,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=63"
+    },
+    {
+      "heroId": 6,
+      "jobId": 301,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=60"
+    },
+    {
+      "heroId": 6,
+      "jobId": 302,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=62"
+    },
+    {
+      "heroId": 6,
+      "jobId": 303,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=61"
+    },
+    {
+      "heroId": 6,
+      "jobId": 306,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=65"
+    },
+    {
+      "heroId": 6,
+      "jobId": 307,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=64"
+    },
+    {
+      "heroId": 6,
+      "jobId": 377,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=6"
+    },
+    {
+      "heroId": 7,
+      "jobId": 1214,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=7"
+    },
+    {
+      "heroId": 8,
+      "jobId": 701,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=80"
+    },
+    {
+      "heroId": 8,
+      "jobId": 702,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=82"
+    },
+    {
+      "heroId": 8,
+      "jobId": 703,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=83"
+    },
+    {
+      "heroId": 8,
+      "jobId": 706,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=85"
+    },
+    {
+      "heroId": 8,
+      "jobId": 805,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=81"
+    },
+    {
+      "heroId": 8,
+      "jobId": 810,
+      "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=84"
+    },
+    {
+      "heroId": 8,
+      "jobId": 864,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=8"
+    },
+    {
+      "heroId": 9,
+      "jobId": 1097,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=9"
+    },
+    {
+      "heroId": 10,
+      "jobId": 878,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=10"
+    },
+    {
+      "heroId": 11,
+      "jobId": 622,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=11"
+    },
+    {
+      "heroId": 12,
+      "jobId": 368,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=12"
+    },
+    {
+      "heroId": 13,
+      "jobId": 744,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=13"
+    },
+    {
+      "heroId": 14,
+      "jobId": 858,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=14"
+    },
+    {
+      "heroId": 25,
+      "jobId": 414,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=25"
+    },
+    {
+      "heroId": 26,
+      "jobId": 437,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=26"
+    },
+    {
+      "heroId": 27,
+      "jobId": 373,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=27"
+    },
+    {
+      "heroId": 29,
+      "jobId": 20811,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=29"
+    },
+    {
+      "heroId": 33,
+      "jobId": 841,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=33"
+    },
+    {
+      "heroId": 37,
+      "jobId": 1220,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=37"
+    },
+    {
+      "heroId": 40,
+      "jobId": 128,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=40"
+    },
+    {
+      "heroId": 53,
+      "jobId": 426,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=53"
+    },
+    {
+      "heroId": 55,
+      "jobId": 390,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=55"
+    },
+    {
+      "heroId": 56,
+      "jobId": 20707,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=56"
+    },
+    {
+      "heroId": 60,
+      "jobId": 1119,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=60"
+    },
+    {
+      "heroId": 67,
+      "jobId": 20243,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=67"
+    },
+    {
+      "heroId": 89,
+      "jobId": 20229,
+      "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=89"
+    }
+  ]
+}
