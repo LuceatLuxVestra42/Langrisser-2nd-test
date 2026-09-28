@@ -51,7 +51,45 @@ try {
   expectFailure(run('tools/validate.mjs'), 'status string admitted as Job name');
   await restore();
 
-  process.stdout.write('Job localization validator cases: PASS (stale projection, wrong KR value, wrong ID mapping, status-only value rejected)\n');
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.find((row) => row.jobId === 128).nameKo = '잘못된 SP 이름';
+  });
+  expectFailure(run('tools/validate.mjs'), 'wrong SP KR value');
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    const one = canonical.records.find((row) => row.jobId === 128);
+    const two = canonical.records.find((row) => row.jobId === 262);
+    [one.nameKo, two.nameKo] = [two.nameKo, one.nameKo];
+  });
+  expectFailure(run('tools/validate.mjs'), 'swapped SP ID/name mapping');
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.push({ jobId: 1220, nameKo: '한섭 미실장', evidenceClass: 'A', provenance: 'evidence/localization/sp-job-namespace.v1.json#jobId=1220' });
+  });
+  expectFailure(run('tools/validate.mjs'), 'status-only SP admission');
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.find((row) => row.jobId === 128).provenance = 'evidence/localization/sp-job-namespace.v1.json#jobId=262';
+  });
+  expectFailure(run('tools/validate.mjs'), 'SP provenance mismatch');
+  await restore();
+
+  restore = await editJson('evidence/localization/sp-job-namespace.v1.json', (evidence) => {
+    evidence.records.find((row) => row.jobId === 128).cnConsistency = false;
+  });
+  expectFailure(run('tools/validate.mjs'), 'namespace evidence mismatch');
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.push({ ...canonical.records[0] });
+  });
+  expectFailure(run('tools/validate.mjs'), 'duplicate canonical Job ID');
+  await restore();
+
+  process.stdout.write('Job localization validator cases: PASS (legacy localization negatives, SP wrong value/mapping/provenance, status-only admission, namespace evidence mismatch, duplicate ID rejected)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

@@ -110,6 +110,138 @@
       "nameKo": "다크 프린세스",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=706"
+    },
+    {
+      "jobId": 128,
+      "nameKo": "태초의 군주",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=128"
+    },
+    {
+      "jobId": 262,
+      "nameKo": "고독한 검객",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=262"
+    },
+    {
+      "jobId": 368,
+      "nameKo": "광룡 기사단장",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=368"
+    },
+    {
+      "jobId": 373,
+      "nameKo": "이방의 협객",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=373"
+    },
+    {
+      "jobId": 377,
+      "nameKo": "어둠의 청룡",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=377"
+    },
+    {
+      "jobId": 390,
+      "nameKo": "마법 성기사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=390"
+    },
+    {
+      "jobId": 414,
+      "nameKo": "천공의 마룡",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=414"
+    },
+    {
+      "jobId": 426,
+      "nameKo": "빛나는 지략가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=426"
+    },
+    {
+      "jobId": 437,
+      "nameKo": "달빛 영주",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=437"
+    },
+    {
+      "jobId": 622,
+      "nameKo": "레인저 제네럴",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=622"
+    },
+    {
+      "jobId": 633,
+      "nameKo": "바람의 기사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=633"
+    },
+    {
+      "jobId": 744,
+      "nameKo": "흑룡 마도사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=744"
+    },
+    {
+      "jobId": 769,
+      "nameKo": "새벽빛의 은혜",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=769"
+    },
+    {
+      "jobId": 841,
+      "nameKo": "장미의 여왕",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=841"
+    },
+    {
+      "jobId": 858,
+      "nameKo": "프린세스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=858"
+    },
+    {
+      "jobId": 864,
+      "nameKo": "단죄의 성녀",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=864"
+    },
+    {
+      "jobId": 878,
+      "nameKo": "선택받은 왕",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=878"
+    },
+    {
+      "jobId": 1097,
+      "nameKo": "암흑의 마왕",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=1097"
+    },
+    {
+      "jobId": 1119,
+      "nameKo": "오버테이커",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=1119"
+    },
+    {
+      "jobId": 1214,
+      "nameKo": "어둠의 황제",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=1214"
+    },
+    {
+      "jobId": 20229,
+      "nameKo": "찬란한 성녀",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=20229"
+    },
+    {
+      "jobId": 20811,
+      "nameKo": "여명의 성기사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=20811"
     }
   ]
 }

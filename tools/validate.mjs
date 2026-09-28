@@ -63,16 +63,48 @@ for (const row of localizationSubset.records) {
   check(jobInfo?.ID === row.jobId, `explicit JobInfo.ID match missing for localization Job ${row.jobId}`);
   check(jobInfo.Name === row.nameCn, `localization CN consistency check failed for Job ${row.jobId}`);
 }
-check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length, 'canonical Job localization must contain exactly 18 records');
+
+const spNamespaceEvidence = await readJson('evidence/localization/sp-job-namespace.v1.json');
+const spSourcePath = 'evidence/localization/source/sp-job-names-ko.v1.txt';
+const spSourceText = await readFile(resolve(root, spSourcePath), 'utf8');
+const spSourceLines = spSourceText.split(/\r?\n/);
+if (spSourceLines.at(-1) === '') spSourceLines.pop();
+check(JSON.stringify(spSourceLines[0]?.split('\t')) === JSON.stringify(localizationHeader), 'SP localization source header drift');
+const spSourceRows = new Map(spSourceLines.slice(1).map((line) => { const fields = line.split('\t'); return [Number(fields[0]), { nameCn: fields[1], nameKo: fields[2] }]; }));
+const spExpected = new Map([[128, '태초의 군주'], [262, '고독한 검객'], [368, '광룡 기사단장'], [373, '이방의 협객'], [377, '어둠의 청룡'], [390, '마법 성기사'], [414, '천공의 마룡'], [426, '빛나는 지략가'], [437, '달빛 영주'], [622, '레인저 제네럴'], [633, '바람의 기사'], [744, '흑룡 마도사'], [769, '새벽빛의 은혜'], [841, '장미의 여왕'], [858, '프린세스'], [864, '단죄의 성녀'], [878, '선택받은 왕'], [1097, '암흑의 마왕'], [1119, '오버테이커'], [1214, '어둠의 황제'], [20229, '찬란한 성녀'], [20811, '여명의 성기사']]);
+const spStatusIds = [1220, 20243, 20707];
+const spEvidenceById = new Map(spNamespaceEvidence.records.map((row) => [row.jobId, row]));
+check(spNamespaceEvidence.records.length === 25 && spEvidenceById.size === 25, 'SP namespace evidence must contain exactly 25 unique Job IDs');
+check(spNamespaceEvidence.canonical === false && spNamespaceEvidence.generated === false && spNamespaceEvidence.productionRuntimeDependency === false, 'SP namespace evidence authority boundary drift');
+for (const row of spNamespaceEvidence.records) {
+  const sourceRow = spSourceRows.get(row.jobId);
+  check(sourceRow && row.spSourceLocator === `${spSourcePath}#전직ID=${row.jobId}`, `SP source locator mismatch for Job ${row.jobId}`);
+  check(row.nameCn === sourceRow.nameCn && row.nameKo === sourceRow.nameKo, `SP source values differ from namespace evidence for Job ${row.jobId}`);
+  check(row.idMatch === true && row.cnConsistency === true && row.namespaceEvidenceClass === 'B' && row.rowEvidenceClass === 'A', `SP namespace evidence confirmation missing for Job ${row.jobId}`);
+  check(row.jobInfoSourceLocator === `evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=${row.jobId}`, `SP JobInfo locator mismatch for Job ${row.jobId}`);
+  check((row.sourceKrFieldKind === 'status_marker') === spStatusIds.includes(row.jobId), `SP source classification mismatch for Job ${row.jobId}`);
+}
+check(JSON.stringify(spNamespaceEvidence.records.filter((row) => row.sourceKrFieldKind === 'status_marker').map((row) => row.jobId)) === JSON.stringify(spStatusIds), 'SP status-only IDs differ from expected set');
+check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === 40, 'canonical Job localization must contain exactly 40 records');
 const admittedLocalization = new Map();
 for (const row of jobLocalization.records) {
   exactKeys(row, ['jobId', 'nameKo', 'evidenceClass', 'provenance'], `canonical Job localization ${row.jobId}`);
-  check(targetJobIds.includes(row.jobId) && !admittedLocalization.has(row.jobId), `unexpected or duplicate canonical Job localization ID ${row.jobId}`);
-  const sourceRow = localizationRows.get(row.jobId);
-  check(sourceRow && row.nameKo === sourceRow.nameKo && row.nameKo.trim() !== '' && !statusOnly.test(row.nameKo.trim()), `canonical KR label differs from usable source value for Job ${row.jobId}`);
-  check(row.evidenceClass === 'A' && row.provenance === `evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=${row.jobId}`, `canonical localization provenance drift for Job ${row.jobId}`);
+  check(!admittedLocalization.has(row.jobId), `duplicate canonical Job localization ID ${row.jobId}`);
+  if (targetJobIds.includes(row.jobId)) {
+    const sourceRow = localizationRows.get(row.jobId);
+    check(sourceRow && row.nameKo === sourceRow.nameKo && row.nameKo.trim() !== '' && !statusOnly.test(row.nameKo.trim()), `canonical KR label differs from usable source value for Job ${row.jobId}`);
+    check(row.evidenceClass === 'A' && row.provenance === `evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=${row.jobId}`, `canonical localization provenance drift for Job ${row.jobId}`);
+  } else if (spExpected.has(row.jobId)) {
+    const evidence = spEvidenceById.get(row.jobId);
+    check(row.nameKo === spExpected.get(row.jobId) && row.nameKo === evidence?.nameKo, `canonical SP KR label differs from expected/evidence value for Job ${row.jobId}`);
+    check(row.evidenceClass === 'A' && row.provenance === `evidence/localization/sp-job-namespace.v1.json#jobId=${row.jobId}`, `canonical SP localization provenance drift for Job ${row.jobId}`);
+  } else {
+    throw new Error(`unexpected canonical Job localization ID ${row.jobId}`);
+  }
+  check(!spStatusIds.includes(row.jobId), `status-only SP Job ${row.jobId} must not be admitted`);
   admittedLocalization.set(row.jobId, row.nameKo);
 }
+check(JSON.stringify([...admittedLocalization.keys()].filter((id) => spExpected.has(id)).sort((a,b)=>a-b)) === JSON.stringify([...spExpected.keys()].sort((a,b)=>a-b)), 'canonical SP localization ID scope drift');
 
 const canonical = await readJson('canonical/heroes.v1.json');
 exactKeys(canonical, ['schemaVersion', 'sourceScope', 'records'], 'canonical');
@@ -198,4 +230,4 @@ for (const hero of generatedJson.heroes) {
   check(JSON.stringify(hero.jobConnections) === JSON.stringify(sourceHero.jobConnections.map((relation) => ({ ...relation, jobNameKo: admittedLocalization.get(relation.jobId) }))), `generated Job connections differ from canonical for Hero ${hero.id}`);
 }
 
-process.stdout.write('Hero slice validator: PASS (localization source integrity, 18-ID exact lookup, JobInfo ID consistency, relation pairs, source locators, asset integrity, generated freshness; deferred semantics excluded)\n');
+process.stdout.write('Hero slice validator: PASS (localization source integrity, 40-ID exact lookup, SP namespace evidence provenance, relation pairs, source locators, asset integrity, generated freshness; deferred semantics excluded)\n');
