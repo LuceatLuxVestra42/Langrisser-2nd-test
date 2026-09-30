@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "One explicit source-native SP Soldier to NORMAL Soldier relation.",
+  "records": [
+    {
+      "spSoldierId": 5115,
+      "normalSoldierId": 115,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json#ID=5115/NormalSoliderId"
+    }
+  ]
+}

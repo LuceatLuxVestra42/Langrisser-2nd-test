@@ -16,7 +16,7 @@ const wrongIdentity = structuredClone(canonical);
 wrongIdentity.records[0].id = 116;
 assert.throws(
   () => validateSoldierIdentity({ canonical: wrongIdentity, soldierInfo, spSoldierInfo, manifest }),
-  /canonical identity must exactly match NORMAL Soldier 115/,
+  /exactly one admitted NORMAL identity 115/,
   'mismatched canonical ID must fail',
 );
 

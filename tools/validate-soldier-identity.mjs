@@ -14,9 +14,11 @@ const exactKeys = (value, keys, label) => check(
 export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest }) {
   exactKeys(canonical, ['schemaVersion', 'scope', 'records'], 'canonical owner');
   check(canonical.schemaVersion === 1, 'unsupported canonical schema');
-  check(canonical.scope === 'One explicitly admitted NORMAL Soldier identity; not a claim of complete Soldier population.', 'canonical scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === 1, 'scope must contain exactly one admitted identity');
-  const [identity] = canonical.records;
+  check(canonical.scope === 'Explicitly admitted Soldier identities for this slice; SP variant identity is separate from the NORMAL identity, with correspondence owned by a separate relation canonical.', 'canonical scope drift');
+  check(Array.isArray(canonical.records), 'canonical identity records are missing');
+  const normalRows = canonical.records.filter((row) => row.entity === 'Soldier' && row.id === 115 && row.variant === 'NORMAL');
+  check(normalRows.length === 1, 'scope must contain exactly one admitted NORMAL identity 115');
+  const [identity] = normalRows;
   exactKeys(identity, ['entity', 'id', 'variant', 'provenance'], 'canonical record');
   check(identity.entity === 'Soldier' && identity.id === 115 && identity.variant === 'NORMAL', 'canonical identity must exactly match NORMAL Soldier 115');
   check(identity.provenance === 'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=115', 'canonical identity provenance locator mismatch');

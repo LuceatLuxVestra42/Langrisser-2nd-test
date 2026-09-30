@@ -1,12 +1,18 @@
 {
   "schemaVersion": 1,
-  "scope": "One explicitly admitted NORMAL Soldier identity; not a claim of complete Soldier population.",
+  "scope": "Explicitly admitted Soldier identities for this slice; SP variant identity is separate from the NORMAL identity, with correspondence owned by a separate relation canonical.",
   "records": [
     {
       "entity": "Soldier",
       "id": 115,
       "variant": "NORMAL",
       "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=115"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5115,
+      "variant": "SP",
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=5115"
     }
   ]
 }
