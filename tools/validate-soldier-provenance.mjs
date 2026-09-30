@@ -13,23 +13,23 @@ const check = (condition, message) => { if (!condition) fail(message); };
 const EXPECTED = {
   identity115: {
     path: 'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json',
-    sha256: '065de712385f71446a8a5a813d7f632aaf9332d648496ca89a4c476cd234189d',
+    sha256: 'c7c598b32dab051d66918de89c225f410255b4d0b5d4da18958497974e2bacaa',
   },
   sp5115: {
     path: 'evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json',
-    sha256: '47029e0785e25ef57d3599d8ad59fa38b5620f2ea432599f4cc6db33ef76e383',
+    sha256: '127ca741874b4bdbe7be360d555a3cceebae29c3ca7e1d1d416bddf7b25bac9e',
   },
   spPopulation: {
     path: 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json',
-    sha256: 'aafa357ebf9f94a7932dd2342edff90a7a2c87717a5601edfd933c02d35d6ac2',
+    sha256: 'ba41a6a37c873a5cc6196bd3135d2b656896e808741cd2b1df56a555ab888500',
   },
   soldierEndpoints: {
     path: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json',
-    sha256: '938adb7f054ccc925116b769fe2ce770a8a5f60c68112fef3eb21977c2908592',
+    sha256: '0710ba87cd15f205cdcfbbbe89a2662e35b5acb4441fbd7aa3c8ebba223c6b46',
   },
   soldierStats: {
     path: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json',
-    sha256: 'b4b9b05f9ba95cd31ec349756068ec4cb5e5fa8feef3bace1d6b43c6a8e889f5',
+    sha256: 'b8c30904ab62ed12c806cd287b10d39b48c7e8a08c265c45e784d79b8be13a51',
   },
 };
 
