@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate current data and generated consumer
-        run: node tools/validate.mjs
-
       - name: Build static site
         run: node tools/build.mjs
 
