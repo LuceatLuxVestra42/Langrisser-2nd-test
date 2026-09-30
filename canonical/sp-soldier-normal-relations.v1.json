@@ -1,11 +1,286 @@
 {
   "schemaVersion": 1,
-  "scope": "One explicit source-native SP Soldier to NORMAL Soldier relation.",
+  "scope": "All source-confirmed explicit SP Soldier to NORMAL Soldier relations in the pinned SPSoldierInfo snapshot.",
   "records": [
     {
       "spSoldierId": 5115,
       "normalSoldierId": 115,
       "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json#ID=5115/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5118,
+      "normalSoldierId": 118,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5118/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5121,
+      "normalSoldierId": 121,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5121/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5129,
+      "normalSoldierId": 129,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5129/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5130,
+      "normalSoldierId": 130,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5130/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5132,
+      "normalSoldierId": 132,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5132/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5203,
+      "normalSoldierId": 203,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5203/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5210,
+      "normalSoldierId": 210,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5210/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5216,
+      "normalSoldierId": 216,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5216/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5225,
+      "normalSoldierId": 225,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5225/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5231,
+      "normalSoldierId": 231,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5231/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5237,
+      "normalSoldierId": 237,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5237/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5244,
+      "normalSoldierId": 244,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5244/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5245,
+      "normalSoldierId": 245,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5245/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5248,
+      "normalSoldierId": 248,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5248/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5308,
+      "normalSoldierId": 308,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5308/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5311,
+      "normalSoldierId": 311,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5311/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5314,
+      "normalSoldierId": 314,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5314/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5320,
+      "normalSoldierId": 320,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5320/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5324,
+      "normalSoldierId": 324,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5324/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5326,
+      "normalSoldierId": 326,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5326/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5402,
+      "normalSoldierId": 402,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5402/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5410,
+      "normalSoldierId": 410,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5410/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5413,
+      "normalSoldierId": 413,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5413/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5419,
+      "normalSoldierId": 419,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5419/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5422,
+      "normalSoldierId": 422,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5422/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5423,
+      "normalSoldierId": 423,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5423/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5504,
+      "normalSoldierId": 504,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5504/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5507,
+      "normalSoldierId": 507,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5507/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5511,
+      "normalSoldierId": 511,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5511/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5514,
+      "normalSoldierId": 514,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5514/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5602,
+      "normalSoldierId": 602,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5602/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5607,
+      "normalSoldierId": 607,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5607/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5610,
+      "normalSoldierId": 610,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5610/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5621,
+      "normalSoldierId": 621,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5621/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5622,
+      "normalSoldierId": 622,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5622/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5631,
+      "normalSoldierId": 631,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5631/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5634,
+      "normalSoldierId": 634,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5634/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5636,
+      "normalSoldierId": 636,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5636/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5637,
+      "normalSoldierId": 637,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5637/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5638,
+      "normalSoldierId": 638,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5638/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5641,
+      "normalSoldierId": 641,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5641/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5644,
+      "normalSoldierId": 644,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5644/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5802,
+      "normalSoldierId": 802,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5802/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5805,
+      "normalSoldierId": 805,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5805/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5811,
+      "normalSoldierId": 811,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5811/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5812,
+      "normalSoldierId": 812,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5812/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5815,
+      "normalSoldierId": 815,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5815/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 5816,
+      "normalSoldierId": 816,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5816/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6015,
+      "normalSoldierId": 1015,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6015/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6031,
+      "normalSoldierId": 1031,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6031/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6034,
+      "normalSoldierId": 1034,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6034/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6101,
+      "normalSoldierId": 1101,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6101/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6105,
+      "normalSoldierId": 1105,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6105/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6111,
+      "normalSoldierId": 1111,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6111/NormalSoliderId"
+    },
+    {
+      "spSoldierId": 6113,
+      "normalSoldierId": 1113,
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6113/NormalSoliderId"
     }
   ]
 }

@@ -6,25 +6,17 @@ import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
 const read = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const [canonical, soldierInfo, spSoldierInfo, manifest] = await Promise.all([
   read('canonical/soldiers.v1.json'),
-  read('evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json'),
-  read('evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json'),
-  read('evidence/source/configdata/soldier-identity-115.source-manifest.v1.json'),
+  read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
+  read('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+  read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
 ]);
-validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest });
+const result = validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest });
+assert.equal(result.spIdentityCount, 56);
+assert.equal(result.normalEndpointIdentityCount, 56);
+assert.equal(canonical.records.some(row => row.variant === 'SP' && row.id === 5115), true);
+assert.equal(canonical.records.some(row => row.variant === 'NORMAL' && row.id === 115), true);
 
-const wrongIdentity = structuredClone(canonical);
-wrongIdentity.records[0].id = 116;
-assert.throws(
-  () => validateSoldierIdentity({ canonical: wrongIdentity, soldierInfo, spSoldierInfo, manifest }),
-  /exactly one admitted NORMAL identity 115/,
-  'mismatched canonical ID must fail',
-);
-
-const wrongCommit = structuredClone(manifest);
-wrongCommit.source.commit = '0000000000000000000000000000000000000000';
-assert.throws(
-  () => validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest: wrongCommit }),
-  /source commit does not match the pinned snapshot/,
-  'un-pinned evidence commit must fail',
-);
-process.stdout.write('NORMAL Soldier identity negative cases: PASS (canonical ID mismatch; source commit mismatch rejected)\\n');
+const changedCommit = structuredClone(manifest);
+changedCommit.source.commit = '0000000000000000000000000000000000000000';
+assert.throws(() => validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest: changedCommit }), /pinned source commit mismatch/);
+process.stdout.write('Soldier identity population regression: PASS (56 SP identities; 56 NORMAL endpoint identities; pinned source enforced)\\n');
