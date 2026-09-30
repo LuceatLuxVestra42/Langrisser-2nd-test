@@ -4,21 +4,21 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const SOURCE_SHA256='4aa84a5dc6428947d87f556d48b632d12fdfa95ab396bfbecbd2adb87609dd53';
-const EXPECTED_HEADER='SPSoldierID\\tNormalSoldierID\\t한국명';
+const EXPECTED_HEADER='SPSoldierID\tNormalSoldierID\t한국명';
 const fail=m=>{throw new Error(`SP Soldier KO localization validation failed: ${m}`);};
 const check=(c,m)=>{if(!c)fail(m);};
 
 export function parseSource(text){
- const lines=text.split(/\\r?\\n/);
+ const lines=text.split(/\r?\n/);
  const header=lines.find(x=>!x.startsWith('#')&&x.length>0);
  check(header===EXPECTED_HEADER,'source header mismatch');
  const rows=[];
  for(let i=0;i<lines.length;i++){
   const line=lines[i];
   if(!line||line.startsWith('#')||line===EXPECTED_HEADER)continue;
-  const cols=line.split('\\t');
+  const cols=line.split('\t');
   check(cols.length===3,'malformed source row at line '+(i+1));
-  check(/^\\d+$/.test(cols[0])&&/^\\d+$/.test(cols[1]),'source IDs malformed at line '+(i+1));
+  check(/^\d+$/.test(cols[0])&&/^\d+$/.test(cols[1]),'source IDs malformed at line '+(i+1));
   check(cols[2].length>0&&cols[2].trim()===cols[2],'empty or whitespace-altered Korean name at line '+(i+1));
   rows.push({SPSoldierID:Number(cols[0]),NormalSoldierID:Number(cols[1]),nameKo:cols[2],line:i+1,sourceRow:line});
  }
