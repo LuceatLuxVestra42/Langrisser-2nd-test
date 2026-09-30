@@ -45,6 +45,21 @@ const expectRejected = async (edit, pattern) => {
 };
 
 await validateSoldierProvenance();
+
+const canonical = JSON.parse(await readFile(resolve('canonical/soldiers.v1.json'), 'utf8'));
+assert.equal(canonical.records.find(row => row.variant === 'SP' && row.id === 5115)?.provenance,
+  'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5115/ID');
+assert.equal(canonical.records.find(row => row.variant === 'NORMAL' && row.id === 115)?.provenance,
+  'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=115');
+
+await expectRejected(root => editJson(root, 'canonical/soldiers.v1.json', json => {
+  json.records.find(row => row.variant === 'SP' && row.id === 5115).provenance =
+    'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=5115';
+}), /SP identity provenance mismatch for 5115/);
+await expectRejected(root => editJson(root,
+  'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json',
+  json => { json.records = json.records.filter(row => row.ID !== 5115); }),
+/preserved evidence SHA-256 mismatch/);
 await expectRejected(async root => {
   const { unlink } = await import('node:fs/promises');
   await unlink(resolve(root, 'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json'));

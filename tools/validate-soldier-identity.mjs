@@ -64,9 +64,7 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo,
     actual.add(identityKey);
     check(expected.has(identityKey), `canonical Soldier identity is not source-derived: ${identityKey}`);
     if (row.variant === 'SP') {
-      const expectedProvenance = row.id === 5115
-        ? 'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=5115'
-        : `evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=${row.id}/ID`;
+      const expectedProvenance = `evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=${row.id}/ID`;
       check(row.provenance === expectedProvenance, `SP identity provenance mismatch for ${row.id}`);
     } else {
       const expectedProvenance = row.id === 115

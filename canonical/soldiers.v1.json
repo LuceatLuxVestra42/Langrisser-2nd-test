@@ -12,7 +12,7 @@
       "entity": "Soldier",
       "id": 5115,
       "variant": "SP",
-      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=5115"
+      "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=5115/ID"
     },
     {
       "entity": "Soldier",
