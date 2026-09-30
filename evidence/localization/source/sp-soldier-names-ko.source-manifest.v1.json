@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "SP용병명.txt",
+  "originalProjectSourceName": "SP용병명.txt",
+  "sourceLibraryPath": "/이전/SP용병명.txt",
+  "sourceSha256": "4aa84a5dc6428947d87f556d48b632d12fdfa95ab396bfbecbd2adb87609dd53",
+  "sourceBytes": 2194,
+  "format": "UTF-8 tab-separated text",
+  "encoding": "UTF-8",
+  "delimiter": "TAB",
+  "header": [
+    "SPSoldierID",
+    "NormalSoldierID",
+    "한국명"
+  ],
+  "recordCount": 56,
+  "idField": "SPSoldierID",
+  "normalConsistencyField": "NormalSoldierID",
+  "krNameField": "한국명",
+  "sourceRole": "SP Soldier Korean display-name localization reference",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "sourceVersionStatus": "unknown",
+  "officialKrProvenanceStatus": "unverified",
+  "scope": "localization/presentation only",
+  "aliasesChecked": [
+    {
+      "filename": "SP용병명.txt",
+      "found": true,
+      "path": "Library:/이전/SP용병명.txt",
+      "contentHash": "4aa84a5dc6428947d87f556d48b632d12fdfa95ab396bfbecbd2adb87609dd53"
+    },
+    {
+      "filename": "한섭용병명-고유기_ID확정.txt",
+      "found": false,
+      "note": "Not present in available Project files/workspace or returned as an exact Library title result; body unavailable for hash or row mapping comparison."
+    }
+  ],
+  "contentEquivalence": "PARTIAL",
+  "knownLimitations": [
+    "The two deployment names could not be content-compared because only SP용병명.txt was available.",
+    "The available source uses explicit tabular columns SPSoldierID, NormalSoldierID, 한국명 rather than the bracketed prose example; the fields are explicit in the header and each record.",
+    "A-level evidence means the Korean string and identifiers are directly present in the project reference, not that the Korean-server official provenance was established.",
+    "NormalSoldierID is corroboration only and does not establish or modify SP-to-NORMAL relations.",
+    "No traits, descriptions, release state, usability, identity, population, or other semantic claim is supported by this localization source."
+  ],
+  "extraction": "Preserved source text byte-for-byte; selected nameKo only by exact equality between canonical SP Soldier ID and the explicit SPSoldierID column. NormalSoldierID was used only to check the already-admitted relation."
+}
