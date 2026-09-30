@@ -7,7 +7,7 @@ function addHero(hero) {
   const image = document.createElement('img');
   image.className = 'hero-portrait';
   image.src = new URL(hero.portrait, document.baseURI).href;
-  image.alt = `${hero.nameEng} portrait`;
+  image.alt = `${hero.nameEng} 초상화`;
   image.loading = 'lazy';
 
   const details = document.createElement('div');
@@ -16,15 +16,15 @@ function addHero(hero) {
   name.textContent = hero.nameEng;
   const id = document.createElement('p');
   id.className = 'hero-id';
-  id.textContent = `Hero ID ${hero.id}`;
+  id.textContent = `영웅 ID ${hero.id}`;
 
   details.append(name, id);
   const connections = document.createElement('ul');
   connections.className = 'job-connections';
-  connections.setAttribute('aria-label', `Job connections and Korean display names for ${hero.nameEng}`);
+  connections.setAttribute('aria-label', `${hero.nameEng}의 전직 연결과 한국어 표시명`);
   for (const relation of hero.jobConnections) {
     const item = document.createElement('li');
-    item.textContent = `Connection ${relation.connectionId} → ${relation.jobNameKo} (Job ${relation.jobId})`;
+    item.textContent = `연결 ${relation.connectionId} → ${relation.jobNameKo} (전직 ID ${relation.jobId})`;
     connections.append(item);
   }
   article.append(image, details);
@@ -42,7 +42,7 @@ try {
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';
-  status.textContent = 'Hero data could not be loaded.';
+  status.textContent = '영웅 정보를 불러오지 못했습니다.';
   container.replaceChildren(status);
   console.error(error);
 }
