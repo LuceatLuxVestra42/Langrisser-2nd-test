@@ -42,3 +42,21 @@ jobs:
 
       - name: Test Hero semantic canonicals
         run: node tools/test-hero-semantic-canonicals.mjs
+
+      - name: Test Soldier identity
+        run: node tools/test-soldier-identity.mjs
+
+      - name: Test SP Soldier relations
+        run: node tools/test-sp-soldier-relation.mjs
+
+      - name: Test SP Soldier base stats
+        run: node tools/test-sp-soldier-base-stats.mjs
+
+      - name: Test SP Soldier Korean localization
+        run: node tools/test-sp-soldier-ko-localization.mjs
+
+      - name: Validate Soldier provenance integrity
+        run: node tools/validate-soldier-provenance.mjs
+
+      - name: Test Soldier provenance integrity
+        run: node tools/test-soldier-provenance.mjs

@@ -1,0 +1,64 @@
+{
+  "records": [
+    {
+      "ID": 5115,
+      "NormalSoliderId": 115,
+      "FisrtStageMissionList": [
+        140143,
+        140144
+      ],
+      "FisrtStageAwakenMaterial": [
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 35
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 35
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6503,
+          "Count": 35
+        }
+      ],
+      "FisrtStageAwakenLevelID": 92,
+      "SecondStageUnlock": true,
+      "SecondStageMissionList": [
+        140145
+      ],
+      "SecondStageAwakenMaterial": [
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 15
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 15
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6503,
+          "Count": 30
+        },
+        {
+          "GoodsType": 24,
+          "Count": 40
+        }
+      ],
+      "SecondStageAwakenLevellID": 93,
+      "SecondStageExpandHeroList": [
+        99262,
+        139,
+        124,
+        10,
+        122
+      ],
+      "Useable": true
+    }
+  ]
+}

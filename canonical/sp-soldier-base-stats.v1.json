@@ -1,0 +1,678 @@
+{
+  "schemaVersion": 1,
+  "scope": "Raw base stats for the 56 admitted SP Soldier identities, copied from each SP ID's own ConfigDataSoldierInfo record; no level or growth calculation.",
+  "records": [
+    {
+      "entity": "Soldier",
+      "id": 5115,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 46,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5115"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5118,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 48,
+        "attack": 40,
+        "defense": 28,
+        "magicDefense": 18
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5118"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5121,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5121"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5129,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 43,
+        "defense": 25,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5129"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5130,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 44,
+        "defense": 23,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5130"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5132,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 46,
+        "attack": 43,
+        "defense": 24,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5132"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5203,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 53,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5203"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5210,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 47,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 21
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5210"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5216,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 17
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5216"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5225,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 53,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5225"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5231,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 44,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 21
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5231"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5237,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5237"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5244,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 42,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5244"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5245,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 25
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5245"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5248,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 43,
+        "defense": 25,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5248"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5308,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 44,
+        "defense": 24,
+        "magicDefense": 21
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5308"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5311,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 41,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5311"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5314,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 42,
+        "attack": 45,
+        "defense": 21,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5314"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5320,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 45,
+        "defense": 24,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5320"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5324,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 41,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5324"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5326,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5326"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5402,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5402"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5410,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 45,
+        "defense": 24,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5410"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5413,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 23,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5413"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5419,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 23,
+        "magicDefense": 24
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5419"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5422,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 45,
+        "defense": 23,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5422"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5423,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 44,
+        "attack": 45,
+        "defense": 24,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5423"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5504,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 37,
+        "defense": 26,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5504"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5507,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 24,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5507"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5511,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 39,
+        "defense": 24,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5511"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5514,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 44,
+        "attack": 39,
+        "defense": 23,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5514"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5602,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 39,
+        "attack": 42,
+        "defense": 21,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5602"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5607,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 38,
+        "attack": 43,
+        "defense": 17,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5607"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5610,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 35,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5610"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5621,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5621"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5622,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 37,
+        "attack": 42,
+        "defense": 17,
+        "magicDefense": 28
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5622"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5631,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 38,
+        "attack": 41,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5631"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5634,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 40,
+        "attack": 41,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5634"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5636,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 21
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5636"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5637,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 25
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5637"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5638,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 42,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5638"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5641,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 40,
+        "attack": 42,
+        "defense": 18,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5641"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5644,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 45,
+        "attack": 42,
+        "defense": 18,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5644"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5802,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 37,
+        "attack": 34,
+        "defense": 22,
+        "magicDefense": 28
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5802"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5805,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 38,
+        "attack": 34,
+        "defense": 22,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5805"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5811,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5811"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5812,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 42,
+        "attack": 42,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5812"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5815,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 42,
+        "attack": 41,
+        "defense": 22,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5815"
+    },
+    {
+      "entity": "Soldier",
+      "id": 5816,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 48,
+        "attack": 38,
+        "defense": 25,
+        "magicDefense": 25
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=5816"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6015,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 42,
+        "defense": 20,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6015"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6031,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6031"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6034,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 42,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 24
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6034"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6101,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6101"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6105,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 39,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6105"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6111,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6111"
+    },
+    {
+      "entity": "Soldier",
+      "id": 6113,
+      "variant": "SP",
+      "baseStats": {
+        "hp": 39,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json#ID=6113"
+    }
+  ]
+}
