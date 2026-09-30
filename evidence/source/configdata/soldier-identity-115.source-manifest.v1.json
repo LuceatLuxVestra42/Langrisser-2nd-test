@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Direct source evidence for the NORMAL Soldier 115 identity slice; SP endpoint records are retained only to preserve the requested source endpoint fixture and are not admitted as canonical claims.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "semanticContentAuthority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT",
+    "sourceVersionStatus": "unknown",
+    "sourceContract": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/contracts/configdata-source-pack-contract.v1.json",
+      "gitBlobSha1": "0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d",
+      "sha256": "5ae5443a7533760c9048d04355ad9445bb1f89812c10abced1c23d019d38df4d"
+    },
+    "sourcePack": {
+      "tag": "source-configdata-v1-6475e63e",
+      "archiveName": "configdata-source-v1-6475e63e.tar",
+      "archiveBytes": 308871680,
+      "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+      "archiveBytesDownloaded": false,
+      "note": "Records were retrieved from the pinned Git blob objects, not from the archive; release asset metadata matched the pinned contract."
+    }
+  },
+  "artifacts": {
+    "soldierInfo": {
+      "sourcePath": "data/configdata/ConfigDataSoldierInfo.json",
+      "repoPreservedPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json",
+      "gitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+      "sha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+      "bytes": 1078582,
+      "selectedFields": "complete source records; no value normalization",
+      "selector": "Top-level JSON array records whose numeric ID exactly equals 115 or 5115.",
+      "recordLocators": [
+        "top-level record ID=115",
+        "top-level record ID=5115"
+      ]
+    },
+    "spSoldierInfo": {
+      "sourcePath": "data/configdata/ConfigDataSPSoldierInfo.json",
+      "repoPreservedPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json",
+      "gitBlobSha1": "93dd784a7de913daa6d72f5df6cf6890a710c58a",
+      "sha256": "bec68e5693cbceacf9d9d23c9e416e0560052cf068809a9255e4210a56632b55",
+      "bytes": 51065,
+      "selectedFields": "complete source record; no value normalization",
+      "selector": "Top-level JSON array record whose numeric ID exactly equals 5115.",
+      "recordLocators": [
+        "top-level record ID=5115"
+      ]
+    }
+  },
+  "claims": {
+    "P1": "ConfigDataSoldierInfo.json has one top-level source record with ID=115; supports NORMAL Soldier identity 115.",
+    "P2": "ConfigDataSoldierInfo.json has one top-level source record with ID=5115; endpoint evidence only.",
+    "P3": "ConfigDataSPSoldierInfo.json has one top-level source record with ID=5115; endpoint and explicit field evidence only.",
+    "P4": "That ConfigDataSPSoldierInfo record has exact source field NormalSoliderId=115; relation is not admitted by this slice."
+  }
+}

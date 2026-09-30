@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "scope": "One explicitly admitted NORMAL Soldier identity; not a claim of complete Soldier population.",
+  "records": [
+    {
+      "entity": "Soldier",
+      "id": 115,
+      "variant": "NORMAL",
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=115"
+    }
+  ]
+}
