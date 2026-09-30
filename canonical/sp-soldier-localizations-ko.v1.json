@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 1,
+  "purpose": "SP Soldier Korean display-name lookup only; not identity, relation, release status, or official KR provenance authority.",
+  "sourceScope": "Project SP Soldier localization reference; official Korean server provenance unverified.",
+  "records": [
+    {
+      "soldierId": 5115,
+      "nameKo": "근위창병",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5115"
+    },
+    {
+      "soldierId": 5118,
+      "nameKo": "다크 센츄리온",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5118"
+    },
+    {
+      "soldierId": 5121,
+      "nameKo": "발키리",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5121"
+    },
+    {
+      "soldierId": 5129,
+      "nameKo": "엔트 가디언",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5129"
+    },
+    {
+      "soldierId": 5130,
+      "nameKo": "팔랑크스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5130"
+    },
+    {
+      "soldierId": 5132,
+      "nameKo": "창지기 엘프",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5132"
+    },
+    {
+      "soldierId": 5203,
+      "nameKo": "그레나디어",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5203"
+    },
+    {
+      "soldierId": 5210,
+      "nameKo": "하이랜더",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5210"
+    },
+    {
+      "soldierId": 5216,
+      "nameKo": "오크 광전사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5216"
+    },
+    {
+      "soldierId": 5225,
+      "nameKo": "암흑 근위대",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5225"
+    },
+    {
+      "soldierId": 5231,
+      "nameKo": "광전사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5231"
+    },
+    {
+      "soldierId": 5237,
+      "nameKo": "가면 메이드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5237"
+    },
+    {
+      "soldierId": 5244,
+      "nameKo": "개조인간",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5244"
+    },
+    {
+      "soldierId": 5245,
+      "nameKo": "왕녀 친위대",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5245"
+    },
+    {
+      "soldierId": 5248,
+      "nameKo": "화려한 결투자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5248"
+    },
+    {
+      "soldierId": 5308,
+      "nameKo": "용기병",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5308"
+    },
+    {
+      "soldierId": 5311,
+      "nameKo": "마스터 디노",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5311"
+    },
+    {
+      "soldierId": 5314,
+      "nameKo": "헬하운드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5314"
+    },
+    {
+      "soldierId": 5320,
+      "nameKo": "황가기병",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5320"
+    },
+    {
+      "soldierId": 5324,
+      "nameKo": "천상의 수호자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5324"
+    },
+    {
+      "soldierId": 5326,
+      "nameKo": "템플러",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5326"
+    },
+    {
+      "soldierId": 5402,
+      "nameKo": "로열 그리폰",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5402"
+    },
+    {
+      "soldierId": 5410,
+      "nameKo": "뱀파이어 배트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5410"
+    },
+    {
+      "soldierId": 5413,
+      "nameKo": "가고일",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5413"
+    },
+    {
+      "soldierId": 5419,
+      "nameKo": "홀리 페가수스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5419"
+    },
+    {
+      "soldierId": 5422,
+      "nameKo": "드래고니아 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5422"
+    },
+    {
+      "soldierId": 5423,
+      "nameKo": "메카 드래곤 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5423"
+    },
+    {
+      "soldierId": 5504,
+      "nameKo": "거대 랍스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5504"
+    },
+    {
+      "soldierId": 5507,
+      "nameKo": "리바이어선",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5507"
+    },
+    {
+      "soldierId": 5511,
+      "nameKo": "파도의 정령",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5511"
+    },
+    {
+      "soldierId": 5514,
+      "nameKo": "바다의 사제",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5514"
+    },
+    {
+      "soldierId": 5602,
+      "nameKo": "하이엘프",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5602"
+    },
+    {
+      "soldierId": 5607,
+      "nameKo": "천공사수",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5607"
+    },
+    {
+      "soldierId": 5610,
+      "nameKo": "다크엘프 저격수",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5610"
+    },
+    {
+      "soldierId": 5621,
+      "nameKo": "마법사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5621"
+    },
+    {
+      "soldierId": 5622,
+      "nameKo": "마녀",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5622"
+    },
+    {
+      "soldierId": 5631,
+      "nameKo": "데몬헌터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5631"
+    },
+    {
+      "soldierId": 5634,
+      "nameKo": "볼트 레인저",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5634"
+    },
+    {
+      "soldierId": 5636,
+      "nameKo": "수정 마도사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5636"
+    },
+    {
+      "soldierId": 5637,
+      "nameKo": "엘프 궁기병",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5637"
+    },
+    {
+      "soldierId": 5638,
+      "nameKo": "어둠의 연금술사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5638"
+    },
+    {
+      "soldierId": 5641,
+      "nameKo": "맹독 박쥐술사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5641"
+    },
+    {
+      "soldierId": 5644,
+      "nameKo": "용암 샤먼",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5644"
+    },
+    {
+      "soldierId": 5802,
+      "nameKo": "신관",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5802"
+    },
+    {
+      "soldierId": 5805,
+      "nameKo": "세인트 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5805"
+    },
+    {
+      "soldierId": 5811,
+      "nameKo": "퇴마사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5811"
+    },
+    {
+      "soldierId": 5812,
+      "nameKo": "광신자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5812"
+    },
+    {
+      "soldierId": 5815,
+      "nameKo": "영종의 투승",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5815"
+    },
+    {
+      "soldierId": 5816,
+      "nameKo": "신성 호위술사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=5816"
+    },
+    {
+      "soldierId": 6015,
+      "nameKo": "지옥불 사수",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6015"
+    },
+    {
+      "soldierId": 6031,
+      "nameKo": "스파이더 엘프",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6031"
+    },
+    {
+      "soldierId": 6034,
+      "nameKo": "안개의 유령",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6034"
+    },
+    {
+      "soldierId": 6101,
+      "nameKo": "밴디트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6101"
+    },
+    {
+      "soldierId": 6105,
+      "nameKo": "닌자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6105"
+    },
+    {
+      "soldierId": 6111,
+      "nameKo": "미스트 댄서",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6111"
+    },
+    {
+      "soldierId": 6113,
+      "nameKo": "얼굴 없는 자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-soldier-names-ko.v1.json#SPSoldierID=6113"
+    }
+  ]
+}
