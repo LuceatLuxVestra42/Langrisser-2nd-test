@@ -1,23 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="data:,">
-    <meta name="description" content="A small, source-backed Langrisser Hero data slice.">
-    <title>Langrisser Heroes — first slice</title>
+    <meta name="description" content="검증된 데이터만 사용하는 랑그릿사 영웅 정보의 첫 화면 조각입니다.">
+    <title>랑그릿사 영웅 — 첫 데이터 조각</title>
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./app.js"></script>
   </head>
   <body>
     <main class="page">
       <header class="page-heading">
-        <p class="eyebrow">Langrisser · data slice</p>
-        <h1>Heroes</h1>
-        <p class="summary">Three source-backed Hero records with Korean Job display labels. Hero localization and rarity are deferred.</p>
+        <p class="eyebrow">랑그릿사 · 데이터 조각</p>
+        <h1>영웅</h1>
+        <p class="summary">검증된 영웅 3명의 데이터와 한국어 전직 표시명을 보여줍니다. 영웅 한국어명과 희귀도는 아직 포함하지 않습니다.</p>
       </header>
-      <section id="heroes" class="hero-grid" aria-label="Hero records" aria-live="polite">
-        <p class="status">Loading Heroes…</p>
+      <section id="heroes" class="hero-grid" aria-label="영웅 목록" aria-live="polite">
+        <p class="status">영웅 정보를 불러오는 중…</p>
       </section>
     </main>
   </body>
