@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate current data and generated consumer
+        run: node tools/validate.mjs
+
+      - name: Build static site
+        run: node tools/build.mjs
+
+      - name: Test Hero and Job relations
+        run: node tools/test-job-validation.mjs
+
+      - name: Test Job localization
+        run: node tools/test-job-localization-validation.mjs
+
+      - name: Test SP Job source preservation
+        run: node tools/test-sp-job-source-validation.mjs
+
+      - name: Test SP Job namespace evidence
+        run: node tools/test-sp-job-namespace-evidence.mjs
+
+      - name: Test Hero semantic canonicals
+        run: node tools/test-hero-semantic-canonicals.mjs
