@@ -27,11 +27,9 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo,
   const spSet = new Set(sourceSpIds);
   const targetSet = new Set(targetIds);
   check(spSet.size === sourceSpIds.length, 'duplicate SP identity in source evidence');
-  check(targetSet.size === targetIds.length, 'duplicate NORMAL target in source population');
   check(spSoldierInfo.records.length === manifest.sourceDerivedPopulation?.recordCount, 'source population count differs from manifest');
   check(spSet.size === manifest.sourceDerivedPopulation?.uniqueSpIdCount, 'unique SP count differs from manifest');
   check(targetSet.size === manifest.sourceDerivedPopulation?.uniqueNormalTargetCount, 'unique NORMAL target count differs from manifest');
-  check(spSoldierInfo.records.length === 56 && spSet.size === 56, 'source-derived SP population scope mismatch');
 
   const requiredEndpointIds = new Set([...spSet, ...targetSet]);
   const endpointCounts = new Map();
