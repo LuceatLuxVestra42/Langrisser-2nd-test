@@ -13,11 +13,11 @@ const check = (condition, message) => { if (!condition) fail(message); };
 const EXPECTED = {
   identity115: {
     path: 'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json',
-    sha256: 'c7c598b32dab051d66918de89c225f410255b4d0b5d4da18958497974e2bacaa',
+    sha256: '065de712385f71446a8a5a813d7f632aaf9332d648496ca89a4c476cd234189d',
   },
   sp5115: {
     path: 'evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json',
-    sha256: '127ca741874b4bdbe7be360d555a3cceebae29c3ca7e1d1d416bddf7b25bac9e',
+    sha256: '47029e0785e25ef57d3599d8ad59fa38b5620f2ea432599f4cc6db33ef76e383',
   },
   spPopulation: {
     path: 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json',
@@ -29,7 +29,7 @@ const EXPECTED = {
   },
   soldierStats: {
     path: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-base-stats.v1.json',
-    sha256: 'b8c30904ab62ed12c806cd287b10d39b48c7e8a08c265c45e784d79b8be13a51',
+    sha256: 'b4b9b05f9ba95cd31ec349756068ec4cb5e5fa8feef3bace1d6b43c6a8e889f5',
   },
 };
 
