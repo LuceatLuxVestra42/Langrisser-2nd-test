@@ -43,6 +43,9 @@ jobs:
       - name: Test Soldier identity
         run: node tools/test-soldier-identity.mjs
 
+      - name: Validate Hero-Soldier evidence and canonical admission
+        run: node tools/hero-soldier-relations.mjs check
+
       - name: Test SP Soldier relations
         run: node tools/test-sp-soldier-relation.mjs
 
