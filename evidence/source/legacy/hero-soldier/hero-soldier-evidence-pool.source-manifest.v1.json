@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Independent B-quality evidence pool for the Legacy-validated Hero-to-Soldier relation claims. The relation set and its complete per-edge provenance are preserved byte-for-byte.",
+  "evidenceClass": "B",
+  "claimScope": "Legacy Hero-Soldier relation pairs and their complete direct or derived provenance at the pinned relation artifact; admission into this repository is limited separately to pairs whose Hero and Soldier identities exist in current canonical endpoints.",
+  "predecessor": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "ref": "refs/heads/main",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff"
+  },
+  "preservedFiles": [
+    {
+      "sourcePath": "data/generated/hero-soldier-relations.v1.json",
+      "sourceGitBlobSha1": "1e70dc3700578bc7bf03e01b7c893b4583ee59d6",
+      "preservedPath": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json"
+    },
+    {
+      "sourcePath": "data/validation/hero-soldier-relation-validation.v1.json",
+      "sourceGitBlobSha1": "7c38a07f25c7ee3829e7cc0d699d0ec4bbc28638",
+      "preservedPath": "evidence/source/legacy/hero-soldier/hero-soldier-relation-validation.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-soldier-relation-edge-schema.v1.json",
+      "sourceGitBlobSha1": "347af5be069df39d866a27e16d2cd2e21b1671f4",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-edge-schema.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-soldier-relation-set-contract.v1.json",
+      "sourceGitBlobSha1": "09c41627a723f433e273c23f75a09ca6fa86eea0",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-set-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-soldier-relation-source-contract.v1.json",
+      "sourceGitBlobSha1": "75d26b1113e91cbac0990f2299d8177f23cb6089",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-soldier-relation-composition-contract.v1.json",
+      "sourceGitBlobSha1": "df0f849db4d8c70a07eee8f5b88b517b69ac752a",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-composition-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-soldier-relation-validation-contract.v1.json",
+      "sourceGitBlobSha1": "f051e4ec6c67df76eecab850f3e5017929a50316",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-validation-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-soldier-relation-index-contract.v1.json",
+      "sourceGitBlobSha1": "767a6ae12445d68a040e651d8b19693aa7b50283",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-index-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/hero-identity-contract.v1.json",
+      "sourceGitBlobSha1": "7bd0450ba517953ae5c623244e9cb5e2aeb44c4a",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/hero-identity-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/contracts/soldier-identity-contract.v1.json",
+      "sourceGitBlobSha1": "ab652ffe7319e977f1d9e01ea906c6b9c0cd3f63",
+      "preservedPath": "evidence/source/legacy/hero-soldier/contracts/soldier-identity-contract.v1.json"
+    },
+    {
+      "sourcePath": "data/generated/hero-soldier-by-hero.v1.json",
+      "sourceGitBlobSha1": "e613bd05b0e7173734834cba5d8cfbff973298ad",
+      "preservedPath": "evidence/source/legacy/hero-soldier/validation-support/hero-soldier-by-hero.v1.json"
+    },
+    {
+      "sourcePath": "data/generated/hero-soldier-by-soldier.v1.json",
+      "sourceGitBlobSha1": "ff9d8a881c03b6e0f2a196e12f37cd2e28e3e251",
+      "preservedPath": "evidence/source/legacy/hero-soldier/validation-support/hero-soldier-by-soldier.v1.json"
+    },
+    {
+      "sourcePath": "data/generated/soldier-hero-relations.v1.json",
+      "sourceGitBlobSha1": "6d298acd7a0e55d4c3c1f091d59b2f712177e3e7",
+      "preservedPath": "evidence/source/legacy/hero-soldier/validation-support/soldier-hero-relations.v1.json",
+      "sourceCommit": "referenced by the exact goldenComparison blob in the pinned Legacy validation artifact"
+    },
+    {
+      "sourcePath": "data/validation/hero-soldier-relation-golden-baseline.v1.json",
+      "sourceGitBlobSha1": "8a7af3ede0620bcb116e36d75beb2258ab76267a",
+      "preservedPath": "evidence/source/legacy/hero-soldier/validation-support/hero-soldier-relation-golden-baseline.v1.json"
+    },
+    {
+      "sourcePath": "data/validation/soldier-representative-fixture-plan.v1.json",
+      "sourceGitBlobSha1": "1f774530428ef6577d34da900f4625606a741de5",
+      "preservedPath": "evidence/source/legacy/hero-soldier/validation-support/soldier-representative-fixture-plan.v1.json"
+    }
+  ],
+  "pinnedRelationInputs": [
+    {
+      "name": "heroMaster",
+      "sourcePath": "data/hero-name-master.v1.json",
+      "sourceGitBlobSha1": "12eaf4f84a3e91477c80fbccd78c949b79c3829f"
+    },
+    {
+      "name": "soldierMaster",
+      "sourcePath": "data/generated/soldier-master.v1.json",
+      "sourceGitBlobSha1": "23e01ad8707bd7f026f5a3660cc0342747bd5cdb"
+    },
+    {
+      "name": "soldierInfo",
+      "sourcePath": "data/configdata/ConfigDataSoldierInfo.json",
+      "sourceGitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3"
+    },
+    {
+      "name": "spHeroInfo",
+      "sourcePath": "data/configdata/ConfigDataSPHeroInfo.json",
+      "sourceGitBlobSha1": "c3dc00ad0e1454481715ade378f56104febed9a3"
+    },
+    {
+      "name": "spSoldierInfo",
+      "sourcePath": "data/configdata/ConfigDataSPSoldierInfo.json",
+      "sourceGitBlobSha1": "93dd784a7de913daa6d72f5df6cf6890a710c58a"
+    }
+  ],
+  "interpretationBoundary": [
+    "Relation claims are inherited from the exact Legacy relation artifact and its validation chain; New Hero Soldier_ID and TechCanLearnSoldiers_ID fields are not used to create these relations.",
+    "Presence of Hero or Soldier identity endpoints is used only as an admission filter and is not relation evidence.",
+    "Legacy contract text is preserved as predecessor evidence. Legacy stage, freeze, status, workflow, and orchestration semantics are not adopted by this repository.",
+    "The predecessor validation result supports B-quality reuse but is not itself canonical data or a current lifecycle status."
+  ],
+  "limitations": [
+    "The Legacy relation input snapshot sourceVersionStatus is unknown as recorded by the predecessor source manifests.",
+    "The full Legacy relation population is not the current New canonical relation population; endpoint filtering is a separate deterministic sync."
+  ]
+}

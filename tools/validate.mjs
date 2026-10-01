@@ -4,6 +4,7 @@ import { resolve, sep } from 'node:path';
 import { renderGenerated } from './generate.mjs';
 import { validateHeroSpJobRelationEvidence } from './validate-hero-sp-job-relation-evidence.mjs';
 import { validateHeroSemanticCanonicals } from './validate-hero-semantic-canonicals.mjs';
+import { checkHeroSoldierRelations } from './hero-soldier-relations.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -18,6 +19,7 @@ const check = (condition, message) => { if (!condition) throw new Error(message)
 
 await validateHeroSpJobRelationEvidence(root);
 await validateHeroSemanticCanonicals(root);
+await checkHeroSoldierRelations();
 
 const localizationSourcePath = 'evidence/localization/source/job-names-ko.v1.txt';
 const localizationManifest = await readJson('evidence/localization/source/job-names-ko.source-manifest.v1.json');
