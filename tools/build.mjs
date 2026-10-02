@@ -1,7 +1,7 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated, renderSpSoldiers } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers, renderJobGlossary } from './generate.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -19,6 +19,14 @@ const generatedText = await readFile(generatedPath, 'utf8');
 const expectedGenerated = renderGenerated(canonical, jobLocalization);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
+}
+const glossaryPath = resolve('generated/job-glossary.v1.json');
+const glossaryText = await readFile(glossaryPath, 'utf8');
+if (glossaryText !== renderJobGlossary(jobLocalization)) throw new Error('generated Job glossary is stale or non-deterministic');
+const glossary = JSON.parse(glossaryText);
+exactKeys(glossary, ['schemaVersion', 'jobs'], 'generated Job glossary');
+if (glossary.schemaVersion !== 1 || !Array.isArray(glossary.jobs) || glossary.jobs.length !== jobLocalization.records.length) {
+  throw new Error('built document has unsupported Job glossary presentation schema');
 }
 
 const [soldierIdentities, soldierLocalizations, soldierBaseStats, soldierRelations] = await Promise.all([
@@ -58,6 +66,7 @@ try {
   for (const file of ['index.html', 'app.js', 'styles.css']) await cp(resolve(file), join(output, file));
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
+  await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
 
   for (const portraitPath of portraitPaths) {
     if (typeof portraitPath !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(portraitPath)) {
@@ -79,9 +88,10 @@ try {
     throw new Error('built app does not resolve the generated Hero data entry');
   }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
-  await readFile(join(output, 'generated', 'sp-soldiers.v1.json'), 'utf8');
+  if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
+  const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero and ${spGenerated.soldiers.length} SP Soldier records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier and ${packagedGlossary.jobs.length} Job glossary records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
 } finally {
   await rm(output, { recursive: true, force: true });
 }
