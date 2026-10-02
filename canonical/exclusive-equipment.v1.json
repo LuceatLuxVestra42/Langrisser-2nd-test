@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "evidenceClass": "B",
+  "responsibility": "Exclusive Equipment identity/population",
+  "claim": "The listed EquipmentIDs are the Exclusive Equipment identity/population admitted by this project for the pinned source scope.",
+  "scope": {
+    "entity": "Equipment",
+    "population": "EXCLUSIVE_EQUIPMENT",
+    "identityKey": "EquipmentID",
+    "selectionRule": {
+      "sourceField": "ConfigDataEquipmentInfo.GetPathList",
+      "predicate": "GetPathList has exactly one entry AND GetPathList[0].PathType equals 46",
+      "sourceFact": "The pinned ConfigData records contain exactly one acquisition path entry with PathType 46 for each admitted EquipmentID.",
+      "mapping": "Copy the source-native ConfigDataEquipmentInfo.ID value unchanged to EquipmentID."
+    }
+  },
+  "provenance": {
+    "source": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/configdata/ConfigDataEquipmentInfo.json",
+      "gitBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+      "recordCount": 548,
+      "identityField": "ID",
+      "locatorPattern": "data/configdata/ConfigDataEquipmentInfo.json#ID={EquipmentID}",
+      "selectionPredicate": "GetPathList.length == 1 && GetPathList[0].PathType == 46"
+    },
+    "semanticDecision": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/contracts/equipment-stage2-7-acquisition-reference.v1.json",
+      "gitBlobSha1": "7f02a862a72cd57819827c24c60f740f36c45573",
+      "classification": "exclusive-equipment",
+      "confidencePercent": 99,
+      "basis": "The PathType 46-only population aligns with the separate exclusive-equipment population; sentinel rows beginning with IDs 273-277 match the opening rows of the legacy 전용장비 sheet.",
+      "sentinelReference": "https://docs.google.com/spreadsheets/d/1RZFY2N3RU-vctduO_Tg2e4RVoZvJAAveiMgPnW6VTQg/edit"
+    },
+    "claimEvidence": {
+      "path": "evidence/exclusive-equipment-identity.v1.json",
+      "claimAProjection": "claims.claimA.records",
+      "claimBProjection": "claims.claimB.records"
+    }
+  },
+  "limitations": [
+    "The source-native enum documentation for PathType 46 was not confirmed.",
+    "Claim B is a ConfigData-derived predecessor classification output and is traceable, but not fully independent of Claim A.",
+    "Project source parity remains a supporting cross-check, not population authority."
+  ],
+  "records": [
+    {
+      "equipmentId": 273
+    },
+    {
+      "equipmentId": 274
+    },
+    {
+      "equipmentId": 275
+    },
+    {
+      "equipmentId": 276
+    },
+    {
+      "equipmentId": 277
+    },
+    {
+      "equipmentId": 278
+    },
+    {
+      "equipmentId": 279
+    },
+    {
+      "equipmentId": 280
+    },
+    {
+      "equipmentId": 281
+    },
+    {
+      "equipmentId": 286
+    },
+    {
+      "equipmentId": 287
+    },
+    {
+      "equipmentId": 292
+    },
+    {
+      "equipmentId": 293
+    },
+    {
+      "equipmentId": 294
+    },
+    {
+      "equipmentId": 295
+    },
+    {
+      "equipmentId": 296
+    },
+    {
+      "equipmentId": 297
+    },
+    {
+      "equipmentId": 298
+    },
+    {
+      "equipmentId": 403
+    },
+    {
+      "equipmentId": 404
+    },
+    {
+      "equipmentId": 405
+    },
+    {
+      "equipmentId": 406
+    },
+    {
+      "equipmentId": 411
+    },
+    {
+      "equipmentId": 412
+    },
+    {
+      "equipmentId": 413
+    },
+    {
+      "equipmentId": 414
+    },
+    {
+      "equipmentId": 415
+    },
+    {
+      "equipmentId": 416
+    },
+    {
+      "equipmentId": 417
+    },
+    {
+      "equipmentId": 418
+    },
+    {
+      "equipmentId": 423
+    },
+    {
+      "equipmentId": 424
+    },
+    {
+      "equipmentId": 425
+    },
+    {
+      "equipmentId": 426
+    },
+    {
+      "equipmentId": 427
+    },
+    {
+      "equipmentId": 428
+    },
+    {
+      "equipmentId": 429
+    },
+    {
+      "equipmentId": 434
+    },
+    {
+      "equipmentId": 435
+    },
+    {
+      "equipmentId": 436
+    },
+    {
+      "equipmentId": 437
+    },
+    {
+      "equipmentId": 438
+    },
+    {
+      "equipmentId": 439
+    },
+    {
+      "equipmentId": 440
+    },
+    {
+      "equipmentId": 441
+    },
+    {
+      "equipmentId": 446
+    },
+    {
+      "equipmentId": 447
+    },
+    {
+      "equipmentId": 448
+    },
+    {
+      "equipmentId": 449
+    },
+    {
+      "equipmentId": 450
+    },
+    {
+      "equipmentId": 451
+    },
+    {
+      "equipmentId": 452
+    },
+    {
+      "equipmentId": 453
+    },
+    {
+      "equipmentId": 454
+    },
+    {
+      "equipmentId": 455
+    },
+    {
+      "equipmentId": 460
+    },
+    {
+      "equipmentId": 461
+    },
+    {
+      "equipmentId": 462
+    },
+    {
+      "equipmentId": 463
+    },
+    {
+      "equipmentId": 464
+    },
+    {
+      "equipmentId": 465
+    },
+    {
+      "equipmentId": 466
+    },
+    {
+      "equipmentId": 467
+    },
+    {
+      "equipmentId": 472
+    },
+    {
+      "equipmentId": 473
+    },
+    {
+      "equipmentId": 474
+    },
+    {
+      "equipmentId": 475
+    },
+    {
+      "equipmentId": 476
+    },
+    {
+      "equipmentId": 477
+    },
+    {
+      "equipmentId": 478
+    },
+    {
+      "equipmentId": 479
+    },
+    {
+      "equipmentId": 484
+    },
+    {
+      "equipmentId": 485
+    },
+    {
+      "equipmentId": 486
+    },
+    {
+      "equipmentId": 487
+    },
+    {
+      "equipmentId": 488
+    },
+    {
+      "equipmentId": 489
+    },
+    {
+      "equipmentId": 490
+    },
+    {
+      "equipmentId": 495
+    },
+    {
+      "equipmentId": 496
+    },
+    {
+      "equipmentId": 497
+    },
+    {
+      "equipmentId": 498
+    },
+    {
+      "equipmentId": 499
+    },
+    {
+      "equipmentId": 500
+    },
+    {
+      "equipmentId": 501
+    },
+    {
+      "equipmentId": 502
+    },
+    {
+      "equipmentId": 507
+    },
+    {
+      "equipmentId": 508
+    },
+    {
+      "equipmentId": 509
+    },
+    {
+      "equipmentId": 510
+    },
+    {
+      "equipmentId": 511
+    },
+    {
+      "equipmentId": 512
+    },
+    {
+      "equipmentId": 513
+    },
+    {
+      "equipmentId": 514
+    },
+    {
+      "equipmentId": 519
+    },
+    {
+      "equipmentId": 520
+    },
+    {
+      "equipmentId": 521
+    },
+    {
+      "equipmentId": 522
+    },
+    {
+      "equipmentId": 523
+    },
+    {
+      "equipmentId": 524
+    },
+    {
+      "equipmentId": 525
+    },
+    {
+      "equipmentId": 526
+    },
+    {
+      "equipmentId": 531
+    },
+    {
+      "equipmentId": 532
+    },
+    {
+      "equipmentId": 533
+    },
+    {
+      "equipmentId": 534
+    },
+    {
+      "equipmentId": 535
+    },
+    {
+      "equipmentId": 536
+    },
+    {
+      "equipmentId": 537
+    },
+    {
+      "equipmentId": 538
+    },
+    {
+      "equipmentId": 539
+    },
+    {
+      "equipmentId": 540
+    },
+    {
+      "equipmentId": 545
+    },
+    {
+      "equipmentId": 546
+    },
+    {
+      "equipmentId": 547
+    },
+    {
+      "equipmentId": 548
+    },
+    {
+      "equipmentId": 549
+    },
+    {
+      "equipmentId": 550
+    },
+    {
+      "equipmentId": 551
+    },
+    {
+      "equipmentId": 552
+    },
+    {
+      "equipmentId": 557
+    },
+    {
+      "equipmentId": 558
+    },
+    {
+      "equipmentId": 559
+    },
+    {
+      "equipmentId": 560
+    },
+    {
+      "equipmentId": 561
+    },
+    {
+      "equipmentId": 562
+    },
+    {
+      "equipmentId": 567
+    },
+    {
+      "equipmentId": 568
+    },
+    {
+      "equipmentId": 569
+    },
+    {
+      "equipmentId": 570
+    },
+    {
+      "equipmentId": 571
+    },
+    {
+      "equipmentId": 572
+    },
+    {
+      "equipmentId": 573
+    },
+    {
+      "equipmentId": 578
+    },
+    {
+      "equipmentId": 579
+    },
+    {
+      "equipmentId": 580
+    },
+    {
+      "equipmentId": 581
+    },
+    {
+      "equipmentId": 582
+    },
+    {
+      "equipmentId": 587
+    },
+    {
+      "equipmentId": 588
+    },
+    {
+      "equipmentId": 589
+    },
+    {
+      "equipmentId": 590
+    },
+    {
+      "equipmentId": 595
+    },
+    {
+      "equipmentId": 596
+    },
+    {
+      "equipmentId": 597
+    },
+    {
+      "equipmentId": 598
+    },
+    {
+      "equipmentId": 603
+    },
+    {
+      "equipmentId": 604
+    },
+    {
+      "equipmentId": 605
+    },
+    {
+      "equipmentId": 606
+    },
+    {
+      "equipmentId": 611
+    },
+    {
+      "equipmentId": 612
+    },
+    {
+      "equipmentId": 613
+    },
+    {
+      "equipmentId": 614
+    },
+    {
+      "equipmentId": 619
+    },
+    {
+      "equipmentId": 620
+    },
+    {
+      "equipmentId": 621
+    },
+    {
+      "equipmentId": 622
+    },
+    {
+      "equipmentId": 627
+    },
+    {
+      "equipmentId": 628
+    },
+    {
+      "equipmentId": 629
+    },
+    {
+      "equipmentId": 634
+    },
+    {
+      "equipmentId": 635
+    },
+    {
+      "equipmentId": 636
+    },
+    {
+      "equipmentId": 637
+    },
+    {
+      "equipmentId": 638
+    },
+    {
+      "equipmentId": 643
+    }
+  ]
+}

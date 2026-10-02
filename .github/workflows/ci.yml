@@ -107,3 +107,9 @@ jobs:
 
       - name: Test General SSR Equipment Korean localization
         run: node tools/test-general-ssr-equipment-ko-localization.mjs
+
+      - name: Validate Exclusive Equipment identity
+        run: node tools/validate-exclusive-equipment-identity.mjs
+
+      - name: Test Exclusive Equipment identity negatives
+        run: node tools/test-exclusive-equipment-identity.mjs
