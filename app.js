@@ -90,23 +90,34 @@ function addSpSoldier(soldier) {
   const normal = document.createElement('p');
   normal.className = 'normal-soldier-id';
   normal.textContent = `일반 용병 ID ${soldier.normalSoldierId} · ${soldier.normalSoldierNameKo}`;
-  const stats = document.createElement('dl');
-  stats.className = 'sp-soldier-stats';
-  for (const [label, value] of [
-    ['HP', soldier.baseStats.hp],
-    ['공격력', soldier.baseStats.attack],
-    ['방어력', soldier.baseStats.defense],
-    ['마방', soldier.baseStats.magicDefense],
-  ]) {
-    const pair = document.createElement('div');
-    const term = document.createElement('dt');
-    term.textContent = label;
-    const description = document.createElement('dd');
-    description.textContent = String(value);
-    pair.append(term, description);
-    stats.append(pair);
-  }
-  article.append(heading, normal, stats);
+  const makeStats = (labelText, values, className) => {
+    const group = document.createElement('div');
+    group.className = `soldier-stat-group ${className}`;
+    const label = document.createElement('p');
+    label.className = 'soldier-stat-label';
+    label.textContent = labelText;
+    const stats = document.createElement('dl');
+    stats.className = 'sp-soldier-stats';
+    for (const [name, value] of [
+      ['HP', values.hp],
+      ['공격력', values.attack],
+      ['방어력', values.defense],
+      ['마방', values.magicDefense],
+    ]) {
+      const pair = document.createElement('div');
+      const term = document.createElement('dt');
+      term.textContent = name;
+      const description = document.createElement('dd');
+      description.textContent = String(value);
+      pair.append(term, description);
+      stats.append(pair);
+    }
+    group.append(label, stats);
+    return group;
+  };
+  const spStats = makeStats('SP 기본 능력치', soldier.baseStats, 'sp-stat-group');
+  const normalStats = makeStats('일반 기본 능력치', soldier.normalSoldierBaseStats, 'normal-stat-group');
+  article.append(heading, normal, spStats, normalStats);
   spSoldierContainer.append(article);
 }
 
