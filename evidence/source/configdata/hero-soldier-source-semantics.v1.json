@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "Hero-Soldier direct-source interpretation",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "supportedClaim": "Source/provenance semantics for the currently admitted canonical Hero-Soldier relations.",
+  "claimScope": "Defines only how retained ConfigData evidence supports the current Hero-Soldier canonical claims. It is not a source-population inventory, future completeness rule, or admission authority.",
+  "edgeSourceKinds": {
+    "BASE_SOLDIER_HERO": {
+      "class": "DIRECT",
+      "sourceArtifactPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json",
+      "table": "ConfigDataSoldierInfo",
+      "recordKeyField": "ID",
+      "recordIdentity": "Soldier",
+      "field": "GetSoldierHeros_ID",
+      "valueShape": "list of Hero IDs",
+      "nativeDirection": "soldierId -> heroId",
+      "interpretation": "Each explicitly listed Hero ID supports a Hero-Soldier relation to that NORMAL Soldier.",
+      "scope": "NORMAL Soldier source records only.",
+      "mayParentInheritance": true
+    },
+    "SP_HERO_REWARD": {
+      "class": "DIRECT",
+      "sourceArtifactPath": "evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json",
+      "table": "ConfigDataSPHeroInfo",
+      "recordKeyField": "ID",
+      "recordIdentity": "Hero",
+      "field": "SecondStageRewardSoldiers",
+      "valueShape": "list of Soldier IDs",
+      "nativeDirection": "heroId -> soldierId",
+      "interpretation": "Each explicitly listed Soldier ID supports a Hero-Soldier relation for that Hero.",
+      "scope": "Current claim-scoped SP Hero reward source rows only.",
+      "mayParentInheritance": true
+    },
+    "SP_SOLDIER_EXPAND": {
+      "class": "DIRECT",
+      "sourceArtifactPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json",
+      "table": "ConfigDataSPSoldierInfo",
+      "recordKeyField": "ID",
+      "recordIdentity": "SP Soldier",
+      "field": "SecondStageExpandHeroList",
+      "valueShape": "list of Hero IDs",
+      "nativeDirection": "soldierId -> heroId",
+      "interpretation": "Each explicitly listed Hero ID is an additive Hero-Soldier relation for that SP Soldier.",
+      "scope": "SP Soldier source records only.",
+      "fullUsableHeroList": false,
+      "inheritToOtherForm": false
+    },
+    "SP_SOLDIER_INHERIT": {
+      "class": "DERIVED",
+      "nativeDirection": "eligible NORMAL Hero-Soldier relation -> explicitly linked SP Soldier relation",
+      "interpretation": "An SP Soldier inherits an eligible Hero-Soldier relation from its explicit NORMAL parent.",
+      "allowedParentKinds": [
+        "BASE_SOLDIER_HERO",
+        "SP_HERO_REWARD"
+      ],
+      "requiresSupportRelation": "SP_FORM_LINK",
+      "provenanceRule": "The derived edge preserves the parent source kind and original source-record provenance and adds the explicit SP_FORM_LINK support relation."
+    }
+  },
+  "supportRelationKinds": {
+    "SP_FORM_LINK": {
+      "class": "SUPPORT_ONLY",
+      "sourceArtifactPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json",
+      "table": "ConfigDataSPSoldierInfo",
+      "normalField": "NormalSoliderId",
+      "spField": "ID",
+      "direction": "normalSoldierId <-> spSoldierId",
+      "interpretation": "Explicit NORMAL-to-SP Soldier form link used only to authorize SP inheritance.",
+      "createsHeroSoldierEdge": false,
+      "inferenceForbidden": true
+    }
+  },
+  "compositionRules": {
+    "directSourceKinds": [
+      "BASE_SOLDIER_HERO",
+      "SP_HERO_REWARD",
+      "SP_SOLDIER_EXPAND"
+    ],
+    "derivedSourceKinds": [
+      "SP_SOLDIER_INHERIT"
+    ],
+    "duplicatePairBehavior": "MERGE_PROVENANCE",
+    "multipleIndependentProvenanceAllowed": true,
+    "spExpandIsAdditiveNotFullList": true,
+    "spFormLinkAloneCreatesNoEdge": true,
+    "prohibitedInference": [
+      "name matching",
+      "numeric ID offsets",
+      "tier",
+      "army type",
+      "ordering",
+      "other inferred patterns"
+    ]
+  },
+  "limitations": [
+    "Only the listed source kinds and support relation are interpreted for the current admitted claims.",
+    "No unlisted ConfigData field, inferred pattern, or endpoint expansion creates a new canonical relation.",
+    "This artifact does not define future relation completeness or admission."
+  ]
+}

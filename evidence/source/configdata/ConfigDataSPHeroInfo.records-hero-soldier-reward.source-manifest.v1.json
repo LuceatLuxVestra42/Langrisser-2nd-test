@@ -55,7 +55,7 @@
     "heroIdField": "ID",
     "soldierIdsField": "SecondStageRewardSoldiers",
     "locatorFormat": "evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json#ID=<HeroID>/SecondStageRewardSoldiers",
-    "semanticInterpretationContract": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json"
+    "semanticInterpretationContract": "evidence/source/configdata/hero-soldier-source-semantics.v1.json"
   },
   "knownLimitations": [
     "Selected IDs are scoped to current admitted SP_HERO_REWARD provenance; this artifact is not a complete inventory of all SecondStageRewardSoldiers values in the pinned source.",

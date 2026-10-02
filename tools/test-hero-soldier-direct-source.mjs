@@ -10,6 +10,7 @@ const repo = join(temp, 'repo');
 await cp(source, repo, { recursive: true, filter: (path) => !path.split('/').includes('.git') });
 
 const directManifestPath = 'evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json';
+const semanticsPath = 'evidence/source/configdata/hero-soldier-source-semantics.v1.json';
 const rewardPath = 'evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json';
 const rewardManifestPath = 'evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.source-manifest.v1.json';
 const soldierPath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json';
@@ -173,6 +174,11 @@ try {
     row.NormalSoliderId = inheritProvenance.supportRelation.normalSoldierId + 999999;
   });
   restores.push(restore); expectFailure(primaryValidator, 'NormalSoliderId support mutation'); await restore(); restores.pop();
+
+  restore = await editJson(semanticsPath, (semantics) => {
+    semantics.edgeSourceKinds.SP_SOLDIER_INHERIT.allowedParentKinds = ['BASE_SOLDIER_HERO'];
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'source-semantics inheritance eligibility mutation'); await restore(); restores.pop();
 
   expectFailure(primaryValidator, 'validator argument misuse', 'sync', '--apply');
 
