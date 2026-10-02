@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { validateGeneralSsrEquipmentIdentity } from './validate-general-ssr-equipment-identity.mjs';
+const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const [canonical,evidence]=await Promise.all([read('canonical/general-ssr-equipment.v1.json'),read('evidence/source/equipment/general-ssr-equipment-population.v1.json')]);
+const args={canonical,evidence};
+assert.equal(validateGeneralSsrEquipmentIdentity(args).recordCount,206);
+const fail=(change,pattern)=>{const x=structuredClone(args);change(x);assert.throws(()=>validateGeneralSsrEquipmentIdentity(x),pattern);};
+fail(x=>x.canonical.records.pop(),/canonical ID set mismatch/);
+fail(x=>x.canonical.records.push({...x.canonical.records[0],id:999999}),/canonical ID set mismatch|duplicate canonical ID/);
+fail(x=>x.canonical.records[1].id=x.canonical.records[0].id,/duplicate canonical ID/);
+fail(x=>x.evidence.records.pop(),/evidence ID set mismatch/);
+fail(x=>x.evidence.records[0].equipmentId=999999,/evidence ID set mismatch/);
+fail(x=>x.evidence.records[0].acquisitionClass='exclusive-equipment',/unexpected acquisition class/);
+fail(x=>x.evidence.provenance.pinnedPredecessorCommit='0'.repeat(40),/predecessor commit mismatch/);
+fail(x=>x.canonical.records[0].aliasOf=1,/unsupported canonical field/);
+fail(x=>x.canonical.records[0].releaseStatus='released',/unsupported canonical field/);
+process.stdout.write('General SSR Equipment identity negatives: PASS (missing/extra/duplicate IDs, class/anchor tamper, alias/release leakage)\\n');
