@@ -7,7 +7,7 @@ const args={canonical,evidence};
 assert.equal(validateGeneralSsrEquipmentIdentity(args).recordCount,206);
 const fail=(change,pattern)=>{const x=structuredClone(args);change(x);assert.throws(()=>validateGeneralSsrEquipmentIdentity(x),pattern);};
 fail(x=>x.canonical.records.pop(),/canonical ID set mismatch/);
-fail(x=>x.canonical.records.push({...x.canonical.records[0],id:999999}),/canonical ID set mismatch|duplicate canonical ID/);
+fail(x=>x.canonical.records.push({...x.canonical.records[0],id:999999}),/canonical provenance mismatch|canonical ID set mismatch|duplicate canonical ID/);
 fail(x=>x.canonical.records[1].id=x.canonical.records[0].id,/duplicate canonical ID/);
 fail(x=>x.evidence.records.pop(),/evidence ID set mismatch/);
 fail(x=>x.evidence.records[0].equipmentId=999999,/evidence ID set mismatch/);
