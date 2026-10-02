@@ -28,6 +28,9 @@ jobs:
       - name: Test Hero and Job relations
         run: node tools/test-job-validation.mjs
 
+      - name: Validate Job localization
+        run: node tools/validate-job-localization.mjs
+
       - name: Test Job localization
         run: node tools/test-job-localization-validation.mjs
 
