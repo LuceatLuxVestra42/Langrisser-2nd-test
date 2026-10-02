@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sourceRole": "hero_soldier_direct_source_provenance",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "canonicalTarget": "canonical/hero-soldier-relations.v1.json",
+  "claimScope": "Current admitted Hero-Soldier relation claims only; this manifest resolves provenance to retained direct source evidence and does not define future relation completeness or admission.",
+  "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SoldierID>",
+  "locatorSemantics": "The fragment identifies one current canonical Hero-Soldier claim. Its support is resolved by applying the retained source-kind semantics to the listed pinned ConfigData artifacts; this manifest contains no relation rows and is not a relation population authority.",
+  "sourceSemanticsContract": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json",
+  "sources": {
+    "BASE_SOLDIER_HERO": {
+      "artifactPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json",
+      "artifactGitBlobSha1": "bcfcd84df8647646aa42ab95793b0bae58cb0edd",
+      "manifestPath": "evidence/source/configdata/sp-soldier-population.source-manifest.v1.json",
+      "originalSourcePath": "data/configdata/ConfigDataSoldierInfo.json",
+      "originalSourceGitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+      "sourceTable": "ConfigDataSoldierInfo",
+      "sourceField": "GetSoldierHeros_ID"
+    },
+    "SP_HERO_REWARD": {
+      "artifactPath": "evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json",
+      "artifactGitBlobSha1": "faec10b937b8bd8678415df83ccacdba10848778",
+      "manifestPath": "evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.source-manifest.v1.json",
+      "originalSourcePath": "data/configdata/ConfigDataSPHeroInfo.json",
+      "originalSourceGitBlobSha1": "c3dc00ad0e1454481715ade378f56104febed9a3",
+      "sourceTable": "ConfigDataSPHeroInfo",
+      "sourceField": "SecondStageRewardSoldiers"
+    },
+    "SP_SOLDIER_EXPAND": {
+      "artifactPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json",
+      "artifactGitBlobSha1": "f1d5ba516c38f20d71a07e9f26e565c1ff8e04dd",
+      "manifestPath": "evidence/source/configdata/sp-soldier-population.source-manifest.v1.json",
+      "originalSourcePath": "data/configdata/ConfigDataSPSoldierInfo.json",
+      "originalSourceGitBlobSha1": "93dd784a7de913daa6d72f5df6cf6890a710c58a",
+      "sourceTable": "ConfigDataSPSoldierInfo",
+      "sourceField": "SecondStageExpandHeroList"
+    },
+    "SP_SOLDIER_INHERIT": {
+      "artifactPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json",
+      "artifactGitBlobSha1": "f1d5ba516c38f20d71a07e9f26e565c1ff8e04dd",
+      "manifestPath": "evidence/source/configdata/sp-soldier-population.source-manifest.v1.json",
+      "originalSourcePath": "data/configdata/ConfigDataSPSoldierInfo.json",
+      "originalSourceGitBlobSha1": "93dd784a7de913daa6d72f5df6cf6890a710c58a",
+      "sourceTable": "ConfigDataSPSoldierInfo",
+      "supportField": "NormalSoliderId",
+      "spIdField": "ID"
+    }
+  },
+  "currentRegression": {
+    "relationCount": 379,
+    "provenanceCount": 380,
+    "sourceKindCounts": {
+      "BASE_SOLDIER_HERO": 170,
+      "SP_HERO_REWARD": 5,
+      "SP_SOLDIER_EXPAND": 30,
+      "SP_SOLDIER_INHERIT": 175
+    },
+    "multiProvenanceEdges": [
+      {
+        "heroId": 37,
+        "soldierId": 5423,
+        "provenanceCount": 2
+      }
+    ]
+  },
+  "knownLimitations": [
+    "This manifest is scoped to the currently admitted canonical claims and must not be used as a future completeness or admission engine.",
+    "Source-kind interpretation remains defined by the retained Legacy source-semantics contract until E3.",
+    "The current regression counts are validation targets for the admitted canonical state, not source population claims."
+  ]
+}
