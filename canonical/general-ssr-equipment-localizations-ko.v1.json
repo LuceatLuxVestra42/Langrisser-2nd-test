@@ -1,0 +1,1450 @@
+{
+  "schemaVersion": 1,
+  "purpose": "General SSR Equipment Korean display names and Korean localized effect descriptions only; not identity/population, Korean release state, alias/replacement meaning, Hero relation, or structured gameplay semantic authority.",
+  "sourceScope": "Exact EquipmentID match against the already-admitted 206 General SSR Equipment identities. Effect descriptions remain localized semantic description strings and are not parsed into conditions, values, triggers, modifiers, or runtime behavior.",
+  "officialKrProvenanceStatus": "unverified",
+  "records": [
+    {
+      "equipmentId": 6,
+      "nameKo": "쏙독새",
+      "effectDescriptionKo": "공격 +10%, 마방 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=6"
+    },
+    {
+      "equipmentId": 7,
+      "nameKo": "사라빌",
+      "effectDescriptionKo": "치명타율 +10%\\n공격하여 전투 진입하여 치명타 발동 후, 전투 후 적에게 고정피해를 입힘. 피해량은 영웅 공격의 1배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=7"
+    },
+    {
+      "equipmentId": 8,
+      "nameKo": "바람베기",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 시, 전투 후 50% 확률로 적에게 '방어 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=8"
+    },
+    {
+      "equipmentId": 13,
+      "nameKo": "서리검",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 시, 전투 후 50% 확률로 적에게 이동력 -2칸, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=13"
+    },
+    {
+      "equipmentId": 14,
+      "nameKo": "용살검 그람",
+      "effectDescriptionKo": "공격 생명 +8%\\n'드래곤'과 전투 시 추가로 공격, 방어, 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=14"
+    },
+    {
+      "equipmentId": 15,
+      "nameKo": "흡혈검 흐룬팅",
+      "effectDescriptionKo": "공격 +5%\\n공격하여 피해를 준 후, 50% 확률로 추가로 적에게 고정피해를 입힘. 피해량은 영웅 공격의 1배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=15"
+    },
+    {
+      "equipmentId": 22,
+      "nameKo": "악마의 키스",
+      "effectDescriptionKo": "공격 생명 +5%\\n공격하여 전투 진입 시, 전투 후 적에게 고정피해를 입힘. 피해량은 영웅 공격의 1배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=22"
+    },
+    {
+      "equipmentId": 23,
+      "nameKo": "왕의 수호자",
+      "effectDescriptionKo": "공격 +10%, 생명 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=23"
+    },
+    {
+      "equipmentId": 24,
+      "nameKo": "라그나로크",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 100% 확률로 적에게 고정피해를 입힘. 피해량은 영웅 공격의 1배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=24"
+    },
+    {
+      "equipmentId": 30,
+      "nameKo": "정의의 선서",
+      "effectDescriptionKo": "방어 마방 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=30"
+    },
+    {
+      "equipmentId": 31,
+      "nameKo": "묠니르",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 100% 확률로 적의 버프를 1개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=31"
+    },
+    {
+      "equipmentId": 32,
+      "nameKo": "행성 파괴자",
+      "effectDescriptionKo": "공격 +10%, 방어 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=32"
+    },
+    {
+      "equipmentId": 38,
+      "nameKo": "최후의 기사",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 50% 확률로 적에게 '공격, 지력 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=38"
+    },
+    {
+      "equipmentId": 39,
+      "nameKo": "저주의 창",
+      "effectDescriptionKo": "공격하여 전투 진입 시 방어 마방 +15%\\n전투 후 50% 확률로 적에게 '침묵' 및 '치료 방해' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=39"
+    },
+    {
+      "equipmentId": 40,
+      "nameKo": "푸른 혹성",
+      "effectDescriptionKo": "전투 진입 전, 이동거리 1칸마다 공격, 방어, 마방 +5%(최대 +15%)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=40"
+    },
+    {
+      "equipmentId": 46,
+      "nameKo": "기생수",
+      "effectDescriptionKo": "치료 효과 +15%\\n공격하여 전투 진입 시, 전투 후 적에게 '주는 피해 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=46"
+    },
+    {
+      "equipmentId": 47,
+      "nameKo": "아스타로트",
+      "effectDescriptionKo": "디버프를 가진 적과 전투 진입 시 지력 +15%\\n공격하여 전투 진입 시, 전투 후 30% 확률로 적에게 '기절' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=47"
+    },
+    {
+      "equipmentId": 48,
+      "nameKo": "기적의 지팡이",
+      "effectDescriptionKo": "광역 스킬 피해 +15%\\n공격하여 피해를 줄 경우, 30% 확률로 적에게 디버프를 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=48"
+    },
+    {
+      "equipmentId": 52,
+      "nameKo": "우르의 활",
+      "effectDescriptionKo": "물리 피해량 -10%\\n부대의 일반 공격 사거리 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=52"
+    },
+    {
+      "equipmentId": 53,
+      "nameKo": "히드라의 활",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 50% 확률로 적에게 '주는 피해 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=53"
+    },
+    {
+      "equipmentId": 59,
+      "nameKo": "아이니아스의 갑옷",
+      "effectDescriptionKo": "방어 +10%\\n받는 치료 효과 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=59"
+    },
+    {
+      "equipmentId": 60,
+      "nameKo": "대지의 갑옷",
+      "effectDescriptionKo": "공격을 받아 전투 진입 시 방어 +15%\\n부대 생명이 80% 이상일 시, 받는 마법 피해 -10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=60"
+    },
+    {
+      "equipmentId": 66,
+      "nameKo": "노을 갑옷",
+      "effectDescriptionKo": "방어 마방 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=66"
+    },
+    {
+      "equipmentId": 67,
+      "nameKo": "돌격 갑옷",
+      "effectDescriptionKo": "생명 +5%\\n공격하여 전투 진입 시 방어 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=67"
+    },
+    {
+      "equipmentId": 73,
+      "nameKo": "천녀의 날개옷",
+      "effectDescriptionKo": "생명 +10%\\n공격을 받아 전투 진입 전, 30% 확률로 적의 버프 1개 제거 및 무작위 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=73"
+    },
+    {
+      "equipmentId": 74,
+      "nameKo": "어둠의 법의",
+      "effectDescriptionKo": "생명 +5%\\n원거리 공격을 받을 시 방어 마방 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=74"
+    },
+    {
+      "equipmentId": 80,
+      "nameKo": "아이니아스의 투구",
+      "effectDescriptionKo": "생명 +10%, 방어 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=80"
+    },
+    {
+      "equipmentId": 81,
+      "nameKo": "대지의 투구",
+      "effectDescriptionKo": "공격을 받을 시 마방 +15%\\n부대 생명이 80% 이상일 시 받는 물리 피해량 -10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=81"
+    },
+    {
+      "equipmentId": 87,
+      "nameKo": "노을 투구",
+      "effectDescriptionKo": "방어 마방 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=87"
+    },
+    {
+      "equipmentId": 88,
+      "nameKo": "돌격 투구",
+      "effectDescriptionKo": "생명 +5%\\n공격하여 전투 진입 시 방어 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=88"
+    },
+    {
+      "equipmentId": 94,
+      "nameKo": "천녀의 티아라",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 100% 확률로 자신 주위 2칸 내 아군 1부대에게 무작위 버프를 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=94"
+    },
+    {
+      "equipmentId": 95,
+      "nameKo": "어둠의 법모",
+      "effectDescriptionKo": "마방 +10%, 생명 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=95"
+    },
+    {
+      "equipmentId": 99,
+      "nameKo": "날개 각반",
+      "effectDescriptionKo": "공격 +8%\\n공격 받을 시 방어 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=99"
+    },
+    {
+      "equipmentId": 100,
+      "nameKo": "신속 부츠",
+      "effectDescriptionKo": "방어 +8%, 이동력 +1\\n'기병, 비병' 착용 불가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=100"
+    },
+    {
+      "equipmentId": 106,
+      "nameKo": "정령석 반지",
+      "effectDescriptionKo": "공격하여 전투 진입 시 공격 방어 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=106"
+    },
+    {
+      "equipmentId": 107,
+      "nameKo": "신성한 반지",
+      "effectDescriptionKo": "지력 +8%\\n면역: '침묵'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=107"
+    },
+    {
+      "equipmentId": 108,
+      "nameKo": "드라우프니르",
+      "effectDescriptionKo": "지력 +8%\\n원거리 공격을 받을 시, 이번 전투에서 받는 피해의 30%를 반사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=108"
+    },
+    {
+      "equipmentId": 114,
+      "nameKo": "용살자 훈장",
+      "effectDescriptionKo": "공격 +8%\\n비병과 전투 시 추가로 공격 +12%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=114"
+    },
+    {
+      "equipmentId": 115,
+      "nameKo": "여신의 눈물",
+      "effectDescriptionKo": "치료 효과 +15%\\n행동 종료 시, 주위 2칸 내 다른 아군 3명의 디버프 1개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=115"
+    },
+    {
+      "equipmentId": 116,
+      "nameKo": "차원보옥",
+      "effectDescriptionKo": "지력 +8%\\n액티브 스킬을 사용해 피해를 줄 경우, 30% 확률로 해당 스킬의 쿨타임 -1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=116"
+    },
+    {
+      "equipmentId": 120,
+      "nameKo": "빛의 면사포",
+      "effectDescriptionKo": "마방 +8%\\n면역: '방어, 마방 감소'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=120"
+    },
+    {
+      "equipmentId": 121,
+      "nameKo": "별 귀걸이",
+      "effectDescriptionKo": "지력 +8%\\n암살자, 궁병과 전투 시 방어 +30%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=121"
+    },
+    {
+      "equipmentId": 122,
+      "nameKo": "패자의 휘장",
+      "effectDescriptionKo": "모든 스탯 +5%\\n면역: '방어, 마방 감소', '공격, 지력 감소', '이동력 감소'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=122"
+    },
+    {
+      "equipmentId": 126,
+      "nameKo": "성골",
+      "effectDescriptionKo": "생명 +8%\\n근접 공격을 받을 시, 이번 전투에서 받는 피해의 30%를 반사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=126"
+    },
+    {
+      "equipmentId": 127,
+      "nameKo": "진십자가",
+      "effectDescriptionKo": "치료 효과 +15%\\n마족, 마법사와 전투 시 지력 마방 방어 +20%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=127"
+    },
+    {
+      "equipmentId": 128,
+      "nameKo": "성배",
+      "effectDescriptionKo": "지력 +5%\\n피해를 입히고 행동 종료 시 주위 1칸 내 다른 아군의 생명 15% 회복",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=128"
+    },
+    {
+      "equipmentId": 132,
+      "nameKo": "성왕호부",
+      "effectDescriptionKo": "주위 2칸 내 아군이 있을 경우 전투 중 방어, 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=132"
+    },
+    {
+      "equipmentId": 133,
+      "nameKo": "천사의 깃털",
+      "effectDescriptionKo": "생명 +10%, 치료 효과 +10%\\n면역: '기절'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=133"
+    },
+    {
+      "equipmentId": 134,
+      "nameKo": "피의 맹약",
+      "effectDescriptionKo": "생명 +15%\\n면역: '치료 불가', '버프 불가'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=134"
+    },
+    {
+      "equipmentId": 137,
+      "nameKo": "요정의 탄식",
+      "effectDescriptionKo": "공격하여 전투 진입 시, 치명타율 +15%, 받는 피해 -30%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=137"
+    },
+    {
+      "equipmentId": 140,
+      "nameKo": "봉인의 수호자",
+      "effectDescriptionKo": "공격 +10%, 방어 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=140"
+    },
+    {
+      "equipmentId": 144,
+      "nameKo": "분쟁 조정자",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 50% 확률로 적에게 '패시브 스킬 무효' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=144"
+    },
+    {
+      "equipmentId": 147,
+      "nameKo": "영생자의 선물",
+      "effectDescriptionKo": "지력 +5%\\n공격하여 전투 진입 시, 전투 후 생명이 가장 적은 아군 부대의 생명을 회복\\n회복량은 사용자 지력의 3배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=147"
+    },
+    {
+      "equipmentId": 150,
+      "nameKo": "세계수의 가지",
+      "effectDescriptionKo": "방어 +10%\\n전투 시 적의 방어 15% 무시",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=150"
+    },
+    {
+      "equipmentId": 153,
+      "nameKo": "여신의 왼손",
+      "effectDescriptionKo": "치료 효과 +15%\\n공격하여 전투 진입 시, 전투 후 100% 확률로 적에게 '이동력 -2' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=153"
+    },
+    {
+      "equipmentId": 157,
+      "nameKo": "피의 삼현금",
+      "effectDescriptionKo": "공격 +10%, 방어 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=157"
+    },
+    {
+      "equipmentId": 158,
+      "nameKo": "극한마궁",
+      "effectDescriptionKo": "공격 +10%\\n근접 피해 감면 효과 무시",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=158"
+    },
+    {
+      "equipmentId": 163,
+      "nameKo": "피무늬 마갑",
+      "effectDescriptionKo": "생명 방어 +5%\\n근접 공격을 받을 시, 30% 확률로 이번 전투에서 부대가 받는 피해 -30%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=163"
+    },
+    {
+      "equipmentId": 164,
+      "nameKo": "풍왕의 갑옷",
+      "effectDescriptionKo": "생명 방어 +5%\\n원거리 공격을 받을 시, 30% 확률로 이번 전투에서 부대가 받는 피해 -30%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=164"
+    },
+    {
+      "equipmentId": 165,
+      "nameKo": "거울 갑옷",
+      "effectDescriptionKo": "생명 방어 +5%\\n근접 공격을 받을 시, 전투 진입 전 적에게 고정피해를 입힘. 피해량은 영웅 방어의 1.5배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=165"
+    },
+    {
+      "equipmentId": 166,
+      "nameKo": "태초의 갑옷",
+      "effectDescriptionKo": "부대 생명이 50% 이상일 시 방어 마방 +8%\\n부대 생명이 50% 이하일 시 공격 기술 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=166"
+    },
+    {
+      "equipmentId": 171,
+      "nameKo": "가고일 외투",
+      "effectDescriptionKo": "생명 +5%\\n공격을 받아 전투 진입 시 방어 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=171"
+    },
+    {
+      "equipmentId": 172,
+      "nameKo": "다이아몬드 갑옷",
+      "effectDescriptionKo": "공격을 받아 전투 진입 시 공격 치명타율 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=172"
+    },
+    {
+      "equipmentId": 173,
+      "nameKo": "몰록의 외피",
+      "effectDescriptionKo": "생명 +10%\\n공격을 받아 전투 진입 전, 50% 확률로 적에게 무작위 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=173"
+    },
+    {
+      "equipmentId": 174,
+      "nameKo": "최후의 옷",
+      "effectDescriptionKo": "방어 +10%\\n부대 생명이 100%일 시, 영웅이 받는 모든 피해량 -40%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=174"
+    },
+    {
+      "equipmentId": 179,
+      "nameKo": "여신의 드레스",
+      "effectDescriptionKo": "방어 +10%\\n받는 치료 효과 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=179"
+    },
+    {
+      "equipmentId": 180,
+      "nameKo": "별무리 망토",
+      "effectDescriptionKo": "마방 +10%, 생명 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=180"
+    },
+    {
+      "equipmentId": 181,
+      "nameKo": "사신의 옷",
+      "effectDescriptionKo": "치명타를 받을 확률 -40%\\n공격을 받아 전투 진입 전, 30% 확률로 적에게 '받는 피해 +20%' 부여, 지속 2행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=181"
+    },
+    {
+      "equipmentId": 182,
+      "nameKo": "발두르의 로브",
+      "effectDescriptionKo": "마방 +10%\\n근접 공격을 받아 전투 진입 전, 20% 확률로 이번 전투에서 부대는 근접 피해 감면 효과를 무시",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=182"
+    },
+    {
+      "equipmentId": 187,
+      "nameKo": "지도자의 투구",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '방어 +20%', '방어, 마방 감소' 및 '치료 불가' 면역 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=187"
+    },
+    {
+      "equipmentId": 188,
+      "nameKo": "흡혈귀 가면",
+      "effectDescriptionKo": "방어 +10%\\n행동 종료 시, 50% 확률로 자신 2칸 내 적 1명에게 '방어 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=188"
+    },
+    {
+      "equipmentId": 189,
+      "nameKo": "사신의 호흡",
+      "effectDescriptionKo": "생명 +10%\\n적을 격퇴하고 행동 종료 시, 자신 2칸 내 적들에게 '다음 행동 종료 시 최대 생명의 20%를 잃음' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=189"
+    },
+    {
+      "equipmentId": 190,
+      "nameKo": "태초의 투구",
+      "effectDescriptionKo": "부대 생명이 50% 이상일 시 방어 마방 +8%\\n부대 생명이 50% 이하일 시 공격 기술 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=190"
+    },
+    {
+      "equipmentId": 195,
+      "nameKo": "제왕의 관",
+      "effectDescriptionKo": "생명 마방 +5%\\n행동 종료 시 인접한 아군 1명에게 '주는 피해 +20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=195"
+    },
+    {
+      "equipmentId": 196,
+      "nameKo": "로키의 가면",
+      "effectDescriptionKo": "생명 +5%\\n근접 공격을 받아 전투 시 방어 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=196"
+    },
+    {
+      "equipmentId": 197,
+      "nameKo": "요르문간드의 눈",
+      "effectDescriptionKo": "생명 방어 +5%\\n행동 종료 시, 50% 확률로 자신 2칸 내 적 1부대에게 '주는 피해량 -15%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=197"
+    },
+    {
+      "equipmentId": 198,
+      "nameKo": "뇨르드의 깃털관",
+      "effectDescriptionKo": "생명 +10%\\n자신보다 생명이 낮은 부대와 전투 시 방어 마방 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=198"
+    },
+    {
+      "equipmentId": 203,
+      "nameKo": "빛의 서클렛",
+      "effectDescriptionKo": "부대 생명이 100%일 시 마방 방어 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=203"
+    },
+    {
+      "equipmentId": 204,
+      "nameKo": "섭혼의 법모",
+      "effectDescriptionKo": "마방 +10%\\n행동 종료 시, 50% 확률로 자신 3칸 내 적 1부대에게 '침묵' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=204"
+    },
+    {
+      "equipmentId": 205,
+      "nameKo": "카론의 모자",
+      "effectDescriptionKo": "방어 +10%\\n행동 종료 시, 50% 확률로 자신 3칸 내 적 1부대에게 '받는 피해 +15%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=205"
+    },
+    {
+      "equipmentId": 206,
+      "nameKo": "오딘의 모자",
+      "effectDescriptionKo": "마방 +10%\\n적을 격퇴 후 행동 종료 시, 자신 3칸 내 적 1부대의 버프 5개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=206"
+    },
+    {
+      "equipmentId": 209,
+      "nameKo": "진리의 문",
+      "effectDescriptionKo": "공격하여 전투 진입 시, 지력, 방어, 마방 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=209"
+    },
+    {
+      "equipmentId": 210,
+      "nameKo": "붉은 달",
+      "effectDescriptionKo": "지력 +10%, 생명 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=210"
+    },
+    {
+      "equipmentId": 212,
+      "nameKo": "푸른 달",
+      "effectDescriptionKo": "지력 +10%, 마방 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=212"
+    },
+    {
+      "equipmentId": 213,
+      "nameKo": "오바의 지팡이",
+      "effectDescriptionKo": "치료 효과 +15%\\n공격하여 전투 진입 시, 전투 후 50% 확률로 적에게 '받는 피해 +20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=213"
+    },
+    {
+      "equipmentId": 214,
+      "nameKo": "지옥",
+      "effectDescriptionKo": "지력 +5%\\n공격하여 전투 진입 시, 전투 후 적에게 '다음 턴 종료 시 영웅 지력 2배만큼의 고정피해' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=214"
+    },
+    {
+      "equipmentId": 256,
+      "nameKo": "거인의 허리띠",
+      "effectDescriptionKo": "근접 공격을 받을 시 전투 중 방어 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=256"
+    },
+    {
+      "equipmentId": 257,
+      "nameKo": "엘프의 허리띠",
+      "effectDescriptionKo": "원거리 공격을 받을 시 전투 중 방어 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=257"
+    },
+    {
+      "equipmentId": 258,
+      "nameKo": "고독한 별의 팔찌",
+      "effectDescriptionKo": "주위 2칸 내 아군이 없을 때 전투 중 공격 방어 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=258"
+    },
+    {
+      "equipmentId": 260,
+      "nameKo": "토르의 목걸이",
+      "effectDescriptionKo": "공격 +5%\\n공격하여 전투 진입 시, 전투 후 50% 확률로 추가로 적에게 고정피해를 입힘. 피해량은 영웅 공격의 1배 ",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=260"
+    },
+    {
+      "equipmentId": 261,
+      "nameKo": "심판의 부적",
+      "effectDescriptionKo": "공격 +8%\\n승려와 전투 시 추가로 공격 +12%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=261"
+    },
+    {
+      "equipmentId": 262,
+      "nameKo": "공포의 마안",
+      "effectDescriptionKo": "지력 +8%\\n공격하여 전투 진입 시, 전투 후 50% 확률로 적에게 '주는 피해 -15%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=262"
+    },
+    {
+      "equipmentId": 263,
+      "nameKo": "요정의 발걸음",
+      "effectDescriptionKo": "방어 +8%\\n공격 후 2칸 재이동 가능\\n승려, 마족, 원거리 캐릭터 장착 불가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=263"
+    },
+    {
+      "equipmentId": 264,
+      "nameKo": "란드비디의 장미",
+      "effectDescriptionKo": "지력 +8%\\n공격하여 피해를 입혔을 시, 50% 확률로 적의 버프 1개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=264"
+    },
+    {
+      "equipmentId": 265,
+      "nameKo": "케른바이터",
+      "effectDescriptionKo": "방어 마방 +5%\\n범위 스킬 사용 시, 효과 범위 +1\\n범위가 1칸인 범위 스킬에 대해서는 무효, 직선기는 사거리만 증가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=265"
+    },
+    {
+      "equipmentId": 266,
+      "nameKo": "마도 지팡이",
+      "effectDescriptionKo": "단일 기술 사용 시 피해 +15%\\n공격하여 전투 진입 전, 50% 확률로 적에게 무작위 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=266"
+    },
+    {
+      "equipmentId": 267,
+      "nameKo": "옷걸이 집게 봉",
+      "effectDescriptionKo": "입히는 피해 -10%\\n영웅의 일반 공격 사거리 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=267"
+    },
+    {
+      "equipmentId": 268,
+      "nameKo": "유격사 훈장",
+      "effectDescriptionKo": "모든 스탯 +5%\\n면역: '고정피해', '침묵'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=268"
+    },
+    {
+      "equipmentId": 269,
+      "nameKo": "세계수의 왕관",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '마방 +20%', '기절', '버프 불가' 및 '이동력 감소' 면역 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=269"
+    },
+    {
+      "equipmentId": 270,
+      "nameKo": "티타늄 부츠",
+      "effectDescriptionKo": "공격 +5%, 이동력 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=270"
+    },
+    {
+      "equipmentId": 271,
+      "nameKo": "마경 갑옷",
+      "effectDescriptionKo": "생명 마방 +5%\\n공격하여 전투 진입 시, 전투 후 적에게 고정피해를 입힘. 피해량은 영웅 마방의 1.5배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=271"
+    },
+    {
+      "equipmentId": 272,
+      "nameKo": "왕녀 지팡이",
+      "effectDescriptionKo": "부대 생명이 80% 이상일 시 지력 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=272"
+    },
+    {
+      "equipmentId": 282,
+      "nameKo": "균형의 칼날",
+      "effectDescriptionKo": "방어 마방 +5%\\n범위 스킬 사용 시, 효과 범위 +1\\n범위가 1칸인 범위 스킬에 대해서는 무효, 직선기는 사거리만 증가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=282"
+    },
+    {
+      "equipmentId": 283,
+      "nameKo": "비극의 지팡이",
+      "effectDescriptionKo": "단일 기술 사용 시 피해 +15%\\n공격하여 전투 진입 전, 50% 확률로 적에게 무작위 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=283"
+    },
+    {
+      "equipmentId": 284,
+      "nameKo": "먼지 떨이개",
+      "effectDescriptionKo": "입히는 피해 -10%\\n영웅의 일반 공격 사거리 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=284"
+    },
+    {
+      "equipmentId": 285,
+      "nameKo": "성검 훈장",
+      "effectDescriptionKo": "모든 스탯 +5%\\n면역: '고정피해', '침묵'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=285"
+    },
+    {
+      "equipmentId": 288,
+      "nameKo": "영검 아라타카",
+      "effectDescriptionKo": "공격 기술 +8%\\n공격하여 전투 중 치명타가 발생하면 적의 버프 1개 해제 및 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=288"
+    },
+    {
+      "equipmentId": 289,
+      "nameKo": "화격단 제복",
+      "effectDescriptionKo": "방어 마방 +5%\\n원거리 공격을 받을 시 전투 진입 전 적에게 고정피해를 입힘. 피해량은 영웅 마방의 1.5배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=289"
+    },
+    {
+      "equipmentId": 290,
+      "nameKo": "붉은 리본",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 부대 생명이 50% 미만일 시 생명 20% 회복",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=290"
+    },
+    {
+      "equipmentId": 291,
+      "nameKo": "곰인형",
+      "effectDescriptionKo": "치료 효과 +15%\\n단일 대상 지원 스킬 사용 시, 버프 지속시간 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=291"
+    },
+    {
+      "equipmentId": 299,
+      "nameKo": "참마도",
+      "effectDescriptionKo": "공격 기술 +8%\\n공격하여 전투 중 치명타가 발생하면 적의 버프 1개 해제 및 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=299"
+    },
+    {
+      "equipmentId": 400,
+      "nameKo": "가시갑옷",
+      "effectDescriptionKo": "방어 마방 +5%\\n원거리 공격을 받을 시, 전투 진입 전 적에게 고정피해를 입힘. 피해량은 영웅 마방의 1.5배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=400"
+    },
+    {
+      "equipmentId": 401,
+      "nameKo": "꽃모자",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 부대 생명이 50% 미만일 시 생명 20% 회복",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=401"
+    },
+    {
+      "equipmentId": 402,
+      "nameKo": "미니 쥬그라",
+      "effectDescriptionKo": "치료 효과 +15%\\n단일 대상 지원 스킬 사용 시, 버프 지속시간 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=402"
+    },
+    {
+      "equipmentId": 407,
+      "nameKo": "티르의 분노",
+      "effectDescriptionKo": "방어 +10%\\n행동 종료 시, 공격을 하지 않았다면 '스킬 피해 +10%' 및 '반격 피해 +10%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=407"
+    },
+    {
+      "equipmentId": 408,
+      "nameKo": "미미르의 망치",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 적을 격퇴하거나 아군 사망 시, 디버프를 1개 해제하며 생명 20% 회복 및 '영웅 피해 +20%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=408"
+    },
+    {
+      "equipmentId": 409,
+      "nameKo": "티탄의 항쟁",
+      "effectDescriptionKo": "방어 +10%\\n치명타를 받을 확률 -20%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=409"
+    },
+    {
+      "equipmentId": 410,
+      "nameKo": "후긴의 날개",
+      "effectDescriptionKo": "생명 +5%\\n근접 공격을 받을 시 방어 마방 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=410"
+    },
+    {
+      "equipmentId": 419,
+      "nameKo": "심연의 옷",
+      "effectDescriptionKo": "생명 +10%\\n부대 생명이 50% 이상일 시 방어 +10%\\n부대 생명이 50% 이하일 시 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=419"
+    },
+    {
+      "equipmentId": 420,
+      "nameKo": "마녀의 추억",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '기술 +20%', '치료 반전' 및 '재행동 불가' 면역 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=420"
+    },
+    {
+      "equipmentId": 421,
+      "nameKo": "초저녁의 별",
+      "effectDescriptionKo": "공격 지력 +5%\\n공격하여 전투 진입 전 적에게 고정피해를 입힘. 피해량은 영웅의 공격과 지력 중 낮은 속성의 1배\\n적이 혼합부대일 시 고정피해 면역 불가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=421"
+    },
+    {
+      "equipmentId": 422,
+      "nameKo": "진홍의 사신",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 적의 생명이 100% 미만일 시, 주는 피해 +5% 및 피해를 입힌 후 고정피해를 입힘. 피해량은 영웅 공격의 0.5배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=422"
+    },
+    {
+      "equipmentId": 430,
+      "nameKo": "이터니티 아머",
+      "effectDescriptionKo": "방어 +10%\\n받는 고정피해 -10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=430"
+    },
+    {
+      "equipmentId": 431,
+      "nameKo": "서리 불꽃의 서클렛",
+      "effectDescriptionKo": "마방 +10%\\n공격하여 전투 진입 시 받는 피해 -10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=431"
+    },
+    {
+      "equipmentId": 432,
+      "nameKo": "재능의 상징",
+      "effectDescriptionKo": "생명 +5%\\n자신의 지형이 방어 지형이 아닐 경우, 전투 중 근접 피해 감면 효과가 있는 원거리 기술 사용 시 부대의 사거리 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=432"
+    },
+    {
+      "equipmentId": 433,
+      "nameKo": "어둠의 목걸이",
+      "effectDescriptionKo": "모든 스탯 +5%\\n전투 진입 시 치명타율 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=433"
+    },
+    {
+      "equipmentId": 442,
+      "nameKo": "창백한 묵시록",
+      "effectDescriptionKo": "마방 +10%\\n행동 종료 시, 50% 확률로 주위 2칸 내 적 1부대에 '치료 불가' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=442"
+    },
+    {
+      "equipmentId": 443,
+      "nameKo": "저녁별의 가호",
+      "effectDescriptionKo": "마방 +10%, 주는 치료 효과 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=443"
+    },
+    {
+      "equipmentId": 444,
+      "nameKo": "수정 단검",
+      "effectDescriptionKo": "치명타율, 치명타 피해 +10%\\n공격하여 전투 진입 전, 자신의 기술이 적보다 높은 경우 적의 방어를 20% 무시",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=444"
+    },
+    {
+      "equipmentId": 445,
+      "nameKo": "오오라 하트",
+      "effectDescriptionKo": "모든 스탯 +5%\\n면역: '상처 저주'(힐반전), '치료 반전'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=445"
+    },
+    {
+      "equipmentId": 456,
+      "nameKo": "바람의 기사",
+      "effectDescriptionKo": "공격 +10%\\n생명이 100%인 적을 공격할 경우, 전투 진입 시 공격 방어 마방 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=456"
+    },
+    {
+      "equipmentId": 457,
+      "nameKo": "수호자의 갑옷",
+      "effectDescriptionKo": "방어 마방 +5%\\n공격을 받아 전투 진입 시, 30% 확률로 이번 전투에서 부대가 받는 피해 -20%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=457"
+    },
+    {
+      "equipmentId": 458,
+      "nameKo": "속세의 빛",
+      "effectDescriptionKo": "생명 +10%\\n공격을 받아 전투 진입 시, 자신이 혼합부대일 시 전투 전 생명 10% 회복 및 고정피해로 인한 사망을 방지\\n고정피해로 인한 사망 방지는 전투당 1번 발동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=458"
+    },
+    {
+      "equipmentId": 459,
+      "nameKo": "죄인의 톱니바퀴",
+      "effectDescriptionKo": "공격 +8%\\n기병과 전투 시 추가로 공격 +12%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=459"
+    },
+    {
+      "equipmentId": 468,
+      "nameKo": "여름밤 만개한 꽃",
+      "effectDescriptionKo": "지력 +10%\\n아군에게 스킬 사용 시 디버프 1개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=468"
+    },
+    {
+      "equipmentId": 469,
+      "nameKo": "나선 구름 법의",
+      "effectDescriptionKo": "생명 +10%\\n공격하여 전투 진입 시, 전투 중 받는 반사 피해 -30%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=469"
+    },
+    {
+      "equipmentId": 470,
+      "nameKo": "최종 보온 병기",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '받는 피해 -15%' 및 '고정피해' 면역 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=470"
+    },
+    {
+      "equipmentId": 471,
+      "nameKo": "정밀 코어",
+      "effectDescriptionKo": "모든 스탯 +5%\\n피격으로 전투 진입 시 방어, 마방 중 낮은 스탯 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=471"
+    },
+    {
+      "equipmentId": 480,
+      "nameKo": "구원의 마음",
+      "effectDescriptionKo": "치료 효과 +15%\\n면역: '고정피해'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=480"
+    },
+    {
+      "equipmentId": 481,
+      "nameKo": "감전 서클렛",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명과 자신에게 '반격 피해 +10%' 및 '위치 이동' 면역 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=481"
+    },
+    {
+      "equipmentId": 482,
+      "nameKo": "윤기나는 전장 갑옷",
+      "effectDescriptionKo": "받는 범위 피해 -20%\\n공격을 받아 전투 진입 시 전투 전 50% 확률로 적에게 '공격, 지력 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=482"
+    },
+    {
+      "equipmentId": 483,
+      "nameKo": "파진의 가시",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 이동 1칸 당 피해 +2%(최대 +10%)\\n전투 전 이동 거리가 3칸 이상일 시 전투 후 적에게 '호위 불가' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=483"
+    },
+    {
+      "equipmentId": 491,
+      "nameKo": "징벌의 망치",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 적에게 '방어구 장비 효과 무효' 부여, 지속 1행동\\n최대 생명 증가 효과는 제외, NPC의 경우 해당 효과는 '방어 -15%'로 대체",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=491"
+    },
+    {
+      "equipmentId": 492,
+      "nameKo": "티아매트의 가호",
+      "effectDescriptionKo": "생명 마방 +5%\\n혼합부대일 시, 부대가 받는 마법 피해 -20%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=492"
+    },
+    {
+      "equipmentId": 493,
+      "nameKo": "리그의 중갑 투구",
+      "effectDescriptionKo": "생명 +10%\\n아군 호위 시 반격 피해 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=493"
+    },
+    {
+      "equipmentId": 494,
+      "nameKo": "굶주린 피의 못",
+      "effectDescriptionKo": "공격 +8%\\n면역: '침묵'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=494"
+    },
+    {
+      "equipmentId": 503,
+      "nameKo": "사신의 로브",
+      "effectDescriptionKo": "치명타를 받을 확률 -40%\\n공격을 받아 전투 진입 전, 30% 확률로 적에게 '주는 피해 -20%' 부여, 지속 2행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=503"
+    },
+    {
+      "equipmentId": 504,
+      "nameKo": "천지창조 법전",
+      "effectDescriptionKo": "지력 +8%\\n공격하여 전투 진입 시, 적 부대 영웅에게 상성인 스킬을 사용했을 경우 영웅이 주는 마법 피해 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=504"
+    },
+    {
+      "equipmentId": 505,
+      "nameKo": "마룡의 응시",
+      "effectDescriptionKo": "생명 +5%\\n원거리 피격으로 전투 진입 시 방어 +15%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=505"
+    },
+    {
+      "equipmentId": 506,
+      "nameKo": "자객의 활",
+      "effectDescriptionKo": "치명타율 +10%, 생명 +5%\\n3칸 이하로 이동하여 전투 진입 시, 원거리 물리 피해 스킬 사용 시 부대 사거리 +1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=506"
+    },
+    {
+      "equipmentId": 515,
+      "nameKo": "번개의 신격",
+      "effectDescriptionKo": "방어 +10%\\n근접 공격으로 전투 진입 전, 100% 확률로 적에게 고정피해를 입힘. 피해량은 영웅 방어의 1배",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=515"
+    },
+    {
+      "equipmentId": 516,
+      "nameKo": "동맹의 그림자 옷",
+      "effectDescriptionKo": "생명 +10%\\n혼합부대가 아닐 시, 영웅 방어 마방 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=516"
+    },
+    {
+      "equipmentId": 517,
+      "nameKo": "삼라의 왕관",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '방어 +20%', '상처 저주'(힐반전) 및 '버프 불가' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=517"
+    },
+    {
+      "equipmentId": 518,
+      "nameKo": "바다의 파도소리",
+      "effectDescriptionKo": "지력 +8%\\n공격하여 피해를 입혔을 시, 70% 확률로 적에게 '마방 -20%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=518"
+    },
+    {
+      "equipmentId": 527,
+      "nameKo": "정화한 마음",
+      "effectDescriptionKo": "지력 +10%\\n공격하여 전투 진입 시, 전투 후 100% 확률로 적에게 '버프 불가' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=527"
+    },
+    {
+      "equipmentId": 528,
+      "nameKo": "금기의 갑옷",
+      "effectDescriptionKo": "방어 마방 +5%\\n호위 시, 추가로 방어 마방 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=528"
+    },
+    {
+      "equipmentId": 529,
+      "nameKo": "어둠의 분노",
+      "effectDescriptionKo": "생명 +10%\\n공격을 받아 전투 진입 시 공격 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=529"
+    },
+    {
+      "equipmentId": 530,
+      "nameKo": "모래바람의 인연",
+      "effectDescriptionKo": "모든 스탯 +5%\\n면역: '패시브 스킬 무효', '기절'",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=530"
+    },
+    {
+      "equipmentId": 541,
+      "nameKo": "아크 버스터",
+      "effectDescriptionKo": "공격 +10%, 범위 피해 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=541"
+    },
+    {
+      "equipmentId": 542,
+      "nameKo": "행성의 예",
+      "effectDescriptionKo": "받는 범위 피해 -15%, 치료 효과 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=542"
+    },
+    {
+      "equipmentId": 543,
+      "nameKo": "눈설탕 모자",
+      "effectDescriptionKo": "생명 +10%\\n공격을 받아 전투 진입 시 50% 확률로 방어 +20%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=543"
+    },
+    {
+      "equipmentId": 544,
+      "nameKo": "반전의 칼날",
+      "effectDescriptionKo": "공격 +8%\\n스킬을 사용하여 전투 진입하여 피해를 입혔을 시, 30% 확률로 해당 스킬의 쿨타임이 1-2턴 무작위로 감소",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=544"
+    },
+    {
+      "equipmentId": 553,
+      "nameKo": "맹세의 검",
+      "effectDescriptionKo": "공격 방어 +5%\\n초절강화 버프를 보유 중일 시, 추가로 공격 방어 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=553"
+    },
+    {
+      "equipmentId": 554,
+      "nameKo": "사냥 군장",
+      "effectDescriptionKo": "생명 방어 +5%\\n전투 진입 시 자신의 기술이 적보다 높은 경우, 30% 확률로 이번 전투에서 부대가 받는 피해 -20%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=554"
+    },
+    {
+      "equipmentId": 555,
+      "nameKo": "별의 장막",
+      "effectDescriptionKo": "생명 +10%\\n부대 생명이 80% 이상일 시, 다른 아군에게 치료 받을 경우 '스킬 피해 +10%' 및 '일반 공격 피해 +10%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=555"
+    },
+    {
+      "equipmentId": 556,
+      "nameKo": "재앙의 사도",
+      "effectDescriptionKo": "공격 지력 +5%\\n공격하여 전투 진입 전, 100% 확률로 적에게 '생명을 제외한 무작위 스탯 1개 -30%' 부여, 지속 1행동\\n자신이 혼합부대가 아닐 경우 해당 효과는 해제 불가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=556"
+    },
+    {
+      "equipmentId": 563,
+      "nameKo": "퇴마 방패",
+      "effectDescriptionKo": "공격 +10%\\n공격을 받아 전투 진입 전, 적이 1칸 이동했을 때마다 방어 +2%(최대 +10%)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=563"
+    },
+    {
+      "equipmentId": 564,
+      "nameKo": "빛나는 숭배의 갑주",
+      "effectDescriptionKo": "방어 +10%, 받는 범위 피해 -10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=564"
+    },
+    {
+      "equipmentId": 565,
+      "nameKo": "밤 그림자의 투구",
+      "effectDescriptionKo": "생명 +10%\\n전투 전, 자신의 방어와 마방 중 기초 속성이 높은 한쪽의 8%를 반대 속성에 추가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=565"
+    },
+    {
+      "equipmentId": 566,
+      "nameKo": "빛나는 검의 날개",
+      "effectDescriptionKo": "모든 스탯 +5%\\n행동 종료 시, 이번 턴에 피해를 주지 않았을 경우 100% 확률로 '이동력 +2' 획득, 지속 1행동\\n이미 이동력 증가 버프가 있었다면 '이동력 +3' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=566"
+    },
+    {
+      "equipmentId": 574,
+      "nameKo": "파도와 별빛의 활",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 적 생명이 80% 이상일 때 적에게 '방어 -30%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=574"
+    },
+    {
+      "equipmentId": 575,
+      "nameKo": "아르카나의 인사",
+      "effectDescriptionKo": "부대 생명이 50% 이상일 시 방어 마방 +8%\\n부대 생명이 50% 이하일 시 치료 효과, 받는 치료 효과 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=575"
+    },
+    {
+      "equipmentId": 576,
+      "nameKo": "밤의 올빼미",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 주위 2칸 내 적이 없을 경우, '스킬 피해 +5%' 및 '범위 스킬 피해 +10%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=576"
+    },
+    {
+      "equipmentId": 577,
+      "nameKo": "푸른 정령의 나비",
+      "effectDescriptionKo": "모든 스탯 +5%\\n턴 시작 시 '받는 디버프 1개 면역 및 부대 생명 20% 회복' 획득, 해당 효과는 해제 불가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=577"
+    },
+    {
+      "equipmentId": 583,
+      "nameKo": "악념 계략가",
+      "effectDescriptionKo": "생명 +5%\\n적에게 스킬 사용 후, 100% 확률로 적에게 무작위 디버프 1개 부여",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=583"
+    },
+    {
+      "equipmentId": 584,
+      "nameKo": "심해의 은혜",
+      "effectDescriptionKo": "생명 +10%\\n공격하여 전투 진입 시, 전투 전 이동한 거리 1칸당 받는 피해 -6% (최대 -18%)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=584"
+    },
+    {
+      "equipmentId": 585,
+      "nameKo": "숲의 투구",
+      "effectDescriptionKo": "생명 +5%\\n생명 비율이 자신보다 낮은 적에게 공격을 받아 전투 진입 시 방어 +10%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=585"
+    },
+    {
+      "equipmentId": 586,
+      "nameKo": "성운의 궤적",
+      "effectDescriptionKo": "공격 지력 +5%\\n공격하여 전투 진입 시, 이번 전투에서 적의 '장신구 장비 효과' 무효화\\n대상이 NPC일 시, 해당 효과는 '받는 피해 +10%'으로 대체",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=586"
+    },
+    {
+      "equipmentId": 591,
+      "nameKo": "은빛 단검",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 시, 적과의 거리 1칸당 치명타율, 치명타 피해 +5%(최대 +15%)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=591"
+    },
+    {
+      "equipmentId": 592,
+      "nameKo": "여명의 사슬",
+      "effectDescriptionKo": "생명 방어 +5%\\n공격을 받아 전투 진입 전, 100% 확률로 적의 버프 1개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=592"
+    },
+    {
+      "equipmentId": 593,
+      "nameKo": "마물 헌터캡",
+      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '받는 범위 피해 -15%' 및 '침묵' 면역 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=593"
+    },
+    {
+      "equipmentId": 594,
+      "nameKo": "바다의 축복",
+      "effectDescriptionKo": "치료 효과 +10%, 생명 +5%\\n스킬을 사용하여 명중한 아군 1명당 '행동 종료 또는 공격을 받아 피해를 입었을 때 주위 2칸 내 생명 80% 이하인 아군 1명을 지력의 1.5배만큼 회복시키고 이 효과를 제거' 1스택 획득, 최대 5스택, 해제 불가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=594"
+    },
+    {
+      "equipmentId": 599,
+      "nameKo": "저주의 방울",
+      "effectDescriptionKo": "공격 기술 +8%\\n스킬을 사용하여 전투 진입 시 적 주위 1칸 내 다른 적이 없을 경우, 전투 후 생명 15% 회복 및 턴 시작 시 위치로 텔레포트 가능\\n[쿨타임 효과]텔레포트 효과는 3턴 후 재발동 가능",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=599"
+    },
+    {
+      "equipmentId": 600,
+      "nameKo": "영겁의 부름",
+      "effectDescriptionKo": "생명 +10%\\n피해를 받은 후 '주는 피해 +15%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=600"
+    },
+    {
+      "equipmentId": 601,
+      "nameKo": "황실의 로브",
+      "effectDescriptionKo": "생명 +10%\\n생명이 100%일 시 치명타를 받을 확률 -100%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=601"
+    },
+    {
+      "equipmentId": 602,
+      "nameKo": "용암 비늘의 분노",
+      "effectDescriptionKo": "공격 +10%\\n자신이 재행동 효과 발동 시, '스킬 피해 +10%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=602"
+    },
+    {
+      "equipmentId": 607,
+      "nameKo": "천재의 시선",
+      "effectDescriptionKo": "공격 지력 +8%\\n공격하여 전투 진입 시 적의 '프로텍션'(실드) 무시(고정피해 포함)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=607"
+    },
+    {
+      "equipmentId": 608,
+      "nameKo": "심안의 투구",
+      "effectDescriptionKo": "방어 +10%\\n부대가 텔레포트, 위치 이동을 당하거나 방어 지형에서 행동 종료 시, '이동력 +1' 및 '이동력 감소' 면역 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=608"
+    },
+    {
+      "equipmentId": 609,
+      "nameKo": "이끼 갑옷",
+      "effectDescriptionKo": "생명 방어 +5%\\n전투 진입 전, 25% 확률로 자신의 부대가 있는 지형을 숲으로 간주, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=609"
+    },
+    {
+      "equipmentId": 610,
+      "nameKo": "기계 혼령의 망치",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전, 적군이 '치명 피해 방어'(부활) 효과를 보유 중일 시 '영웅 피해 +20%' 획득, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=610"
+    },
+    {
+      "equipmentId": 615,
+      "nameKo": "타이탄의 분노",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 시 이동력이 3칸 이상일 때, 적에게 '방어 -30%' 부여, 지속 1행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=615"
+    },
+    {
+      "equipmentId": 616,
+      "nameKo": "인어의 전설",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 전 자신의 디버프 1개 제거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=616"
+    },
+    {
+      "equipmentId": 617,
+      "nameKo": "염령의 로브",
+      "effectDescriptionKo": "생명 마방 +5%\\n자신이 혼합부대인 경우, 스킬에 명중된 후 디버프 1개 제거, 턴마다 최대 2번 발동\\n범위 피해로 인한 치명 피해를 방어, 전투당 1번 발동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=617"
+    },
+    {
+      "equipmentId": 618,
+      "nameKo": "세계 루빅큐브",
+      "effectDescriptionKo": "모든 스탯 +5%\\n적용한 지형 효과(장판) 지속 턴 수 +1\\n적군이 해당 지형 효과 위에 있을 때 해당 지형의 방어 효과 -5%\\n아군이 해당 지형 효과 위에 있을 때 해당 지형의 방어 효과 +5%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=618"
+    },
+    {
+      "equipmentId": 623,
+      "nameKo": "혈가시의 맹약",
+      "effectDescriptionKo": "공격 +10%\\n스킬을 사용하여 전투 진입 시, 해당 스킬의 쿨타임 1턴당 피해 +5%(최대 +15%)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=623"
+    },
+    {
+      "equipmentId": 624,
+      "nameKo": "재앙의 뿔 갑옷",
+      "effectDescriptionKo": "생명 방어 +5%\\n공격을 받아 전투 진입 전, 적군에게 1개의 중복되지 않는 무작위 디버프를 부여\\n적군이 '치명 피해 방어'(부활) 효과를 보유한 경우, 추가로 적군의 버프 1개를 중복되지 않는 무작위 디버프로 전환",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=624"
+    },
+    {
+      "equipmentId": 625,
+      "nameKo": "붉은 나비의 꿈",
+      "effectDescriptionKo": "생명 +10%\\n재행동 효과 발동 시, 100% 확률로 무작위 버프 1개 획득",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=625"
+    },
+    {
+      "equipmentId": 626,
+      "nameKo": "영겁의 가위",
+      "effectDescriptionKo": "공격 지력 +5%\\n스킬을 사용하여 생명 비율이 자신보다 낮은 적에게 전투 진입 시, 전투 후 행동 종료 시 적의 무작위 5개 버프의 지속시간 -1\\n적이 버프를 가지고 있지 않을 경우, 이번 전투에서 영웅이 주는 피해 +8%",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=626"
+    },
+    {
+      "equipmentId": 630,
+      "nameKo": "소멸의 대검",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입 시 적이 디버프를 보유 중일 시, 목표의 방어 10% 무시 및 전투 전 적의 디버프 숫자와 동일한 수 만큼 버프 제거(최대 5개)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=630"
+    },
+    {
+      "equipmentId": 631,
+      "nameKo": "검은 돛 선장코트",
+      "effectDescriptionKo": "생명 +10%\\n자신보다 이동력이 낮은 적에게 공격을 받아 전투 진입 전, 적에게 '받는 피해 +20%' 부여, 지속 2행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=631"
+    },
+    {
+      "equipmentId": 632,
+      "nameKo": "그림자 두개골 투구",
+      "effectDescriptionKo": "방어 +10%\\n디버프를 보유한 부대에게 공격을 받아 전투 진입 시, 적 부대의 무작위 디버프 1개 지속시간 +1 및 자신 부대의 무작위 디버프 1개 지속시간 -1",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=632"
+    },
+    {
+      "equipmentId": 633,
+      "nameKo": "집착의 향수",
+      "effectDescriptionKo": "모든 스탯 +5%\\n적에게 공격을 받아 피해를 입거나 사망 시, 가해 대상에게 '제어불가' 부여, 지속 1행동\\n대상이 NPC일 시, 해당 효과는 '받는 피해 +20%'로 대체\\n공격하여 전투 진입 시, 이 장비는 1턴간 무효화됨",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=633"
+    },
+    {
+      "equipmentId": 639,
+      "nameKo": "영혼을 삼키는 뼈송곳",
+      "effectDescriptionKo": "공격 +10%\\n공격하여 전투 진입하여 치명타 발동 후, 적에게 '공격 지력 -25%' 부여, 지속 2행동\\n자신에게는 '공격 지력 +25%' 부여, 지속 2행동",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=639"
+    },
+    {
+      "equipmentId": 640,
+      "nameKo": "삼라의 뱀 갑옷",
+      "effectDescriptionKo": "생명 +10%\\n적이 디버프를 보유했을 시, 공격하여 전투 진입 전 적에게 마방의 0.5배만큼 고정피해를 가하고 해당 전투에서 받는 피해 -15%\\n적이 보유한 디버프 1개 당 위의 수치가 1배씩 증가(최대 3배)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=640"
+    },
+    {
+      "equipmentId": 641,
+      "nameKo": "꽃과 버섯의 모자",
+      "effectDescriptionKo": "생명 +10%\\n숲이나 풀밭에서 행동 종료 시, 잃은 생명 15% 회복 및 '독버섯'을 포함한 무작위 버프 1개 획득\\n독버섯: 이동력 +2, 행동 종료 시 최대생명의 5%를 잃음(다른 이동력 증가 효과와 중첩되지 않음)",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=641"
+    },
+    {
+      "equipmentId": 642,
+      "nameKo": "추적의 책",
+      "effectDescriptionKo": "공격 지력 +8%\\n스킬 사용 시 '마법 경전 충전' 1스택 획득, 스킬의 쿨타임 1턴마다 추가로 1스택 획득, 최대 3스택, 해제 불가\\n회복 또는 프로텍션(실드) 효과를 받을 때, '마법 경전 충전' 1스택을 소모하여 쿨타임이 가장 긴 공격 스킬의 쿨타임 -1 및 디버프 1개 해제",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/general-ssr-equipment-ko.v1.json#EquipmentID=642"
+    }
+  ]
+}
