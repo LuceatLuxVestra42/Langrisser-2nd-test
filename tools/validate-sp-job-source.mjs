@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const sourcePath = 'evidence/localization/source/sp-job-names-ko.v1.txt';
 const manifestPath = 'evidence/localization/source/sp-job-names-ko.source-manifest.v1.json';
@@ -15,6 +16,7 @@ const check = (condition, message) => {
   if (!condition) throw new Error(`SP source preservation validation failed: ${message}`);
 };
 
+export async function validateSpJobSource() {
 const [sourceBytes, manifestBytes] = await Promise.all([read(sourcePath), read(manifestPath)]);
 let manifest;
 try {
@@ -32,6 +34,7 @@ check(manifest.encoding === 'UTF-8' && manifest.delimiter === 'TAB', 'encoding/d
 check(JSON.stringify(manifest.header) === JSON.stringify(expectedHeader), 'manifest header metadata mismatch');
 check(manifest.idField === '전직ID' && manifest.cnNameField === '중국명' && manifest.krNameField === '한국명', 'manifest field metadata mismatch');
 check(manifest.recordCount === 25, 'manifest recordCount must be 25');
+check(manifest.canonical === false && manifest.generated === false && manifest.productionRuntimeDependency === false, 'SP source authority boundary changed');
 
 let text;
 try {
@@ -64,4 +67,15 @@ check(JSON.stringify(actualStatusOnly) === JSON.stringify(expectedStatusOnly), '
 check(JSON.stringify(manifest.statusOnlyRows) === JSON.stringify(expectedStatusOnly), 'manifest status-only rows mismatch');
 check(records.length - actualStatusOnly.length === 22, 'expected 22 non-status KR text rows');
 
-process.stdout.write('SP source preservation: PASS (25 UTF-8 TSV rows; source integrity only)\n');
+return {
+  sourcePath,
+  manifestPath,
+  manifest,
+  records: records.map((row) => ({ jobId: Number(row.id), nameCn: row.cnName, nameKo: row.krField })),
+};
+}
+
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
+  await validateSpJobSource();
+  process.stdout.write('SP source preservation: PASS (25 UTF-8 TSV rows; source integrity only)\n');
+}

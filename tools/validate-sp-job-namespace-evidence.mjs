@@ -1,7 +1,9 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
+import { validateSpJobSource } from './validate-sp-job-source.mjs';
 
 const spPath = 'evidence/localization/source/sp-job-names-ko.v1.txt';
 const spManifestPath = 'evidence/localization/source/sp-job-names-ko.source-manifest.v1.json';
@@ -17,22 +19,14 @@ const readBytes = async (path) => readFile(resolve(process.cwd(), path));
 const parseJson = async (path) => JSON.parse(await readText(path));
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
-const [spBytes, spManifest, jobBytes, jobManifest, evidence, jobInfoText] = await Promise.all([
-  readBytes(spPath), parseJson(spManifestPath), readBytes(jobInfoPath), parseJson(jobInfoManifestPath), parseJson(evidencePath), readText(jobInfoPath)
-]);
-const spText = new TextDecoder('utf-8', { fatal: true }).decode(spBytes);
-const spLines = spText.split(/\r?\n/);
-if (spLines.at(-1) === '') spLines.pop();
-check(JSON.stringify(spLines.shift()?.split('\t')) === JSON.stringify(['전직ID', '중국명', '한국명']), 'SP source header mismatch');
-const spRows = spLines.map((line, index) => {
-  const fields = line.split('\t');
-  check(fields.length === 3, `SP source row ${index + 2} malformed`);
-  check(/^\d+$/.test(fields[0]), `SP source row ${index + 2} has invalid ID`);
-  return { jobId: Number(fields[0]), nameCn: fields[1], nameKo: fields[2] };
-});
+export async function validateSpJobNamespaceEvidence() {
+const spSource = await validateSpJobSource();
+const spRows = spSource.records;
 check(JSON.stringify(spRows.map((row) => row.jobId)) === JSON.stringify(expectedIds), 'SP source IDs differ from the 25-record evidence scope');
-check(spManifest.sourceSha256 === sha256(spBytes), 'SP source hash differs from its manifest');
-check(spManifest.canonical === false && spManifest.generated === false && spManifest.productionRuntimeDependency === false, 'SP source authority boundary changed');
+
+const [jobBytes, jobManifest, evidence, jobInfoText] = await Promise.all([
+  readBytes(jobInfoPath), parseJson(jobInfoManifestPath), parseJson(evidencePath), readText(jobInfoPath)
+]);
 
 const subset = JSON.parse(jobInfoText);
 check(Array.isArray(subset) && subset.length === 25, 'JobInfo subset must contain exactly 25 records');
@@ -115,4 +109,10 @@ check(JSON.stringify(expectedRecords.filter((row) => row.sourceKrFieldKind === '
 check(isDeepStrictEqual(evidence.records, expectedRecords), 'evidence rows, locators, classifications, or comparison results differ from source records');
 check(evidence.records.every((row) => Object.keys(row).length === 10), 'evidence row contains an unadmitted claim field');
 
-process.stdout.write('SP Job namespace evidence: PASS (25/25 direct IDs; 25/25 CN consistency; 22 text candidates; 3 status markers)\n');
+return { records: expectedRecords, sourceRecords: spRows, evidence, statusOnlyIds: expectedStatusOnly };
+}
+
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
+  await validateSpJobNamespaceEvidence();
+  process.stdout.write('SP Job namespace evidence: PASS (25/25 direct IDs; 25/25 CN consistency; 22 text candidates; 3 status markers)\n');
+}

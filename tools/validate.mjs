@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { renderGenerated } from './generate.mjs';
+import { validateSpJobNamespaceEvidence } from './validate-sp-job-namespace-evidence.mjs';
 import { validateHeroSpJobRelationEvidence } from './validate-hero-sp-job-relation-evidence.mjs';
 import { validateHeroSemanticCanonicals } from './validate-hero-semantic-canonicals.mjs';
 import { checkHeroSoldierRelations } from './hero-soldier-relations.mjs';
@@ -71,28 +72,15 @@ for (const row of localizationSubset.records) {
   check(jobInfo.Name === row.nameCn, `localization CN consistency check failed for Job ${row.jobId}`);
 }
 
-const spNamespaceEvidence = await readJson('evidence/localization/sp-job-namespace.v1.json');
-const spSourcePath = 'evidence/localization/source/sp-job-names-ko.v1.txt';
-const spSourceText = await readFile(resolve(root, spSourcePath), 'utf8');
-const spSourceLines = spSourceText.split(/\r?\n/);
-if (spSourceLines.at(-1) === '') spSourceLines.pop();
-check(JSON.stringify(spSourceLines[0]?.split('\t')) === JSON.stringify(localizationHeader), 'SP localization source header drift');
-const spSourceRows = new Map(spSourceLines.slice(1).map((line) => { const fields = line.split('\t'); return [Number(fields[0]), { nameCn: fields[1], nameKo: fields[2] }]; }));
-const spExpected = new Map([[128, '태초의 군주'], [262, '고독한 검객'], [368, '광룡 기사단장'], [373, '이방의 협객'], [377, '어둠의 청룡'], [390, '마법 성기사'], [414, '천공의 마룡'], [426, '빛나는 지략가'], [437, '달빛 영주'], [622, '레인저 제네럴'], [633, '바람의 기사'], [744, '흑룡 마도사'], [769, '새벽빛의 은혜'], [841, '장미의 여왕'], [858, '프린세스'], [864, '단죄의 성녀'], [878, '선택받은 왕'], [1097, '암흑의 마왕'], [1119, '오버테이커'], [1214, '어둠의 황제'], [20229, '찬란한 성녀'], [20811, '여명의 성기사']]);
-const spStatusIds = [1220, 20243, 20707];
-const spEvidenceById = new Map(spNamespaceEvidence.records.map((row) => [row.jobId, row]));
-check(spNamespaceEvidence.records.length === 25 && spEvidenceById.size === 25, 'SP namespace evidence must contain exactly 25 unique Job IDs');
-check(spNamespaceEvidence.canonical === false && spNamespaceEvidence.generated === false && spNamespaceEvidence.productionRuntimeDependency === false, 'SP namespace evidence authority boundary drift');
-for (const row of spNamespaceEvidence.records) {
-  const sourceRow = spSourceRows.get(row.jobId);
-  check(sourceRow && row.spSourceLocator === `${spSourcePath}#전직ID=${row.jobId}`, `SP source locator mismatch for Job ${row.jobId}`);
-  check(row.nameCn === sourceRow.nameCn && row.nameKo === sourceRow.nameKo, `SP source values differ from namespace evidence for Job ${row.jobId}`);
-  check(row.idMatch === true && row.cnConsistency === true && row.namespaceEvidenceClass === 'B' && row.rowEvidenceClass === 'A', `SP namespace evidence confirmation missing for Job ${row.jobId}`);
-  check(row.jobInfoSourceLocator === `evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=${row.jobId}`, `SP JobInfo locator mismatch for Job ${row.jobId}`);
-  check((row.sourceKrFieldKind === 'status_marker') === spStatusIds.includes(row.jobId), `SP source classification mismatch for Job ${row.jobId}`);
-}
-check(JSON.stringify(spNamespaceEvidence.records.filter((row) => row.sourceKrFieldKind === 'status_marker').map((row) => row.jobId)) === JSON.stringify(spStatusIds), 'SP status-only IDs differ from expected set');
-check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === 40, 'canonical Job localization must contain exactly 40 records');
+const spValidation = await validateSpJobNamespaceEvidence();
+const spEvidenceById = new Map(spValidation.records.map((row) => [row.jobId, row]));
+const spExpected = new Map(
+  spValidation.records
+    .filter((row) => row.sourceKrFieldKind === 'localization_text_candidate')
+    .map((row) => [row.jobId, row.nameKo]),
+);
+const spStatusIds = spValidation.statusOnlyIds;
+check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + spExpected.size, 'canonical Job localization must contain exactly 40 records');
 const admittedLocalization = new Map();
 for (const row of jobLocalization.records) {
   exactKeys(row, ['jobId', 'nameKo', 'evidenceClass', 'provenance'], `canonical Job localization ${row.jobId}`);
@@ -103,7 +91,7 @@ for (const row of jobLocalization.records) {
     check(row.evidenceClass === 'A' && row.provenance === `evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=${row.jobId}`, `canonical localization provenance drift for Job ${row.jobId}`);
   } else if (spExpected.has(row.jobId)) {
     const evidence = spEvidenceById.get(row.jobId);
-    check(row.nameKo === spExpected.get(row.jobId) && row.nameKo === evidence?.nameKo, `canonical SP KR label differs from expected/evidence value for Job ${row.jobId}`);
+    check(row.nameKo === evidence?.nameKo, `canonical SP KR label differs from evidence value for Job ${row.jobId}`);
     check(row.evidenceClass === 'A' && row.provenance === `evidence/localization/sp-job-namespace.v1.json#jobId=${row.jobId}`, `canonical SP localization provenance drift for Job ${row.jobId}`);
   } else {
     throw new Error(`unexpected canonical Job localization ID ${row.jobId}`);
