@@ -1,0 +1,1449 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "General SSR Equipment identity/population",
+  "scope": "Exactly 206 General SSR Equipment identities inherited from the traceable validated acquisition-class union. Localization, Korean release state, alias/replacement meaning, Hero relations, effects, and frontend metadata are not owned here.",
+  "records": [
+    {
+      "entity": "Equipment",
+      "id": 6,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=6"
+    },
+    {
+      "entity": "Equipment",
+      "id": 7,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=7"
+    },
+    {
+      "entity": "Equipment",
+      "id": 8,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=8"
+    },
+    {
+      "entity": "Equipment",
+      "id": 13,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=13"
+    },
+    {
+      "entity": "Equipment",
+      "id": 14,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=14"
+    },
+    {
+      "entity": "Equipment",
+      "id": 15,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=15"
+    },
+    {
+      "entity": "Equipment",
+      "id": 22,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=22"
+    },
+    {
+      "entity": "Equipment",
+      "id": 23,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=23"
+    },
+    {
+      "entity": "Equipment",
+      "id": 24,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=24"
+    },
+    {
+      "entity": "Equipment",
+      "id": 30,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=30"
+    },
+    {
+      "entity": "Equipment",
+      "id": 31,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=31"
+    },
+    {
+      "entity": "Equipment",
+      "id": 32,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=32"
+    },
+    {
+      "entity": "Equipment",
+      "id": 38,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=38"
+    },
+    {
+      "entity": "Equipment",
+      "id": 39,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=39"
+    },
+    {
+      "entity": "Equipment",
+      "id": 40,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=40"
+    },
+    {
+      "entity": "Equipment",
+      "id": 46,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=46"
+    },
+    {
+      "entity": "Equipment",
+      "id": 47,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=47"
+    },
+    {
+      "entity": "Equipment",
+      "id": 48,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=48"
+    },
+    {
+      "entity": "Equipment",
+      "id": 52,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=52"
+    },
+    {
+      "entity": "Equipment",
+      "id": 53,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=53"
+    },
+    {
+      "entity": "Equipment",
+      "id": 59,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=59"
+    },
+    {
+      "entity": "Equipment",
+      "id": 60,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=60"
+    },
+    {
+      "entity": "Equipment",
+      "id": 66,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=66"
+    },
+    {
+      "entity": "Equipment",
+      "id": 67,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=67"
+    },
+    {
+      "entity": "Equipment",
+      "id": 73,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=73"
+    },
+    {
+      "entity": "Equipment",
+      "id": 74,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=74"
+    },
+    {
+      "entity": "Equipment",
+      "id": 80,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=80"
+    },
+    {
+      "entity": "Equipment",
+      "id": 81,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=81"
+    },
+    {
+      "entity": "Equipment",
+      "id": 87,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=87"
+    },
+    {
+      "entity": "Equipment",
+      "id": 88,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=88"
+    },
+    {
+      "entity": "Equipment",
+      "id": 94,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=94"
+    },
+    {
+      "entity": "Equipment",
+      "id": 95,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=95"
+    },
+    {
+      "entity": "Equipment",
+      "id": 99,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=99"
+    },
+    {
+      "entity": "Equipment",
+      "id": 100,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=100"
+    },
+    {
+      "entity": "Equipment",
+      "id": 106,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=106"
+    },
+    {
+      "entity": "Equipment",
+      "id": 107,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=107"
+    },
+    {
+      "entity": "Equipment",
+      "id": 108,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=108"
+    },
+    {
+      "entity": "Equipment",
+      "id": 114,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=114"
+    },
+    {
+      "entity": "Equipment",
+      "id": 115,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=115"
+    },
+    {
+      "entity": "Equipment",
+      "id": 116,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=116"
+    },
+    {
+      "entity": "Equipment",
+      "id": 120,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=120"
+    },
+    {
+      "entity": "Equipment",
+      "id": 121,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=121"
+    },
+    {
+      "entity": "Equipment",
+      "id": 122,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=122"
+    },
+    {
+      "entity": "Equipment",
+      "id": 126,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=126"
+    },
+    {
+      "entity": "Equipment",
+      "id": 127,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=127"
+    },
+    {
+      "entity": "Equipment",
+      "id": 128,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=128"
+    },
+    {
+      "entity": "Equipment",
+      "id": 132,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=132"
+    },
+    {
+      "entity": "Equipment",
+      "id": 133,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=133"
+    },
+    {
+      "entity": "Equipment",
+      "id": 134,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=134"
+    },
+    {
+      "entity": "Equipment",
+      "id": 137,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=137"
+    },
+    {
+      "entity": "Equipment",
+      "id": 140,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=140"
+    },
+    {
+      "entity": "Equipment",
+      "id": 144,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=144"
+    },
+    {
+      "entity": "Equipment",
+      "id": 147,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=147"
+    },
+    {
+      "entity": "Equipment",
+      "id": 150,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=150"
+    },
+    {
+      "entity": "Equipment",
+      "id": 153,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=153"
+    },
+    {
+      "entity": "Equipment",
+      "id": 157,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=157"
+    },
+    {
+      "entity": "Equipment",
+      "id": 158,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=158"
+    },
+    {
+      "entity": "Equipment",
+      "id": 163,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=163"
+    },
+    {
+      "entity": "Equipment",
+      "id": 164,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=164"
+    },
+    {
+      "entity": "Equipment",
+      "id": 165,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=165"
+    },
+    {
+      "entity": "Equipment",
+      "id": 166,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=166"
+    },
+    {
+      "entity": "Equipment",
+      "id": 171,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=171"
+    },
+    {
+      "entity": "Equipment",
+      "id": 172,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=172"
+    },
+    {
+      "entity": "Equipment",
+      "id": 173,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=173"
+    },
+    {
+      "entity": "Equipment",
+      "id": 174,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=174"
+    },
+    {
+      "entity": "Equipment",
+      "id": 179,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=179"
+    },
+    {
+      "entity": "Equipment",
+      "id": 180,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=180"
+    },
+    {
+      "entity": "Equipment",
+      "id": 181,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=181"
+    },
+    {
+      "entity": "Equipment",
+      "id": 182,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=182"
+    },
+    {
+      "entity": "Equipment",
+      "id": 187,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=187"
+    },
+    {
+      "entity": "Equipment",
+      "id": 188,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=188"
+    },
+    {
+      "entity": "Equipment",
+      "id": 189,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=189"
+    },
+    {
+      "entity": "Equipment",
+      "id": 190,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=190"
+    },
+    {
+      "entity": "Equipment",
+      "id": 195,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=195"
+    },
+    {
+      "entity": "Equipment",
+      "id": 196,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=196"
+    },
+    {
+      "entity": "Equipment",
+      "id": 197,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=197"
+    },
+    {
+      "entity": "Equipment",
+      "id": 198,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=198"
+    },
+    {
+      "entity": "Equipment",
+      "id": 203,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=203"
+    },
+    {
+      "entity": "Equipment",
+      "id": 204,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=204"
+    },
+    {
+      "entity": "Equipment",
+      "id": 205,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=205"
+    },
+    {
+      "entity": "Equipment",
+      "id": 206,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=206"
+    },
+    {
+      "entity": "Equipment",
+      "id": 209,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=209"
+    },
+    {
+      "entity": "Equipment",
+      "id": 210,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=210"
+    },
+    {
+      "entity": "Equipment",
+      "id": 212,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=212"
+    },
+    {
+      "entity": "Equipment",
+      "id": 213,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=213"
+    },
+    {
+      "entity": "Equipment",
+      "id": 214,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=214"
+    },
+    {
+      "entity": "Equipment",
+      "id": 256,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=256"
+    },
+    {
+      "entity": "Equipment",
+      "id": 257,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=257"
+    },
+    {
+      "entity": "Equipment",
+      "id": 258,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=258"
+    },
+    {
+      "entity": "Equipment",
+      "id": 260,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=260"
+    },
+    {
+      "entity": "Equipment",
+      "id": 261,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=261"
+    },
+    {
+      "entity": "Equipment",
+      "id": 262,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=262"
+    },
+    {
+      "entity": "Equipment",
+      "id": 263,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=263"
+    },
+    {
+      "entity": "Equipment",
+      "id": 264,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=264"
+    },
+    {
+      "entity": "Equipment",
+      "id": 265,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=265"
+    },
+    {
+      "entity": "Equipment",
+      "id": 266,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=266"
+    },
+    {
+      "entity": "Equipment",
+      "id": 267,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=267"
+    },
+    {
+      "entity": "Equipment",
+      "id": 268,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=268"
+    },
+    {
+      "entity": "Equipment",
+      "id": 269,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=269"
+    },
+    {
+      "entity": "Equipment",
+      "id": 270,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=270"
+    },
+    {
+      "entity": "Equipment",
+      "id": 271,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=271"
+    },
+    {
+      "entity": "Equipment",
+      "id": 272,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=272"
+    },
+    {
+      "entity": "Equipment",
+      "id": 282,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=282"
+    },
+    {
+      "entity": "Equipment",
+      "id": 283,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=283"
+    },
+    {
+      "entity": "Equipment",
+      "id": 284,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=284"
+    },
+    {
+      "entity": "Equipment",
+      "id": 285,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=285"
+    },
+    {
+      "entity": "Equipment",
+      "id": 288,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=288"
+    },
+    {
+      "entity": "Equipment",
+      "id": 289,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=289"
+    },
+    {
+      "entity": "Equipment",
+      "id": 290,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=290"
+    },
+    {
+      "entity": "Equipment",
+      "id": 291,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=291"
+    },
+    {
+      "entity": "Equipment",
+      "id": 299,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=299"
+    },
+    {
+      "entity": "Equipment",
+      "id": 400,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=400"
+    },
+    {
+      "entity": "Equipment",
+      "id": 401,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=401"
+    },
+    {
+      "entity": "Equipment",
+      "id": 402,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=402"
+    },
+    {
+      "entity": "Equipment",
+      "id": 407,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=407"
+    },
+    {
+      "entity": "Equipment",
+      "id": 408,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=408"
+    },
+    {
+      "entity": "Equipment",
+      "id": 409,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=409"
+    },
+    {
+      "entity": "Equipment",
+      "id": 410,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=410"
+    },
+    {
+      "entity": "Equipment",
+      "id": 419,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=419"
+    },
+    {
+      "entity": "Equipment",
+      "id": 420,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=420"
+    },
+    {
+      "entity": "Equipment",
+      "id": 421,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=421"
+    },
+    {
+      "entity": "Equipment",
+      "id": 422,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=422"
+    },
+    {
+      "entity": "Equipment",
+      "id": 430,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=430"
+    },
+    {
+      "entity": "Equipment",
+      "id": 431,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=431"
+    },
+    {
+      "entity": "Equipment",
+      "id": 432,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=432"
+    },
+    {
+      "entity": "Equipment",
+      "id": 433,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=433"
+    },
+    {
+      "entity": "Equipment",
+      "id": 442,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=442"
+    },
+    {
+      "entity": "Equipment",
+      "id": 443,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=443"
+    },
+    {
+      "entity": "Equipment",
+      "id": 444,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=444"
+    },
+    {
+      "entity": "Equipment",
+      "id": 445,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=445"
+    },
+    {
+      "entity": "Equipment",
+      "id": 456,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=456"
+    },
+    {
+      "entity": "Equipment",
+      "id": 457,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=457"
+    },
+    {
+      "entity": "Equipment",
+      "id": 458,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=458"
+    },
+    {
+      "entity": "Equipment",
+      "id": 459,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=459"
+    },
+    {
+      "entity": "Equipment",
+      "id": 468,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=468"
+    },
+    {
+      "entity": "Equipment",
+      "id": 469,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=469"
+    },
+    {
+      "entity": "Equipment",
+      "id": 470,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=470"
+    },
+    {
+      "entity": "Equipment",
+      "id": 471,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=471"
+    },
+    {
+      "entity": "Equipment",
+      "id": 480,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=480"
+    },
+    {
+      "entity": "Equipment",
+      "id": 481,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=481"
+    },
+    {
+      "entity": "Equipment",
+      "id": 482,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=482"
+    },
+    {
+      "entity": "Equipment",
+      "id": 483,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=483"
+    },
+    {
+      "entity": "Equipment",
+      "id": 491,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=491"
+    },
+    {
+      "entity": "Equipment",
+      "id": 492,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=492"
+    },
+    {
+      "entity": "Equipment",
+      "id": 493,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=493"
+    },
+    {
+      "entity": "Equipment",
+      "id": 494,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=494"
+    },
+    {
+      "entity": "Equipment",
+      "id": 503,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=503"
+    },
+    {
+      "entity": "Equipment",
+      "id": 504,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=504"
+    },
+    {
+      "entity": "Equipment",
+      "id": 505,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=505"
+    },
+    {
+      "entity": "Equipment",
+      "id": 506,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=506"
+    },
+    {
+      "entity": "Equipment",
+      "id": 515,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=515"
+    },
+    {
+      "entity": "Equipment",
+      "id": 516,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=516"
+    },
+    {
+      "entity": "Equipment",
+      "id": 517,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=517"
+    },
+    {
+      "entity": "Equipment",
+      "id": 518,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=518"
+    },
+    {
+      "entity": "Equipment",
+      "id": 527,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=527"
+    },
+    {
+      "entity": "Equipment",
+      "id": 528,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=528"
+    },
+    {
+      "entity": "Equipment",
+      "id": 529,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=529"
+    },
+    {
+      "entity": "Equipment",
+      "id": 530,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=530"
+    },
+    {
+      "entity": "Equipment",
+      "id": 541,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=541"
+    },
+    {
+      "entity": "Equipment",
+      "id": 542,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=542"
+    },
+    {
+      "entity": "Equipment",
+      "id": 543,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=543"
+    },
+    {
+      "entity": "Equipment",
+      "id": 544,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=544"
+    },
+    {
+      "entity": "Equipment",
+      "id": 553,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=553"
+    },
+    {
+      "entity": "Equipment",
+      "id": 554,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=554"
+    },
+    {
+      "entity": "Equipment",
+      "id": 555,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=555"
+    },
+    {
+      "entity": "Equipment",
+      "id": 556,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=556"
+    },
+    {
+      "entity": "Equipment",
+      "id": 563,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=563"
+    },
+    {
+      "entity": "Equipment",
+      "id": 564,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=564"
+    },
+    {
+      "entity": "Equipment",
+      "id": 565,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=565"
+    },
+    {
+      "entity": "Equipment",
+      "id": 566,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=566"
+    },
+    {
+      "entity": "Equipment",
+      "id": 574,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=574"
+    },
+    {
+      "entity": "Equipment",
+      "id": 575,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=575"
+    },
+    {
+      "entity": "Equipment",
+      "id": 576,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=576"
+    },
+    {
+      "entity": "Equipment",
+      "id": 577,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=577"
+    },
+    {
+      "entity": "Equipment",
+      "id": 583,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=583"
+    },
+    {
+      "entity": "Equipment",
+      "id": 584,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=584"
+    },
+    {
+      "entity": "Equipment",
+      "id": 585,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=585"
+    },
+    {
+      "entity": "Equipment",
+      "id": 586,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=586"
+    },
+    {
+      "entity": "Equipment",
+      "id": 591,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=591"
+    },
+    {
+      "entity": "Equipment",
+      "id": 592,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=592"
+    },
+    {
+      "entity": "Equipment",
+      "id": 593,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=593"
+    },
+    {
+      "entity": "Equipment",
+      "id": 594,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=594"
+    },
+    {
+      "entity": "Equipment",
+      "id": 599,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=599"
+    },
+    {
+      "entity": "Equipment",
+      "id": 600,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=600"
+    },
+    {
+      "entity": "Equipment",
+      "id": 601,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=601"
+    },
+    {
+      "entity": "Equipment",
+      "id": 602,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=602"
+    },
+    {
+      "entity": "Equipment",
+      "id": 607,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=607"
+    },
+    {
+      "entity": "Equipment",
+      "id": 608,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=608"
+    },
+    {
+      "entity": "Equipment",
+      "id": 609,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=609"
+    },
+    {
+      "entity": "Equipment",
+      "id": 610,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=610"
+    },
+    {
+      "entity": "Equipment",
+      "id": 615,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=615"
+    },
+    {
+      "entity": "Equipment",
+      "id": 616,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=616"
+    },
+    {
+      "entity": "Equipment",
+      "id": 617,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=617"
+    },
+    {
+      "entity": "Equipment",
+      "id": 618,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=618"
+    },
+    {
+      "entity": "Equipment",
+      "id": 623,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=623"
+    },
+    {
+      "entity": "Equipment",
+      "id": 624,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=624"
+    },
+    {
+      "entity": "Equipment",
+      "id": 625,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=625"
+    },
+    {
+      "entity": "Equipment",
+      "id": 626,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=626"
+    },
+    {
+      "entity": "Equipment",
+      "id": 630,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=630"
+    },
+    {
+      "entity": "Equipment",
+      "id": 631,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=631"
+    },
+    {
+      "entity": "Equipment",
+      "id": 632,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=632"
+    },
+    {
+      "entity": "Equipment",
+      "id": 633,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=633"
+    },
+    {
+      "entity": "Equipment",
+      "id": 639,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=639"
+    },
+    {
+      "entity": "Equipment",
+      "id": 640,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=640"
+    },
+    {
+      "entity": "Equipment",
+      "id": 641,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=641"
+    },
+    {
+      "entity": "Equipment",
+      "id": 642,
+      "population": "GENERAL_SSR",
+      "evidenceClass": "B",
+      "provenance": "evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=642"
+    }
+  ]
+}
