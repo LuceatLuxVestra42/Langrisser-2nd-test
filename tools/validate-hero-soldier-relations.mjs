@@ -13,7 +13,7 @@ const directManifestPath = 'evidence/source/configdata/hero-soldier-direct-sourc
 const soldierSourcePath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json';
 const spSoldierSourcePath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json';
 const soldierSourceManifestPath = 'evidence/source/configdata/sp-soldier-population.source-manifest.v1.json';
-const sourceContractPath = 'evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json';
+const sourceSemanticsPath = 'evidence/source/configdata/hero-soldier-source-semantics.v1.json';
 const currentRelationCount = 379;
 const currentProvenanceCount = 380;
 const currentSourceKindCounts = {
@@ -50,7 +50,7 @@ export async function validateHeroSoldierRelations() {
     soldierSourceDoc,
     spSoldierSourceDoc,
     soldierSourceManifest,
-    sourceContract,
+    sourceSemantics,
     soldierSourceBytes,
     spSoldierSourceBytes,
   ] = await Promise.all([
@@ -61,7 +61,7 @@ export async function validateHeroSoldierRelations() {
     readJson(soldierSourcePath),
     readJson(spSoldierSourcePath),
     readJson(soldierSourceManifestPath),
-    readJson(sourceContractPath),
+    readJson(sourceSemanticsPath),
     readBytes(soldierSourcePath),
     readBytes(spSoldierSourcePath),
   ]);
@@ -78,7 +78,7 @@ export async function validateHeroSoldierRelations() {
     && directManifest.productionRuntimeDependency === false,
   'direct-source manifest authority boundary changed');
   check(directManifest.canonicalTarget === canonicalPath, 'direct-source manifest canonical target drift');
-  check(directManifest.sourceSemanticsContract === sourceContractPath, 'direct-source semantics contract locator drift');
+  check(directManifest.sourceSemanticsContract === sourceSemanticsPath, 'direct-source semantics contract locator drift');
   check(directManifest.locatorFormat === `${directManifestPath}#heroId=<HeroID>&soldierId=<SoldierID>`, 'direct-source locator format drift');
   check(directManifest.claimScope === 'Current admitted Hero-Soldier relation claims only; this manifest resolves provenance to retained direct source evidence and does not define future relation completeness or admission.', 'direct-source manifest scope must remain admission-bounded');
 
@@ -136,30 +136,54 @@ export async function validateHeroSoldierRelations() {
     && soldierSourceManifest.artifacts.spSoldierInfo.gitBlobSha1 === sources.SP_SOLDIER_EXPAND.originalSourceGitBlobSha1,
   'SPSoldierInfo direct-source provenance mismatch');
 
-  const kinds = sourceContract.edgeSourceKinds;
-  check(kinds?.BASE_SOLDIER_HERO?.class === 'DIRECT'
-    && kinds.BASE_SOLDIER_HERO.table === 'ConfigDataSoldierInfo'
-    && kinds.BASE_SOLDIER_HERO.field === 'GetSoldierHeros_ID',
-  'BASE_SOLDIER_HERO source semantics drift');
-  check(kinds?.SP_HERO_REWARD?.class === 'DIRECT'
-    && kinds.SP_HERO_REWARD.table === 'ConfigDataSPHeroInfo'
-    && kinds.SP_HERO_REWARD.field === 'SecondStageRewardSoldiers',
-  'SP_HERO_REWARD source semantics drift');
-  check(kinds?.SP_SOLDIER_EXPAND?.class === 'DIRECT'
-    && kinds.SP_SOLDIER_EXPAND.table === 'ConfigDataSPSoldierInfo'
-    && kinds.SP_SOLDIER_EXPAND.field === 'SecondStageExpandHeroList',
-  'SP_SOLDIER_EXPAND source semantics drift');
-  check(kinds?.SP_SOLDIER_INHERIT?.class === 'DERIVED'
-    && isDeepStrictEqual(kinds.SP_SOLDIER_INHERIT.allowedParentKinds, ['BASE_SOLDIER_HERO', 'SP_HERO_REWARD'])
-    && kinds.SP_SOLDIER_INHERIT.requiresSupportRelation === 'SP_FORM_LINK',
-  'SP_SOLDIER_INHERIT source semantics drift');
-  const link = sourceContract.supportRelationKinds?.SP_FORM_LINK;
-  check(link?.table === 'ConfigDataSPSoldierInfo'
-    && link.normalField === 'NormalSoliderId'
-    && link.spField === 'ID'
+  exactKeys(sourceSemantics, [
+    'schemaVersion','responsibility','canonical','generated','productionRuntimeDependency',
+    'supportedClaim','claimScope','edgeSourceKinds','supportRelationKinds','compositionRules','limitations'
+  ], 'Hero-Soldier source semantics');
+  check(sourceSemantics.schemaVersion === 1
+    && sourceSemantics.responsibility === 'Hero-Soldier direct-source interpretation'
+    && sourceSemantics.canonical === false
+    && sourceSemantics.generated === false
+    && sourceSemantics.productionRuntimeDependency === false,
+  'Hero-Soldier source-semantics authority boundary changed');
+  check(sourceSemantics.claimScope.includes('current Hero-Soldier canonical claims')
+    && sourceSemantics.claimScope.includes('not a source-population inventory')
+    && sourceSemantics.claimScope.includes('not') && sourceSemantics.claimScope.includes('admission authority'),
+  'Hero-Soldier source-semantics scope drift');
+
+  const kinds = sourceSemantics.edgeSourceKinds;
+  const directKinds = sourceSemantics.compositionRules?.directSourceKinds;
+  const derivedKinds = sourceSemantics.compositionRules?.derivedSourceKinds;
+  check(isDeepStrictEqual(directKinds, ['BASE_SOLDIER_HERO', 'SP_HERO_REWARD', 'SP_SOLDIER_EXPAND'])
+    && isDeepStrictEqual(derivedKinds, ['SP_SOLDIER_INHERIT']),
+  'Hero-Soldier source-kind set drift');
+  for (const kind of directKinds) {
+    const spec = kinds?.[kind];
+    const carrierSpec = sources?.[kind];
+    check(spec?.class === 'DIRECT' && carrierSpec, `missing direct source semantics for ${kind}`);
+    check(spec.sourceArtifactPath === carrierSpec.artifactPath
+      && spec.table === carrierSpec.sourceTable
+      && spec.field === carrierSpec.sourceField,
+    `direct-source carrier differs from current-native semantics for ${kind}`);
+    check(spec.recordKeyField === 'ID', `unsupported record-key field for ${kind}`);
+  }
+  const inheritSpec = kinds?.SP_SOLDIER_INHERIT;
+  const link = sourceSemantics.supportRelationKinds?.[inheritSpec?.requiresSupportRelation];
+  check(inheritSpec?.class === 'DERIVED'
+    && isDeepStrictEqual(inheritSpec.allowedParentKinds, ['BASE_SOLDIER_HERO', 'SP_HERO_REWARD'])
+    && link?.class === 'SUPPORT_ONLY'
+    && link.sourceArtifactPath === sources.SP_SOLDIER_INHERIT.artifactPath
+    && link.table === sources.SP_SOLDIER_INHERIT.sourceTable
+    && link.normalField === sources.SP_SOLDIER_INHERIT.supportField
+    && link.spField === sources.SP_SOLDIER_INHERIT.spIdField
     && link.createsHeroSoldierEdge === false
     && link.inferenceForbidden === true,
-  'SP_FORM_LINK source semantics drift');
+  'SP inheritance/support semantics drift');
+  check(sourceSemantics.compositionRules.duplicatePairBehavior === 'MERGE_PROVENANCE'
+    && sourceSemantics.compositionRules.multipleIndependentProvenanceAllowed === true
+    && sourceSemantics.compositionRules.spExpandIsAdditiveNotFullList === true
+    && sourceSemantics.compositionRules.spFormLinkAloneCreatesNoEdge === true,
+  'Hero-Soldier composition semantics drift');
 
   exactKeys(canonical, ['schemaVersion','scope','heroEndpointOwner','soldierEndpointOwner','evidencePool','records'], 'canonical Hero-Soldier document');
   check(canonical.schemaVersion === 1, 'unsupported canonical schemaVersion');
@@ -207,35 +231,39 @@ export async function validateHeroSoldierRelations() {
 
   for (const row of soldierSourceDoc.records) {
     if (!targetSoldierIds.has(row.ID) || soldierVariant.get(row.ID) !== 'NORMAL') continue;
-    check(Array.isArray(row.GetSoldierHeros_ID), `ConfigDataSoldierInfo.ID=${row.ID} has malformed GetSoldierHeros_ID`);
-    for (const heroId of row.GetSoldierHeros_ID) {
+    const spec = kinds.BASE_SOLDIER_HERO;
+    const heroList = row[spec.field];
+    check(Array.isArray(heroList), `${spec.table}.ID=${row.ID} has malformed ${spec.field}`);
+    for (const heroId of heroList) {
       addProvenance(byPair, targetHeroIds, targetSoldierIds, heroId, row.ID, {
         sourceKind: 'BASE_SOLDIER_HERO',
-        sourceClass: 'DIRECT',
-        origin: { table: 'ConfigDataSoldierInfo', recordId: row.ID, recordKeyField: 'ID', field: 'GetSoldierHeros_ID' },
+        sourceClass: spec.class,
+        origin: { table: spec.table, recordId: row.ID, recordKeyField: spec.recordKeyField, field: spec.field },
       });
     }
   }
 
   for (const row of rewardEvidence.records) {
-    for (const soldierId of row.SecondStageRewardSoldiers) {
-      addProvenance(byPair, targetHeroIds, targetSoldierIds, row.ID, soldierId, {
+    const spec = kinds.SP_HERO_REWARD;
+    for (const soldierId of row[spec.field]) {
+      addProvenance(byPair, targetHeroIds, targetSoldierIds, row[spec.recordKeyField], soldierId, {
         sourceKind: 'SP_HERO_REWARD',
-        sourceClass: 'DIRECT',
-        origin: { table: 'ConfigDataSPHeroInfo', recordId: row.ID, recordKeyField: 'ID', field: 'SecondStageRewardSoldiers' },
+        sourceClass: spec.class,
+        origin: { table: spec.table, recordId: row[spec.recordKeyField], recordKeyField: spec.recordKeyField, field: spec.field },
       });
     }
   }
 
   for (const row of spSoldierSourceDoc.records) {
     if (!targetSoldierIds.has(row.ID) || soldierVariant.get(row.ID) !== 'SP') continue;
-    const expandedHeroes = row.SecondStageExpandHeroList ?? [];
-    check(Array.isArray(expandedHeroes), `ConfigDataSPSoldierInfo.ID=${row.ID} has malformed SecondStageExpandHeroList`);
+    const spec = kinds.SP_SOLDIER_EXPAND;
+    const expandedHeroes = row[spec.field] ?? [];
+    check(Array.isArray(expandedHeroes), `${spec.table}.ID=${row.ID} has malformed ${spec.field}`);
     for (const heroId of expandedHeroes) {
-      addProvenance(byPair, targetHeroIds, targetSoldierIds, heroId, row.ID, {
+      addProvenance(byPair, targetHeroIds, targetSoldierIds, heroId, row[spec.recordKeyField], {
         sourceKind: 'SP_SOLDIER_EXPAND',
-        sourceClass: 'DIRECT',
-        origin: { table: 'ConfigDataSPSoldierInfo', recordId: row.ID, recordKeyField: 'ID', field: 'SecondStageExpandHeroList' },
+        sourceClass: spec.class,
+        origin: { table: spec.table, recordId: row[spec.recordKeyField], recordKeyField: spec.recordKeyField, field: spec.field },
       });
     }
   }
@@ -243,23 +271,23 @@ export async function validateHeroSoldierRelations() {
   const directEdges = [...byPair.values()].map((edge) => ({ heroId: edge.heroId, soldierId: edge.soldierId, provenance: [...edge.provenance] }));
   for (const row of spSoldierSourceDoc.records) {
     if (!targetSoldierIds.has(row.ID) || soldierVariant.get(row.ID) !== 'SP') continue;
-    if (!targetSoldierIds.has(row.NormalSoliderId)) continue;
-    check(Number.isInteger(row.NormalSoliderId), `ConfigDataSPSoldierInfo.ID=${row.ID} has malformed NormalSoliderId`);
+    if (!targetSoldierIds.has(row[link.normalField])) continue;
+    check(Number.isInteger(row[link.normalField]), `ConfigDataSPSoldierInfo.ID=${row.ID} has malformed NormalSoliderId`);
     for (const parent of directEdges) {
-      if (parent.soldierId !== row.NormalSoliderId) continue;
+      if (parent.soldierId !== row[link.normalField]) continue;
       for (const provenance of parent.provenance) {
         if (!kinds.SP_SOLDIER_INHERIT.allowedParentKinds.includes(provenance.sourceKind)) continue;
         addProvenance(byPair, targetHeroIds, targetSoldierIds, parent.heroId, row.ID, {
           sourceKind: 'SP_SOLDIER_INHERIT',
-          sourceClass: 'DERIVED',
+          sourceClass: inheritSpec.class,
           origin: provenance.origin,
-          parentEdge: { heroId: parent.heroId, soldierId: row.NormalSoliderId, parentSourceKind: provenance.sourceKind },
+          parentEdge: { heroId: parent.heroId, soldierId: row[link.normalField], parentSourceKind: provenance.sourceKind },
           supportRelation: {
-            kind: 'SP_FORM_LINK',
-            table: 'ConfigDataSPSoldierInfo',
-            recordId: row.ID,
-            normalSoldierId: row.NormalSoliderId,
-            spSoldierId: row.ID,
+            kind: inheritSpec.requiresSupportRelation,
+            table: link.table,
+            recordId: row[link.spField],
+            normalSoldierId: row[link.normalField],
+            spSoldierId: row[link.spField],
           },
         });
       }

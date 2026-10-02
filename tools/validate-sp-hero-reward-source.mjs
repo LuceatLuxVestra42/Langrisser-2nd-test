@@ -7,6 +7,7 @@ import { isDeepStrictEqual } from 'node:util';
 const root = process.cwd();
 const sourcePath = 'evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json';
 const manifestPath = 'evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.source-manifest.v1.json';
+const semanticsPath = 'evidence/source/configdata/hero-soldier-source-semantics.v1.json';
 const expectedIds = [60, 13, 11, 9, 37];
 const expectedFields = ['ID', 'SecondStageRewardSoldiers'];
 const check = (condition, message) => { if (!condition) throw new Error(`SP Hero reward source validation failed: ${message}`); };
@@ -16,7 +17,7 @@ const readJson = async (path) => JSON.parse(await readBytes(path));
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
 export async function validateSpHeroRewardSource() {
-  const [sourceBytes, manifest] = await Promise.all([readBytes(sourcePath), readJson(manifestPath)]);
+  const [sourceBytes, manifest, semantics] = await Promise.all([readBytes(sourcePath), readJson(manifestPath), readJson(semanticsPath)]);
   let records;
   try {
     records = JSON.parse(sourceBytes.toString('utf8'));
@@ -56,12 +57,16 @@ export async function validateSpHeroRewardSource() {
   check(manifest.recordsSha256 === sha256(sourceBytes), 'preserved reward source bytes differ from manifest hash');
 
   check(manifest.sourceScope === 'Pinned ConfigDataSPHeroInfo rows needed to support the current admitted SP_HERO_REWARD Hero-Soldier provenance only.', 'source scope drift');
+  const rewardSemantics = semantics.edgeSourceKinds?.SP_HERO_REWARD;
+  check(rewardSemantics?.class === 'DIRECT'
+    && rewardSemantics.sourceArtifactPath === sourcePath,
+  'current-native SP_HERO_REWARD semantics are missing or point to another source artifact');
   check(isDeepStrictEqual(manifest.supportedClaim, {
     sourceKind: 'SP_HERO_REWARD',
-    heroIdField: 'ID',
-    soldierIdsField: 'SecondStageRewardSoldiers',
-    locatorFormat: 'evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json#ID=<HeroID>/SecondStageRewardSoldiers',
-    semanticInterpretationContract: 'evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json'
+    heroIdField: rewardSemantics.recordKeyField,
+    soldierIdsField: rewardSemantics.field,
+    locatorFormat: `${sourcePath}#${rewardSemantics.recordKeyField}=<HeroID>/${rewardSemantics.field}`,
+    semanticInterpretationContract: semanticsPath
   }), 'supported claim metadata drift');
   check(isDeepStrictEqual(manifest.knownLimitations, [
     'Selected IDs are scoped to current admitted SP_HERO_REWARD provenance; this artifact is not a complete inventory of all SecondStageRewardSoldiers values in the pinned source.',
@@ -85,7 +90,7 @@ export async function validateSpHeroRewardSource() {
   }
   check(isDeepStrictEqual(records.map((row) => row.ID), expectedIds), 'reward source record IDs/order differ from the claim-scoped source selection');
 
-  return { sourcePath, manifestPath, records, manifest };
+  return { sourcePath, manifestPath, semanticsPath, records, manifest, semantics };
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {

@@ -8,7 +8,7 @@
   "claimScope": "Current admitted Hero-Soldier relation claims only; this manifest resolves provenance to retained direct source evidence and does not define future relation completeness or admission.",
   "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SoldierID>",
   "locatorSemantics": "The fragment identifies one current canonical Hero-Soldier claim. Its support is resolved by applying the retained source-kind semantics to the listed pinned ConfigData artifacts; this manifest contains no relation rows and is not a relation population authority.",
-  "sourceSemanticsContract": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json",
+  "sourceSemanticsContract": "evidence/source/configdata/hero-soldier-source-semantics.v1.json",
   "sources": {
     "BASE_SOLDIER_HERO": {
       "artifactPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json",
@@ -67,7 +67,7 @@
   },
   "knownLimitations": [
     "This manifest is scoped to the currently admitted canonical claims and must not be used as a future completeness or admission engine.",
-    "Source-kind interpretation remains defined by the retained Legacy source-semantics contract until E3.",
+    "Source-kind interpretation is defined by the current-native Hero-Soldier source-semantics artifact.",
     "The current regression counts are validation targets for the admitted canonical state, not source population claims."
   ]
 }
