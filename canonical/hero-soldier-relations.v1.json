@@ -3,13 +3,13 @@
   "scope": "B-quality Legacy Hero-Soldier claims projected over current canonical Hero and Soldier identity owners; presentation eligibility does not constrain admission and this is not a completeness claim.",
   "heroEndpointOwner": "canonical/hero-identities.v1.json",
   "soldierEndpointOwner": "canonical/soldiers.v1.json",
-  "evidencePool": "evidence/source/legacy/hero-soldier/hero-soldier-evidence-pool.source-manifest.v1.json",
+  "evidencePool": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json",
   "records": [
     {
       "heroId": 1,
       "soldierId": 210,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=210",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=210",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -27,7 +27,7 @@
       "heroId": 1,
       "soldierId": 216,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=216",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=216",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -45,7 +45,7 @@
       "heroId": 1,
       "soldierId": 311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=311",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -63,7 +63,7 @@
       "heroId": 1,
       "soldierId": 314,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=314",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=314",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -81,7 +81,7 @@
       "heroId": 1,
       "soldierId": 402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=402",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -99,7 +99,7 @@
       "heroId": 1,
       "soldierId": 410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=410",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -117,7 +117,7 @@
       "heroId": 1,
       "soldierId": 423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=423",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -135,7 +135,7 @@
       "heroId": 1,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -153,7 +153,7 @@
       "heroId": 1,
       "soldierId": 610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=610",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -171,7 +171,7 @@
       "heroId": 1,
       "soldierId": 1101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=1101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=1101",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -189,7 +189,7 @@
       "heroId": 1,
       "soldierId": 1105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=1105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=1105",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -207,7 +207,7 @@
       "heroId": 1,
       "soldierId": 5210,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5210",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5210",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -237,7 +237,7 @@
       "heroId": 1,
       "soldierId": 5216,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5216",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5216",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -267,7 +267,7 @@
       "heroId": 1,
       "soldierId": 5311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5311",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -297,7 +297,7 @@
       "heroId": 1,
       "soldierId": 5314,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5314",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5314",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -327,7 +327,7 @@
       "heroId": 1,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -357,7 +357,7 @@
       "heroId": 1,
       "soldierId": 5410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5410",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -387,7 +387,7 @@
       "heroId": 1,
       "soldierId": 5423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5423",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -417,7 +417,7 @@
       "heroId": 1,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -447,7 +447,7 @@
       "heroId": 1,
       "soldierId": 5610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=5610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=5610",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -477,7 +477,7 @@
       "heroId": 1,
       "soldierId": 6101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=6101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=6101",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -507,7 +507,7 @@
       "heroId": 1,
       "soldierId": 6105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=1&soldierId=6105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=1&soldierId=6105",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -537,7 +537,7 @@
       "heroId": 3,
       "soldierId": 121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=121",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -555,7 +555,7 @@
       "heroId": 3,
       "soldierId": 634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=634",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -573,7 +573,7 @@
       "heroId": 3,
       "soldierId": 637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=637",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -591,7 +591,7 @@
       "heroId": 3,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -621,7 +621,7 @@
       "heroId": 3,
       "soldierId": 5132,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=5132",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=5132",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -639,7 +639,7 @@
       "heroId": 3,
       "soldierId": 5634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=5634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=5634",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -669,7 +669,7 @@
       "heroId": 3,
       "soldierId": 5637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=3&soldierId=5637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=3&soldierId=5637",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -699,7 +699,7 @@
       "heroId": 4,
       "soldierId": 326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=326",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -717,7 +717,7 @@
       "heroId": 4,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -735,7 +735,7 @@
       "heroId": 4,
       "soldierId": 607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=607",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -753,7 +753,7 @@
       "heroId": 4,
       "soldierId": 621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=621",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -771,7 +771,7 @@
       "heroId": 4,
       "soldierId": 802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=802",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -789,7 +789,7 @@
       "heroId": 4,
       "soldierId": 815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=815",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -807,7 +807,7 @@
       "heroId": 4,
       "soldierId": 816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=816",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -825,7 +825,7 @@
       "heroId": 4,
       "soldierId": 1111,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=1111",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=1111",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -843,7 +843,7 @@
       "heroId": 4,
       "soldierId": 5326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5326",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -873,7 +873,7 @@
       "heroId": 4,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -903,7 +903,7 @@
       "heroId": 4,
       "soldierId": 5607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5607",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -933,7 +933,7 @@
       "heroId": 4,
       "soldierId": 5621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5621",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -963,7 +963,7 @@
       "heroId": 4,
       "soldierId": 5641,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5641",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5641",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -981,7 +981,7 @@
       "heroId": 4,
       "soldierId": 5802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5802",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1011,7 +1011,7 @@
       "heroId": 4,
       "soldierId": 5805,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5805",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5805",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -1029,7 +1029,7 @@
       "heroId": 4,
       "soldierId": 5815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5815",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1059,7 +1059,7 @@
       "heroId": 4,
       "soldierId": 5816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=5816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=5816",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1089,7 +1089,7 @@
       "heroId": 4,
       "soldierId": 6111,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=4&soldierId=6111",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=4&soldierId=6111",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1119,7 +1119,7 @@
       "heroId": 5,
       "soldierId": 121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=121",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1137,7 +1137,7 @@
       "heroId": 5,
       "soldierId": 210,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=210",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=210",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1155,7 +1155,7 @@
       "heroId": 5,
       "soldierId": 245,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=245",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=245",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1173,7 +1173,7 @@
       "heroId": 5,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1191,7 +1191,7 @@
       "heroId": 5,
       "soldierId": 638,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=638",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=638",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1209,7 +1209,7 @@
       "heroId": 5,
       "soldierId": 802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=802",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1227,7 +1227,7 @@
       "heroId": 5,
       "soldierId": 811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=811",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1245,7 +1245,7 @@
       "heroId": 5,
       "soldierId": 812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=812",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1263,7 +1263,7 @@
       "heroId": 5,
       "soldierId": 816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=816",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1281,7 +1281,7 @@
       "heroId": 5,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1311,7 +1311,7 @@
       "heroId": 5,
       "soldierId": 5210,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5210",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5210",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1341,7 +1341,7 @@
       "heroId": 5,
       "soldierId": 5245,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5245",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5245",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1371,7 +1371,7 @@
       "heroId": 5,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1401,7 +1401,7 @@
       "heroId": 5,
       "soldierId": 5638,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5638",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5638",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1431,7 +1431,7 @@
       "heroId": 5,
       "soldierId": 5802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5802",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1461,7 +1461,7 @@
       "heroId": 5,
       "soldierId": 5811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5811",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1491,7 +1491,7 @@
       "heroId": 5,
       "soldierId": 5812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5812",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1521,7 +1521,7 @@
       "heroId": 5,
       "soldierId": 5815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5815",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -1539,7 +1539,7 @@
       "heroId": 5,
       "soldierId": 5816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=5&soldierId=5816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=5&soldierId=5816",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1569,7 +1569,7 @@
       "heroId": 6,
       "soldierId": 203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=203",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1587,7 +1587,7 @@
       "heroId": 6,
       "soldierId": 231,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=231",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=231",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1605,7 +1605,7 @@
       "heroId": 6,
       "soldierId": 248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=248",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1623,7 +1623,7 @@
       "heroId": 6,
       "soldierId": 311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=311",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1641,7 +1641,7 @@
       "heroId": 6,
       "soldierId": 320,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=320",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=320",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1659,7 +1659,7 @@
       "heroId": 6,
       "soldierId": 410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=410",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1677,7 +1677,7 @@
       "heroId": 6,
       "soldierId": 5203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5203",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1707,7 +1707,7 @@
       "heroId": 6,
       "soldierId": 5231,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5231",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5231",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1737,7 +1737,7 @@
       "heroId": 6,
       "soldierId": 5248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5248",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1767,7 +1767,7 @@
       "heroId": 6,
       "soldierId": 5311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5311",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1797,7 +1797,7 @@
       "heroId": 6,
       "soldierId": 5314,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5314",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5314",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -1815,7 +1815,7 @@
       "heroId": 6,
       "soldierId": 5320,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5320",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5320",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1845,7 +1845,7 @@
       "heroId": 6,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -1863,7 +1863,7 @@
       "heroId": 6,
       "soldierId": 5410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5410",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1893,7 +1893,7 @@
       "heroId": 6,
       "soldierId": 5423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=6&soldierId=5423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=6&soldierId=5423",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -1911,7 +1911,7 @@
       "heroId": 7,
       "soldierId": 130,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=130",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=130",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1929,7 +1929,7 @@
       "heroId": 7,
       "soldierId": 203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=203",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1947,7 +1947,7 @@
       "heroId": 7,
       "soldierId": 225,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=225",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=225",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -1965,7 +1965,7 @@
       "heroId": 7,
       "soldierId": 5130,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=5130",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=5130",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -1995,7 +1995,7 @@
       "heroId": 7,
       "soldierId": 5203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=5203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=5203",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2025,7 +2025,7 @@
       "heroId": 7,
       "soldierId": 5225,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=5225",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=5225",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2055,7 +2055,7 @@
       "heroId": 7,
       "soldierId": 5311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=7&soldierId=5311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=7&soldierId=5311",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -2073,7 +2073,7 @@
       "heroId": 8,
       "soldierId": 132,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=132",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=132",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2091,7 +2091,7 @@
       "heroId": 8,
       "soldierId": 610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=610",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2109,7 +2109,7 @@
       "heroId": 8,
       "soldierId": 621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=621",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2127,7 +2127,7 @@
       "heroId": 8,
       "soldierId": 622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=622",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2145,7 +2145,7 @@
       "heroId": 8,
       "soldierId": 638,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=638",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=638",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2163,7 +2163,7 @@
       "heroId": 8,
       "soldierId": 641,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=641",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=641",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2181,7 +2181,7 @@
       "heroId": 8,
       "soldierId": 644,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=644",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=644",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2199,7 +2199,7 @@
       "heroId": 8,
       "soldierId": 802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=802",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2217,7 +2217,7 @@
       "heroId": 8,
       "soldierId": 815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=815",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2235,7 +2235,7 @@
       "heroId": 8,
       "soldierId": 1015,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=1015",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=1015",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2253,7 +2253,7 @@
       "heroId": 8,
       "soldierId": 5132,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5132",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5132",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2283,7 +2283,7 @@
       "heroId": 8,
       "soldierId": 5610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5610",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2313,7 +2313,7 @@
       "heroId": 8,
       "soldierId": 5621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5621",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2343,7 +2343,7 @@
       "heroId": 8,
       "soldierId": 5622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5622",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2373,7 +2373,7 @@
       "heroId": 8,
       "soldierId": 5638,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5638",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5638",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2403,7 +2403,7 @@
       "heroId": 8,
       "soldierId": 5641,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5641",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5641",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2433,7 +2433,7 @@
       "heroId": 8,
       "soldierId": 5644,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5644",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5644",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2463,7 +2463,7 @@
       "heroId": 8,
       "soldierId": 5802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5802",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2493,7 +2493,7 @@
       "heroId": 8,
       "soldierId": 5815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=5815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=5815",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2523,7 +2523,7 @@
       "heroId": 8,
       "soldierId": 6015,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=8&soldierId=6015",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=8&soldierId=6015",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2553,7 +2553,7 @@
       "heroId": 9,
       "soldierId": 610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=610",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2571,7 +2571,7 @@
       "heroId": 9,
       "soldierId": 621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=621",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2589,7 +2589,7 @@
       "heroId": 9,
       "soldierId": 622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=622",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2607,7 +2607,7 @@
       "heroId": 9,
       "soldierId": 636,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=636",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=636",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2625,7 +2625,7 @@
       "heroId": 9,
       "soldierId": 641,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=641",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=641",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2643,7 +2643,7 @@
       "heroId": 9,
       "soldierId": 1015,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=1015",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=1015",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2661,7 +2661,7 @@
       "heroId": 9,
       "soldierId": 1031,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=1031",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=1031",
       "provenance": [
         {
           "sourceKind": "SP_HERO_REWARD",
@@ -2679,7 +2679,7 @@
       "heroId": 9,
       "soldierId": 1034,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=1034",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=1034",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2697,7 +2697,7 @@
       "heroId": 9,
       "soldierId": 5610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=5610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=5610",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2727,7 +2727,7 @@
       "heroId": 9,
       "soldierId": 5621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=5621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=5621",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2757,7 +2757,7 @@
       "heroId": 9,
       "soldierId": 5622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=5622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=5622",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2787,7 +2787,7 @@
       "heroId": 9,
       "soldierId": 5636,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=5636",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=5636",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2817,7 +2817,7 @@
       "heroId": 9,
       "soldierId": 5641,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=5641",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=5641",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2847,7 +2847,7 @@
       "heroId": 9,
       "soldierId": 6015,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=6015",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=6015",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2877,7 +2877,7 @@
       "heroId": 9,
       "soldierId": 6031,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=6031",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=6031",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2907,7 +2907,7 @@
       "heroId": 9,
       "soldierId": 6034,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=9&soldierId=6034",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=9&soldierId=6034",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -2937,7 +2937,7 @@
       "heroId": 10,
       "soldierId": 121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=121",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2955,7 +2955,7 @@
       "heroId": 10,
       "soldierId": 237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=237",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2973,7 +2973,7 @@
       "heroId": 10,
       "soldierId": 811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=811",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -2991,7 +2991,7 @@
       "heroId": 10,
       "soldierId": 812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=812",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3009,7 +3009,7 @@
       "heroId": 10,
       "soldierId": 816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=816",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3027,7 +3027,7 @@
       "heroId": 10,
       "soldierId": 5115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5115",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -3045,7 +3045,7 @@
       "heroId": 10,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3075,7 +3075,7 @@
       "heroId": 10,
       "soldierId": 5130,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5130",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5130",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -3093,7 +3093,7 @@
       "heroId": 10,
       "soldierId": 5237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5237",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3123,7 +3123,7 @@
       "heroId": 10,
       "soldierId": 5811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5811",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3153,7 +3153,7 @@
       "heroId": 10,
       "soldierId": 5812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5812",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3183,7 +3183,7 @@
       "heroId": 10,
       "soldierId": 5816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=10&soldierId=5816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=10&soldierId=5816",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3213,7 +3213,7 @@
       "heroId": 11,
       "soldierId": 419,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=419",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=419",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3231,7 +3231,7 @@
       "heroId": 11,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3249,7 +3249,7 @@
       "heroId": 11,
       "soldierId": 607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=607",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3267,7 +3267,7 @@
       "heroId": 11,
       "soldierId": 631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=631",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3285,7 +3285,7 @@
       "heroId": 11,
       "soldierId": 634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=634",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3303,7 +3303,7 @@
       "heroId": 11,
       "soldierId": 637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=637",
       "provenance": [
         {
           "sourceKind": "SP_HERO_REWARD",
@@ -3321,7 +3321,7 @@
       "heroId": 11,
       "soldierId": 5419,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=5419",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=5419",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3351,7 +3351,7 @@
       "heroId": 11,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3381,7 +3381,7 @@
       "heroId": 11,
       "soldierId": 5607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=5607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=5607",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3411,7 +3411,7 @@
       "heroId": 11,
       "soldierId": 5631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=5631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=5631",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3441,7 +3441,7 @@
       "heroId": 11,
       "soldierId": 5634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=5634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=5634",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3471,7 +3471,7 @@
       "heroId": 11,
       "soldierId": 5637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=11&soldierId=5637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=11&soldierId=5637",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3501,7 +3501,7 @@
       "heroId": 12,
       "soldierId": 115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=115",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3519,7 +3519,7 @@
       "heroId": 12,
       "soldierId": 118,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=118",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=118",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3537,7 +3537,7 @@
       "heroId": 12,
       "soldierId": 203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=203",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3555,7 +3555,7 @@
       "heroId": 12,
       "soldierId": 237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=237",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3573,7 +3573,7 @@
       "heroId": 12,
       "soldierId": 248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=248",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3591,7 +3591,7 @@
       "heroId": 12,
       "soldierId": 308,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=308",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=308",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3609,7 +3609,7 @@
       "heroId": 12,
       "soldierId": 5115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5115",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3639,7 +3639,7 @@
       "heroId": 12,
       "soldierId": 5118,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5118",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5118",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3669,7 +3669,7 @@
       "heroId": 12,
       "soldierId": 5203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5203",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3699,7 +3699,7 @@
       "heroId": 12,
       "soldierId": 5231,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5231",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5231",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -3717,7 +3717,7 @@
       "heroId": 12,
       "soldierId": 5237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5237",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3747,7 +3747,7 @@
       "heroId": 12,
       "soldierId": 5248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5248",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3777,7 +3777,7 @@
       "heroId": 12,
       "soldierId": 5308,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=12&soldierId=5308",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=12&soldierId=5308",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3807,7 +3807,7 @@
       "heroId": 13,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3825,7 +3825,7 @@
       "heroId": 13,
       "soldierId": 621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=621",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3843,7 +3843,7 @@
       "heroId": 13,
       "soldierId": 622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=622",
       "provenance": [
         {
           "sourceKind": "SP_HERO_REWARD",
@@ -3861,7 +3861,7 @@
       "heroId": 13,
       "soldierId": 644,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=644",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=644",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3879,7 +3879,7 @@
       "heroId": 13,
       "soldierId": 802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=802",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -3897,7 +3897,7 @@
       "heroId": 13,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3927,7 +3927,7 @@
       "heroId": 13,
       "soldierId": 5621,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=5621",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=5621",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3957,7 +3957,7 @@
       "heroId": 13,
       "soldierId": 5622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=5622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=5622",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -3987,7 +3987,7 @@
       "heroId": 13,
       "soldierId": 5644,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=5644",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=5644",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4017,7 +4017,7 @@
       "heroId": 13,
       "soldierId": 5802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=13&soldierId=5802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=13&soldierId=5802",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4047,7 +4047,7 @@
       "heroId": 14,
       "soldierId": 308,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=308",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=308",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4065,7 +4065,7 @@
       "heroId": 14,
       "soldierId": 402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=402",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4083,7 +4083,7 @@
       "heroId": 14,
       "soldierId": 422,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=422",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=422",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4101,7 +4101,7 @@
       "heroId": 14,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4119,7 +4119,7 @@
       "heroId": 14,
       "soldierId": 1101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=1101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=1101",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4137,7 +4137,7 @@
       "heroId": 14,
       "soldierId": 1111,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=1111",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=1111",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4155,7 +4155,7 @@
       "heroId": 14,
       "soldierId": 5308,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=5308",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=5308",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4185,7 +4185,7 @@
       "heroId": 14,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4215,7 +4215,7 @@
       "heroId": 14,
       "soldierId": 5422,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=5422",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=5422",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4245,7 +4245,7 @@
       "heroId": 14,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4275,7 +4275,7 @@
       "heroId": 14,
       "soldierId": 6101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=6101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=6101",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4305,7 +4305,7 @@
       "heroId": 14,
       "soldierId": 6111,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=14&soldierId=6111",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=14&soldierId=6111",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4335,7 +4335,7 @@
       "heroId": 25,
       "soldierId": 115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=115",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4353,7 +4353,7 @@
       "heroId": 25,
       "soldierId": 118,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=118",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=118",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4371,7 +4371,7 @@
       "heroId": 25,
       "soldierId": 130,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=130",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=130",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4389,7 +4389,7 @@
       "heroId": 25,
       "soldierId": 402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=402",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4407,7 +4407,7 @@
       "heroId": 25,
       "soldierId": 410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=410",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4425,7 +4425,7 @@
       "heroId": 25,
       "soldierId": 413,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=413",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=413",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4443,7 +4443,7 @@
       "heroId": 25,
       "soldierId": 422,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=422",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=422",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4461,7 +4461,7 @@
       "heroId": 25,
       "soldierId": 423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=423",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4479,7 +4479,7 @@
       "heroId": 25,
       "soldierId": 5115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5115",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4509,7 +4509,7 @@
       "heroId": 25,
       "soldierId": 5118,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5118",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5118",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4539,7 +4539,7 @@
       "heroId": 25,
       "soldierId": 5130,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5130",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5130",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4569,7 +4569,7 @@
       "heroId": 25,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4599,7 +4599,7 @@
       "heroId": 25,
       "soldierId": 5410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5410",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4629,7 +4629,7 @@
       "heroId": 25,
       "soldierId": 5413,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5413",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5413",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4659,7 +4659,7 @@
       "heroId": 25,
       "soldierId": 5422,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5422",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5422",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4689,7 +4689,7 @@
       "heroId": 25,
       "soldierId": 5423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=25&soldierId=5423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=25&soldierId=5423",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4719,7 +4719,7 @@
       "heroId": 26,
       "soldierId": 324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=324",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4737,7 +4737,7 @@
       "heroId": 26,
       "soldierId": 402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=402",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4755,7 +4755,7 @@
       "heroId": 26,
       "soldierId": 419,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=419",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=419",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4773,7 +4773,7 @@
       "heroId": 26,
       "soldierId": 423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=423",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4791,7 +4791,7 @@
       "heroId": 26,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4809,7 +4809,7 @@
       "heroId": 26,
       "soldierId": 631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=631",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4827,7 +4827,7 @@
       "heroId": 26,
       "soldierId": 634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=634",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4845,7 +4845,7 @@
       "heroId": 26,
       "soldierId": 637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=637",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -4863,7 +4863,7 @@
       "heroId": 26,
       "soldierId": 5324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5324",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4893,7 +4893,7 @@
       "heroId": 26,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4923,7 +4923,7 @@
       "heroId": 26,
       "soldierId": 5419,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5419",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5419",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4953,7 +4953,7 @@
       "heroId": 26,
       "soldierId": 5423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5423",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -4983,7 +4983,7 @@
       "heroId": 26,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5013,7 +5013,7 @@
       "heroId": 26,
       "soldierId": 5631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5631",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5043,7 +5043,7 @@
       "heroId": 26,
       "soldierId": 5634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5634",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5073,7 +5073,7 @@
       "heroId": 26,
       "soldierId": 5637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=26&soldierId=5637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=26&soldierId=5637",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5103,7 +5103,7 @@
       "heroId": 27,
       "soldierId": 308,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=308",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=308",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5121,7 +5121,7 @@
       "heroId": 27,
       "soldierId": 324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=324",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5139,7 +5139,7 @@
       "heroId": 27,
       "soldierId": 402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=402",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5157,7 +5157,7 @@
       "heroId": 27,
       "soldierId": 631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=631",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5175,7 +5175,7 @@
       "heroId": 27,
       "soldierId": 637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=637",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5193,7 +5193,7 @@
       "heroId": 27,
       "soldierId": 1101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=1101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=1101",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5211,7 +5211,7 @@
       "heroId": 27,
       "soldierId": 1105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=1105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=1105",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5229,7 +5229,7 @@
       "heroId": 27,
       "soldierId": 1113,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=1113",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=1113",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5247,7 +5247,7 @@
       "heroId": 27,
       "soldierId": 5308,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=5308",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=5308",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5277,7 +5277,7 @@
       "heroId": 27,
       "soldierId": 5324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=5324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=5324",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5307,7 +5307,7 @@
       "heroId": 27,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5337,7 +5337,7 @@
       "heroId": 27,
       "soldierId": 5631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=5631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=5631",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5367,7 +5367,7 @@
       "heroId": 27,
       "soldierId": 5634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=5634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=5634",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -5385,7 +5385,7 @@
       "heroId": 27,
       "soldierId": 5637,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=5637",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=5637",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5415,7 +5415,7 @@
       "heroId": 27,
       "soldierId": 6101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=6101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=6101",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5445,7 +5445,7 @@
       "heroId": 27,
       "soldierId": 6105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=6105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=6105",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5475,7 +5475,7 @@
       "heroId": 27,
       "soldierId": 6113,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=27&soldierId=6113",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=27&soldierId=6113",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5505,7 +5505,7 @@
       "heroId": 29,
       "soldierId": 326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=326",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5523,7 +5523,7 @@
       "heroId": 29,
       "soldierId": 622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=622",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5541,7 +5541,7 @@
       "heroId": 29,
       "soldierId": 631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=631",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5559,7 +5559,7 @@
       "heroId": 29,
       "soldierId": 634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=634",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5577,7 +5577,7 @@
       "heroId": 29,
       "soldierId": 802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=802",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5595,7 +5595,7 @@
       "heroId": 29,
       "soldierId": 805,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=805",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=805",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5613,7 +5613,7 @@
       "heroId": 29,
       "soldierId": 5326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5326",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5643,7 +5643,7 @@
       "heroId": 29,
       "soldierId": 5622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5622",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5673,7 +5673,7 @@
       "heroId": 29,
       "soldierId": 5631,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5631",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5631",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5703,7 +5703,7 @@
       "heroId": 29,
       "soldierId": 5634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5634",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5733,7 +5733,7 @@
       "heroId": 29,
       "soldierId": 5802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5802",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5763,7 +5763,7 @@
       "heroId": 29,
       "soldierId": 5805,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5805",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5805",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5793,7 +5793,7 @@
       "heroId": 29,
       "soldierId": 5815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=29&soldierId=5815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=29&soldierId=5815",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -5811,7 +5811,7 @@
       "heroId": 33,
       "soldierId": 203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=203",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5829,7 +5829,7 @@
       "heroId": 33,
       "soldierId": 225,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=225",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=225",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5847,7 +5847,7 @@
       "heroId": 33,
       "soldierId": 245,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=245",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=245",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5865,7 +5865,7 @@
       "heroId": 33,
       "soldierId": 326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=326",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5883,7 +5883,7 @@
       "heroId": 33,
       "soldierId": 811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=811",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5901,7 +5901,7 @@
       "heroId": 33,
       "soldierId": 816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=816",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -5919,7 +5919,7 @@
       "heroId": 33,
       "soldierId": 5118,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5118",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5118",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -5937,7 +5937,7 @@
       "heroId": 33,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -5955,7 +5955,7 @@
       "heroId": 33,
       "soldierId": 5203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5203",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -5985,7 +5985,7 @@
       "heroId": 33,
       "soldierId": 5225,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5225",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5225",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6015,7 +6015,7 @@
       "heroId": 33,
       "soldierId": 5237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5237",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -6033,7 +6033,7 @@
       "heroId": 33,
       "soldierId": 5245,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5245",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5245",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6063,7 +6063,7 @@
       "heroId": 33,
       "soldierId": 5326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5326",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6093,7 +6093,7 @@
       "heroId": 33,
       "soldierId": 5811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5811",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6123,7 +6123,7 @@
       "heroId": 33,
       "soldierId": 5812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5812",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -6141,7 +6141,7 @@
       "heroId": 33,
       "soldierId": 5816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=33&soldierId=5816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=33&soldierId=5816",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6171,7 +6171,7 @@
       "heroId": 37,
       "soldierId": 216,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=216",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=216",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6189,7 +6189,7 @@
       "heroId": 37,
       "soldierId": 311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=311",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6207,7 +6207,7 @@
       "heroId": 37,
       "soldierId": 314,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=314",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=314",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6225,7 +6225,7 @@
       "heroId": 37,
       "soldierId": 410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=410",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6243,7 +6243,7 @@
       "heroId": 37,
       "soldierId": 413,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=413",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=413",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6261,7 +6261,7 @@
       "heroId": 37,
       "soldierId": 423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=423",
       "provenance": [
         {
           "sourceKind": "SP_HERO_REWARD",
@@ -6279,7 +6279,7 @@
       "heroId": 37,
       "soldierId": 504,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=504",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=504",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6297,7 +6297,7 @@
       "heroId": 37,
       "soldierId": 514,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=514",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=514",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6315,7 +6315,7 @@
       "heroId": 37,
       "soldierId": 5130,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5130",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5130",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -6333,7 +6333,7 @@
       "heroId": 37,
       "soldierId": 5216,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5216",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5216",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6363,7 +6363,7 @@
       "heroId": 37,
       "soldierId": 5311,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5311",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5311",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6393,7 +6393,7 @@
       "heroId": 37,
       "soldierId": 5314,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5314",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5314",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6423,7 +6423,7 @@
       "heroId": 37,
       "soldierId": 5410,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5410",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5410",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6453,7 +6453,7 @@
       "heroId": 37,
       "soldierId": 5413,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5413",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5413",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6483,7 +6483,7 @@
       "heroId": 37,
       "soldierId": 5423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5423",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -6523,7 +6523,7 @@
       "heroId": 37,
       "soldierId": 5504,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5504",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5504",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6553,7 +6553,7 @@
       "heroId": 37,
       "soldierId": 5507,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5507",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5507",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -6571,7 +6571,7 @@
       "heroId": 37,
       "soldierId": 5514,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=37&soldierId=5514",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=37&soldierId=5514",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6601,7 +6601,7 @@
       "heroId": 40,
       "soldierId": 121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=40&soldierId=121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=40&soldierId=121",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6619,7 +6619,7 @@
       "heroId": 40,
       "soldierId": 237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=40&soldierId=237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=40&soldierId=237",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6637,7 +6637,7 @@
       "heroId": 40,
       "soldierId": 511,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=40&soldierId=511",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=40&soldierId=511",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6655,7 +6655,7 @@
       "heroId": 40,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=40&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=40&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6685,7 +6685,7 @@
       "heroId": 40,
       "soldierId": 5237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=40&soldierId=5237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=40&soldierId=5237",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6715,7 +6715,7 @@
       "heroId": 40,
       "soldierId": 5511,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=40&soldierId=5511",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=40&soldierId=5511",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6745,7 +6745,7 @@
       "heroId": 53,
       "soldierId": 115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=115",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6763,7 +6763,7 @@
       "heroId": 53,
       "soldierId": 121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=121",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6781,7 +6781,7 @@
       "heroId": 53,
       "soldierId": 203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=203",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6799,7 +6799,7 @@
       "heroId": 53,
       "soldierId": 231,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=231",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=231",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6817,7 +6817,7 @@
       "heroId": 53,
       "soldierId": 248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=248",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6835,7 +6835,7 @@
       "heroId": 53,
       "soldierId": 324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=324",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6853,7 +6853,7 @@
       "heroId": 53,
       "soldierId": 402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=402",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6871,7 +6871,7 @@
       "heroId": 53,
       "soldierId": 423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=423",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -6889,7 +6889,7 @@
       "heroId": 53,
       "soldierId": 5115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5115",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6919,7 +6919,7 @@
       "heroId": 53,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6949,7 +6949,7 @@
       "heroId": 53,
       "soldierId": 5203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5203",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -6979,7 +6979,7 @@
       "heroId": 53,
       "soldierId": 5231,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5231",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5231",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7009,7 +7009,7 @@
       "heroId": 53,
       "soldierId": 5248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5248",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7039,7 +7039,7 @@
       "heroId": 53,
       "soldierId": 5320,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5320",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5320",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -7057,7 +7057,7 @@
       "heroId": 53,
       "soldierId": 5324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5324",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7087,7 +7087,7 @@
       "heroId": 53,
       "soldierId": 5326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5326",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -7105,7 +7105,7 @@
       "heroId": 53,
       "soldierId": 5402,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5402",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5402",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7135,7 +7135,7 @@
       "heroId": 53,
       "soldierId": 5423,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=53&soldierId=5423",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=53&soldierId=5423",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7165,7 +7165,7 @@
       "heroId": 55,
       "soldierId": 115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=115",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7183,7 +7183,7 @@
       "heroId": 55,
       "soldierId": 129,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=129",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=129",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7201,7 +7201,7 @@
       "heroId": 55,
       "soldierId": 132,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=132",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=132",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7219,7 +7219,7 @@
       "heroId": 55,
       "soldierId": 203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=203",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7237,7 +7237,7 @@
       "heroId": 55,
       "soldierId": 225,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=225",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=225",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7255,7 +7255,7 @@
       "heroId": 55,
       "soldierId": 320,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=320",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=320",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7273,7 +7273,7 @@
       "heroId": 55,
       "soldierId": 326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=326",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7291,7 +7291,7 @@
       "heroId": 55,
       "soldierId": 5115,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5115",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5115",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7321,7 +7321,7 @@
       "heroId": 55,
       "soldierId": 5118,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5118",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5118",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -7339,7 +7339,7 @@
       "heroId": 55,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -7357,7 +7357,7 @@
       "heroId": 55,
       "soldierId": 5129,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5129",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5129",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7387,7 +7387,7 @@
       "heroId": 55,
       "soldierId": 5132,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5132",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5132",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7417,7 +7417,7 @@
       "heroId": 55,
       "soldierId": 5203,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5203",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5203",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7447,7 +7447,7 @@
       "heroId": 55,
       "soldierId": 5210,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5210",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5210",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -7465,7 +7465,7 @@
       "heroId": 55,
       "soldierId": 5225,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5225",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5225",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7495,7 +7495,7 @@
       "heroId": 55,
       "soldierId": 5320,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5320",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5320",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7525,7 +7525,7 @@
       "heroId": 55,
       "soldierId": 5326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=55&soldierId=5326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=55&soldierId=5326",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7555,7 +7555,7 @@
       "heroId": 56,
       "soldierId": 419,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=419",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=419",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7573,7 +7573,7 @@
       "heroId": 56,
       "soldierId": 607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=607",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7591,7 +7591,7 @@
       "heroId": 56,
       "soldierId": 610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=610",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7609,7 +7609,7 @@
       "heroId": 56,
       "soldierId": 622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=622",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7627,7 +7627,7 @@
       "heroId": 56,
       "soldierId": 636,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=636",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=636",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7645,7 +7645,7 @@
       "heroId": 56,
       "soldierId": 638,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=638",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=638",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7663,7 +7663,7 @@
       "heroId": 56,
       "soldierId": 802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=802",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7681,7 +7681,7 @@
       "heroId": 56,
       "soldierId": 815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=815",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7699,7 +7699,7 @@
       "heroId": 56,
       "soldierId": 5419,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5419",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5419",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7729,7 +7729,7 @@
       "heroId": 56,
       "soldierId": 5607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5607",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7759,7 +7759,7 @@
       "heroId": 56,
       "soldierId": 5610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5610",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7789,7 +7789,7 @@
       "heroId": 56,
       "soldierId": 5622,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5622",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5622",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7819,7 +7819,7 @@
       "heroId": 56,
       "soldierId": 5636,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5636",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5636",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7849,7 +7849,7 @@
       "heroId": 56,
       "soldierId": 5638,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5638",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5638",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7879,7 +7879,7 @@
       "heroId": 56,
       "soldierId": 5802,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5802",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5802",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7909,7 +7909,7 @@
       "heroId": 56,
       "soldierId": 5815,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=56&soldierId=5815",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=56&soldierId=5815",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -7939,7 +7939,7 @@
       "heroId": 60,
       "soldierId": 244,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=244",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=244",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7957,7 +7957,7 @@
       "heroId": 60,
       "soldierId": 507,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=507",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=507",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7975,7 +7975,7 @@
       "heroId": 60,
       "soldierId": 602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=602",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -7993,7 +7993,7 @@
       "heroId": 60,
       "soldierId": 610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=610",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8011,7 +8011,7 @@
       "heroId": 60,
       "soldierId": 1105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=1105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=1105",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8029,7 +8029,7 @@
       "heroId": 60,
       "soldierId": 1113,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=1113",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=1113",
       "provenance": [
         {
           "sourceKind": "SP_HERO_REWARD",
@@ -8047,7 +8047,7 @@
       "heroId": 60,
       "soldierId": 5244,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=5244",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=5244",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8077,7 +8077,7 @@
       "heroId": 60,
       "soldierId": 5507,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=5507",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=5507",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8107,7 +8107,7 @@
       "heroId": 60,
       "soldierId": 5602,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=5602",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=5602",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8137,7 +8137,7 @@
       "heroId": 60,
       "soldierId": 5610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=5610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=5610",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8167,7 +8167,7 @@
       "heroId": 60,
       "soldierId": 6105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=6105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=6105",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8197,7 +8197,7 @@
       "heroId": 60,
       "soldierId": 6113,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=60&soldierId=6113",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=60&soldierId=6113",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8227,7 +8227,7 @@
       "heroId": 67,
       "soldierId": 507,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=507",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=507",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8245,7 +8245,7 @@
       "heroId": 67,
       "soldierId": 610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=610",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8263,7 +8263,7 @@
       "heroId": 67,
       "soldierId": 634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=634",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8281,7 +8281,7 @@
       "heroId": 67,
       "soldierId": 1015,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=1015",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=1015",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8299,7 +8299,7 @@
       "heroId": 67,
       "soldierId": 1101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=1101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=1101",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8317,7 +8317,7 @@
       "heroId": 67,
       "soldierId": 1105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=1105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=1105",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8335,7 +8335,7 @@
       "heroId": 67,
       "soldierId": 5507,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=5507",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=5507",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8365,7 +8365,7 @@
       "heroId": 67,
       "soldierId": 5607,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=5607",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=5607",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -8383,7 +8383,7 @@
       "heroId": 67,
       "soldierId": 5610,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=5610",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=5610",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8413,7 +8413,7 @@
       "heroId": 67,
       "soldierId": 5634,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=5634",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=5634",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8443,7 +8443,7 @@
       "heroId": 67,
       "soldierId": 6015,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=6015",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=6015",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8473,7 +8473,7 @@
       "heroId": 67,
       "soldierId": 6101,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=6101",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=6101",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8503,7 +8503,7 @@
       "heroId": 67,
       "soldierId": 6105,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=6105",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=6105",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8533,7 +8533,7 @@
       "heroId": 67,
       "soldierId": 6113,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=67&soldierId=6113",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=67&soldierId=6113",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -8551,7 +8551,7 @@
       "heroId": 89,
       "soldierId": 121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=121",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8569,7 +8569,7 @@
       "heroId": 89,
       "soldierId": 237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=237",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8587,7 +8587,7 @@
       "heroId": 89,
       "soldierId": 248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=248",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8605,7 +8605,7 @@
       "heroId": 89,
       "soldierId": 324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=324",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8623,7 +8623,7 @@
       "heroId": 89,
       "soldierId": 326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=326",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8641,7 +8641,7 @@
       "heroId": 89,
       "soldierId": 811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=811",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8659,7 +8659,7 @@
       "heroId": 89,
       "soldierId": 812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=812",
       "provenance": [
         {
           "sourceKind": "BASE_SOLDIER_HERO",
@@ -8677,7 +8677,7 @@
       "heroId": 89,
       "soldierId": 5121,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5121",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5121",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8707,7 +8707,7 @@
       "heroId": 89,
       "soldierId": 5129,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5129",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5129",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -8725,7 +8725,7 @@
       "heroId": 89,
       "soldierId": 5237,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5237",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5237",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8755,7 +8755,7 @@
       "heroId": 89,
       "soldierId": 5245,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5245",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5245",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
@@ -8773,7 +8773,7 @@
       "heroId": 89,
       "soldierId": 5248,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5248",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5248",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8803,7 +8803,7 @@
       "heroId": 89,
       "soldierId": 5324,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5324",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5324",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8833,7 +8833,7 @@
       "heroId": 89,
       "soldierId": 5326,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5326",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5326",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8863,7 +8863,7 @@
       "heroId": 89,
       "soldierId": 5811,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5811",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5811",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8893,7 +8893,7 @@
       "heroId": 89,
       "soldierId": 5812,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5812",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5812",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_INHERIT",
@@ -8923,7 +8923,7 @@
       "heroId": 89,
       "soldierId": 5816,
       "evidenceClass": "B",
-      "evidencePoolLocator": "evidence/source/legacy/hero-soldier/hero-soldier-relations.v1.json#heroId=89&soldierId=5816",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=89&soldierId=5816",
       "provenance": [
         {
           "sourceKind": "SP_SOLDIER_EXPAND",
