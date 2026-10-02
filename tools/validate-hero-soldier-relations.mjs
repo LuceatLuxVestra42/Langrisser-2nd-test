@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
@@ -159,78 +159,94 @@ const canonicalPath = 'canonical/hero-soldier-relations.v1.json';
 const heroIdentityOwner = 'canonical/hero-identities.v1.json';
 const soldierIdentityOwner = 'canonical/soldiers.v1.json';
 const canonicalScope = 'B-quality Legacy Hero-Soldier claims projected over current canonical Hero and Soldier identity owners; presentation eligibility does not constrain admission and this is not a completeness claim.';
+const admittedRelationCount = 379;
+const admittedProvenanceCount = 380;
 
-async function deriveExpectedRecords() {
-  const [pool, heroes, soldiers] = await Promise.all([
+export async function validateHeroSoldierRelations() {
+  const evidenceStats = await validateHeroSoldierEvidence();
+  const [pool, canonical, heroes, soldiers] = await Promise.all([
     readJson(evidencePoolPath),
+    readJson(canonicalPath),
     readJson(heroIdentityOwner),
     readJson(soldierIdentityOwner),
   ]);
-  const heroIds = new Set(heroes.records.map((record) => record.heroId));
-  const soldierIds = new Set(soldiers.records.map((record) => record.id));
-  check(heroIds.size === heroes.records.length, 'current canonical Hero identity owner has duplicate IDs');
-  check(soldierIds.size === soldiers.records.length, 'current canonical Soldier identity owner has duplicate IDs');
-  check([...heroIds].every(Number.isInteger), 'current canonical Hero identity owner has malformed IDs');
-  check([...soldierIds].every(Number.isInteger), 'current canonical Soldier identity owner has malformed IDs');
-  const records = pool.edges
-    .filter((edge) => heroIds.has(edge.heroId) && soldierIds.has(edge.soldierId))
-    .map((edge) => ({
-      heroId: edge.heroId,
-      soldierId: edge.soldierId,
-      evidenceClass: 'B',
-      evidencePoolLocator: `${evidencePoolPath}#heroId=${edge.heroId}&soldierId=${edge.soldierId}`,
-      provenance: edge.provenance,
-    }))
-    .sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
-  return { records, heroCount: heroIds.size, soldierCount: soldierIds.size };
-}
 
-function canonicalDocument(records) {
-  return {
-    schemaVersion: 1,
-    scope: canonicalScope,
-    heroEndpointOwner: heroIdentityOwner,
-    soldierEndpointOwner: soldierIdentityOwner,
-    evidencePool: evidenceManifestPath,
-    records,
-  };
-}
+  check(isDeepStrictEqual(Object.keys(canonical).sort(),
+    ['schemaVersion', 'scope', 'heroEndpointOwner', 'soldierEndpointOwner', 'evidencePool', 'records'].sort()),
+  'canonical relation document has unexpected or missing fields');
+  check(canonical.schemaVersion === 1, 'unsupported canonical relation schema');
+  check(canonical.scope === canonicalScope, 'canonical relation scope drift');
+  check(canonical.heroEndpointOwner === heroIdentityOwner, 'canonical Hero endpoint owner drift');
+  check(canonical.soldierEndpointOwner === soldierIdentityOwner, 'canonical Soldier endpoint owner drift');
+  check(canonical.evidencePool === evidenceManifestPath, 'canonical evidence-pool locator drift');
+  check(Array.isArray(canonical.records), 'canonical relation records must be an array');
 
-export async function checkHeroSoldierRelations() {
-  const evidenceStats = await validateHeroSoldierEvidence();
-  const expected = await deriveExpectedRecords();
-  const actual = await readJson(canonicalPath);
-  const expectedDocument = canonicalDocument(expected.records);
-  check(isDeepStrictEqual(actual, expectedDocument), 'canonical relation data does not equal evidence projected onto current Hero/Soldier identity owners');
+  const heroIds = new Set();
+  for (const record of heroes.records ?? []) {
+    check(Number.isInteger(record.heroId), 'current canonical Hero identity owner has malformed ID');
+    check(!heroIds.has(record.heroId), `current canonical Hero identity owner has duplicate ID ${record.heroId}`);
+    heroIds.add(record.heroId);
+  }
+  const soldierIds = new Set();
+  for (const record of soldiers.records ?? []) {
+    check(Number.isInteger(record.id), 'current canonical Soldier identity owner has malformed ID');
+    check(!soldierIds.has(record.id), `current canonical Soldier identity owner has duplicate ID ${record.id}`);
+    soldierIds.add(record.id);
+  }
+
+  const evidenceByPair = new Map((pool.edges ?? []).map((edge) => [pairKey(edge.heroId, edge.soldierId), edge]));
+  const canonicalPairs = new Set();
+  let provenanceCount = 0;
+  let previousHeroId = -Infinity;
+  let previousSoldierId = -Infinity;
+
+  for (const record of canonical.records) {
+    check(isDeepStrictEqual(Object.keys(record).sort(),
+      ['heroId', 'soldierId', 'evidenceClass', 'evidencePoolLocator', 'provenance'].sort()),
+    'canonical Hero-Soldier record has unexpected or missing fields');
+    check(Number.isInteger(record.heroId) && Number.isInteger(record.soldierId), 'malformed canonical Hero-Soldier pair');
+
+    const key = pairKey(record.heroId, record.soldierId);
+    check(!canonicalPairs.has(key), `duplicate canonical Hero-Soldier pair ${key}`);
+    canonicalPairs.add(key);
+
+    check(record.heroId > previousHeroId || (record.heroId === previousHeroId && record.soldierId > previousSoldierId),
+      `canonical Hero-Soldier ordering drift at ${key}`);
+    previousHeroId = record.heroId;
+    previousSoldierId = record.soldierId;
+
+    check(heroIds.has(record.heroId), `canonical Hero-Soldier pair ${key} references missing Hero endpoint`);
+    check(soldierIds.has(record.soldierId), `canonical Hero-Soldier pair ${key} references missing Soldier endpoint`);
+    check(record.evidenceClass === 'B', `canonical Hero-Soldier pair ${key} evidence class drift`);
+
+    const expectedLocator = `${evidencePoolPath}#heroId=${record.heroId}&soldierId=${record.soldierId}`;
+    check(record.evidencePoolLocator === expectedLocator, `canonical Hero-Soldier pair ${key} evidence locator drift`);
+
+    const evidenceEdge = evidenceByPair.get(key);
+    check(evidenceEdge, `canonical Hero-Soldier pair ${key} has no supporting admitted evidence edge`);
+    check(Array.isArray(record.provenance) && record.provenance.length > 0,
+      `canonical Hero-Soldier pair ${key} has no provenance`);
+    check(isDeepStrictEqual(record.provenance, evidenceEdge.provenance),
+      `canonical Hero-Soldier pair ${key} provenance differs from supporting evidence`);
+    provenanceCount += record.provenance.length;
+  }
+
+  check(canonical.records.length === admittedRelationCount,
+    `canonical Hero-Soldier relation count is ${canonical.records.length}; expected admitted count ${admittedRelationCount}`);
+  check(provenanceCount === admittedProvenanceCount,
+    `canonical Hero-Soldier provenance count is ${provenanceCount}; expected admitted count ${admittedProvenanceCount}`);
+
   return {
     ...evidenceStats,
-    currentHeroIdentityCount: expected.heroCount,
-    currentSoldierIdentityCount: expected.soldierCount,
-    admittedRelationCount: actual.records.length,
-  };
-}
-
-export async function syncHeroSoldierRelations() {
-  await validateHeroSoldierEvidence();
-  const expected = await deriveExpectedRecords();
-  const output = canonicalDocument(expected.records);
-  await writeFile(resolve(root, canonicalPath), `${JSON.stringify(output, null, 2)}\n`);
-  return {
-    currentHeroIdentityCount: expected.heroCount,
-    currentSoldierIdentityCount: expected.soldierCount,
-    admittedRelationCount: output.records.length,
+    admittedRelationCount: canonical.records.length,
+    admittedProvenanceCount: provenanceCount,
+    referencedHeroCount: new Set(canonical.records.map((record) => record.heroId)).size,
+    referencedSoldierCount: new Set(canonical.records.map((record) => record.soldierId)).size,
   };
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
-  const [mode, applyFlag, ...rest] = process.argv.slice(2);
-  if (mode === 'check' && applyFlag === undefined) {
-    const result = await checkHeroSoldierRelations();
-    process.stdout.write(`Hero-Soldier check: PASS (${result.admittedRelationCount} relations; ${result.currentHeroIdentityCount} Hero identities; ${result.currentSoldierIdentityCount} Soldier identities; complete B provenance preserved)\n`);
-  } else if (mode === 'sync' && applyFlag === '--apply' && rest.length === 0) {
-    const result = await syncHeroSoldierRelations();
-    process.stdout.write(`Hero-Soldier explicit sync: wrote ${result.admittedRelationCount} relations from ${result.currentHeroIdentityCount} Hero identity endpoints and ${result.currentSoldierIdentityCount} Soldier identity endpoints\n`);
-  } else {
-    throw new Error('Usage: node tools/hero-soldier-relations.mjs check | sync --apply');
-  }
+  check(process.argv.slice(2).length === 0, 'Usage: node tools/validate-hero-soldier-relations.mjs');
+  const result = await validateHeroSoldierRelations();
+  process.stdout.write(`Hero-Soldier read-only validation: PASS (${result.admittedRelationCount} relations; ${result.admittedProvenanceCount} provenance entries; evidence and endpoints verified)\n`);
 }
