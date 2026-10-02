@@ -29,18 +29,25 @@ if (glossary.schemaVersion !== 1 || !Array.isArray(glossary.jobs) || glossary.jo
   throw new Error('built document has unsupported Job glossary presentation schema');
 }
 
-const [soldierIdentities, soldierLocalizations, soldierBaseStats, soldierRelations] = await Promise.all([
+const [soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations] = await Promise.all([
   readJson('canonical/soldiers.v1.json'),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
+  readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/sp-soldier-base-stats.v1.json'),
   readJson('canonical/sp-soldier-normal-relations.v1.json'),
 ]);
 const spGeneratedPath = resolve('generated/sp-soldiers.v1.json');
 const spGeneratedText = await readFile(spGeneratedPath, 'utf8');
-const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, soldierBaseStats, soldierRelations);
+const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations);
 if (spGeneratedText !== expectedSpGenerated) throw new Error('generated SP Soldier data is stale or non-deterministic');
 const spGenerated = JSON.parse(spGeneratedText);
-if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers)) throw new Error('built document has unsupported SP Soldier presentation schema');
+if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers) || spGenerated.soldiers.length !== 56) throw new Error('built document has unsupported SP Soldier presentation schema');
+for (const soldier of spGenerated.soldiers) {
+  exactKeys(soldier, ['spSoldierId', 'nameKo', 'normalSoldierId', 'normalSoldierNameKo', 'baseStats'], `SP Soldier ${soldier.spSoldierId}`);
+  if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.normalSoldierNameKo !== 'string' || !soldier.normalSoldierNameKo) {
+    throw new Error(`malformed NORMAL Soldier presentation for SP Soldier ${soldier.spSoldierId}`);
+  }
+}
 
 const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');

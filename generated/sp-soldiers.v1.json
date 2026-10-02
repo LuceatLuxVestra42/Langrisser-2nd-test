@@ -5,6 +5,7 @@
       "spSoldierId": 5115,
       "nameKo": "근위창병",
       "normalSoldierId": 115,
+      "normalSoldierNameKo": "근위창병",
       "baseStats": {
         "hp": 46,
         "attack": 40,
@@ -16,6 +17,7 @@
       "spSoldierId": 5118,
       "nameKo": "다크 센츄리온",
       "normalSoldierId": 118,
+      "normalSoldierNameKo": "다크 센츄리온",
       "baseStats": {
         "hp": 48,
         "attack": 40,
@@ -27,6 +29,7 @@
       "spSoldierId": 5121,
       "nameKo": "발키리",
       "normalSoldierId": 121,
+      "normalSoldierNameKo": "발키리",
       "baseStats": {
         "hp": 43,
         "attack": 45,
@@ -38,6 +41,7 @@
       "spSoldierId": 5129,
       "nameKo": "엔트 가디언",
       "normalSoldierId": 129,
+      "normalSoldierNameKo": "엔트 가디언",
       "baseStats": {
         "hp": 45,
         "attack": 43,
@@ -49,6 +53,7 @@
       "spSoldierId": 5130,
       "nameKo": "팔랑크스",
       "normalSoldierId": 130,
+      "normalSoldierNameKo": "팔랑크스",
       "baseStats": {
         "hp": 43,
         "attack": 44,
@@ -60,6 +65,7 @@
       "spSoldierId": 5132,
       "nameKo": "창지기 엘프",
       "normalSoldierId": 132,
+      "normalSoldierNameKo": "창지기 엘프",
       "baseStats": {
         "hp": 46,
         "attack": 43,
@@ -71,6 +77,7 @@
       "spSoldierId": 5203,
       "nameKo": "그레나디어",
       "normalSoldierId": 203,
+      "normalSoldierNameKo": "그레나디어",
       "baseStats": {
         "hp": 53,
         "attack": 40,
@@ -82,6 +89,7 @@
       "spSoldierId": 5210,
       "nameKo": "하이랜더",
       "normalSoldierId": 210,
+      "normalSoldierNameKo": "하이랜더",
       "baseStats": {
         "hp": 47,
         "attack": 43,
@@ -93,6 +101,7 @@
       "spSoldierId": 5216,
       "nameKo": "오크 광전사",
       "normalSoldierId": 216,
+      "normalSoldierNameKo": "오크 광전사",
       "baseStats": {
         "hp": 45,
         "attack": 43,
@@ -104,6 +113,7 @@
       "spSoldierId": 5225,
       "nameKo": "암흑 근위대",
       "normalSoldierId": 225,
+      "normalSoldierNameKo": "암흑 근위대",
       "baseStats": {
         "hp": 53,
         "attack": 40,
@@ -115,6 +125,7 @@
       "spSoldierId": 5231,
       "nameKo": "광전사",
       "normalSoldierId": 231,
+      "normalSoldierNameKo": "광전사",
       "baseStats": {
         "hp": 44,
         "attack": 43,
@@ -126,6 +137,7 @@
       "spSoldierId": 5237,
       "nameKo": "가면 메이드",
       "normalSoldierId": 237,
+      "normalSoldierNameKo": "가면 메이드",
       "baseStats": {
         "hp": 43,
         "attack": 43,
@@ -137,6 +149,7 @@
       "spSoldierId": 5244,
       "nameKo": "개조인간",
       "normalSoldierId": 244,
+      "normalSoldierNameKo": "개조인간",
       "baseStats": {
         "hp": 42,
         "attack": 43,
@@ -148,6 +161,7 @@
       "spSoldierId": 5245,
       "nameKo": "왕녀 친위대",
       "normalSoldierId": 245,
+      "normalSoldierNameKo": "왕녀 친위대",
       "baseStats": {
         "hp": 43,
         "attack": 43,
@@ -159,6 +173,7 @@
       "spSoldierId": 5248,
       "nameKo": "화려한 결투자",
       "normalSoldierId": 248,
+      "normalSoldierNameKo": "화려한 결투자",
       "baseStats": {
         "hp": 45,
         "attack": 43,
@@ -170,6 +185,7 @@
       "spSoldierId": 5308,
       "nameKo": "용기병",
       "normalSoldierId": 308,
+      "normalSoldierNameKo": "용기병",
       "baseStats": {
         "hp": 45,
         "attack": 44,
@@ -181,6 +197,7 @@
       "spSoldierId": 5311,
       "nameKo": "마스터 디노",
       "normalSoldierId": 311,
+      "normalSoldierNameKo": "마스터 디노",
       "baseStats": {
         "hp": 41,
         "attack": 45,
@@ -192,6 +209,7 @@
       "spSoldierId": 5314,
       "nameKo": "헬하운드",
       "normalSoldierId": 314,
+      "normalSoldierNameKo": "헬하운드",
       "baseStats": {
         "hp": 42,
         "attack": 45,
@@ -203,6 +221,7 @@
       "spSoldierId": 5320,
       "nameKo": "황가기병",
       "normalSoldierId": 320,
+      "normalSoldierNameKo": "황가기병",
       "baseStats": {
         "hp": 45,
         "attack": 45,
@@ -214,6 +233,7 @@
       "spSoldierId": 5324,
       "nameKo": "천상의 수호자",
       "normalSoldierId": 324,
+      "normalSoldierNameKo": "천상의 수호자",
       "baseStats": {
         "hp": 41,
         "attack": 43,
@@ -225,6 +245,7 @@
       "spSoldierId": 5326,
       "nameKo": "템플러",
       "normalSoldierId": 326,
+      "normalSoldierNameKo": "템플러",
       "baseStats": {
         "hp": 43,
         "attack": 43,
@@ -236,6 +257,7 @@
       "spSoldierId": 5402,
       "nameKo": "로열 그리폰",
       "normalSoldierId": 402,
+      "normalSoldierNameKo": "로열 그리폰",
       "baseStats": {
         "hp": 43,
         "attack": 45,
@@ -247,6 +269,7 @@
       "spSoldierId": 5410,
       "nameKo": "뱀파이어 배트",
       "normalSoldierId": 410,
+      "normalSoldierNameKo": "뱀파이어 배트",
       "baseStats": {
         "hp": 45,
         "attack": 45,
@@ -258,6 +281,7 @@
       "spSoldierId": 5413,
       "nameKo": "가고일",
       "normalSoldierId": 413,
+      "normalSoldierNameKo": "가고일",
       "baseStats": {
         "hp": 43,
         "attack": 45,
@@ -269,6 +293,7 @@
       "spSoldierId": 5419,
       "nameKo": "홀리 페가수스",
       "normalSoldierId": 419,
+      "normalSoldierNameKo": "홀리 페가수스",
       "baseStats": {
         "hp": 43,
         "attack": 45,
@@ -280,6 +305,7 @@
       "spSoldierId": 5422,
       "nameKo": "드래고니아 나이트",
       "normalSoldierId": 422,
+      "normalSoldierNameKo": "드래고니아 나이트",
       "baseStats": {
         "hp": 45,
         "attack": 45,
@@ -291,6 +317,7 @@
       "spSoldierId": 5423,
       "nameKo": "메카 드래곤 나이트",
       "normalSoldierId": 423,
+      "normalSoldierNameKo": "메카 드래곤 나이트",
       "baseStats": {
         "hp": 44,
         "attack": 45,
@@ -302,6 +329,7 @@
       "spSoldierId": 5504,
       "nameKo": "거대 랍스터",
       "normalSoldierId": 504,
+      "normalSoldierNameKo": "거대 랍스터",
       "baseStats": {
         "hp": 45,
         "attack": 37,
@@ -313,6 +341,7 @@
       "spSoldierId": 5507,
       "nameKo": "리바이어선",
       "normalSoldierId": 507,
+      "normalSoldierNameKo": "리바이어선",
       "baseStats": {
         "hp": 43,
         "attack": 40,
@@ -324,6 +353,7 @@
       "spSoldierId": 5511,
       "nameKo": "파도의 정령",
       "normalSoldierId": 511,
+      "normalSoldierNameKo": "파도의 정령",
       "baseStats": {
         "hp": 43,
         "attack": 39,
@@ -335,6 +365,7 @@
       "spSoldierId": 5514,
       "nameKo": "바다의 사제",
       "normalSoldierId": 514,
+      "normalSoldierNameKo": "바다의 사제",
       "baseStats": {
         "hp": 44,
         "attack": 39,
@@ -346,6 +377,7 @@
       "spSoldierId": 5602,
       "nameKo": "하이엘프",
       "normalSoldierId": 602,
+      "normalSoldierNameKo": "하이엘프",
       "baseStats": {
         "hp": 39,
         "attack": 42,
@@ -357,6 +389,7 @@
       "spSoldierId": 5607,
       "nameKo": "천공사수",
       "normalSoldierId": 607,
+      "normalSoldierNameKo": "천공사수",
       "baseStats": {
         "hp": 38,
         "attack": 43,
@@ -368,6 +401,7 @@
       "spSoldierId": 5610,
       "nameKo": "다크엘프 저격수",
       "normalSoldierId": 610,
+      "normalSoldierNameKo": "다크엘프 저격수",
       "baseStats": {
         "hp": 35,
         "attack": 43,
@@ -379,6 +413,7 @@
       "spSoldierId": 5621,
       "nameKo": "마법사",
       "normalSoldierId": 621,
+      "normalSoldierNameKo": "마법사",
       "baseStats": {
         "hp": 36,
         "attack": 40,
@@ -390,6 +425,7 @@
       "spSoldierId": 5622,
       "nameKo": "마녀",
       "normalSoldierId": 622,
+      "normalSoldierNameKo": "마녀",
       "baseStats": {
         "hp": 37,
         "attack": 42,
@@ -401,6 +437,7 @@
       "spSoldierId": 5631,
       "nameKo": "데몬헌터",
       "normalSoldierId": 631,
+      "normalSoldierNameKo": "데몬헌터",
       "baseStats": {
         "hp": 38,
         "attack": 41,
@@ -412,6 +449,7 @@
       "spSoldierId": 5634,
       "nameKo": "볼트 레인저",
       "normalSoldierId": 634,
+      "normalSoldierNameKo": "볼트 레인저",
       "baseStats": {
         "hp": 40,
         "attack": 41,
@@ -423,6 +461,7 @@
       "spSoldierId": 5636,
       "nameKo": "수정 마도사",
       "normalSoldierId": 636,
+      "normalSoldierNameKo": "수정 마도사",
       "baseStats": {
         "hp": 45,
         "attack": 37,
@@ -434,6 +473,7 @@
       "spSoldierId": 5637,
       "nameKo": "엘프 궁기병",
       "normalSoldierId": 637,
+      "normalSoldierNameKo": "엘프 궁기병",
       "baseStats": {
         "hp": 40,
         "attack": 43,
@@ -445,6 +485,7 @@
       "spSoldierId": 5638,
       "nameKo": "어둠의 연금술사",
       "normalSoldierId": 638,
+      "normalSoldierNameKo": "어둠의 연금술사",
       "baseStats": {
         "hp": 43,
         "attack": 42,
@@ -456,6 +497,7 @@
       "spSoldierId": 5641,
       "nameKo": "맹독 박쥐술사",
       "normalSoldierId": 641,
+      "normalSoldierNameKo": "맹독 박쥐술사",
       "baseStats": {
         "hp": 40,
         "attack": 42,
@@ -467,6 +509,7 @@
       "spSoldierId": 5644,
       "nameKo": "용암 샤먼",
       "normalSoldierId": 644,
+      "normalSoldierNameKo": "용암 샤먼",
       "baseStats": {
         "hp": 45,
         "attack": 42,
@@ -478,6 +521,7 @@
       "spSoldierId": 5802,
       "nameKo": "신관",
       "normalSoldierId": 802,
+      "normalSoldierNameKo": "신관",
       "baseStats": {
         "hp": 37,
         "attack": 34,
@@ -489,6 +533,7 @@
       "spSoldierId": 5805,
       "nameKo": "세인트 나이트",
       "normalSoldierId": 805,
+      "normalSoldierNameKo": "세인트 나이트",
       "baseStats": {
         "hp": 38,
         "attack": 34,
@@ -500,6 +545,7 @@
       "spSoldierId": 5811,
       "nameKo": "퇴마사",
       "normalSoldierId": 811,
+      "normalSoldierNameKo": "퇴마사",
       "baseStats": {
         "hp": 40,
         "attack": 40,
@@ -511,6 +557,7 @@
       "spSoldierId": 5812,
       "nameKo": "광신자",
       "normalSoldierId": 812,
+      "normalSoldierNameKo": "광신자",
       "baseStats": {
         "hp": 42,
         "attack": 42,
@@ -522,6 +569,7 @@
       "spSoldierId": 5815,
       "nameKo": "영종의 투승",
       "normalSoldierId": 815,
+      "normalSoldierNameKo": "영종의 투승",
       "baseStats": {
         "hp": 42,
         "attack": 41,
@@ -533,6 +581,7 @@
       "spSoldierId": 5816,
       "nameKo": "신성 호위술사",
       "normalSoldierId": 816,
+      "normalSoldierNameKo": "신성 호위술사",
       "baseStats": {
         "hp": 48,
         "attack": 38,
@@ -544,6 +593,7 @@
       "spSoldierId": 6015,
       "nameKo": "지옥불 사수",
       "normalSoldierId": 1015,
+      "normalSoldierNameKo": "지옥불 사수",
       "baseStats": {
         "hp": 43,
         "attack": 42,
@@ -555,6 +605,7 @@
       "spSoldierId": 6031,
       "nameKo": "스파이더 엘프",
       "normalSoldierId": 1031,
+      "normalSoldierNameKo": "스파이더 엘프",
       "baseStats": {
         "hp": 43,
         "attack": 43,
@@ -566,6 +617,7 @@
       "spSoldierId": 6034,
       "nameKo": "안개의 유령",
       "normalSoldierId": 1034,
+      "normalSoldierNameKo": "안개의 유령",
       "baseStats": {
         "hp": 42,
         "attack": 40,
@@ -577,6 +629,7 @@
       "spSoldierId": 6101,
       "nameKo": "밴디트",
       "normalSoldierId": 1101,
+      "normalSoldierNameKo": "밴디트",
       "baseStats": {
         "hp": 40,
         "attack": 43,
@@ -588,6 +641,7 @@
       "spSoldierId": 6105,
       "nameKo": "닌자",
       "normalSoldierId": 1105,
+      "normalSoldierNameKo": "닌자",
       "baseStats": {
         "hp": 39,
         "attack": 45,
@@ -599,6 +653,7 @@
       "spSoldierId": 6111,
       "nameKo": "미스트 댄서",
       "normalSoldierId": 1111,
+      "normalSoldierNameKo": "미스트 댄서",
       "baseStats": {
         "hp": 40,
         "attack": 43,
@@ -610,6 +665,7 @@
       "spSoldierId": 6113,
       "nameKo": "얼굴 없는 자",
       "normalSoldierId": 1113,
+      "normalSoldierNameKo": "얼굴 없는 자",
       "baseStats": {
         "hp": 39,
         "attack": 45,

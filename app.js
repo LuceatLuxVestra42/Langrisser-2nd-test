@@ -89,7 +89,7 @@ function addSpSoldier(soldier) {
 
   const normal = document.createElement('p');
   normal.className = 'normal-soldier-id';
-  normal.textContent = `일반 용병 ID ${soldier.normalSoldierId}`;
+  normal.textContent = `일반 용병 ID ${soldier.normalSoldierId} · ${soldier.normalSoldierNameKo}`;
   const stats = document.createElement('dl');
   stats.className = 'sp-soldier-stats';
   for (const [label, value] of [

@@ -39,17 +39,31 @@ const assertSameIds = (expected, actual, label) => {
   }
 };
 
-export function renderSpSoldiers(identities, localizations, baseStats, relations) {
+export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations) {
   const spRecords = identities.records.filter((record) => record.variant === 'SP');
+  const normalRecords = identities.records.filter((record) => record.variant === 'NORMAL');
   const identityIds = idSet(spRecords, (record) => record.id, 'identity');
   const localizationIds = idSet(localizations.records, (record) => record.soldierId, 'localization');
+  const normalIdentityIds = idSet(normalRecords, (record) => record.id, 'NORMAL identity');
+  const normalLocalizationIds = idSet(normalLocalizations.records, (record) => record.soldierId, 'NORMAL localization');
   const statsIds = idSet(baseStats.records, (record) => record.id, 'base stats');
   const relationIds = idSet(relations.records, (record) => record.spSoldierId, 'relation');
   assertSameIds(identityIds, localizationIds, 'localization');
   assertSameIds(identityIds, statsIds, 'base stats');
   assertSameIds(identityIds, relationIds, 'relation');
 
+  const relationTargetIds = relations.records.map(({ normalSoldierId }) => normalSoldierId);
+  if (relationTargetIds.some((id) => !Number.isInteger(id)) || new Set(relationTargetIds).size !== relationTargetIds.length) {
+    throw new Error('relation contains invalid or duplicate NORMAL Soldier IDs');
+  }
+  const relationTargets = new Set(relationTargetIds);
+  assertSameIds(relationTargets, normalLocalizationIds, 'NORMAL localization');
+  if ([...relationTargets].some((id) => !normalIdentityIds.has(id))) {
+    throw new Error('relation NORMAL Soldier ID is missing from identity');
+  }
+
   const nameById = new Map(localizations.records.map(({ soldierId, nameKo }) => [soldierId, nameKo]));
+  const normalNameById = new Map(normalLocalizations.records.map(({ soldierId, nameKo }) => [soldierId, nameKo]));
   const statsById = new Map(baseStats.records.map(({ id, baseStats: stats }) => [id, stats]));
   const normalIdBySpId = new Map(relations.records.map(({ spSoldierId, normalSoldierId }) => [spSoldierId, normalSoldierId]));
   const soldiers = [...spRecords]
@@ -58,12 +72,16 @@ export function renderSpSoldiers(identities, localizations, baseStats, relations
       const stats = statsById.get(id);
       const nameKo = nameById.get(id);
       const normalSoldierId = normalIdBySpId.get(id);
+      const normalSoldierNameKo = normalNameById.get(normalSoldierId);
       if (typeof nameKo !== 'string' || !nameKo) throw new Error(`Missing Korean localization for SP Soldier ${id}`);
       if (!stats || !['hp', 'attack', 'defense', 'magicDefense'].every((key) => Number.isFinite(stats[key]))) {
         throw new Error(`Missing base stats for SP Soldier ${id}`);
       }
       if (!Number.isInteger(normalSoldierId)) throw new Error(`Missing NORMAL Soldier relation for SP Soldier ${id}`);
-      return { spSoldierId: id, nameKo, normalSoldierId, baseStats: {
+      if (typeof normalSoldierNameKo !== 'string' || !normalSoldierNameKo) {
+        throw new Error(`Missing Korean localization for NORMAL Soldier ${normalSoldierId} linked to SP Soldier ${id}`);
+      }
+      return { spSoldierId: id, nameKo, normalSoldierId, normalSoldierNameKo, baseStats: {
         hp: stats.hp,
         attack: stats.attack,
         defense: stats.defense,
@@ -84,12 +102,13 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
-  const [soldiers, spLocalizations, spBaseStats, spRelations] = await Promise.all([
+  const [soldiers, spLocalizations, normalLocalizations, spBaseStats, spRelations] = await Promise.all([
     readFile(resolve('canonical/soldiers.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-localizations-ko.v1.json'), 'utf8'),
+    readFile(resolve('canonical/normal-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-base-stats.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-normal-relations.v1.json'), 'utf8'),
   ]);
-  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations)), 'utf8');
+  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations)), 'utf8');
   process.stdout.write(`Generated ${outputPath} and ${glossaryPath}\n`);
 }
