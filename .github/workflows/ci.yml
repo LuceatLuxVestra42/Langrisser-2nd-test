@@ -55,6 +55,15 @@ jobs:
       - name: Test Hero-Soldier read-only validation
         run: node tools/test-hero-soldier-relations.mjs
 
+      - name: Validate SP Hero reward source evidence
+        run: node tools/validate-sp-hero-reward-source.mjs
+
+      - name: Validate Hero-Soldier direct-source equivalence
+        run: node tools/validate-hero-soldier-direct-source.mjs
+
+      - name: Test Hero-Soldier direct-source validation
+        run: node tools/test-hero-soldier-direct-source.mjs
+
       - name: Test SP Soldier relations
         run: node tools/test-sp-soldier-relation.mjs
 

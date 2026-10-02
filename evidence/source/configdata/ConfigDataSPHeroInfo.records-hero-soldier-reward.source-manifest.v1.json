@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json",
+  "repoPreservedPath": "evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json",
+  "sourceRole": "selected_configdata_source_evidence",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "path": "data/configdata/ConfigDataSPHeroInfo.json",
+    "gitBlobSha1": "c3dc00ad0e1454481715ade378f56104febed9a3",
+    "sha256": "9ab506e525662e4107fbec4d0433827fc5c7c6a6bd4aff69ea9d883b9575b174",
+    "bytes": 37157,
+    "sourceVersionStatus": "unknown",
+    "sourceContract": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/contracts/configdata-source-pack-contract.v1.json",
+      "gitBlobSha1": "0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d",
+      "sha256": "5ae5443a7533760c9048d04355ad9445bb1f89812c10abced1c23d019d38df4d",
+      "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "sourceTreeGitSha1": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+      "semanticContentAuthority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT",
+      "release": {
+        "tag": "source-configdata-v1-6475e63e",
+        "archiveName": "configdata-source-v1-6475e63e.tar",
+        "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84"
+      }
+    }
+  },
+  "selection": {
+    "parser": "UTF-8 JSON parser; source is a JSON array",
+    "method": "Select exact ConfigDataSPHeroInfo.ID records referenced by the current admitted SP_HERO_REWARD provenance; retain only ID and SecondStageRewardSoldiers without semantic edits. This is claim-scoped evidence selection, not a source completeness or future admission rule.",
+    "selectedFields": [
+      "ID",
+      "SecondStageRewardSoldiers"
+    ],
+    "selectedIds": [
+      60,
+      13,
+      11,
+      9,
+      37
+    ]
+  },
+  "sourceRecordCount": 25,
+  "recordCount": 5,
+  "recordsSha256": "d628ada4ad7948c0506666f6813226bfe21f61d1949a7e3ce788cb7c8d524b0c",
+  "sourceScope": "Pinned ConfigDataSPHeroInfo rows needed to support the current admitted SP_HERO_REWARD Hero-Soldier provenance only.",
+  "supportedClaim": {
+    "sourceKind": "SP_HERO_REWARD",
+    "heroIdField": "ID",
+    "soldierIdsField": "SecondStageRewardSoldiers",
+    "locatorFormat": "evidence/source/configdata/ConfigDataSPHeroInfo.records-hero-soldier-reward.v1.json#ID=<HeroID>/SecondStageRewardSoldiers",
+    "semanticInterpretationContract": "evidence/source/legacy/hero-soldier/contracts/hero-soldier-relation-source-contract.v1.json"
+  },
+  "knownLimitations": [
+    "Selected IDs are scoped to current admitted SP_HERO_REWARD provenance; this artifact is not a complete inventory of all SecondStageRewardSoldiers values in the pinned source.",
+    "This artifact does not admit new Hero-Soldier relations or define future relation completeness.",
+    "Source version beyond the pinned repository commit is unknown."
+  ]
+}
