@@ -1,0 +1,510 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Korean display labels only for the currently admitted NORMAL Soldier target ID set.",
+  "records": [
+    {
+      "soldierId": 115,
+      "nameKo": "근위창병",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=115",
+      "sourceLine": 29,
+      "sourceRow": 9,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 118,
+      "nameKo": "다크 센츄리온",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=118",
+      "sourceLine": 30,
+      "sourceRow": 10,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 121,
+      "nameKo": "발키리",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=121",
+      "sourceLine": 31,
+      "sourceRow": 11,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 129,
+      "nameKo": "엔트 가디언",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=129",
+      "sourceLine": 33,
+      "sourceRow": 13,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 130,
+      "nameKo": "팔랑크스",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=130",
+      "sourceLine": 34,
+      "sourceRow": 14,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 132,
+      "nameKo": "창지기 엘프",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=132",
+      "sourceLine": 36,
+      "sourceRow": 16,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 203,
+      "nameKo": "그레나디어",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=203",
+      "sourceLine": 44,
+      "sourceRow": 24,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 210,
+      "nameKo": "하이랜더",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=210",
+      "sourceLine": 45,
+      "sourceRow": 25,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 216,
+      "nameKo": "오크 광전사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=216",
+      "sourceLine": 47,
+      "sourceRow": 27,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 225,
+      "nameKo": "암흑 근위대",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=225",
+      "sourceLine": 49,
+      "sourceRow": 29,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 231,
+      "nameKo": "광전사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=231",
+      "sourceLine": 51,
+      "sourceRow": 31,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 237,
+      "nameKo": "가면 메이드",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=237",
+      "sourceLine": 53,
+      "sourceRow": 33,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 244,
+      "nameKo": "개조인간",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=244",
+      "sourceLine": 54,
+      "sourceRow": 34,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 245,
+      "nameKo": "왕녀 친위대",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=245",
+      "sourceLine": 55,
+      "sourceRow": 35,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 248,
+      "nameKo": "화려한 결투자",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=248",
+      "sourceLine": 58,
+      "sourceRow": 38,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 308,
+      "nameKo": "용기병",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=308",
+      "sourceLine": 67,
+      "sourceRow": 47,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 311,
+      "nameKo": "마스터 디노",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=311",
+      "sourceLine": 68,
+      "sourceRow": 48,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 314,
+      "nameKo": "헬하운드",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=314",
+      "sourceLine": 69,
+      "sourceRow": 49,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 320,
+      "nameKo": "황가기병",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=320",
+      "sourceLine": 71,
+      "sourceRow": 51,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 324,
+      "nameKo": "천상의 수호자",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=324",
+      "sourceLine": 73,
+      "sourceRow": 53,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 326,
+      "nameKo": "템플러",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=326",
+      "sourceLine": 74,
+      "sourceRow": 54,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 402,
+      "nameKo": "로열 그리폰",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=402",
+      "sourceLine": 85,
+      "sourceRow": 65,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 410,
+      "nameKo": "뱀파이어 배트",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=410",
+      "sourceLine": 88,
+      "sourceRow": 68,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 413,
+      "nameKo": "가고일",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=413",
+      "sourceLine": 89,
+      "sourceRow": 69,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 419,
+      "nameKo": "홀리 페가수스",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=419",
+      "sourceLine": 91,
+      "sourceRow": 71,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 422,
+      "nameKo": "드래고니아 나이트",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=422",
+      "sourceLine": 93,
+      "sourceRow": 73,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 423,
+      "nameKo": "메카 드래곤 나이트",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=423",
+      "sourceLine": 94,
+      "sourceRow": 74,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 504,
+      "nameKo": "거대 랍스터",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=504",
+      "sourceLine": 103,
+      "sourceRow": 83,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 507,
+      "nameKo": "리바이어선",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=507",
+      "sourceLine": 104,
+      "sourceRow": 84,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 511,
+      "nameKo": "파도의 정령",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=511",
+      "sourceLine": 106,
+      "sourceRow": 86,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 514,
+      "nameKo": "바다의 사제",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=514",
+      "sourceLine": 109,
+      "sourceRow": 89,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 602,
+      "nameKo": "하이엘프",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=602",
+      "sourceLine": 115,
+      "sourceRow": 95,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 607,
+      "nameKo": "천공사수",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=607",
+      "sourceLine": 118,
+      "sourceRow": 98,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 610,
+      "nameKo": "다크엘프 저격수",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=610",
+      "sourceLine": 119,
+      "sourceRow": 99,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 621,
+      "nameKo": "마법사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=621",
+      "sourceLine": 125,
+      "sourceRow": 105,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 622,
+      "nameKo": "마녀",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=622",
+      "sourceLine": 126,
+      "sourceRow": 106,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 631,
+      "nameKo": "데몬헌터",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=631",
+      "sourceLine": 129,
+      "sourceRow": 109,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 634,
+      "nameKo": "볼트 레인저",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=634",
+      "sourceLine": 130,
+      "sourceRow": 110,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 636,
+      "nameKo": "수정 마도사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=636",
+      "sourceLine": 132,
+      "sourceRow": 112,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 637,
+      "nameKo": "엘프 궁기병",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=637",
+      "sourceLine": 133,
+      "sourceRow": 113,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 638,
+      "nameKo": "어둠의 연금술사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=638",
+      "sourceLine": 134,
+      "sourceRow": 114,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 641,
+      "nameKo": "맹독 박쥐술사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=641",
+      "sourceLine": 137,
+      "sourceRow": 117,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 644,
+      "nameKo": "용암 샤먼",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=644",
+      "sourceLine": 140,
+      "sourceRow": 120,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 802,
+      "nameKo": "신관",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=802",
+      "sourceLine": 147,
+      "sourceRow": 127,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 805,
+      "nameKo": "세인트 나이트",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=805",
+      "sourceLine": 148,
+      "sourceRow": 128,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 811,
+      "nameKo": "퇴마사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=811",
+      "sourceLine": 151,
+      "sourceRow": 131,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 812,
+      "nameKo": "광신자",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=812",
+      "sourceLine": 152,
+      "sourceRow": 132,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 815,
+      "nameKo": "영종의 투승",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=815",
+      "sourceLine": 155,
+      "sourceRow": 135,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 816,
+      "nameKo": "신성 호위술사",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=816",
+      "sourceLine": 156,
+      "sourceRow": 136,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1015,
+      "nameKo": "지옥불 사수",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1015",
+      "sourceLine": 165,
+      "sourceRow": 145,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1031,
+      "nameKo": "스파이더 엘프",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1031",
+      "sourceLine": 166,
+      "sourceRow": 146,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1034,
+      "nameKo": "안개의 유령",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1034",
+      "sourceLine": 169,
+      "sourceRow": 149,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1101,
+      "nameKo": "밴디트",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1101",
+      "sourceLine": 176,
+      "sourceRow": 156,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1105,
+      "nameKo": "닌자",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1105",
+      "sourceLine": 179,
+      "sourceRow": 159,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1111,
+      "nameKo": "미스트 댄서",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1111",
+      "sourceLine": 181,
+      "sourceRow": 161,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 1113,
+      "nameKo": "얼굴 없는 자",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=1113",
+      "sourceLine": 183,
+      "sourceRow": 163,
+      "evidenceClass": "A"
+    }
+  ]
+}
