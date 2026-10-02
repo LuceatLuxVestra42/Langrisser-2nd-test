@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "jobs": [
+    {
+      "jobId": 128,
+      "nameKo": "태초의 군주"
+    },
+    {
+      "jobId": 202,
+      "nameKo": "소드맨"
+    },
+    {
+      "jobId": 262,
+      "nameKo": "고독한 검객"
+    },
+    {
+      "jobId": 301,
+      "nameKo": "나이트"
+    },
+    {
+      "jobId": 302,
+      "nameKo": "하이랜더"
+    },
+    {
+      "jobId": 303,
+      "nameKo": "그랜드 나이트"
+    },
+    {
+      "jobId": 306,
+      "nameKo": "로열 나이트"
+    },
+    {
+      "jobId": 307,
+      "nameKo": "스트라이크 마스터"
+    },
+    {
+      "jobId": 368,
+      "nameKo": "광룡 기사단장"
+    },
+    {
+      "jobId": 373,
+      "nameKo": "이방의 협객"
+    },
+    {
+      "jobId": 377,
+      "nameKo": "어둠의 청룡"
+    },
+    {
+      "jobId": 390,
+      "nameKo": "마법 성기사"
+    },
+    {
+      "jobId": 414,
+      "nameKo": "천공의 마룡"
+    },
+    {
+      "jobId": 426,
+      "nameKo": "빛나는 지략가"
+    },
+    {
+      "jobId": 437,
+      "nameKo": "달빛 영주"
+    },
+    {
+      "jobId": 622,
+      "nameKo": "레인저 제네럴"
+    },
+    {
+      "jobId": 633,
+      "nameKo": "바람의 기사"
+    },
+    {
+      "jobId": 701,
+      "nameKo": "메이지"
+    },
+    {
+      "jobId": 702,
+      "nameKo": "아크 메이지"
+    },
+    {
+      "jobId": 703,
+      "nameKo": "서모너"
+    },
+    {
+      "jobId": 706,
+      "nameKo": "다크 프린세스"
+    },
+    {
+      "jobId": 744,
+      "nameKo": "흑룡 마도사"
+    },
+    {
+      "jobId": 769,
+      "nameKo": "새벽빛의 은혜"
+    },
+    {
+      "jobId": 803,
+      "nameKo": "주교"
+    },
+    {
+      "jobId": 805,
+      "nameKo": "마터"
+    },
+    {
+      "jobId": 806,
+      "nameKo": "프리스트"
+    },
+    {
+      "jobId": 807,
+      "nameKo": "세인트"
+    },
+    {
+      "jobId": 810,
+      "nameKo": "세인트"
+    },
+    {
+      "jobId": 812,
+      "nameKo": "발키리"
+    },
+    {
+      "jobId": 813,
+      "nameKo": "프린세스"
+    },
+    {
+      "jobId": 817,
+      "nameKo": "워 프리스티스"
+    },
+    {
+      "jobId": 841,
+      "nameKo": "장미의 여왕"
+    },
+    {
+      "jobId": 858,
+      "nameKo": "프린세스"
+    },
+    {
+      "jobId": 864,
+      "nameKo": "단죄의 성녀"
+    },
+    {
+      "jobId": 878,
+      "nameKo": "선택받은 왕"
+    },
+    {
+      "jobId": 1097,
+      "nameKo": "암흑의 마왕"
+    },
+    {
+      "jobId": 1119,
+      "nameKo": "오버테이커"
+    },
+    {
+      "jobId": 1214,
+      "nameKo": "어둠의 황제"
+    },
+    {
+      "jobId": 20229,
+      "nameKo": "찬란한 성녀"
+    },
+    {
+      "jobId": 20811,
+      "nameKo": "여명의 성기사"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 const container = document.querySelector('#heroes');
 const spSoldierContainer = document.querySelector('#sp-soldiers');
+const jobGlossaryContainer = document.querySelector('#job-glossary');
 
 function addHero(hero) {
   const article = document.createElement('article');
@@ -45,6 +46,33 @@ try {
   status.className = 'status status-error';
   status.textContent = '영웅 정보를 불러오지 못했습니다.';
   container.replaceChildren(status);
+  console.error(error);
+}
+
+try {
+  const response = await fetch('./generated/job-glossary.v1.json');
+  if (!response.ok) throw new Error(`Generated Job glossary request failed (${response.status})`);
+  const data = await response.json();
+  if (data.schemaVersion !== 1 || !Array.isArray(data.jobs)) throw new Error('Unsupported Job glossary data');
+  const rows = data.jobs.map((job) => {
+    const row = document.createElement('tr');
+    const id = document.createElement('td');
+    id.className = 'job-glossary-id';
+    id.textContent = String(job.jobId);
+    const name = document.createElement('td');
+    name.textContent = job.nameKo;
+    row.append(id, name);
+    return row;
+  });
+  jobGlossaryContainer.replaceChildren(...rows);
+} catch (error) {
+  const row = document.createElement('tr');
+  const status = document.createElement('td');
+  status.colSpan = 2;
+  status.className = 'status status-error';
+  status.textContent = '전직명 사전을 불러오지 못했습니다.';
+  row.append(status);
+  jobGlossaryContainer.replaceChildren(row);
   console.error(error);
 }
 

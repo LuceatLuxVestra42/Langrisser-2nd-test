@@ -19,6 +19,13 @@ export function renderGenerated(canonical, jobLocalization) {
   return `${JSON.stringify({ schemaVersion: 1, heroes }, null, 2)}\n`;
 }
 
+export function renderJobGlossary(jobLocalization) {
+  const jobs = [...jobLocalization.records]
+    .sort((a, b) => a.jobId - b.jobId)
+    .map(({ jobId, nameKo }) => ({ jobId, nameKo }));
+  return `${JSON.stringify({ schemaVersion: 1, jobs }, null, 2)}\n`;
+}
+
 const idSet = (records, getId, label) => {
   const ids = records.map(getId);
   if (ids.some((id) => !Number.isInteger(id))) throw new Error(`${label} contains a non-integer SP Soldier ID`);
@@ -74,6 +81,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const canonical = JSON.parse(await readFile(inputPath, 'utf8'));
   const jobLocalization = JSON.parse(await readFile(localizationPath, 'utf8'));
   await writeFile(outputPath, renderGenerated(canonical, jobLocalization), 'utf8');
+  const glossaryPath = resolve('generated/job-glossary.v1.json');
+  await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
   const [soldiers, spLocalizations, spBaseStats, spRelations] = await Promise.all([
     readFile(resolve('canonical/soldiers.v1.json'), 'utf8'),
@@ -82,5 +91,5 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/sp-soldier-normal-relations.v1.json'), 'utf8'),
   ]);
   await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations)), 'utf8');
-  process.stdout.write(`Generated ${outputPath}\n`);
+  process.stdout.write(`Generated ${outputPath} and ${glossaryPath}\n`);
 }
