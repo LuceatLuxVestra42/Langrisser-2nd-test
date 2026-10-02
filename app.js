@@ -1,4 +1,5 @@
 const container = document.querySelector('#heroes');
+const spSoldierContainer = document.querySelector('#sp-soldiers');
 
 function addHero(hero) {
   const article = document.createElement('article');
@@ -44,5 +45,54 @@ try {
   status.className = 'status status-error';
   status.textContent = '영웅 정보를 불러오지 못했습니다.';
   container.replaceChildren(status);
+  console.error(error);
+}
+
+function addSpSoldier(soldier) {
+  const article = document.createElement('article');
+  article.className = 'sp-soldier-card';
+  const heading = document.createElement('div');
+  heading.className = 'sp-soldier-heading';
+  const name = document.createElement('h3');
+  name.textContent = soldier.nameKo;
+  const id = document.createElement('p');
+  id.textContent = `SP Soldier ID ${soldier.spSoldierId}`;
+  heading.append(name, id);
+
+  const normal = document.createElement('p');
+  normal.className = 'normal-soldier-id';
+  normal.textContent = `일반 용병 ID ${soldier.normalSoldierId}`;
+  const stats = document.createElement('dl');
+  stats.className = 'sp-soldier-stats';
+  for (const [label, value] of [
+    ['HP', soldier.baseStats.hp],
+    ['공격력', soldier.baseStats.attack],
+    ['방어력', soldier.baseStats.defense],
+    ['마방', soldier.baseStats.magicDefense],
+  ]) {
+    const pair = document.createElement('div');
+    const term = document.createElement('dt');
+    term.textContent = label;
+    const description = document.createElement('dd');
+    description.textContent = String(value);
+    pair.append(term, description);
+    stats.append(pair);
+  }
+  article.append(heading, normal, stats);
+  spSoldierContainer.append(article);
+}
+
+try {
+  const response = await fetch('./generated/sp-soldiers.v1.json');
+  if (!response.ok) throw new Error(`Generated SP Soldier data request failed (${response.status})`);
+  const data = await response.json();
+  if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)) throw new Error('Unsupported SP Soldier data');
+  spSoldierContainer.replaceChildren();
+  for (const soldier of data.soldiers) addSpSoldier(soldier);
+} catch (error) {
+  const status = document.createElement('p');
+  status.className = 'status status-error';
+  status.textContent = 'SP 용병 정보를 불러오지 못했습니다.';
+  spSoldierContainer.replaceChildren(status);
   console.error(error);
 }

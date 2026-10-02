@@ -28,6 +28,19 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .job-connections { margin: 0; padding: 0 16px 18px 34px; color: #c5cfdb; font-size: .82rem; line-height: 1.55; }
 .status { grid-column: 1 / -1; padding: 24px; color: #b4bfce; }
 .status-error { color: #ffb8ad; }
+.sp-soldier-section { margin-top: 64px; }
+.section-heading { margin-bottom: 22px; }
+.section-heading h2 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.25rem); }
+.sp-soldier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; }
+.sp-soldier-card { min-width: 0; padding: 16px; border: 1px solid #344050; border-radius: 14px; background: #1a202a; box-shadow: 0 8px 24px #070a0e44; }
+.sp-soldier-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.sp-soldier-heading h3 { margin: 0; font-size: 1.05rem; }
+.sp-soldier-heading p, .normal-soldier-id { margin: 0; color: #aab5c3; font-size: .78rem; }
+.normal-soldier-id { margin-top: 7px; }
+.sp-soldier-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 15px 0 0; }
+.sp-soldier-stats div { min-width: 0; }
+.sp-soldier-stats dt { color: #aab5c3; font-size: .7rem; }
+.sp-soldier-stats dd { margin: 3px 0 0; font-variant-numeric: tabular-nums; font-weight: 700; }
 
 @media (max-width: 520px) {
   .page { padding-top: 36px; }
