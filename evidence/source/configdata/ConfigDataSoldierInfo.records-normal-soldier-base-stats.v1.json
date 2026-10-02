@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "ID": 115,
+      "HP_INI": 43,
+      "AT_INI": 40,
+      "DF_INI": 23,
+      "MagicDF_INI": 17
+    },
+    {
+      "ID": 118,
+      "HP_INI": 48,
+      "AT_INI": 40,
+      "DF_INI": 26,
+      "MagicDF_INI": 16
+    },
+    {
+      "ID": 121,
+      "HP_INI": 40,
+      "AT_INI": 43,
+      "DF_INI": 22,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 129,
+      "HP_INI": 43,
+      "AT_INI": 43,
+      "DF_INI": 23,
+      "MagicDF_INI": 17
+    },
+    {
+      "ID": 130,
+      "HP_INI": 43,
+      "AT_INI": 43,
+      "DF_INI": 23,
+      "MagicDF_INI": 17
+    },
+    {
+      "ID": 132,
+      "HP_INI": 45,
+      "AT_INI": 43,
+      "DF_INI": 24,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 203,
+      "HP_INI": 53,
+      "AT_INI": 37,
+      "DF_INI": 23,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 210,
+      "HP_INI": 43,
+      "AT_INI": 40,
+      "DF_INI": 22,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 216,
+      "HP_INI": 43,
+      "AT_INI": 40,
+      "DF_INI": 22,
+      "MagicDF_INI": 17
+    },
+    {
+      "ID": 225,
+      "HP_INI": 53,
+      "AT_INI": 37,
+      "DF_INI": 23,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 231,
+      "HP_INI": 40,
+      "AT_INI": 43,
+      "DF_INI": 22,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 237,
+      "HP_INI": 36,
+      "AT_INI": 40,
+      "DF_INI": 23,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 244,
+      "HP_INI": 40,
+      "AT_INI": 43,
+      "DF_INI": 22,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 245,
+      "HP_INI": 43,
+      "AT_INI": 40,
+      "DF_INI": 22,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 248,
+      "HP_INI": 43,
+      "AT_INI": 43,
+      "DF_INI": 23,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 308,
+      "HP_INI": 43,
+      "AT_INI": 43,
+      "DF_INI": 22,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 311,
+      "HP_INI": 36,
+      "AT_INI": 45,
+      "DF_INI": 20,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 314,
+      "HP_INI": 40,
+      "AT_INI": 45,
+      "DF_INI": 20,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 320,
+      "HP_INI": 43,
+      "AT_INI": 43,
+      "DF_INI": 23,
+      "MagicDF_INI": 17
+    },
+    {
+      "ID": 324,
+      "HP_INI": 36,
+      "AT_INI": 43,
+      "DF_INI": 22,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 326,
+      "HP_INI": 40,
+      "AT_INI": 40,
+      "DF_INI": 22,
+      "MagicDF_INI": 26
+    },
+    {
+      "ID": 402,
+      "HP_INI": 40,
+      "AT_INI": 45,
+      "DF_INI": 20,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 410,
+      "HP_INI": 43,
+      "AT_INI": 45,
+      "DF_INI": 22,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 413,
+      "HP_INI": 43,
+      "AT_INI": 45,
+      "DF_INI": 22,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 419,
+      "HP_INI": 40,
+      "AT_INI": 43,
+      "DF_INI": 23,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 422,
+      "HP_INI": 43,
+      "AT_INI": 43,
+      "DF_INI": 23,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 423,
+      "HP_INI": 43,
+      "AT_INI": 45,
+      "DF_INI": 24,
+      "MagicDF_INI": 18
+    },
+    {
+      "ID": 504,
+      "HP_INI": 43,
+      "AT_INI": 37,
+      "DF_INI": 26,
+      "MagicDF_INI": 16
+    },
+    {
+      "ID": 507,
+      "HP_INI": 43,
+      "AT_INI": 40,
+      "DF_INI": 23,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 511,
+      "HP_INI": 43,
+      "AT_INI": 37,
+      "DF_INI": 23,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 514,
+      "HP_INI": 43,
+      "AT_INI": 37,
+      "DF_INI": 23,
+      "MagicDF_INI": 26
+    },
+    {
+      "ID": 602,
+      "HP_INI": 34,
+      "AT_INI": 40,
+      "DF_INI": 19,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 607,
+      "HP_INI": 36,
+      "AT_INI": 40,
+      "DF_INI": 17,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 610,
+      "HP_INI": 31,
+      "AT_INI": 40,
+      "DF_INI": 17,
+      "MagicDF_INI": 26
+    },
+    {
+      "ID": 621,
+      "HP_INI": 34,
+      "AT_INI": 37,
+      "DF_INI": 19,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 622,
+      "HP_INI": 34,
+      "AT_INI": 40,
+      "DF_INI": 17,
+      "MagicDF_INI": 28
+    },
+    {
+      "ID": 631,
+      "HP_INI": 36,
+      "AT_INI": 37,
+      "DF_INI": 20,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 634,
+      "HP_INI": 40,
+      "AT_INI": 37,
+      "DF_INI": 22,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 636,
+      "HP_INI": 43,
+      "AT_INI": 37,
+      "DF_INI": 22,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 637,
+      "HP_INI": 36,
+      "AT_INI": 40,
+      "DF_INI": 20,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 638,
+      "HP_INI": 40,
+      "AT_INI": 40,
+      "DF_INI": 20,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 641,
+      "HP_INI": 37,
+      "AT_INI": 40,
+      "DF_INI": 18,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 644,
+      "HP_INI": 43,
+      "AT_INI": 40,
+      "DF_INI": 17,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 802,
+      "HP_INI": 34,
+      "AT_INI": 31,
+      "DF_INI": 19,
+      "MagicDF_INI": 28
+    },
+    {
+      "ID": 805,
+      "HP_INI": 34,
+      "AT_INI": 34,
+      "DF_INI": 19,
+      "MagicDF_INI": 26
+    },
+    {
+      "ID": 811,
+      "HP_INI": 40,
+      "AT_INI": 37,
+      "DF_INI": 22,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 812,
+      "HP_INI": 36,
+      "AT_INI": 40,
+      "DF_INI": 20,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 815,
+      "HP_INI": 40,
+      "AT_INI": 40,
+      "DF_INI": 19,
+      "MagicDF_INI": 23
+    },
+    {
+      "ID": 816,
+      "HP_INI": 48,
+      "AT_INI": 37,
+      "DF_INI": 24,
+      "MagicDF_INI": 24
+    },
+    {
+      "ID": 1015,
+      "HP_INI": 34,
+      "AT_INI": 40,
+      "DF_INI": 20,
+      "MagicDF_INI": 19
+    },
+    {
+      "ID": 1031,
+      "HP_INI": 43,
+      "AT_INI": 37,
+      "DF_INI": 22,
+      "MagicDF_INI": 22
+    },
+    {
+      "ID": 1034,
+      "HP_INI": 40,
+      "AT_INI": 37,
+      "DF_INI": 22,
+      "MagicDF_INI": 24
+    },
+    {
+      "ID": 1101,
+      "HP_INI": 40,
+      "AT_INI": 40,
+      "DF_INI": 20,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 1105,
+      "HP_INI": 36,
+      "AT_INI": 43,
+      "DF_INI": 20,
+      "MagicDF_INI": 20
+    },
+    {
+      "ID": 1111,
+      "HP_INI": 40,
+      "AT_INI": 37,
+      "DF_INI": 22,
+      "MagicDF_INI": 26
+    },
+    {
+      "ID": 1113,
+      "HP_INI": 36,
+      "AT_INI": 43,
+      "DF_INI": 20,
+      "MagicDF_INI": 22
+    }
+  ]
+}

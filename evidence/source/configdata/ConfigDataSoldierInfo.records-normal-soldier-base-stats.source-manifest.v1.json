@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Claim-scoped evidence for the raw base stats of current NORMAL Soldier endpoints.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "sourceVersionStatus": "unknown",
+    "semanticContentAuthority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT"
+  },
+  "artifact": {
+    "sourcePath": "data/configdata/ConfigDataSoldierInfo.json",
+    "sourceGitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+    "sourceSha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+    "sourceBytes": 1078582,
+    "sourceTopLevelRecordCount": 777,
+    "preservedEndpointPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json",
+    "preservedEndpointSha256": "0710ba87cd15f205cdcfbbbe89a2662e35b5acb4441fbd7aa3c8ebba223c6b46",
+    "preservedPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json",
+    "preservedSha256": "49d58cb7128670a7c65c14076a604ea7fc6fd710dcd3c728ac884af0ff9c7581",
+    "selectedTargetIds": [
+      115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237, 244, 245,
+      248, 308, 311, 314, 320, 324, 326, 402, 410, 413, 419, 422, 423, 504,
+      507, 511, 514, 602, 607, 610, 621, 622, 631, 634, 636, 637, 638, 641,
+      644, 802, 805, 811, 812, 815, 816, 1015, 1031, 1034, 1101, 1105, 1111,
+      1113
+    ],
+    "selectedRecordCount": 56,
+    "selectedFields": [
+      "ID",
+      "HP_INI",
+      "AT_INI",
+      "DF_INI",
+      "MagicDF_INI"
+    ],
+    "extractionRule": "Select endpoint evidence rows whose numeric ID exactly matches a current canonical SP→NORMAL relation target; copy ID and four numeric base-stat fields unchanged.",
+    "sourceLocatorSemantics": "Each ID identifies one top-level ConfigDataSoldierInfo source record in the pinned source snapshot; field values are copied without calculation, normalization, or scaling."
+  },
+  "claimScope": "Base stats only for the currently admitted NORMAL Soldier target ID set used by current SP→NORMAL relations.",
+  "limitation": "This evidence supports base stats only for the currently admitted NORMAL Soldier target ID set. It does not establish the full NORMAL Soldier population or other Soldier semantics."
+}
