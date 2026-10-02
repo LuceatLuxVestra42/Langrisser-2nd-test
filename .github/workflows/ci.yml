@@ -28,6 +28,12 @@ jobs:
       - name: Build static site
         run: node tools/build.mjs
 
+      - name: Validate SP Soldier generated presentation
+        run: node tools/validate-sp-soldier-presentation.mjs
+
+      - name: Test SP Soldier presentation regressions
+        run: node tools/test-sp-soldier-presentation.mjs
+
       - name: Test Hero and Job relations
         run: node tools/test-job-validation.mjs
 

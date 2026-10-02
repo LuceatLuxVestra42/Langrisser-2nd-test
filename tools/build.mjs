@@ -1,7 +1,7 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers } from './generate.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -20,6 +20,19 @@ const expectedGenerated = renderGenerated(canonical, jobLocalization);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
+
+const [soldierIdentities, soldierLocalizations, soldierBaseStats, soldierRelations] = await Promise.all([
+  readJson('canonical/soldiers.v1.json'),
+  readJson('canonical/sp-soldier-localizations-ko.v1.json'),
+  readJson('canonical/sp-soldier-base-stats.v1.json'),
+  readJson('canonical/sp-soldier-normal-relations.v1.json'),
+]);
+const spGeneratedPath = resolve('generated/sp-soldiers.v1.json');
+const spGeneratedText = await readFile(spGeneratedPath, 'utf8');
+const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, soldierBaseStats, soldierRelations);
+if (spGeneratedText !== expectedSpGenerated) throw new Error('generated SP Soldier data is stale or non-deterministic');
+const spGenerated = JSON.parse(spGeneratedText);
+if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers)) throw new Error('built document has unsupported SP Soldier presentation schema');
 
 const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
@@ -44,6 +57,7 @@ try {
   await mkdir(join(output, 'generated'), { recursive: true });
   for (const file of ['index.html', 'app.js', 'styles.css']) await cp(resolve(file), join(output, file));
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
+  await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
 
   for (const portraitPath of portraitPaths) {
     if (typeof portraitPath !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(portraitPath)) {
@@ -64,8 +78,10 @@ try {
   if (!app.includes("fetch('./generated/hero-slice.v1.json')")) {
     throw new Error('built app does not resolve the generated Hero data entry');
   }
+  if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
+  await readFile(join(output, 'generated', 'sp-soldiers.v1.json'), 'utf8');
 
-  process.stdout.write(`Static build: PASS (${output}; fresh generated data and ${portraitPaths.length} portrait assets resolved)\n`);
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero and ${spGenerated.soldiers.length} SP Soldier records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
 } finally {
   await rm(output, { recursive: true, force: true });
 }
