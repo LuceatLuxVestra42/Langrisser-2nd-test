@@ -61,6 +61,12 @@ jobs:
       - name: Test Soldier identity
         run: node tools/test-soldier-identity.mjs
 
+      - name: Validate NORMAL Soldier base stats
+        run: node tools/validate-normal-soldier-base-stats.mjs
+
+      - name: Test NORMAL Soldier base stats
+        run: node tools/test-normal-soldier-base-stats.mjs
+
       - name: Validate NORMAL Soldier Korean localization
         run: node tools/validate-normal-soldier-ko-localization.mjs
 

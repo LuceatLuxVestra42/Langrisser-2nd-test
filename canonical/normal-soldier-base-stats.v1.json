@@ -1,0 +1,678 @@
+{
+  "schemaVersion": 1,
+  "scope": "Raw base stats for the 56 currently admitted NORMAL Soldier endpoints targeted by explicit SP→NORMAL relations; no full NORMAL population or level/growth calculation.",
+  "records": [
+    {
+      "entity": "Soldier",
+      "id": 115,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 17
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=115"
+    },
+    {
+      "entity": "Soldier",
+      "id": 118,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 48,
+        "attack": 40,
+        "defense": 26,
+        "magicDefense": 16
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=118"
+    },
+    {
+      "entity": "Soldier",
+      "id": 121,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=121"
+    },
+    {
+      "entity": "Soldier",
+      "id": 129,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=129"
+    },
+    {
+      "entity": "Soldier",
+      "id": 130,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=130"
+    },
+    {
+      "entity": "Soldier",
+      "id": 132,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 45,
+        "attack": 43,
+        "defense": 24,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=132"
+    },
+    {
+      "entity": "Soldier",
+      "id": 203,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 53,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=203"
+    },
+    {
+      "entity": "Soldier",
+      "id": 210,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=210"
+    },
+    {
+      "entity": "Soldier",
+      "id": 216,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 17
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=216"
+    },
+    {
+      "entity": "Soldier",
+      "id": 225,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 53,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=225"
+    },
+    {
+      "entity": "Soldier",
+      "id": 231,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=231"
+    },
+    {
+      "entity": "Soldier",
+      "id": 237,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=237"
+    },
+    {
+      "entity": "Soldier",
+      "id": 244,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=244"
+    },
+    {
+      "entity": "Soldier",
+      "id": 245,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=245"
+    },
+    {
+      "entity": "Soldier",
+      "id": 248,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=248"
+    },
+    {
+      "entity": "Soldier",
+      "id": 308,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=308"
+    },
+    {
+      "entity": "Soldier",
+      "id": 311,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=311"
+    },
+    {
+      "entity": "Soldier",
+      "id": 314,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=314"
+    },
+    {
+      "entity": "Soldier",
+      "id": 320,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=320"
+    },
+    {
+      "entity": "Soldier",
+      "id": 324,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=324"
+    },
+    {
+      "entity": "Soldier",
+      "id": 326,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=326"
+    },
+    {
+      "entity": "Soldier",
+      "id": 402,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=402"
+    },
+    {
+      "entity": "Soldier",
+      "id": 410,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=410"
+    },
+    {
+      "entity": "Soldier",
+      "id": 413,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=413"
+    },
+    {
+      "entity": "Soldier",
+      "id": 419,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=419"
+    },
+    {
+      "entity": "Soldier",
+      "id": 422,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=422"
+    },
+    {
+      "entity": "Soldier",
+      "id": 423,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 24,
+        "magicDefense": 18
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=423"
+    },
+    {
+      "entity": "Soldier",
+      "id": 504,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 26,
+        "magicDefense": 16
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=504"
+    },
+    {
+      "entity": "Soldier",
+      "id": 507,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=507"
+    },
+    {
+      "entity": "Soldier",
+      "id": 511,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=511"
+    },
+    {
+      "entity": "Soldier",
+      "id": 514,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=514"
+    },
+    {
+      "entity": "Soldier",
+      "id": 602,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 19,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=602"
+    },
+    {
+      "entity": "Soldier",
+      "id": 607,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=607"
+    },
+    {
+      "entity": "Soldier",
+      "id": 610,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 31,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=610"
+    },
+    {
+      "entity": "Soldier",
+      "id": 621,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 34,
+        "attack": 37,
+        "defense": 19,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=621"
+    },
+    {
+      "entity": "Soldier",
+      "id": 622,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 28
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=622"
+    },
+    {
+      "entity": "Soldier",
+      "id": 631,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 37,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=631"
+    },
+    {
+      "entity": "Soldier",
+      "id": 634,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=634"
+    },
+    {
+      "entity": "Soldier",
+      "id": 636,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=636"
+    },
+    {
+      "entity": "Soldier",
+      "id": 637,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=637"
+    },
+    {
+      "entity": "Soldier",
+      "id": 638,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=638"
+    },
+    {
+      "entity": "Soldier",
+      "id": 641,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 37,
+        "attack": 40,
+        "defense": 18,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=641"
+    },
+    {
+      "entity": "Soldier",
+      "id": 644,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=644"
+    },
+    {
+      "entity": "Soldier",
+      "id": 802,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 34,
+        "attack": 31,
+        "defense": 19,
+        "magicDefense": 28
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=802"
+    },
+    {
+      "entity": "Soldier",
+      "id": 805,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 34,
+        "attack": 34,
+        "defense": 19,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=805"
+    },
+    {
+      "entity": "Soldier",
+      "id": 811,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=811"
+    },
+    {
+      "entity": "Soldier",
+      "id": 812,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=812"
+    },
+    {
+      "entity": "Soldier",
+      "id": 815,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 19,
+        "magicDefense": 23
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=815"
+    },
+    {
+      "entity": "Soldier",
+      "id": 816,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 48,
+        "attack": 37,
+        "defense": 24,
+        "magicDefense": 24
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=816"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1015,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 19
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1015"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1031,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1031"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1034,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 24
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1034"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1101,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1101"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1105,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1105"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1111,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 26
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1111"
+    },
+    {
+      "entity": "Soldier",
+      "id": 1113,
+      "variant": "NORMAL",
+      "baseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 22
+      },
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-normal-soldier-base-stats.v1.json#ID=1113"
+    }
+  ]
+}
