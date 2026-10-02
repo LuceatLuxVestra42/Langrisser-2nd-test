@@ -1,0 +1,5421 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "Exclusive Equipment identity/population",
+  "scope": {
+    "entity": "Equipment",
+    "identityKey": "EquipmentID",
+    "population": "EXCLUSIVE_EQUIPMENT"
+  },
+  "claims": {
+    "claimA": {
+      "claim": "Each preserved ConfigData source fact row carries ID and a single GetPathList entry with PathType 46.",
+      "provenance": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+        "path": "data/configdata/ConfigDataEquipmentInfo.json",
+        "gitBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+        "sourceRecordCount": 548,
+        "identityField": "ID",
+        "selectionPredicate": "GetPathList.length == 1 && GetPathList[0].PathType == 46",
+        "recordLocatorPattern": "data/configdata/ConfigDataEquipmentInfo.json#ID={EquipmentID}",
+        "preservedProjection": "ID and GetPathList only"
+      },
+      "records": [
+        {
+          "ID": 273,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 274,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 275,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 276,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 277,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 278,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 279,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 280,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 281,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 286,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 287,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 292,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 293,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 294,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 295,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 296,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 297,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 298,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 403,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 404,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 405,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 406,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 411,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 412,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 413,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 414,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 415,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 416,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 417,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 418,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 423,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 424,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 425,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 426,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 427,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 428,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 429,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 434,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 435,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 436,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 437,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 438,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 439,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 440,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 441,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 446,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 447,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 448,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 449,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 450,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 451,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 452,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 453,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 454,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 455,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 460,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 461,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 462,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 463,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 464,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 465,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 466,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 467,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 472,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 473,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 474,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 475,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 476,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 477,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 478,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 479,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 484,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 485,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 486,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 487,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 488,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 489,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 490,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 495,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 496,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 497,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 498,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 499,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 500,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 501,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 502,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 507,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 508,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 509,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 510,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 511,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 512,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 513,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 514,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 519,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 520,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 521,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 522,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 523,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 524,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 525,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 526,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 531,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 532,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 533,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 534,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 535,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 536,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 537,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 538,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 539,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 540,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 545,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 546,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 547,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 548,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 549,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 550,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 551,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 552,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 557,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 558,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 559,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 560,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 561,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 562,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 567,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 568,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 569,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 570,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 571,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 572,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 573,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 578,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 579,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 580,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 581,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 582,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 587,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 588,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 589,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 590,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 595,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 596,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 597,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 598,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 603,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 604,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 605,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 606,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 611,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 612,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 613,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 614,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 619,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 620,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 621,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 622,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 627,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 628,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 629,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 634,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 635,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 636,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 637,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 638,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        },
+        {
+          "ID": 643,
+          "GetPathList": [
+            {
+              "PathType": 46,
+              "Name": 46
+            }
+          ]
+        }
+      ],
+      "observedPredicateMatchCount": 167
+    },
+    "claimB": {
+      "claim": "The pinned predecessor generated classification artifact labels these per-ID rows as exclusive-equipment.",
+      "provenance": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+        "path": "data/generated/equipment_stage2_7_acquisition.json",
+        "gitBlobSha1": "9933a2406fa026e1b340e31a080587a0828db8bc",
+        "identityField": "equipmentId",
+        "recordLocatorPattern": "data/generated/equipment_stage2_7_acquisition.json#records[?equipmentId={EquipmentID}]",
+        "sourceRecordCount": 390,
+        "classification": "exclusive-equipment",
+        "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+        "generator": {
+          "path": "scripts/finalize-equipment-stage2-7-acquisition.mjs",
+          "gitBlobSha1": "5955c658620d44c55914643260b9e4a564911936"
+        },
+        "validation": {
+          "workflowPath": ".github/workflows/equipment-stage2-7-acquisition.yml",
+          "workflowBlobSha1": "ae328c8e8d2fdcffe1916c7103aecf09f862e3cd",
+          "validatorPath": "scripts/validate-equipment-stage2-7-acquisition.mjs",
+          "validatorBlobSha1": "877eff3ed87ab2c7d3471ad177b28538b2cac432",
+          "runId": 32905645828,
+          "runUrl": "https://github.com/LuceatLuxVestra42/langrisser-future-guide/actions/runs/32905645828",
+          "runHeadCommit": "cb7cdd4143fbd141da8a18e41d7b9572dcb9616d",
+          "runConclusion": "success",
+          "validationStep": "Validate Stage 2-7 final data",
+          "validationStepConclusion": "success",
+          "generatedArtifactCommit": "42c2b5323f648488a59c0daf27ad0b4e9377f717"
+        },
+        "observedClassifiedRecordCount": 167
+      },
+      "records": [
+        {
+          "equipmentId": 273,
+          "nameCn": "流浪的骑士",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 273,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 274,
+          "nameCn": "黄金狮子",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 274,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 275,
+          "nameCn": "黑色新娘",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 275,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 276,
+          "nameCn": "斩男色",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 276,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 277,
+          "nameCn": "团结",
+          "equipmentType": 3,
+          "label": 14,
+          "sortIndex": 277,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 278,
+          "nameCn": "利古里亚之冠",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 278,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 279,
+          "nameCn": "魔导防护服",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 279,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 280,
+          "nameCn": "古巨美的馈赠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 280,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 281,
+          "nameCn": "黑色曙光",
+          "equipmentType": 0,
+          "label": 1,
+          "sortIndex": 281,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 286,
+          "nameCn": "妖精之翼",
+          "equipmentType": 3,
+          "label": 14,
+          "sortIndex": 286,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 287,
+          "nameCn": "远见",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 287,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 292,
+          "nameCn": "1UP",
+          "equipmentType": 1,
+          "label": 9,
+          "sortIndex": 292,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 293,
+          "nameCn": "卡昆西斯之冠",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 293,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 294,
+          "nameCn": "风中之花",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 294,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 295,
+          "nameCn": "霸王战甲",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 295,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 296,
+          "nameCn": "兰芳特的次选",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 296,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 297,
+          "nameCn": "笠",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 297,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 298,
+          "nameCn": "我我我公主？",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 298,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 403,
+          "nameCn": "荆棘皇冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 403,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 404,
+          "nameCn": "■■■■",
+          "equipmentType": 0,
+          "label": 5,
+          "sortIndex": 404,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 405,
+          "nameCn": "浴火之衣",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 405,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 406,
+          "nameCn": "信仰的试炼",
+          "equipmentType": 0,
+          "label": 5,
+          "sortIndex": 406,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 411,
+          "nameCn": "梦魇的面容",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 411,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 412,
+          "nameCn": "温暖的回忆",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 412,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 413,
+          "nameCn": "世界树的繁花",
+          "equipmentType": 3,
+          "label": 14,
+          "sortIndex": 413,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 414,
+          "nameCn": "义贼的假面",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 414,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 415,
+          "nameCn": "逐梦之冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 415,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 416,
+          "nameCn": "青龙之胄",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 416,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 417,
+          "nameCn": "风之翎羽",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 417,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 418,
+          "nameCn": "卡尔萨斯之冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 418,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 423,
+          "nameCn": "黎明守护者",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 423,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 424,
+          "nameCn": "灭创之权杖",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 424,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 425,
+          "nameCn": "万能工具帽",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 425,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 426,
+          "nameCn": "神谕者",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 426,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 427,
+          "nameCn": "海洋之心",
+          "equipmentType": 3,
+          "label": 14,
+          "sortIndex": 427,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 428,
+          "nameCn": "锐目透镜",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 428,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 429,
+          "nameCn": "风袭翼盔",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 429,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 434,
+          "nameCn": "失落的穹光",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 434,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 435,
+          "nameCn": "燎星之陨",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 435,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 436,
+          "nameCn": "女武神灿星",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 436,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 437,
+          "nameCn": "强袭异铠",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 437,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 438,
+          "nameCn": "勇者的手工课",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 438,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 439,
+          "nameCn": "月之回忆",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 439,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 440,
+          "nameCn": "圣灵之触",
+          "equipmentType": 0,
+          "label": 1,
+          "sortIndex": 440,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 441,
+          "nameCn": "炎龙金辉",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 441,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 446,
+          "nameCn": "卡奥斯的赐福",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 446,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 447,
+          "nameCn": "圣女礼赞",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 447,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 448,
+          "nameCn": "盛夏的追忆",
+          "equipmentType": 0,
+          "label": 5,
+          "sortIndex": 448,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 449,
+          "nameCn": "绝命除尘令",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 449,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 450,
+          "nameCn": "驭龙之冠",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 450,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 451,
+          "nameCn": "逆羽的假面",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 451,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 452,
+          "nameCn": "红月之心",
+          "equipmentType": 3,
+          "label": 14,
+          "sortIndex": 452,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 453,
+          "nameCn": "荣耀的传承",
+          "equipmentType": 0,
+          "label": 5,
+          "sortIndex": 453,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 454,
+          "nameCn": "飞隐星兜",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 454,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 455,
+          "nameCn": "同心的守护",
+          "equipmentType": 0,
+          "label": 5,
+          "sortIndex": 455,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 460,
+          "nameCn": "元气召唤者",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 460,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 461,
+          "nameCn": "妙想法帽",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 461,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 462,
+          "nameCn": "风袭羽冠",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 462,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 463,
+          "nameCn": "璨月晶铠",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 463,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 464,
+          "nameCn": "卡尔萨斯战盔",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 464,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 465,
+          "nameCn": "我执",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 465,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 466,
+          "nameCn": "守护者的追忆",
+          "equipmentType": 0,
+          "label": 1,
+          "sortIndex": 466,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 467,
+          "nameCn": "年幼的君王",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 467,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 472,
+          "nameCn": "星海的提督",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 472,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 473,
+          "nameCn": "帝国的明珠",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 473,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 474,
+          "nameCn": "女神的洁纱",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 474,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 475,
+          "nameCn": "自警团之盔",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 475,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 476,
+          "nameCn": "绝翼战甲",
+          "equipmentType": 1,
+          "label": 9,
+          "sortIndex": 476,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 477,
+          "nameCn": "古旧系带",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 477,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 478,
+          "nameCn": "圣光利刃",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 478,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 479,
+          "nameCn": "守护之誓",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 479,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 484,
+          "nameCn": "心醉之面纱",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 484,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 485,
+          "nameCn": "圣义连枷",
+          "equipmentType": 0,
+          "label": 5,
+          "sortIndex": 485,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 486,
+          "nameCn": "机动爆碎剑",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 486,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 487,
+          "nameCn": "寂灭·改",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 487,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 488,
+          "nameCn": "远古圣王冠冕",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 488,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 489,
+          "nameCn": "商业头脑",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 489,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 490,
+          "nameCn": "魔血的角盔",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 490,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 495,
+          "nameCn": "月蚀斗衣",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 495,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 496,
+          "nameCn": "皇权禁铠",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 496,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 497,
+          "nameCn": "盛绽之环",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 488,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 498,
+          "nameCn": "辉光裁决士",
+          "equipmentType": 0,
+          "label": 6,
+          "sortIndex": 487,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 499,
+          "nameCn": "愚弄者的诡面",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 486,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 500,
+          "nameCn": "无尽回环",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 485,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 501,
+          "nameCn": "灵视目镜",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 484,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 502,
+          "nameCn": "猩红武装",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 483,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 507,
+          "nameCn": "转生的铭文",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 478,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 508,
+          "nameCn": "构造躯体αEX",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 477,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 509,
+          "nameCn": "唤灵礼帽",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 476,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 510,
+          "nameCn": "圣树的花笑",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 475,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 511,
+          "nameCn": "游灵之首",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 474,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 512,
+          "nameCn": "魔科学武装",
+          "equipmentType": 0,
+          "label": 2,
+          "sortIndex": 473,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 513,
+          "nameCn": "统御锋芒",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 472,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 514,
+          "nameCn": "拂晓之冠",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 471,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 519,
+          "nameCn": "芳华诗冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 466,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 520,
+          "nameCn": "悠远的回音",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 465,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 521,
+          "nameCn": "逆载锋盔",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 464,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 522,
+          "nameCn": "少女的希冀",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 463,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 523,
+          "nameCn": "浮梦月辉",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 462,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 524,
+          "nameCn": "星舰的决意",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 461,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 525,
+          "nameCn": "浪逐之殇",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 460,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 526,
+          "nameCn": "赦罪信冕",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 459,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 531,
+          "nameCn": "真格的英豪",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 454,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 532,
+          "nameCn": "浴火的极星",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 453,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 533,
+          "nameCn": "琅月清尘",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 452,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 534,
+          "nameCn": "银风的裁断",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 451,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 535,
+          "nameCn": "无瑕的颂赞",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 450,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 536,
+          "nameCn": "灵息法相",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 449,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 537,
+          "nameCn": "虔辉礼祝",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 448,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 538,
+          "nameCn": "殷红矢志",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 447,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 539,
+          "nameCn": "枭魔魁首",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 446,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 540,
+          "nameCn": "煌焰永誓",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 445,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 545,
+          "nameCn": "藏锋暗面",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 440,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 546,
+          "nameCn": "累世冥渊",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 439,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 547,
+          "nameCn": "热砂熔岚",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 438,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 548,
+          "nameCn": "源载核芯",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 437,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 549,
+          "nameCn": "晶耀洁纱",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 436,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 550,
+          "nameCn": "机核元组",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 435,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 551,
+          "nameCn": "行刑者的缄默",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 434,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 552,
+          "nameCn": "信者的冕冠",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 433,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 557,
+          "nameCn": "Y型视觉终端",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 428,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 558,
+          "nameCn": "灵翠棘枪",
+          "equipmentType": 0,
+          "label": 1,
+          "sortIndex": 427,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 559,
+          "nameCn": "烬火的守望",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 426,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 560,
+          "nameCn": "浩渺之谜",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 425,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 561,
+          "nameCn": "惩恶侠影",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 424,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 562,
+          "nameCn": "雪祭灵袍",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 423,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 567,
+          "nameCn": "远海汐谣",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 418,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 568,
+          "nameCn": "交织的夙愿",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 417,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 569,
+          "nameCn": "先灵的呢喃",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 416,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 570,
+          "nameCn": "霜冬的傲意",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 415,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 571,
+          "nameCn": "永夜之钥",
+          "equipmentType": 3,
+          "label": 14,
+          "sortIndex": 414,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 572,
+          "nameCn": "沉默的告白",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 413,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 573,
+          "nameCn": "时序之芒",
+          "equipmentType": 0,
+          "label": 1,
+          "sortIndex": 412,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 578,
+          "nameCn": "曙光的秘意",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 407,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 579,
+          "nameCn": "黑喵船长帽",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 406,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 580,
+          "nameCn": "魔渊天启",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 405,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 581,
+          "nameCn": "铁锈与荣光",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 404,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 582,
+          "nameCn": "溯源之路",
+          "equipmentType": 1,
+          "label": 9,
+          "sortIndex": 403,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 587,
+          "nameCn": "重山行袍",
+          "equipmentType": 1,
+          "label": 9,
+          "sortIndex": 398,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 588,
+          "nameCn": "赤红之息",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 397,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 589,
+          "nameCn": "破晓晨风",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 396,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 590,
+          "nameCn": "黯翼翎盔",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 395,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 595,
+          "nameCn": "始王之胄",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 390,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 596,
+          "nameCn": "死刃之拥",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 389,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 597,
+          "nameCn": "命定的王剑",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 388,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 598,
+          "nameCn": "孤骑决意",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 387,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 603,
+          "nameCn": "绝末之视",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 382,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 604,
+          "nameCn": "帝授的荣勋",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 381,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 605,
+          "nameCn": "神佑的幸月",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 380,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 606,
+          "nameCn": "浪潮回响",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 379,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 611,
+          "nameCn": "梦帷纱帔",
+          "equipmentType": 1,
+          "label": 10,
+          "sortIndex": 374,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 612,
+          "nameCn": "天马之辉耀",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 373,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 613,
+          "nameCn": "妖精的新芽",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 372,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 614,
+          "nameCn": "群岛礼纱",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 371,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 619,
+          "nameCn": "遗忘的传说",
+          "equipmentType": 1,
+          "label": 8,
+          "sortIndex": 366,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 620,
+          "nameCn": "失落的黎明",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 365,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 621,
+          "nameCn": "贝奥夫的殒冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 364,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 622,
+          "nameCn": "最后的觐见",
+          "equipmentType": 0,
+          "label": 4,
+          "sortIndex": 363,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 627,
+          "nameCn": "断翎掠影",
+          "equipmentType": 2,
+          "label": 12,
+          "sortIndex": 358,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 628,
+          "nameCn": "炼金之律",
+          "equipmentType": 0,
+          "label": 7,
+          "sortIndex": 357,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 629,
+          "nameCn": "神偶之枷",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 356,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 634,
+          "nameCn": "黯羽的复生",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 351,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 635,
+          "nameCn": "守望之刃",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 350,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 636,
+          "nameCn": "灵智纱冠",
+          "equipmentType": 2,
+          "label": 13,
+          "sortIndex": 349,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 637,
+          "nameCn": "智翼荣冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 348,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 638,
+          "nameCn": "新帝国的重刃",
+          "equipmentType": 0,
+          "label": 3,
+          "sortIndex": 347,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        },
+        {
+          "equipmentId": 643,
+          "nameCn": "冰龙霜冠",
+          "equipmentType": 2,
+          "label": 11,
+          "sortIndex": 342,
+          "acquisitionClass": "exclusive-equipment",
+          "siteTab": null,
+          "releaseGroupDate": null,
+          "confidencePercent": 99,
+          "classificationBasis": "PathType46-only-and-exclusive-sheet-sentinel-match",
+          "raw": {
+            "getPathList": [
+              {
+                "PathType": 46,
+                "Name": 46
+              }
+            ],
+            "getPathDesc": "暂时无获取途径",
+            "randomDropRewardId": null,
+            "archiveDisplay": true
+          }
+        }
+      ]
+    }
+  },
+  "semanticDecision": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/contracts/equipment-stage2-7-acquisition-reference.v1.json",
+    "gitBlobSha1": "7f02a862a72cd57819827c24c60f740f36c45573",
+    "classification": "exclusive-equipment",
+    "confidencePercent": 99,
+    "basis": "The PathType 46-only population aligns with the separate exclusive-equipment population; sentinel rows beginning with IDs 273-277 match the opening rows of the legacy 전용장비 sheet.",
+    "sentinelReference": "https://docs.google.com/spreadsheets/d/1RZFY2N3RU-vctduO_Tg2e4RVoZvJAAveiMgPnW6VTQg/edit"
+  },
+  "limitations": [
+    "The source-native enum documentation for PathType 46 was not confirmed.",
+    "Claim B is a ConfigData-derived predecessor classification output and is traceable, but not fully independent of Claim A.",
+    "Project source parity remains a supporting cross-check, not population authority."
+  ]
+}

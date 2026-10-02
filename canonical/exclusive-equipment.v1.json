@@ -2,12 +2,11 @@
   "schemaVersion": 1,
   "evidenceClass": "B",
   "responsibility": "Exclusive Equipment identity/population",
-  "claim": "These 167 EquipmentIDs are the Exclusive Equipment identity/population admitted by this project for the pinned source scope.",
+  "claim": "The listed EquipmentIDs are the Exclusive Equipment identity/population admitted by this project for the pinned source scope.",
   "scope": {
     "entity": "Equipment",
     "population": "EXCLUSIVE_EQUIPMENT",
     "identityKey": "EquipmentID",
-    "recordCount": 167,
     "selectionRule": {
       "sourceField": "ConfigDataEquipmentInfo.GetPathList",
       "predicate": "GetPathList has exactly one entry AND GetPathList[0].PathType equals 46",
@@ -33,12 +32,19 @@
       "gitBlobSha1": "7f02a862a72cd57819827c24c60f740f36c45573",
       "classification": "exclusive-equipment",
       "confidencePercent": 99,
-      "basis": "The PathType 46-only population aligns with a separate exclusive-equipment population; sentinel EquipmentIDs 273–277 match the opening rows of the predecessor Korean exclusive-equipment sheet.",
+      "basis": "The PathType 46-only population aligns with the separate exclusive-equipment population; sentinel rows beginning with IDs 273-277 match the opening rows of the legacy 전용장비 sheet.",
       "sentinelReference": "https://docs.google.com/spreadsheets/d/1RZFY2N3RU-vctduO_Tg2e4RVoZvJAAveiMgPnW6VTQg/edit"
+    },
+    "claimEvidence": {
+      "path": "evidence/exclusive-equipment-identity.v1.json",
+      "claimAProjection": "claims.claimA.records",
+      "claimBProjection": "claims.claimB.records"
     }
   },
   "limitations": [
-    "The source-native enum documentation for PathType 46 was not confirmed. The exclusive-equipment meaning is a traceable predecessor semantic decision, not a literal ConfigData enum label."
+    "The source-native enum documentation for PathType 46 was not confirmed.",
+    "Claim B is a ConfigData-derived predecessor classification output and is traceable, but not fully independent of Claim A.",
+    "Project source parity remains a supporting cross-check, not population authority."
   ],
   "records": [
     {
