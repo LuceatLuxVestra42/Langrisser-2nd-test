@@ -37,6 +37,9 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .sp-soldier-heading h3 { margin: 0; font-size: 1.05rem; }
 .sp-soldier-heading p, .normal-soldier-id { margin: 0; color: #aab5c3; font-size: .78rem; }
 .normal-soldier-id { margin-top: 7px; }
+.soldier-stat-group { margin-top: 13px; }
+.soldier-stat-label { margin: 0 0 -6px; color: #aab9cc; font-size: .73rem; font-weight: 700; }
+.normal-stat-group { padding-top: 11px; border-top: 1px solid #344050; }
 .sp-soldier-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 15px 0 0; }
 .sp-soldier-stats div { min-width: 0; }
 .sp-soldier-stats dt { color: #aab5c3; font-size: .7rem; }

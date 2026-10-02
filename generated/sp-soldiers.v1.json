@@ -11,6 +11,12 @@
         "attack": 40,
         "defense": 23,
         "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 17
       }
     },
     {
@@ -23,6 +29,12 @@
         "attack": 40,
         "defense": 28,
         "magicDefense": 18
+      },
+      "normalSoldierBaseStats": {
+        "hp": 48,
+        "attack": 40,
+        "defense": 26,
+        "magicDefense": 16
       }
     },
     {
@@ -35,6 +47,12 @@
         "attack": 45,
         "defense": 22,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 20
       }
     },
     {
@@ -47,6 +65,12 @@
         "attack": 43,
         "defense": 25,
         "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
       }
     },
     {
@@ -59,6 +83,12 @@
         "attack": 44,
         "defense": 23,
         "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
       }
     },
     {
@@ -71,6 +101,12 @@
         "attack": 43,
         "defense": 24,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 45,
+        "attack": 43,
+        "defense": 24,
+        "magicDefense": 20
       }
     },
     {
@@ -83,6 +119,12 @@
         "attack": 40,
         "defense": 23,
         "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 53,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 19
       }
     },
     {
@@ -95,6 +137,12 @@
         "attack": 43,
         "defense": 23,
         "magicDefense": 21
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 20
       }
     },
     {
@@ -105,6 +153,12 @@
       "baseStats": {
         "hp": 45,
         "attack": 43,
+        "defense": 22,
+        "magicDefense": 17
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 40,
         "defense": 22,
         "magicDefense": 17
       }
@@ -119,6 +173,12 @@
         "attack": 40,
         "defense": 23,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 53,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 19
       }
     },
     {
@@ -131,6 +191,12 @@
         "attack": 43,
         "defense": 22,
         "magicDefense": 21
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
       }
     },
     {
@@ -141,6 +207,12 @@
       "baseStats": {
         "hp": 43,
         "attack": 43,
+        "defense": 23,
+        "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 40,
         "defense": 23,
         "magicDefense": 23
       }
@@ -155,6 +227,12 @@
         "attack": 43,
         "defense": 23,
         "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
       }
     },
     {
@@ -167,6 +245,12 @@
         "attack": 43,
         "defense": 22,
         "magicDefense": 25
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 23
       }
     },
     {
@@ -178,6 +262,12 @@
         "hp": 45,
         "attack": 43,
         "defense": 25,
+        "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
         "magicDefense": 20
       }
     },
@@ -191,6 +281,12 @@
         "attack": 44,
         "defense": 24,
         "magicDefense": 21
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
       }
     },
     {
@@ -202,6 +298,12 @@
         "hp": 41,
         "attack": 45,
         "defense": 22,
+        "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 45,
+        "defense": 20,
         "magicDefense": 19
       }
     },
@@ -215,6 +317,12 @@
         "attack": 45,
         "defense": 21,
         "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 19
       }
     },
     {
@@ -227,6 +335,12 @@
         "attack": 45,
         "defense": 24,
         "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
       }
     },
     {
@@ -238,6 +352,12 @@
         "hp": 41,
         "attack": 43,
         "defense": 23,
+        "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 22,
         "magicDefense": 22
       }
     },
@@ -251,6 +371,12 @@
         "attack": 43,
         "defense": 23,
         "magicDefense": 26
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 26
       }
     },
     {
@@ -262,6 +388,12 @@
         "hp": 43,
         "attack": 45,
         "defense": 22,
+        "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 20,
         "magicDefense": 23
       }
     },
@@ -275,6 +407,12 @@
         "attack": 45,
         "defense": 24,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
       }
     },
     {
@@ -287,6 +425,12 @@
         "attack": 45,
         "defense": 23,
         "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
       }
     },
     {
@@ -299,6 +443,12 @@
         "attack": 45,
         "defense": 23,
         "magicDefense": 24
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 23
       }
     },
     {
@@ -309,6 +459,12 @@
       "baseStats": {
         "hp": 45,
         "attack": 45,
+        "defense": 23,
+        "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 43,
         "defense": 23,
         "magicDefense": 22
       }
@@ -323,6 +479,12 @@
         "attack": 45,
         "defense": 24,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 24,
+        "magicDefense": 18
       }
     },
     {
@@ -335,6 +497,12 @@
         "attack": 37,
         "defense": 26,
         "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 26,
+        "magicDefense": 16
       }
     },
     {
@@ -346,6 +514,12 @@
         "hp": 43,
         "attack": 40,
         "defense": 24,
+        "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 23,
         "magicDefense": 19
       }
     },
@@ -359,6 +533,12 @@
         "attack": 39,
         "defense": 24,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 22
       }
     },
     {
@@ -369,6 +549,12 @@
       "baseStats": {
         "hp": 44,
         "attack": 39,
+        "defense": 23,
+        "magicDefense": 26
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 37,
         "defense": 23,
         "magicDefense": 26
       }
@@ -383,6 +569,12 @@
         "attack": 42,
         "defense": 21,
         "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 19,
+        "magicDefense": 23
       }
     },
     {
@@ -393,6 +585,12 @@
       "baseStats": {
         "hp": 38,
         "attack": 43,
+        "defense": 17,
+        "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 40,
         "defense": 17,
         "magicDefense": 23
       }
@@ -407,6 +605,12 @@
         "attack": 43,
         "defense": 20,
         "magicDefense": 26
+      },
+      "normalSoldierBaseStats": {
+        "hp": 31,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 26
       }
     },
     {
@@ -419,6 +623,12 @@
         "attack": 40,
         "defense": 22,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 34,
+        "attack": 37,
+        "defense": 19,
+        "magicDefense": 23
       }
     },
     {
@@ -429,6 +639,12 @@
       "baseStats": {
         "hp": 37,
         "attack": 42,
+        "defense": 17,
+        "magicDefense": 28
+      },
+      "normalSoldierBaseStats": {
+        "hp": 34,
+        "attack": 40,
         "defense": 17,
         "magicDefense": 28
       }
@@ -443,6 +659,12 @@
         "attack": 41,
         "defense": 20,
         "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 37,
+        "defense": 20,
+        "magicDefense": 20
       }
     },
     {
@@ -455,6 +677,12 @@
         "attack": 41,
         "defense": 22,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 19
       }
     },
     {
@@ -467,6 +695,12 @@
         "attack": 37,
         "defense": 22,
         "magicDefense": 21
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 19
       }
     },
     {
@@ -479,6 +713,12 @@
         "attack": 43,
         "defense": 20,
         "magicDefense": 25
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 23
       }
     },
     {
@@ -491,6 +731,12 @@
         "attack": 42,
         "defense": 20,
         "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 19
       }
     },
     {
@@ -501,6 +747,12 @@
       "baseStats": {
         "hp": 40,
         "attack": 42,
+        "defense": 18,
+        "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 37,
+        "attack": 40,
         "defense": 18,
         "magicDefense": 23
       }
@@ -515,6 +767,12 @@
         "attack": 42,
         "defense": 18,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 22
       }
     },
     {
@@ -526,6 +784,12 @@
         "hp": 37,
         "attack": 34,
         "defense": 22,
+        "magicDefense": 28
+      },
+      "normalSoldierBaseStats": {
+        "hp": 34,
+        "attack": 31,
+        "defense": 19,
         "magicDefense": 28
       }
     },
@@ -539,6 +803,12 @@
         "attack": 34,
         "defense": 22,
         "magicDefense": 26
+      },
+      "normalSoldierBaseStats": {
+        "hp": 34,
+        "attack": 34,
+        "defense": 19,
+        "magicDefense": 26
       }
     },
     {
@@ -549,6 +819,12 @@
       "baseStats": {
         "hp": 40,
         "attack": 40,
+        "defense": 22,
+        "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 37,
         "defense": 22,
         "magicDefense": 20
       }
@@ -563,6 +839,12 @@
         "attack": 42,
         "defense": 22,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 20
       }
     },
     {
@@ -574,6 +856,12 @@
         "hp": 42,
         "attack": 41,
         "defense": 22,
+        "magicDefense": 23
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 19,
         "magicDefense": 23
       }
     },
@@ -587,6 +875,12 @@
         "attack": 38,
         "defense": 25,
         "magicDefense": 25
+      },
+      "normalSoldierBaseStats": {
+        "hp": 48,
+        "attack": 37,
+        "defense": 24,
+        "magicDefense": 24
       }
     },
     {
@@ -597,6 +891,12 @@
       "baseStats": {
         "hp": 43,
         "attack": 42,
+        "defense": 20,
+        "magicDefense": 19
+      },
+      "normalSoldierBaseStats": {
+        "hp": 34,
+        "attack": 40,
         "defense": 20,
         "magicDefense": 19
       }
@@ -611,6 +911,12 @@
         "attack": 43,
         "defense": 22,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 22
       }
     },
     {
@@ -622,6 +928,12 @@
         "hp": 42,
         "attack": 40,
         "defense": 23,
+        "magicDefense": 24
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
         "magicDefense": 24
       }
     },
@@ -635,6 +947,12 @@
         "attack": 43,
         "defense": 20,
         "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 20
       }
     },
     {
@@ -645,6 +963,12 @@
       "baseStats": {
         "hp": 39,
         "attack": 45,
+        "defense": 20,
+        "magicDefense": 20
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 43,
         "defense": 20,
         "magicDefense": 20
       }
@@ -659,6 +983,12 @@
         "attack": 43,
         "defense": 22,
         "magicDefense": 26
+      },
+      "normalSoldierBaseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 26
       }
     },
     {
@@ -669,6 +999,12 @@
       "baseStats": {
         "hp": 39,
         "attack": 45,
+        "defense": 20,
+        "magicDefense": 22
+      },
+      "normalSoldierBaseStats": {
+        "hp": 36,
+        "attack": 43,
         "defense": 20,
         "magicDefense": 22
       }

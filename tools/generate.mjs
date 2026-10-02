@@ -39,7 +39,7 @@ const assertSameIds = (expected, actual, label) => {
   }
 };
 
-export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations) {
+export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats) {
   const spRecords = identities.records.filter((record) => record.variant === 'SP');
   const normalRecords = identities.records.filter((record) => record.variant === 'NORMAL');
   const identityIds = idSet(spRecords, (record) => record.id, 'identity');
@@ -47,6 +47,7 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
   const normalIdentityIds = idSet(normalRecords, (record) => record.id, 'NORMAL identity');
   const normalLocalizationIds = idSet(normalLocalizations.records, (record) => record.soldierId, 'NORMAL localization');
   const statsIds = idSet(baseStats.records, (record) => record.id, 'base stats');
+  const normalStatsIds = idSet(normalBaseStats.records, (record) => record.id, 'NORMAL base stats');
   const relationIds = idSet(relations.records, (record) => record.spSoldierId, 'relation');
   assertSameIds(identityIds, localizationIds, 'localization');
   assertSameIds(identityIds, statsIds, 'base stats');
@@ -58,6 +59,7 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
   }
   const relationTargets = new Set(relationTargetIds);
   assertSameIds(relationTargets, normalLocalizationIds, 'NORMAL localization');
+  assertSameIds(relationTargets, normalStatsIds, 'NORMAL base stats');
   if ([...relationTargets].some((id) => !normalIdentityIds.has(id))) {
     throw new Error('relation NORMAL Soldier ID is missing from identity');
   }
@@ -65,6 +67,7 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
   const nameById = new Map(localizations.records.map(({ soldierId, nameKo }) => [soldierId, nameKo]));
   const normalNameById = new Map(normalLocalizations.records.map(({ soldierId, nameKo }) => [soldierId, nameKo]));
   const statsById = new Map(baseStats.records.map(({ id, baseStats: stats }) => [id, stats]));
+  const normalStatsById = new Map(normalBaseStats.records.map(({ id, baseStats: stats }) => [id, stats]));
   const normalIdBySpId = new Map(relations.records.map(({ spSoldierId, normalSoldierId }) => [spSoldierId, normalSoldierId]));
   const soldiers = [...spRecords]
     .sort((a, b) => a.id - b.id)
@@ -73,6 +76,7 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
       const nameKo = nameById.get(id);
       const normalSoldierId = normalIdBySpId.get(id);
       const normalSoldierNameKo = normalNameById.get(normalSoldierId);
+      const normalSoldierBaseStats = normalStatsById.get(normalSoldierId);
       if (typeof nameKo !== 'string' || !nameKo) throw new Error(`Missing Korean localization for SP Soldier ${id}`);
       if (!stats || !['hp', 'attack', 'defense', 'magicDefense'].every((key) => Number.isFinite(stats[key]))) {
         throw new Error(`Missing base stats for SP Soldier ${id}`);
@@ -81,12 +85,22 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
       if (typeof normalSoldierNameKo !== 'string' || !normalSoldierNameKo) {
         throw new Error(`Missing Korean localization for NORMAL Soldier ${normalSoldierId} linked to SP Soldier ${id}`);
       }
-      return { spSoldierId: id, nameKo, normalSoldierId, normalSoldierNameKo, baseStats: {
-        hp: stats.hp,
-        attack: stats.attack,
-        defense: stats.defense,
-        magicDefense: stats.magicDefense,
-      } };
+      if (!normalSoldierBaseStats || !['hp', 'attack', 'defense', 'magicDefense'].every((key) => Number.isFinite(normalSoldierBaseStats[key]))) {
+        throw new Error(`Missing base stats for NORMAL Soldier ${normalSoldierId} linked to SP Soldier ${id}`);
+      }
+      return {
+        spSoldierId: id,
+        nameKo,
+        normalSoldierId,
+        normalSoldierNameKo,
+        baseStats: { hp: stats.hp, attack: stats.attack, defense: stats.defense, magicDefense: stats.magicDefense },
+        normalSoldierBaseStats: {
+          hp: normalSoldierBaseStats.hp,
+          attack: normalSoldierBaseStats.attack,
+          defense: normalSoldierBaseStats.defense,
+          magicDefense: normalSoldierBaseStats.magicDefense,
+        },
+      };
     });
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
@@ -102,13 +116,14 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
-  const [soldiers, spLocalizations, normalLocalizations, spBaseStats, spRelations] = await Promise.all([
+  const [soldiers, spLocalizations, normalLocalizations, spBaseStats, spRelations, normalBaseStats] = await Promise.all([
     readFile(resolve('canonical/soldiers.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-base-stats.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-normal-relations.v1.json'), 'utf8'),
+    readFile(resolve('canonical/normal-soldier-base-stats.v1.json'), 'utf8'),
   ]);
-  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations)), 'utf8');
+  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations), JSON.parse(normalBaseStats)), 'utf8');
   process.stdout.write(`Generated ${outputPath} and ${glossaryPath}\n`);
 }
