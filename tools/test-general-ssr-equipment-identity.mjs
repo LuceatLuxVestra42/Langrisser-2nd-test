@@ -10,7 +10,7 @@ fail(x=>x.canonical.records.pop(),/canonical ID set mismatch/);
 fail(x=>x.canonical.records.push({...x.canonical.records[0],id:999999}),/canonical provenance mismatch|canonical ID set mismatch|duplicate canonical ID/);
 fail(x=>x.canonical.records[1].id=x.canonical.records[0].id,/duplicate canonical ID/);
 fail(x=>x.evidence.records.pop(),/evidence ID set mismatch/);
-fail(x=>x.evidence.records[0].equipmentId=999999,/evidence ID set mismatch/);
+fail(x=>x.evidence.records[0].equipmentId=999999,/predecessor locator mismatch|evidence ID set mismatch/);
 fail(x=>x.evidence.records[0].acquisitionClass='exclusive-equipment',/unexpected acquisition class/);
 fail(x=>x.evidence.provenance.pinnedPredecessorCommit='0'.repeat(40),/predecessor commit mismatch/);
 fail(x=>x.canonical.records[0].aliasOf=1,/unsupported canonical field/);
