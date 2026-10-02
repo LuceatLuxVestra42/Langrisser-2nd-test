@@ -96,3 +96,14 @@ jobs:
 
       - name: Test Soldier provenance integrity
         run: node tools/test-soldier-provenance.mjs
+      - name: Validate General SSR Equipment identity
+        run: node tools/validate-general-ssr-equipment-identity.mjs
+
+      - name: Test General SSR Equipment identity
+        run: node tools/test-general-ssr-equipment-identity.mjs
+
+      - name: Validate General SSR Equipment Korean localization
+        run: node tools/validate-general-ssr-equipment-ko-localization.mjs
+
+      - name: Test General SSR Equipment Korean localization
+        run: node tools/test-general-ssr-equipment-ko-localization.mjs
