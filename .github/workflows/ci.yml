@@ -61,6 +61,12 @@ jobs:
       - name: Test Soldier identity
         run: node tools/test-soldier-identity.mjs
 
+      - name: Validate NORMAL Soldier Korean localization
+        run: node tools/validate-normal-soldier-ko-localization.mjs
+
+      - name: Test NORMAL Soldier Korean localization
+        run: node tools/test-normal-soldier-ko-localization.mjs
+
       - name: Validate SP Hero reward source evidence
         run: node tools/validate-sp-hero-reward-source.mjs
 
