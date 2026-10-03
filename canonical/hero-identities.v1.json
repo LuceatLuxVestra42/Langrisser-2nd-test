@@ -1,110 +1,1074 @@
 {
   "schemaVersion": 1,
-  "scope": "Current evidence-backed Hero identity union; not a claim of complete game population.",
+  "scope": "Playable Hero identities from ConfigDataHeroInfo records where Useable == true.",
   "records": [
     {
       "heroId": 1,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=1"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=1"
     },
     {
       "heroId": 3,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=3"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=3"
     },
     {
       "heroId": 4,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=4"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=4"
     },
     {
       "heroId": 5,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=5"
     },
     {
       "heroId": 6,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=6"
     },
     {
       "heroId": 7,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=7"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=7"
     },
     {
       "heroId": 8,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=8"
     },
     {
       "heroId": 9,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=9"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=9"
     },
     {
       "heroId": 10,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=10"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=10"
     },
     {
       "heroId": 11,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=11"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=11"
     },
     {
       "heroId": 12,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=12"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=12"
     },
     {
       "heroId": 13,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=13"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=13"
     },
     {
       "heroId": 14,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=14"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=14"
+    },
+    {
+      "heroId": 15,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15"
+    },
+    {
+      "heroId": 16,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=16"
+    },
+    {
+      "heroId": 17,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=17"
+    },
+    {
+      "heroId": 18,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=18"
+    },
+    {
+      "heroId": 19,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=19"
+    },
+    {
+      "heroId": 20,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=20"
+    },
+    {
+      "heroId": 21,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=21"
+    },
+    {
+      "heroId": 22,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=22"
+    },
+    {
+      "heroId": 23,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=23"
+    },
+    {
+      "heroId": 24,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=24"
     },
     {
       "heroId": 25,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=25"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=25"
     },
     {
       "heroId": 26,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=26"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=26"
     },
     {
       "heroId": 27,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=27"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=27"
+    },
+    {
+      "heroId": 28,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=28"
     },
     {
       "heroId": 29,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=29"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=29"
+    },
+    {
+      "heroId": 30,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=30"
+    },
+    {
+      "heroId": 31,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=31"
+    },
+    {
+      "heroId": 32,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=32"
     },
     {
       "heroId": 33,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=33"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=33"
+    },
+    {
+      "heroId": 34,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=34"
+    },
+    {
+      "heroId": 35,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=35"
+    },
+    {
+      "heroId": 36,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=36"
     },
     {
       "heroId": 37,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=37"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=37"
+    },
+    {
+      "heroId": 38,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=38"
+    },
+    {
+      "heroId": 39,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=39"
     },
     {
       "heroId": 40,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=40"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=40"
+    },
+    {
+      "heroId": 41,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=41"
+    },
+    {
+      "heroId": 42,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=42"
+    },
+    {
+      "heroId": 43,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=43"
+    },
+    {
+      "heroId": 44,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=44"
+    },
+    {
+      "heroId": 45,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=45"
+    },
+    {
+      "heroId": 47,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=47"
+    },
+    {
+      "heroId": 48,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=48"
+    },
+    {
+      "heroId": 49,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=49"
+    },
+    {
+      "heroId": 51,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=51"
+    },
+    {
+      "heroId": 52,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=52"
     },
     {
       "heroId": 53,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=53"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=53"
+    },
+    {
+      "heroId": 54,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=54"
     },
     {
       "heroId": 55,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=55"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=55"
     },
     {
       "heroId": 56,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=56"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=56"
+    },
+    {
+      "heroId": 57,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=57"
+    },
+    {
+      "heroId": 58,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=58"
+    },
+    {
+      "heroId": 59,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=59"
     },
     {
       "heroId": 60,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=60"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=60"
+    },
+    {
+      "heroId": 61,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=61"
+    },
+    {
+      "heroId": 62,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=62"
+    },
+    {
+      "heroId": 63,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=63"
+    },
+    {
+      "heroId": 64,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=64"
+    },
+    {
+      "heroId": 65,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=65"
+    },
+    {
+      "heroId": 66,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=66"
     },
     {
       "heroId": 67,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=67"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=67"
+    },
+    {
+      "heroId": 69,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=69"
+    },
+    {
+      "heroId": 70,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=70"
+    },
+    {
+      "heroId": 71,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=71"
+    },
+    {
+      "heroId": 72,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=72"
+    },
+    {
+      "heroId": 73,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=73"
+    },
+    {
+      "heroId": 74,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=74"
+    },
+    {
+      "heroId": 75,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=75"
+    },
+    {
+      "heroId": 76,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=76"
+    },
+    {
+      "heroId": 77,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=77"
+    },
+    {
+      "heroId": 78,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=78"
+    },
+    {
+      "heroId": 79,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=79"
+    },
+    {
+      "heroId": 80,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=80"
+    },
+    {
+      "heroId": 81,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=81"
+    },
+    {
+      "heroId": 82,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=82"
+    },
+    {
+      "heroId": 83,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=83"
+    },
+    {
+      "heroId": 84,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=84"
+    },
+    {
+      "heroId": 85,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=85"
+    },
+    {
+      "heroId": 86,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=86"
+    },
+    {
+      "heroId": 87,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=87"
+    },
+    {
+      "heroId": 88,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=88"
     },
     {
       "heroId": 89,
-      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-sp-relation.v1.json#ID=89"
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=89"
+    },
+    {
+      "heroId": 91,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=91"
+    },
+    {
+      "heroId": 92,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=92"
+    },
+    {
+      "heroId": 93,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=93"
+    },
+    {
+      "heroId": 94,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=94"
+    },
+    {
+      "heroId": 95,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=95"
+    },
+    {
+      "heroId": 96,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=96"
+    },
+    {
+      "heroId": 97,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=97"
+    },
+    {
+      "heroId": 98,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=98"
+    },
+    {
+      "heroId": 99,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99"
+    },
+    {
+      "heroId": 100,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=100"
+    },
+    {
+      "heroId": 101,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=101"
+    },
+    {
+      "heroId": 102,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=102"
+    },
+    {
+      "heroId": 103,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=103"
+    },
+    {
+      "heroId": 104,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=104"
+    },
+    {
+      "heroId": 105,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=105"
+    },
+    {
+      "heroId": 106,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=106"
+    },
+    {
+      "heroId": 108,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=108"
+    },
+    {
+      "heroId": 109,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=109"
+    },
+    {
+      "heroId": 110,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=110"
+    },
+    {
+      "heroId": 111,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=111"
+    },
+    {
+      "heroId": 112,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=112"
+    },
+    {
+      "heroId": 113,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=113"
+    },
+    {
+      "heroId": 114,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=114"
+    },
+    {
+      "heroId": 115,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=115"
+    },
+    {
+      "heroId": 116,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=116"
+    },
+    {
+      "heroId": 118,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=118"
+    },
+    {
+      "heroId": 119,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=119"
+    },
+    {
+      "heroId": 120,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=120"
+    },
+    {
+      "heroId": 121,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=121"
+    },
+    {
+      "heroId": 122,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=122"
+    },
+    {
+      "heroId": 123,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=123"
+    },
+    {
+      "heroId": 124,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=124"
+    },
+    {
+      "heroId": 125,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=125"
+    },
+    {
+      "heroId": 126,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=126"
+    },
+    {
+      "heroId": 127,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=127"
+    },
+    {
+      "heroId": 129,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=129"
+    },
+    {
+      "heroId": 130,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=130"
+    },
+    {
+      "heroId": 131,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=131"
+    },
+    {
+      "heroId": 132,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=132"
+    },
+    {
+      "heroId": 133,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=133"
+    },
+    {
+      "heroId": 134,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=134"
+    },
+    {
+      "heroId": 135,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=135"
+    },
+    {
+      "heroId": 136,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=136"
+    },
+    {
+      "heroId": 137,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=137"
+    },
+    {
+      "heroId": 138,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=138"
+    },
+    {
+      "heroId": 139,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=139"
+    },
+    {
+      "heroId": 140,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=140"
+    },
+    {
+      "heroId": 141,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=141"
+    },
+    {
+      "heroId": 142,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=142"
+    },
+    {
+      "heroId": 143,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=143"
+    },
+    {
+      "heroId": 144,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=144"
+    },
+    {
+      "heroId": 145,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=145"
+    },
+    {
+      "heroId": 146,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=146"
+    },
+    {
+      "heroId": 147,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=147"
+    },
+    {
+      "heroId": 148,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=148"
+    },
+    {
+      "heroId": 99161,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99161"
+    },
+    {
+      "heroId": 99162,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99162"
+    },
+    {
+      "heroId": 99163,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99163"
+    },
+    {
+      "heroId": 99164,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99164"
+    },
+    {
+      "heroId": 99165,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99165"
+    },
+    {
+      "heroId": 99166,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99166"
+    },
+    {
+      "heroId": 99167,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99167"
+    },
+    {
+      "heroId": 99168,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99168"
+    },
+    {
+      "heroId": 99169,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99169"
+    },
+    {
+      "heroId": 99170,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99170"
+    },
+    {
+      "heroId": 99171,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99171"
+    },
+    {
+      "heroId": 99172,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99172"
+    },
+    {
+      "heroId": 99173,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99173"
+    },
+    {
+      "heroId": 99174,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99174"
+    },
+    {
+      "heroId": 99175,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99175"
+    },
+    {
+      "heroId": 99176,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99176"
+    },
+    {
+      "heroId": 99177,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99177"
+    },
+    {
+      "heroId": 99178,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99178"
+    },
+    {
+      "heroId": 99179,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99179"
+    },
+    {
+      "heroId": 99180,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99180"
+    },
+    {
+      "heroId": 99181,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99181"
+    },
+    {
+      "heroId": 99182,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99182"
+    },
+    {
+      "heroId": 99183,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99183"
+    },
+    {
+      "heroId": 99184,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99184"
+    },
+    {
+      "heroId": 99185,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99185"
+    },
+    {
+      "heroId": 99186,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99186"
+    },
+    {
+      "heroId": 99187,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99187"
+    },
+    {
+      "heroId": 99188,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99188"
+    },
+    {
+      "heroId": 99189,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99189"
+    },
+    {
+      "heroId": 99190,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99190"
+    },
+    {
+      "heroId": 99191,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99191"
+    },
+    {
+      "heroId": 99192,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99192"
+    },
+    {
+      "heroId": 99193,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99193"
+    },
+    {
+      "heroId": 99194,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99194"
+    },
+    {
+      "heroId": 99195,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99195"
+    },
+    {
+      "heroId": 99196,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99196"
+    },
+    {
+      "heroId": 99197,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99197"
+    },
+    {
+      "heroId": 99198,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99198"
+    },
+    {
+      "heroId": 99199,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99199"
+    },
+    {
+      "heroId": 99200,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99200"
+    },
+    {
+      "heroId": 99201,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99201"
+    },
+    {
+      "heroId": 99202,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99202"
+    },
+    {
+      "heroId": 99203,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99203"
+    },
+    {
+      "heroId": 99204,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99204"
+    },
+    {
+      "heroId": 99205,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99205"
+    },
+    {
+      "heroId": 99206,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99206"
+    },
+    {
+      "heroId": 99207,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99207"
+    },
+    {
+      "heroId": 99208,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99208"
+    },
+    {
+      "heroId": 99209,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99209"
+    },
+    {
+      "heroId": 99210,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99210"
+    },
+    {
+      "heroId": 99211,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99211"
+    },
+    {
+      "heroId": 99212,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99212"
+    },
+    {
+      "heroId": 99213,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99213"
+    },
+    {
+      "heroId": 99214,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99214"
+    },
+    {
+      "heroId": 99215,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99215"
+    },
+    {
+      "heroId": 99216,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99216"
+    },
+    {
+      "heroId": 99217,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99217"
+    },
+    {
+      "heroId": 99218,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99218"
+    },
+    {
+      "heroId": 99219,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99219"
+    },
+    {
+      "heroId": 99220,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99220"
+    },
+    {
+      "heroId": 99221,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99221"
+    },
+    {
+      "heroId": 99222,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99222"
+    },
+    {
+      "heroId": 99223,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99223"
+    },
+    {
+      "heroId": 99224,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99224"
+    },
+    {
+      "heroId": 99225,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99225"
+    },
+    {
+      "heroId": 99226,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99226"
+    },
+    {
+      "heroId": 99227,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99227"
+    },
+    {
+      "heroId": 99228,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99228"
+    },
+    {
+      "heroId": 99229,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99229"
+    },
+    {
+      "heroId": 99230,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99230"
+    },
+    {
+      "heroId": 99231,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99231"
+    },
+    {
+      "heroId": 99232,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99232"
+    },
+    {
+      "heroId": 99233,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99233"
+    },
+    {
+      "heroId": 99234,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99234"
+    },
+    {
+      "heroId": 99235,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99235"
+    },
+    {
+      "heroId": 99236,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99236"
+    },
+    {
+      "heroId": 99237,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99237"
+    },
+    {
+      "heroId": 99238,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99238"
+    },
+    {
+      "heroId": 99239,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99239"
+    },
+    {
+      "heroId": 99240,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99240"
+    },
+    {
+      "heroId": 99241,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99241"
+    },
+    {
+      "heroId": 99242,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99242"
+    },
+    {
+      "heroId": 99243,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99243"
+    },
+    {
+      "heroId": 99244,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99244"
+    },
+    {
+      "heroId": 99245,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99245"
+    },
+    {
+      "heroId": 99246,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99246"
+    },
+    {
+      "heroId": 99247,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99247"
+    },
+    {
+      "heroId": 99248,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99248"
+    },
+    {
+      "heroId": 99249,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99249"
+    },
+    {
+      "heroId": 99250,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99250"
+    },
+    {
+      "heroId": 99251,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99251"
+    },
+    {
+      "heroId": 99252,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99252"
+    },
+    {
+      "heroId": 99253,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99253"
+    },
+    {
+      "heroId": 99254,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99254"
+    },
+    {
+      "heroId": 99255,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99255"
+    },
+    {
+      "heroId": 99256,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99256"
+    },
+    {
+      "heroId": 99257,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99257"
+    },
+    {
+      "heroId": 99258,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99258"
+    },
+    {
+      "heroId": 99259,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99259"
+    },
+    {
+      "heroId": 99260,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99260"
+    },
+    {
+      "heroId": 99261,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99261"
+    },
+    {
+      "heroId": 99262,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99262"
+    },
+    {
+      "heroId": 99263,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99263"
+    },
+    {
+      "heroId": 99264,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99264"
+    },
+    {
+      "heroId": 99265,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99265"
+    },
+    {
+      "heroId": 99266,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99266"
+    },
+    {
+      "heroId": 99267,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99267"
+    },
+    {
+      "heroId": 99268,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99268"
+    },
+    {
+      "heroId": 99269,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99269"
+    },
+    {
+      "heroId": 99270,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99270"
+    },
+    {
+      "heroId": 99271,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99271"
+    },
+    {
+      "heroId": 99272,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99272"
+    },
+    {
+      "heroId": 99273,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99273"
+    },
+    {
+      "heroId": 99274,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99274"
+    },
+    {
+      "heroId": 99275,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99275"
+    },
+    {
+      "heroId": 99276,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99276"
+    },
+    {
+      "heroId": 99277,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99277"
+    },
+    {
+      "heroId": 99278,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99278"
+    },
+    {
+      "heroId": 99279,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99279"
+    },
+    {
+      "heroId": 99280,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99280"
+    },
+    {
+      "heroId": 99281,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99281"
+    },
+    {
+      "heroId": 99282,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99282"
+    },
+    {
+      "heroId": 99283,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99283"
+    },
+    {
+      "heroId": 99284,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99284"
+    },
+    {
+      "heroId": 99285,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99285"
+    },
+    {
+      "heroId": 99286,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99286"
+    },
+    {
+      "heroId": 99287,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99287"
     }
   ]
 }
