@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+  "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
+  "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+  "sourceSha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+  "sourceByteLength": 16894185,
+  "sourcePopulationRowCount": 28789,
+  "projectionPath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+  "projectionRowCount": 28789,
+  "locatorFormat": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID={ID}",
+  "predicate": "Useable == true",
+  "identityField": "ID",
+  "canonicalTargetPath": "canonical/hero-identities.v1.json",
+  "canonicalTargetField": "heroId",
+  "comparison": "Exact numeric ID equality",
+  "expectedPlayableHeroCount": 267,
+  "sourcePackContract": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/contracts/configdata-source-pack-contract.v1.json",
+    "blobSha1": "0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d",
+    "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84"
+  },
+  "identityAuthority": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "contractPath": "data/contracts/hero-identity-contract.v1.json",
+    "contractBlobSha1": "7bd0450ba517953ae5c623244e9cb5e2aeb44c4a",
+    "masterPath": "data/hero-name-master.v1.json",
+    "masterBlobSha1": "12eaf4f84a3e91477c80fbccd78c949b79c3829f",
+    "masterRecordCount": 267,
+    "stage3ValidationPath": "data/validation/hero-stage3-automation-result.json",
+    "stage3ValidationBlobSha1": "93553c229705a9014cb6497fdb64f4312e4b6170",
+    "stage3Status": "PASS"
+  }
+}

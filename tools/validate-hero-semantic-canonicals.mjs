@@ -10,8 +10,12 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
   const identityPath = 'canonical/hero-identities.v1.json';
   const relationPath = 'canonical/hero-job-relations.v1.json';
-  const [identities, relations, selected, classicEvidence, spEvidence, classicJobs, spJobs] = await Promise.all([
+  const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
+  const identityManifestPath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.source-manifest.v1.json';
+  const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, spEvidence, classicJobs, spJobs] = await Promise.all([
     readJson(identityPath),
+    readJson(identityEvidencePath),
+    readJson(identityManifestPath),
     readJson(relationPath),
     readJson('canonical/heroes.v1.json'),
     readJson('evidence/source/jobs/hero-job-connection-slice.v1.json'),
@@ -21,24 +25,49 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   ]);
 
   exactKeys(identities, ['schemaVersion', 'scope', 'records'], 'Hero identity canonical');
-  check(identities.schemaVersion === 1 && identities.scope === 'Current evidence-backed Hero identity union; not a claim of complete game population.', 'Hero identity schema or scope drift');
+  check(identities.schemaVersion === 1 && identities.scope === 'Playable Hero identities from ConfigDataHeroInfo records where Useable == true.', 'Hero identity schema or scope drift');
+  exactKeys(identityEvidence, ['schemaVersion', 'records'], 'Playable Hero identity evidence');
+  check(identityEvidence.schemaVersion === 1 && Array.isArray(identityEvidence.records), 'playable Hero identity evidence schema drift');
+  exactKeys(identityManifest, ['schemaVersion', 'sourceRepository', 'sourceCommit', 'sourcePath', 'sourceBlobSha1', 'sourceSha256', 'sourceByteLength', 'sourcePopulationRowCount', 'projectionPath', 'projectionRowCount', 'locatorFormat', 'predicate', 'identityField', 'canonicalTargetPath', 'canonicalTargetField', 'comparison', 'expectedPlayableHeroCount', 'sourcePackContract', 'identityAuthority'], 'Playable Hero identity source manifest');
+  check(identityManifest.schemaVersion === 1 && identityManifest.sourceRepository === 'LuceatLuxVestra42/langrisser-future-guide' && identityManifest.sourceCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c' && identityManifest.sourcePath === 'data/configdata/ConfigDataHeroInfo.json' && identityManifest.sourceBlobSha1 === '728daab3370f0c7779449663ea02e638677944d4' && identityManifest.sourceSha256 === '2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b' && identityManifest.sourceByteLength === 16894185 && identityManifest.sourcePopulationRowCount === 28789 && identityManifest.projectionPath === identityEvidencePath && identityManifest.projectionRowCount === 28789 && identityManifest.projectionRowCount === identityEvidence.records.length && identityManifest.sourcePopulationRowCount === identityEvidence.records.length && identityManifest.locatorFormat === identityEvidencePath + '#ID={ID}' && identityManifest.predicate === 'Useable == true' && identityManifest.identityField === 'ID' && identityManifest.canonicalTargetPath === identityPath && identityManifest.canonicalTargetField === 'heroId' && identityManifest.comparison === 'Exact numeric ID equality' && identityManifest.expectedPlayableHeroCount === 267
+    && identityManifest.sourcePackContract?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && identityManifest.sourcePackContract?.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+    && identityManifest.sourcePackContract?.path === 'data/contracts/configdata-source-pack-contract.v1.json'
+    && identityManifest.sourcePackContract?.blobSha1 === '0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d'
+    && identityManifest.sourcePackContract?.sourceCommit === identityManifest.sourceCommit
+    && identityManifest.sourcePackContract?.archiveSha256 === '65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84'
+    && identityManifest.identityAuthority?.contractPath === 'data/contracts/hero-identity-contract.v1.json'
+    && identityManifest.identityAuthority?.contractBlobSha1 === '7bd0450ba517953ae5c623244e9cb5e2aeb44c4a'
+    && identityManifest.identityAuthority?.masterPath === 'data/hero-name-master.v1.json'
+    && identityManifest.identityAuthority?.masterBlobSha1 === '12eaf4f84a3e91477c80fbccd78c949b79c3829f'
+    && identityManifest.identityAuthority?.masterRecordCount === 267
+    && identityManifest.identityAuthority?.stage3ValidationPath === 'data/validation/hero-stage3-automation-result.json'
+    && identityManifest.identityAuthority?.stage3ValidationBlobSha1 === '93553c229705a9014cb6497fdb64f4312e4b6170'
+    && identityManifest.identityAuthority?.stage3Status === 'PASS', 'playable Hero identity manifest/source pin drift');
+  const sourceRowsById = new Map();
+  for (const row of identityEvidence.records) {
+    check(row && typeof row === 'object' && !Array.isArray(row), 'malformed playable identity source row');
+    check(Object.keys(row).every((key) => key === 'ID' || key === 'Useable') && Object.hasOwn(row, 'ID'), 'playable identity source row has unsupported/missing fields');
+    check(Number.isSafeInteger(row.ID) && row.ID > 0, 'malformed source Hero ID ' + row.ID);
+    check(!Object.hasOwn(row, 'Useable') || typeof row.Useable === 'boolean', 'malformed Useable value for source Hero ID ' + row.ID);
+    check(!sourceRowsById.has(row.ID), 'duplicate source Hero ID ' + row.ID);
+    sourceRowsById.set(row.ID, row);
+  }
+  const expectedIdentityLocators = new Map();
+  for (const [heroId, row] of sourceRowsById) if (row.Useable === true) expectedIdentityLocators.set(heroId, identityEvidencePath + '#ID=' + heroId);
+  check(expectedIdentityLocators.size === identityManifest.expectedPlayableHeroCount, 'playable Hero source count differs from the validated manifest population');
   exactKeys(relations, ['schemaVersion', 'scope', 'records'], 'Hero→Job relation canonical');
   check(relations.schemaVersion === 1 && relations.scope === 'Current evidence-backed Hero-to-Job relation union; not a claim of complete game relation population.', 'Hero→Job schema or scope drift');
-
-  const expectedIdentityLocators = new Map();
-  for (const row of spEvidence.records) expectedIdentityLocators.set(row.heroId, row.heroInfoLocator);
-  for (const row of selected.records) expectedIdentityLocators.set(row.id, row.provenance.identity);
-  check(expectedIdentityLocators.size === 26, 'current evidence-backed identity scope must contain 26 unique Hero IDs');
 
   const identityById = new Map();
   for (const row of identities.records) {
     exactKeys(row, ['heroId', 'provenance'], `Hero identity ${row.heroId}`);
-    check(Number.isInteger(row.heroId) && !identityById.has(row.heroId), `malformed or duplicate Hero ID ${row.heroId}`);
+    check(Number.isSafeInteger(row.heroId) && row.heroId > 0 && !identityById.has(row.heroId), `malformed or duplicate Hero ID ${row.heroId}`);
     check(typeof row.provenance === 'string' && row.provenance.length > 0, `Hero ${row.heroId} has no identity evidence locator`);
     check(expectedIdentityLocators.get(row.heroId) === row.provenance, `Hero ${row.heroId} identity evidence locator/value mismatch`);
     identityById.set(row.heroId, row);
   }
-  check(identityById.size === expectedIdentityLocators.size, 'Hero identity count differs from the current evidence-backed scope');
+  check(identityById.size === expectedIdentityLocators.size, 'Hero identity count differs from the playable source identity scope');
   for (const [heroId, locator] of expectedIdentityLocators) {
     check(identityById.get(heroId)?.provenance === locator, `Hero ${heroId} identity evidence is missing`);
   }
@@ -98,5 +127,5 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   const result = await validateHeroSemanticCanonicals();
-  process.stdout.write(`Hero semantic canonicals: PASS (${result.identities} evidence-backed identities; ${result.relations} relations; ${result.selectedRelations} selected-slice parity pairs; localization/release independent)\n`);
+  process.stdout.write(`Hero semantic canonicals: PASS (${result.identities} playable identities; ${result.relations} relations; ${result.selectedRelations} selected-slice parity pairs; localization/release independent)\n`);
 }
