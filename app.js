@@ -31,6 +31,20 @@ function addHero(hero) {
   }
   article.append(image, details);
   article.append(connections);
+  const exclusive = document.createElement('section');
+  exclusive.className = 'exclusive-equipment';
+  const exclusiveHeading = document.createElement('h3');
+  exclusiveHeading.id = `hero-${hero.id}-exclusive-heading`;
+  exclusiveHeading.textContent = '전용 장비';
+  exclusive.setAttribute('aria-labelledby', exclusiveHeading.id);
+  const equipmentName = document.createElement('p');
+  equipmentName.className = 'exclusive-equipment-name';
+  equipmentName.textContent = hero.exclusiveEquipment.equipmentNameKo;
+  const effect = document.createElement('p');
+  effect.className = 'exclusive-equipment-effect';
+  effect.textContent = hero.exclusiveEquipment.effectDescriptionKo;
+  exclusive.append(exclusiveHeading, equipmentName, effect);
+  article.append(exclusive);
   container.append(article);
 }
 

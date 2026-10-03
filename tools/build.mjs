@@ -14,9 +14,11 @@ const exactKeys = (value, expected, label) => {
 
 const canonical = await readJson('canonical/heroes.v1.json');
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
+const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
+const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, jobLocalization);
+const expectedGenerated = renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -56,7 +58,7 @@ const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
 for (const hero of generated.heroes) {
-  exactKeys(hero, ['id', 'nameEng', 'portrait', 'jobConnections'], `generated Hero ${hero.id}`);
+  exactKeys(hero, ['id', 'nameEng', 'portrait', 'jobConnections', 'exclusiveEquipment'], `generated Hero ${hero.id}`);
   if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || !Array.isArray(hero.jobConnections)) {
     throw new Error(`malformed generated Hero ${String(hero.id)}`);
   }
@@ -66,6 +68,11 @@ for (const hero of generated.heroes) {
       || typeof relation.jobNameKo !== 'string' || !relation.jobNameKo) {
       throw new Error(`malformed generated Job relation for Hero ${hero.id}`);
     }
+  }
+  exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `generated Hero ${hero.id} Exclusive Equipment`);
+  if (!Number.isInteger(hero.exclusiveEquipment.equipmentId) || typeof hero.exclusiveEquipment.equipmentNameKo !== 'string'
+    || !hero.exclusiveEquipment.equipmentNameKo || typeof hero.exclusiveEquipment.effectDescriptionKo !== 'string' || !hero.exclusiveEquipment.effectDescriptionKo) {
+    throw new Error(`malformed Exclusive Equipment presentation for Hero ${hero.id}`);
   }
 }
 const portraitPaths = [...new Set(generated.heroes.map((hero) => hero.portrait))];
