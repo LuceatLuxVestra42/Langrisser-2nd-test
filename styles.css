@@ -26,6 +26,10 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-details h2 { margin: 0; font-size: 1.12rem; }
 .hero-id { margin: 0; color: #aab5c3; font-size: .82rem; white-space: nowrap; }
 .job-connections { margin: 0; padding: 0 16px 18px 34px; color: #c5cfdb; font-size: .82rem; line-height: 1.55; }
+.exclusive-equipment { min-width: 0; margin: auto 16px 16px; padding: 13px 14px; border: 1px solid #3c4b5e; border-radius: 10px; background: #151b24; }
+.exclusive-equipment h3 { margin: 0 0 7px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }
+.exclusive-equipment-name { margin: 0 0 6px; font-weight: 700; }
+.exclusive-equipment-effect { margin: 0; color: #c5cfdb; font-size: .82rem; line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; }
 .status { grid-column: 1 / -1; padding: 24px; color: #b4bfce; }
 .status-error { color: #ffb8ad; }
 .sp-soldier-section { margin-top: 64px; }

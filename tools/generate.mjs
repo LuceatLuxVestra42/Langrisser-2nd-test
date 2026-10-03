@@ -2,20 +2,45 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-export function renderGenerated(canonical, jobLocalization) {
+export function renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations) {
   const nameByJobId = new Map(jobLocalization.records.map(({ jobId, nameKo }) => [jobId, nameKo]));
+  const relationByHeroId = new Map();
+  const equipmentIds = new Set();
+  for (const relation of exclusiveRelations.records) {
+    if (!Number.isInteger(relation.heroId) || !Number.isInteger(relation.equipmentId)) throw new Error('Exclusive Equipment relation contains malformed endpoint');
+    if (relationByHeroId.has(relation.heroId)) throw new Error(`Duplicate Exclusive Equipment relation for Hero ${relation.heroId}`);
+    if (equipmentIds.has(relation.equipmentId)) throw new Error(`Duplicate Exclusive Equipment mapping for equipment ${relation.equipmentId}`);
+    relationByHeroId.set(relation.heroId, relation.equipmentId);
+    equipmentIds.add(relation.equipmentId);
+  }
+  const localizationByEquipmentId = new Map();
+  for (const localization of exclusiveLocalizations.records) {
+    if (!Number.isInteger(localization.equipmentId)) throw new Error('Exclusive Equipment localization contains malformed equipmentId');
+    if (localizationByEquipmentId.has(localization.equipmentId)) throw new Error(`Duplicate Exclusive Equipment localization for ${localization.equipmentId}`);
+    if (typeof localization.nameKo !== 'string' || !localization.nameKo || typeof localization.effectDescriptionKo !== 'string' || !localization.effectDescriptionKo) {
+      throw new Error(`Missing Korean Exclusive Equipment presentation for ${localization.equipmentId}`);
+    }
+    localizationByEquipmentId.set(localization.equipmentId, localization);
+  }
   const heroes = [...canonical.records]
     .sort((a, b) => a.id - b.id)
-    .map(({ id, nameEng, portrait, jobConnections }) => ({
+    .map(({ id, nameEng, portrait, jobConnections }) => {
+      const equipmentId = relationByHeroId.get(id);
+      if (!Number.isInteger(equipmentId)) throw new Error(`Missing Exclusive Equipment relation for visible Hero ${id}`);
+      const localization = localizationByEquipmentId.get(equipmentId);
+      if (!localization) throw new Error(`Missing Korean Exclusive Equipment localization for ${equipmentId}`);
+      return ({
       id,
       nameEng,
       portrait,
+      exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
       jobConnections: jobConnections.map((relation) => {
         const jobNameKo = nameByJobId.get(relation.jobId);
         if (typeof jobNameKo !== 'string' || !jobNameKo) throw new Error(`Missing admitted Korean Job localization for JobInfo.ID ${relation.jobId}`);
         return { ...relation, jobNameKo };
       }),
-    }));
+    });
+    });
   return `${JSON.stringify({ schemaVersion: 1, heroes }, null, 2)}\n`;
 }
 
@@ -109,10 +134,15 @@ const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const inputPath = resolve('canonical/heroes.v1.json');
   const localizationPath = resolve('canonical/job-localizations-ko.v1.json');
+  const exclusiveRelationPath = resolve('canonical/hero-exclusive-equipment-relations.v1.json');
+  const exclusiveLocalizationPath = resolve('canonical/exclusive-equipment-localizations-ko.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
   const canonical = JSON.parse(await readFile(inputPath, 'utf8'));
   const jobLocalization = JSON.parse(await readFile(localizationPath, 'utf8'));
-  await writeFile(outputPath, renderGenerated(canonical, jobLocalization), 'utf8');
+  const [exclusiveRelations, exclusiveLocalizations] = await Promise.all([
+    readFile(exclusiveRelationPath, 'utf8'), readFile(exclusiveLocalizationPath, 'utf8'),
+  ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
+  await writeFile(outputPath, renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

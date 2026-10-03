@@ -16,6 +16,8 @@ const check = (condition, message) => { if (!condition) throw new Error(message)
 
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const canonical = await readJson('canonical/heroes.v1.json');
+const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
+const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
 exactKeys(canonical, ['schemaVersion', 'sourceScope', 'records'], 'canonical');
 check(canonical.schemaVersion === 1, 'unsupported canonical schemaVersion');
 check(canonical.sourceScope === 'CN ConfigData snapshot 2026-09-02', 'canonical source scope drift');
@@ -128,13 +130,21 @@ for (const record of canonical.records) {
   check(JSON.stringify(survivingPortrait.extractedPng.dimensions) === JSON.stringify([portrait.extractedSourcePng.width, portrait.extractedSourcePng.height]), `Hero ${record.id} surviving image dimensions locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, jobLocalization);
+const expectedGenerated = renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
-check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['id', 'jobConnections', 'nameEng', 'portrait'])), 'generated consumer contains non-presentation fields');
+check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['exclusiveEquipment', 'id', 'jobConnections', 'nameEng', 'portrait'])), 'generated consumer contains non-presentation fields');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
+const expectedEquipmentByHero = new Map([[5, 447], [6, 416], [8, 275]]);
+check(generatedJson.heroes.length === 3 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[5,6,8]', 'visible Hero population must remain exactly 5, 6, and 8');
+for (const hero of generatedJson.heroes) {
+  exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
+  check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);
+  check(typeof hero.exclusiveEquipment.equipmentNameKo === 'string' && hero.exclusiveEquipment.equipmentNameKo.length > 0, `Hero ${hero.id} Exclusive Equipment Korean name missing`);
+  check(typeof hero.exclusiveEquipment.effectDescriptionKo === 'string' && hero.exclusiveEquipment.effectDescriptionKo.length > 0, `Hero ${hero.id} Exclusive Equipment effect missing`);
+}
 
 
 process.stdout.write('Hero slice validator: PASS (Hero relation/source locators, portrait asset integrity, generated freshness and presentation shape; unrelated semantic domains excluded)\n');

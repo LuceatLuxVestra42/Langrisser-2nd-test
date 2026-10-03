@@ -24,6 +24,8 @@ async function editJson(path, change) {
 }
 const canonicalPath = join(repo, 'canonical/heroes.v1.json');
 const generatedPath = join(repo, 'generated/hero-slice.v1.json');
+const exclusiveRelationPath = 'canonical/hero-exclusive-equipment-relations.v1.json';
+const exclusiveLocalizationPath = 'canonical/exclusive-equipment-localizations-ko.v1.json';
 const originalCanonical = await readFile(canonicalPath, 'utf8');
 const originalGenerated = await readFile(generatedPath, 'utf8');
 
@@ -34,6 +36,31 @@ try {
   expectFailure(run('tools/build.mjs'), 'build with stale generated consumer');
   if (await readFile(generatedPath, 'utf8') !== staleBefore) throw new Error('build mutated stale generated output');
   await writeFile(generatedPath, originalGenerated);
+
+  const negativeCases = [
+    ['visible Hero relation missing', exclusiveRelationPath, (value) => { value.records = value.records.filter((row) => row.heroId !== 5); }],
+    ['duplicate visible Hero relation', exclusiveRelationPath, (value) => { value.records.push({ ...value.records.find((row) => row.heroId === 5) }); }],
+    ['wrong visible Hero equipment ID', exclusiveRelationPath, (value) => { value.records.find((row) => row.heroId === 5).equipmentId = 416; }],
+    ['localization missing', exclusiveLocalizationPath, (value) => { value.records = value.records.filter((row) => row.equipmentId !== 447); }],
+    ['duplicate localization', exclusiveLocalizationPath, (value) => { value.records.push({ ...value.records.find((row) => row.equipmentId === 447) }); }],
+  ];
+  for (const [label, path, change] of negativeCases) {
+    const restore = await editJson(path, change);
+    expectFailure(run('tools/validate.mjs'), label);
+    await restore();
+  }
+  const generatedNegatives = [
+    ['equipment name tamper', (value) => { value.heroes.find((hero) => hero.id === 5).exclusiveEquipment.equipmentNameKo += ' 변경'; }],
+    ['effect tamper', (value) => { value.heroes.find((hero) => hero.id === 5).exclusiveEquipment.effectDescriptionKo += ' 변경'; }],
+    ['equipment ID tamper', (value) => { value.heroes.find((hero) => hero.id === 5).exclusiveEquipment.equipmentId = 416; }],
+    ['exclusive presentation missing', (value) => { delete value.heroes.find((hero) => hero.id === 5).exclusiveEquipment; }],
+    ['unexpected semantic field leakage', (value) => { value.heroes.find((hero) => hero.id === 5).exclusiveEquipment.releaseStatus = 'released'; }],
+  ];
+  for (const [label, change] of generatedNegatives) {
+    const restore = await editJson('generated/hero-slice.v1.json', change);
+    expectFailure(run('tools/validate.mjs'), label);
+    await restore();
+  }
 
   const invalidConnection = JSON.parse(originalCanonical);
   invalidConnection.records[0].jobConnections[0].connectionId = 999999;

@@ -5,6 +5,11 @@
       "id": 5,
       "nameEng": "Chris",
       "portrait": "assets/portraits/hero-5.png",
+      "exclusiveEquipment": {
+        "equipmentId": 447,
+        "equipmentNameKo": "성녀 찬가",
+        "effectDescriptionKo": "생명 마방 +5%\n행동 종료 시, 이번 턴에 피해를 준 경우 고유기의 버프 부여 횟수 +1\n마물 격파 후 재행동 가능\n([쿨타임 효과]해당 효과는 2턴 후 재발동 가능)"
+      },
       "jobConnections": [
         {
           "connectionId": 50,
@@ -48,6 +53,11 @@
       "id": 6,
       "nameEng": "Leon",
       "portrait": "assets/portraits/hero-6.png",
+      "exclusiveEquipment": {
+        "equipmentId": 416,
+        "equipmentNameKo": "청룡의 갑옷",
+        "effectDescriptionKo": "방어 +10%\n피해를 받은 후, '부대 이동방식을 야전으로 변경' 획득, 지속 1행동"
+      },
       "jobConnections": [
         {
           "connectionId": 60,
@@ -91,6 +101,11 @@
       "id": 8,
       "nameEng": "Lana",
       "portrait": "assets/portraits/hero-8.png",
+      "exclusiveEquipment": {
+        "equipmentId": 275,
+        "equipmentNameKo": "검정 드레스",
+        "effectDescriptionKo": "생명 +5%\n전투 진입 전, 적에게 무작위 1개의 강력한 디버프 부여"
+      },
       "jobConnections": [
         {
           "connectionId": 80,
