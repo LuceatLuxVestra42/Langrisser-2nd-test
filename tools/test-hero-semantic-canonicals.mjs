@@ -53,6 +53,9 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 5 && row.jobId === 817)); }, 'missing selected relation');
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 6 && row.jobId === 377)); }, 'missing SP relation');
 
+  const selectedPath = 'canonical/heroes.v1.json';
+  await mutateAndExpectFailure(selectedPath, (doc) => { doc.records[0].jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation');
+
   const relationDoc = JSON.parse(await readFile(join(repo, relationPath), 'utf8'));
   for (const jobId of [1220, 20243, 20707]) {
     if (!relationDoc.records.some((row) => row.jobId === jobId)) throw new Error(`status-only Job ${jobId} missing from relation owner`);

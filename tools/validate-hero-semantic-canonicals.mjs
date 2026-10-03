@@ -29,7 +29,21 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   exactKeys(identityEvidence, ['schemaVersion', 'records'], 'Playable Hero identity evidence');
   check(identityEvidence.schemaVersion === 1 && Array.isArray(identityEvidence.records), 'playable Hero identity evidence schema drift');
   exactKeys(identityManifest, ['schemaVersion', 'sourceRepository', 'sourceCommit', 'sourcePath', 'sourceBlobSha1', 'sourceSha256', 'sourceByteLength', 'sourcePopulationRowCount', 'projectionPath', 'projectionRowCount', 'locatorFormat', 'predicate', 'identityField', 'canonicalTargetPath', 'canonicalTargetField', 'comparison', 'expectedPlayableHeroCount', 'sourcePackContract', 'identityAuthority'], 'Playable Hero identity source manifest');
-  check(identityManifest.schemaVersion === 1 && identityManifest.sourceRepository === 'LuceatLuxVestra42/langrisser-future-guide' && identityManifest.sourceCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c' && identityManifest.sourcePath === 'data/configdata/ConfigDataHeroInfo.json' && identityManifest.sourceBlobSha1 === '728daab3370f0c7779449663ea02e638677944d4' && identityManifest.projectionPath === identityEvidencePath && identityManifest.projectionRowCount === identityEvidence.records.length && identityManifest.sourcePopulationRowCount === identityEvidence.records.length && identityManifest.locatorFormat === identityEvidencePath + '#ID={ID}' && identityManifest.predicate === 'Useable == true' && identityManifest.identityField === 'ID' && identityManifest.canonicalTargetPath === identityPath && identityManifest.canonicalTargetField === 'heroId' && identityManifest.comparison === 'Exact numeric ID equality' && identityManifest.expectedPlayableHeroCount === 267, 'playable Hero identity manifest/source pin drift');
+  check(identityManifest.schemaVersion === 1 && identityManifest.sourceRepository === 'LuceatLuxVestra42/langrisser-future-guide' && identityManifest.sourceCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c' && identityManifest.sourcePath === 'data/configdata/ConfigDataHeroInfo.json' && identityManifest.sourceBlobSha1 === '728daab3370f0c7779449663ea02e638677944d4' && identityManifest.sourceSha256 === '2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b' && identityManifest.sourceByteLength === 16894185 && identityManifest.sourcePopulationRowCount === 28789 && identityManifest.projectionPath === identityEvidencePath && identityManifest.projectionRowCount === 28789 && identityManifest.projectionRowCount === identityEvidence.records.length && identityManifest.sourcePopulationRowCount === identityEvidence.records.length && identityManifest.locatorFormat === identityEvidencePath + '#ID={ID}' && identityManifest.predicate === 'Useable == true' && identityManifest.identityField === 'ID' && identityManifest.canonicalTargetPath === identityPath && identityManifest.canonicalTargetField === 'heroId' && identityManifest.comparison === 'Exact numeric ID equality' && identityManifest.expectedPlayableHeroCount === 267
+    && identityManifest.sourcePackContract?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && identityManifest.sourcePackContract?.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+    && identityManifest.sourcePackContract?.path === 'data/contracts/configdata-source-pack-contract.v1.json'
+    && identityManifest.sourcePackContract?.blobSha1 === '0a7c58140f7c5f44a7aedbedbc950ef0f1bb4a0d'
+    && identityManifest.sourcePackContract?.sourceCommit === identityManifest.sourceCommit
+    && identityManifest.sourcePackContract?.archiveSha256 === '65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84'
+    && identityManifest.identityAuthority?.contractPath === 'data/contracts/hero-identity-contract.v1.json'
+    && identityManifest.identityAuthority?.contractBlobSha1 === '7bd0450ba517953ae5c623244e9cb5e2aeb44c4a'
+    && identityManifest.identityAuthority?.masterPath === 'data/hero-name-master.v1.json'
+    && identityManifest.identityAuthority?.masterBlobSha1 === '12eaf4f84a3e91477c80fbccd78c949b79c3829f'
+    && identityManifest.identityAuthority?.masterRecordCount === 267
+    && identityManifest.identityAuthority?.stage3ValidationPath === 'data/validation/hero-stage3-automation-result.json'
+    && identityManifest.identityAuthority?.stage3ValidationBlobSha1 === '93553c229705a9014cb6497fdb64f4312e4b6170'
+    && identityManifest.identityAuthority?.stage3Status === 'PASS', 'playable Hero identity manifest/source pin drift');
   const sourceRowsById = new Map();
   for (const row of identityEvidence.records) {
     check(row && typeof row === 'object' && !Array.isArray(row), 'malformed playable identity source row');
@@ -48,7 +62,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const identityById = new Map();
   for (const row of identities.records) {
     exactKeys(row, ['heroId', 'provenance'], `Hero identity ${row.heroId}`);
-    check(Number.isInteger(row.heroId) && !identityById.has(row.heroId), `malformed or duplicate Hero ID ${row.heroId}`);
+    check(Number.isSafeInteger(row.heroId) && row.heroId > 0 && !identityById.has(row.heroId), `malformed or duplicate Hero ID ${row.heroId}`);
     check(typeof row.provenance === 'string' && row.provenance.length > 0, `Hero ${row.heroId} has no identity evidence locator`);
     check(expectedIdentityLocators.get(row.heroId) === row.provenance, `Hero ${row.heroId} identity evidence locator/value mismatch`);
     identityById.set(row.heroId, row);
