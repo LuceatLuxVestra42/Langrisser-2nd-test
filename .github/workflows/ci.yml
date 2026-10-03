@@ -119,3 +119,9 @@ jobs:
 
       - name: Test Exclusive Equipment Korean localization
         run: node tools/test-exclusive-equipment-ko-localization.mjs
+
+      - name: Validate Hero-Exclusive Equipment relations
+        run: node tools/validate-hero-exclusive-equipment-relations.mjs
+
+      - name: Test Hero-Exclusive Equipment relation admission
+        run: node tools/test-hero-exclusive-equipment-relations.mjs

@@ -1,0 +1,2177 @@
+{
+  "schemaVersion": 1,
+  "scope": "Current Hero to Exclusive Equipment ownership relations from the frozen ConfigDataEquipmentInfo.SkillHero source.",
+  "records": [
+    {
+      "heroId": 1,
+      "equipmentId": 277,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 277,
+          "field": "SkillHero",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "heroId": 3,
+      "equipmentId": 415,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 415,
+          "field": "SkillHero",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "heroId": 4,
+      "equipmentId": 404,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 404,
+          "field": "SkillHero",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "heroId": 5,
+      "equipmentId": 447,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 447,
+          "field": "SkillHero",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "heroId": 6,
+      "equipmentId": 416,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 416,
+          "field": "SkillHero",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "heroId": 7,
+      "equipmentId": 295,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 295,
+          "field": "SkillHero",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "heroId": 8,
+      "equipmentId": 275,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 275,
+          "field": "SkillHero",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "heroId": 9,
+      "equipmentId": 446,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 446,
+          "field": "SkillHero",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "heroId": 10,
+      "equipmentId": 406,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 406,
+          "field": "SkillHero",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "heroId": 11,
+      "equipmentId": 436,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 436,
+          "field": "SkillHero",
+          "value": 11
+        }
+      ]
+    },
+    {
+      "heroId": 12,
+      "equipmentId": 273,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 273,
+          "field": "SkillHero",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "heroId": 13,
+      "equipmentId": 298,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 298,
+          "field": "SkillHero",
+          "value": 13
+        }
+      ]
+    },
+    {
+      "heroId": 14,
+      "equipmentId": 292,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 292,
+          "field": "SkillHero",
+          "value": 14
+        }
+      ]
+    },
+    {
+      "heroId": 15,
+      "equipmentId": 535,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 535,
+          "field": "SkillHero",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "heroId": 16,
+      "equipmentId": 418,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 418,
+          "field": "SkillHero",
+          "value": 16
+        }
+      ]
+    },
+    {
+      "heroId": 17,
+      "equipmentId": 405,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 405,
+          "field": "SkillHero",
+          "value": 17
+        }
+      ]
+    },
+    {
+      "heroId": 18,
+      "equipmentId": 276,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 276,
+          "field": "SkillHero",
+          "value": 18
+        }
+      ]
+    },
+    {
+      "heroId": 20,
+      "equipmentId": 281,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 281,
+          "field": "SkillHero",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "heroId": 21,
+      "equipmentId": 441,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 441,
+          "field": "SkillHero",
+          "value": 21
+        }
+      ]
+    },
+    {
+      "heroId": 25,
+      "equipmentId": 278,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 278,
+          "field": "SkillHero",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "heroId": 26,
+      "equipmentId": 462,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 462,
+          "field": "SkillHero",
+          "value": 26
+        }
+      ]
+    },
+    {
+      "heroId": 27,
+      "equipmentId": 274,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 274,
+          "field": "SkillHero",
+          "value": 27
+        }
+      ]
+    },
+    {
+      "heroId": 28,
+      "equipmentId": 412,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 412,
+          "field": "SkillHero",
+          "value": 28
+        }
+      ]
+    },
+    {
+      "heroId": 29,
+      "equipmentId": 522,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 522,
+          "field": "SkillHero",
+          "value": 29
+        }
+      ]
+    },
+    {
+      "heroId": 30,
+      "equipmentId": 286,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 286,
+          "field": "SkillHero",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "heroId": 31,
+      "equipmentId": 434,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 434,
+          "field": "SkillHero",
+          "value": 31
+        }
+      ]
+    },
+    {
+      "heroId": 32,
+      "equipmentId": 287,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 287,
+          "field": "SkillHero",
+          "value": 32
+        }
+      ]
+    },
+    {
+      "heroId": 33,
+      "equipmentId": 403,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 403,
+          "field": "SkillHero",
+          "value": 33
+        }
+      ]
+    },
+    {
+      "heroId": 34,
+      "equipmentId": 297,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 297,
+          "field": "SkillHero",
+          "value": 34
+        }
+      ]
+    },
+    {
+      "heroId": 35,
+      "equipmentId": 425,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 425,
+          "field": "SkillHero",
+          "value": 35
+        }
+      ]
+    },
+    {
+      "heroId": 36,
+      "equipmentId": 414,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 414,
+          "field": "SkillHero",
+          "value": 36
+        }
+      ]
+    },
+    {
+      "heroId": 37,
+      "equipmentId": 280,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 280,
+          "field": "SkillHero",
+          "value": 37
+        }
+      ]
+    },
+    {
+      "heroId": 38,
+      "equipmentId": 455,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 455,
+          "field": "SkillHero",
+          "value": 38
+        }
+      ]
+    },
+    {
+      "heroId": 39,
+      "equipmentId": 411,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 411,
+          "field": "SkillHero",
+          "value": 39
+        }
+      ]
+    },
+    {
+      "heroId": 40,
+      "equipmentId": 488,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 488,
+          "field": "SkillHero",
+          "value": 40
+        }
+      ]
+    },
+    {
+      "heroId": 49,
+      "equipmentId": 429,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 429,
+          "field": "SkillHero",
+          "value": 49
+        }
+      ]
+    },
+    {
+      "heroId": 51,
+      "equipmentId": 293,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 293,
+          "field": "SkillHero",
+          "value": 51
+        }
+      ]
+    },
+    {
+      "heroId": 52,
+      "equipmentId": 294,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 294,
+          "field": "SkillHero",
+          "value": 52
+        }
+      ]
+    },
+    {
+      "heroId": 53,
+      "equipmentId": 296,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 296,
+          "field": "SkillHero",
+          "value": 53
+        }
+      ]
+    },
+    {
+      "heroId": 54,
+      "equipmentId": 490,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 490,
+          "field": "SkillHero",
+          "value": 54
+        }
+      ]
+    },
+    {
+      "heroId": 55,
+      "equipmentId": 466,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 466,
+          "field": "SkillHero",
+          "value": 55
+        }
+      ]
+    },
+    {
+      "heroId": 56,
+      "equipmentId": 279,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 279,
+          "field": "SkillHero",
+          "value": 56
+        }
+      ]
+    },
+    {
+      "heroId": 57,
+      "equipmentId": 472,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 472,
+          "field": "SkillHero",
+          "value": 57
+        }
+      ]
+    },
+    {
+      "heroId": 58,
+      "equipmentId": 423,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 423,
+          "field": "SkillHero",
+          "value": 58
+        }
+      ]
+    },
+    {
+      "heroId": 59,
+      "equipmentId": 424,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 424,
+          "field": "SkillHero",
+          "value": 59
+        }
+      ]
+    },
+    {
+      "heroId": 60,
+      "equipmentId": 428,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 428,
+          "field": "SkillHero",
+          "value": 60
+        }
+      ]
+    },
+    {
+      "heroId": 61,
+      "equipmentId": 413,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 413,
+          "field": "SkillHero",
+          "value": 61
+        }
+      ]
+    },
+    {
+      "heroId": 62,
+      "equipmentId": 427,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 427,
+          "field": "SkillHero",
+          "value": 62
+        }
+      ]
+    },
+    {
+      "heroId": 63,
+      "equipmentId": 452,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 452,
+          "field": "SkillHero",
+          "value": 63
+        }
+      ]
+    },
+    {
+      "heroId": 64,
+      "equipmentId": 439,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 439,
+          "field": "SkillHero",
+          "value": 64
+        }
+      ]
+    },
+    {
+      "heroId": 65,
+      "equipmentId": 437,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 437,
+          "field": "SkillHero",
+          "value": 65
+        }
+      ]
+    },
+    {
+      "heroId": 66,
+      "equipmentId": 464,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 464,
+          "field": "SkillHero",
+          "value": 66
+        }
+      ]
+    },
+    {
+      "heroId": 67,
+      "equipmentId": 465,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 465,
+          "field": "SkillHero",
+          "value": 67
+        }
+      ]
+    },
+    {
+      "heroId": 87,
+      "equipmentId": 435,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 435,
+          "field": "SkillHero",
+          "value": 87
+        }
+      ]
+    },
+    {
+      "heroId": 88,
+      "equipmentId": 417,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 417,
+          "field": "SkillHero",
+          "value": 88
+        }
+      ]
+    },
+    {
+      "heroId": 89,
+      "equipmentId": 474,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 474,
+          "field": "SkillHero",
+          "value": 89
+        }
+      ]
+    },
+    {
+      "heroId": 91,
+      "equipmentId": 453,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 453,
+          "field": "SkillHero",
+          "value": 91
+        }
+      ]
+    },
+    {
+      "heroId": 92,
+      "equipmentId": 426,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 426,
+          "field": "SkillHero",
+          "value": 92
+        }
+      ]
+    },
+    {
+      "heroId": 93,
+      "equipmentId": 479,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 479,
+          "field": "SkillHero",
+          "value": 93
+        }
+      ]
+    },
+    {
+      "heroId": 94,
+      "equipmentId": 440,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 440,
+          "field": "SkillHero",
+          "value": 94
+        }
+      ]
+    },
+    {
+      "heroId": 95,
+      "equipmentId": 438,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 438,
+          "field": "SkillHero",
+          "value": 95
+        }
+      ]
+    },
+    {
+      "heroId": 96,
+      "equipmentId": 460,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 460,
+          "field": "SkillHero",
+          "value": 96
+        }
+      ]
+    },
+    {
+      "heroId": 97,
+      "equipmentId": 448,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 448,
+          "field": "SkillHero",
+          "value": 97
+        }
+      ]
+    },
+    {
+      "heroId": 98,
+      "equipmentId": 476,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 476,
+          "field": "SkillHero",
+          "value": 98
+        }
+      ]
+    },
+    {
+      "heroId": 99,
+      "equipmentId": 540,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 540,
+          "field": "SkillHero",
+          "value": 99
+        }
+      ]
+    },
+    {
+      "heroId": 100,
+      "equipmentId": 549,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 549,
+          "field": "SkillHero",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "heroId": 101,
+      "equipmentId": 463,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 463,
+          "field": "SkillHero",
+          "value": 101
+        }
+      ]
+    },
+    {
+      "heroId": 102,
+      "equipmentId": 477,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 477,
+          "field": "SkillHero",
+          "value": 102
+        }
+      ]
+    },
+    {
+      "heroId": 103,
+      "equipmentId": 451,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 451,
+          "field": "SkillHero",
+          "value": 103
+        }
+      ]
+    },
+    {
+      "heroId": 104,
+      "equipmentId": 508,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 508,
+          "field": "SkillHero",
+          "value": 104
+        }
+      ]
+    },
+    {
+      "heroId": 105,
+      "equipmentId": 497,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 497,
+          "field": "SkillHero",
+          "value": 105
+        }
+      ]
+    },
+    {
+      "heroId": 106,
+      "equipmentId": 487,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 487,
+          "field": "SkillHero",
+          "value": 106
+        }
+      ]
+    },
+    {
+      "heroId": 108,
+      "equipmentId": 499,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 499,
+          "field": "SkillHero",
+          "value": 108
+        }
+      ]
+    },
+    {
+      "heroId": 109,
+      "equipmentId": 489,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 489,
+          "field": "SkillHero",
+          "value": 109
+        }
+      ]
+    },
+    {
+      "heroId": 110,
+      "equipmentId": 475,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 475,
+          "field": "SkillHero",
+          "value": 110
+        }
+      ]
+    },
+    {
+      "heroId": 111,
+      "equipmentId": 449,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 449,
+          "field": "SkillHero",
+          "value": 111
+        }
+      ]
+    },
+    {
+      "heroId": 112,
+      "equipmentId": 501,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 501,
+          "field": "SkillHero",
+          "value": 112
+        }
+      ]
+    },
+    {
+      "heroId": 113,
+      "equipmentId": 507,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 507,
+          "field": "SkillHero",
+          "value": 113
+        }
+      ]
+    },
+    {
+      "heroId": 114,
+      "equipmentId": 485,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 485,
+          "field": "SkillHero",
+          "value": 114
+        }
+      ]
+    },
+    {
+      "heroId": 115,
+      "equipmentId": 478,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 478,
+          "field": "SkillHero",
+          "value": 115
+        }
+      ]
+    },
+    {
+      "heroId": 116,
+      "equipmentId": 461,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 461,
+          "field": "SkillHero",
+          "value": 116
+        }
+      ]
+    },
+    {
+      "heroId": 118,
+      "equipmentId": 496,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 496,
+          "field": "SkillHero",
+          "value": 118
+        }
+      ]
+    },
+    {
+      "heroId": 119,
+      "equipmentId": 526,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 526,
+          "field": "SkillHero",
+          "value": 119
+        }
+      ]
+    },
+    {
+      "heroId": 120,
+      "equipmentId": 473,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 473,
+          "field": "SkillHero",
+          "value": 120
+        }
+      ]
+    },
+    {
+      "heroId": 121,
+      "equipmentId": 454,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 454,
+          "field": "SkillHero",
+          "value": 121
+        }
+      ]
+    },
+    {
+      "heroId": 122,
+      "equipmentId": 502,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 502,
+          "field": "SkillHero",
+          "value": 122
+        }
+      ]
+    },
+    {
+      "heroId": 123,
+      "equipmentId": 486,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 486,
+          "field": "SkillHero",
+          "value": 123
+        }
+      ]
+    },
+    {
+      "heroId": 124,
+      "equipmentId": 519,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 519,
+          "field": "SkillHero",
+          "value": 124
+        }
+      ]
+    },
+    {
+      "heroId": 125,
+      "equipmentId": 467,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 467,
+          "field": "SkillHero",
+          "value": 125
+        }
+      ]
+    },
+    {
+      "heroId": 126,
+      "equipmentId": 484,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 484,
+          "field": "SkillHero",
+          "value": 126
+        }
+      ]
+    },
+    {
+      "heroId": 127,
+      "equipmentId": 450,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 450,
+          "field": "SkillHero",
+          "value": 127
+        }
+      ]
+    },
+    {
+      "heroId": 129,
+      "equipmentId": 520,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 520,
+          "field": "SkillHero",
+          "value": 129
+        }
+      ]
+    },
+    {
+      "heroId": 130,
+      "equipmentId": 512,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 512,
+          "field": "SkillHero",
+          "value": 130
+        }
+      ]
+    },
+    {
+      "heroId": 99161,
+      "equipmentId": 495,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 495,
+          "field": "SkillHero",
+          "value": 99161
+        }
+      ]
+    },
+    {
+      "heroId": 99162,
+      "equipmentId": 498,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 498,
+          "field": "SkillHero",
+          "value": 99162
+        }
+      ]
+    },
+    {
+      "heroId": 99163,
+      "equipmentId": 500,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 500,
+          "field": "SkillHero",
+          "value": 99163
+        }
+      ]
+    },
+    {
+      "heroId": 99164,
+      "equipmentId": 534,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 534,
+          "field": "SkillHero",
+          "value": 99164
+        }
+      ]
+    },
+    {
+      "heroId": 99165,
+      "equipmentId": 510,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 510,
+          "field": "SkillHero",
+          "value": 99165
+        }
+      ]
+    },
+    {
+      "heroId": 99166,
+      "equipmentId": 539,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 539,
+          "field": "SkillHero",
+          "value": 99166
+        }
+      ]
+    },
+    {
+      "heroId": 99167,
+      "equipmentId": 511,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 511,
+          "field": "SkillHero",
+          "value": 99167
+        }
+      ]
+    },
+    {
+      "heroId": 99168,
+      "equipmentId": 537,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 537,
+          "field": "SkillHero",
+          "value": 99168
+        }
+      ]
+    },
+    {
+      "heroId": 99169,
+      "equipmentId": 509,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 509,
+          "field": "SkillHero",
+          "value": 99169
+        }
+      ]
+    },
+    {
+      "heroId": 99170,
+      "equipmentId": 513,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 513,
+          "field": "SkillHero",
+          "value": 99170
+        }
+      ]
+    },
+    {
+      "heroId": 99171,
+      "equipmentId": 514,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 514,
+          "field": "SkillHero",
+          "value": 99171
+        }
+      ]
+    },
+    {
+      "heroId": 99172,
+      "equipmentId": 524,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 524,
+          "field": "SkillHero",
+          "value": 99172
+        }
+      ]
+    },
+    {
+      "heroId": 99173,
+      "equipmentId": 538,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 538,
+          "field": "SkillHero",
+          "value": 99173
+        }
+      ]
+    },
+    {
+      "heroId": 99174,
+      "equipmentId": 533,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 533,
+          "field": "SkillHero",
+          "value": 99174
+        }
+      ]
+    },
+    {
+      "heroId": 99175,
+      "equipmentId": 536,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 536,
+          "field": "SkillHero",
+          "value": 99175
+        }
+      ]
+    },
+    {
+      "heroId": 99176,
+      "equipmentId": 521,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 521,
+          "field": "SkillHero",
+          "value": 99176
+        }
+      ]
+    },
+    {
+      "heroId": 99177,
+      "equipmentId": 523,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 523,
+          "field": "SkillHero",
+          "value": 99177
+        }
+      ]
+    },
+    {
+      "heroId": 99178,
+      "equipmentId": 532,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 532,
+          "field": "SkillHero",
+          "value": 99178
+        }
+      ]
+    },
+    {
+      "heroId": 99179,
+      "equipmentId": 547,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 547,
+          "field": "SkillHero",
+          "value": 99179
+        }
+      ]
+    },
+    {
+      "heroId": 99180,
+      "equipmentId": 525,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 525,
+          "field": "SkillHero",
+          "value": 99180
+        }
+      ]
+    },
+    {
+      "heroId": 99181,
+      "equipmentId": 551,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 551,
+          "field": "SkillHero",
+          "value": 99181
+        }
+      ]
+    },
+    {
+      "heroId": 99182,
+      "equipmentId": 531,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 531,
+          "field": "SkillHero",
+          "value": 99182
+        }
+      ]
+    },
+    {
+      "heroId": 99183,
+      "equipmentId": 550,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 550,
+          "field": "SkillHero",
+          "value": 99183
+        }
+      ]
+    },
+    {
+      "heroId": 99184,
+      "equipmentId": 559,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 559,
+          "field": "SkillHero",
+          "value": 99184
+        }
+      ]
+    },
+    {
+      "heroId": 99185,
+      "equipmentId": 560,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 560,
+          "field": "SkillHero",
+          "value": 99185
+        }
+      ]
+    },
+    {
+      "heroId": 99186,
+      "equipmentId": 568,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 568,
+          "field": "SkillHero",
+          "value": 99186
+        }
+      ]
+    },
+    {
+      "heroId": 99187,
+      "equipmentId": 548,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 548,
+          "field": "SkillHero",
+          "value": 99187
+        }
+      ]
+    },
+    {
+      "heroId": 99188,
+      "equipmentId": 546,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 546,
+          "field": "SkillHero",
+          "value": 99188
+        }
+      ]
+    },
+    {
+      "heroId": 99189,
+      "equipmentId": 545,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 545,
+          "field": "SkillHero",
+          "value": 99189
+        }
+      ]
+    },
+    {
+      "heroId": 99190,
+      "equipmentId": 569,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 569,
+          "field": "SkillHero",
+          "value": 99190
+        }
+      ]
+    },
+    {
+      "heroId": 99191,
+      "equipmentId": 552,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 552,
+          "field": "SkillHero",
+          "value": 99191
+        }
+      ]
+    },
+    {
+      "heroId": 99192,
+      "equipmentId": 570,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 570,
+          "field": "SkillHero",
+          "value": 99192
+        }
+      ]
+    },
+    {
+      "heroId": 99193,
+      "equipmentId": 557,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 557,
+          "field": "SkillHero",
+          "value": 99193
+        }
+      ]
+    },
+    {
+      "heroId": 99197,
+      "equipmentId": 603,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 603,
+          "field": "SkillHero",
+          "value": 99197
+        }
+      ]
+    },
+    {
+      "heroId": 99198,
+      "equipmentId": 558,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 558,
+          "field": "SkillHero",
+          "value": 99198
+        }
+      ]
+    },
+    {
+      "heroId": 99199,
+      "equipmentId": 562,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 562,
+          "field": "SkillHero",
+          "value": 99199
+        }
+      ]
+    },
+    {
+      "heroId": 99203,
+      "equipmentId": 567,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 567,
+          "field": "SkillHero",
+          "value": 99203
+        }
+      ]
+    },
+    {
+      "heroId": 99204,
+      "equipmentId": 561,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 561,
+          "field": "SkillHero",
+          "value": 99204
+        }
+      ]
+    },
+    {
+      "heroId": 99205,
+      "equipmentId": 572,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 572,
+          "field": "SkillHero",
+          "value": 99205
+        }
+      ]
+    },
+    {
+      "heroId": 99206,
+      "equipmentId": 571,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 571,
+          "field": "SkillHero",
+          "value": 99206
+        }
+      ]
+    },
+    {
+      "heroId": 99207,
+      "equipmentId": 578,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 578,
+          "field": "SkillHero",
+          "value": 99207
+        }
+      ]
+    },
+    {
+      "heroId": 99208,
+      "equipmentId": 573,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 573,
+          "field": "SkillHero",
+          "value": 99208
+        }
+      ]
+    },
+    {
+      "heroId": 99212,
+      "equipmentId": 580,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 580,
+          "field": "SkillHero",
+          "value": 99212
+        }
+      ]
+    },
+    {
+      "heroId": 99213,
+      "equipmentId": 579,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 579,
+          "field": "SkillHero",
+          "value": 99213
+        }
+      ]
+    },
+    {
+      "heroId": 99214,
+      "equipmentId": 582,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 582,
+          "field": "SkillHero",
+          "value": 99214
+        }
+      ]
+    },
+    {
+      "heroId": 99215,
+      "equipmentId": 604,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 604,
+          "field": "SkillHero",
+          "value": 99215
+        }
+      ]
+    },
+    {
+      "heroId": 99216,
+      "equipmentId": 612,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 612,
+          "field": "SkillHero",
+          "value": 99216
+        }
+      ]
+    },
+    {
+      "heroId": 99217,
+      "equipmentId": 581,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 581,
+          "field": "SkillHero",
+          "value": 99217
+        }
+      ]
+    },
+    {
+      "heroId": 99218,
+      "equipmentId": 619,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 619,
+          "field": "SkillHero",
+          "value": 99218
+        }
+      ]
+    },
+    {
+      "heroId": 99219,
+      "equipmentId": 589,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 589,
+          "field": "SkillHero",
+          "value": 99219
+        }
+      ]
+    },
+    {
+      "heroId": 99220,
+      "equipmentId": 588,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 588,
+          "field": "SkillHero",
+          "value": 99220
+        }
+      ]
+    },
+    {
+      "heroId": 99221,
+      "equipmentId": 587,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 587,
+          "field": "SkillHero",
+          "value": 99221
+        }
+      ]
+    },
+    {
+      "heroId": 99225,
+      "equipmentId": 643,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 643,
+          "field": "SkillHero",
+          "value": 99225
+        }
+      ]
+    },
+    {
+      "heroId": 99226,
+      "equipmentId": 595,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 595,
+          "field": "SkillHero",
+          "value": 99226
+        }
+      ]
+    },
+    {
+      "heroId": 99227,
+      "equipmentId": 590,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 590,
+          "field": "SkillHero",
+          "value": 99227
+        }
+      ]
+    },
+    {
+      "heroId": 99228,
+      "equipmentId": 620,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 620,
+          "field": "SkillHero",
+          "value": 99228
+        }
+      ]
+    },
+    {
+      "heroId": 99229,
+      "equipmentId": 628,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 628,
+          "field": "SkillHero",
+          "value": 99229
+        }
+      ]
+    },
+    {
+      "heroId": 99230,
+      "equipmentId": 596,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 596,
+          "field": "SkillHero",
+          "value": 99230
+        }
+      ]
+    },
+    {
+      "heroId": 99231,
+      "equipmentId": 614,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 614,
+          "field": "SkillHero",
+          "value": 99231
+        }
+      ]
+    },
+    {
+      "heroId": 99233,
+      "equipmentId": 597,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 597,
+          "field": "SkillHero",
+          "value": 99233
+        }
+      ]
+    },
+    {
+      "heroId": 99234,
+      "equipmentId": 598,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 598,
+          "field": "SkillHero",
+          "value": 99234
+        }
+      ]
+    },
+    {
+      "heroId": 99238,
+      "equipmentId": 605,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 605,
+          "field": "SkillHero",
+          "value": 99238
+        }
+      ]
+    },
+    {
+      "heroId": 99239,
+      "equipmentId": 636,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 636,
+          "field": "SkillHero",
+          "value": 99239
+        }
+      ]
+    },
+    {
+      "heroId": 99240,
+      "equipmentId": 613,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 613,
+          "field": "SkillHero",
+          "value": 99240
+        }
+      ]
+    },
+    {
+      "heroId": 99241,
+      "equipmentId": 606,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 606,
+          "field": "SkillHero",
+          "value": 99241
+        }
+      ]
+    },
+    {
+      "heroId": 99243,
+      "equipmentId": 627,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 627,
+          "field": "SkillHero",
+          "value": 99243
+        }
+      ]
+    },
+    {
+      "heroId": 99244,
+      "equipmentId": 611,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 611,
+          "field": "SkillHero",
+          "value": 99244
+        }
+      ]
+    },
+    {
+      "heroId": 99249,
+      "equipmentId": 622,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 622,
+          "field": "SkillHero",
+          "value": 99249
+        }
+      ]
+    },
+    {
+      "heroId": 99250,
+      "equipmentId": 621,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 621,
+          "field": "SkillHero",
+          "value": 99250
+        }
+      ]
+    },
+    {
+      "heroId": 99252,
+      "equipmentId": 635,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 635,
+          "field": "SkillHero",
+          "value": 99252
+        }
+      ]
+    },
+    {
+      "heroId": 99253,
+      "equipmentId": 629,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 629,
+          "field": "SkillHero",
+          "value": 99253
+        }
+      ]
+    },
+    {
+      "heroId": 99254,
+      "equipmentId": 637,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 637,
+          "field": "SkillHero",
+          "value": 99254
+        }
+      ]
+    },
+    {
+      "heroId": 99255,
+      "equipmentId": 634,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 634,
+          "field": "SkillHero",
+          "value": 99255
+        }
+      ]
+    },
+    {
+      "heroId": 99259,
+      "equipmentId": 638,
+      "provenance": [
+        {
+          "sourceKind": "EQUIPMENT_SKILL_HERO",
+          "table": "ConfigDataEquipmentInfo",
+          "recordId": 638,
+          "field": "SkillHero",
+          "value": 99259
+        }
+      ]
+    }
+  ]
+}
