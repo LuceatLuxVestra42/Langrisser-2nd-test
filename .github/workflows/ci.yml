@@ -16,112 +16,160 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
+      - name: Test CI changed-path routing
+        run: node tools/test-ci-routing.mjs
+
+      - name: Resolve CI changed-path routing
+        id: ci-routing
+        run: node tools/resolve-ci-routing.mjs >> "$GITHUB_OUTPUT"
+
+      - name: Report full-suite routing fallback
+        if: steps.ci-routing.outputs.routing_review == 'true'
+        run: echo "::notice title=CI routing review::Unknown, shared, or unavailable path ownership; full suite selected"
+
       - name: Validate Hero presentation slice
+        if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate.mjs
 
       - name: Build static site
+        if: steps.ci-routing.outputs.run_build == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/build.mjs
 
       - name: Validate Job glossary presentation
+        if: steps.ci-routing.outputs.run_job == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-job-glossary.mjs
 
       - name: Test Job glossary presentation
+        if: steps.ci-routing.outputs.run_job == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-job-glossary.mjs
 
       - name: Validate SP Soldier generated presentation
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-sp-soldier-presentation.mjs
 
       - name: Test SP Soldier presentation regressions
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-presentation.mjs
 
       - name: Test Hero and Job relations
+        if: steps.ci-routing.outputs.run_hero_job_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-job-validation.mjs
 
       - name: Validate Job localization
+        if: steps.ci-routing.outputs.run_job == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-job-localization.mjs
 
       - name: Test Job localization
+        if: steps.ci-routing.outputs.run_job == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-job-localization-validation.mjs
 
       - name: Test SP Job source preservation
+        if: steps.ci-routing.outputs.run_job == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-job-source-validation.mjs
 
       - name: Test SP Job namespace evidence
+        if: steps.ci-routing.outputs.run_job == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-job-namespace-evidence.mjs
 
       - name: Test Hero semantic canonicals
+        if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-semantic-canonicals.mjs
 
       - name: Test Soldier identity
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-soldier-identity.mjs
 
       - name: Validate NORMAL Soldier base stats
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-normal-soldier-base-stats.mjs
 
       - name: Test NORMAL Soldier base stats
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-normal-soldier-base-stats.mjs
 
       - name: Validate NORMAL Soldier Korean localization
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-normal-soldier-ko-localization.mjs
 
       - name: Test NORMAL Soldier Korean localization
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-normal-soldier-ko-localization.mjs
 
       - name: Validate SP Hero reward source evidence
+        if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-sp-hero-reward-source.mjs
 
       - name: Validate Hero-Soldier direct-source canonical support
+        if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-hero-soldier-relations.mjs
 
       - name: Test Hero-Soldier direct-source validation
+        if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-soldier-direct-source.mjs
 
       - name: Test SP Soldier relations
+        if: steps.ci-routing.outputs.run_sp_normal_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-relation.mjs
 
       - name: Test SP Soldier base stats
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-base-stats.mjs
 
       - name: Test SP Soldier Korean localization
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-ko-localization.mjs
 
       - name: Validate Soldier provenance integrity
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-soldier-provenance.mjs
 
       - name: Test Soldier provenance integrity
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-soldier-provenance.mjs
       - name: Validate General SSR Equipment identity
+        if: steps.ci-routing.outputs.run_general_ssr == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-general-ssr-equipment-identity.mjs
 
       - name: Test General SSR Equipment identity
+        if: steps.ci-routing.outputs.run_general_ssr == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-general-ssr-equipment-identity.mjs
 
       - name: Validate General SSR Equipment Korean localization
+        if: steps.ci-routing.outputs.run_general_ssr == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-general-ssr-equipment-ko-localization.mjs
 
       - name: Test General SSR Equipment Korean localization
+        if: steps.ci-routing.outputs.run_general_ssr == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-general-ssr-equipment-ko-localization.mjs
 
       - name: Validate Exclusive Equipment identity
+        if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-exclusive-equipment-identity.mjs
 
       - name: Test Exclusive Equipment identity negatives
+        if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-exclusive-equipment-identity.mjs
 
       - name: Validate Exclusive Equipment Korean localization
+        if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-exclusive-equipment-ko-localization.mjs
 
       - name: Test Exclusive Equipment Korean localization
+        if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-exclusive-equipment-ko-localization.mjs
 
       - name: Validate Hero-Exclusive Equipment relations
+        if: steps.ci-routing.outputs.run_hero_exclusive_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-hero-exclusive-equipment-relations.mjs
 
       - name: Test Hero-Exclusive Equipment relation admission
+        if: steps.ci-routing.outputs.run_hero_exclusive_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-exclusive-equipment-relations.mjs
