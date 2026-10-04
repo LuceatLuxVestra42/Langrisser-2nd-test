@@ -122,7 +122,7 @@ try {
   const invalidConnection = JSON.parse(originalCanonical);
   invalidConnection.records[0].jobConnections[0].connectionId = 999999;
   await writeFile(canonicalPath, `${JSON.stringify(invalidConnection, null, 2)}\n`);
-  expectFailure(run('tools/validate.mjs'), 'unknown connection ID', /missing preserved JobConnectionInfo\.ID 999999/);
+  expectFailure(run('tools/validate.mjs'), 'unknown connection ID', /Hero 5 Job connection IDs must follow the explicit raw HeroInfo fields in stored source order/);
 
   const invalidTarget = JSON.parse(originalCanonical);
   invalidTarget.records[0].jobConnections[0].jobId = 303;
