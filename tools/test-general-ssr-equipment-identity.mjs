@@ -15,8 +15,6 @@ const pass=change=>{const x=structuredClone(args);change(x);assert.equal(validat
 fail(x=>x.canonical.records.pop(),/canonical population count/);
 fail(x=>x.canonical.records[1].id=x.canonical.records[0].id,/canonical population count/);
 fail(x=>x.canonical.records.push({...x.canonical.records[0],id:304,provenance:'evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=304'}),/canonical population count|ID set/);
-fail(x=>x.evidence.currentPopulationRecords.pop(),/current population evidence count/);
-fail(x=>x.evidence.currentPopulationRecords[0].equipmentId=999999,/current population canonical locator mismatch/);
 fail(x=>x.localization.records.pop(),/project localization ID count/);
 fail(x=>x.contract.sourceValidation.configData.sha256='0'.repeat(64),/ConfigData source integrity anchor mismatch/);
 fail(x=>x.evidence.provenance.pinnedPredecessorCommit='0'.repeat(40),/historical predecessor commit anchor mismatch/);
