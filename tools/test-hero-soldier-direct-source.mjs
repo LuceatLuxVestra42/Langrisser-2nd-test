@@ -80,6 +80,9 @@ function testExpectFailureIntegrity() {
 
 
 function expectFailure(script, label, expectedDiagnostic, ...args) {
+  if (typeof script !== 'string') {
+    return expectFailureResult(script, label, expectedDiagnostic);
+  }
   expectFailureResult(run(script, ...args), label, expectedDiagnostic);
 }
 
