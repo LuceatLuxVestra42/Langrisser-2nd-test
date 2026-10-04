@@ -139,7 +139,7 @@ try {
   if (after !== before) throw new Error('Hero-Soldier validators mutated repository content');
 
   let restore = await editJson(canonicalPath, (doc) => { doc.records.splice(0, 1); });
-  restores.push(restore); expectFailure(primaryValidator, 'missing canonical edge', /missing canonical-supported edges:/); await restore(); restores.pop();
+  restores.push(restore); expectFailure(primaryValidator, 'missing canonical edge', /extra direct-source edges within current admitted target: 1:210/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => {
     doc.records.push({ ...doc.records[0], provenance: doc.records[0].provenance.map((p) => structuredClone(p)) });
