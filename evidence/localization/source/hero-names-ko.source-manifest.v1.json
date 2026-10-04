@@ -51,5 +51,6 @@
     "The supplied localization reference does not establish official Korean-server provenance or a source version.",
     "This evidence supports display localization only for the explicitly admitted Hero IDs 5, 6, and 8.",
     "The Chinese lookup key does not create or alter Hero identity, population, release status, or relations."
-  ]
+  ],
+  "targetDeclarationRole": "Explicit target set for this localization owner only; not Hero population, migration backlog, or selection from reference order."
 }

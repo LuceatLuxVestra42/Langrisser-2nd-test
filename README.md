@@ -32,6 +32,7 @@ To view the page locally, serve the repository root with any static HTTP server 
 - `canonical/hero-job-relations.v1.json` owns the current evidence-backed Hero→Job relation union within its stated scope.
 - `canonical/job-localizations-ko.v1.json` contains admitted Korean Job display labels; status-only or otherwise unadmitted localization values remain excluded.
 - `canonical/hero-localizations-ko.v1.json` contains project-qualified Korean Hero display labels for IDs 5, 6, and 8; official Korean-server provenance is unverified.
+- Hero localization targets are declared by its source manifest and checked against preserved direct ConfigData records; the 267-entry name reference does not define Hero population or migration targets.
 - `generated/hero-slice.v1.json` is deterministic presentation data derived from the three-Hero canonical slice plus admitted Job localization.
 - The frontend displays only the generated Hero records, portrait assets, and admitted Job labels. It does not read raw source/evidence or infer new semantic relations.
 - Korean Hero display names, rarity, and other unresolved semantics remain excluded from the rendered slice.
