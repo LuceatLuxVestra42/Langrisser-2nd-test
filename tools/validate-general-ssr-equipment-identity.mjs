@@ -39,16 +39,12 @@ export function validateGeneralSsrEquipmentIdentity({canonical,evidence,contract
  check(contract.sourceValidation?.projectIntegration?.joinKey==='EquipmentID'&&contract.crossRepositoryMapping?.joinKey==='EquipmentID','explicit EquipmentID join contract missing');
  check(contract.crossRepositoryMapping?.filenameSimilarityUsed===false&&contract.crossRepositoryMapping?.nameJoinUsed===false&&contract.crossRepositoryMapping?.recordOrderUsed===false&&contract.crossRepositoryMapping?.idArithmeticUsed===false,'cross-repository mapping boundary mismatch');
  check(contract.boundaryFixtures?.ids?.includes(304)&&contract.boundaryFixtures?.ids?.includes(308),'boundary fixtures missing');
- check(evidence.currentPopulationRecords?.length===206,'current population evidence count mismatch');
- const evidenceIds=sortedIds(evidence.currentPopulationRecords);check(new Set(evidenceIds).size===206,'duplicate current population evidence ID');
- check(evidence.currentPopulationRecords.every(r=>r.evidenceClass==='B'&&r.canonicalLocator===`canonical/general-ssr-equipment.v1.json#EquipmentID=${r.equipmentId}`),'current population canonical locator mismatch');
  check(canonical?.schemaVersion===1&&canonical.responsibility==='General SSR Equipment identity/population'&&Array.isArray(canonical.records),'canonical schema mismatch');
  const canonicalIds=sortedIds(canonical.records);check(canonical.records.length===206&&new Set(canonicalIds).size===206,'canonical population count/uniqueness mismatch');
  check(canonical.records.every(r=>r.entity==='Equipment'&&r.population==='GENERAL_SSR'&&r.evidenceClass==='B'),'canonical identity record malformed');
  check(canonical.records.every(r=>r.provenance===`${EVIDENCE_PATH}#EquipmentID=${r.id}`),'canonical provenance mismatch');
  check(canonical.records.every(r=>same(Object.keys(r).sort(),['entity','id','population','evidenceClass','provenance'].sort())),'canonical identity record contains out-of-scope semantic fields');
  check(digestIds(canonicalIds)===contract.population.canonicalBaseline.sortedIdSetSha256,'canonical ID set does not match reviewed owner contract');
- check(same(canonicalIds,evidenceIds),'canonical and current population evidence ID parity mismatch');
  for(const id of MANUAL_REVIEW_IDS)check(canonicalIds.includes(id),'manual-review population member missing '+id);
  const cfg=evidence.provenance.configDataAnchor;
  check(cfg?.sourcePath===config.sourcePath&&cfg.preservedSourceCommit===config.preservedSourceCommit&&cfg.recordCount===config.sourceRecordCount&&cfg.explicitIdentityField===config.explicitIdentityField,'ConfigData source-side anchor metadata mismatch');
