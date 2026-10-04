@@ -20,8 +20,8 @@ fail(x=>x.contract.sourceValidation.configData.sha256='0'.repeat(64),/ConfigData
 fail(x=>x.evidence.provenance.pinnedPredecessorCommit='0'.repeat(40),/historical predecessor commit anchor mismatch/);
 fail(x=>x.canonical.records[0].aliasOf=1,/canonical identity record contains out-of-scope semantic fields/);
 // Historical class labels are documentary provenance; changing them cannot change current membership.
-pass(x=>{for(const r of x.evidence.historicalProvenance.records)r.acquisitionClass='reclassified-historically';});
-pass(x=>{x.evidence.historicalProvenance.records[0].equipmentId=999999;x.evidence.historicalProvenance.records[0].predecessorLocator='historical#equipmentId=999999';}); // historical membership cannot redefine current membership
+pass(x=>{for(const r of x.evidence.records)r.acquisitionClass='reclassified-historically';});
+pass(x=>{x.evidence.records[0].equipmentId=999999;x.evidence.records[0].predecessorLocator='historical#equipmentId=999999';}); // historical membership cannot redefine current membership
 // The boundary examples stay excluded from the contract-pinned population.
 assert(!canonical.records.some(r=>[304,308].includes(r.id)));
 process.stdout.write('General SSR Equipment identity negatives: PASS (owner contract, canonical parity, localization parity, historical non-authority, boundary fixtures)\\n');
