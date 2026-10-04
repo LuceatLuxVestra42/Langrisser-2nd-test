@@ -186,7 +186,7 @@ try {
   restores.push(restore); expectFailure(primaryValidator, 'unsupported source kind', /provenance mismatches:/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => { delete doc.records[0].evidenceClass; });
-  restores.push(restore); expectFailure(primaryValidator, 'malformed canonical record', /canonical Hero-Soldier .* schema fields do not match exactly/); await restore(); restores.pop();
+  restores.push(restore); expectFailure(primaryValidator, 'malformed canonical record', /canonical Hero-Soldier 1:210 has unexpected or missing fields/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => { doc.records[0].evidencePoolLocator = `${directManifestPath}#heroId=999&soldierId=999`; });
   restores.push(restore); expectFailure(primaryValidator, 'direct-source locator mismatch', /direct-source evidence locator drift/); await restore(); restores.pop();
