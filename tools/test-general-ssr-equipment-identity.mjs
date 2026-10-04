@@ -13,10 +13,10 @@ assert.equal(validateGeneralSsrEquipmentIdentity(args).recordCount,206);
 const semanticBaseline=resolveCurrentGeneralSsrEquipmentIds(args);
 const changed=change=>{const x=structuredClone(args);change(x);return x;};
 const assertFullFails=(change,pattern)=>assert.throws(()=>validateGeneralSsrEquipmentIdentity(changed(change)),pattern);
-const assertHistoricalMutation=change=>{
+const assertHistoricalMutation=(change,pattern=/historical/)=>{
  const x=changed(change);
  assert.deepEqual(resolveCurrentGeneralSsrEquipmentIds(x),semanticBaseline);
- assert.throws(()=>validateGeneralSsrEquipmentIdentity(x),/historical/);
+ assert.throws(()=>validateGeneralSsrEquipmentIdentity(x),pattern);
 };
 const assertIndependentSemanticResult=change=>{
  const x=changed(change);
@@ -28,14 +28,14 @@ assertFullFails(x=>x.canonical.records.push({...x.canonical.records[0],id:304,pr
 assertFullFails(x=>x.localization.records.pop(),/project localization ID count/);
 assertFullFails(x=>x.contract.sourceValidation.configData.sha256='0'.repeat(64),/ConfigData source integrity anchor mismatch/);
 assertFullFails(x=>x.canonical.records[0].aliasOf=1,/canonical identity record contains out-of-scope semantic fields/);
-assertHistoricalMutation(x=>x.evidence.records[0].equipmentId=999999); // ID-only tamper
-assertHistoricalMutation(x=>x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999'); // locator-only tamper
-assertHistoricalMutation(x=>x.evidence.records[0].equipmentId=999999); // ID/locator mismatch
-assertHistoricalMutation(x=>x.evidence.records[0].predecessorLocator='malformed-locator');
-assertHistoricalMutation(x=>{x.evidence.records[0].equipmentId=999999;x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999';}); // coordinated tamper
-assertHistoricalMutation(x=>x.evidence.records[0].acquisitionClass='current-additional'); // preserved provenance field tamper
-assertHistoricalMutation(x=>x.evidence.records[0].evidenceClass='A'); // record shape/value integrity
-assertHistoricalMutation(x=>x.evidence.historicalProvenance.classCounts.launch=999);
+assertHistoricalMutation(x=>x.evidence.records[0].equipmentId=999999,/historical predecessor locator mismatch/); // ID-only tamper
+assertHistoricalMutation(x=>x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999',/historical predecessor locator mismatch/); // locator-only tamper
+assertHistoricalMutation(x=>{x.evidence.records[0].equipmentId=999999;x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999998';},/historical predecessor locator mismatch/); // ID/locator mismatch
+assertHistoricalMutation(x=>x.evidence.records[0].predecessorLocator='malformed-locator',/historical predecessor locator mismatch/);
+assertHistoricalMutation(x=>{x.evidence.records[0].equipmentId=999999;x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999';},/historical provenance snapshot digest mismatch/); // coordinated tamper
+assertHistoricalMutation(x=>x.evidence.records[0].acquisitionClass='current-additional',/historical provenance class counts|historical provenance snapshot digest/); // preserved provenance field tamper
+assertHistoricalMutation(x=>x.evidence.records[0].evidenceClass='A',/historical trace record evidenceClass mismatch/); // record shape/value integrity
+assertHistoricalMutation(x=>x.evidence.historicalProvenance.classCounts.launch=999,/historical evidence class counts mismatch/);
 assertHistoricalMutation(x=>x.contract.historicalPredecessor.pinnedCommit='0'.repeat(40));
 assertHistoricalMutation(x=>x.contract.historicalPredecessor.acquisitionArtifact.gitBlobSha1='0'.repeat(40));
 assertHistoricalMutation(x=>x.contract.historicalPredecessor.referenceContract.gitBlobSha1='0'.repeat(40));
