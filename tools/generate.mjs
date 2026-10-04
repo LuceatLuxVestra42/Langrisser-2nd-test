@@ -2,7 +2,15 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-export function renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations) {
+export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations) {
+  if (heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)) throw new Error('Unsupported Hero Korean localization owner');
+  const nameByHeroId = new Map();
+  for (const localization of heroLocalization.records) {
+    if (!Number.isInteger(localization.heroId)) throw new Error('Hero Korean localization contains malformed heroId');
+    if (nameByHeroId.has(localization.heroId)) throw new Error(`Duplicate Hero Korean localization for Hero ${localization.heroId}`);
+    if (typeof localization.nameKo !== 'string' || !localization.nameKo) throw new Error(`Missing Korean Hero display name for Hero ${localization.heroId}`);
+    nameByHeroId.set(localization.heroId, localization.nameKo);
+  }
   const nameByJobId = new Map(jobLocalization.records.map(({ jobId, nameKo }) => [jobId, nameKo]));
   const relationByHeroId = new Map();
   const equipmentIds = new Set();
@@ -25,6 +33,8 @@ export function renderGenerated(canonical, jobLocalization, exclusiveRelations, 
   const heroes = [...canonical.records]
     .sort((a, b) => a.id - b.id)
     .map(({ id, nameEng, portrait, jobConnections }) => {
+      const nameKo = nameByHeroId.get(id);
+      if (typeof nameKo !== 'string' || !nameKo) throw new Error(`Missing admitted Korean Hero localization for visible Hero ${id}`);
       const equipmentId = relationByHeroId.get(id);
       if (!Number.isInteger(equipmentId)) throw new Error(`Missing Exclusive Equipment relation for visible Hero ${id}`);
       const localization = localizationByEquipmentId.get(equipmentId);
@@ -32,6 +42,7 @@ export function renderGenerated(canonical, jobLocalization, exclusiveRelations, 
       return ({
       id,
       nameEng,
+      nameKo,
       portrait,
       exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
       jobConnections: jobConnections.map((relation) => {
@@ -133,16 +144,18 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const inputPath = resolve('canonical/heroes.v1.json');
+  const heroLocalizationPath = resolve('canonical/hero-localizations-ko.v1.json');
   const localizationPath = resolve('canonical/job-localizations-ko.v1.json');
   const exclusiveRelationPath = resolve('canonical/hero-exclusive-equipment-relations.v1.json');
   const exclusiveLocalizationPath = resolve('canonical/exclusive-equipment-localizations-ko.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
   const canonical = JSON.parse(await readFile(inputPath, 'utf8'));
+  const heroLocalization = JSON.parse(await readFile(heroLocalizationPath, 'utf8'));
   const jobLocalization = JSON.parse(await readFile(localizationPath, 'utf8'));
   const [exclusiveRelations, exclusiveLocalizations] = await Promise.all([
     readFile(exclusiveRelationPath, 'utf8'), readFile(exclusiveLocalizationPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
-  await writeFile(outputPath, renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations), 'utf8');
+  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

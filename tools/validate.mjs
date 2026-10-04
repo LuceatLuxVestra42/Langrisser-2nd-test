@@ -15,6 +15,7 @@ const exactKeys = (value, expected, label) => {
 const check = (condition, message) => { if (!condition) throw new Error(message); };
 
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
+const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
 const canonical = await readJson('canonical/heroes.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
@@ -130,12 +131,20 @@ for (const record of canonical.records) {
   check(JSON.stringify(survivingPortrait.extractedPng.dimensions) === JSON.stringify([portrait.extractedSourcePng.width, portrait.extractedSourcePng.height]), `Hero ${record.id} surviving image dimensions locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
-check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['exclusiveEquipment', 'id', 'jobConnections', 'nameEng', 'portrait'])), 'generated consumer contains non-presentation fields');
+check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['exclusiveEquipment', 'id', 'jobConnections', 'nameEng', 'nameKo', 'portrait'])), 'generated consumer contains non-presentation fields');
+const heroNameKoById = new Map();
+for (const localization of heroLocalization.records) {
+  check(Number.isInteger(localization.heroId), `malformed Hero Korean localization ID ${localization.heroId}`);
+  check(!heroNameKoById.has(localization.heroId), `duplicate Hero Korean localization ID ${localization.heroId}`);
+  check(typeof localization.nameKo === 'string' && localization.nameKo.length > 0, `missing Hero Korean display name for ${localization.heroId}`);
+  heroNameKoById.set(localization.heroId, localization.nameKo);
+}
+check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
 const expectedEquipmentByHero = new Map([[5, 447], [6, 416], [8, 275]]);
 check(generatedJson.heroes.length === 3 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[5,6,8]', 'visible Hero population must remain exactly 5, 6, and 8');

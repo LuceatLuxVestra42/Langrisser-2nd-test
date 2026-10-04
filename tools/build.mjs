@@ -13,12 +13,13 @@ const exactKeys = (value, expected, label) => {
 };
 
 const canonical = await readJson('canonical/heroes.v1.json');
+const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, jobLocalization, exclusiveRelations, exclusiveLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -58,8 +59,8 @@ const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
 for (const hero of generated.heroes) {
-  exactKeys(hero, ['id', 'nameEng', 'portrait', 'jobConnections', 'exclusiveEquipment'], `generated Hero ${hero.id}`);
-  if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || !Array.isArray(hero.jobConnections)) {
+  exactKeys(hero, ['id', 'nameEng', 'nameKo', 'portrait', 'jobConnections', 'exclusiveEquipment'], `generated Hero ${hero.id}`);
+  if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || typeof hero.nameKo !== 'string' || !hero.nameKo || !Array.isArray(hero.jobConnections)) {
     throw new Error(`malformed generated Hero ${String(hero.id)}`);
   }
   for (const relation of hero.jobConnections) {
