@@ -93,8 +93,13 @@ export function validateRuleTable() {
     const a=PATH_RULES[i],b=PATH_RULES[j];
     if (a.kind===b.kind && a.path===b.path) throw new Error('ambiguous rules: '+a.path);
     if (a.kind==='prefix' && b.kind==='prefix' && (a.path.startsWith(b.path)||b.path.startsWith(a.path))) throw new Error('overlapping prefixes');
-    if (a.kind==='exact' && b.kind==='prefix' && a.path.startsWith(b.path) && a.groups.some(g=>!b.groups.includes(g))) throw new Error('conflicting exact/prefix rules');
-    if (b.kind==='exact' && a.kind==='prefix' && b.path.startsWith(a.path) && b.groups.some(g=>!a.groups.includes(g))) throw new Error('conflicting exact/prefix rules');
+    if (a.kind==='exact' && b.kind==='prefix' && a.path.startsWith(b.path)) throw new Error('ambiguous exact/prefix rules');
+    if (b.kind==='exact' && a.kind==='prefix' && b.path.startsWith(a.path)) throw new Error('ambiguous exact/prefix rules');
+  }
+  for (const r of PATH_RULES) {
+    const fixture=r.kind==='exact'?r.path:r.path+'__routing_fixture__';
+    const matches=PATH_RULES.filter((candidate)=>candidate.kind==='exact'?fixture===candidate.path:fixture.startsWith(candidate.path));
+    if (matches.length!==1 || matches[0]!==r) throw new Error('unreachable or ambiguous rule: '+r.path);
   }
   if (new Set(OWNER_OUTPUTS).size!==10) throw new Error('expected 10 owner outputs');
   return true;
