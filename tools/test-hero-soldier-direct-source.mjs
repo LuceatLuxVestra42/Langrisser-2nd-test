@@ -198,7 +198,7 @@ try {
   restores.push(restore); expectFailure(sourceValidator, 'reward row missing', /preserved reward source must contain exactly five source rows/); await restore(); restores.pop();
 
   restore = await editRewardAndRefreshManifest((rows) => { rows[0].SecondStageRewardSoldiers[0] = 999999; });
-  restores.push(restore); expectFailure(primaryValidator, 'reward Soldier ID mutation', /missing canonical-supported edges:/); await restore(); restores.pop();
+  restores.push(restore); expectFailure(primaryValidator, 'reward Soldier ID mutation', /missing canonical-supported edges: 1:121/); await restore(); restores.pop();
 
   restore = await editRewardAndRefreshManifest((rows) => { rows[1].ID = rows[0].ID; });
   restores.push(restore); expectFailure(sourceValidator, 'duplicate reward Hero ID', /duplicate reward source Hero ID/); await restore(); restores.pop();
