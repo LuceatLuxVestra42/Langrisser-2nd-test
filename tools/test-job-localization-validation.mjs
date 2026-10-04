@@ -178,7 +178,7 @@ try {
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.push({ ...canonical.records[0] });
   });
-  expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /duplicate canonical Job localization ID \d+/);
+  expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /canonical Job localization must contain exactly 40 records/);
   await restore();
 
   const clean = run(localizationValidator);
