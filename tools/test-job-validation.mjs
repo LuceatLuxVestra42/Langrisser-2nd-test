@@ -129,7 +129,31 @@ try {
   await writeFile(canonicalPath, `${JSON.stringify(invalidTarget, null, 2)}\n`);
   expectFailure(run('tools/validate.mjs'), 'wrong but existing JobInfo target ID', /Hero 5 Job relation pairs changed from the admitted slice/);
 
-  let restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
+  let restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
+    rows.find((row) => row.ID === 12).ID = 999999;
+  });
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'SPHeroInfo source ID corruption rejected by pinned-record integrity', /spHeroInfo selected source record hash\/count mismatch/);
+  await restore();
+
+  restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
+    rows.find((row) => row.ID === 12).JobConnection_ID = 999999;
+  });
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'SPHeroInfo JobConnection_ID source corruption rejected by pinned-record integrity', /spHeroInfo selected source record hash\/count mismatch/);
+  await restore();
+
+  restore = await editJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json', (rows) => {
+    rows.find((row) => row.ID === 126).Job_ID = 999999;
+  });
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'JobConnectionInfo Job_ID source corruption rejected by pinned-record integrity', /jobConnectionInfo selected source record hash\/count mismatch/);
+  await restore();
+
+  restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
+    rows[1].ID = rows[0].ID;
+  });
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'duplicate SPHeroInfo source ID rejected by pinned-record integrity', /spHeroInfo selected source record hash\/count mismatch/);
+  await restore();
+
+  restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
     evidence.records.find((row) => row.heroId === 12).heroId = 999999;
   });
   expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'SP relation Hero ID absent from HeroInfo identity', /Hero ID equality mismatch for 999999/);
