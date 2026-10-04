@@ -106,7 +106,7 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records[1] = { ...doc.records[0] }; }, 'duplicate Hero/Job pair', /duplicate Hero→Job relation pair/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].jobId = 368; }, 'relation pair mutation', /relation pair\/evidence locator mismatch for 1:368/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records.push({ heroId: 15, jobId: 368, provenance: 'evidence/not-authorized.json#record=1' }); }, 'identity expansion must not expand Hero→Job relations', /relation pair\/evidence locator mismatch for 15:368/);
-  await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].provenance = 'evidence/wrong.json#record=1'; }, 'relation provenance mismatch', /relation pair\/evidence locator mismatch for 5:817/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].provenance = 'evidence/wrong.json#record=1'; }, 'relation provenance mismatch', /relation pair\/evidence locator mismatch for 1:262/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 5 && row.jobId === 817)); }, 'missing selected relation', /Hero→Job relation count differs from the current evidence-backed scope/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 6 && row.jobId === 377)); }, 'missing SP relation', /Hero→Job relation count differs from the current evidence-backed scope/);
 
