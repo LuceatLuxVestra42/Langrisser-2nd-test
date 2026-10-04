@@ -1,0 +1,382 @@
+[
+  {
+    "ID": 5,
+    "Name": "克丽丝",
+    "Desc": "无邪的修女\n爱与纯真的少女，英雄雷丁的一生挚爱",
+    "Name_Eng": "Chris",
+    "Useable": true,
+    "Sex": 2,
+    "Star": 2,
+    "Rank": 3,
+    "FragmentItem_ID": 1005,
+    "ExchangedFragmentCount": 20,
+    "Soldier_ID": 200,
+    "Skills_ID": [
+      10842
+    ],
+    "DFCmd_INI": 1000,
+    "MagicDFCmd_INI": 1500,
+    "CmdRating": "ACDB",
+    "HPStar": [
+      1656,
+      2471,
+      3343,
+      4277,
+      5276,
+      6345
+    ],
+    "ATStar": [
+      1468,
+      2270,
+      3128,
+      4046,
+      5029,
+      6081
+    ],
+    "MagicStar": [
+      2032,
+      2874,
+      3775,
+      4739,
+      5770,
+      6873
+    ],
+    "DFStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "MagicDFStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "DEXStar": [
+      622,
+      1365,
+      2160,
+      3011,
+      3921,
+      4895
+    ],
+    "JobConnection_ID": 50,
+    "UseableJobConnections_ID": [
+      51,
+      52,
+      53,
+      54,
+      55
+    ],
+    "CharImage_ID": 5,
+    "HeroInformation_ID": 5,
+    "TechCanLearnSoldiers_ID": [
+      121,
+      210,
+      812,
+      245,
+      814,
+      638,
+      816
+    ],
+    "CastingLawTemplates_ID": [
+      14,
+      12,
+      36,
+      39,
+      41
+    ],
+    "CastingLawSkill_ID": 90064,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      501,
+      502,
+      503,
+      504,
+      505
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      4
+    ],
+    "HeroDummy": "Chris",
+    "Name_OnlyArchive": "CHRIS",
+    "AnnualTagId": 1
+  },
+  {
+    "ID": 6,
+    "Name": "利昂",
+    "Desc": "青龙骑士团团长\n传说之人，其威名为「大陆最强的骑士」",
+    "DescStrKey": [
+      "物理输出",
+      "强力骑兵"
+    ],
+    "Name_Eng": "Leon",
+    "Useable": true,
+    "Sex": 1,
+    "Star": 3,
+    "Rank": 4,
+    "FragmentItem_ID": 1006,
+    "ExchangedFragmentCount": 50,
+    "Soldier_ID": 300,
+    "Skills_ID": [
+      10301
+    ],
+    "HPCmd_INI": 1500,
+    "ATCmd_INI": 1500,
+    "CmdRating": "BSBD",
+    "HPStar": [
+      2972,
+      3880,
+      4851,
+      5890,
+      7002,
+      8192
+    ],
+    "ATStar": [
+      3442,
+      4382,
+      5388,
+      6465,
+      7617,
+      8850
+    ],
+    "MagicStar": [
+      622,
+      1365,
+      2160,
+      3011,
+      3921,
+      4895
+    ],
+    "DFStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "MagicDFStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "DEXStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "JobConnection_ID": 60,
+    "UseableJobConnections_ID": [
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
+    "CharImage_ID": 6,
+    "HeroInformation_ID": 6,
+    "TechCanLearnSoldiers_ID": [
+      403,
+      320,
+      231,
+      334,
+      336,
+      337,
+      248,
+      424,
+      339,
+      249,
+      426,
+      1036,
+      340,
+      341
+    ],
+    "CastingLawTemplates_ID": [
+      3,
+      1,
+      29,
+      32,
+      41
+    ],
+    "CastingLawSkill_ID": 90085,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      601,
+      602,
+      603,
+      604,
+      605,
+      606
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      5
+    ],
+    "HeroDummy": "Leon",
+    "Name_OnlyArchive": "LEON",
+    "AnnualTagId": 1,
+    "IsReturnEventDynamicHero": true
+  },
+  {
+    "ID": 8,
+    "Name": "拉娜",
+    "Desc": "暗之巫女\n被操纵的黑暗公主，莉亚娜的孪生姐姐",
+    "DescStrKey": [
+      "魔法输出",
+      "范围输出"
+    ],
+    "Name_Eng": "Lana",
+    "Useable": true,
+    "Sex": 2,
+    "Star": 3,
+    "Rank": 4,
+    "FragmentItem_ID": 1008,
+    "ExchangedFragmentCount": 50,
+    "Soldier_ID": 617,
+    "Skills_ID": [
+      10716
+    ],
+    "ATCmd_INI": 1500,
+    "MagicDFCmd_INI": 1500,
+    "CmdRating": "BCBB",
+    "HPStar": [
+      2690,
+      3578,
+      4528,
+      5544,
+      6632,
+      7796
+    ],
+    "ATStar": [
+      904,
+      1667,
+      2483,
+      3356,
+      4290,
+      5290
+    ],
+    "MagicStar": [
+      3160,
+      4081,
+      5066,
+      6120,
+      7248,
+      8455
+    ],
+    "DFStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "MagicDFStar": [
+      3160,
+      4081,
+      5066,
+      6120,
+      7248,
+      8455
+    ],
+    "DEXStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "JobConnection_ID": 80,
+    "UseableJobConnections_ID": [
+      81,
+      82,
+      83,
+      84,
+      85
+    ],
+    "CharImage_ID": 8,
+    "HeroInformation_ID": 8,
+    "TechCanLearnSoldiers_ID": [
+      622,
+      112,
+      1015,
+      638,
+      815,
+      640,
+      641,
+      132,
+      644,
+      646,
+      647,
+      1038,
+      1039
+    ],
+    "CastingLawTemplates_ID": [
+      14,
+      12,
+      37,
+      40,
+      41
+    ],
+    "CastingLawSkill_ID": 90118,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      801,
+      802,
+      803,
+      899,
+      804,
+      805,
+      806
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      5
+    ],
+    "HeroDummy": "Lana",
+    "Name_OnlyArchive": "LANA",
+    "AnnualTagId": 1,
+    "IsReturnEventDynamicHero": true
+  }
+]

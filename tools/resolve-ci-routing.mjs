@@ -15,6 +15,7 @@ const entries = [
 ['tools/validate-hero-ko-localization.mjs','HERO'],
 ['tools/test-hero-ko-localization.mjs','HERO'],
 ['evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json','HERO HERO_JOB_RELATION HERO_SOLDIER_RELATION HERO_EXCLUSIVE_RELATION'],
+['evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json','HERO'],
 ['evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json','HERO'],
 ['evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.source-manifest.v1.json','HERO'],
 ['evidence/source/configdata/ConfigDataCharImageInfo.records-5-6-8.json','HERO'],

@@ -34,6 +34,12 @@
       "gitBlob": "c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b",
       "derivedFrom": "data/configdata/ConfigDataRankInfo.json",
       "preservation": "Complete source file; preserved blob SHA is identical to source blob SHA."
+    },
+    "evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json": {
+      "gitBlob": "d1e7b44d8da9367c04a1480ac33ab5cc01c72f85",
+      "derivedFrom": "data/configdata/ConfigDataHeroInfo.json",
+      "selection": "Top-level ConfigDataHeroInfo records whose source-native IDs are declared in the Hero Korean localization source manifest; copied as data records without semantic interpretation.",
+      "sourceFileUtf8Bytes": 16894185
     }
   },
   "locators": [
@@ -66,5 +72,25 @@
   },
   "canonical": false,
   "generated": false,
-  "productionRuntimeDependency": false
+  "productionRuntimeDependency": false,
+  "localizationNameLocators": [
+    {
+      "sourceRecord": "ConfigDataHeroInfo.json top-level array record",
+      "ID": 5,
+      "field": "Name",
+      "value": "克丽丝"
+    },
+    {
+      "sourceRecord": "ConfigDataHeroInfo.json top-level array record",
+      "ID": 6,
+      "field": "Name",
+      "value": "利昂"
+    },
+    {
+      "sourceRecord": "ConfigDataHeroInfo.json top-level array record",
+      "ID": 8,
+      "field": "Name",
+      "value": "拉娜"
+    }
+  ]
 }
