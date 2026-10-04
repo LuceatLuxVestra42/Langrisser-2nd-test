@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "General SSR Equipment identity/population",
+  "owner": "General SSR Equipment",
+  "authorityRole": "current-semantic-population-owner",
+  "population": {
+    "entity": "Equipment",
+    "population": "GENERAL_SSR",
+    "recordCount": 206,
+    "idField": "id",
+    "membershipBasis": "Carry forward the existing reviewed population result admitted by PR #19; no new population derivation.",
+    "canonicalPath": "canonical/general-ssr-equipment.v1.json",
+    "canonicalBaseline": {
+      "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+      "reviewedCommit": "448c85576b1bb2e4cde2de365eb5bc9df09b8bd2",
+      "pullRequest": 19,
+      "gitBlobSha1": "dba722881bd5ee1f508176a6052513b3e09ea18b",
+      "sortedIdSetSha256": "8ebfa88ede242bee1d12527ea66f73f0aa4f2ef50f50eb27cea230e7ed551e68"
+    }
+  },
+  "sourceValidation": {
+    "configData": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "sourcePath": "data/configdata/ConfigDataEquipmentInfo.json",
+      "preservedSourceCommit": "4d5e9d141d9720ced9b5ad99fa7b52f99b0d0706",
+      "gitBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+      "sha256": "b4e4a27c68a7038c1b282140b82a634c9d18c348f79b9e6d411840c7ffe54e70",
+      "sourceRecordCount": 548,
+      "explicitIdentityField": "ID",
+      "role": "ID, Rank and source-field validation evidence only; not a population selector.",
+      "directPopulationFieldPresent": false,
+      "parityBasis": "The existing reviewed 206 result and pinned source anchor; field combinations do not derive membership."
+    },
+    "projectIntegration": {
+      "name": "일반SSR장비_통합소스_v1_2026-09-20.txt",
+      "fileId": "file_000000009a608207b534f59551f75729",
+      "sha256": "7e6255b2a7e7ef9e042b44252bb48a23ae1bc0a2f191fd7e1041d31d225c26a1",
+      "bytes": 36822,
+      "recordCount": 206,
+      "joinKey": "EquipmentID",
+      "sortedEquipmentIdSetSha256": "8ebfa88ede242bee1d12527ea66f73f0aa4f2ef50f50eb27cea230e7ed551e68",
+      "classificationParityCounts": {
+        "한섭 실장 일반장비": 190,
+        "한섭 미실장 일반장비": 8,
+        "중복템, 구현 필요 없음": 8
+      },
+      "role": "Localization, presentation and existing classification parity only; not population authority."
+    }
+  },
+  "historicalPredecessor": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "pinnedCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "acquisitionArtifact": {
+      "path": "data/generated/equipment_stage2_7_acquisition.json",
+      "gitBlobSha1": "9933a2406fa026e1b340e31a080587a0828db8bc",
+      "role": "Historical acquisition classification and migration trace only; not current population authority."
+    },
+    "referenceContract": {
+      "path": "data/contracts/equipment-stage2-7-acquisition-reference.v1.json",
+      "gitBlobSha1": "7f02a862a72cd57819827c24c60f740f36c45573",
+      "legacyKoreanEquipmentSheet": "https://docs.google.com/spreadsheets/d/1RZFY2N3RU-vctduO_Tg2e4RVoZvJAAveiMgPnW6VTQg/edit",
+      "validatedCounts": {
+        "launch": 94,
+        "legacy-additional": 80,
+        "current-additional": 32
+      },
+      "role": "Historical source/contract anchor supporting the predecessor migration trace only."
+    },
+    "validationArtifact": {
+      "path": "data/validation/equipment-stage3-0-input-summary.v1.json",
+      "gitBlobSha1": "56d11985799dde5cd1ac52c703afb43736e64cb6",
+      "validatedGeneralPageAdmissionCount": 206,
+      "role": "Historical validation trace only; prior PASS/admission is not a current gate condition."
+    },
+    "role": "Provenance and migration trace only; class membership/counts do not determine current expected population.",
+    "provenanceSnapshotIntegrity": {
+      "recordCount": 206,
+      "fields": [
+        "equipmentId",
+        "predecessorLocator",
+        "acquisitionClass"
+      ],
+      "normalization": "For each record, serialize only the listed fields in that order; sort records by numeric equipmentId ascending; serialize the array as compact UTF-8 JSON with no insignificant whitespace; SHA-256 the bytes.",
+      "normalizedRecordSetSha256": "f914fe93767074df78dc7353ef44a90578750e9be0b4a6f96874484aa7fdfe29",
+      "acquisitionClassRole": "Preserved provenance field. Its value is integrity-protected as part of the historical snapshot and is never used to derive current semantic membership.",
+      "semanticPopulationImpact": "none"
+    }
+  },
+  "crossRepositoryMapping": {
+    "joinKey": "EquipmentID",
+    "requiresExplicitProvenance": true,
+    "filenameSimilarityUsed": false,
+    "nameJoinUsed": false,
+    "recordOrderUsed": false,
+    "idArithmeticUsed": false
+  },
+  "boundaryFixtures": {
+    "ids": [
+      304,
+      308
+    ],
+    "role": "Heuristic false-positive regression boundaries; no population admission implication."
+  }
+}

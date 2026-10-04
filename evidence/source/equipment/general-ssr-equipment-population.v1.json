@@ -2,18 +2,14 @@
   "schemaVersion": 1,
   "evidenceClass": "B",
   "responsibility": "General SSR Equipment identity/population",
-  "claim": "The admitted General SSR Equipment population is the exact EquipmentID union of the previously validated launch, legacy-additional, and current-additional acquisition classes.",
+  "claim": "The current General SSR Equipment population is the existing reviewed 206 identity result explicitly adopted by the current owner contract. It is not newly derived from ConfigData fields or historical predecessor acquisition classes.",
   "scope": {
     "entity": "Equipment",
     "population": "GENERAL_SSR",
     "recordCount": 206,
-    "acquisitionClassCounts": {
-      "launch": 94,
-      "legacy-additional": 80,
-      "current-additional": 32
-    },
     "identityKey": "ConfigDataEquipmentInfo.ID / equipmentId",
-    "selectionRule": "Exact predecessor acquisitionClass membership in launch | legacy-additional | current-additional; no name matching, ID arithmetic, numeric-range inference, or presentation-state inference."
+    "ownerContract": "evidence/source/equipment/general-ssr-equipment-population-contract.v1.json",
+    "membershipRule": "The sorted ID set is pinned by the current owner contract to the existing reviewed canonical baseline; no ConfigData heuristic or historical class union derives membership."
   },
   "provenance": {
     "predecessorRepository": "LuceatLuxVestra42/langrisser-future-guide",
@@ -21,7 +17,7 @@
     "predecessorAcquisitionArtifact": {
       "path": "data/generated/equipment_stage2_7_acquisition.json",
       "gitBlobSha1": "9933a2406fa026e1b340e31a080587a0828db8bc",
-      "role": "Previously validated acquisition classification result; preserved here only together with its non-circular source/contract/validation anchors."
+      "role": "Historical acquisition classification and migration trace only; not current population authority."
     },
     "acquisitionReferenceContract": {
       "path": "data/contracts/equipment-stage2-7-acquisition-reference.v1.json",
@@ -31,12 +27,14 @@
         "launch": 94,
         "legacy-additional": 80,
         "current-additional": 32
-      }
+      },
+      "role": "Historical source/contract anchor supporting the predecessor migration trace only."
     },
     "predecessorValidation": {
       "path": "data/validation/equipment-stage3-0-input-summary.v1.json",
       "gitBlobSha1": "56d11985799dde5cd1ac52c703afb43736e64cb6",
-      "validatedGeneralPageAdmissionCount": 206
+      "validatedGeneralPageAdmissionCount": 206,
+      "role": "Historical validation trace only; prior PASS/admission is not a current gate condition."
     },
     "configDataAnchor": {
       "sourcePath": "data/configdata/ConfigDataEquipmentInfo.json",
@@ -46,7 +44,8 @@
       "recordCount": 548,
       "inheritedValidatedRank4Count": 398,
       "explicitIdentityField": "ID"
-    }
+    },
+    "role": "Historical provenance and migration trace only; none of the predecessor artifacts or class membership/counts define current semantic population validity."
   },
   "limitations": [
     "Evidence class B reuses a traceable prior validated semantic claim without reopening the full raw-source investigation.",
@@ -1303,5 +1302,20 @@
       "evidenceClass": "B",
       "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=642"
     }
-  ]
+  ],
+  "ownerContract": {
+    "path": "evidence/source/equipment/general-ssr-equipment-population-contract.v1.json",
+    "authorityRole": "current-semantic-population-owner"
+  },
+  "historicalProvenance": {
+    "predecessorRepository": "LuceatLuxVestra42/langrisser-future-guide",
+    "pinnedPredecessorCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "acquisitionArtifactPath": "data/generated/equipment_stage2_7_acquisition.json",
+    "recordRole": "Each legacy acquisitionClass and predecessorLocator value below is historical provenance only.",
+    "classCounts": {
+      "launch": 94,
+      "legacy-additional": 80,
+      "current-additional": 32
+    }
+  }
 }
