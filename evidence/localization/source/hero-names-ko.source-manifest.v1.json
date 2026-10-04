@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "hero-names-ko.v1.txt",
+  "repoPreservedPath": "evidence/localization/source/hero-names-ko.v1.txt",
+  "originalProjectSourceName": "영웅명.txt",
+  "sourceIdentity": "User-provided Project localization reference; upload artifact libfile_893eb8bea16081918519d321d2e5720a",
+  "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+  "sourceBytes": 8948,
+  "format": "UTF-8 line-oriented text",
+  "encoding": "UTF-8",
+  "delimiter": " - ",
+  "sourceRowCount": 267,
+  "cnNameField": "Chinese display-name lookup key",
+  "krNameField": "Korean display label",
+  "sourceRole": "Hero Korean display-name localization reference",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "sourceVersionStatus": "unknown",
+  "sourceProvenanceStatus": "incomplete",
+  "officialKrProvenanceStatus": "unverified",
+  "scope": "localization/presentation only",
+  "targetIds": [
+    5,
+    6,
+    8
+  ],
+  "selectedRows": [
+    {
+      "heroId": 5,
+      "sourceLine": 33,
+      "sourceRow": 4,
+      "nameCn": "克丽丝"
+    },
+    {
+      "heroId": 6,
+      "sourceLine": 34,
+      "sourceRow": 5,
+      "nameCn": "利昂"
+    },
+    {
+      "heroId": 8,
+      "sourceLine": 36,
+      "sourceRow": 7,
+      "nameCn": "拉娜"
+    }
+  ],
+  "selectedRowCount": 3,
+  "extraction": "Preserved the supplied reference byte-for-byte. Select Hero IDs only from the existing canonical Hero identity scope and direct ConfigData records; use ConfigDataHeroInfo.Name to look up display text by exact Chinese key. Names are not used to create Hero identity, population, or relations.",
+  "knownLimitations": [
+    "The supplied localization reference does not establish official Korean-server provenance or a source version.",
+    "This evidence supports display localization only for the explicitly admitted Hero IDs 5, 6, and 8.",
+    "The Chinese lookup key does not create or alter Hero identity, population, release status, or relations."
+  ]
+}

@@ -83,6 +83,14 @@ jobs:
         if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-semantic-canonicals.mjs
 
+      - name: Validate Hero Korean localization
+        if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/validate-hero-ko-localization.mjs
+
+      - name: Test Hero Korean localization
+        if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-hero-ko-localization.mjs
+
       - name: Test Soldier identity
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-soldier-identity.mjs

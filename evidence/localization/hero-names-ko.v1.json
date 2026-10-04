@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/hero-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project-qualified Korean display localization only for the already admitted Hero IDs 5, 6, and 8.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "upstreamSource": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "preservedArtifact": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json",
+    "preservedArtifactGitBlobSha1": "d1e7b44d8da9367c04a1480ac33ab5cc01c72f85"
+  },
+  "claims": {
+    "heroEndpoints": "Hero IDs are read from the existing canonical Hero identity owner; this slice creates no identity or population claim.",
+    "sourceChineseDisplayKey": "ConfigDataHeroInfo.Name is retained as the upstream display key for each already admitted Hero ID.",
+    "koreanDisplayLabel": "The supplied project localization reference directly provides the Korean display label selected by exact Chinese-key equality.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "heroId": 5,
+      "nameCn": "克丽丝",
+      "nameKo": "크리스",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=5",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=克丽丝",
+      "sourceLine": 33,
+      "sourceRow": 4,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 6,
+      "nameCn": "利昂",
+      "nameKo": "레온",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=6",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=利昂",
+      "sourceLine": 34,
+      "sourceRow": 5,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 8,
+      "nameCn": "拉娜",
+      "nameKo": "라나",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=8",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=拉娜",
+      "sourceLine": 36,
+      "sourceRow": 7,
+      "evidenceClass": "A"
+    }
+  ],
+  "limitations": [
+    "Official Korean-server provenance and the reference source version are unverified.",
+    "The source list is a display-localization reference, not Hero identity, population, release-status, or relation authority.",
+    "The exact Chinese-key comparison is used only to select a Korean display label for an already identified Hero ID."
+  ]
+}
