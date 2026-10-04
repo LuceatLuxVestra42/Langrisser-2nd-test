@@ -165,7 +165,7 @@ try {
     doc.records.push(row);
     doc.records.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
   });
-  restores.push(restore); expectFailure(primaryValidator, 'extra canonical edge', /extra direct-source edges within current admitted target:/); await restore(); restores.pop();
+  restores.push(restore); expectFailure(primaryValidator, 'extra canonical edge', /missing canonical-supported edges: 1:121/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => {
     doc.records[0].heroId = 999999;
