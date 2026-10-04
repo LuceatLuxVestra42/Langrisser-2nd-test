@@ -122,37 +122,36 @@ try {
   const invalidConnection = JSON.parse(originalCanonical);
   invalidConnection.records[0].jobConnections[0].connectionId = 999999;
   await writeFile(canonicalPath, `${JSON.stringify(invalidConnection, null, 2)}\n`);
-  expectFailure(run('tools/validate.mjs'), 'unknown connection ID', /Hero 5 Job connection IDs must follow the explicit raw HeroInfo fields in stored source order/);
+  expectFailure(run('tools/validate.mjs'), 'connection ID differs from explicit source order', /Hero 5 Job connection IDs must follow the explicit raw HeroInfo fields in stored source order/);
 
   const invalidTarget = JSON.parse(originalCanonical);
   invalidTarget.records[0].jobConnections[0].jobId = 303;
   await writeFile(canonicalPath, `${JSON.stringify(invalidTarget, null, 2)}\n`);
   expectFailure(run('tools/validate.mjs'), 'wrong but existing JobInfo target ID', /Hero 5 Job relation pairs changed from the admitted slice/);
 
-  let restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
-    rows.find((row) => row.ID === 12).ID = 999999;
+  let restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
+    evidence.records.find((row) => row.heroId === 12).heroId = 999999;
   });
-  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'SPHeroInfo ID without HeroInfo identity', /SPHeroInfo\.ID 12 has no direct HeroInfo\.ID match/);
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'SP relation Hero ID absent from HeroInfo identity', /Hero ID equality mismatch for 999999/);
   await restore();
 
-  restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
-    rows.find((row) => row.ID === 12).JobConnection_ID = 999999;
+  restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
+    evidence.records.find((row) => row.heroId === 12).spJobConnectionId = 999999;
   });
-  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'unresolved SPHeroInfo JobConnection_ID', /SPHeroInfo 12 JobConnection_ID 999999 is unresolved/);
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'unresolved SP Hero JobConnection relation', /JobConnection ID relation mismatch for Hero 12/);
   await restore();
 
-  restore = await editJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json', (rows) => {
-    rows.find((row) => row.ID === 126).Job_ID = 999999;
+  restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
+    evidence.records.find((row) => row.heroId === 12).spJobId = 999999;
   });
-  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'unresolved JobConnectionInfo Job_ID', /JobConnectionInfo 126 Job_ID 999999 is unresolved/);
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'unresolved SP JobInfo relation', /JobInfo ID relation mismatch for Hero 12/);
   await restore();
 
-  restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
-    rows[1].ID = rows[0].ID;
+  restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
+    evidence.records[1].heroId = evidence.records[0].heroId;
   });
-  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'duplicate SPHeroInfo ID', /malformed or duplicate ID 12/);
+  expectFailure(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'duplicate SP Hero relation endpoint', /duplicate relation endpoint in record 12/);
   await restore();
-
   restore = await editJson('evidence/source/jobs/hero-sp-job-relation.v1.json', (evidence) => {
     [evidence.records[0].spJobId, evidence.records[1].spJobId] = [evidence.records[1].spJobId, evidence.records[0].spJobId];
   });
