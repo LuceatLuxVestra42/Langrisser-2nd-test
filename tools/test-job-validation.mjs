@@ -129,6 +129,8 @@ try {
   await writeFile(canonicalPath, `${JSON.stringify(invalidTarget, null, 2)}\n`);
   expectFailure(run('tools/validate.mjs'), 'wrong but existing JobInfo target ID', /Hero 5 Job relation pairs changed from the admitted slice/);
 
+  expectSuccess(run('tools/validate-hero-sp-job-relation-evidence.mjs'), 'clean SP Hero relation evidence validator', /Hero↔SP Job relation evidence: PASS/);
+
   let restore = await editJson('evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json', (rows) => {
     rows.find((row) => row.ID === 12).ID = 999999;
   });
