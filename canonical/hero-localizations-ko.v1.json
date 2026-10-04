@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "Korean Hero display localization only; not Hero identity, population, release status, relation, or official Korean-server provenance authority.",
-  "sourceScope": "Project-qualified display labels for the currently admitted Hero IDs 5, 6, and 8 only. Official Korean-server provenance is unverified.",
+  "sourceScope": "Project-qualified Korean display localization only for Hero IDs explicitly declared in the source manifest. Official Korean-server provenance is unverified.",
   "officialKrProvenanceStatus": "unverified",
   "records": [
     {
@@ -21,6 +21,30 @@
       "nameKo": "라나",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=8"
+    },
+    {
+      "heroId": 52,
+      "nameKo": "안젤리나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=52"
+    },
+    {
+      "heroId": 32,
+      "nameKo": "에마링크",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=32"
+    },
+    {
+      "heroId": 28,
+      "nameKo": "젤다",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=28"
+    },
+    {
+      "heroId": 53,
+      "nameKo": "란포드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=53"
     }
   ]
 }
