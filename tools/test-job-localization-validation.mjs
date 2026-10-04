@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -81,6 +82,40 @@ async function editJson(path, change) {
   return async () => writeFile(fullPath, original);
 }
 
+async function editLocalizationSourceAndSubset(nameKo) {
+  const sourcePath = 'evidence/localization/source/job-names-ko.v1.txt';
+  const manifestPath = 'evidence/localization/source/job-names-ko.source-manifest.v1.json';
+  const subsetPath = 'evidence/localization/job-names-ko.hero-5-6-8.v1.json';
+  const [sourceOriginal, manifestOriginal, subsetOriginal] = await Promise.all([
+    readFile(join(repo, sourcePath), 'utf8'),
+    readFile(join(repo, manifestPath), 'utf8'),
+    readFile(join(repo, subsetPath), 'utf8'),
+  ]);
+  const pieces = sourceOriginal.split(/(\r?\n)/);
+  const rowIndex = Array.from({ length: Math.ceil(pieces.length / 2) }, (_, i) => i * 2)
+    .find((i) => pieces[i].startsWith('301\t'));
+  if (rowIndex === undefined) throw new Error('status-only source fixture could not find Job 301');
+  const fields = pieces[rowIndex].split('\t');
+  if (fields.length !== 3) throw new Error('status-only source fixture expected exactly three fields');
+  fields[2] = nameKo;
+  pieces[rowIndex] = fields.join('\t');
+  const sourceNext = pieces.join('');
+  const manifest = JSON.parse(manifestOriginal);
+  manifest.sourceSha256 = createHash('sha256').update(Buffer.from(sourceNext, 'utf8')).digest('hex');
+  const subset = JSON.parse(subsetOriginal);
+  subset.records.find((row) => row.jobId === 301).nameKo = nameKo;
+  await Promise.all([
+    writeFile(join(repo, sourcePath), sourceNext),
+    writeFile(join(repo, manifestPath), `${JSON.stringify(manifest, null, 2)}\n`),
+    writeFile(join(repo, subsetPath), `${JSON.stringify(subset, null, 2)}\n`),
+  ]);
+  return async () => Promise.all([
+    writeFile(join(repo, sourcePath), sourceOriginal),
+    writeFile(join(repo, manifestPath), manifestOriginal),
+    writeFile(join(repo, subsetPath), subsetOriginal),
+  ]);
+}
+
 try {
   let restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.find((row) => row.jobId === 301).nameKo = '나이트 변경';
@@ -104,9 +139,7 @@ try {
   expectFailure(run(localizationValidator), 'wrong ID to KR localization mapping', /localization KR value differs from source for Job (301|303)/);
   await restore();
 
-  restore = await editJson('evidence/localization/job-names-ko.hero-5-6-8.v1.json', (subset) => {
-    subset.records.find((row) => row.jobId === 301).nameKo = '한섭 미실장';
-  });
+  restore = await editLocalizationSourceAndSubset('한섭 미실장');
   expectFailure(run(localizationValidator), 'status string admitted as Job name', /localization Job 301 has blank or status-only KR value/);
   await restore();
 
