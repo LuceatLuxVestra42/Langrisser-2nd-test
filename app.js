@@ -9,13 +9,13 @@ function addHero(hero) {
   const image = document.createElement('img');
   image.className = 'hero-portrait';
   image.src = new URL(hero.portrait, document.baseURI).href;
-  image.alt = `${hero.nameEng} 초상화`;
+  image.alt = `${hero.nameKo} 초상화`;
   image.loading = 'lazy';
 
   const details = document.createElement('div');
   details.className = 'hero-details';
   const name = document.createElement('h2');
-  name.textContent = hero.nameEng;
+  name.textContent = hero.nameKo;
   const id = document.createElement('p');
   id.className = 'hero-id';
   id.textContent = `영웅 ID ${hero.id}`;
@@ -23,7 +23,7 @@ function addHero(hero) {
   details.append(name, id);
   const connections = document.createElement('ul');
   connections.className = 'job-connections';
-  connections.setAttribute('aria-label', `${hero.nameEng}의 전직 연결과 한국어 표시명`);
+  connections.setAttribute('aria-label', `${hero.nameKo}의 전직 연결과 한국어 표시명`);
   for (const relation of hero.jobConnections) {
     const item = document.createElement('li');
     item.textContent = `연결 ${relation.connectionId} → ${relation.jobNameKo} (전직 ID ${relation.jobId})`;
@@ -53,6 +53,7 @@ try {
   if (!response.ok) throw new Error(`Generated data request failed (${response.status})`);
   const data = await response.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated data');
+  if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
   container.replaceChildren();
   for (const hero of data.heroes) addHero(hero);
 } catch (error) {

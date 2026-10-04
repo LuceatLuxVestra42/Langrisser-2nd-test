@@ -4,6 +4,7 @@
     {
       "id": 5,
       "nameEng": "Chris",
+      "nameKo": "크리스",
       "portrait": "assets/portraits/hero-5.png",
       "exclusiveEquipment": {
         "equipmentId": 447,
@@ -52,6 +53,7 @@
     {
       "id": 6,
       "nameEng": "Leon",
+      "nameKo": "레온",
       "portrait": "assets/portraits/hero-6.png",
       "exclusiveEquipment": {
         "equipmentId": 416,
@@ -100,6 +102,7 @@
     {
       "id": 8,
       "nameEng": "Lana",
+      "nameKo": "라나",
       "portrait": "assets/portraits/hero-8.png",
       "exclusiveEquipment": {
         "equipmentId": 275,
