@@ -25,8 +25,8 @@ export function validateGeneralSsrEquipmentIdentity({canonical,evidence,contract
  check(evidence.scope?.ownerContract===CONTRACT_PATH&&evidence.scope?.recordCount===206,'population evidence scope mismatch');
  check(evidence.scope?.membershipRule?.includes('no ConfigData heuristic')&&evidence.scope.membershipRule.includes('historical class union'),'membership rule boundary mismatch');
  check(evidence.provenance?.role?.includes('Historical provenance'),'historical provenance role mismatch');
- check(evidence.historicalProvenance?.records?.length===206,'historical migration trace count mismatch');
- check(evidence.historicalProvenance?.records?.every(r=>Number.isInteger(r.equipmentId)&&typeof r.predecessorLocator==='string'),'historical migration locator malformed');
+ check(evidence.records?.length===206,'historical migration trace count mismatch');
+ check(evidence.records.every(r=>Number.isInteger(r.equipmentId)&&typeof r.predecessorLocator==='string'),'historical migration locator malformed');
  check(evidence.provenance?.pinnedPredecessorCommit===ANCHORS.predecessorCommit,'historical predecessor commit anchor mismatch');
  check(evidence.provenance?.predecessorAcquisitionArtifact?.gitBlobSha1===ANCHORS.acquisitionBlob,'historical acquisition blob anchor mismatch');
  check(evidence.provenance?.acquisitionReferenceContract?.gitBlobSha1===ANCHORS.referenceContractBlob,'historical reference contract anchor mismatch');
@@ -56,7 +56,7 @@ export function validateGeneralSsrEquipmentIdentity({canonical,evidence,contract
  check(same(canonicalIds,localizedIds),'canonical and project integration EquipmentID parity mismatch');
  for(const id of contract.boundaryFixtures.ids)check(!canonicalIds.includes(id),`boundary fixture ${id} was admitted into population`);
  check(evidence.manualReview?.statement==='population inclusion != alias/replacement resolution'&&same(evidence.manualReview?.aliasReplacementMeaningUnresolvedIds,MANUAL_REVIEW_IDS),'alias/replacement review boundary mismatch');
- return {recordCount:canonicalIds.length,idSetSha256:digestIds(canonicalIds),integrationParity:'PASS',historicalRecordCount:evidence.historicalProvenance.records.length,boundaryFixtureIds:contract.boundaryFixtures.ids};
+ return {recordCount:canonicalIds.length,idSetSha256:digestIds(canonicalIds),integrationParity:'PASS',historicalRecordCount:evidence.records.length,boundaryFixtureIds:contract.boundaryFixtures.ids};
 }
 export async function loadAndValidateGeneralSsrEquipmentIdentity(root=process.cwd()){
  const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
