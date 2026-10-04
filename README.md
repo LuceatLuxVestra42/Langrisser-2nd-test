@@ -2,7 +2,7 @@
 
 This small static site exercises the admitted Hero presentation slice for IDs 5, 6, and 8: source identity, `Name_Eng`, base portrait provenance, explicit `HeroInfo` → `JobConnectionInfo` → `JobInfo` ID relations, and admitted Korean Job display names for those rendered relations.
 
-Korean Hero display names, rarity, and Job tree/order/recommendation semantics remain deferred in this slice.
+Korean Hero display localization is admitted for IDs 5, 6, and 8, but rendering those labels remains deferred in this slice. Rarity and Job tree/order/recommendation semantics remain deferred.
 
 The rendered Hero slice is limited to the explicitly selected `ConfigDataHeroInfo` records with IDs 5, 6, and 8. Their presence does not establish that all records in `ConfigDataHeroInfo` belong to a playable or public Hero population.
 
@@ -31,6 +31,7 @@ To view the page locally, serve the repository root with any static HTTP server 
 - `canonical/hero-identities.v1.json` owns the current evidence-backed Hero identity union within its stated scope.
 - `canonical/hero-job-relations.v1.json` owns the current evidence-backed Hero→Job relation union within its stated scope.
 - `canonical/job-localizations-ko.v1.json` contains admitted Korean Job display labels; status-only or otherwise unadmitted localization values remain excluded.
+- `canonical/hero-localizations-ko.v1.json` contains project-qualified Korean Hero display labels for IDs 5, 6, and 8; official Korean-server provenance is unverified.
 - `generated/hero-slice.v1.json` is deterministic presentation data derived from the three-Hero canonical slice plus admitted Job localization.
 - The frontend displays only the generated Hero records, portrait assets, and admitted Job labels. It does not read raw source/evidence or infer new semantic relations.
 - Korean Hero display names, rarity, and other unresolved semantics remain excluded from the rendered slice.

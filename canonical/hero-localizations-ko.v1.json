@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Korean Hero display localization only; not Hero identity, population, release status, relation, or official Korean-server provenance authority.",
+  "sourceScope": "Project-qualified display labels for the currently admitted Hero IDs 5, 6, and 8 only. Official Korean-server provenance is unverified.",
+  "officialKrProvenanceStatus": "unverified",
+  "records": [
+    {
+      "heroId": 5,
+      "nameKo": "크리스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=5"
+    },
+    {
+      "heroId": 6,
+      "nameKo": "레온",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=6"
+    },
+    {
+      "heroId": 8,
+      "nameKo": "라나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=8"
+    }
+  ]
+}
