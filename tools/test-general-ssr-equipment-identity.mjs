@@ -25,6 +25,7 @@ const assertIndependentSemanticResult=change=>{
 assertFullFails(x=>x.canonical.records.pop(),/canonical population count/);
 assertFullFails(x=>x.canonical.records[1].id=x.canonical.records[0].id,/canonical population count/);
 assertFullFails(x=>x.canonical.records.push({...x.canonical.records[0],id:304,provenance:'evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=304'}),/canonical population count|ID set/);
+assertFullFails(x=>x.canonical.records.push({...x.canonical.records[0],id:308,provenance:'evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=308'}),/canonical population count|ID set/);
 assertFullFails(x=>x.localization.records.pop(),/project localization ID count/);
 assertFullFails(x=>x.contract.sourceValidation.configData.sha256='0'.repeat(64),/ConfigData source integrity anchor mismatch/);
 assertFullFails(x=>x.canonical.records[0].aliasOf=1,/canonical identity record contains out-of-scope semantic fields/);
