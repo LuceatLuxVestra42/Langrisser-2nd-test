@@ -72,7 +72,19 @@
       "validatedGeneralPageAdmissionCount": 206,
       "role": "Historical validation trace only; prior PASS/admission is not a current gate condition."
     },
-    "role": "Provenance and migration trace only; class membership/counts do not determine current expected population."
+    "role": "Provenance and migration trace only; class membership/counts do not determine current expected population.",
+    "provenanceSnapshotIntegrity": {
+      "recordCount": 206,
+      "fields": [
+        "equipmentId",
+        "predecessorLocator",
+        "acquisitionClass"
+      ],
+      "normalization": "For each record, serialize only the listed fields in that order; sort records by numeric equipmentId ascending; serialize the array as compact UTF-8 JSON with no insignificant whitespace; SHA-256 the bytes.",
+      "normalizedRecordSetSha256": "f914fe93767074df78dc7353ef44a90578750e9be0b4a6f96874484aa7fdfe29",
+      "acquisitionClassRole": "Preserved provenance field. Its value is integrity-protected as part of the historical snapshot and is never used to derive current semantic membership.",
+      "semanticPopulationImpact": "none"
+    }
   },
   "crossRepositoryMapping": {
     "joinKey": "EquipmentID",
