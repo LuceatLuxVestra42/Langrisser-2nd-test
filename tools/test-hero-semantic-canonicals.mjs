@@ -98,7 +98,7 @@ try {
   await mutateAndExpectFailure(identityPath, (doc) => { doc.records[0].heroId = 'not-an-id'; }, 'malformed Hero ID', /malformed or duplicate Hero ID not-an-id/);
   await mutateAndExpectFailure(identityPath, (doc) => { doc.records[0].provenance = identityEvidencePath + '#ID=999'; }, 'provenance locator mismatch', /Hero 1 identity evidence locator\/value mismatch/);
   await mutateAndExpectFailure(identityPath, (doc) => { doc.records[0].displayName = 'unexpected'; }, 'unsupported canonical field', /Hero identity 1 has unexpected or missing fields/);
-  await mutateAndExpectFailure(identityPath, (doc) => { delete doc.records[0].provenance; }, 'missing Hero identity provenance', /Hero identity 1 schema fields do not match exactly/);
+  await mutateAndExpectFailure(identityPath, (doc) => { delete doc.records[0].provenance; }, 'missing Hero identity provenance', /Hero identity 1 has unexpected or missing fields/);
   await mutateAndExpectFailure(identityPath, (doc) => { doc.records = doc.records.filter((row) => row.heroId !== 1); }, 'missing playable Hero identity', /Hero identity count differs from the playable source identity scope/);
 
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].heroId = 999999; }, 'relation Hero absent from identity owner', /relation Hero 999999 has no canonical identity/);
