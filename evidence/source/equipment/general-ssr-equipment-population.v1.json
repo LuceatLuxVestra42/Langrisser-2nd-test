@@ -65,6 +65,1248 @@
     ],
     "statement": "population inclusion != alias/replacement resolution"
   },
+  "records": [
+    {
+      "equipmentId": 6,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=6"
+    },
+    {
+      "equipmentId": 7,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=7"
+    },
+    {
+      "equipmentId": 8,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=8"
+    },
+    {
+      "equipmentId": 13,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=13"
+    },
+    {
+      "equipmentId": 14,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=14"
+    },
+    {
+      "equipmentId": 15,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=15"
+    },
+    {
+      "equipmentId": 22,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=22"
+    },
+    {
+      "equipmentId": 23,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=23"
+    },
+    {
+      "equipmentId": 24,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=24"
+    },
+    {
+      "equipmentId": 30,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=30"
+    },
+    {
+      "equipmentId": 31,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=31"
+    },
+    {
+      "equipmentId": 32,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=32"
+    },
+    {
+      "equipmentId": 38,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=38"
+    },
+    {
+      "equipmentId": 39,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=39"
+    },
+    {
+      "equipmentId": 40,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=40"
+    },
+    {
+      "equipmentId": 46,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=46"
+    },
+    {
+      "equipmentId": 47,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=47"
+    },
+    {
+      "equipmentId": 48,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=48"
+    },
+    {
+      "equipmentId": 52,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=52"
+    },
+    {
+      "equipmentId": 53,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=53"
+    },
+    {
+      "equipmentId": 59,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=59"
+    },
+    {
+      "equipmentId": 60,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=60"
+    },
+    {
+      "equipmentId": 66,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=66"
+    },
+    {
+      "equipmentId": 67,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=67"
+    },
+    {
+      "equipmentId": 73,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=73"
+    },
+    {
+      "equipmentId": 74,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=74"
+    },
+    {
+      "equipmentId": 80,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=80"
+    },
+    {
+      "equipmentId": 81,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=81"
+    },
+    {
+      "equipmentId": 87,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=87"
+    },
+    {
+      "equipmentId": 88,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=88"
+    },
+    {
+      "equipmentId": 94,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=94"
+    },
+    {
+      "equipmentId": 95,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=95"
+    },
+    {
+      "equipmentId": 99,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=99"
+    },
+    {
+      "equipmentId": 100,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=100"
+    },
+    {
+      "equipmentId": 106,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=106"
+    },
+    {
+      "equipmentId": 107,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=107"
+    },
+    {
+      "equipmentId": 108,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=108"
+    },
+    {
+      "equipmentId": 114,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=114"
+    },
+    {
+      "equipmentId": 115,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=115"
+    },
+    {
+      "equipmentId": 116,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=116"
+    },
+    {
+      "equipmentId": 120,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=120"
+    },
+    {
+      "equipmentId": 121,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=121"
+    },
+    {
+      "equipmentId": 122,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=122"
+    },
+    {
+      "equipmentId": 126,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=126"
+    },
+    {
+      "equipmentId": 127,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=127"
+    },
+    {
+      "equipmentId": 128,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=128"
+    },
+    {
+      "equipmentId": 132,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=132"
+    },
+    {
+      "equipmentId": 133,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=133"
+    },
+    {
+      "equipmentId": 134,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=134"
+    },
+    {
+      "equipmentId": 137,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=137"
+    },
+    {
+      "equipmentId": 140,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=140"
+    },
+    {
+      "equipmentId": 144,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=144"
+    },
+    {
+      "equipmentId": 147,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=147"
+    },
+    {
+      "equipmentId": 150,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=150"
+    },
+    {
+      "equipmentId": 153,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=153"
+    },
+    {
+      "equipmentId": 157,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=157"
+    },
+    {
+      "equipmentId": 158,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=158"
+    },
+    {
+      "equipmentId": 163,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=163"
+    },
+    {
+      "equipmentId": 164,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=164"
+    },
+    {
+      "equipmentId": 165,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=165"
+    },
+    {
+      "equipmentId": 166,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=166"
+    },
+    {
+      "equipmentId": 171,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=171"
+    },
+    {
+      "equipmentId": 172,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=172"
+    },
+    {
+      "equipmentId": 173,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=173"
+    },
+    {
+      "equipmentId": 174,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=174"
+    },
+    {
+      "equipmentId": 179,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=179"
+    },
+    {
+      "equipmentId": 180,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=180"
+    },
+    {
+      "equipmentId": 181,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=181"
+    },
+    {
+      "equipmentId": 182,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=182"
+    },
+    {
+      "equipmentId": 187,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=187"
+    },
+    {
+      "equipmentId": 188,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=188"
+    },
+    {
+      "equipmentId": 189,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=189"
+    },
+    {
+      "equipmentId": 190,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=190"
+    },
+    {
+      "equipmentId": 195,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=195"
+    },
+    {
+      "equipmentId": 196,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=196"
+    },
+    {
+      "equipmentId": 197,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=197"
+    },
+    {
+      "equipmentId": 198,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=198"
+    },
+    {
+      "equipmentId": 203,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=203"
+    },
+    {
+      "equipmentId": 204,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=204"
+    },
+    {
+      "equipmentId": 205,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=205"
+    },
+    {
+      "equipmentId": 206,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=206"
+    },
+    {
+      "equipmentId": 209,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=209"
+    },
+    {
+      "equipmentId": 210,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=210"
+    },
+    {
+      "equipmentId": 212,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=212"
+    },
+    {
+      "equipmentId": 213,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=213"
+    },
+    {
+      "equipmentId": 214,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=214"
+    },
+    {
+      "equipmentId": 256,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=256"
+    },
+    {
+      "equipmentId": 257,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=257"
+    },
+    {
+      "equipmentId": 258,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=258"
+    },
+    {
+      "equipmentId": 260,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=260"
+    },
+    {
+      "equipmentId": 261,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=261"
+    },
+    {
+      "equipmentId": 262,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=262"
+    },
+    {
+      "equipmentId": 263,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=263"
+    },
+    {
+      "equipmentId": 264,
+      "acquisitionClass": "launch",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=264"
+    },
+    {
+      "equipmentId": 265,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=265"
+    },
+    {
+      "equipmentId": 266,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=266"
+    },
+    {
+      "equipmentId": 267,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=267"
+    },
+    {
+      "equipmentId": 268,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=268"
+    },
+    {
+      "equipmentId": 269,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=269"
+    },
+    {
+      "equipmentId": 270,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=270"
+    },
+    {
+      "equipmentId": 271,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=271"
+    },
+    {
+      "equipmentId": 272,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=272"
+    },
+    {
+      "equipmentId": 282,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=282"
+    },
+    {
+      "equipmentId": 283,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=283"
+    },
+    {
+      "equipmentId": 284,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=284"
+    },
+    {
+      "equipmentId": 285,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=285"
+    },
+    {
+      "equipmentId": 288,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=288"
+    },
+    {
+      "equipmentId": 289,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=289"
+    },
+    {
+      "equipmentId": 290,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=290"
+    },
+    {
+      "equipmentId": 291,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=291"
+    },
+    {
+      "equipmentId": 299,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=299"
+    },
+    {
+      "equipmentId": 400,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=400"
+    },
+    {
+      "equipmentId": 401,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=401"
+    },
+    {
+      "equipmentId": 402,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=402"
+    },
+    {
+      "equipmentId": 407,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=407"
+    },
+    {
+      "equipmentId": 408,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=408"
+    },
+    {
+      "equipmentId": 409,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=409"
+    },
+    {
+      "equipmentId": 410,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=410"
+    },
+    {
+      "equipmentId": 419,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=419"
+    },
+    {
+      "equipmentId": 420,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=420"
+    },
+    {
+      "equipmentId": 421,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=421"
+    },
+    {
+      "equipmentId": 422,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=422"
+    },
+    {
+      "equipmentId": 430,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=430"
+    },
+    {
+      "equipmentId": 431,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=431"
+    },
+    {
+      "equipmentId": 432,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=432"
+    },
+    {
+      "equipmentId": 433,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=433"
+    },
+    {
+      "equipmentId": 442,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=442"
+    },
+    {
+      "equipmentId": 443,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=443"
+    },
+    {
+      "equipmentId": 444,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=444"
+    },
+    {
+      "equipmentId": 445,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=445"
+    },
+    {
+      "equipmentId": 456,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=456"
+    },
+    {
+      "equipmentId": 457,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=457"
+    },
+    {
+      "equipmentId": 458,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=458"
+    },
+    {
+      "equipmentId": 459,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=459"
+    },
+    {
+      "equipmentId": 468,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=468"
+    },
+    {
+      "equipmentId": 469,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=469"
+    },
+    {
+      "equipmentId": 470,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=470"
+    },
+    {
+      "equipmentId": 471,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=471"
+    },
+    {
+      "equipmentId": 480,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=480"
+    },
+    {
+      "equipmentId": 481,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=481"
+    },
+    {
+      "equipmentId": 482,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=482"
+    },
+    {
+      "equipmentId": 483,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=483"
+    },
+    {
+      "equipmentId": 491,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=491"
+    },
+    {
+      "equipmentId": 492,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=492"
+    },
+    {
+      "equipmentId": 493,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=493"
+    },
+    {
+      "equipmentId": 494,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=494"
+    },
+    {
+      "equipmentId": 503,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=503"
+    },
+    {
+      "equipmentId": 504,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=504"
+    },
+    {
+      "equipmentId": 505,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=505"
+    },
+    {
+      "equipmentId": 506,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=506"
+    },
+    {
+      "equipmentId": 515,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=515"
+    },
+    {
+      "equipmentId": 516,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=516"
+    },
+    {
+      "equipmentId": 517,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=517"
+    },
+    {
+      "equipmentId": 518,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=518"
+    },
+    {
+      "equipmentId": 527,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=527"
+    },
+    {
+      "equipmentId": 528,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=528"
+    },
+    {
+      "equipmentId": 529,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=529"
+    },
+    {
+      "equipmentId": 530,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=530"
+    },
+    {
+      "equipmentId": 541,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=541"
+    },
+    {
+      "equipmentId": 542,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=542"
+    },
+    {
+      "equipmentId": 543,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=543"
+    },
+    {
+      "equipmentId": 544,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=544"
+    },
+    {
+      "equipmentId": 553,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=553"
+    },
+    {
+      "equipmentId": 554,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=554"
+    },
+    {
+      "equipmentId": 555,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=555"
+    },
+    {
+      "equipmentId": 556,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=556"
+    },
+    {
+      "equipmentId": 563,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=563"
+    },
+    {
+      "equipmentId": 564,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=564"
+    },
+    {
+      "equipmentId": 565,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=565"
+    },
+    {
+      "equipmentId": 566,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=566"
+    },
+    {
+      "equipmentId": 574,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=574"
+    },
+    {
+      "equipmentId": 575,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=575"
+    },
+    {
+      "equipmentId": 576,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=576"
+    },
+    {
+      "equipmentId": 577,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=577"
+    },
+    {
+      "equipmentId": 583,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=583"
+    },
+    {
+      "equipmentId": 584,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=584"
+    },
+    {
+      "equipmentId": 585,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=585"
+    },
+    {
+      "equipmentId": 586,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=586"
+    },
+    {
+      "equipmentId": 591,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=591"
+    },
+    {
+      "equipmentId": 592,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=592"
+    },
+    {
+      "equipmentId": 593,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=593"
+    },
+    {
+      "equipmentId": 594,
+      "acquisitionClass": "legacy-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=594"
+    },
+    {
+      "equipmentId": 599,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=599"
+    },
+    {
+      "equipmentId": 600,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=600"
+    },
+    {
+      "equipmentId": 601,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=601"
+    },
+    {
+      "equipmentId": 602,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=602"
+    },
+    {
+      "equipmentId": 607,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=607"
+    },
+    {
+      "equipmentId": 608,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=608"
+    },
+    {
+      "equipmentId": 609,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=609"
+    },
+    {
+      "equipmentId": 610,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=610"
+    },
+    {
+      "equipmentId": 615,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=615"
+    },
+    {
+      "equipmentId": 616,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=616"
+    },
+    {
+      "equipmentId": 617,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=617"
+    },
+    {
+      "equipmentId": 618,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=618"
+    },
+    {
+      "equipmentId": 623,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=623"
+    },
+    {
+      "equipmentId": 624,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=624"
+    },
+    {
+      "equipmentId": 625,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=625"
+    },
+    {
+      "equipmentId": 626,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=626"
+    },
+    {
+      "equipmentId": 630,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=630"
+    },
+    {
+      "equipmentId": 631,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=631"
+    },
+    {
+      "equipmentId": 632,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=632"
+    },
+    {
+      "equipmentId": 633,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=633"
+    },
+    {
+      "equipmentId": 639,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=639"
+    },
+    {
+      "equipmentId": 640,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=640"
+    },
+    {
+      "equipmentId": 641,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=641"
+    },
+    {
+      "equipmentId": 642,
+      "acquisitionClass": "current-additional",
+      "evidenceClass": "B",
+      "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=642"
+    }
+  ],
+  "ownerContract": {
+    "path": "evidence/source/equipment/general-ssr-equipment-population-contract.v1.json",
+    "authorityRole": "current-semantic-population-owner"
+  },
   "historicalProvenance": {
     "predecessorRepository": "LuceatLuxVestra42/langrisser-future-guide",
     "pinnedPredecessorCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
@@ -74,1248 +1316,6 @@
       "launch": 94,
       "legacy-additional": 80,
       "current-additional": 32
-    },
-    "records": [
-      {
-        "equipmentId": 6,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=6"
-      },
-      {
-        "equipmentId": 7,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=7"
-      },
-      {
-        "equipmentId": 8,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=8"
-      },
-      {
-        "equipmentId": 13,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=13"
-      },
-      {
-        "equipmentId": 14,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=14"
-      },
-      {
-        "equipmentId": 15,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=15"
-      },
-      {
-        "equipmentId": 22,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=22"
-      },
-      {
-        "equipmentId": 23,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=23"
-      },
-      {
-        "equipmentId": 24,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=24"
-      },
-      {
-        "equipmentId": 30,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=30"
-      },
-      {
-        "equipmentId": 31,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=31"
-      },
-      {
-        "equipmentId": 32,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=32"
-      },
-      {
-        "equipmentId": 38,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=38"
-      },
-      {
-        "equipmentId": 39,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=39"
-      },
-      {
-        "equipmentId": 40,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=40"
-      },
-      {
-        "equipmentId": 46,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=46"
-      },
-      {
-        "equipmentId": 47,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=47"
-      },
-      {
-        "equipmentId": 48,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=48"
-      },
-      {
-        "equipmentId": 52,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=52"
-      },
-      {
-        "equipmentId": 53,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=53"
-      },
-      {
-        "equipmentId": 59,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=59"
-      },
-      {
-        "equipmentId": 60,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=60"
-      },
-      {
-        "equipmentId": 66,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=66"
-      },
-      {
-        "equipmentId": 67,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=67"
-      },
-      {
-        "equipmentId": 73,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=73"
-      },
-      {
-        "equipmentId": 74,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=74"
-      },
-      {
-        "equipmentId": 80,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=80"
-      },
-      {
-        "equipmentId": 81,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=81"
-      },
-      {
-        "equipmentId": 87,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=87"
-      },
-      {
-        "equipmentId": 88,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=88"
-      },
-      {
-        "equipmentId": 94,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=94"
-      },
-      {
-        "equipmentId": 95,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=95"
-      },
-      {
-        "equipmentId": 99,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=99"
-      },
-      {
-        "equipmentId": 100,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=100"
-      },
-      {
-        "equipmentId": 106,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=106"
-      },
-      {
-        "equipmentId": 107,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=107"
-      },
-      {
-        "equipmentId": 108,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=108"
-      },
-      {
-        "equipmentId": 114,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=114"
-      },
-      {
-        "equipmentId": 115,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=115"
-      },
-      {
-        "equipmentId": 116,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=116"
-      },
-      {
-        "equipmentId": 120,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=120"
-      },
-      {
-        "equipmentId": 121,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=121"
-      },
-      {
-        "equipmentId": 122,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=122"
-      },
-      {
-        "equipmentId": 126,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=126"
-      },
-      {
-        "equipmentId": 127,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=127"
-      },
-      {
-        "equipmentId": 128,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=128"
-      },
-      {
-        "equipmentId": 132,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=132"
-      },
-      {
-        "equipmentId": 133,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=133"
-      },
-      {
-        "equipmentId": 134,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=134"
-      },
-      {
-        "equipmentId": 137,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=137"
-      },
-      {
-        "equipmentId": 140,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=140"
-      },
-      {
-        "equipmentId": 144,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=144"
-      },
-      {
-        "equipmentId": 147,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=147"
-      },
-      {
-        "equipmentId": 150,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=150"
-      },
-      {
-        "equipmentId": 153,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=153"
-      },
-      {
-        "equipmentId": 157,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=157"
-      },
-      {
-        "equipmentId": 158,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=158"
-      },
-      {
-        "equipmentId": 163,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=163"
-      },
-      {
-        "equipmentId": 164,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=164"
-      },
-      {
-        "equipmentId": 165,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=165"
-      },
-      {
-        "equipmentId": 166,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=166"
-      },
-      {
-        "equipmentId": 171,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=171"
-      },
-      {
-        "equipmentId": 172,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=172"
-      },
-      {
-        "equipmentId": 173,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=173"
-      },
-      {
-        "equipmentId": 174,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=174"
-      },
-      {
-        "equipmentId": 179,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=179"
-      },
-      {
-        "equipmentId": 180,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=180"
-      },
-      {
-        "equipmentId": 181,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=181"
-      },
-      {
-        "equipmentId": 182,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=182"
-      },
-      {
-        "equipmentId": 187,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=187"
-      },
-      {
-        "equipmentId": 188,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=188"
-      },
-      {
-        "equipmentId": 189,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=189"
-      },
-      {
-        "equipmentId": 190,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=190"
-      },
-      {
-        "equipmentId": 195,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=195"
-      },
-      {
-        "equipmentId": 196,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=196"
-      },
-      {
-        "equipmentId": 197,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=197"
-      },
-      {
-        "equipmentId": 198,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=198"
-      },
-      {
-        "equipmentId": 203,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=203"
-      },
-      {
-        "equipmentId": 204,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=204"
-      },
-      {
-        "equipmentId": 205,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=205"
-      },
-      {
-        "equipmentId": 206,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=206"
-      },
-      {
-        "equipmentId": 209,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=209"
-      },
-      {
-        "equipmentId": 210,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=210"
-      },
-      {
-        "equipmentId": 212,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=212"
-      },
-      {
-        "equipmentId": 213,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=213"
-      },
-      {
-        "equipmentId": 214,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=214"
-      },
-      {
-        "equipmentId": 256,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=256"
-      },
-      {
-        "equipmentId": 257,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=257"
-      },
-      {
-        "equipmentId": 258,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=258"
-      },
-      {
-        "equipmentId": 260,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=260"
-      },
-      {
-        "equipmentId": 261,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=261"
-      },
-      {
-        "equipmentId": 262,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=262"
-      },
-      {
-        "equipmentId": 263,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=263"
-      },
-      {
-        "equipmentId": 264,
-        "acquisitionClass": "launch",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=264"
-      },
-      {
-        "equipmentId": 265,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=265"
-      },
-      {
-        "equipmentId": 266,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=266"
-      },
-      {
-        "equipmentId": 267,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=267"
-      },
-      {
-        "equipmentId": 268,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=268"
-      },
-      {
-        "equipmentId": 269,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=269"
-      },
-      {
-        "equipmentId": 270,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=270"
-      },
-      {
-        "equipmentId": 271,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=271"
-      },
-      {
-        "equipmentId": 272,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=272"
-      },
-      {
-        "equipmentId": 282,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=282"
-      },
-      {
-        "equipmentId": 283,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=283"
-      },
-      {
-        "equipmentId": 284,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=284"
-      },
-      {
-        "equipmentId": 285,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=285"
-      },
-      {
-        "equipmentId": 288,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=288"
-      },
-      {
-        "equipmentId": 289,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=289"
-      },
-      {
-        "equipmentId": 290,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=290"
-      },
-      {
-        "equipmentId": 291,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=291"
-      },
-      {
-        "equipmentId": 299,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=299"
-      },
-      {
-        "equipmentId": 400,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=400"
-      },
-      {
-        "equipmentId": 401,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=401"
-      },
-      {
-        "equipmentId": 402,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=402"
-      },
-      {
-        "equipmentId": 407,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=407"
-      },
-      {
-        "equipmentId": 408,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=408"
-      },
-      {
-        "equipmentId": 409,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=409"
-      },
-      {
-        "equipmentId": 410,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=410"
-      },
-      {
-        "equipmentId": 419,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=419"
-      },
-      {
-        "equipmentId": 420,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=420"
-      },
-      {
-        "equipmentId": 421,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=421"
-      },
-      {
-        "equipmentId": 422,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=422"
-      },
-      {
-        "equipmentId": 430,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=430"
-      },
-      {
-        "equipmentId": 431,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=431"
-      },
-      {
-        "equipmentId": 432,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=432"
-      },
-      {
-        "equipmentId": 433,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=433"
-      },
-      {
-        "equipmentId": 442,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=442"
-      },
-      {
-        "equipmentId": 443,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=443"
-      },
-      {
-        "equipmentId": 444,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=444"
-      },
-      {
-        "equipmentId": 445,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=445"
-      },
-      {
-        "equipmentId": 456,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=456"
-      },
-      {
-        "equipmentId": 457,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=457"
-      },
-      {
-        "equipmentId": 458,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=458"
-      },
-      {
-        "equipmentId": 459,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=459"
-      },
-      {
-        "equipmentId": 468,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=468"
-      },
-      {
-        "equipmentId": 469,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=469"
-      },
-      {
-        "equipmentId": 470,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=470"
-      },
-      {
-        "equipmentId": 471,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=471"
-      },
-      {
-        "equipmentId": 480,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=480"
-      },
-      {
-        "equipmentId": 481,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=481"
-      },
-      {
-        "equipmentId": 482,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=482"
-      },
-      {
-        "equipmentId": 483,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=483"
-      },
-      {
-        "equipmentId": 491,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=491"
-      },
-      {
-        "equipmentId": 492,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=492"
-      },
-      {
-        "equipmentId": 493,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=493"
-      },
-      {
-        "equipmentId": 494,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=494"
-      },
-      {
-        "equipmentId": 503,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=503"
-      },
-      {
-        "equipmentId": 504,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=504"
-      },
-      {
-        "equipmentId": 505,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=505"
-      },
-      {
-        "equipmentId": 506,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=506"
-      },
-      {
-        "equipmentId": 515,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=515"
-      },
-      {
-        "equipmentId": 516,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=516"
-      },
-      {
-        "equipmentId": 517,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=517"
-      },
-      {
-        "equipmentId": 518,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=518"
-      },
-      {
-        "equipmentId": 527,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=527"
-      },
-      {
-        "equipmentId": 528,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=528"
-      },
-      {
-        "equipmentId": 529,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=529"
-      },
-      {
-        "equipmentId": 530,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=530"
-      },
-      {
-        "equipmentId": 541,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=541"
-      },
-      {
-        "equipmentId": 542,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=542"
-      },
-      {
-        "equipmentId": 543,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=543"
-      },
-      {
-        "equipmentId": 544,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=544"
-      },
-      {
-        "equipmentId": 553,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=553"
-      },
-      {
-        "equipmentId": 554,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=554"
-      },
-      {
-        "equipmentId": 555,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=555"
-      },
-      {
-        "equipmentId": 556,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=556"
-      },
-      {
-        "equipmentId": 563,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=563"
-      },
-      {
-        "equipmentId": 564,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=564"
-      },
-      {
-        "equipmentId": 565,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=565"
-      },
-      {
-        "equipmentId": 566,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=566"
-      },
-      {
-        "equipmentId": 574,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=574"
-      },
-      {
-        "equipmentId": 575,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=575"
-      },
-      {
-        "equipmentId": 576,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=576"
-      },
-      {
-        "equipmentId": 577,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=577"
-      },
-      {
-        "equipmentId": 583,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=583"
-      },
-      {
-        "equipmentId": 584,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=584"
-      },
-      {
-        "equipmentId": 585,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=585"
-      },
-      {
-        "equipmentId": 586,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=586"
-      },
-      {
-        "equipmentId": 591,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=591"
-      },
-      {
-        "equipmentId": 592,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=592"
-      },
-      {
-        "equipmentId": 593,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=593"
-      },
-      {
-        "equipmentId": 594,
-        "acquisitionClass": "legacy-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=594"
-      },
-      {
-        "equipmentId": 599,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=599"
-      },
-      {
-        "equipmentId": 600,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=600"
-      },
-      {
-        "equipmentId": 601,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=601"
-      },
-      {
-        "equipmentId": 602,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=602"
-      },
-      {
-        "equipmentId": 607,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=607"
-      },
-      {
-        "equipmentId": 608,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=608"
-      },
-      {
-        "equipmentId": 609,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=609"
-      },
-      {
-        "equipmentId": 610,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=610"
-      },
-      {
-        "equipmentId": 615,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=615"
-      },
-      {
-        "equipmentId": 616,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=616"
-      },
-      {
-        "equipmentId": 617,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=617"
-      },
-      {
-        "equipmentId": 618,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=618"
-      },
-      {
-        "equipmentId": 623,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=623"
-      },
-      {
-        "equipmentId": 624,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=624"
-      },
-      {
-        "equipmentId": 625,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=625"
-      },
-      {
-        "equipmentId": 626,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=626"
-      },
-      {
-        "equipmentId": 630,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=630"
-      },
-      {
-        "equipmentId": 631,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=631"
-      },
-      {
-        "equipmentId": 632,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=632"
-      },
-      {
-        "equipmentId": 633,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=633"
-      },
-      {
-        "equipmentId": 639,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=639"
-      },
-      {
-        "equipmentId": 640,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=640"
-      },
-      {
-        "equipmentId": 641,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=641"
-      },
-      {
-        "equipmentId": 642,
-        "acquisitionClass": "current-additional",
-        "evidenceClass": "B",
-        "predecessorLocator": "data/generated/equipment_stage2_7_acquisition.json#equipmentId=642"
-      }
-    ]
-  },
-  "ownerContract": {
-    "path": "evidence/source/equipment/general-ssr-equipment-population-contract.v1.json",
-    "authorityRole": "current-semantic-population-owner"
+    }
   }
 }
