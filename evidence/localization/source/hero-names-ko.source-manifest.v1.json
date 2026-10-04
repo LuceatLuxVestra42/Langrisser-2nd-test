@@ -23,7 +23,11 @@
   "targetIds": [
     5,
     6,
-    8
+    8,
+    52,
+    32,
+    28,
+    53
   ],
   "selectedRows": [
     {
@@ -43,13 +47,37 @@
       "sourceLine": 36,
       "sourceRow": 7,
       "nameCn": "拉娜"
+    },
+    {
+      "heroId": 52,
+      "sourceLine": 78,
+      "sourceRow": 49,
+      "nameCn": "安洁丽娜"
+    },
+    {
+      "heroId": 32,
+      "sourceLine": 60,
+      "sourceRow": 31,
+      "nameCn": "艾马林克"
+    },
+    {
+      "heroId": 28,
+      "sourceLine": 56,
+      "sourceRow": 27,
+      "nameCn": "泽瑞达"
+    },
+    {
+      "heroId": 53,
+      "sourceLine": 79,
+      "sourceRow": 50,
+      "nameCn": "兰芳特"
     }
   ],
-  "selectedRowCount": 3,
+  "selectedRowCount": 7,
   "extraction": "Preserved the supplied reference byte-for-byte. Select Hero IDs only from the existing canonical Hero identity scope and direct ConfigData records; use ConfigDataHeroInfo.Name to look up display text by exact Chinese key. Names are not used to create Hero identity, population, or relations.",
   "knownLimitations": [
     "The supplied localization reference does not establish official Korean-server provenance or a source version.",
-    "This evidence supports display localization only for the explicitly admitted Hero IDs 5, 6, and 8.",
+    "The supplied localization reference supports display localization only for the Hero IDs explicitly declared in this source manifest.",
     "The Chinese lookup key does not create or alter Hero identity, population, release status, or relations."
   ],
   "targetDeclarationRole": "Explicit target set for this localization owner only; not Hero population, migration backlog, or selection from reference order."

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceManifest": "evidence/localization/source/hero-names-ko.source-manifest.v1.json",
-  "sourceScope": "Project-qualified Korean display localization only for the already admitted Hero IDs 5, 6, and 8.",
+  "sourceScope": "Project-qualified Korean display localization only for Hero IDs explicitly declared in the source manifest.",
   "canonical": false,
   "generated": false,
   "productionRuntimeDependency": false,
@@ -11,7 +11,7 @@
     "path": "data/configdata/ConfigDataHeroInfo.json",
     "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
     "preservedArtifact": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json",
-    "preservedArtifactGitBlobSha1": "d1e7b44d8da9367c04a1480ac33ab5cc01c72f85"
+    "preservedArtifactGitBlobSha1": "0e2027b4902949f41be963c48c7ab7b5d545b8b1"
   },
   "claims": {
     "heroEndpoints": "Hero IDs are read from the existing canonical Hero identity owner; this slice creates no identity or population claim.",
@@ -51,6 +51,50 @@
       "sourceLocator": "hero-names-ko.v1.txt#nameCn=拉娜",
       "sourceLine": 36,
       "sourceRow": 7,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 52,
+      "nameCn": "安洁丽娜",
+      "nameKo": "안젤리나",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=52",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json#ID=52/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=安洁丽娜",
+      "sourceLine": 78,
+      "sourceRow": 49,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 32,
+      "nameCn": "艾马林克",
+      "nameKo": "에마링크",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=32",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json#ID=32/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=艾马林克",
+      "sourceLine": 60,
+      "sourceRow": 31,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 28,
+      "nameCn": "泽瑞达",
+      "nameKo": "젤다",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=28",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json#ID=28/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=泽瑞达",
+      "sourceLine": 56,
+      "sourceRow": 27,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 53,
+      "nameCn": "兰芳特",
+      "nameKo": "란포드",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=53",
+      "configDataLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json#ID=53/Name",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=兰芳特",
+      "sourceLine": 79,
+      "sourceRow": 50,
       "evidenceClass": "A"
     }
   ],

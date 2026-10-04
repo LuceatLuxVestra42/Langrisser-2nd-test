@@ -378,5 +378,499 @@
     "Name_OnlyArchive": "LANA",
     "AnnualTagId": 1,
     "IsReturnEventDynamicHero": true
+  },
+  {
+    "ID": 52,
+    "Name": "安洁丽娜",
+    "Desc": "卡昆西斯双子\n果敢的战士，守护姐姐的利剑",
+    "DescStrKey": [
+      "物理输出",
+      "再行动"
+    ],
+    "Name_Eng": "Angelina",
+    "Useable": true,
+    "Sex": 2,
+    "Star": 3,
+    "Rank": 4,
+    "FragmentItem_ID": 1052,
+    "ExchangedFragmentCount": 50,
+    "Soldier_ID": 400,
+    "Skills_ID": [
+      10401
+    ],
+    "HPCmd_INI": 1000,
+    "DFCmd_INI": 1000,
+    "ATCmd_INI": 1000,
+    "CmdRating": "DDDD",
+    "HPStar": [
+      2972,
+      3880,
+      4851,
+      5890,
+      7002,
+      8192
+    ],
+    "ATStar": [
+      2972,
+      3880,
+      4851,
+      5890,
+      7002,
+      8192
+    ],
+    "MagicStar": [
+      1280,
+      2069,
+      2913,
+      3816,
+      4783,
+      5817
+    ],
+    "DFStar": [
+      2784,
+      3678,
+      4635,
+      5659,
+      6755,
+      7927
+    ],
+    "MagicDFStar": [
+      2408,
+      3276,
+      4205,
+      5199,
+      6262,
+      7400
+    ],
+    "DEXStar": [
+      1750,
+      2572,
+      3452,
+      4393,
+      5400,
+      6478
+    ],
+    "JobConnection_ID": 520,
+    "UseableJobConnections_ID": [
+      521,
+      522,
+      523,
+      524,
+      525
+    ],
+    "CharImage_ID": 52,
+    "HeroInformation_ID": 52,
+    "TechCanLearnSoldiers_ID": [
+      231,
+      403,
+      308,
+      333,
+      423,
+      514,
+      515,
+      517
+    ],
+    "CastingLawTemplates_ID": [
+      2,
+      1,
+      30,
+      33,
+      41
+    ],
+    "CastingLawSkill_ID": 90030,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      5201,
+      5202,
+      5299,
+      5203,
+      5204
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      7
+    ],
+    "HeroDummy": "Angelina",
+    "Name_OnlyArchive": "ANGELINA",
+    "AnnualTagId": 1,
+    "IsReturnEventDynamicHero": true
+  },
+  {
+    "ID": 32,
+    "Name": "艾马林克",
+    "Desc": "帝国智将\n利古里亚帝国四大将军之一，战略奇才",
+    "Name_Eng": "EmmaLink",
+    "Useable": true,
+    "Sex": 1,
+    "Star": 2,
+    "Rank": 3,
+    "FragmentItem_ID": 1032,
+    "ExchangedFragmentCount": 20,
+    "Soldier_ID": 300,
+    "Skills_ID": [
+      10321
+    ],
+    "HPCmd_INI": 1000,
+    "DFCmd_INI": 1000,
+    "ATCmd_INI": 500,
+    "CmdRating": "DDDD",
+    "HPStar": [
+      2314,
+      3175,
+      4097,
+      5083,
+      6138,
+      7267
+    ],
+    "ATStar": [
+      1468,
+      2270,
+      3128,
+      4046,
+      5029,
+      6081
+    ],
+    "MagicStar": [
+      1468,
+      2270,
+      3128,
+      4046,
+      5029,
+      6081
+    ],
+    "DFStar": [
+      2690,
+      3578,
+      4528,
+      5544,
+      6632,
+      7796
+    ],
+    "MagicDFStar": [
+      1280,
+      2069,
+      2913,
+      3816,
+      4783,
+      5817
+    ],
+    "DEXStar": [
+      -130,
+      560,
+      1299,
+      2089,
+      2935,
+      3840
+    ],
+    "JobConnection_ID": 320,
+    "UseableJobConnections_ID": [
+      321,
+      322,
+      323,
+      324,
+      325
+    ],
+    "CharImage_ID": 32,
+    "HeroInformation_ID": 32,
+    "TechCanLearnSoldiers_ID": [
+      320,
+      413,
+      403,
+      336,
+      130,
+      423,
+      339
+    ],
+    "CastingLawTemplates_ID": [
+      3,
+      2,
+      29,
+      32,
+      41
+    ],
+    "CastingLawSkill_ID": 90056,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      3201
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      6
+    ],
+    "HeroDummy": "EmmaLink",
+    "Name_OnlyArchive": "EMMALINK",
+    "AnnualTagId": 1
+  },
+  {
+    "ID": 28,
+    "Name": "泽瑞达",
+    "Desc": "谜之女\n散发着诡异魔族气息的少女……",
+    "DescStrKey": [
+      "物理输出",
+      "直击本体"
+    ],
+    "Name_Eng": "Zalrahda",
+    "Useable": true,
+    "Sex": 2,
+    "Star": 3,
+    "Rank": 4,
+    "FragmentItem_ID": 1028,
+    "ExchangedFragmentCount": 50,
+    "Soldier_ID": 1102,
+    "Skills_ID": [
+      11724
+    ],
+    "ATCmd_INI": 1500,
+    "MagicDFCmd_INI": 1500,
+    "CmdRating": "DDDD",
+    "HPStar": [
+      2220,
+      3075,
+      3990,
+      4969,
+      6016,
+      7137
+    ],
+    "ATStar": [
+      3254,
+      4181,
+      5173,
+      6235,
+      7371,
+      8586
+    ],
+    "MagicStar": [
+      -36,
+      661,
+      1407,
+      2205,
+      3059,
+      3973
+    ],
+    "DFStar": [
+      2408,
+      3276,
+      4205,
+      5199,
+      6262,
+      7400
+    ],
+    "MagicDFStar": [
+      2784,
+      3678,
+      4635,
+      5659,
+      6755,
+      7927
+    ],
+    "DEXStar": [
+      3630,
+      4584,
+      5604,
+      6696,
+      7864,
+      9114
+    ],
+    "JobConnection_ID": 280,
+    "UseableJobConnections_ID": [
+      281,
+      282,
+      284,
+      285
+    ],
+    "CharImage_ID": 28,
+    "HeroInformation_ID": 28,
+    "TechCanLearnSoldiers_ID": [
+      1111,
+      1009,
+      616,
+      1112,
+      1035,
+      1116,
+      1117,
+      1038,
+      1118
+    ],
+    "CastingLawTemplates_ID": [
+      4,
+      6,
+      30,
+      33,
+      41
+    ],
+    "CastingLawSkill_ID": 90079,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      2801,
+      2802,
+      2803,
+      2804,
+      2899,
+      2805,
+      2806
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      3
+    ],
+    "HeroDummy": "Zalrahda",
+    "Name_OnlyArchive": "ZALRAHDA",
+    "AnnualTagId": 1,
+    "IsReturnEventDynamicHero": true
+  },
+  {
+    "ID": 53,
+    "Name": "兰芳特",
+    "Desc": "联邦传奇将领\n武艺与谋略双全的天选之人",
+    "DescStrKey": [
+      "物理输出",
+      "指挥增益"
+    ],
+    "Name_Eng": "Ranford",
+    "Useable": true,
+    "Sex": 1,
+    "Star": 3,
+    "Rank": 4,
+    "FragmentItem_ID": 1053,
+    "ExchangedFragmentCount": 50,
+    "Soldier_ID": 300,
+    "Skills_ID": [
+      11739
+    ],
+    "HPCmd_INI": 1500,
+    "ATCmd_INI": 1500,
+    "CmdRating": "DDDD",
+    "HPStar": [
+      3160,
+      4081,
+      5066,
+      6120,
+      7248,
+      8455
+    ],
+    "ATStar": [
+      3160,
+      4081,
+      5066,
+      6120,
+      7248,
+      8455
+    ],
+    "MagicStar": [
+      1280,
+      2069,
+      2913,
+      3816,
+      4783,
+      5817
+    ],
+    "DFStar": [
+      2032,
+      2874,
+      3775,
+      4739,
+      5770,
+      6873
+    ],
+    "MagicDFStar": [
+      2032,
+      2874,
+      3775,
+      4739,
+      5770,
+      6873
+    ],
+    "DEXStar": [
+      3160,
+      4081,
+      5066,
+      6120,
+      7248,
+      8455
+    ],
+    "JobConnection_ID": 530,
+    "UseableJobConnections_ID": [
+      531,
+      532,
+      533,
+      534,
+      535
+    ],
+    "CharImage_ID": 53,
+    "HeroInformation_ID": 53,
+    "TechCanLearnSoldiers_ID": [
+      121,
+      324,
+      231,
+      420,
+      336,
+      246,
+      131,
+      423,
+      248,
+      339,
+      249,
+      426,
+      340,
+      136
+    ],
+    "CastingLawTemplates_ID": [
+      3,
+      4,
+      29,
+      32,
+      41
+    ],
+    "CastingLawSkill_ID": 90018,
+    "CastingLawSkillUnlockEquipmentLevel": 1,
+    "CastingLawSkillUnlockHeroStartLevel": 6,
+    "CastingLawSkillUnlockCastingLawLevel": 5,
+    "CastingLawSkillUnlockMaterialsCost": [
+      {
+        "GoodsType": 6,
+        "Id": 3303,
+        "Count": 12
+      }
+    ],
+    "Skins_ID": [
+      5301,
+      5302,
+      5303
+    ],
+    "HeroArchiveShow": true,
+    "HeroBelongProduction": [
+      7
+    ],
+    "HeroDummy": "Ranford",
+    "Name_OnlyArchive": "RANFORD",
+    "AnnualTagId": 1,
+    "IsReturnEventDynamicHero": true
   }
 ]
