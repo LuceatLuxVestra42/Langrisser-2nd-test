@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "canonical": true,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "scope": {
+    "type": "pinned_configdata_snapshot",
+    "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+    "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceCommitDate": "2026-09-02T01:45:21Z",
+    "selectionRule": "Use every record in the complete ConfigDataSPHeroInfo table in the pinned snapshot; follow explicit JobConnection_ID to ConfigDataJobConnectionInfo.ID, then explicit Job_ID to ConfigDataJobInfo.ID; admit distinct reached JobInfo IDs only when the resulting set exactly equals the preserved SP source 전직ID set.",
+    "claimBoundary": "Snapshot-scoped SP Job identity and namespace only; does not claim an all-game or current-server complete SP Job population."
+  },
+  "evidence": {
+    "relationDerivedSourceManifests": [
+      "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.source-manifest.v1.json",
+      "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.source-manifest.v1.json"
+    ],
+    "spJobRecordSourceManifest": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.source-manifest.v1.json",
+    "spSourceManifest": "evidence/localization/source/sp-job-names-ko.source-manifest.v1.json",
+    "priorNamespaceEvidence": "evidence/localization/sp-job-namespace.v1.json",
+    "relationEvidence": "evidence/source/jobs/hero-sp-job-relation.v1.json",
+    "schemaEvidence": "evidence/source/jobs/hero-sp-job-relation.v1.json#/schemaEvidence",
+    "limitation": "Pinned source versions beyond repository commit are unknown; this claim is limited to the preserved snapshot and its recorded source graph."
+  },
+  "limitations": [
+    "The snapshot does not establish a permanent all-game SP Job population.",
+    "The snapshot does not establish a current-server complete SP Job population or release status.",
+    "No Korean localization, Hero relation ownership, job tree/order, unlock condition, or UI eligibility is admitted here.",
+    "Three source Korean-field status markers are not names; official Korean localization provenance is unverified."
+  ],
+  "records": [
+    {
+      "id": 128,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=128",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=128",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=40",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=405"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 262,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=262",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=262",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=1",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=22"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 368,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=368",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=368",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=12",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=126"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 373,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=373",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=373",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=27",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=276"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 377,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=377",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=377",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=6",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=66"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 390,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=390",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=390",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=55",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=556"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 414,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=414",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=414",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=25",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=256"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 426,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=426",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=426",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=53",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=536"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 437,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=437",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=437",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=26",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=266"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 622,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=622",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=622",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=11",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=116"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 633,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=633",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=633",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=3",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=37"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 744,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=744",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=744",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=13",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=136"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 769,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=769",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=769",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=4",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=47"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 841,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=841",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=841",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=33",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=336"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 858,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=858",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=858",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=14",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=146"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 864,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=864",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=864",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=8",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=86"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 878,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=878",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=878",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=10",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=106"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 1097,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=1097",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1097",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=9",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=96"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 1119,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=1119",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1119",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=60",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=606"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 1214,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=1214",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1214",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=7",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=76"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 1220,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=1220",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=1220",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=37",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=377"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 20229,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=20229",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20229",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=89",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=895"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 20243,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=20243",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20243",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=67",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=676"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 20707,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=20707",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20707",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=56",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=566"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    },
+    {
+      "id": 20811,
+      "spSourceLocator": "evidence/localization/source/sp-job-names-ko.v1.txt#전직ID=20811",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json#ID=20811",
+      "relationSourceLocators": {
+        "spHeroInfo": "evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json#ID=29",
+        "jobConnectionInfo": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json#ID=296"
+      },
+      "evidenceClasses": {
+        "sourceRecordIdentity": "A",
+        "namespaceInterpretation": "B"
+      }
+    }
+  ]
+}
