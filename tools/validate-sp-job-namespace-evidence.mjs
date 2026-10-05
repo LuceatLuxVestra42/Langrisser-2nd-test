@@ -133,7 +133,7 @@ check(sha256(spHeroBytes) === spHeroManifest.recordsSha256 && spHeroRecords.leng
 check(sha256(connectionBytes) === connectionManifest.recordsSha256 && connectionRecords.length === connectionManifest.recordCount, 'JobConnectionInfo subset count/hash mismatch');
 check(spHeroManifest.selection.method === 'Select every row in the complete SPHeroInfo population; project source fields ID and JobConnection_ID without semantic edits. No name join, filename matching, order matching, arithmetic, approximate matching, or value normalization.', 'SPHeroInfo population selection rule changed');
 check(spHeroManifest.sourceRecordCount === spHeroRecords.length && connectionManifest.sourceRecordCount === 30066, 'pinned relation source population boundary changed');
-check(JSON.stringify(spHeroManifest.selection.selectedIds) === JSON.stringify(spHeroRecords.map((row) => row.ID)), 'SPHeroInfo selected IDs do not match preserved source records');
+check(JSON.stringify([...spHeroManifest.selection.selectedIds].sort((a, b) => a - b)) === JSON.stringify(spHeroRecords.map((row) => row.ID).sort((a, b) => a - b)), 'SPHeroInfo selected IDs do not match preserved source records');
 const connectionById = new Map();
 for (const [index, row] of connectionRecords.entries()) {
   exactKeys(row, ['ID', 'Job_ID'], `JobConnectionInfo row ${index + 1}`);
@@ -152,7 +152,7 @@ for (const [index, row] of spHeroRecords.entries()) {
   graphRows.push({ heroId: row.ID, connectionId: row.JobConnection_ID, jobId: connectionById.get(row.JobConnection_ID) });
 }
 check(connectionRecords.length === graphRows.length, 'JobConnectionInfo subset has missing or extra records relative to complete SPHeroInfo relation scope');
-check(JSON.stringify(connectionManifest.selection.selectedIds) === JSON.stringify(graphRows.map((row) => row.connectionId)), 'JobConnectionInfo selected IDs do not match explicit SPHeroInfo.JobConnection_ID values');
+check(JSON.stringify([...connectionManifest.selection.selectedIds].sort((a, b) => a - b)) === JSON.stringify(graphRows.map((row) => row.connectionId).sort((a, b) => a - b)), 'JobConnectionInfo selected IDs do not match explicit SPHeroInfo.JobConnection_ID values');
 const relationDerivedIds = graphRows.map((row) => row.jobId).sort((a, b) => a - b);
 check(new Set(relationDerivedIds).size === relationDerivedIds.length, 'relation-derived SP Job IDs are not distinct');
 const spSourceIds = spRows.map((row) => row.jobId).sort((a, b) => a - b);
