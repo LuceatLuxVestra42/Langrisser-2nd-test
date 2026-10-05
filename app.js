@@ -1,6 +1,7 @@
 const container = document.querySelector('#heroes');
 const spSoldierContainer = document.querySelector('#sp-soldiers');
 const jobGlossaryContainer = document.querySelector('#job-glossary');
+const generalEquipmentContainer = document.querySelector('#general-ssr-equipment');
 
 function addHero(hero) {
   const article = document.createElement('article');
@@ -88,6 +89,43 @@ try {
   status.textContent = '전직명 사전을 불러오지 못했습니다.';
   row.append(status);
   jobGlossaryContainer.replaceChildren(row);
+  console.error(error);
+}
+
+function addGeneralEquipment(item) {
+  const article = document.createElement('article');
+  article.className = 'general-equipment-card';
+  const heading = document.createElement('div');
+  heading.className = 'general-equipment-heading';
+  const name = document.createElement('h3');
+  name.textContent = item.nameKo;
+  const id = document.createElement('p');
+  id.className = 'general-equipment-id';
+  id.textContent = 'Equipment ID ' + item.equipmentId;
+  heading.append(name, id);
+  const effect = document.createElement('p');
+  effect.className = 'general-equipment-effect';
+  effect.textContent = item.effectDescriptionKo;
+  article.append(heading, effect);
+  generalEquipmentContainer.append(article);
+}
+
+try {
+  const response = await fetch('./generated/general-ssr-equipment.v1.json');
+  if (!response.ok) throw new Error('Generated General SSR Equipment request failed (' + response.status + ')');
+  const data = await response.json();
+  if (data.schemaVersion !== 1 || !Array.isArray(data.equipment) || data.equipment.length !== 206) throw new Error('Unsupported General SSR Equipment data');
+  const ids = data.equipment.map((item) => item.equipmentId);
+  if (ids.some((id) => !Number.isInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate General SSR Equipment ID');
+  if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
+    || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('General SSR Equipment presentation is incomplete');
+  generalEquipmentContainer.replaceChildren();
+  for (const item of data.equipment) addGeneralEquipment(item);
+} catch (error) {
+  const status = document.createElement('p');
+  status.className = 'status status-error';
+  status.textContent = '일반 SSR 장비 정보를 불러오지 못했습니다.';
+  generalEquipmentContainer.replaceChildren(status);
   console.error(error);
 }
 

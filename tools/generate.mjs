@@ -62,6 +62,32 @@ export function renderJobGlossary(jobLocalization) {
   return `${JSON.stringify({ schemaVersion: 1, jobs }, null, 2)}\n`;
 }
 
+export function renderGeneralSsrEquipment(identities, localizations) {
+  if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported General SSR Equipment identity owner');
+  if (localizations?.schemaVersion !== 1 || !Array.isArray(localizations.records)) throw new Error('Unsupported General SSR Equipment localization owner');
+  const identityIds = new Set();
+  for (const record of identities.records) {
+    if (!Number.isInteger(record.id)) throw new Error('General SSR Equipment identity contains malformed ID');
+    if (identityIds.has(record.id)) throw new Error('Duplicate General SSR Equipment identity ' + record.id);
+    if (record.population !== 'GENERAL_SSR') throw new Error('Unexpected population for Equipment ' + record.id);
+    identityIds.add(record.id);
+  }
+  const localizationById = new Map();
+  for (const record of localizations.records) {
+    if (!Number.isInteger(record.equipmentId)) throw new Error('General SSR Equipment localization contains malformed equipmentId');
+    if (localizationById.has(record.equipmentId)) throw new Error('Duplicate General SSR Equipment localization ' + record.equipmentId);
+    if (typeof record.nameKo !== 'string' || !record.nameKo.trim() || typeof record.effectDescriptionKo !== 'string' || !record.effectDescriptionKo.trim()) throw new Error('Missing Korean presentation for ' + record.equipmentId);
+    localizationById.set(record.equipmentId, record);
+  }
+  if (identityIds.size !== 206) throw new Error('Expected 206 General SSR Equipment identities, found ' + identityIds.size);
+  if (localizationById.size !== identityIds.size || [...identityIds].some((id) => !localizationById.has(id))) throw new Error('General SSR Equipment localization ID set does not exactly match identity');
+  const equipment = [...identityIds].sort((a, b) => a - b).map((equipmentId) => {
+    const localization = localizationById.get(equipmentId);
+    return { equipmentId, nameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo };
+  });
+  return JSON.stringify({ schemaVersion: 1, equipment }, null, 2) + '\n';
+}
+
 const idSet = (records, getId, label) => {
   const ids = records.map(getId);
   if (ids.some((id) => !Number.isInteger(id))) throw new Error(`${label} contains a non-integer SP Soldier ID`);
@@ -168,5 +194,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/normal-soldier-base-stats.v1.json'), 'utf8'),
   ]);
   await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations), JSON.parse(normalBaseStats)), 'utf8');
-  process.stdout.write(`Generated ${outputPath} and ${glossaryPath}\n`);
+  const equipmentIdentity = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment.v1.json'), 'utf8'));
+  const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
+  const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');
+  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'utf8');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', and ' + equipmentOutputPath + '\n');
 }

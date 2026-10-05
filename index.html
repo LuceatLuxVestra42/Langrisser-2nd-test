@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="data:,">
-    <meta name="description" content="검증된 데이터만 사용하는 랑그릿사 영웅 정보의 첫 화면 조각입니다.">
-    <title>랑그릿사 영웅 — 첫 데이터 조각</title>
+    <meta name="description" content="검증된 영웅, 전직, 용병과 일반 SSR 장비 정보를 표시합니다.">
+    <title>랑그릿사 데이터 조각</title>
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./app.js"></script>
   </head>
@@ -18,6 +18,16 @@
       </header>
       <section id="heroes" class="hero-grid" aria-label="영웅 목록" aria-live="polite">
         <p class="status">영웅 정보를 불러오는 중…</p>
+      </section>
+      <section class="general-equipment-section" aria-labelledby="general-equipment-title">
+        <header class="section-heading">
+          <p class="eyebrow">현재 제공 범위 · 206건</p>
+          <h2 id="general-equipment-title">일반 SSR 장비</h2>
+          <p class="summary">canonical owner에 admitted된 장비 ID별 한국어 이름과 효과 설명입니다. project-qualified localization이며 공식 한국 서버 provenance는 확인되지 않았습니다. alias/replacement 의미가 미해결인 8개 ID도 각각 독립 record로 표시하며 서로 연결하거나 합치지 않습니다.</p>
+        </header>
+        <div id="general-ssr-equipment" class="general-equipment-grid" aria-label="일반 SSR 장비 목록" aria-live="polite">
+          <p class="status">일반 SSR 장비 정보를 불러오는 중…</p>
+        </div>
       </section>
       <section class="sp-soldier-section" aria-labelledby="sp-soldier-title">
         <header class="section-heading">
