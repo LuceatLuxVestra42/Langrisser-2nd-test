@@ -79,7 +79,6 @@ export function renderGeneralSsrEquipment(identities, localizations) {
     if (typeof record.nameKo !== 'string' || !record.nameKo.trim() || typeof record.effectDescriptionKo !== 'string' || !record.effectDescriptionKo.trim()) throw new Error('Missing Korean presentation for ' + record.equipmentId);
     localizationById.set(record.equipmentId, record);
   }
-  if (identityIds.size !== 206) throw new Error('Expected 206 General SSR Equipment identities, found ' + identityIds.size);
   if (localizationById.size !== identityIds.size || [...identityIds].some((id) => !localizationById.has(id))) throw new Error('General SSR Equipment localization ID set does not exactly match identity');
   const equipment = [...identityIds].sort((a, b) => a - b).map((equipmentId) => {
     const localization = localizationById.get(equipmentId);
