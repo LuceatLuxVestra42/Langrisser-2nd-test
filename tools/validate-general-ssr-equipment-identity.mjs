@@ -11,6 +11,11 @@ const CLASS_COUNTS={launch:94,'legacy-additional':80,'current-additional':32};
 const PROVENANCE_FIELDS=['equipmentId','predecessorLocator','acquisitionClass'];
 const HISTORICAL_PROVENANCE_SHA256='f914fe93767074df78dc7353ef44a90578750e9be0b4a6f96874484aa7fdfe29';
 const ANCHORS={
+ baselineRepository:'LuceatLuxVestra42/Langrisser-2nd-test',
+ baselinePullRequest:19,
+ baselineCommit:'448c85576b1bb2e4cde2de365eb5bc9df09b8bd2',
+ baselineCanonicalBlob:'dba722881bd5ee1f508176a6052513b3e09ea18b',
+ baselineIdSetSha256:'8ebfa88ede242bee1d12527ea66f73f0aa4f2ef50f50eb27cea230e7ed551e68',
  predecessorRepository:'LuceatLuxVestra42/langrisser-future-guide',
  predecessorCommit:'57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff',
  acquisitionPath:'data/generated/equipment_stage2_7_acquisition.json',
@@ -36,8 +41,11 @@ function checkOwnerContract(contract){
  check(contract.population?.entity==='Equipment'&&contract.population.population==='GENERAL_SSR'&&contract.population.recordCount===206,'contract population scope mismatch');
  check(contract.population.canonicalPath===CANONICAL_PATH,'contract canonical path mismatch');
  check(contract.population.membershipBasis?.includes('existing reviewed population result'),'contract must carry forward existing reviewed result');
- check(contract.population.canonicalBaseline?.pullRequest===19&&contract.population.canonicalBaseline?.reviewedCommit==='448c85576b1bb2e4cde2de365eb5bc9df09b8bd2','reviewed baseline provenance mismatch');
- check(contract.population.canonicalBaseline?.repository==='LuceatLuxVestra42/Langrisser-2nd-test','reviewed baseline repository mismatch');
+ const baseline=contract.population?.canonicalBaseline;
+ check(baseline?.repository===ANCHORS.baselineRepository&&baseline?.pullRequest===ANCHORS.baselinePullRequest
+  &&baseline?.reviewedCommit===ANCHORS.baselineCommit,'reviewed baseline provenance mismatch');
+ check(baseline?.gitBlobSha1===ANCHORS.baselineCanonicalBlob&&baseline?.sortedIdSetSha256===ANCHORS.baselineIdSetSha256,
+  'immutable PR #19 baseline anchor mismatch');
 }
 export function resolveCurrentGeneralSsrEquipmentIds({canonical,contract}){
  checkOwnerContract(contract);
@@ -61,8 +69,22 @@ function validateHistoricalProvenance({evidence,contract}){
  check(hist.validationArtifact?.path===ANCHORS.predecessorValidationPath&&hist.validationArtifact?.gitBlobSha1===ANCHORS.predecessorValidationBlob,'historical validation contract anchor mismatch');
  check(snapshot?.recordCount===206&&same(snapshot.fields,PROVENANCE_FIELDS),'historical provenance integrity basis mismatch');
  check(snapshot.normalizedRecordSetSha256===HISTORICAL_PROVENANCE_SHA256,'historical provenance contract digest mismatch');
- check(snapshot.acquisitionClassRole?.includes('Preserved provenance field')&&snapshot.acquisitionClassRole.includes('never used to derive current semantic membership'),'historical acquisitionClass role mismatch');
- check(snapshot.semanticPopulationImpact==='none','historical provenance must not affect semantic membership');
+ check(snapshot.acquisitionClassRole?.includes('historical semantic transformation')&&snapshot.acquisitionClassRole.includes('do not select or recalculate current expected membership'),'historical acquisitionClass role mismatch');
+ check(snapshot.semanticPopulationImpact?.includes('No current membership-selector impact')&&snapshot.semanticPopulationImpact.includes('historical classification remains part of the traceable rationale'),'historical semantic role mismatch');
+ const rationale=hist.transformationRationale;
+ check(rationale?.role?.includes('historical semantic transformation provenance')&&rationale.role.includes('not the current membership selector'),'historical rationale role mismatch');
+ check(rationale.launch?.historicalSource==='Korean SSR launch sheets'&&rationale.launch.historicalExpectedCount===94
+  &&rationale.launch.predecessorTransformation?.includes('launch-sheet rows')
+  &&rationale.launch.derivedBoundary?.field==='maxEquipmentId'&&rationale.launch.derivedBoundary.value===264
+  &&rationale.launch.derivedBoundary.role.includes('not a current selector, future boundary, or numeric-range admission rule')
+  &&rationale.launch.predecessorClassificationBasis==='legacy-launch-sheet-count-and-canonical-boundary','launch historical rationale mismatch');
+ check(rationale.legacyAdditional?.historicalSource==='추가장비'&&rationale.legacyAdditional.groupCount===20
+  &&rationale.legacyAdditional.itemsPerGroup===4&&rationale.legacyAdditional.historicalExpectedCount===80
+  &&rationale.legacyAdditional.predecessorTransformation?.includes('Date/group-based matching')
+  &&rationale.legacyAdditional.predecessorClassificationBasis==='legacy-additional-sheet-date-group-match','legacy-additional historical rationale mismatch');
+ check(rationale.currentAdditional?.historicalExpectedCount===32
+  &&rationale.currentAdditional.predecessorClassificationBasis==='canonical-generic-complement-after-launch-and-legacy'
+  &&rationale.currentAdditional.currentRole?.includes('not current selector or reusable future auto-classification rule'),'current-additional historical rationale mismatch');
  check(evidence.provenance?.pinnedPredecessorCommit===ANCHORS.predecessorCommit,'historical predecessor commit anchor mismatch');
  check(evidence.provenance?.predecessorAcquisitionArtifact?.path===ANCHORS.acquisitionPath&&evidence.provenance.predecessorAcquisitionArtifact.gitBlobSha1===ANCHORS.acquisitionBlob,'historical acquisition evidence anchor mismatch');
  check(evidence.provenance?.acquisitionReferenceContract?.path===ANCHORS.referenceContractPath&&evidence.provenance.acquisitionReferenceContract.gitBlobSha1===ANCHORS.referenceContractBlob,'historical reference contract evidence anchor mismatch');
@@ -84,9 +106,11 @@ function validateHistoricalProvenance({evidence,contract}){
  check(same(evidence.historicalProvenance.classCounts,CLASS_COUNTS),'historical evidence class counts mismatch');
  check(digestHistoricalRecords(records)===snapshot.normalizedRecordSetSha256,'historical provenance snapshot digest mismatch');
  check(digestHistoricalRecords(records)===HISTORICAL_PROVENANCE_SHA256,'historical provenance differs from validator integrity anchor');
- check(evidence.provenance?.role?.includes('Historical provenance')&&evidence.provenance.role.includes('none of the predecessor artifacts'),'historical evidence role mismatch');
- check(evidence.historicalProvenance?.recordRole?.includes('historical provenance only'),'historical row role mismatch');
- return records.length;
+ check(evidence.provenance?.role?.includes('historical semantic transformation behind the inherited PR #19 B claim')
+  &&evidence.provenance.role.includes('do not select or recalculate the current expected population'),'historical evidence role mismatch');
+ check(evidence.historicalProvenance?.recordRole?.includes('historical transformation provenance for the inherited PR #19 B claim')
+  &&evidence.historicalProvenance.recordRole.includes('current membership selector'),'historical row role mismatch');
+ return [...ids].sort((a,b)=>a-b);
 }
 export function validateGeneralSsrEquipmentIdentity(args){
  const {canonical,evidence,contract,localization}=args;
@@ -95,7 +119,7 @@ export function validateGeneralSsrEquipmentIdentity(args){
  check(evidence.ownerContract?.path===CONTRACT_PATH&&evidence.ownerContract?.authorityRole===contract.authorityRole,'population evidence owner link mismatch');
  check(evidence.scope?.ownerContract===CONTRACT_PATH&&evidence.scope?.recordCount===206,'population evidence scope mismatch');
  check(evidence.scope?.membershipRule?.includes('no ConfigData heuristic')&&evidence.scope.membershipRule.includes('historical class union'),'membership rule boundary mismatch');
- const historicalRecordCount=validateHistoricalProvenance({evidence,contract});
+ const historicalIds=validateHistoricalProvenance({evidence,contract});
  const config=contract.sourceValidation?.configData;
  check(config?.repository==='LuceatLuxVestra42/langrisser-future-guide'&&config.sourcePath==='data/configdata/ConfigDataEquipmentInfo.json','ConfigData source locator mismatch');
  check(config.preservedSourceCommit==='4d5e9d141d9720ced9b5ad99fa7b52f99b0d0706'&&config.gitBlobSha1===ANCHORS.configDataBlob&&config.sha256===ANCHORS.configDataSha256,'ConfigData source integrity anchor mismatch');
@@ -106,6 +130,8 @@ export function validateGeneralSsrEquipmentIdentity(args){
  check(contract.crossRepositoryMapping?.filenameSimilarityUsed===false&&contract.crossRepositoryMapping?.nameJoinUsed===false&&contract.crossRepositoryMapping?.recordOrderUsed===false&&contract.crossRepositoryMapping?.idArithmeticUsed===false,'cross-repository mapping boundary mismatch');
  check(contract.boundaryFixtures?.ids?.includes(304)&&contract.boundaryFixtures?.ids?.includes(308),'boundary fixtures missing');
  const canonicalIds=resolveCurrentGeneralSsrEquipmentIds({canonical,contract});
+ check(digestIds(historicalIds)===ANCHORS.baselineIdSetSha256,'historical EquipmentID set differs from immutable PR #19 baseline');
+ check(same(historicalIds,canonicalIds),'historical EquipmentID set differs from current canonical baseline');
  check(localization?.evidenceClass==='A'&&localization.projectSource?.name===contract.sourceValidation.projectIntegration.name,'project integration source provenance mismatch');
  const lp=localization.projectSource,cp=contract.sourceValidation.projectIntegration;
  check(lp.fileId===cp.fileId&&lp.sha256===cp.sha256&&lp.bytes===cp.bytes&&lp.recordCount===206&&lp.joinKey==='EquipmentID'&&lp.duplicateEquipmentIdCount===0,'project integration source metadata mismatch');
@@ -116,7 +142,7 @@ export function validateGeneralSsrEquipmentIdentity(args){
  check(same(canonicalIds,localizedIds),'canonical and project integration EquipmentID parity mismatch');
  for(const id of contract.boundaryFixtures.ids)check(!canonicalIds.includes(id),`boundary fixture ${id} was admitted into population`);
  check(evidence.manualReview?.statement==='population inclusion != alias/replacement resolution'&&same(evidence.manualReview?.aliasReplacementMeaningUnresolvedIds,MANUAL_REVIEW_IDS),'alias/replacement review boundary mismatch');
- return {recordCount:canonicalIds.length,idSetSha256:digestIds(canonicalIds),integrationParity:'PASS',historicalRecordCount,boundaryFixtureIds:contract.boundaryFixtures.ids};
+ return {recordCount:canonicalIds.length,idSetSha256:digestIds(canonicalIds),integrationParity:'PASS',historicalRecordCount:historicalIds.length,boundaryFixtureIds:contract.boundaryFixtures.ids};
 }
 export async function loadAndValidateGeneralSsrEquipmentIdentity(root=process.cwd()){
  const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
