@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
-import { renderGenerated } from './generate.mjs';
+import { renderGenerated, renderGeneralSsrEquipment } from './generate.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -156,4 +156,26 @@ for (const hero of generatedJson.heroes) {
 }
 
 
-process.stdout.write('Hero slice validator: PASS (Hero relation/source locators, portrait asset integrity, generated freshness and presentation shape; unrelated semantic domains excluded)\n');
+const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.json');
+const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
+const equipmentGeneratedText = await readFile(resolve(root, 'generated/general-ssr-equipment.v1.json'), 'utf8');
+check(equipmentIdentity.records.length === 206 && equipmentLocalization.records.length === 206, 'General SSR Equipment canonical counts must remain 206');
+check(equipmentGeneratedText === renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'generated General SSR Equipment consumer is stale or non-deterministic');
+const equipmentGenerated = JSON.parse(equipmentGeneratedText);
+exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
+check(equipmentGenerated.schemaVersion === 1 && Array.isArray(equipmentGenerated.equipment) && equipmentGenerated.equipment.length === 206, 'generated General SSR Equipment count/schema mismatch');
+const identityIds = new Set(equipmentIdentity.records.map((record) => record.id));
+const localizationById = new Map();
+for (const record of equipmentLocalization.records) {
+  check(Number.isInteger(record.equipmentId) && !localizationById.has(record.equipmentId), 'malformed or duplicate General SSR Equipment localization ID');
+  localizationById.set(record.equipmentId, record);
+}
+const generatedIds = equipmentGenerated.equipment.map((record) => record.equipmentId);
+check(new Set(generatedIds).size === generatedIds.length && generatedIds.length === identityIds.size && generatedIds.every((id) => identityIds.has(id)), 'generated General SSR Equipment ID set differs from canonical identity');
+for (const record of equipmentGenerated.equipment) {
+  exactKeys(record, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'generated General SSR Equipment ' + record.equipmentId);
+  const localized = localizationById.get(record.equipmentId);
+  check(localized && record.nameKo === localized.nameKo && record.effectDescriptionKo === localized.effectDescriptionKo, 'generated General SSR Equipment localization parity mismatch for ' + record.equipmentId);
+}
+
+process.stdout.write('Hero slice and General SSR Equipment validators: PASS (Hero relation/source locators, portrait asset integrity, generated freshness and presentation shape; unrelated semantic domains excluded)\n');

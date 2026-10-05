@@ -1,7 +1,7 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated, renderSpSoldiers, renderJobGlossary } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers, renderJobGlossary, renderGeneralSsrEquipment } from './generate.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -30,6 +30,19 @@ const glossary = JSON.parse(glossaryText);
 exactKeys(glossary, ['schemaVersion', 'jobs'], 'generated Job glossary');
 if (glossary.schemaVersion !== 1 || !Array.isArray(glossary.jobs) || glossary.jobs.length !== jobLocalization.records.length) {
   throw new Error('built document has unsupported Job glossary presentation schema');
+}
+
+const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.json');
+const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
+const equipmentGeneratedPath = resolve('generated/general-ssr-equipment.v1.json');
+const equipmentGeneratedText = await readFile(equipmentGeneratedPath, 'utf8');
+if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
+const equipmentGenerated = JSON.parse(equipmentGeneratedText);
+exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
+if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment) || equipmentGenerated.equipment.length !== 206) throw new Error('unsupported General SSR Equipment presentation schema');
+for (const item of equipmentGenerated.equipment) {
+  exactKeys(item, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'General SSR Equipment ' + item.equipmentId);
+  if (!Number.isInteger(item.equipmentId) || typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed General SSR Equipment presentation');
 }
 
 const [soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats] = await Promise.all([
@@ -85,6 +98,7 @@ try {
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
+  await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
 
   for (const portraitPath of portraitPaths) {
     if (typeof portraitPath !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(portraitPath)) {
@@ -107,9 +121,12 @@ try {
   }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
+  if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
+  const packagedEquipment = JSON.parse(await readFile(join(output, 'generated', 'general-ssr-equipment.v1.json'), 'utf8'));
+  if (packagedEquipment.equipment.length !== 206) throw new Error('packaged General SSR Equipment count mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier and ${packagedGlossary.jobs.length} Job glossary records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
 } finally {
   await rm(output, { recursive: true, force: true });
 }
