@@ -10,6 +10,12 @@ const spManifestPath = 'evidence/localization/source/sp-job-names-ko.source-mani
 const jobInfoPath = 'evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json';
 const jobInfoManifestPath = 'evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.source-manifest.v1.json';
 const evidencePath = 'evidence/localization/sp-job-namespace.v1.json';
+const canonicalPath = 'canonical/sp-job-identities.v1.json';
+const spHeroPath = 'evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.v1.json';
+const spHeroManifestPath = 'evidence/source/configdata/ConfigDataSPHeroInfo.records-sp-relation.source-manifest.v1.json';
+const connectionPath = 'evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.v1.json';
+const connectionManifestPath = 'evidence/source/configdata/ConfigDataJobConnectionInfo.records-sp-relation.source-manifest.v1.json';
+const relationEvidencePath = 'evidence/source/jobs/hero-sp-job-relation.v1.json';
 const expectedIds = [128, 262, 368, 373, 377, 390, 414, 426, 437, 622, 633, 744, 769, 841, 858, 864, 878, 1097, 1119, 1214, 1220, 20229, 20243, 20707, 20811];
 const expectedStatusOnly = [1220, 20243, 20707];
 const check = (condition, message) => { if (!condition) throw new Error(`SP Job namespace evidence validation failed: ${message}`); };
@@ -24,8 +30,10 @@ const spSource = await validateSpJobSource();
 const spRows = spSource.records;
 check(JSON.stringify(spRows.map((row) => row.jobId)) === JSON.stringify(expectedIds), 'SP source IDs differ from the 25-record evidence scope');
 
-const [jobBytes, jobManifest, evidence, jobInfoText] = await Promise.all([
-  readBytes(jobInfoPath), parseJson(jobInfoManifestPath), parseJson(evidencePath), readText(jobInfoPath)
+const [jobBytes, jobManifest, evidence, jobInfoText, canonical, spHeroBytes, connectionBytes, spHeroManifest, connectionManifest, relationEvidence] = await Promise.all([
+  readBytes(jobInfoPath), parseJson(jobInfoManifestPath), parseJson(evidencePath), readText(jobInfoPath),
+  parseJson(canonicalPath), readBytes(spHeroPath), readBytes(connectionPath),
+  parseJson(spHeroManifestPath), parseJson(connectionManifestPath), parseJson(relationEvidencePath)
 ]);
 
 const subset = JSON.parse(jobInfoText);
@@ -108,6 +116,89 @@ for (const row of spRows) {
 check(JSON.stringify(expectedRecords.filter((row) => row.sourceKrFieldKind === 'status_marker').map((row) => row.jobId)) === JSON.stringify(expectedStatusOnly), 'status-only source rows differ from the expected three IDs');
 check(isDeepStrictEqual(evidence.records, expectedRecords), 'evidence rows, locators, classifications, or comparison results differ from source records');
 check(evidence.records.every((row) => Object.keys(row).length === 10), 'evidence row contains an unadmitted claim field');
+
+
+// SP Job identity admission responsibility: independently derive the snapshot scope
+// from pinned source relation records, then require parity with SP source and canonical.
+check(spHeroManifest.repoPreservedPath === spHeroPath && connectionManifest.repoPreservedPath === connectionPath, 'SP relation manifest locator mismatch');
+for (const manifest of [spHeroManifest, connectionManifest]) {
+  check(manifest.source.repository === 'LuceatLuxVestra42/langrisser-future-guide', 'SP relation source repository mismatch');
+  check(manifest.source.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'SP relation source commit mismatch');
+  check(manifest.source.sourceContract?.semanticContentAuthority === 'PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT', 'SP relation source authority mismatch');
+  check(manifest.canonical === false && manifest.generated === false && manifest.productionRuntimeDependency === false, 'SP relation subset authority boundary changed');
+}
+const spHeroRecords = JSON.parse(spHeroBytes.toString('utf8'));
+const connectionRecords = JSON.parse(connectionBytes.toString('utf8'));
+check(sha256(spHeroBytes) === spHeroManifest.recordsSha256 && spHeroRecords.length === spHeroManifest.recordCount, 'SPHeroInfo subset count/hash mismatch');
+check(sha256(connectionBytes) === connectionManifest.recordsSha256 && connectionRecords.length === connectionManifest.recordCount, 'JobConnectionInfo subset count/hash mismatch');
+check(spHeroManifest.selection.method === 'Select every row in the complete SPHeroInfo population; project source fields ID and JobConnection_ID without semantic edits. No name join, filename matching, order matching, arithmetic, approximate matching, or value normalization.', 'SPHeroInfo population selection rule changed');
+check(spHeroManifest.sourceRecordCount === spHeroRecords.length && connectionManifest.sourceRecordCount === 30066, 'pinned relation source population boundary changed');
+check(JSON.stringify(spHeroManifest.selection.selectedIds) === JSON.stringify(spHeroRecords.map((row) => row.ID)), 'SPHeroInfo selected IDs do not match preserved source records');
+const connectionById = new Map();
+for (const [index, row] of connectionRecords.entries()) {
+  exactKeys(row, ['ID', 'Job_ID'], `JobConnectionInfo row ${index + 1}`);
+  check(Number.isInteger(row.ID) && Number.isInteger(row.Job_ID), `JobConnectionInfo row ${index + 1} has invalid explicit IDs`);
+  check(!connectionById.has(row.ID), `duplicate JobConnectionInfo.ID ${row.ID}`);
+  connectionById.set(row.ID, row.Job_ID);
+}
+const graphRows = [];
+const seenSpHeroIds = new Set();
+for (const [index, row] of spHeroRecords.entries()) {
+  exactKeys(row, ['ID', 'JobConnection_ID'], `SPHeroInfo row ${index + 1}`);
+  check(Number.isInteger(row.ID) && Number.isInteger(row.JobConnection_ID), `SPHeroInfo row ${index + 1} has invalid explicit IDs`);
+  check(!seenSpHeroIds.has(row.ID), `duplicate SPHeroInfo.ID ${row.ID}`);
+  seenSpHeroIds.add(row.ID);
+  check(connectionById.has(row.JobConnection_ID), `missing explicit JobConnectionInfo.ID ${row.JobConnection_ID}`);
+  graphRows.push({ heroId: row.ID, connectionId: row.JobConnection_ID, jobId: connectionById.get(row.JobConnection_ID) });
+}
+check(connectionRecords.length === graphRows.length, 'JobConnectionInfo subset has missing or extra records relative to complete SPHeroInfo relation scope');
+check(JSON.stringify(connectionManifest.selection.selectedIds) === JSON.stringify(graphRows.map((row) => row.connectionId)), 'JobConnectionInfo selected IDs do not match explicit SPHeroInfo.JobConnection_ID values');
+const relationDerivedIds = graphRows.map((row) => row.jobId).sort((a, b) => a - b);
+check(new Set(relationDerivedIds).size === relationDerivedIds.length, 'relation-derived SP Job IDs are not distinct');
+const spSourceIds = spRows.map((row) => row.jobId).sort((a, b) => a - b);
+check(JSON.stringify(relationDerivedIds) === JSON.stringify(spSourceIds), 'relation-derived IDs differ from preserved SP source explicit 전직ID set');
+check(JSON.stringify([...jobById.keys()].sort((a, b) => a - b)) === JSON.stringify(relationDerivedIds), 'pinned ConfigDataJobInfo records do not match relation-derived IDs');
+check(relationEvidence.records.length === graphRows.length, 'preserved Hero↔SP relation evidence population differs from pinned source graph');
+const relationByHero = new Map(relationEvidence.records.map((row) => [row.heroId, row]));
+for (const row of graphRows) {
+  const relation = relationByHero.get(row.heroId);
+  check(relation && relation.spJobConnectionId === row.connectionId && relation.spJobId === row.jobId, `preserved relation evidence differs from source graph for SPHeroInfo.ID ${row.heroId}`);
+}
+
+exactKeys(canonical, ['schemaVersion', 'canonical', 'generated', 'productionRuntimeDependency', 'scope', 'evidence', 'limitations', 'records'], 'SP Job identity canonical');
+check(canonical.schemaVersion === 1 && canonical.canonical === true && canonical.generated === false && canonical.productionRuntimeDependency === false, 'SP Job identity canonical authority flags changed');
+exactKeys(canonical.scope, ['type', 'sourceRepository', 'sourceCommit', 'sourceCommitDate', 'selectionRule', 'claimBoundary'], 'SP Job identity canonical scope');
+check(canonical.scope.type === 'pinned_configdata_snapshot' && canonical.scope.sourceRepository === 'LuceatLuxVestra42/langrisser-future-guide', 'SP Job identity snapshot scope changed');
+check(canonical.scope.sourceCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c' && canonical.scope.sourceCommitDate === '2026-09-02T01:45:21Z', 'SP Job identity pinned snapshot changed');
+check(canonical.scope.selectionRule === 'Use every record in the complete ConfigDataSPHeroInfo table in the pinned snapshot; follow explicit JobConnection_ID to ConfigDataJobConnectionInfo.ID, then explicit Job_ID to ConfigDataJobInfo.ID; admit distinct reached JobInfo IDs only when the resulting set exactly equals the preserved SP source 전직ID set.', 'SP Job identity selection rule changed');
+check(canonical.scope.claimBoundary === 'Snapshot-scoped SP Job identity and namespace only; does not claim an all-game or current-server complete SP Job population.', 'SP Job identity global/current completeness boundary changed');
+exactKeys(canonical.evidence, ['relationDerivedSourceManifests', 'spJobRecordSourceManifest', 'spSourceManifest', 'priorNamespaceEvidence', 'relationEvidence', 'schemaEvidence', 'limitation'], 'SP Job identity evidence references');
+check(isDeepStrictEqual(canonical.evidence.relationDerivedSourceManifests, [spHeroManifestPath, connectionManifestPath]), 'SP Job identity relation manifest references changed');
+check(canonical.evidence.spJobRecordSourceManifest === jobInfoManifestPath && canonical.evidence.spSourceManifest === spManifestPath && canonical.evidence.priorNamespaceEvidence === evidencePath && canonical.evidence.relationEvidence === relationEvidencePath, 'SP Job identity evidence references changed');
+check(canonical.evidence.schemaEvidence === 'evidence/source/jobs/hero-sp-job-relation.v1.json#/schemaEvidence', 'SP Job identity schema evidence reference changed');
+check(Array.isArray(canonical.records) && canonical.records.length === 25, 'SP Job identity canonical population must be 25 after exact parity');
+const relationByJobId = new Map(graphRows.map((row) => [row.jobId, row]));
+const expectedCanonicalRecords = relationDerivedIds.map((id) => {
+  const relation = relationByJobId.get(id);
+  return {
+    id,
+    spSourceLocator: `${spPath}#전직ID=${id}`,
+    jobInfoLocator: `${jobInfoPath}#ID=${id}`,
+    relationSourceLocators: {
+      spHeroInfo: `${spHeroPath}#ID=${relation.heroId}`,
+      jobConnectionInfo: `${connectionPath}#ID=${relation.connectionId}`
+    },
+    evidenceClasses: { sourceRecordIdentity: 'A', namespaceInterpretation: 'B' }
+  };
+});
+check(isDeepStrictEqual(canonical.records, expectedCanonicalRecords), 'SP Job identity canonical IDs, relation derivation, or per-ID provenance mismatch');
+check(canonical.records.every((row) => Object.keys(row).length === 5), 'SP Job identity record contains localization, release, Hero relation, or extra claim fields');
+check(isDeepStrictEqual(canonical.limitations, [
+  'The snapshot does not establish a permanent all-game SP Job population.',
+  'The snapshot does not establish a current-server complete SP Job population or release status.',
+  'No Korean localization, Hero relation ownership, job tree/order, unlock condition, or UI eligibility is admitted here.',
+  'Three source Korean-field status markers are not names; official Korean localization provenance is unverified.'
+]), 'SP Job identity canonical limitations changed');
 
 return { records: expectedRecords, sourceRecords: spRows, evidence, statusOnlyIds: expectedStatusOnly };
 }
