@@ -14,7 +14,7 @@ const ANCHORS={
  baselineRepository:'LuceatLuxVestra42/Langrisser-2nd-test',
  baselinePullRequest:19,
  baselineCommit:'448c85576b1bb2e4cde2de365eb5bc9df09b8bd2',
- baselineCanonicalBlob:'dba722881bd5ee1f508176a6052513b3e09ea18b',
+ baselineCanonicalBlob:'000826ba1b2216c68897b6a192850e6eb669f989',
  baselineIdSetSha256:'8ebfa88ede242bee1d12527ea66f73f0aa4f2ef50f50eb27cea230e7ed551e68',
  predecessorRepository:'LuceatLuxVestra42/langrisser-future-guide',
  predecessorCommit:'57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff',
