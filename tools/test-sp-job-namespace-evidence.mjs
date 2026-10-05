@@ -11,6 +11,7 @@ await cp(source, repo, { recursive: true, filter: (path) => !path.split('/').inc
 const subsetPath = 'evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json';
 const manifestPath = 'evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.source-manifest.v1.json';
 const evidencePath = 'evidence/localization/sp-job-namespace.v1.json';
+const canonicalPath = 'canonical/sp-job-identities.v1.json';
 const validator = 'tools/validate-sp-job-namespace-evidence.mjs';
 const full = (path) => join(repo, path);
 const run = () => spawnSync(process.execPath, [validator], { cwd: repo, encoding: 'utf8' });
@@ -35,6 +36,14 @@ async function editSubset(edit) {
 }
 async function editEvidence(edit) {
   const path = full(evidencePath);
+  const original = await readFile(path, 'utf8');
+  const value = JSON.parse(original);
+  edit(value);
+  await writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
+  return async () => writeFile(path, original);
+}
+async function editCanonical(edit) {
+  const path = full(canonicalPath);
   const original = await readFile(path, 'utf8');
   const value = JSON.parse(original);
   edit(value);
@@ -77,6 +86,46 @@ try {
   restore = await editEvidence((value) => { value.releaseStatus = 'released'; });
   restores.push(restore);
   if (!expectFailure('extra release claim field').includes('unexpected or missing fields')) throw new Error('extra release claim was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.records = value.records.filter((row) => row.id !== 128); });
+  restores.push(restore);
+  if (!expectFailure('canonical ID removal').includes('25 after exact parity')) throw new Error('canonical ID removal was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.records.push({ ...value.records[0], id: 129 }); });
+  restores.push(restore);
+  if (!expectFailure('canonical extra ID').includes('canonical IDs, relation derivation')) throw new Error('canonical extra ID was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.records.find((row) => row.id === 262).id = 128; });
+  restores.push(restore);
+  if (!expectFailure('canonical duplicate ID').includes('canonical IDs, relation derivation')) throw new Error('canonical duplicate ID was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.records.find((row) => row.id === 128).relationSourceLocators.jobConnectionInfo = 'wrong#ID=405'; });
+  restores.push(restore);
+  if (!expectFailure('canonical relation graph mismatch').includes('canonical IDs, relation derivation')) throw new Error('relation graph mismatch was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { delete value.scope.claimBoundary; });
+  restores.push(restore);
+  if (!expectFailure('canonical scope removal').includes('scope has unexpected or missing fields')) throw new Error('canonical scope removal was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.scope.claimBoundary = 'Complete global SP Job population.'; });
+  restores.push(restore);
+  if (!expectFailure('global completeness claim').includes('global/current completeness boundary')) throw new Error('global completeness claim was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.records[0].nameKo = '한섭 미실장'; });
+  restores.push(restore);
+  if (!expectFailure('localization field contamination').includes('canonical IDs, relation derivation')) throw new Error('localization field was not rejected');
+  await restore(); restores.pop();
+
+  restore = await editCanonical((value) => { value.records[0].releaseStatus = 'unreleased'; });
+  restores.push(restore);
+  if (!expectFailure('release field contamination').includes('canonical IDs, relation derivation')) throw new Error('release field was not rejected');
   await restore(); restores.pop();
 
   const clean = run();
