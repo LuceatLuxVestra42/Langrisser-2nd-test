@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "evidenceClass": "B",
   "responsibility": "General SSR Equipment identity/population",
-  "claim": "The current General SSR Equipment population is the existing reviewed 206 identity result explicitly adopted by the current owner contract. It is not newly derived from ConfigData fields or historical predecessor acquisition classes.",
+  "claim": "The current General SSR Equipment population carries forward the exact 206 Equipment IDs admitted by reviewed PR #19. Its inherited B support traces through the predecessor's historical acquisition classifications; those classifications explain the prior transformation but do not select or recalculate the current expected population.",
   "scope": {
     "entity": "Equipment",
     "population": "GENERAL_SSR",
     "recordCount": 206,
     "identityKey": "ConfigDataEquipmentInfo.ID / equipmentId",
     "ownerContract": "evidence/source/equipment/general-ssr-equipment-population-contract.v1.json",
-    "membershipRule": "The sorted ID set is pinned by the current owner contract to the existing reviewed canonical baseline; no ConfigData heuristic or historical class union derives membership."
+    "membershipRule": "Current expected membership is the exact sorted ID set pinned to the immutable PR #19 reviewed baseline. The historical class union preserves the inherited B transformation rationale but is not the current membership selector; no ConfigData heuristic derives membership."
   },
   "provenance": {
     "predecessorRepository": "LuceatLuxVestra42/langrisser-future-guide",
@@ -45,11 +45,11 @@
       "inheritedValidatedRank4Count": 398,
       "explicitIdentityField": "ID"
     },
-    "role": "Historical provenance and migration trace only; none of the predecessor artifacts or class membership/counts define current semantic population validity."
+    "role": "The predecessor artifacts and acquisition classes preserve the historical semantic transformation behind the inherited PR #19 B claim; they do not select or recalculate the current expected population."
   },
   "limitations": [
     "Evidence class B reuses a traceable prior validated semantic claim without reopening the full raw-source investigation.",
-    "Acquisition classes establish this General SSR population scope only; they do not establish Korean release status, alias/replacement identity, Hero relations, or structured gameplay-effect semantics.",
+    "Historical acquisition classifications explain the inherited General SSR population claim only. They do not serve as the current membership selector or establish Korean release status, alias/replacement identity, Hero relations, or structured gameplay-effect semantics.",
     "The eight historical duplicate/replacement-note IDs remain admitted population members but no alias/replacement meaning is asserted."
   ],
   "manualReview": {
@@ -1311,7 +1311,7 @@
     "predecessorRepository": "LuceatLuxVestra42/langrisser-future-guide",
     "pinnedPredecessorCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
     "acquisitionArtifactPath": "data/generated/equipment_stage2_7_acquisition.json",
-    "recordRole": "Each legacy acquisitionClass and predecessorLocator value below is historical provenance only.",
+    "recordRole": "Each acquisitionClass and predecessorLocator preserves historical transformation provenance for the inherited PR #19 B claim; neither is a current membership selector.",
     "classCounts": {
       "launch": 94,
       "legacy-additional": 80,

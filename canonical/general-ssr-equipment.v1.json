@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "responsibility": "General SSR Equipment identity/population",
-  "scope": "Exactly 206 General SSR Equipment identities inherited from the traceable validated acquisition-class union. Localization, Korean release state, alias/replacement meaning, Hero relations, effects, and frontend metadata are not owned here.",
+  "scope": "Claim-scoped General SSR Equipment population carrying forward the exact 206 Equipment IDs admitted by the reviewed PR #19 baseline. Historical acquisition classifications are preserved as transformation provenance for the inherited B claim and are not the current membership selector. Each record identifies a source-native EquipmentID record within this admitted scope; conceptual distinctness and alias/replacement semantics are not asserted. Future or global domain completeness, localization, Korean release state, Hero relations, structured effects, and frontend metadata are outside this owner.",
   "records": [
     {
       "entity": "Equipment",

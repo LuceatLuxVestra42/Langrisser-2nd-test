@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolveCurrentGeneralSsrEquipmentIds, validateGeneralSsrEquipmentIdentity } from './validate-general-ssr-equipment-identity.mjs';
 const read=async p=>JSON.parse(await readFile(p,'utf8'));
@@ -28,7 +29,25 @@ assertFullFails(x=>x.canonical.records.push({...x.canonical.records[0],id:304,pr
 assertFullFails(x=>x.canonical.records.push({...x.canonical.records[0],id:308,provenance:'evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=308'}),/canonical population count|ID set/);
 assertFullFails(x=>x.localization.records.pop(),/project localization ID count/);
 assertFullFails(x=>x.contract.sourceValidation.configData.sha256='0'.repeat(64),/ConfigData source integrity anchor mismatch/);
+assertFullFails(x=>x.contract.population.canonicalBaseline.repository='unexpected/repository',/reviewed baseline/);
+assertFullFails(x=>x.contract.population.canonicalBaseline.pullRequest=20,/reviewed baseline/);
+assertFullFails(x=>x.contract.population.canonicalBaseline.reviewedCommit='0'.repeat(40),/reviewed baseline/);
+assertFullFails(x=>x.contract.population.canonicalBaseline.gitBlobSha1='0'.repeat(40),/immutable PR #19 baseline anchor/);
+assertFullFails(x=>x.contract.population.canonicalBaseline.sortedIdSetSha256='0'.repeat(64),/immutable PR #19 baseline anchor/);
+const coordinatedBaselineTamper=changed(x=>{
+ const record=x.canonical.records[0];
+ record.id=9999;
+ record.provenance='evidence/source/equipment/general-ssr-equipment-population.v1.json#EquipmentID=9999';
+ const ids=x.canonical.records.map(r=>r.id).sort((a,b)=>a-b);
+ x.contract.population.canonicalBaseline.sortedIdSetSha256=createHash('sha256').update(JSON.stringify(ids),'utf8').digest('hex');
+});
+assert.throws(()=>validateGeneralSsrEquipmentIdentity(coordinatedBaselineTamper),/immutable PR #19 baseline anchor/);
 assertFullFails(x=>x.canonical.records[0].aliasOf=1,/canonical identity record contains out-of-scope semantic fields/);
+for (const mutate of [
+ x=>x.evidence.records.pop(),
+ x=>x.evidence.records.push({...x.evidence.records.at(-1),equipmentId:999999,predecessorLocator:'data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999'}),
+ x=>{x.evidence.records[0].equipmentId=999999;x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999';}
+]) assertHistoricalMutation(mutate,/historical/); // removal, addition and replacement are rejected
 assertHistoricalMutation(x=>x.evidence.records[0].equipmentId=999999,/historical predecessor locator mismatch/); // ID-only tamper
 assertHistoricalMutation(x=>x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999999',/historical predecessor locator mismatch/); // locator-only tamper
 assertHistoricalMutation(x=>{x.evidence.records[0].equipmentId=999999;x.evidence.records[0].predecessorLocator='data/generated/equipment_stage2_7_acquisition.json#equipmentId=999998';},/historical predecessor locator mismatch/); // ID/locator mismatch

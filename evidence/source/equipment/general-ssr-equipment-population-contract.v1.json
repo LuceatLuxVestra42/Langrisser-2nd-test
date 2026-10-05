@@ -82,8 +82,36 @@
       ],
       "normalization": "For each record, serialize only the listed fields in that order; sort records by numeric equipmentId ascending; serialize the array as compact UTF-8 JSON with no insignificant whitespace; SHA-256 the bytes.",
       "normalizedRecordSetSha256": "f914fe93767074df78dc7353ef44a90578750e9be0b4a6f96874484aa7fdfe29",
-      "acquisitionClassRole": "Preserved provenance field. Its value is integrity-protected as part of the historical snapshot and is never used to derive current semantic membership.",
-      "semanticPopulationImpact": "none"
+      "acquisitionClassRole": "Acquisition classes preserve the predecessor's historical semantic transformation for the inherited PR #19 B claim; they are integrity-protected provenance and do not select or recalculate current expected membership.",
+      "semanticPopulationImpact": "No current membership-selector impact; the historical classification remains part of the traceable rationale for the inherited B claim."
+    },
+    "transformationRationale": {
+      "role": "historical semantic transformation provenance for the inherited PR #19 B claim; not the current membership selector.",
+      "launch": {
+        "historicalSource": "Korean SSR launch sheets",
+        "historicalExpectedCount": 94,
+        "predecessorTransformation": "Matched launch-sheet rows against the predecessor generic Equipment population.",
+        "derivedBoundary": {
+          "field": "maxEquipmentId",
+          "value": 264,
+          "role": "Historical launch-classification provenance only; not a current selector, future boundary, or numeric-range admission rule."
+        },
+        "predecessorClassificationBasis": "legacy-launch-sheet-count-and-canonical-boundary"
+      },
+      "legacyAdditional": {
+        "historicalSource": "추가장비",
+        "groupCount": 20,
+        "itemsPerGroup": 4,
+        "historicalExpectedCount": 80,
+        "predecessorTransformation": "Date/group-based matching against the historical additional-equipment reference; recorded mismatches remain traceable in the pinned reference contract.",
+        "predecessorClassificationBasis": "legacy-additional-sheet-date-group-match"
+      },
+      "currentAdditional": {
+        "historicalExpectedCount": 32,
+        "predecessorTransformation": "Predecessor generic-population complement after launch and legacy-additional classifications.",
+        "predecessorClassificationBasis": "canonical-generic-complement-after-launch-and-legacy",
+        "currentRole": "Historical transformation provenance only; not current selector or reusable future auto-classification rule."
+      }
     }
   },
   "crossRepositoryMapping": {
