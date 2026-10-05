@@ -39,7 +39,10 @@ const equipmentGeneratedText = await readFile(equipmentGeneratedPath, 'utf8');
 if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
-if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment) || equipmentGenerated.equipment.length !== 206) throw new Error('unsupported General SSR Equipment presentation schema');
+if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment)) throw new Error('unsupported General SSR Equipment presentation schema');
+if (equipmentGenerated.equipment.length !== equipmentIdentity.records.length) throw new Error('General SSR Equipment generated/canonical count mismatch');
+const generatedEquipmentIds = equipmentGenerated.equipment.map((item) => item.equipmentId);
+if (generatedEquipmentIds.some((id) => !Number.isInteger(id)) || new Set(generatedEquipmentIds).size !== generatedEquipmentIds.length) throw new Error('General SSR Equipment generated IDs are malformed or duplicated');
 for (const item of equipmentGenerated.equipment) {
   exactKeys(item, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'General SSR Equipment ' + item.equipmentId);
   if (!Number.isInteger(item.equipmentId) || typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed General SSR Equipment presentation');
@@ -122,8 +125,10 @@ try {
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
-  const packagedEquipment = JSON.parse(await readFile(join(output, 'generated', 'general-ssr-equipment.v1.json'), 'utf8'));
-  if (packagedEquipment.equipment.length !== 206) throw new Error('packaged General SSR Equipment count mismatch');
+  const packagedEquipmentText = await readFile(join(output, 'generated', 'general-ssr-equipment.v1.json'), 'utf8');
+  if (packagedEquipmentText !== equipmentGeneratedText) throw new Error('packaged General SSR Equipment differs from validated generated artifact');
+  const packagedEquipment = JSON.parse(packagedEquipmentText);
+  if (packagedEquipment.equipment.length !== equipmentGenerated.equipment.length) throw new Error('packaged General SSR Equipment count differs from generated artifact');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
   process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
