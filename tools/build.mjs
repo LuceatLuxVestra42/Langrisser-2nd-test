@@ -1,7 +1,7 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment } from './generate.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -36,7 +36,7 @@ const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.jso
 const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
 const equipmentGeneratedPath = resolve('generated/general-ssr-equipment.v1.json');
 const equipmentGeneratedText = await readFile(equipmentGeneratedPath, 'utf8');
-if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
+if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('undefined is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
 if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment)) throw new Error('unsupported General SSR Equipment presentation schema');
@@ -46,6 +46,21 @@ if (generatedEquipmentIds.some((id) => !Number.isInteger(id)) || new Set(generat
 for (const item of equipmentGenerated.equipment) {
   exactKeys(item, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'General SSR Equipment ' + item.equipmentId);
   if (!Number.isInteger(item.equipmentId) || typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed General SSR Equipment presentation');
+}
+
+const exclusiveEquipmentIdentity = await readJson('canonical/exclusive-equipment.v1.json');
+const exclusiveEquipmentLocalization = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
+const exclusiveEquipmentGeneratedPath = resolve('generated/exclusive-equipment.v1.json');
+const exclusiveEquipmentGeneratedText = await readFile(exclusiveEquipmentGeneratedPath, 'utf8');
+if (exclusiveEquipmentGeneratedText !== renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization)) throw new Error('generated Exclusive Equipment is stale or non-deterministic');
+const exclusiveEquipmentGenerated = JSON.parse(exclusiveEquipmentGeneratedText);
+exactKeys(exclusiveEquipmentGenerated, ['schemaVersion', 'equipment'], 'generated Exclusive Equipment');
+if (exclusiveEquipmentGenerated.schemaVersion !== 1 || !Array.isArray(exclusiveEquipmentGenerated.equipment) || exclusiveEquipmentGenerated.equipment.length !== 167) throw new Error('unsupported Exclusive Equipment presentation schema or count');
+const exclusiveEquipmentIds = exclusiveEquipmentGenerated.equipment.map((item) => item.equipmentId);
+if (exclusiveEquipmentIds.some((id) => !Number.isSafeInteger(id)) || new Set(exclusiveEquipmentIds).size !== 167) throw new Error('Exclusive Equipment generated IDs are malformed or duplicated');
+for (const item of exclusiveEquipmentGenerated.equipment) {
+  exactKeys(item, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Exclusive Equipment ' + item.equipmentId);
+  if (typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed Exclusive Equipment presentation');
 }
 
 const [soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats] = await Promise.all([
@@ -125,6 +140,7 @@ try {
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
   await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
+  await cp(exclusiveEquipmentGeneratedPath, join(output, 'generated', 'exclusive-equipment.v1.json'));
 
   for (const portraitPath of portraitPaths) {
     if (typeof portraitPath !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(portraitPath)) {
@@ -149,13 +165,18 @@ try {
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
+  if (!app.includes("fetch('./generated/exclusive-equipment.v1.json')")) throw new Error('built app does not resolve the generated Exclusive Equipment entry');
   const packagedEquipmentText = await readFile(join(output, 'generated', 'general-ssr-equipment.v1.json'), 'utf8');
   if (packagedEquipmentText !== equipmentGeneratedText) throw new Error('packaged General SSR Equipment differs from validated generated artifact');
   const packagedEquipment = JSON.parse(packagedEquipmentText);
+  const packagedExclusiveEquipmentText = await readFile(join(output, 'generated', 'exclusive-equipment.v1.json'), 'utf8');
+  if (packagedExclusiveEquipmentText !== exclusiveEquipmentGeneratedText) throw new Error('packaged Exclusive Equipment differs from validated generated artifact');
+  const packagedExclusiveEquipment = JSON.parse(packagedExclusiveEquipmentText);
+  if (packagedExclusiveEquipment.equipment.length !== 167 || new Set(packagedExclusiveEquipment.equipment.map((item) => item.equipmentId)).size !== 167) throw new Error('packaged Exclusive Equipment count or IDs differ from generated artifact');
   if (packagedEquipment.equipment.length !== equipmentGenerated.equipment.length) throw new Error('packaged General SSR Equipment count differs from generated artifact');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
 } finally {
   await rm(output, { recursive: true, force: true });
 }

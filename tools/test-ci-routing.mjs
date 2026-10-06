@@ -22,6 +22,13 @@ const general=route('canonical/general-ssr-equipment.v1.json');
 assert.equal(general.run_general_ssr,true);
 for(const k of ['run_hero','run_job','run_soldier','run_exclusive','run_hero_job_relation','run_hero_soldier_relation','run_sp_normal_relation','run_hero_exclusive_relation','run_build','run_full_suite']) assert.equal(general[k],false,k);
 assert.equal(route('evidence/localization/general-ssr-equipment-ko.v1.json').run_general_ssr,true);
+for (const p of ['generated/exclusive-equipment.v1.json','tools/generate.mjs','tools/build.mjs','tools/validate-exclusive-equipment-presentation.mjs','tools/test-exclusive-equipment-presentation.mjs']) {
+  const r = route(p);
+  assert.equal(r.run_exclusive, true, p);
+  assert.equal(r.run_build, true, p);
+  assert.equal(r.run_full_suite, false, p);
+}
+
 const soldierRelation=route('canonical/sp-soldier-normal-relations.v1.json');
 assert.equal(soldierRelation.run_soldier,true);
 assert.equal(soldierRelation.run_sp_normal_relation,true);

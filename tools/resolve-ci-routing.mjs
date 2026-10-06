@@ -81,6 +81,11 @@ const entries = [
 ['evidence/localization/exclusive-equipment-ko.v1.json','EXCLUSIVE_EQUIPMENT HERO_EXCLUSIVE_RELATION BUILD_PRESENTATION'],
 ['evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json','HERO_EXCLUSIVE_RELATION EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['generated/hero-slice.v1.json','HERO BUILD_PRESENTATION'],
+['generated/exclusive-equipment.v1.json','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
+['tools/generate.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
+['tools/build.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
+['tools/validate-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
+['tools/test-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['generated/sp-soldiers.v1.json','SOLDIER BUILD_PRESENTATION'],
 ['app.js','BUILD_PRESENTATION'],['index.html','BUILD_PRESENTATION'],['styles.css','BUILD_PRESENTATION'],
 ];

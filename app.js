@@ -3,6 +3,7 @@ const spSoldierContainer = document.querySelector('#sp-soldiers');
 const normalSoldierContainer = document.querySelector('#normal-soldiers');
 const jobGlossaryContainer = document.querySelector('#job-glossary');
 const generalEquipmentContainer = document.querySelector('#general-ssr-equipment');
+const exclusiveEquipmentContainer = document.querySelector('#exclusive-equipment');
 
 function addHero(hero) {
   const article = document.createElement('article');
@@ -127,6 +128,43 @@ try {
   status.className = 'status status-error';
   status.textContent = '일반 SSR 장비 정보를 불러오지 못했습니다.';
   generalEquipmentContainer.replaceChildren(status);
+  console.error(error);
+}
+
+function addExclusiveEquipment(item) {
+  const article = document.createElement('article');
+  article.className = 'general-equipment-card';
+  const heading = document.createElement('div');
+  heading.className = 'general-equipment-heading';
+  const name = document.createElement('h3');
+  name.textContent = item.nameKo;
+  const id = document.createElement('p');
+  id.className = 'general-equipment-id';
+  id.textContent = 'Equipment ID ' + item.equipmentId;
+  heading.append(name, id);
+  const effect = document.createElement('p');
+  effect.className = 'general-equipment-effect';
+  effect.textContent = item.effectDescriptionKo;
+  article.append(heading, effect);
+  exclusiveEquipmentContainer.append(article);
+}
+
+try {
+  const response = await fetch('./generated/exclusive-equipment.v1.json');
+  if (!response.ok) throw new Error('Generated Exclusive Equipment request failed (' + response.status + ')');
+  const data = await response.json();
+  if (data.schemaVersion !== 1 || !Array.isArray(data.equipment) || data.equipment.length !== 167) throw new Error('Unsupported Exclusive Equipment data');
+  const ids = data.equipment.map((item) => item.equipmentId);
+  if (ids.some((id) => !Number.isSafeInteger(id)) || new Set(ids).size !== 167) throw new Error('Malformed or duplicate Exclusive Equipment ID');
+  if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
+    || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('Exclusive Equipment presentation is incomplete');
+  exclusiveEquipmentContainer.replaceChildren();
+  for (const item of data.equipment) addExclusiveEquipment(item);
+} catch (error) {
+  const status = document.createElement('p');
+  status.className = 'status status-error';
+  status.textContent = '전용 장비 정보를 불러오지 못했습니다.';
+  exclusiveEquipmentContainer.replaceChildren(status);
   console.error(error);
 }
 
