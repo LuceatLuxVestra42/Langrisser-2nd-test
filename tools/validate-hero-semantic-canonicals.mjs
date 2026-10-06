@@ -90,10 +90,6 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     addExpectedRelation(row.heroId, row.spJobId,
       `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${row.heroId}`, 'SP relation evidence');
   }
-  check(classicEvidence.records.length === 18 && spEvidence.records.length === 25
-    && expectedRelations.size === classicEvidence.records.length + spEvidence.records.length + expansionEvidence.records.length,
-    'current evidence-backed relation scope must match selected, SP, and explicit expansion evidence');
-
   const jobEvidenceRows = [...classicJobs, ...spJobs, ...expansionJobs];
   const jobEvidenceById = new Map();
   for (const row of jobEvidenceRows) {
@@ -165,6 +161,10 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     addExpectedRelation(ref.heroId, connection.Job_ID,
       `${expansionPath}#heroId=${ref.heroId}&connectionId=${ref.connectionId}`, 'Hero connection expansion evidence');
   }
+  check(classicEvidence.records.length === 18 && spEvidence.records.length === 25
+    && expectedRelations.size === classicEvidence.records.length + spEvidence.records.length + expansionEvidence.records.length,
+    'current evidence-backed relation scope must match selected, SP, and explicit expansion evidence');
+
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
