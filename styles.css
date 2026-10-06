@@ -32,7 +32,7 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .exclusive-equipment-effect { margin: 0; color: #c5cfdb; font-size: .82rem; line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; }
 .status { grid-column: 1 / -1; padding: 24px; color: #b4bfce; }
 .status-error { color: #ffb8ad; }
-.sp-soldier-section { margin-top: 64px; }
+.sp-soldier-section, .normal-soldier-section { margin-top: 64px; }
 .section-heading { margin-bottom: 22px; }
 .section-heading h2 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.25rem); }
 .sp-soldier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; }
