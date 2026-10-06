@@ -71,12 +71,9 @@ for (const soldier of spGenerated.soldiers) {
   if (!Object.values(soldier.normalSoldierBaseStats).every(Number.isFinite)) throw new Error(`malformed NORMAL Soldier base stats for SP Soldier ${soldier.spSoldierId}`);
 }
 
-const normalSoldierIdentities = await readJson('canonical/soldiers.v1.json');
-const normalSoldierLocalizations = await readJson('canonical/normal-soldier-localizations-ko.v1.json');
-const normalSoldierBaseStats = await readJson('canonical/normal-soldier-base-stats.v1.json');
 const normalSoldierGeneratedPath = resolve('generated/normal-soldiers.v1.json');
 const normalSoldierGeneratedText = await readFile(normalSoldierGeneratedPath, 'utf8');
-if (normalSoldierGeneratedText !== renderNormalSoldiers(normalSoldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats)) {
+if (normalSoldierGeneratedText !== renderNormalSoldiers(soldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats)) {
   throw new Error('generated NORMAL Soldier data is stale or non-deterministic');
 }
 const normalSoldierGenerated = JSON.parse(normalSoldierGeneratedText);
