@@ -5,6 +5,7 @@ import { resolve, sep } from 'node:path';
 const fail = (message) => { throw new Error('Hero portrait expansion validation failed: ' + message); };
 const check = (condition, message) => { if (!condition) fail(message); };
 const targets = [28, 32, 52, 53];
+const legacyPortraitIds = [5, 6, 8];
 const presentationIds = [5, 6, 8, 28, 32, 52, 53];
 
 export async function validateHeroPortraitExpansion(root = process.cwd()) {
@@ -25,7 +26,7 @@ export async function validateHeroPortraitExpansion(root = process.cwd()) {
   check(Array.isArray(heroRows) && targets.every((id) => heroRows.filter((r) => r.ID === id).length === 1), 'HeroInfo target ID resolution is not unique');
   check(JSON.stringify(canonical.records.map((r) => r.id)) === JSON.stringify(presentationIds), 'presentation canonical population must be exactly [5,6,8,28,32,52,53]');
   check(JSON.stringify(generated.heroes.map((r) => r.id)) === JSON.stringify(presentationIds), 'generated presentation population must be exactly [5,6,8,28,32,52,53]');
-  check(JSON.stringify(slice.scope.heroes) === JSON.stringify(presentationIds) && slice.records.length === 3 && prior.records.length === 3, 'existing Hero 5/6/8 evidence scope changed');
+  check(JSON.stringify(slice.scope.heroes) === JSON.stringify(legacyPortraitIds) && slice.records.length === 3 && prior.records.length === 3, 'existing Hero 5/6/8 evidence scope changed');
   const sourceHeroes = new Map(heroRows.map((row) => [row.ID, row]));
   const sourceChars = new Map(charRows.map((row) => [row.ID, row]));
   for (const row of evidence.records) {
@@ -53,7 +54,7 @@ export async function validateHeroPortraitExpansion(root = process.cwd()) {
     check(bytes.length >= 24 && bytes.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])), 'invalid PNG signature for ' + row.heroId);
     check(bytes.readUInt32BE(16) === asset.width && bytes.readUInt32BE(20) === asset.height && asset.width > 0 && asset.height > 0, 'PNG dimensions mismatch for ' + row.heroId);
   }
-  const union = [...presentationIds, ...evidence.records.map((r) => r.heroId)].sort((a, b) => a - b);
+  const union = [...new Set([...legacyPortraitIds, ...evidence.records.map((r) => r.heroId)])].sort((a, b) => a - b);
   check(JSON.stringify(union) === JSON.stringify([5,6,8,28,32,52,53]), 'portrait evidence population union must be exactly [5,6,8,28,32,52,53]');
   process.stdout.write('Hero portrait expansion: PASS (7 portrait evidence IDs; 7 presentation canonical IDs; exact source and PNG blob parity)\n');
 }
