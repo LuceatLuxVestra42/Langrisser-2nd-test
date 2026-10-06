@@ -24,6 +24,7 @@ const entries = [
 ['assets/portraits/','HERO BUILD_PRESENTATION','prefix'],
 ['canonical/job-localizations-ko.v1.json','JOB HERO_JOB_RELATION BUILD_PRESENTATION'],
 ['evidence/localization/job-names-ko.hero-5-6-8.v1.json','JOB HERO_JOB_RELATION BUILD_PRESENTATION'],
+['evidence/localization/job-names-ko.hero-28-32-52-53.v1.json','JOB HERO_JOB_RELATION BUILD_PRESENTATION'],
 ['evidence/localization/source/job-names-ko.v1.txt','JOB HERO_JOB_RELATION BUILD_PRESENTATION'],
 ['evidence/localization/source/job-names-ko.source-manifest.v1.json','JOB HERO_JOB_RELATION BUILD_PRESENTATION'],
 ['evidence/localization/sp-job-namespace.v1.json','JOB'],

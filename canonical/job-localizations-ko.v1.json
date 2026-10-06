@@ -242,6 +242,96 @@
       "nameKo": "여명의 성기사",
       "evidenceClass": "A",
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=20811"
+    },
+    {
+      "jobId": 102,
+      "nameKo": "제네럴",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=102"
+    },
+    {
+      "jobId": 104,
+      "nameKo": "마샬",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=104"
+    },
+    {
+      "jobId": 207,
+      "nameKo": "검성",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=207"
+    },
+    {
+      "jobId": 304,
+      "nameKo": "나이트 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=304"
+    },
+    {
+      "jobId": 402,
+      "nameKo": "페가수스 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=402"
+    },
+    {
+      "jobId": 403,
+      "nameKo": "드래곤 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=403"
+    },
+    {
+      "jobId": 405,
+      "nameKo": "드래곤 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=405"
+    },
+    {
+      "jobId": 502,
+      "nameKo": "서펜트 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=502"
+    },
+    {
+      "jobId": 503,
+      "nameKo": "서펜트 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=503"
+    },
+    {
+      "jobId": 603,
+      "nameKo": "보우 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=603"
+    },
+    {
+      "jobId": 1006,
+      "nameKo": "데몬 스워드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1006"
+    },
+    {
+      "jobId": 1007,
+      "nameKo": "디스오더",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1007"
+    },
+    {
+      "jobId": 1101,
+      "nameKo": "밴디트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1101"
+    },
+    {
+      "jobId": 1102,
+      "nameKo": "닌자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1102"
+    },
+    {
+      "jobId": 1104,
+      "nameKo": "쉐도우",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1104"
     }
   ]
 }

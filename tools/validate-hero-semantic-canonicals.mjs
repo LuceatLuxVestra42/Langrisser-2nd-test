@@ -204,9 +204,17 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
       selectedPairs.add(key);
     }
   }
-  const selectedOwnerPairs = [...expectedRelations.keys()].filter((key) => selectedIds.has(Number(key.split(':')[0])) && classicEvidence.records.some((row) => `${row.heroId}:${row.jobId}` === key));
-  check(selectedPairs.size === 18 && selectedOwnerPairs.length === 18, 'selected 5/6/8 relation parity must cover exactly the existing 18 relations');
-  for (const row of classicEvidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  // Preserve the existing 5/6/8 presentation records; the new Hero 53 SP relation is explicitly admitted with this expansion.
+  const expansionPresentationIds = new Set([28, 32, 52, 53]);
+  const selectedOwnerPairs = [
+    ...classicEvidence.records.filter((row) => selectedIds.has(row.heroId)).map((row) => `${row.heroId}:${row.jobId}`),
+    ...expansionEvidence.records.filter((row) => expansionPresentationIds.has(row.heroId)).map((row) => `${row.heroId}:${row.jobId}`),
+    ...spEvidence.records.filter((row) => row.heroId === 53).map((row) => `${row.heroId}:${row.spJobId}`),
+  ];
+  check(selectedPairs.size === 42 && selectedOwnerPairs.length === 42, 'selected presentation relation parity must cover the existing 18 and expanded 24 admitted relation records');
+  for (const row of classicEvidence.records) if (selectedIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of expansionEvidence.records) if (expansionPresentationIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected expansion relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of spEvidence.records) if (row.heroId === 53) check(selectedPairs.has(`${row.heroId}:${row.spJobId}`), `selected SP relation ${row.heroId}:${row.spJobId} is missing from the slice`);
 
   return { identities: identityById.size, relations: relationByPair.size, selectedHeroes: selectedIds.size, selectedRelations: selectedPairs.size };
 }

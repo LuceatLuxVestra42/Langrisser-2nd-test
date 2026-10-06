@@ -147,6 +147,202 @@
           "jobNameKo": "다크 프린세스"
         }
       ]
+    },
+    {
+      "id": 28,
+      "nameEng": "Zalrahda",
+      "nameKo": "젤다",
+      "portrait": "assets/portraits/hero-28.png",
+      "exclusiveEquipment": {
+        "equipmentId": 412,
+        "equipmentNameKo": "따뜻한 기억",
+        "effectDescriptionKo": "생명 +5%\n행동 종료 시 주위 2칸 내 아군이 없을 경우, 생명 20% 회복 및 디버프 1개 제거"
+      },
+      "jobConnections": [
+        {
+          "connectionId": 280,
+          "jobId": 1101,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "밴디트"
+        },
+        {
+          "connectionId": 281,
+          "jobId": 1102,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "닌자"
+        },
+        {
+          "connectionId": 282,
+          "jobId": 1006,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "데몬 스워드"
+        },
+        {
+          "connectionId": 284,
+          "jobId": 1104,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "쉐도우"
+        },
+        {
+          "connectionId": 285,
+          "jobId": 1007,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "디스오더"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "nameEng": "EmmaLink",
+      "nameKo": "에마링크",
+      "portrait": "assets/portraits/hero-32.png",
+      "exclusiveEquipment": {
+        "equipmentId": 287,
+        "equipmentNameKo": "예지",
+        "effectDescriptionKo": "생명 +10%\n행동 종료 시 주위 2칸 내 모든 적에게 무작위 디버프 1개 부여"
+      },
+      "jobConnections": [
+        {
+          "connectionId": 320,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "나이트"
+        },
+        {
+          "connectionId": 321,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "제네럴"
+        },
+        {
+          "connectionId": 322,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이랜더"
+        },
+        {
+          "connectionId": 323,
+          "jobId": 603,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "보우 나이트"
+        },
+        {
+          "connectionId": 324,
+          "jobId": 304,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "나이트 마스터"
+        },
+        {
+          "connectionId": 325,
+          "jobId": 104,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "마샬"
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "nameEng": "Angelina",
+      "nameKo": "안젤리나",
+      "portrait": "assets/portraits/hero-52.png",
+      "exclusiveEquipment": {
+        "equipmentId": 294,
+        "equipmentNameKo": "바람의 꽃",
+        "effectDescriptionKo": "방어 +10%\n재행동 발동 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음([쿨타임 효과]해당 효과는 3턴 후 재발동 가능)"
+      },
+      "jobConnections": [
+        {
+          "connectionId": 520,
+          "jobId": 402,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "페가수스 나이트"
+        },
+        {
+          "connectionId": 521,
+          "jobId": 502,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "서펜트 나이트"
+        },
+        {
+          "connectionId": 522,
+          "jobId": 403,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "드래곤 나이트"
+        },
+        {
+          "connectionId": 523,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드맨"
+        },
+        {
+          "connectionId": 524,
+          "jobId": 503,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "서펜트 마스터"
+        },
+        {
+          "connectionId": 525,
+          "jobId": 405,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "드래곤 마스터"
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "nameEng": "Ranford",
+      "nameKo": "란포드",
+      "portrait": "assets/portraits/hero-53.png",
+      "exclusiveEquipment": {
+        "equipmentId": 296,
+        "equipmentNameKo": "란포드의 최종 선택",
+        "effectDescriptionKo": "방어 +10%\n영웅 고유기 범위 +1"
+      },
+      "jobConnections": [
+        {
+          "connectionId": 530,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "나이트"
+        },
+        {
+          "connectionId": 531,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드맨"
+        },
+        {
+          "connectionId": 532,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이랜더"
+        },
+        {
+          "connectionId": 533,
+          "jobId": 403,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "드래곤 나이트"
+        },
+        {
+          "connectionId": 534,
+          "jobId": 207,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "검성"
+        },
+        {
+          "connectionId": 535,
+          "jobId": 304,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "나이트 마스터"
+        },
+        {
+          "connectionId": 536,
+          "jobId": 426,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "빛나는 지략가"
+        }
+      ]
     }
   ]
 }

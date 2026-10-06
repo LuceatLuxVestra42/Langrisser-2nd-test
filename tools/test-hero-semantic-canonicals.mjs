@@ -86,8 +86,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 66 relations; 18 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 66 relations; 18 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and exactly the current 66/18 Hero→Job relation pairs');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 66 relations; 42 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 66 relations; 42 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and exactly the current 66/42 Hero→Job relation pairs');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -121,6 +121,7 @@ try {
 
   const selectedPath = 'canonical/heroes.v1.json';
   await mutateAndExpectFailure(selectedPath, (doc) => { doc.records[0].jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation', /selected slice relation 5:999999 is absent from the general relation owner/);
+  await mutateAndExpectFailure(selectedPath, (doc) => { doc.records.find((row) => row.id === 28).jobConnections[0].jobId = 999999; }, 'expanded selected-slice parity mutation', /selected slice relation 28:999999 is absent from the general relation owner/);
 
   const relationDoc = JSON.parse(await readFile(join(repo, relationPath), 'utf8'));
   for (const jobId of [1220, 20243, 20707]) {
@@ -136,7 +137,7 @@ try {
     await writeFile(localizationPath, originalLocalization);
   }
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 66 Hero→Job pairs, selected-slice parity, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 66 Hero→Job pairs, 42-pair presentation-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

@@ -143,6 +143,58 @@ try {
   expectFailure(run(localizationValidator), 'status string admitted as Job name', /localization Job 301 has blank or status-only KR value/);
   await restore();
 
+  restore = await editJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json', (subset) => {
+    subset.records.find((row) => row.jobId === 102).nameKo = '잘못된값';
+  });
+  expectFailure(run(localizationValidator), 'wrong expansion KR value for Job 102', /expansion localization KR value differs from source for Job 102/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json', (subset) => {
+    const one = subset.records.find((row) => row.jobId === 102);
+    const two = subset.records.find((row) => row.jobId === 104);
+    [one.nameKo, two.nameKo] = [two.nameKo, one.nameKo];
+  });
+  expectFailure(run(localizationValidator), 'wrong expansion ID to KR mapping', /expansion localization KR value differs from source for Job (102|104)/);
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.find((row) => row.jobId === 102).provenance = 'evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=102';
+  });
+  expectFailure(run(localizationValidator), 'expansion localization provenance mismatch', /canonical localization provenance drift for Job 102/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json', (subset) => {
+    subset.records.pop();
+  });
+  expectFailure(run(localizationValidator), 'expansion localization scope drift', /Hero expansion localization subset must contain exactly 15 records/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json', (subset) => {
+    subset.records.find((row) => row.jobId === 102).nameKo = '잘못된값';
+  });
+  expectFailure(run(localizationValidator), 'wrong expansion KR value for Job 102', /expansion localization KR value differs from source for Job 102/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json', (subset) => {
+    const one = subset.records.find((row) => row.jobId === 102);
+    const two = subset.records.find((row) => row.jobId === 104);
+    [one.nameKo, two.nameKo] = [two.nameKo, one.nameKo];
+  });
+  expectFailure(run(localizationValidator), 'wrong expansion ID to KR mapping', /expansion localization KR value differs from source for Job (102|104)/);
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.find((row) => row.jobId === 102).provenance = 'evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=102';
+  });
+  expectFailure(run(localizationValidator), 'expansion localization provenance mismatch', /canonical localization provenance drift for Job 102/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json', (subset) => {
+    subset.records.pop();
+  });
+  expectFailure(run(localizationValidator), 'expansion localization scope drift', /Hero expansion localization subset must contain exactly 15 records/);
+  await restore();
+
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.find((row) => row.jobId === 128).nameKo = '잘못된 SP 이름';
   });
@@ -160,7 +212,7 @@ try {
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.push({ jobId: 1220, nameKo: '한섭 미실장', evidenceClass: 'A', provenance: 'evidence/localization/sp-job-namespace.v1.json#jobId=1220' });
   });
-  expectFailure(run(localizationValidator), 'status-only SP admission', /canonical Job localization must contain exactly 40 records/);
+  expectFailure(run(localizationValidator), 'status-only SP admission', /canonical Job localization must contain exactly 55 records/);
   await restore();
 
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
@@ -178,12 +230,12 @@ try {
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.push({ ...canonical.records[0] });
   });
-  expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /canonical Job localization must contain exactly 40 records/);
+  expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /canonical Job localization must contain exactly 55 records/);
   await restore();
 
   const clean = run(localizationValidator);
   expectSuccess(clean, 'clean Job localization validation', /Job localization: PASS/);
-  process.stdout.write('Job localization validator cases: PASS (legacy localization negatives, SP wrong value/mapping/provenance, status-only admission, namespace evidence mismatch, duplicate ID rejected)\n');
+  process.stdout.write('Job localization validator cases: PASS (legacy and expansion localization negatives, SP mapping/provenance, status-only admission, namespace evidence mismatch)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
