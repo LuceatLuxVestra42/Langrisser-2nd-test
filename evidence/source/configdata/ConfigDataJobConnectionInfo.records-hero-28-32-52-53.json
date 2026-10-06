@@ -1,0 +1,812 @@
+[
+  {
+    "ID": 280,
+    "Job_ID": 1101,
+    "JobLevels_ID": [
+      2801,
+      2802,
+      2803
+    ],
+    "TalentSkill_IDs": [
+      3545,
+      3545,
+      3545,
+      3546,
+      3547,
+      3548
+    ],
+    "UISort": 1,
+    "PropertyRating": "BADBBS",
+    "Model": "Spine/General/Zalrahda_ABS/Ninjia/Zalrahda_Assassin1_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 281,
+    "Job_ID": 1102,
+    "JobLevels_ID": [
+      2811,
+      2812,
+      2813,
+      2814
+    ],
+    "TalentSkill_IDs": [
+      3545,
+      3545,
+      3545,
+      3546,
+      3547,
+      3548
+    ],
+    "UISort": 2,
+    "PropertyRating": "BADBBS",
+    "Model": "Spine/General/Zalrahda_ABS/Ninjia/Zalrahda_Ninja2_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      280
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      2801,
+      2802,
+      2803,
+      2804,
+      2899,
+      2805,
+      2806
+    ]
+  },
+  {
+    "ID": 282,
+    "Job_ID": 1006,
+    "JobLevels_ID": [
+      2821,
+      2822,
+      2823,
+      2824
+    ],
+    "TalentSkill_IDs": [
+      3545,
+      3545,
+      3545,
+      3546,
+      3547,
+      3548
+    ],
+    "UISort": 3,
+    "PropertyRating": "ASDABA",
+    "Model": "Spine/General/Zalrahda_ABS/Deamon/Zalrahda04_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      280
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      2801,
+      2802,
+      2803,
+      2804,
+      2899,
+      2805,
+      2806
+    ]
+  },
+  {
+    "ID": 284,
+    "Job_ID": 1104,
+    "JobLevels_ID": [
+      2841,
+      2842,
+      2843,
+      2844,
+      2845
+    ],
+    "TalentSkill_IDs": [
+      3545,
+      3545,
+      3545,
+      3546,
+      3547,
+      3548
+    ],
+    "UISort": 4,
+    "PropertyRating": "BADBBS",
+    "Model": "Spine/General/Zalrahda_ABS/Ninjia/Zalrahda_Shadow3_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      281
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      2801,
+      2802,
+      2803,
+      2804,
+      2899,
+      2805,
+      2806
+    ]
+  },
+  {
+    "ID": 285,
+    "Job_ID": 1007,
+    "JobLevels_ID": [
+      2851,
+      2852,
+      2853,
+      2854,
+      2855
+    ],
+    "TalentSkill_IDs": [
+      3545,
+      3545,
+      3545,
+      3546,
+      3547,
+      3548
+    ],
+    "UISort": 5,
+    "PropertyRating": "ASDABA",
+    "Model": "Spine/General/Zalrahda_ABS/Deamon/Zalrahda05_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      282
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      2801,
+      2802,
+      2803,
+      2804,
+      2899,
+      2805,
+      2806
+    ]
+  },
+  {
+    "ID": 320,
+    "Job_ID": 301,
+    "JobLevels_ID": [
+      3201,
+      3202,
+      3203
+    ],
+    "TalentSkill_IDs": [
+      3087,
+      3087,
+      3090,
+      3093,
+      3096,
+      3099
+    ],
+    "UISort": 1,
+    "PropertyRating": "BADACD",
+    "Model": "Spine/General/EmmaLink_ABS/EmmaLink_Knight/EmmaLink_Kinght1_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 321,
+    "Job_ID": 102,
+    "JobLevels_ID": [
+      3211,
+      3212,
+      3213,
+      3214
+    ],
+    "TalentSkill_IDs": [
+      3087,
+      3087,
+      3090,
+      3093,
+      3096,
+      3099
+    ],
+    "UISort": 2,
+    "PropertyRating": "ABDSDD",
+    "Model": "Spine/General/EmmaLink_ABS/EmmaLink_Spear/EmmaLink_General2_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      320
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      3201
+    ]
+  },
+  {
+    "ID": 322,
+    "Job_ID": 302,
+    "JobLevels_ID": [
+      3221,
+      3222,
+      3223,
+      3224
+    ],
+    "TalentSkill_IDs": [
+      3087,
+      3087,
+      3090,
+      3093,
+      3096,
+      3099
+    ],
+    "UISort": 3,
+    "PropertyRating": "BADACD",
+    "Model": "Spine/General/EmmaLink_ABS/EmmaLink_Knight/EmmaLink_HighRider2_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      320
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      3201
+    ]
+  },
+  {
+    "ID": 323,
+    "Job_ID": 603,
+    "JobLevels_ID": [
+      3231,
+      3232,
+      3233,
+      3234
+    ],
+    "TalentSkill_IDs": [
+      3087,
+      3087,
+      3090,
+      3093,
+      3096,
+      3099
+    ],
+    "UISort": 4,
+    "PropertyRating": "BBCCBC",
+    "Model": "Spine/General/EmmaLink_ABS/EmmaLink_BowKnight/EmmaLink_BowKnight2_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      320
+    ],
+    "IsJobOpen": true
+  },
+  {
+    "ID": 324,
+    "Job_ID": 304,
+    "JobLevels_ID": [
+      3241,
+      3242,
+      3243,
+      3244,
+      3245
+    ],
+    "TalentSkill_IDs": [
+      3087,
+      3087,
+      3090,
+      3093,
+      3096,
+      3099
+    ],
+    "UISort": 6,
+    "PropertyRating": "BADACD",
+    "Model": "Spine/General/EmmaLink_ABS/EmmaLink_Knight/EmmaLink_KinghtMaster3_prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      322
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      3201
+    ]
+  },
+  {
+    "ID": 325,
+    "Job_ID": 104,
+    "JobLevels_ID": [
+      3251,
+      3252,
+      3253,
+      3254,
+      3255
+    ],
+    "TalentSkill_IDs": [
+      3087,
+      3087,
+      3090,
+      3093,
+      3096,
+      3099
+    ],
+    "UISort": 5,
+    "PropertyRating": "ABDSDD",
+    "Model": "Spine/General/EmmaLink_ABS/EmmaLink_Spear/EmmaLink_Marshal3_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      321
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      3201
+    ]
+  },
+  {
+    "ID": 520,
+    "Job_ID": 402,
+    "JobLevels_ID": [
+      5201,
+      5202,
+      5203
+    ],
+    "TalentSkill_IDs": [
+      3558,
+      3558,
+      3558,
+      3559,
+      3560,
+      3561
+    ],
+    "UISort": 1,
+    "PropertyRating": "ASDAAB",
+    "Model": "Spine/General/Angelina_ABS/Angelina_PegasusKnight/Angelina_PegasusKnight1_Prefab.prefab",
+    "CombatModel": "Spine/General/Angelina_ABS/Angelina_PegasusKnight/Angelina_PegasusKnight1_air_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 55,
+    "UI_ModelOffsetY": 10,
+    "Radius": 90,
+    "Height": 120,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 521,
+    "Job_ID": 502,
+    "JobLevels_ID": [
+      5211,
+      5212,
+      5213,
+      5214
+    ],
+    "TalentSkill_IDs": [
+      3558,
+      3558,
+      3558,
+      3559,
+      3560,
+      3561
+    ],
+    "UISort": 2,
+    "PropertyRating": "ASDACC",
+    "Model": "Spine/General/Angelina_ABS/Angelina_Water/Angelina_SerpentKnight2_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      520
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5201,
+      5202,
+      5299,
+      5203,
+      5204
+    ]
+  },
+  {
+    "ID": 522,
+    "Job_ID": 403,
+    "JobLevels_ID": [
+      5221,
+      5222,
+      5223,
+      5224
+    ],
+    "TalentSkill_IDs": [
+      3558,
+      3558,
+      3558,
+      3559,
+      3560,
+      3561
+    ],
+    "UISort": 3,
+    "PropertyRating": "ASDAAB",
+    "Model": "Spine/General/Angelina_ABS/Angelina_DragonKnight/Angelina_DragonKnight2_Prefab.prefab",
+    "CombatModel": "Spine/General/Angelina_ABS/Angelina_DragonKnight/Angelina_DragonKnight2_air_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 55,
+    "UI_ModelOffsetY": 10,
+    "Radius": 90,
+    "Height": 120,
+    "PreJobConnectionList": [
+      520
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5201,
+      5202,
+      5299,
+      5203,
+      5204
+    ]
+  },
+  {
+    "ID": 523,
+    "Job_ID": 202,
+    "JobLevels_ID": [
+      5231,
+      5232,
+      5233,
+      5234
+    ],
+    "TalentSkill_IDs": [
+      3558,
+      3558,
+      3558,
+      3559,
+      3560,
+      3561
+    ],
+    "UISort": 4,
+    "PropertyRating": "ASCABC",
+    "Model": "Spine/General/Angelina_ABS/Angelina_Sword/Angelina_SwardMan2_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      520
+    ],
+    "IsJobOpen": true
+  },
+  {
+    "ID": 524,
+    "Job_ID": 503,
+    "JobLevels_ID": [
+      5241,
+      5242,
+      5243,
+      5244,
+      5245
+    ],
+    "TalentSkill_IDs": [
+      3558,
+      3558,
+      3558,
+      3559,
+      3560,
+      3561
+    ],
+    "UISort": 5,
+    "PropertyRating": "ASDACC",
+    "Model": "Spine/General/Angelina_ABS/Angelina_Water/Angelina_SerpentMaster3_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      521
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5201,
+      5202,
+      5299,
+      5203,
+      5204
+    ]
+  },
+  {
+    "ID": 525,
+    "Job_ID": 405,
+    "JobLevels_ID": [
+      5251,
+      5252,
+      5253,
+      5254,
+      5255
+    ],
+    "TalentSkill_IDs": [
+      3558,
+      3558,
+      3558,
+      3559,
+      3560,
+      3561
+    ],
+    "UISort": 6,
+    "PropertyRating": "ASDAAB",
+    "Model": "Spine/General/Angelina_ABS/Angelina_DragonKnight/Angelina_DragonMaster3_Prefab.prefab",
+    "CombatModel": "Spine/General/Angelina_ABS/Angelina_DragonKnight/Angelina_DragonMaster3_air_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 55,
+    "UI_ModelOffsetY": 10,
+    "Radius": 90,
+    "Height": 120,
+    "PreJobConnectionList": [
+      522
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5201,
+      5202,
+      5299,
+      5203,
+      5204
+    ]
+  },
+  {
+    "ID": 530,
+    "Job_ID": 301,
+    "JobLevels_ID": [
+      5301,
+      5302,
+      5303
+    ],
+    "TalentSkill_IDs": [
+      3570,
+      3570,
+      3570,
+      3571,
+      3572,
+      3573
+    ],
+    "UISort": 1,
+    "PropertyRating": "ASDBCB",
+    "Model": "Spine/General/Ranford_ABS/Ranford_Knight/Ranford_Knight1_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "IsJobOpen": true
+  },
+  {
+    "ID": 531,
+    "Job_ID": 202,
+    "JobLevels_ID": [
+      5311,
+      5312,
+      5313,
+      5314
+    ],
+    "TalentSkill_IDs": [
+      3570,
+      3570,
+      3570,
+      3571,
+      3572,
+      3573
+    ],
+    "UISort": 2,
+    "PropertyRating": "ASCABB",
+    "Model": "Spine/General/Ranford_ABS/Ranford_Sword/Ranford_SwardMan2_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      530
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5301,
+      5302,
+      5303
+    ]
+  },
+  {
+    "ID": 532,
+    "Job_ID": 302,
+    "JobLevels_ID": [
+      5321,
+      5322,
+      5323,
+      5324
+    ],
+    "TalentSkill_IDs": [
+      3570,
+      3570,
+      3570,
+      3571,
+      3572,
+      3573
+    ],
+    "UISort": 3,
+    "PropertyRating": "ASDBCB",
+    "Model": "Spine/General/Ranford_ABS/Ranford_Knight/Ranford_HighRider2_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      530
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5301,
+      5302,
+      5303
+    ]
+  },
+  {
+    "ID": 533,
+    "Job_ID": 403,
+    "JobLevels_ID": [
+      5331,
+      5332,
+      5333,
+      5334
+    ],
+    "TalentSkill_IDs": [
+      3570,
+      3570,
+      3570,
+      3571,
+      3572,
+      3573
+    ],
+    "UISort": 4,
+    "PropertyRating": "ASDBAA",
+    "Model": "Spine/General/Ranford_ABS/Ranford_DragonKnight/Ranford_Dragon_Prefab.prefab",
+    "CombatModel": "Spine/General/Ranford_ABS/Ranford_DragonKnight/Ranford_Dragon_air_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 55,
+    "UI_ModelOffsetY": 10,
+    "Radius": 90,
+    "Height": 120,
+    "PreJobConnectionList": [
+      530
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5301,
+      5302,
+      5303
+    ]
+  },
+  {
+    "ID": 534,
+    "Job_ID": 207,
+    "JobLevels_ID": [
+      5341,
+      5342,
+      5343,
+      5344,
+      5345
+    ],
+    "TalentSkill_IDs": [
+      3570,
+      3570,
+      3570,
+      3571,
+      3572,
+      3573
+    ],
+    "UISort": 5,
+    "PropertyRating": "ASCBBS",
+    "Model": "Spine/General/Ranford_ABS/Ranford_Sword/Ranford_Kensei3_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 70,
+    "UI_ModelScale": 75,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      531
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5301,
+      5302,
+      5303
+    ]
+  },
+  {
+    "ID": 535,
+    "Job_ID": 304,
+    "JobLevels_ID": [
+      5351,
+      5352,
+      5353,
+      5354,
+      5355
+    ],
+    "TalentSkill_IDs": [
+      3570,
+      3570,
+      3570,
+      3571,
+      3572,
+      3573
+    ],
+    "UISort": 6,
+    "PropertyRating": "ASDBBB",
+    "Model": "Spine/General/Ranford_ABS/Ranford_Knight/Ranford_RoyalKnight3_Prefab.prefab",
+    "ModelScale": 65,
+    "BF_ModelScale": 65,
+    "UI_ModelScale": 60,
+    "UI_ModelOffsetY": 10,
+    "Radius": 36,
+    "Height": 80,
+    "PreJobConnectionList": [
+      532
+    ],
+    "IsJobOpen": true,
+    "Skins_ID": [
+      5301,
+      5302,
+      5303
+    ]
+  }
+]

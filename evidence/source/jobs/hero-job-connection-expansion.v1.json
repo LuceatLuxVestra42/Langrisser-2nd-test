@@ -1,0 +1,297 @@
+{
+  "version": 1,
+  "purpose": "Minimal evidence for explicit HeroInfo connection refs resolving through ConfigDataJobConnectionInfo to ConfigDataJobInfo; not canonical, generated, or a production runtime dependency.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "releaseArchive": {
+      "name": "configdata-source-v1-6475e63e.tar",
+      "sha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+      "bytes": 308871680
+    }
+  },
+  "sourceFiles": {
+    "ConfigDataHeroInfo.json": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "bytes": 16894185
+    },
+    "ConfigDataJobConnectionInfo.json": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+      "bytes": 11498868
+    },
+    "ConfigDataJobInfo.json": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+      "bytes": 2424034
+    }
+  },
+  "preservedSubsets": {
+    "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json": "Exactly HeroInfo source records with ID in [28,32,52,53], preserving complete selected raw records.",
+    "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json": "Exactly records whose numeric ID equals a connection ID explicitly referenced by the selected HeroInfo fields; complete selected raw records preserved.",
+    "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json": "Exactly records whose numeric ID equals a selected connection Job_ID; complete selected raw records preserved."
+  },
+  "selection": {
+    "heroInfo": "Exact numeric ID equality for Hero IDs [28,32,52,53]. Connection refs taken directly from JobConnection_ID plus every UseableJobConnections_ID element; no deduplication within each Hero record.",
+    "jobConnectionInfo": "Exact numeric ID equality on ConfigDataJobConnectionInfo.ID for the union of explicit selected Hero refs.",
+    "jobInfo": "Exact numeric ID equality on ConfigDataJobInfo.ID for the distinct Job_ID values selected by the connection rows."
+  },
+  "limitations": [
+    "Snapshot scope is CN ConfigData 2026-09-02; sourceVersionStatus remains unknown.",
+    "Schema/field interpretation reuses the traceable relation semantics already admitted for Hero 5/6/8; this extension does not assert Job rank, rarity, unlock meaning, path order, display order, Korean localization, or whole-population completeness."
+  ],
+  "claims": {
+    "heroFieldToConnectionId": {
+      "class": "B",
+      "claim": "HeroInfo.JobConnection_ID and HeroInfo.UseableJobConnections_ID reference ConfigDataJobConnectionInfo.ID",
+      "basis": "Complete preserved HeroInfo records, pinned snapshot source, existing protobuf schema evidence, and exact ID selection."
+    },
+    "connectionJobIdToJobInfoId": {
+      "class": "B",
+      "claim": "ConfigDataJobConnectionInfo.Job_ID references ConfigDataJobInfo.ID",
+      "basis": "Complete preserved connection/JobInfo records, pinned snapshot, and existing relation interpretation support."
+    },
+    "selectedRecordsExist": {
+      "class": "A",
+      "claim": "Every selected connection and Job endpoint exists exactly once in the pinned source arrays",
+      "basis": "Direct extraction from pinned Git blobs, whose source Git blob SHAs match current source manifest pins."
+    }
+  },
+  "records": [
+    {
+      "heroId": 28,
+      "sourceField": "JobConnection_ID",
+      "connectionId": 280,
+      "jobId": 1101,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=28",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=280",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=1101"
+    },
+    {
+      "heroId": 28,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 281,
+      "jobId": 1102,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=28",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=281",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=1102"
+    },
+    {
+      "heroId": 28,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 282,
+      "jobId": 1006,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=28",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=282",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=1006"
+    },
+    {
+      "heroId": 28,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 284,
+      "jobId": 1104,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=28",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=284",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=1104"
+    },
+    {
+      "heroId": 28,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 285,
+      "jobId": 1007,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=28",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=285",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=1007"
+    },
+    {
+      "heroId": 32,
+      "sourceField": "JobConnection_ID",
+      "connectionId": 320,
+      "jobId": 301,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=32",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=320",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=301"
+    },
+    {
+      "heroId": 32,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 321,
+      "jobId": 102,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=32",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=321",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=102"
+    },
+    {
+      "heroId": 32,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 322,
+      "jobId": 302,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=32",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=322",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=302"
+    },
+    {
+      "heroId": 32,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 323,
+      "jobId": 603,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=32",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=323",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=603"
+    },
+    {
+      "heroId": 32,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 324,
+      "jobId": 304,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=32",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=324",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=304"
+    },
+    {
+      "heroId": 32,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 325,
+      "jobId": 104,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=32",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=325",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=104"
+    },
+    {
+      "heroId": 52,
+      "sourceField": "JobConnection_ID",
+      "connectionId": 520,
+      "jobId": 402,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=52",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=520",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=402"
+    },
+    {
+      "heroId": 52,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 521,
+      "jobId": 502,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=52",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=521",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=502"
+    },
+    {
+      "heroId": 52,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 522,
+      "jobId": 403,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=52",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=522",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=403"
+    },
+    {
+      "heroId": 52,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 523,
+      "jobId": 202,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=52",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=523",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=202"
+    },
+    {
+      "heroId": 52,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 524,
+      "jobId": 503,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=52",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=524",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=503"
+    },
+    {
+      "heroId": 52,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 525,
+      "jobId": 405,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=52",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=525",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=405"
+    },
+    {
+      "heroId": 53,
+      "sourceField": "JobConnection_ID",
+      "connectionId": 530,
+      "jobId": 301,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=530",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=301"
+    },
+    {
+      "heroId": 53,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 531,
+      "jobId": 202,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=531",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=202"
+    },
+    {
+      "heroId": 53,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 532,
+      "jobId": 302,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=532",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=302"
+    },
+    {
+      "heroId": 53,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 533,
+      "jobId": 403,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=533",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=403"
+    },
+    {
+      "heroId": 53,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 534,
+      "jobId": 207,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=534",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=207"
+    },
+    {
+      "heroId": 53,
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 535,
+      "jobId": 304,
+      "sourceHeroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-28-32-52-53.json#ID=53",
+      "jobConnectionInfoLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json#ID=535",
+      "jobInfoLocator": "evidence/source/configdata/ConfigDataJobInfo.records-hero-28-32-52-53.json#ID=304"
+    }
+  ],
+  "localizedJobIds": [
+    301,
+    302,
+    202
+  ],
+  "missingLocalizationJobIds": [
+    1101,
+    1102,
+    1006,
+    1104,
+    1007,
+    102,
+    603,
+    304,
+    104,
+    402,
+    502,
+    403,
+    503,
+    405,
+    207
+  ],
+  "unsupportedLocalizationJobIds": []
+}

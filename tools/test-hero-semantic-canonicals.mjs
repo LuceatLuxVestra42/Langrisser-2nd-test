@@ -86,8 +86,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 43 relations; 18 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 43 relations; 18 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and exactly the existing 43/18 Hero→Job relation pairs');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 66 relations; 18 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 66 relations; 18 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and validate the source-derived additive Hero→Job relation scope');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -127,7 +127,8 @@ try {
     await writeFile(localizationPath, originalLocalization);
   }
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, unchanged 43 Hero→Job pairs, selected-slice parity, status-only Jobs, localization independence)\n');
+  await mutateAndExpectFailure('evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-28-32-52-53.json', (doc) => { doc.splice(0, 1); }, 'expansion connection row missing', /one or more explicit connection IDs do not resolve uniquely/);
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, source-backed additive Hero→Job pairs, selected-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
