@@ -188,6 +188,14 @@ jobs:
         if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-exclusive-equipment-ko-localization.mjs
 
+      - name: Validate Exclusive Equipment presentation consumer
+        if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/validate-exclusive-equipment-presentation.mjs
+
+      - name: Test Exclusive Equipment presentation regressions
+        if: steps.ci-routing.outputs.run_exclusive == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-exclusive-equipment-presentation.mjs
+
       - name: Validate Hero-Exclusive Equipment relations
         if: steps.ci-routing.outputs.run_hero_exclusive_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-hero-exclusive-equipment-relations.mjs

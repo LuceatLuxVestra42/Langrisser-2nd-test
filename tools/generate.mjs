@@ -188,6 +188,33 @@ export function renderNormalSoldiers(identities, localizations, baseStats) {
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
 
+
+export function renderExclusiveEquipment(identities, localizations) {
+  if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported Exclusive Equipment identity owner');
+  if (localizations?.schemaVersion !== 1 || !Array.isArray(localizations.records)) throw new Error('Unsupported Exclusive Equipment localization owner');
+  const identityIds = new Set();
+  for (const record of identities.records) {
+    if (!Number.isSafeInteger(record.equipmentId) || record.equipmentId <= 0) throw new Error('Exclusive Equipment identity contains malformed equipmentId');
+    if (identityIds.has(record.equipmentId)) throw new Error('Duplicate Exclusive Equipment identity ' + record.equipmentId);
+    identityIds.add(record.equipmentId);
+  }
+  if (identityIds.size !== 167) throw new Error('Exclusive Equipment presentation scope must contain exactly 167 admitted IDs');
+  const localizationById = new Map();
+  for (const record of localizations.records) {
+    if (!Number.isSafeInteger(record.equipmentId) || record.equipmentId <= 0) throw new Error('Exclusive Equipment localization contains malformed equipmentId');
+    if (localizationById.has(record.equipmentId)) throw new Error('Duplicate Exclusive Equipment localization ' + record.equipmentId);
+    if (typeof record.nameKo !== 'string' || !record.nameKo.trim() || typeof record.effectDescriptionKo !== 'string' || !record.effectDescriptionKo.trim()) throw new Error('Missing Korean presentation for Exclusive Equipment ' + record.equipmentId);
+    localizationById.set(record.equipmentId, record);
+  }
+  if (localizationById.size !== identityIds.size || [...identityIds].some((id) => !localizationById.has(id))
+    || [...localizationById.keys()].some((id) => !identityIds.has(id))) throw new Error('Exclusive Equipment localization ID set does not exactly match identity');
+  const equipment = [...identityIds].sort((a, b) => a - b).map((equipmentId) => {
+    const localization = localizationById.get(equipmentId);
+    return { equipmentId, nameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo };
+  });
+  return JSON.stringify({ schemaVersion: 1, equipment }, null, 2) + '\n';
+}
+
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const inputPath = resolve('canonical/heroes.v1.json');
@@ -226,5 +253,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
   const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');
   await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', and ' + equipmentOutputPath + '\n');
+  const exclusiveEquipmentIdentity = JSON.parse(await readFile(resolve('canonical/exclusive-equipment.v1.json'), 'utf8'));
+  const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
+  const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');
+  await writeFile(exclusiveEquipmentOutputPath, renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization), 'utf8');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + equipmentOutputPath + ', and ' + exclusiveEquipmentOutputPath + '\n');
 }
