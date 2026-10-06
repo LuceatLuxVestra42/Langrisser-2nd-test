@@ -157,7 +157,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
       && evidence.jobInfoLocator.endsWith(`#ID=${connection.Job_ID}`),
       `Hero connection provenance locator/value mismatch for ${key}`);
     const pairKey = `${ref.heroId}:${connection.Job_ID}`;
-    check(!relations.records.some((item) => `${item.heroId}:${item.jobId}` === pairKey), `expansion relation unexpectedly overlaps an admitted pair ${pairKey}`);
+    check(!expectedRelations.has(pairKey), `expansion relation unexpectedly overlaps an admitted pair ${pairKey}`);
     addExpectedRelation(ref.heroId, connection.Job_ID,
       `${expansionPath}#heroId=${ref.heroId}&connectionId=${ref.connectionId}`, 'Hero connection expansion evidence');
   }
