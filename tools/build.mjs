@@ -1,7 +1,7 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated, renderSpSoldiers, renderJobGlossary, renderGeneralSsrEquipment } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment } from './generate.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -71,6 +71,27 @@ for (const soldier of spGenerated.soldiers) {
   if (!Object.values(soldier.normalSoldierBaseStats).every(Number.isFinite)) throw new Error(`malformed NORMAL Soldier base stats for SP Soldier ${soldier.spSoldierId}`);
 }
 
+const normalSoldierIdentities = await readJson('canonical/soldiers.v1.json');
+const normalSoldierLocalizations = await readJson('canonical/normal-soldier-localizations-ko.v1.json');
+const normalSoldierBaseStats = await readJson('canonical/normal-soldier-base-stats.v1.json');
+const normalSoldierGeneratedPath = resolve('generated/normal-soldiers.v1.json');
+const normalSoldierGeneratedText = await readFile(normalSoldierGeneratedPath, 'utf8');
+if (normalSoldierGeneratedText !== renderNormalSoldiers(normalSoldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats)) {
+  throw new Error('generated NORMAL Soldier data is stale or non-deterministic');
+}
+const normalSoldierGenerated = JSON.parse(normalSoldierGeneratedText);
+if (normalSoldierGenerated.schemaVersion !== 1 || !Array.isArray(normalSoldierGenerated.soldiers) || normalSoldierGenerated.soldiers.length !== 56) {
+  throw new Error('built document has unsupported NORMAL Soldier presentation schema');
+}
+for (const soldier of normalSoldierGenerated.soldiers) {
+  exactKeys(soldier, ['normalSoldierId', 'nameKo', 'baseStats'], `NORMAL Soldier ${soldier.normalSoldierId}`);
+  if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo.trim()) {
+    throw new Error(`malformed NORMAL Soldier presentation ${String(soldier.normalSoldierId)}`);
+  }
+  exactKeys(soldier.baseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${soldier.normalSoldierId} base stats`);
+  if (!Object.values(soldier.baseStats).every(Number.isFinite)) throw new Error(`malformed NORMAL Soldier base stats for ${soldier.normalSoldierId}`);
+}
+
 const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
@@ -104,6 +125,7 @@ try {
   for (const file of ['index.html', 'app.js', 'styles.css']) await cp(resolve(file), join(output, file));
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
+  await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
   await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
 
@@ -127,6 +149,7 @@ try {
     throw new Error('built app does not resolve the generated Hero data entry');
   }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
+  if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
   const packagedEquipmentText = await readFile(join(output, 'generated', 'general-ssr-equipment.v1.json'), 'utf8');
@@ -135,7 +158,7 @@ try {
   if (packagedEquipment.equipment.length !== equipmentGenerated.equipment.length) throw new Error('packaged General SSR Equipment count differs from generated artifact');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
 } finally {
   await rm(output, { recursive: true, force: true });
 }

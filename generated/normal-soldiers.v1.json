@@ -1,0 +1,565 @@
+{
+  "schemaVersion": 1,
+  "soldiers": [
+    {
+      "normalSoldierId": 115,
+      "nameKo": "근위창병",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 17
+      }
+    },
+    {
+      "normalSoldierId": 118,
+      "nameKo": "다크 센츄리온",
+      "baseStats": {
+        "hp": 48,
+        "attack": 40,
+        "defense": 26,
+        "magicDefense": 16
+      }
+    },
+    {
+      "normalSoldierId": 121,
+      "nameKo": "발키리",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 129,
+      "nameKo": "엔트 가디언",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
+      }
+    },
+    {
+      "normalSoldierId": 130,
+      "nameKo": "팔랑크스",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
+      }
+    },
+    {
+      "normalSoldierId": 132,
+      "nameKo": "창지기 엘프",
+      "baseStats": {
+        "hp": 45,
+        "attack": 43,
+        "defense": 24,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 203,
+      "nameKo": "그레나디어",
+      "baseStats": {
+        "hp": 53,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 210,
+      "nameKo": "하이랜더",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 216,
+      "nameKo": "오크 광전사",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 17
+      }
+    },
+    {
+      "normalSoldierId": 225,
+      "nameKo": "암흑 근위대",
+      "baseStats": {
+        "hp": 53,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 231,
+      "nameKo": "광전사",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 237,
+      "nameKo": "가면 메이드",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 244,
+      "nameKo": "개조인간",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 245,
+      "nameKo": "왕녀 친위대",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 248,
+      "nameKo": "화려한 결투자",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 308,
+      "nameKo": "용기병",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 311,
+      "nameKo": "마스터 디노",
+      "baseStats": {
+        "hp": 36,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 314,
+      "nameKo": "헬하운드",
+      "baseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 320,
+      "nameKo": "황가기병",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 17
+      }
+    },
+    {
+      "normalSoldierId": 324,
+      "nameKo": "천상의 수호자",
+      "baseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 22,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 326,
+      "nameKo": "템플러",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 22,
+        "magicDefense": 26
+      }
+    },
+    {
+      "normalSoldierId": 402,
+      "nameKo": "로열 그리폰",
+      "baseStats": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 20,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 410,
+      "nameKo": "뱀파이어 배트",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 413,
+      "nameKo": "가고일",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 22,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 419,
+      "nameKo": "홀리 페가수스",
+      "baseStats": {
+        "hp": 40,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 422,
+      "nameKo": "드래고니아 나이트",
+      "baseStats": {
+        "hp": 43,
+        "attack": 43,
+        "defense": 23,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 423,
+      "nameKo": "메카 드래곤 나이트",
+      "baseStats": {
+        "hp": 43,
+        "attack": 45,
+        "defense": 24,
+        "magicDefense": 18
+      }
+    },
+    {
+      "normalSoldierId": 504,
+      "nameKo": "거대 랍스터",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 26,
+        "magicDefense": 16
+      }
+    },
+    {
+      "normalSoldierId": 507,
+      "nameKo": "리바이어선",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 23,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 511,
+      "nameKo": "파도의 정령",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 514,
+      "nameKo": "바다의 사제",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 23,
+        "magicDefense": 26
+      }
+    },
+    {
+      "normalSoldierId": 602,
+      "nameKo": "하이엘프",
+      "baseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 19,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 607,
+      "nameKo": "천공사수",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 610,
+      "nameKo": "다크엘프 저격수",
+      "baseStats": {
+        "hp": 31,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 26
+      }
+    },
+    {
+      "normalSoldierId": 621,
+      "nameKo": "마법사",
+      "baseStats": {
+        "hp": 34,
+        "attack": 37,
+        "defense": 19,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 622,
+      "nameKo": "마녀",
+      "baseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 28
+      }
+    },
+    {
+      "normalSoldierId": 631,
+      "nameKo": "데몬헌터",
+      "baseStats": {
+        "hp": 36,
+        "attack": 37,
+        "defense": 20,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 634,
+      "nameKo": "볼트 레인저",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 636,
+      "nameKo": "수정 마도사",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 637,
+      "nameKo": "엘프 궁기병",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 638,
+      "nameKo": "어둠의 연금술사",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 641,
+      "nameKo": "맹독 박쥐술사",
+      "baseStats": {
+        "hp": 37,
+        "attack": 40,
+        "defense": 18,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 644,
+      "nameKo": "용암 샤먼",
+      "baseStats": {
+        "hp": 43,
+        "attack": 40,
+        "defense": 17,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 802,
+      "nameKo": "신관",
+      "baseStats": {
+        "hp": 34,
+        "attack": 31,
+        "defense": 19,
+        "magicDefense": 28
+      }
+    },
+    {
+      "normalSoldierId": 805,
+      "nameKo": "세인트 나이트",
+      "baseStats": {
+        "hp": 34,
+        "attack": 34,
+        "defense": 19,
+        "magicDefense": 26
+      }
+    },
+    {
+      "normalSoldierId": 811,
+      "nameKo": "퇴마사",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 812,
+      "nameKo": "광신자",
+      "baseStats": {
+        "hp": 36,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 815,
+      "nameKo": "영종의 투승",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 19,
+        "magicDefense": 23
+      }
+    },
+    {
+      "normalSoldierId": 816,
+      "nameKo": "신성 호위술사",
+      "baseStats": {
+        "hp": 48,
+        "attack": 37,
+        "defense": 24,
+        "magicDefense": 24
+      }
+    },
+    {
+      "normalSoldierId": 1015,
+      "nameKo": "지옥불 사수",
+      "baseStats": {
+        "hp": 34,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 19
+      }
+    },
+    {
+      "normalSoldierId": 1031,
+      "nameKo": "스파이더 엘프",
+      "baseStats": {
+        "hp": 43,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 22
+      }
+    },
+    {
+      "normalSoldierId": 1034,
+      "nameKo": "안개의 유령",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 24
+      }
+    },
+    {
+      "normalSoldierId": 1101,
+      "nameKo": "밴디트",
+      "baseStats": {
+        "hp": 40,
+        "attack": 40,
+        "defense": 20,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 1105,
+      "nameKo": "닌자",
+      "baseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 20
+      }
+    },
+    {
+      "normalSoldierId": 1111,
+      "nameKo": "미스트 댄서",
+      "baseStats": {
+        "hp": 40,
+        "attack": 37,
+        "defense": 22,
+        "magicDefense": 26
+      }
+    },
+    {
+      "normalSoldierId": 1113,
+      "nameKo": "얼굴 없는 자",
+      "baseStats": {
+        "hp": 36,
+        "attack": 43,
+        "defense": 20,
+        "magicDefense": 22
+      }
+    }
+  ]
+}

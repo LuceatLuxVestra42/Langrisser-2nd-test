@@ -59,6 +59,14 @@ jobs:
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-presentation.mjs
 
+      - name: Validate NORMAL Soldier generated presentation
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/validate-normal-soldier-presentation.mjs
+
+      - name: Test NORMAL Soldier presentation regressions
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-normal-soldier-presentation.mjs
+
       - name: Test Hero and Job relations
         if: steps.ci-routing.outputs.run_hero_job_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-job-validation.mjs
