@@ -86,11 +86,14 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 43 relations; 18 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 43 relations; 18 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and exactly the existing 43/18 Hero→Job relation pairs');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 66 relations; 18 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 66 relations; 18 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and exactly the current 66/18 Hero→Job relation pairs');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
+  const expansionHeroPath = 'evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json';
+  const expansionConnectionPath = 'evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-expansion.v1.json';
+  const expansionEvidencePath = 'evidence/source/jobs/hero-job-connection-expansion.v1.json';
 
   await mutateAndExpectFailure(identityEvidencePath, (doc) => { doc.records = doc.records.filter((row) => row.ID !== 1); }, 'playable identity source missing', /playable Hero identity manifest\/source pin drift/);
   await mutateAndExpectFailure(identityPath, (doc) => { doc.records.push({ heroId: 999999, provenance: identityEvidencePath + '#ID=999999' }); }, 'unexpected extra Hero ID', /Hero 999999 identity evidence locator\/value mismatch/);
@@ -110,6 +113,12 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 5 && row.jobId === 817)); }, 'missing selected relation', /Hero→Job relation count differs from the current evidence-backed scope/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 6 && row.jobId === 377)); }, 'missing SP relation', /Hero→Job relation count differs from the current evidence-backed scope/);
 
+  await mutateAndExpectFailure(expansionHeroPath, (doc) => { doc.find((row) => row.ID === 28).JobConnection_ID = 999999; }, 'expansion HeroInfo explicit connection corruption', /expansion connection ID set differs from HeroInfo refs/);
+  await mutateAndExpectFailure(expansionConnectionPath, (doc) => { doc.find((row) => row.ID === 280).Job_ID = 999999; }, 'expansion JobConnectionInfo target corruption', /expansion JobInfo ID set differs from JobConnectionInfo targets/);
+  await mutateAndExpectFailure(expansionEvidencePath, (doc) => { doc.records.find((row) => row.heroId === 28 && row.connectionId === 280).jobInfoLocator = 'evidence/source/configdata/ConfigDataJobInfo.records-hero-expansion.v1.json#ID=999999'; }, 'expansion provenance locator corruption', /expansion source locator mismatch for 28:280/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 28 && row.jobId === 1101)); }, 'missing additive expansion relation', /Hero→Job relation count differs from the current evidence-backed scope/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 53 && row.jobId === 426).provenance = 'evidence/wrong.json#heroId=53'; }, 'Hero 53 SP provenance protection', /relation pair\/evidence locator mismatch for 53:426/);
+
   const selectedPath = 'canonical/heroes.v1.json';
   await mutateAndExpectFailure(selectedPath, (doc) => { doc.records[0].jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation', /selected slice relation 5:999999 is absent from the general relation owner/);
 
@@ -127,7 +136,7 @@ try {
     await writeFile(localizationPath, originalLocalization);
   }
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, unchanged 43 Hero→Job pairs, selected-slice parity, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 66 Hero→Job pairs, selected-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
