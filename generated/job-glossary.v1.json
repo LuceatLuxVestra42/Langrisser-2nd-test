@@ -2,12 +2,24 @@
   "schemaVersion": 1,
   "jobs": [
     {
+      "jobId": 102,
+      "nameKo": "제네럴"
+    },
+    {
+      "jobId": 104,
+      "nameKo": "마샬"
+    },
+    {
       "jobId": 128,
       "nameKo": "태초의 군주"
     },
     {
       "jobId": 202,
       "nameKo": "소드맨"
+    },
+    {
+      "jobId": 207,
+      "nameKo": "검성"
     },
     {
       "jobId": 262,
@@ -24,6 +36,10 @@
     {
       "jobId": 303,
       "nameKo": "그랜드 나이트"
+    },
+    {
+      "jobId": 304,
+      "nameKo": "나이트 마스터"
     },
     {
       "jobId": 306,
@@ -50,6 +66,18 @@
       "nameKo": "마법 성기사"
     },
     {
+      "jobId": 402,
+      "nameKo": "페가수스 나이트"
+    },
+    {
+      "jobId": 403,
+      "nameKo": "드래곤 나이트"
+    },
+    {
+      "jobId": 405,
+      "nameKo": "드래곤 마스터"
+    },
+    {
       "jobId": 414,
       "nameKo": "천공의 마룡"
     },
@@ -60,6 +88,18 @@
     {
       "jobId": 437,
       "nameKo": "달빛 영주"
+    },
+    {
+      "jobId": 502,
+      "nameKo": "서펜트 나이트"
+    },
+    {
+      "jobId": 503,
+      "nameKo": "서펜트 마스터"
+    },
+    {
+      "jobId": 603,
+      "nameKo": "보우 나이트"
     },
     {
       "jobId": 622,
@@ -142,8 +182,28 @@
       "nameKo": "선택받은 왕"
     },
     {
+      "jobId": 1006,
+      "nameKo": "데몬 스워드"
+    },
+    {
+      "jobId": 1007,
+      "nameKo": "디스오더"
+    },
+    {
       "jobId": 1097,
       "nameKo": "암흑의 마왕"
+    },
+    {
+      "jobId": 1101,
+      "nameKo": "밴디트"
+    },
+    {
+      "jobId": 1102,
+      "nameKo": "닌자"
+    },
+    {
+      "jobId": 1104,
+      "nameKo": "쉐도우"
     },
     {
       "jobId": 1119,
