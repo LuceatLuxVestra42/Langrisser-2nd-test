@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataCharImageInfo.json",
+    "gitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+    "sha256": "3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a",
+    "selection": "Exact ID equality for requested CharImage IDs [28,32,52,53]."
+  },
+  "records": [
+    {
+      "ID": 28,
+      "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Zalrahda.prefab"
+    },
+    {
+      "ID": 32,
+      "HeroPainting": "UI/HeroPainting/SR_ABS/Prefab/EmmaLink.prefab"
+    },
+    {
+      "ID": 52,
+      "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Angelina.prefab"
+    },
+    {
+      "ID": 53,
+      "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Ranford.prefab"
+    }
+  ]
+}

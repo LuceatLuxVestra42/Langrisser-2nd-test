@@ -92,7 +92,11 @@ for (const hero of generated.heroes) {
     throw new Error(`malformed Exclusive Equipment presentation for Hero ${hero.id}`);
   }
 }
-const portraitPaths = [...new Set(generated.heroes.map((hero) => hero.portrait))];
+const portraitExpansion = await readJson('evidence/source/portraits/hero-portrait-expansion.v1.json');
+if (JSON.stringify(generated.heroes.map((hero) => hero.id)) !== '[5,6,8]') throw new Error('presentation canonical population must remain exactly [5,6,8]');
+if (JSON.stringify(portraitExpansion.records.map((record) => record.heroId)) !== '[28,32,52,53]') throw new Error('portrait evidence population drift');
+const portraitPaths = [...new Set([...generated.heroes.map((hero) => hero.portrait), ...portraitExpansion.records.map((record) => record.extractedSourcePng.path)])];
+if (portraitPaths.length !== 7) throw new Error('static package must contain exactly seven evidence-backed portrait assets');
 
 const output = await mkdtemp(join(tmpdir(), 'langrisser-hero-slice-build-'));
 try {
