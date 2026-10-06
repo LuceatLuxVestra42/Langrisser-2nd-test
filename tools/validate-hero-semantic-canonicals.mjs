@@ -12,13 +12,21 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
   const identityManifestPath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.source-manifest.v1.json';
-  const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, spEvidence, classicJobs, spJobs] = await Promise.all([
+  const expansionHeroPath = 'evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json';
+  const expansionConnectionPath = 'evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-expansion.v1.json';
+  const expansionJobPath = 'evidence/source/configdata/ConfigDataJobInfo.records-hero-expansion.v1.json';
+  const expansionEvidencePath = 'evidence/source/jobs/hero-job-connection-expansion.v1.json';
+  const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, expansionEvidence, expansionHeroes, expansionConnections, expansionJobs, spEvidence, classicJobs, spJobs] = await Promise.all([
     readJson(identityPath),
     readJson(identityEvidencePath),
     readJson(identityManifestPath),
     readJson(relationPath),
     readJson('canonical/heroes.v1.json'),
     readJson('evidence/source/jobs/hero-job-connection-slice.v1.json'),
+    readJson(expansionEvidencePath),
+    readJson(expansionHeroPath),
+    readJson(expansionConnectionPath),
+    readJson(expansionJobPath),
     readJson('evidence/source/jobs/hero-sp-job-relation.v1.json'),
     readJson('evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json'),
     readJson('evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json'),
@@ -59,6 +67,72 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   exactKeys(relations, ['schemaVersion', 'scope', 'records'], 'Hero→Job relation canonical');
   check(relations.schemaVersion === 1 && relations.scope === 'Current evidence-backed Hero-to-Job relation union; not a claim of complete game relation population.', 'Hero→Job schema or scope drift');
 
+  exactKeys(expansionEvidence, ['version', 'purpose', 'sourceScope', 'source', 'sourceFiles', 'selection', 'preservedSubsets', 'claims', 'records', 'limitations', 'canonical', 'generated', 'productionRuntimeDependency'], 'Hero→Job expansion evidence');
+  check(expansionEvidence.version === 1 && expansionEvidence.sourceScope === 'CN ConfigData snapshot 2026-09-02' && expansionEvidence.canonical === false && expansionEvidence.generated === false && expansionEvidence.productionRuntimeDependency === false, 'Hero→Job expansion evidence metadata drift');
+  check(expansionEvidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && expansionEvidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'Hero→Job expansion source pin drift');
+  check(expansionEvidence.sourceFiles?.['ConfigDataHeroInfo.json']?.gitBlob === '728daab3370f0c7779449663ea02e638677944d4'
+    && expansionEvidence.sourceFiles?.['ConfigDataJobConnectionInfo.json']?.gitBlob === 'cdad8d6fda6edd30c92fbcda53e0f63af1903139'
+    && expansionEvidence.sourceFiles?.['ConfigDataJobInfo.json']?.gitBlob === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133', 'Hero→Job expansion source blob pin drift');
+  check(JSON.stringify(expansionEvidence.selection?.heroIds) === '[28,32,52,53]', 'Hero→Job expansion target Hero scope drift');
+  check(expansionEvidence.claims?.heroFieldToConnectionId?.class === 'B' && expansionEvidence.claims?.connectionJobIdToJobInfoId?.class === 'B' && expansionEvidence.claims?.selectedRecordsExist?.class === 'A', 'Hero→Job expansion evidence classes drift');
+
+  const targetExpansionHeroIds = [28, 32, 52, 53];
+  const expansionHeroById = new Map();
+  for (const row of expansionHeroes) {
+    check(row && typeof row === 'object' && !Array.isArray(row) && Number.isSafeInteger(row.ID), 'malformed expansion HeroInfo row');
+    check(!expansionHeroById.has(row.ID), 'duplicate expansion HeroInfo ID ' + row.ID);
+    expansionHeroById.set(row.ID, row);
+  }
+  check(JSON.stringify([...expansionHeroById.keys()].sort((a, b) => a - b)) === JSON.stringify(targetExpansionHeroIds), 'expansion HeroInfo ID set differs from target scope');
+  const expectedExpansionRows = [];
+  for (const heroId of targetExpansionHeroIds) {
+    const row = expansionHeroById.get(heroId);
+    check(Number.isSafeInteger(row.JobConnection_ID) && Array.isArray(row.UseableJobConnections_ID) && row.UseableJobConnections_ID.every(Number.isSafeInteger), 'malformed explicit connection refs for expansion Hero ' + heroId);
+    expectedExpansionRows.push({ heroId, sourceField: 'JobConnection_ID', connectionId: row.JobConnection_ID });
+    for (const connectionId of row.UseableJobConnections_ID) expectedExpansionRows.push({ heroId, sourceField: 'UseableJobConnections_ID', connectionId });
+  }
+  const expectedConnectionIds = new Set(expectedExpansionRows.map((row) => row.connectionId));
+  const expansionConnectionById = new Map();
+  for (const row of expansionConnections) {
+    check(row && typeof row === 'object' && !Array.isArray(row) && Number.isSafeInteger(row.ID) && Number.isSafeInteger(row.Job_ID), 'malformed expansion JobConnectionInfo row');
+    check(!expansionConnectionById.has(row.ID), 'duplicate expansion JobConnectionInfo ID ' + row.ID);
+    expansionConnectionById.set(row.ID, row);
+  }
+  const sortedSet = (values) => [...new Set(values)].sort((a, b) => a - b);
+  check(JSON.stringify(sortedSet(expansionConnectionById.keys())) === JSON.stringify(sortedSet(expectedConnectionIds)), 'expansion connection ID set differs from HeroInfo refs');
+  const expectedJobIds = new Set([...expansionConnectionById.values()].map((row) => row.Job_ID));
+  const expansionJobById = new Map();
+  for (const row of expansionJobs) {
+    check(row && typeof row === 'object' && !Array.isArray(row) && Number.isSafeInteger(row.ID), 'malformed expansion JobInfo row');
+    check(!expansionJobById.has(row.ID), 'duplicate expansion JobInfo ID ' + row.ID);
+    expansionJobById.set(row.ID, row);
+  }
+  check(JSON.stringify(sortedSet(expansionJobById.keys())) === JSON.stringify(sortedSet(expectedJobIds)), 'expansion JobInfo ID set differs from JobConnectionInfo targets');
+
+  const expansionEvidenceByRef = new Map();
+  for (const row of expansionEvidence.records) {
+    exactKeys(row, ['heroId', 'sourceHeroInfoLocator', 'sourceField', 'connectionId', 'jobConnectionInfoLocator', 'jobId', 'jobInfoLocator'], `Hero→Job expansion evidence ${row.heroId}:${row.connectionId}`);
+    const key = `${row.heroId}:${row.connectionId}`;
+    check(!expansionEvidenceByRef.has(key), 'duplicate expansion evidence connection ' + key);
+    const hero = expansionHeroById.get(row.heroId);
+    check(hero, 'expansion evidence Hero absent from preserved HeroInfo: ' + row.heroId);
+    const expectedField = hero.JobConnection_ID === row.connectionId ? 'JobConnection_ID' : hero.UseableJobConnections_ID.includes(row.connectionId) ? 'UseableJobConnections_ID' : null;
+    check(expectedField === row.sourceField, 'expansion source field mismatch for ' + key);
+    const connection = expansionConnectionById.get(row.connectionId);
+    check(connection && connection.Job_ID === row.jobId, 'expansion JobConnectionInfo target mismatch for ' + key);
+    check(expansionJobById.has(row.jobId), 'expansion JobInfo endpoint missing for ' + key);
+    check(row.sourceHeroInfoLocator === expansionHeroPath + '#ID=' + row.heroId
+      && row.jobConnectionInfoLocator === expansionConnectionPath + '#ID=' + row.connectionId
+      && row.jobInfoLocator === expansionJobPath + '#ID=' + row.jobId, 'expansion source locator mismatch for ' + key);
+    expansionEvidenceByRef.set(key, row);
+  }
+  check(expansionEvidence.records.length === expectedExpansionRows.length && expansionEvidenceByRef.size === expectedExpansionRows.length, 'Hero→Job expansion evidence row count differs from explicit HeroInfo refs');
+  for (const row of expectedExpansionRows) {
+    const key = `${row.heroId}:${row.connectionId}`;
+    const evidenceRow = expansionEvidenceByRef.get(key);
+    check(evidenceRow && evidenceRow.sourceField === row.sourceField && evidenceRow.jobId === expansionConnectionById.get(row.connectionId).Job_ID, 'explicit expansion relation missing for ' + key);
+  }
+
   const identityById = new Map();
   for (const row of identities.records) {
     exactKeys(row, ['heroId', 'provenance'], `Hero identity ${row.heroId}`);
@@ -82,14 +156,25 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     addExpectedRelation(row.heroId, row.jobId,
       `evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'selected Hero evidence');
   }
+  for (const row of expansionEvidence.records) {
+    addExpectedRelation(row.heroId, row.jobId,
+      `evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 28/32/52/53 connection evidence');
+  }
   for (const row of spEvidence.records) {
     addExpectedRelation(row.heroId, row.spJobId,
       `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${row.heroId}`, 'SP relation evidence');
   }
-  check(classicEvidence.records.length === 18 && spEvidence.records.length === 25 && expectedRelations.size === 43, 'current evidence-backed relation scope must contain 18 selected plus 25 SP relations');
+  check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
+  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
-  const jobIds = new Set([...classicJobs, ...spJobs].map((row) => row.ID));
-  check(jobIds.size === classicJobs.length + spJobs.length, 'JobInfo evidence subsets contain duplicate IDs');
+  const assertUniqueJobSubset = (rows, label) => {
+    const ids = rows.map((row) => row.ID);
+    check(new Set(ids).size === ids.length, label + ' contains duplicate JobInfo IDs');
+  };
+  assertUniqueJobSubset(classicJobs, 'selected JobInfo evidence');
+  assertUniqueJobSubset(expansionJobs, 'expansion JobInfo evidence');
+  assertUniqueJobSubset(spJobs, 'SP JobInfo evidence');
+  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs].map((row) => row.ID));
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
@@ -103,6 +188,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     relationByPair.set(key, row);
   }
   check(relationByPair.size === expectedRelations.size, 'Hero→Job relation count differs from the current evidence-backed scope');
+  check(relationByPair.get('53:426')?.provenance === 'evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=53', 'Hero 53 SP-backed relation provenance drift');
   for (const [key, expected] of expectedRelations) {
     check(relationByPair.has(key), `evidence relation ${key} is missing from the general owner`);
   }
