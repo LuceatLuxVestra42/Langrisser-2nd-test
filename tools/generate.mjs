@@ -188,6 +188,52 @@ export function renderNormalSoldiers(identities, localizations, baseStats) {
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
 
+export function renderHeroSoldierRelations(heroPresentation, relationOwner, soldierIdentities) {
+  if (heroPresentation?.schemaVersion !== 1 || !Array.isArray(heroPresentation.records)) {
+    throw new Error('Unsupported Hero presentation population owner');
+  }
+  if (relationOwner?.schemaVersion !== 1 || !Array.isArray(relationOwner.records)) {
+    throw new Error('Unsupported canonical Hero-Soldier relation owner');
+  }
+  if (soldierIdentities?.schemaVersion !== 1 || !Array.isArray(soldierIdentities.records)) {
+    throw new Error('Unsupported canonical Soldier identity owner');
+  }
+
+  const heroIds = new Set();
+  for (const hero of heroPresentation.records) {
+    if (!Number.isInteger(hero.id)) throw new Error('Hero presentation owner contains malformed Hero ID');
+    if (heroIds.has(hero.id)) throw new Error('Duplicate Hero presentation ID ' + hero.id);
+    heroIds.add(hero.id);
+  }
+
+  const soldierIds = new Set();
+  for (const soldier of soldierIdentities.records) {
+    if (soldier.entity !== 'Soldier') continue;
+    if (!Number.isInteger(soldier.id)) throw new Error('Soldier identity owner contains malformed Soldier ID');
+    if (soldierIds.has(soldier.id)) throw new Error('Duplicate Soldier identity ID ' + soldier.id);
+    soldierIds.add(soldier.id);
+  }
+
+  const seenPairs = new Set();
+  const relations = [];
+  for (const relation of relationOwner.records) {
+    if (!heroIds.has(relation.heroId)) continue;
+    if (!Number.isInteger(relation.heroId) || !Number.isInteger(relation.soldierId)) {
+      throw new Error('Candidate Hero-Soldier relation contains malformed endpoint');
+    }
+    if (!soldierIds.has(relation.soldierId)) {
+      throw new Error('Candidate Hero-Soldier relation references missing Soldier ' + relation.soldierId);
+    }
+    const key = relation.heroId + ':' + relation.soldierId;
+    if (seenPairs.has(key)) throw new Error('Duplicate candidate Hero-Soldier pair ' + key);
+    seenPairs.add(key);
+    relations.push({ heroId: relation.heroId, soldierId: relation.soldierId });
+  }
+
+  relations.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
+  return JSON.stringify({ schemaVersion: 1, relations }, null, 2) + '\n';
+}
+
 
 export function renderExclusiveEquipment(identities, localizations) {
   if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported Exclusive Equipment identity owner');
@@ -249,6 +295,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]);
   const normalSoldierOutputPath = resolve('generated/normal-soldiers.v1.json');
   await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats)), 'utf8');
+  const heroSoldierRelationOwner = JSON.parse(await readFile(resolve('canonical/hero-soldier-relations.v1.json'), 'utf8'));
+  const heroSoldierOutputPath = resolve('generated/hero-soldier-relations.v1.json');
+  await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(canonical, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');
   const equipmentIdentity = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment.v1.json'), 'utf8'));
   const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
   const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');
@@ -257,5 +306,5 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');
   await writeFile(exclusiveEquipmentOutputPath, renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + equipmentOutputPath + ', and ' + exclusiveEquipmentOutputPath + '\n');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', and ' + heroSoldierOutputPath + '\n');
 }

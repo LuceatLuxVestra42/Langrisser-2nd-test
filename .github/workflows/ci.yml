@@ -137,6 +137,14 @@ jobs:
         if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-soldier-direct-source.mjs
 
+      - name: Validate Hero-Soldier generated presentation
+        if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/validate-hero-soldier-presentation.mjs
+
+      - name: Test Hero-Soldier generated presentation regressions
+        if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-hero-soldier-presentation.mjs
+
       - name: Test SP Soldier relations
         if: steps.ci-routing.outputs.run_sp_normal_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-relation.mjs
