@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Additive concrete portrait provenance for Hero 28, 32, 52, and 53.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "scope": {
+    "heroIds": [
+      28,
+      32,
+      52,
+      53
+    ],
+    "charImageIds": [
+      28,
+      32,
+      52,
+      53
+    ],
+    "configDataSnapshot": "CN ConfigData snapshot 2026-09-02",
+    "claimClass": "B",
+    "claim": "Explicit CharImageInfo HeroPainting paths and pinned predecessor extraction records trace the base static artwork assets."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitDate": "2026-09-02T01:45:21Z",
+    "snapshotScope": "CN ConfigData snapshot 2026-09-02",
+    "heroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+      "bytes": 16894185,
+      "preservedSubset": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json",
+      "fields": [
+        "ID",
+        "Name_Eng",
+        "CharImage_ID"
+      ]
+    },
+    "charImageInfo": {
+      "path": "data/configdata/ConfigDataCharImageInfo.json",
+      "gitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+      "sha256": "3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a",
+      "bytes": 1593018,
+      "recordCount": 1378,
+      "preservedSubset": "evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json",
+      "fields": [
+        "ID",
+        "HeroPainting"
+      ],
+      "selection": "Exact ID equality for [28,32,52,53]."
+    }
+  },
+  "predecessor": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "manifest": {
+      "path": "data/generated/hero-artwork-h-a5-index.v1/manifest.json",
+      "gitBlobSha1": "dad6692f88b3e50699062b9dd66733a9493785ca",
+      "status": "H_A5_BULK_EXTRACTION_INDEX_COMPLETE",
+      "installVersion": "1.1.113",
+      "canonicalHeroCount": 267
+    },
+    "finalValidation": {
+      "path": "data/validation/hero-artwork-h-a5-final.v1.json",
+      "gitBlobSha1": "7d6af2bf253340f3686c40c5ba768fb1c22722ac",
+      "status": "PASS_H_A5_BULK_EXTRACTION_INDEX_FINAL"
+    },
+    "script": {
+      "path": "scripts/build-hero-artwork-h-a5-index.py",
+      "gitBlobSha1": "a13be98a59dadcfc95e2287c138ff56e76b86518",
+      "use": "Read-only procedure locator; no re-extraction."
+    }
+  },
+  "historicalPackageIdentity": {
+    "fullPackageCryptographicHash": "not recorded",
+    "serverRegion": "not separately declared",
+    "configDataAndClientReleaseSynchronization": "not independently established"
+  },
+  "priorSemanticPrecedent": "evidence/source/portraits/hero-portrait-prior-validation.v1.json (inherited B-level field-role and extraction interpretation)",
+  "selection": {
+    "method": "Serialized Unity PPtr reference traversal in pinned bulk extraction record; UNIQUE_REFERENCED_SPRITE.",
+    "filenameSimilarity": false,
+    "visualSelection": false
+  },
+  "records": [
+    {
+      "heroId": 28,
+      "charImageId": 28,
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=28/CharImage_ID",
+      "charImageInfoLocator": "evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json#ID=28",
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Zalrahda.prefab",
+      "relationClass": "B",
+      "charImageIdClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/begin_ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "3a6ca0062dc5aa53c9db44761e2559bc1819dd81",
+        "heroId": 28,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Zalrahda.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_26.zip",
+        "packageIndex": 25,
+        "packageBytes": 113636260,
+        "bundleName": "begin_ui_heropainting_ssr_abs.b",
+        "bundleBytes": 3710837,
+        "bundleMd5": "16CF10B79FF22F3CE1BF78B45D05DFA8",
+        "bundleSha256": "7C1551C8A4626CAA0BAB5E83A6A5BC4B3EF804E831D570C724D94193C4569F8A",
+        "bundleCrc32": "A06A3B3B",
+        "prefabPathId": "-3395345378609369533",
+        "spritePathId": "-194674723322344466",
+        "texturePathId": "7281377949232435825"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/28.png",
+        "gitBlobSha1": "cfa64d6bb0a76ababe24c21574e11ffef22733d6",
+        "bytes": 146358,
+        "sha256": "ec8d6db1340962e7bf0af085312660ab2b3d244bb2fb9e45b9ccf34359e7e3a2",
+        "width": 290,
+        "height": 673
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-28.png",
+        "bytes": 146358,
+        "sha256": "ec8d6db1340962e7bf0af085312660ab2b3d244bb2fb9e45b9ccf34359e7e3a2",
+        "width": 290,
+        "height": 673
+      },
+      "limitations": [
+        "Historical package has no full-package hash; bundle/object locators are preserved.",
+        "ConfigData/client release synchronization is unproven.",
+        "Semantic/extraction interpretation remains inherited B."
+      ]
+    },
+    {
+      "heroId": 32,
+      "charImageId": 32,
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=32/CharImage_ID",
+      "charImageInfoLocator": "evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json#ID=32",
+      "heroPainting": "UI/HeroPainting/SR_ABS/Prefab/EmmaLink.prefab",
+      "relationClass": "B",
+      "charImageIdClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_sr_abs-b.json",
+        "recordGitBlobSha1": "b989c2cc29e520e1004c3a1b27338839df84d0e7",
+        "heroId": 32,
+        "sourceArtworkPath": "UI/HeroPainting/SR_ABS/Prefab/EmmaLink.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_sr_abs.b",
+        "bundleBytes": 4204670,
+        "bundleMd5": "50C4FFD5AB6F7CBD8A0B39117F9CA101",
+        "bundleSha256": "294750FF12725BF5B8DF906B6CFAB702AF6352F7BAAF2203553E3E5EACDE8ED2",
+        "bundleCrc32": "BD688F0F",
+        "prefabPathId": "-5537815937899404635",
+        "spritePathId": "-1320580171690113738",
+        "texturePathId": "-6879433172749206965"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/32.png",
+        "gitBlobSha1": "20b2dcb0ba78148b177845c568820bf443f4f061",
+        "bytes": 251928,
+        "sha256": "de293a717e76c0c8509fc5d23a7c58afef331b3029e23df8c327fcc82cc44716",
+        "width": 467,
+        "height": 808
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-32.png",
+        "bytes": 251928,
+        "sha256": "de293a717e76c0c8509fc5d23a7c58afef331b3029e23df8c327fcc82cc44716",
+        "width": 467,
+        "height": 808
+      },
+      "limitations": [
+        "Historical package has no full-package hash; bundle/object locators are preserved.",
+        "ConfigData/client release synchronization is unproven.",
+        "Semantic/extraction interpretation remains inherited B."
+      ]
+    },
+    {
+      "heroId": 52,
+      "charImageId": 52,
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=52/CharImage_ID",
+      "charImageInfoLocator": "evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json#ID=52",
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Angelina.prefab",
+      "relationClass": "B",
+      "charImageIdClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "b6cb8f827367fc367af8c544aa6877a85bcfee32",
+        "heroId": 52,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Angelina.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_ssr_abs.b",
+        "bundleBytes": 25793935,
+        "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+        "bundleCrc32": "4682CEA2",
+        "prefabPathId": "5860178421517094730",
+        "spritePathId": "-7328345330052236194",
+        "texturePathId": "3363445001814199457"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/52.png",
+        "gitBlobSha1": "16928df183a1743b729388c7a00ae86bf718bad9",
+        "bytes": 324500,
+        "sha256": "1bee4fabd6b07edc50e31d6d12ce5518da69b5f20d52b1e8bb5b1c6aeeed962b",
+        "width": 465,
+        "height": 761
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-52.png",
+        "bytes": 324500,
+        "sha256": "1bee4fabd6b07edc50e31d6d12ce5518da69b5f20d52b1e8bb5b1c6aeeed962b",
+        "width": 465,
+        "height": 761
+      },
+      "limitations": [
+        "Historical package has no full-package hash; bundle/object locators are preserved.",
+        "ConfigData/client release synchronization is unproven.",
+        "Semantic/extraction interpretation remains inherited B."
+      ]
+    },
+    {
+      "heroId": 53,
+      "charImageId": 53,
+      "heroInfoLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=53/CharImage_ID",
+      "charImageInfoLocator": "evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json#ID=53",
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Ranford.prefab",
+      "relationClass": "B",
+      "charImageIdClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "b6cb8f827367fc367af8c544aa6877a85bcfee32",
+        "heroId": 53,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Ranford.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_ssr_abs.b",
+        "bundleBytes": 25793935,
+        "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+        "bundleCrc32": "4682CEA2",
+        "prefabPathId": "1249887865044570520",
+        "spritePathId": "8651431037479247251",
+        "texturePathId": "-3014674721762151040"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/53.png",
+        "gitBlobSha1": "aac42d5cfc60d60f93e6a5ef23595c69647df220",
+        "bytes": 414250,
+        "sha256": "3d9b8c218b18648e4f108911803fd00ded36a218fb21bead21cf0a736336f96e",
+        "width": 657,
+        "height": 878
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-53.png",
+        "bytes": 414250,
+        "sha256": "3d9b8c218b18648e4f108911803fd00ded36a218fb21bead21cf0a736336f96e",
+        "width": 657,
+        "height": 878
+      },
+      "limitations": [
+        "Historical package has no full-package hash; bundle/object locators are preserved.",
+        "ConfigData/client release synchronization is unproven.",
+        "Semantic/extraction interpretation remains inherited B."
+      ]
+    }
+  ],
+  "limitations": [
+    "Only Heroes 28, 32, 52, and 53; no full Hero portrait completeness.",
+    "Pinned predecessor extraction and PNG objects are reused; no package download or re-extraction.",
+    "Destination asset name is a storage convention, not source identity evidence."
+  ]
+}
