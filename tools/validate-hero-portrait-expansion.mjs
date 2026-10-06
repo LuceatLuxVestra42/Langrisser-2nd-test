@@ -10,7 +10,8 @@ const presentationIds = [5, 6, 8];
 export async function validateHeroPortraitExpansion(root = process.cwd()) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
   const evidence = await readJson('evidence/source/portraits/hero-portrait-expansion.v1.json');
-  const charRows = await readJson('evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json');
+  const charDoc = await readJson('evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json');
+  const charRows = charDoc.records;
   const heroRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json');
   const canonical = await readJson('canonical/heroes.v1.json');
   const slice = await readJson('evidence/source/portraits/hero-portrait-slice.v1.json');
