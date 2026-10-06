@@ -204,9 +204,11 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
       selectedPairs.add(key);
     }
   }
-  const selectedOwnerPairs = [...expectedRelations.keys()].filter((key) => selectedIds.has(Number(key.split(':')[0])) && classicEvidence.records.some((row) => `${row.heroId}:${row.jobId}` === key));
-  check(selectedPairs.size === 18 && selectedOwnerPairs.length === 18, 'selected 5/6/8 relation parity must cover exactly the existing 18 relations');
+  const selectedOwnerPairs = [...expectedRelations.keys()].filter((key) => selectedIds.has(Number(key.split(':')[0])));
+  check(selectedPairs.size === 42 && selectedOwnerPairs.length === 42, 'selected presentation relation parity must cover exactly the 42 admitted 5/6/8/28/32/52/53 relations');
   for (const row of classicEvidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of expansionEvidence.records) if (selectedIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected expansion relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of spEvidence.records) if (selectedIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected SP relation ${row.heroId}:${row.jobId} is missing from the slice`);
 
   return { identities: identityById.size, relations: relationByPair.size, selectedHeroes: selectedIds.size, selectedRelations: selectedPairs.size };
 }

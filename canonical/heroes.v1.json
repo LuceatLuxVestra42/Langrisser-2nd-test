@@ -7,12 +7,36 @@
       "nameEng": "Chris",
       "portrait": "assets/portraits/hero-5.png",
       "jobConnections": [
-        { "connectionId": 50, "jobId": 817, "sourceField": "JobConnection_ID" },
-        { "connectionId": 51, "jobId": 806, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 52, "jobId": 807, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 53, "jobId": 803, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 54, "jobId": 812, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 55, "jobId": 813, "sourceField": "UseableJobConnections_ID" }
+        {
+          "connectionId": 50,
+          "jobId": 817,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 51,
+          "jobId": 806,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 52,
+          "jobId": 807,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 53,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 54,
+          "jobId": 812,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 55,
+          "jobId": 813,
+          "sourceField": "UseableJobConnections_ID"
+        }
       ],
       "provenance": {
         "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5",
@@ -26,12 +50,36 @@
       "nameEng": "Leon",
       "portrait": "assets/portraits/hero-6.png",
       "jobConnections": [
-        { "connectionId": 60, "jobId": 301, "sourceField": "JobConnection_ID" },
-        { "connectionId": 61, "jobId": 303, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 62, "jobId": 302, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 63, "jobId": 202, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 64, "jobId": 307, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 65, "jobId": 306, "sourceField": "UseableJobConnections_ID" }
+        {
+          "connectionId": 60,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 61,
+          "jobId": 303,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 62,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 63,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 64,
+          "jobId": 307,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 65,
+          "jobId": 306,
+          "sourceField": "UseableJobConnections_ID"
+        }
       ],
       "provenance": {
         "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6",
@@ -45,18 +93,214 @@
       "nameEng": "Lana",
       "portrait": "assets/portraits/hero-8.png",
       "jobConnections": [
-        { "connectionId": 80, "jobId": 701, "sourceField": "JobConnection_ID" },
-        { "connectionId": 81, "jobId": 805, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 82, "jobId": 702, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 83, "jobId": 703, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 84, "jobId": 810, "sourceField": "UseableJobConnections_ID" },
-        { "connectionId": 85, "jobId": 706, "sourceField": "UseableJobConnections_ID" }
+        {
+          "connectionId": 80,
+          "jobId": 701,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 81,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 82,
+          "jobId": 702,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 83,
+          "jobId": 703,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 84,
+          "jobId": 810,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 85,
+          "jobId": 706,
+          "sourceField": "UseableJobConnections_ID"
+        }
       ],
       "provenance": {
         "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8",
         "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8/Name_Eng",
         "portrait": "evidence/source/portraits/hero-portrait-slice.v1.json#heroId=8",
         "jobConnections": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8"
+      }
+    },
+    {
+      "id": 28,
+      "nameEng": "Zalrahda",
+      "portrait": "assets/portraits/hero-28.png",
+      "jobConnections": [
+        {
+          "connectionId": 280,
+          "jobId": 1101,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 281,
+          "jobId": 1102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 282,
+          "jobId": 1006,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 284,
+          "jobId": 1104,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 285,
+          "jobId": 1007,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=28",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=28/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=28",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=28"
+      }
+    },
+    {
+      "id": 32,
+      "nameEng": "EmmaLink",
+      "portrait": "assets/portraits/hero-32.png",
+      "jobConnections": [
+        {
+          "connectionId": 320,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 321,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 322,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 323,
+          "jobId": 603,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 324,
+          "jobId": 304,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 325,
+          "jobId": 104,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=32",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=32/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=32",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=32"
+      }
+    },
+    {
+      "id": 52,
+      "nameEng": "Angelina",
+      "portrait": "assets/portraits/hero-52.png",
+      "jobConnections": [
+        {
+          "connectionId": 520,
+          "jobId": 402,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 521,
+          "jobId": 502,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 522,
+          "jobId": 403,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 523,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 524,
+          "jobId": 503,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 525,
+          "jobId": 405,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=52",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=52/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=52",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=52"
+      }
+    },
+    {
+      "id": 53,
+      "nameEng": "Ranford",
+      "portrait": "assets/portraits/hero-53.png",
+      "jobConnections": [
+        {
+          "connectionId": 530,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 531,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 532,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 533,
+          "jobId": 403,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 534,
+          "jobId": 207,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 535,
+          "jobId": 304,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 536,
+          "jobId": 426,
+          "sourceField": "JobConnection_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=53",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=53/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=53",
+        "jobConnections": "canonical/hero-job-relations.v1.json#heroId=53"
       }
     }
   ]

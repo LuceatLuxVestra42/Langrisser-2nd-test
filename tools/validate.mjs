@@ -23,17 +23,28 @@ exactKeys(canonical, ['schemaVersion', 'sourceScope', 'records'], 'canonical');
 check(canonical.schemaVersion === 1, 'unsupported canonical schemaVersion');
 check(canonical.sourceScope === 'CN ConfigData snapshot 2026-09-02', 'canonical source scope drift');
 const expected = new Map([[5, 'Chris'], [6, 'Leon'], [8, 'Lana']]);
-check(canonical.records.length === expected.size, 'canonical must contain exactly three Heroes');
+const expectedExpansion = new Map([[28, 'Zalrahda'], [32, 'EmmaLink'], [52, 'Angelina'], [53, 'Ranford']]);
+const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys()]);
+check(canonical.records.length === expectedIds.size, 'canonical must contain exactly seven admitted Heroes');
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[5,6,8]', 'canonical Hero IDs must be exactly 5, 6, and 8');
+check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[5,6,8,28,32,52,53]', 'canonical Hero IDs must be exactly 5, 6, 8, 28, 32, 52, and 53');
 
 const heroInfoRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json');
 const heroInfoById = new Map(heroInfoRows.map((record) => [record.ID, record]));
 const charRows = await readJson('evidence/source/configdata/ConfigDataCharImageInfo.records-5-6-8.json');
 const charById = new Map(charRows.map((record) => [record.ID, record]));
+const expansionHeroInfoRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json');
+const expansionHeroInfoById = new Map(expansionHeroInfoRows.map((record) => [record.ID, record]));
+const expansionCharRows = await readJson('evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json');
+const expansionCharById = new Map(expansionCharRows.records.map((record) => [record.ID, record]));
 const portraits = await readJson('evidence/source/portraits/hero-portrait-slice.v1.json');
 const portraitByHero = new Map(portraits.records.map((record) => [record.heroId, record]));
+const expansionPortraits = await readJson('evidence/source/portraits/hero-portrait-expansion.v1.json');
+const expansionPortraitByHero = new Map(expansionPortraits.records.map((record) => [record.heroId, record]));
+const expansionJobConnections = await readJson('evidence/source/jobs/hero-job-connection-expansion.v1.json');
+const relationOwner = await readJson('canonical/hero-job-relations.v1.json');
+const spRelationEvidence = await readJson('evidence/source/jobs/hero-sp-job-relation.v1.json');
 const priorPortraitEvidence = await readJson('evidence/source/portraits/hero-portrait-prior-validation.v1.json');
 const jobEvidence = await readJson('evidence/source/jobs/hero-job-connection-slice.v1.json');
 const connectionRows = await readJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json');
@@ -72,7 +83,7 @@ const expectedPairs = new Map([
   [8, [701, 805, 702, 703, 810, 706]],
 ]);
 
-for (const record of canonical.records) {
+for (const record of canonical.records.filter((item) => expected.has(item.id))) {
   exactKeys(record, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], `Hero ${record.id}`);
   exactKeys(record.provenance, ['identity', 'nameEng', 'portrait', 'jobConnections'], `Hero ${record.id} provenance`);
   check(expected.get(record.id) === record.nameEng, `Hero ${record.id} Name_Eng differs from admitted expected value`);
@@ -131,6 +142,38 @@ for (const record of canonical.records) {
   check(JSON.stringify(survivingPortrait.extractedPng.dimensions) === JSON.stringify([portrait.extractedSourcePng.width, portrait.extractedSourcePng.height]), `Hero ${record.id} surviving image dimensions locator mismatch`);
 }
 
+for (const record of canonical.records.filter((item) => expectedExpansion.has(item.id))) {
+  exactKeys(record, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], `Hero ${record.id}`);
+  exactKeys(record.provenance, ['identity', 'nameEng', 'portrait', 'jobConnections'], `Hero ${record.id} provenance`);
+  check(expectedExpansion.get(record.id) === record.nameEng, `Hero ${record.id} Name_Eng differs from admitted expected value`);
+  const sourceHero = expansionHeroInfoById.get(record.id);
+  check(sourceHero && sourceHero.Name_Eng === record.nameEng, `Hero ${record.id} Name_Eng differs from preserved expansion source`);
+  check(record.provenance.identity === `evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=${record.id}`, `Hero ${record.id} identity provenance locator mismatch`);
+  check(record.provenance.nameEng === `evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=${record.id}/Name_Eng`, `Hero ${record.id} Name_Eng provenance locator mismatch`);
+  const portrait = expansionPortraitByHero.get(record.id);
+  check(portrait && sourceHero.CharImage_ID === portrait.charImageId, `Hero ${record.id} portrait evidence linkage mismatch`);
+  const charImage = expansionCharById.get(sourceHero.CharImage_ID);
+  check(charImage && charImage.HeroPainting === portrait.heroPainting, `Hero ${record.id} CharImageInfo HeroPainting mismatch`);
+  check(record.provenance.portrait === `evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=${record.id}`, `Hero ${record.id} portrait provenance locator mismatch`);
+  check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonical portrait path differs from admitted evidence`);
+  const assetPath = resolve(root, record.portrait);
+  const bytes = await readFile(assetPath);
+  check(bytes.length === portrait.extractedSourcePng.bytes, `Hero ${record.id} portrait byte length mismatch`);
+  check(createHash('sha256').update(bytes).digest('hex') === portrait.extractedSourcePng.sha256, `Hero ${record.id} portrait SHA-256 mismatch`);
+  const expectedConnections = expansionJobConnections.records.filter((row) => row.heroId === record.id).map((row) => ({ connectionId: row.connectionId, jobId: row.jobId, sourceField: row.sourceField }));
+  if (record.id === 53) {
+    const spRelation = spRelationEvidence.records.find((row) => row.heroId === 53);
+    check(spRelation && spRelation.spJobConnectionId === 536 && spRelation.spJobId === 426, 'Hero 53 SP presentation relation source locator drift');
+    expectedConnections.push({ connectionId: spRelation.spJobConnectionId, jobId: spRelation.spJobId, sourceField: 'JobConnection_ID' });
+  }
+  check(JSON.stringify(record.jobConnections) === JSON.stringify(expectedConnections), `Hero ${record.id} Job connection presentation differs from current evidence owners`);
+  const expectedRelationPairs = relationOwner.records.filter((row) => row.heroId === record.id).map((row) => row.jobId).sort((a, b) => a - b);
+  const actualRelationPairs = record.jobConnections.map((row) => row.jobId).sort((a, b) => a - b);
+  check(JSON.stringify(actualRelationPairs) === JSON.stringify(expectedRelationPairs), `Hero ${record.id} presented Job IDs differ from current relation canonical`);
+  const expectedJobProvenance = record.id === 53 ? 'canonical/hero-job-relations.v1.json#heroId=53' : `evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=${record.id}`;
+  check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
+}
+
 const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
@@ -146,8 +189,8 @@ for (const localization of heroLocalization.records) {
 }
 check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[5, 447], [6, 416], [8, 275]]);
-check(generatedJson.heroes.length === 3 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[5,6,8]', 'visible Hero population must remain exactly 5, 6, and 8');
+const expectedEquipmentByHero = new Map([[5, 447], [6, 416], [8, 275], [28, 412], [32, 287], [52, 294], [53, 296]]);
+check(generatedJson.heroes.length === 7 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[5,6,8,28,32,52,53]', 'visible Hero population must be exactly 5, 6, 8, 28, 32, 52, and 53');
 for (const hero of generatedJson.heroes) {
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
   check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);

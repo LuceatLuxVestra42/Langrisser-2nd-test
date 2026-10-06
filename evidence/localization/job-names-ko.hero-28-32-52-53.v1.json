@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "KR display text from preserved project source; official KR provenance unverified",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "records": [
+    {
+      "nameCn": "将军",
+      "nameKo": "제네럴",
+      "jobId": 102,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=102",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "大元帅",
+      "nameKo": "마샬",
+      "jobId": 104,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=104",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "剑圣",
+      "nameKo": "검성",
+      "jobId": 207,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=207",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "骑士统帅",
+      "nameKo": "나이트 마스터",
+      "jobId": 304,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=304",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "飞马骑士",
+      "nameKo": "페가수스 나이트",
+      "jobId": 402,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=402",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "龙骑士",
+      "nameKo": "드래곤 나이트",
+      "jobId": 403,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=403",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "龙骑统帅",
+      "nameKo": "드래곤 마스터",
+      "jobId": 405,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=405",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "海骑士",
+      "nameKo": "서펜트 나이트",
+      "jobId": 502,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=502",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "海骑统帅",
+      "nameKo": "서펜트 마스터",
+      "jobId": 503,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=503",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "弓骑士",
+      "nameKo": "보우 나이트",
+      "jobId": 603,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=603",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "魔剑使者",
+      "nameKo": "데몬 스워드",
+      "jobId": 1006,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1006",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "混沌化身",
+      "nameKo": "디스오더",
+      "jobId": 1007,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1007",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "暗杀者",
+      "nameKo": "밴디트",
+      "jobId": 1101,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1101",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "忍者",
+      "nameKo": "닌자",
+      "jobId": 1102,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1102",
+      "evidenceClass": "A"
+    },
+    {
+      "nameCn": "影",
+      "nameKo": "쉐도우",
+      "jobId": 1104,
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1104",
+      "evidenceClass": "A"
+    }
+  ]
+}

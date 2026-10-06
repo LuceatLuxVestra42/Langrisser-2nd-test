@@ -14,6 +14,8 @@ assert.equal(heroKoDirectSource.run_full_suite,false);
 assert.equal(heroKoDirectSource.run_job,false);
 assert.equal(heroKoDirectSource.run_soldier,false);
 for (const p of ['evidence/localization/hero-names-ko.v1.json','evidence/localization/source/hero-names-ko.v1.txt','evidence/localization/source/hero-names-ko.source-manifest.v1.json','tools/validate-hero-ko-localization.mjs','tools/test-hero-ko-localization.mjs']) assert.equal(route(p).run_hero,true,p);
+const heroExpansionJobLocalization=route('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json');
+for(const k of ['run_job','run_hero_job_relation','run_build']) assert.equal(heroExpansionJobLocalization[k],true,k);
 for(const k of ['run_hero','run_hero_job_relation','run_hero_soldier_relation','run_hero_exclusive_relation','run_build']) assert.equal(hero[k],true,k);
 for(const k of ['run_general_ssr','run_soldier','run_full_suite']) assert.equal(hero[k],false,k);
 const general=route('canonical/general-ssr-equipment.v1.json');
