@@ -13,16 +13,20 @@ const [soldiers, canonical, endpoints, manifest, endpointBytes] = await Promise.
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
 const result = validateSoldierBfMovePoints(args);
-assert.equal(result.canonicalCount, 1);
-assert.equal(canonical.records[0].soldierId, 115);
+assert.equal(result.canonicalCount, 2);
+assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115]);
 assert.equal(canonical.records[0].bfMovePoint, 3);
+assert.equal(canonical.records[1].bfMovePoint, 3);
 
 // Current migration scope is a separate Gate, not an owner-validator special case.
 const assertCurrentMigrationScope = records => {
-  assert.deepEqual(records.map(record => record.soldierId).sort((a, b) => a - b), [115]);
-  const identity = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 115);
-  assert.equal(identity.length, 1);
-  assert.equal(identity[0].variant, 'NORMAL');
+  assert.deepEqual(records.map(record => record.soldierId), [115, 5115]);
+  const identity115 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 115);
+  assert.equal(identity115.length, 1);
+  assert.equal(identity115[0].variant, 'NORMAL');
+  const identity5115 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 5115);
+  assert.equal(identity5115.length, 1);
+  assert.equal(identity5115[0].variant, 'SP');
 };
 assertCurrentMigrationScope(canonical.records);
 
@@ -35,7 +39,7 @@ const record118 = {
   provenance: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=118/BF_MovePoint',
 };
 const widerPopulation = [...canonical.records, record118];
-assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 2);
+assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 3);
 assert.throws(() => assertCurrentMigrationScope(widerPopulation));
 
 // Owner-validator negative cases.
@@ -47,4 +51,4 @@ assert.throws(() => validateSoldierBfMovePoints({ ...args, canonical: withRecord
 assert.throws(() => validateSoldierBfMovePoints({ ...args, endpointSha256: '0'.repeat(64) }), /evidence hash mismatch/);
 assert.throws(() => validateSoldierBfMovePoints({ ...args, manifest: { ...manifest, source: { ...manifest.source, commit: '0'.repeat(40) } } }), /repository\/commit mismatch/);
 
-process.stdout.write('Soldier BF_MovePoint validation and ID=115 migration scope: PASS\\n');
+process.stdout.write('Soldier BF_MovePoint validation and [115,5115] migration scope: PASS\\n');
