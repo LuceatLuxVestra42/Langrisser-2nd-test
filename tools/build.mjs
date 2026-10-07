@@ -104,6 +104,53 @@ for (const soldier of normalSoldierGenerated.soldiers) {
   if (!Object.values(soldier.baseStats).every(Number.isFinite)) throw new Error(`malformed NORMAL Soldier base stats for ${soldier.normalSoldierId}`);
 }
 
+const heroSoldierRelationPath = resolve('generated/hero-soldier-relations.v1.json');
+const heroSoldierRelationText = await readFile(heroSoldierRelationPath, 'utf8');
+const heroSoldierRelations = JSON.parse(heroSoldierRelationText);
+exactKeys(heroSoldierRelations, ['schemaVersion', 'relations'], 'generated Hero–Soldier relations');
+if (heroSoldierRelations.schemaVersion !== 1 || !Array.isArray(heroSoldierRelations.relations)) {
+  throw new Error('unsupported generated Hero–Soldier relation presentation schema');
+}
+
+const heroIds = new Set(JSON.parse(generatedText).heroes.map((hero) => hero.id));
+const candidateHeroIds = [5, 6, 8, 53];
+const expectedRowsByHero = new Map([[5, 19], [6, 15], [8, 20], [53, 18]]);
+const soldierPresentationById = new Map();
+for (const soldier of normalSoldierGenerated.soldiers) {
+  if (soldierPresentationById.has(soldier.normalSoldierId)) throw new Error(`duplicate Soldier presentation ID ${soldier.normalSoldierId}`);
+  soldierPresentationById.set(soldier.normalSoldierId, soldier);
+}
+for (const soldier of spGenerated.soldiers) {
+  if (soldierPresentationById.has(soldier.spSoldierId)) throw new Error(`duplicate Soldier presentation ID ${soldier.spSoldierId}`);
+  soldierPresentationById.set(soldier.spSoldierId, soldier);
+}
+const frontendPairs = new Set();
+const frontendRowsByHero = new Map(candidateHeroIds.map((heroId) => [heroId, 0]));
+const frontendSoldierIds = new Set();
+for (const relation of heroSoldierRelations.relations) {
+  exactKeys(relation, ['heroId', 'soldierId'], 'generated Hero–Soldier relation pair');
+  if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.soldierId)
+    || !candidateHeroIds.includes(relation.heroId) || !heroIds.has(relation.heroId)) {
+    throw new Error('Hero–Soldier relation has an invalid or out-of-scope Hero endpoint');
+  }
+  const pair = `${relation.heroId}:${relation.soldierId}`;
+  if (frontendPairs.has(pair)) throw new Error(`duplicate frontend relation mapping ${pair}`);
+  frontendPairs.add(pair);
+  const soldier = soldierPresentationById.get(relation.soldierId);
+  if (!soldier || typeof soldier.nameKo !== 'string' || !soldier.nameKo.trim()) {
+    throw new Error(`unresolved Soldier presentation ID ${relation.soldierId}`);
+  }
+  frontendSoldierIds.add(relation.soldierId);
+  frontendRowsByHero.set(relation.heroId, frontendRowsByHero.get(relation.heroId) + 1);
+}
+if (frontendPairs.size !== 72 || frontendSoldierIds.size !== 56) throw new Error('Hero–Soldier frontend mapping migration invariant mismatch');
+for (const [heroId, expectedCount] of expectedRowsByHero) {
+  if (frontendRowsByHero.get(heroId) !== expectedCount) throw new Error(`Hero ${heroId} frontend relation mapping count mismatch`);
+}
+if ([28, 32, 52].some((heroId) => frontendRowsByHero.has(heroId))) {
+  throw new Error('out-of-scope Hero has an inferred frontend relation mapping');
+}
+
 const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
@@ -138,6 +185,7 @@ try {
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
+  await cp(heroSoldierRelationPath, join(output, 'generated', 'hero-soldier-relations.v1.json'));
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
   await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
   await cp(exclusiveEquipmentGeneratedPath, join(output, 'generated', 'exclusive-equipment.v1.json'));
@@ -163,6 +211,11 @@ try {
   }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
+  if (!app.includes("fetch('./generated/hero-soldier-relations.v1.json')")) throw new Error('built app does not resolve the generated Hero–Soldier relation entry');
+  const packagedRelationsText = await readFile(join(output, 'generated', 'hero-soldier-relations.v1.json'), 'utf8');
+  if (packagedRelationsText !== heroSoldierRelationText) throw new Error('packaged Hero–Soldier relations differ from tracked generated artifact');
+  const packagedRelations = JSON.parse(packagedRelationsText);
+  if (packagedRelations.relations.length !== frontendPairs.size) throw new Error('packaged Hero–Soldier relation count differs from validated frontend mappings');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
   if (!app.includes("fetch('./generated/exclusive-equipment.v1.json')")) throw new Error('built app does not resolve the generated Exclusive Equipment entry');
@@ -176,7 +229,7 @@ try {
   if (packagedEquipment.equipment.length !== equipmentGenerated.equipment.length) throw new Error('packaged General SSR Equipment count differs from generated artifact');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, and ${packagedRelations.relations.length} Hero–Soldier relation records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
 } finally {
   await rm(output, { recursive: true, force: true });
 }
