@@ -5,7 +5,7 @@ const jobGlossaryContainer = document.querySelector('#job-glossary');
 const generalEquipmentContainer = document.querySelector('#general-ssr-equipment');
 const exclusiveEquipmentContainer = document.querySelector('#exclusive-equipment');
 
-function addHero(hero) {
+function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
 
@@ -48,17 +48,79 @@ function addHero(hero) {
   effect.textContent = hero.exclusiveEquipment.effectDescriptionKo;
   exclusive.append(exclusiveHeading, equipmentName, effect);
   article.append(exclusive);
+
+  const soldierIds = relationsByHero.get(hero.id);
+  if (soldierIds?.length) {
+    const section = document.createElement('section');
+    section.className = 'hero-soldiers';
+    const heading = document.createElement('h3');
+    heading.id = `hero-${hero.id}-soldiers-heading`;
+    heading.textContent = '용병';
+    section.setAttribute('aria-labelledby', heading.id);
+    const list = document.createElement('ul');
+    list.className = 'hero-soldier-list';
+    for (const soldierId of soldierIds) {
+      const soldier = soldiersById.get(soldierId);
+      if (!soldier) throw new Error(`Unresolved Soldier presentation ID ${soldierId}`);
+      const item = document.createElement('li');
+      item.textContent = soldier.nameKo;
+      list.append(item);
+    }
+    section.append(heading, list);
+    article.append(section);
+  }
   container.append(article);
 }
 
 try {
-  const response = await fetch('./generated/hero-slice.v1.json');
-  if (!response.ok) throw new Error(`Generated data request failed (${response.status})`);
-  const data = await response.json();
-  if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated data');
+  const [heroResponse, relationResponse, normalResponse, spResponse] = await Promise.all([
+    fetch('./generated/hero-slice.v1.json'),
+    fetch('./generated/hero-soldier-relations.v1.json'),
+    fetch('./generated/normal-soldiers.v1.json'),
+    fetch('./generated/sp-soldiers.v1.json'),
+  ]);
+  for (const response of [heroResponse, relationResponse, normalResponse, spResponse]) {
+    if (!response.ok) throw new Error(`Generated presentation request failed (${response.status})`);
+  }
+  const [data, relationData, normalData, spData] = await Promise.all([
+    heroResponse.json(), relationResponse.json(), normalResponse.json(), spResponse.json(),
+  ]);
+  if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated Hero data');
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
+  if (relationData.schemaVersion !== 1 || !Array.isArray(relationData.relations)) throw new Error('Unsupported Hero–Soldier relation data');
+  if (normalData.schemaVersion !== 1 || !Array.isArray(normalData.soldiers)
+    || spData.schemaVersion !== 1 || !Array.isArray(spData.soldiers)) throw new Error('Unsupported generated Soldier data');
+
+  const soldiersById = new Map();
+  for (const soldier of normalData.soldiers) {
+    if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo
+      || soldiersById.has(soldier.normalSoldierId)) throw new Error('Malformed or duplicate NORMAL Soldier presentation ID');
+    soldiersById.set(soldier.normalSoldierId, { nameKo: soldier.nameKo });
+  }
+  for (const soldier of spData.soldiers) {
+    if (!Number.isInteger(soldier.spSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo
+      || soldiersById.has(soldier.spSoldierId)) throw new Error('Malformed or duplicate SP Soldier presentation ID');
+    soldiersById.set(soldier.spSoldierId, { nameKo: soldier.nameKo });
+  }
+
+  const relationsByHero = new Map();
+  const seenPairs = new Set();
+  for (const relation of relationData.relations) {
+    if (!Number.isInteger(relation.heroId) || !Number.isInteger(relation.soldierId)) throw new Error('Malformed Hero–Soldier relation endpoint');
+    const pairKey = `${relation.heroId}:${relation.soldierId}`;
+    if (seenPairs.has(pairKey)) throw new Error(`Duplicate Hero–Soldier relation ${pairKey}`);
+    seenPairs.add(pairKey);
+    if (!soldiersById.has(relation.soldierId)) throw new Error(`Unresolved Soldier presentation ID ${relation.soldierId}`);
+    const soldierIds = relationsByHero.get(relation.heroId) ?? [];
+    soldierIds.push(relation.soldierId);
+    relationsByHero.set(relation.heroId, soldierIds);
+  }
+  const heroIds = new Set(data.heroes.map((hero) => hero.id));
+  if (data.heroes.some((hero) => !Number.isInteger(hero.id)) || [...relationsByHero.keys()].some((heroId) => !heroIds.has(heroId))) {
+    throw new Error('Hero–Soldier relation references an unavailable Hero presentation');
+  }
   container.replaceChildren();
-  for (const hero of data.heroes) addHero(hero);
+  for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById);
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';

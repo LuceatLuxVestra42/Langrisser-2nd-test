@@ -70,3 +70,8 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .general-equipment-heading h3 { margin: 0; font-size: 1rem; }
 .general-equipment-id { margin: 0; color: #aab5c3; font-size: .76rem; font-variant-numeric: tabular-nums; }
 .general-equipment-effect { margin: 10px 0 0; color: #c5cfdb; font-size: .84rem; line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; }
+
+.hero-soldiers { margin: 0 16px 16px; padding: 13px 14px; border: 1px solid #3c4b5e; border-radius: 10px; background: #151b24; }
+.hero-soldiers h3 { margin: 0 0 8px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }
+.hero-soldier-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.hero-soldier-list li { max-width: 100%; padding: 5px 9px; border: 1px solid #344050; border-radius: 999px; color: #d4dce7; font-size: .78rem; overflow-wrap: anywhere; }
