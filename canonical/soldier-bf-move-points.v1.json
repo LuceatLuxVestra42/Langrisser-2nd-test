@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "Source-level Soldier BF_MovePoint values for IDs already admitted by canonical/soldiers.v1.json. This owner does not admit Soldier identities, define Soldier population or relations, or include MoveType or runtime movement semantics.",
+  "records": [
+    {
+      "soldierId": 115,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/BF_MovePoint"
+    }
+  ]
+}

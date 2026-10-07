@@ -40,6 +40,12 @@ assert.equal(soldierRelation.run_sp_normal_relation,true);
 const soldierEndpoint=route('canonical/soldiers.v1.json');
 assert.equal(soldierEndpoint.run_hero_soldier_relation,true);
 assert.equal(soldierEndpoint.run_sp_normal_relation,true);
+for (const path of ['canonical/soldier-bf-move-points.v1.json','tools/validate-soldier-bf-move-points.mjs','tools/test-soldier-bf-move-points.mjs']) {
+  const r = route(path);
+  assert.equal(r.run_soldier, true, path);
+  assert.equal(r.run_full_suite, false, path);
+  assert.equal(r.routing_review, false, path);
+}
 const exclusive=route('canonical/exclusive-equipment.v1.json');
 for(const k of ['run_exclusive','run_hero_exclusive_relation','run_build']) assert.equal(exclusive[k],true,k);
 for(const p of ['docs/unknown.md','.github/workflows/ci.yml','tools/unmapped.mjs']) {
