@@ -120,6 +120,14 @@ jobs:
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-normal-soldier-base-stats.mjs
 
+      - name: Validate Soldier BF_MovePoint facts
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/validate-soldier-bf-move-points.mjs
+
+      - name: Test Soldier BF_MovePoint validation and migration scope
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-soldier-bf-move-points.mjs
+
       - name: Validate NORMAL Soldier Korean localization
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate-normal-soldier-ko-localization.mjs
