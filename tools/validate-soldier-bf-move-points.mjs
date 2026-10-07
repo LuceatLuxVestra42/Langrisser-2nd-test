@@ -47,7 +47,7 @@ export function validateSoldierBfMovePoints({ soldiers, canonical, endpoints, ma
     && artifact.sha256 === PINNED.sourceSha256
     && artifact.repoPreservedPath === PINNED.endpointPath
     && artifact.selectedFields === 'complete source records; values preserved without semantic normalization'
-    && artifact.sourceTopLevelRecordCount === PINNED.sourceRecordCount
+    && artifact.sourceTableTopLevelRecordCount === PINNED.sourceRecordCount
     && artifact.selectedRecordCount === PINNED.endpointCount
     && artifact.exactSingleRecordPerEndpoint === true, 'pinned Soldier endpoint provenance mismatch');
   check(endpoints.records.length === artifact.selectedRecordCount, 'preserved endpoint record count mismatch');
