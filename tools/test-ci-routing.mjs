@@ -29,6 +29,11 @@ for (const p of ['generated/exclusive-equipment.v1.json','tools/generate.mjs','t
   assert.equal(r.run_full_suite, false, p);
 }
 
+for (const path of ['tools/generate.mjs','tools/validate-hero-soldier-presentation.mjs','tools/test-hero-soldier-presentation.mjs','generated/hero-soldier-relations.v1.json']) {
+  const r = route(path);
+  assert.equal(r.run_hero_soldier_relation, true, path);
+  assert.equal(r.run_full_suite, false, path);
+}
 const soldierRelation=route('canonical/sp-soldier-normal-relations.v1.json');
 assert.equal(soldierRelation.run_soldier,true);
 assert.equal(soldierRelation.run_sp_normal_relation,true);

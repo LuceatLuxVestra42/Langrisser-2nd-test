@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "relations": [
+    {
+      "heroId": 5,
+      "soldierId": 121
+    },
+    {
+      "heroId": 5,
+      "soldierId": 210
+    },
+    {
+      "heroId": 5,
+      "soldierId": 245
+    },
+    {
+      "heroId": 5,
+      "soldierId": 602
+    },
+    {
+      "heroId": 5,
+      "soldierId": 638
+    },
+    {
+      "heroId": 5,
+      "soldierId": 802
+    },
+    {
+      "heroId": 5,
+      "soldierId": 811
+    },
+    {
+      "heroId": 5,
+      "soldierId": 812
+    },
+    {
+      "heroId": 5,
+      "soldierId": 816
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5121
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5210
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5245
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5602
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5638
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5802
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5811
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5812
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5815
+    },
+    {
+      "heroId": 5,
+      "soldierId": 5816
+    },
+    {
+      "heroId": 6,
+      "soldierId": 203
+    },
+    {
+      "heroId": 6,
+      "soldierId": 231
+    },
+    {
+      "heroId": 6,
+      "soldierId": 248
+    },
+    {
+      "heroId": 6,
+      "soldierId": 311
+    },
+    {
+      "heroId": 6,
+      "soldierId": 320
+    },
+    {
+      "heroId": 6,
+      "soldierId": 410
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5203
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5231
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5248
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5311
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5314
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5320
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5402
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5410
+    },
+    {
+      "heroId": 6,
+      "soldierId": 5423
+    },
+    {
+      "heroId": 8,
+      "soldierId": 132
+    },
+    {
+      "heroId": 8,
+      "soldierId": 610
+    },
+    {
+      "heroId": 8,
+      "soldierId": 621
+    },
+    {
+      "heroId": 8,
+      "soldierId": 622
+    },
+    {
+      "heroId": 8,
+      "soldierId": 638
+    },
+    {
+      "heroId": 8,
+      "soldierId": 641
+    },
+    {
+      "heroId": 8,
+      "soldierId": 644
+    },
+    {
+      "heroId": 8,
+      "soldierId": 802
+    },
+    {
+      "heroId": 8,
+      "soldierId": 815
+    },
+    {
+      "heroId": 8,
+      "soldierId": 1015
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5132
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5610
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5621
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5622
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5638
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5641
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5644
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5802
+    },
+    {
+      "heroId": 8,
+      "soldierId": 5815
+    },
+    {
+      "heroId": 8,
+      "soldierId": 6015
+    },
+    {
+      "heroId": 53,
+      "soldierId": 115
+    },
+    {
+      "heroId": 53,
+      "soldierId": 121
+    },
+    {
+      "heroId": 53,
+      "soldierId": 203
+    },
+    {
+      "heroId": 53,
+      "soldierId": 231
+    },
+    {
+      "heroId": 53,
+      "soldierId": 248
+    },
+    {
+      "heroId": 53,
+      "soldierId": 324
+    },
+    {
+      "heroId": 53,
+      "soldierId": 402
+    },
+    {
+      "heroId": 53,
+      "soldierId": 423
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5115
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5121
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5203
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5231
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5248
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5320
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5324
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5326
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5402
+    },
+    {
+      "heroId": 53,
+      "soldierId": 5423
+    }
+  ]
+}
