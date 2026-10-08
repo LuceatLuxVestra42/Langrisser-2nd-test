@@ -16,6 +16,11 @@
       "soldierId": 118,
       "bfMovePoint": 3,
       "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=118/BF_MovePoint"
+    },
+    {
+      "soldierId": 121,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=121/BF_MovePoint"
     }
   ]
 }
