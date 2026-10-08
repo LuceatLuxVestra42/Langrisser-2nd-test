@@ -13,8 +13,8 @@ const [soldiers, canonical, endpoints, manifest, endpointBytes] = await Promise.
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
 const result = validateSoldierBfMovePoints(args);
-assert.equal(result.canonicalCount, 7);
-assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132]);
+assert.equal(result.canonicalCount, 10);
+assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216]);
 assert.equal(canonical.records[0].bfMovePoint, 3);
 assert.equal(canonical.records[1].bfMovePoint, 3);
 assert.equal(canonical.records[2].bfMovePoint, 3);
@@ -22,10 +22,13 @@ assert.equal(canonical.records[3].bfMovePoint, 3);
 assert.equal(canonical.records[4].bfMovePoint, 3);
 assert.equal(canonical.records[5].bfMovePoint, 3);
 assert.equal(canonical.records[6].bfMovePoint, 3);
+assert.equal(canonical.records[7].bfMovePoint, 3);
+assert.equal(canonical.records[8].bfMovePoint, 3);
+assert.equal(canonical.records[9].bfMovePoint, 3);
 
 // Current migration scope is a separate Gate, not an owner-validator special case.
 const assertCurrentMigrationScope = records => {
-  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132]);
+  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216]);
   const identity115 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 115);
   assert.equal(identity115.length, 1);
   assert.equal(identity115[0].variant, 'NORMAL');
@@ -38,7 +41,7 @@ const assertCurrentMigrationScope = records => {
   const identity121 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 121);
   assert.equal(identity121.length, 1);
   assert.equal(identity121[0].variant, 'NORMAL');
-  for (const id of [129, 130, 132]) {
+  for (const id of [129, 130, 132, 203, 210, 216]) {
     const identity = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === id);
     assert.equal(identity.length, 1);
     assert.equal(identity[0].variant, 'NORMAL');
@@ -47,15 +50,15 @@ const assertCurrentMigrationScope = records => {
 assertCurrentMigrationScope(canonical.records);
 
 // The core rule remains general: another already admitted Soldier can pass the owner validator.
-const source203 = endpoints.records.find(record => record.ID === 203);
-assert.ok(source203);
-const record203 = {
-  soldierId: 203,
-  bfMovePoint: source203.BF_MovePoint,
-  provenance: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=203/BF_MovePoint',
+const source225 = endpoints.records.find(record => record.ID === 225);
+assert.ok(source225);
+const record225 = {
+  soldierId: 225,
+  bfMovePoint: source225.BF_MovePoint,
+  provenance: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=225/BF_MovePoint',
 };
-const widerPopulation = [...canonical.records, record203];
-assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 8);
+const widerPopulation = [...canonical.records, record225];
+assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 11);
 assert.throws(() => assertCurrentMigrationScope(widerPopulation));
 
 // Owner-validator negative cases.
@@ -67,4 +70,4 @@ assert.throws(() => validateSoldierBfMovePoints({ ...args, canonical: withRecord
 assert.throws(() => validateSoldierBfMovePoints({ ...args, endpointSha256: '0'.repeat(64) }), /evidence hash mismatch/);
 assert.throws(() => validateSoldierBfMovePoints({ ...args, manifest: { ...manifest, source: { ...manifest.source, commit: '0'.repeat(40) } } }), /repository\/commit mismatch/);
 
-process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121,129,130,132] migration scope: PASS\\n');
+process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121,129,130,132,203,210,216] migration scope: PASS\\n');
