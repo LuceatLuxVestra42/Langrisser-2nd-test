@@ -13,8 +13,8 @@ const [soldiers, canonical, endpoints, manifest, endpointBytes] = await Promise.
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
 const result = validateSoldierBfMovePoints(args);
-assert.equal(result.canonicalCount, 10);
-assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216]);
+assert.equal(result.canonicalCount, 13);
+assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237]);
 assert.equal(canonical.records[0].bfMovePoint, 3);
 assert.equal(canonical.records[1].bfMovePoint, 3);
 assert.equal(canonical.records[2].bfMovePoint, 3);
@@ -25,10 +25,13 @@ assert.equal(canonical.records[6].bfMovePoint, 3);
 assert.equal(canonical.records[7].bfMovePoint, 3);
 assert.equal(canonical.records[8].bfMovePoint, 3);
 assert.equal(canonical.records[9].bfMovePoint, 3);
+assert.equal(canonical.records[10].bfMovePoint, 3);
+assert.equal(canonical.records[11].bfMovePoint, 3);
+assert.equal(canonical.records[12].bfMovePoint, 3);
 
 // Current migration scope is a separate Gate, not an owner-validator special case.
 const assertCurrentMigrationScope = records => {
-  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216]);
+  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237]);
   const identity115 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 115);
   assert.equal(identity115.length, 1);
   assert.equal(identity115[0].variant, 'NORMAL');
@@ -41,7 +44,7 @@ const assertCurrentMigrationScope = records => {
   const identity121 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 121);
   assert.equal(identity121.length, 1);
   assert.equal(identity121[0].variant, 'NORMAL');
-  for (const id of [129, 130, 132, 203, 210, 216]) {
+  for (const id of [129, 130, 132, 203, 210, 216, 225, 231, 237]) {
     const identity = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === id);
     assert.equal(identity.length, 1);
     assert.equal(identity[0].variant, 'NORMAL');
@@ -60,12 +63,22 @@ const outsideIdentity = soldiers.records.find(identity =>
   && Object.hasOwn(endpoints.records.find(row => row.ID === identity.id), 'BF_MovePoint')
 );
 assert.ok(outsideIdentity, 'an admitted Soldier with exact pinned evidence outside migration scope is required');
-const outsideSource = endpoints.records.find(row => row.ID === outsideIdentity.id);
+const outsideIdentityRows = soldiers.records.filter(row => row.entity === 'Soldier' && row.id === outsideIdentity.id);
+assert.equal(outsideIdentityRows.length, 1, 'selected fixture identity must be admitted exactly once');
+assert.equal(outsideIdentityRows[0], outsideIdentity);
+assert.equal(canonicalIds.has(outsideIdentity.id), false, 'selected fixture must remain outside canonical scope');
+const outsideEvidenceRows = endpoints.records.filter(row => row.ID === outsideIdentity.id);
+assert.equal(outsideEvidenceRows.length, 1, 'selected fixture must have exactly one pinned endpoint row');
+const outsideSource = outsideEvidenceRows[0];
+assert.equal(Object.hasOwn(outsideSource, 'BF_MovePoint'), true, 'selected fixture must explicitly contain BF_MovePoint');
+assert.equal(typeof outsideSource.BF_MovePoint, 'number');
+assert.equal(Number.isFinite(outsideSource.BF_MovePoint), true);
 const outsideRecord = {
   soldierId: outsideIdentity.id,
   bfMovePoint: outsideSource.BF_MovePoint,
   provenance: `evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=${outsideIdentity.id}/BF_MovePoint`,
 };
+assert.equal(outsideRecord.provenance, `${manifest.artifacts.soldierInfoEndpoints.repoPreservedPath}#ID=${outsideIdentity.id}/BF_MovePoint`);
 const widerPopulation = [...canonical.records, outsideRecord];
 assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, canonical.records.length + 1);
 assert.throws(() => assertCurrentMigrationScope(widerPopulation));
@@ -79,4 +92,4 @@ assert.throws(() => validateSoldierBfMovePoints({ ...args, canonical: withRecord
 assert.throws(() => validateSoldierBfMovePoints({ ...args, endpointSha256: '0'.repeat(64) }), /evidence hash mismatch/);
 assert.throws(() => validateSoldierBfMovePoints({ ...args, manifest: { ...manifest, source: { ...manifest.source, commit: '0'.repeat(40) } } }), /repository\/commit mismatch/);
 
-process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121,129,130,132,203,210,216] migration scope: PASS\\n');
+process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121,129,130,132,203,210,216,225,231,237] migration scope: PASS\\n');
