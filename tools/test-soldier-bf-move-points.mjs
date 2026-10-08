@@ -13,8 +13,8 @@ const [soldiers, canonical, endpoints, manifest, endpointBytes] = await Promise.
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
 const result = validateSoldierBfMovePoints(args);
-assert.equal(result.canonicalCount, 13);
-assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237]);
+assert.equal(result.canonicalCount, 16);
+assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237, 244, 245, 248]);
 assert.equal(canonical.records[0].bfMovePoint, 3);
 assert.equal(canonical.records[1].bfMovePoint, 3);
 assert.equal(canonical.records[2].bfMovePoint, 3);
@@ -28,10 +28,13 @@ assert.equal(canonical.records[9].bfMovePoint, 3);
 assert.equal(canonical.records[10].bfMovePoint, 3);
 assert.equal(canonical.records[11].bfMovePoint, 3);
 assert.equal(canonical.records[12].bfMovePoint, 3);
+assert.equal(canonical.records[13].bfMovePoint, 3);
+assert.equal(canonical.records[14].bfMovePoint, 3);
+assert.equal(canonical.records[15].bfMovePoint, 4);
 
 // Current migration scope is a separate Gate, not an owner-validator special case.
 const assertCurrentMigrationScope = records => {
-  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237]);
+  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121, 129, 130, 132, 203, 210, 216, 225, 231, 237, 244, 245, 248]);
   const identity115 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 115);
   assert.equal(identity115.length, 1);
   assert.equal(identity115[0].variant, 'NORMAL');
@@ -44,7 +47,7 @@ const assertCurrentMigrationScope = records => {
   const identity121 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 121);
   assert.equal(identity121.length, 1);
   assert.equal(identity121[0].variant, 'NORMAL');
-  for (const id of [129, 130, 132, 203, 210, 216, 225, 231, 237]) {
+  for (const id of [129, 130, 132, 203, 210, 216, 225, 231, 237, 244, 245, 248]) {
     const identity = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === id);
     assert.equal(identity.length, 1);
     assert.equal(identity[0].variant, 'NORMAL');
@@ -92,4 +95,4 @@ assert.throws(() => validateSoldierBfMovePoints({ ...args, canonical: withRecord
 assert.throws(() => validateSoldierBfMovePoints({ ...args, endpointSha256: '0'.repeat(64) }), /evidence hash mismatch/);
 assert.throws(() => validateSoldierBfMovePoints({ ...args, manifest: { ...manifest, source: { ...manifest.source, commit: '0'.repeat(40) } } }), /repository\/commit mismatch/);
 
-process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121,129,130,132,203,210,216,225,231,237] migration scope: PASS\\n');
+process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121,129,130,132,203,210,216,225,231,237,244,245,248] migration scope: PASS\\n');
