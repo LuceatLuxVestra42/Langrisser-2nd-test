@@ -49,16 +49,25 @@ const assertCurrentMigrationScope = records => {
 };
 assertCurrentMigrationScope(canonical.records);
 
-// The core rule remains general: another already admitted Soldier can pass the owner validator.
-const source225 = endpoints.records.find(record => record.ID === 225);
-assert.ok(source225);
-const record225 = {
-  soldierId: 225,
-  bfMovePoint: source225.BF_MovePoint,
-  provenance: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=225/BF_MovePoint',
+// The core rule remains general: another admitted Soldier outside the current migration
+// scope must pass owner validation, while the migration scope Gate still rejects it.
+const canonicalIds = new Set(canonical.records.map(record => record.soldierId));
+const outsideIdentity = soldiers.records.find(identity =>
+  identity.entity === 'Soldier'
+  && !canonicalIds.has(identity.id)
+  && soldiers.records.filter(row => row.entity === 'Soldier' && row.id === identity.id).length === 1
+  && endpoints.records.filter(row => row.ID === identity.id).length === 1
+  && Object.hasOwn(endpoints.records.find(row => row.ID === identity.id), 'BF_MovePoint')
+);
+assert.ok(outsideIdentity, 'an admitted Soldier with exact pinned evidence outside migration scope is required');
+const outsideSource = endpoints.records.find(row => row.ID === outsideIdentity.id);
+const outsideRecord = {
+  soldierId: outsideIdentity.id,
+  bfMovePoint: outsideSource.BF_MovePoint,
+  provenance: `evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=${outsideIdentity.id}/BF_MovePoint`,
 };
-const widerPopulation = [...canonical.records, record225];
-assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 11);
+const widerPopulation = [...canonical.records, outsideRecord];
+assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, canonical.records.length + 1);
 assert.throws(() => assertCurrentMigrationScope(widerPopulation));
 
 // Owner-validator negative cases.
