@@ -13,15 +13,16 @@ const [soldiers, canonical, endpoints, manifest, endpointBytes] = await Promise.
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
 const result = validateSoldierBfMovePoints(args);
-assert.equal(result.canonicalCount, 3);
-assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118]);
+assert.equal(result.canonicalCount, 4);
+assert.deepEqual(canonical.records.map(record => record.soldierId), [115, 5115, 118, 121]);
 assert.equal(canonical.records[0].bfMovePoint, 3);
 assert.equal(canonical.records[1].bfMovePoint, 3);
 assert.equal(canonical.records[2].bfMovePoint, 3);
+assert.equal(canonical.records[3].bfMovePoint, 3);
 
 // Current migration scope is a separate Gate, not an owner-validator special case.
 const assertCurrentMigrationScope = records => {
-  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118]);
+  assert.deepEqual(records.map(record => record.soldierId), [115, 5115, 118, 121]);
   const identity115 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 115);
   assert.equal(identity115.length, 1);
   assert.equal(identity115[0].variant, 'NORMAL');
@@ -31,19 +32,22 @@ const assertCurrentMigrationScope = records => {
   const identity118 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 118);
   assert.equal(identity118.length, 1);
   assert.equal(identity118[0].variant, 'NORMAL');
+  const identity121 = soldiers.records.filter(record => record.entity === 'Soldier' && record.id === 121);
+  assert.equal(identity121.length, 1);
+  assert.equal(identity121[0].variant, 'NORMAL');
 };
 assertCurrentMigrationScope(canonical.records);
 
 // The core rule remains general: another already admitted Soldier can pass the owner validator.
-const source121 = endpoints.records.find(record => record.ID === 121);
-assert.ok(source121);
-const record121 = {
-  soldierId: 121,
-  bfMovePoint: source121.BF_MovePoint,
-  provenance: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=121/BF_MovePoint',
+const source129 = endpoints.records.find(record => record.ID === 129);
+assert.ok(source129);
+const record129 = {
+  soldierId: 129,
+  bfMovePoint: source129.BF_MovePoint,
+  provenance: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=129/BF_MovePoint',
 };
-const widerPopulation = [...canonical.records, record121];
-assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 4);
+const widerPopulation = [...canonical.records, record129];
+assert.equal(validateSoldierBfMovePoints({ ...args, canonical: { ...canonical, records: widerPopulation } }).canonicalCount, 5);
 assert.throws(() => assertCurrentMigrationScope(widerPopulation));
 
 // Owner-validator negative cases.
@@ -55,4 +59,4 @@ assert.throws(() => validateSoldierBfMovePoints({ ...args, canonical: withRecord
 assert.throws(() => validateSoldierBfMovePoints({ ...args, endpointSha256: '0'.repeat(64) }), /evidence hash mismatch/);
 assert.throws(() => validateSoldierBfMovePoints({ ...args, manifest: { ...manifest, source: { ...manifest.source, commit: '0'.repeat(40) } } }), /repository\/commit mismatch/);
 
-process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118] migration scope: PASS\\n');
+process.stdout.write('Soldier BF_MovePoint validation and [115,5115,118,121] migration scope: PASS\\n');
