@@ -111,6 +111,21 @@
       "soldierId": 402,
       "bfMovePoint": 5,
       "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=402/BF_MovePoint"
+    },
+    {
+      "soldierId": 410,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=410/BF_MovePoint"
+    },
+    {
+      "soldierId": 413,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=413/BF_MovePoint"
+    },
+    {
+      "soldierId": 419,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=419/BF_MovePoint"
     }
   ]
 }
