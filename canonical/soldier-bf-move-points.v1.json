@@ -126,6 +126,441 @@
       "soldierId": 419,
       "bfMovePoint": 5,
       "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=419/BF_MovePoint"
+    },
+    {
+      "soldierId": 308,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=308/BF_MovePoint"
+    },
+    {
+      "soldierId": 422,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=422/BF_MovePoint"
+    },
+    {
+      "soldierId": 423,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=423/BF_MovePoint"
+    },
+    {
+      "soldierId": 504,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=504/BF_MovePoint"
+    },
+    {
+      "soldierId": 507,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=507/BF_MovePoint"
+    },
+    {
+      "soldierId": 511,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=511/BF_MovePoint"
+    },
+    {
+      "soldierId": 514,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=514/BF_MovePoint"
+    },
+    {
+      "soldierId": 602,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=602/BF_MovePoint"
+    },
+    {
+      "soldierId": 607,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=607/BF_MovePoint"
+    },
+    {
+      "soldierId": 610,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=610/BF_MovePoint"
+    },
+    {
+      "soldierId": 621,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=621/BF_MovePoint"
+    },
+    {
+      "soldierId": 622,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=622/BF_MovePoint"
+    },
+    {
+      "soldierId": 631,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=631/BF_MovePoint"
+    },
+    {
+      "soldierId": 634,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=634/BF_MovePoint"
+    },
+    {
+      "soldierId": 636,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=636/BF_MovePoint"
+    },
+    {
+      "soldierId": 637,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=637/BF_MovePoint"
+    },
+    {
+      "soldierId": 638,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=638/BF_MovePoint"
+    },
+    {
+      "soldierId": 641,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=641/BF_MovePoint"
+    },
+    {
+      "soldierId": 644,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=644/BF_MovePoint"
+    },
+    {
+      "soldierId": 802,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=802/BF_MovePoint"
+    },
+    {
+      "soldierId": 805,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=805/BF_MovePoint"
+    },
+    {
+      "soldierId": 811,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=811/BF_MovePoint"
+    },
+    {
+      "soldierId": 812,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=812/BF_MovePoint"
+    },
+    {
+      "soldierId": 815,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=815/BF_MovePoint"
+    },
+    {
+      "soldierId": 816,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=816/BF_MovePoint"
+    },
+    {
+      "soldierId": 1015,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1015/BF_MovePoint"
+    },
+    {
+      "soldierId": 1031,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1031/BF_MovePoint"
+    },
+    {
+      "soldierId": 1034,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1034/BF_MovePoint"
+    },
+    {
+      "soldierId": 1101,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1101/BF_MovePoint"
+    },
+    {
+      "soldierId": 1105,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1105/BF_MovePoint"
+    },
+    {
+      "soldierId": 1111,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1111/BF_MovePoint"
+    },
+    {
+      "soldierId": 1113,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=1113/BF_MovePoint"
+    },
+    {
+      "soldierId": 5118,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5118/BF_MovePoint"
+    },
+    {
+      "soldierId": 5121,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5121/BF_MovePoint"
+    },
+    {
+      "soldierId": 5129,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5129/BF_MovePoint"
+    },
+    {
+      "soldierId": 5130,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5130/BF_MovePoint"
+    },
+    {
+      "soldierId": 5132,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5132/BF_MovePoint"
+    },
+    {
+      "soldierId": 5203,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5203/BF_MovePoint"
+    },
+    {
+      "soldierId": 5210,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5210/BF_MovePoint"
+    },
+    {
+      "soldierId": 5216,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5216/BF_MovePoint"
+    },
+    {
+      "soldierId": 5225,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5225/BF_MovePoint"
+    },
+    {
+      "soldierId": 5231,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5231/BF_MovePoint"
+    },
+    {
+      "soldierId": 5237,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5237/BF_MovePoint"
+    },
+    {
+      "soldierId": 5244,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5244/BF_MovePoint"
+    },
+    {
+      "soldierId": 5245,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5245/BF_MovePoint"
+    },
+    {
+      "soldierId": 5248,
+      "bfMovePoint": 4,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5248/BF_MovePoint"
+    },
+    {
+      "soldierId": 5308,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5308/BF_MovePoint"
+    },
+    {
+      "soldierId": 5311,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5311/BF_MovePoint"
+    },
+    {
+      "soldierId": 5314,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5314/BF_MovePoint"
+    },
+    {
+      "soldierId": 5320,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5320/BF_MovePoint"
+    },
+    {
+      "soldierId": 5324,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5324/BF_MovePoint"
+    },
+    {
+      "soldierId": 5326,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5326/BF_MovePoint"
+    },
+    {
+      "soldierId": 5402,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5402/BF_MovePoint"
+    },
+    {
+      "soldierId": 5410,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5410/BF_MovePoint"
+    },
+    {
+      "soldierId": 5413,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5413/BF_MovePoint"
+    },
+    {
+      "soldierId": 5419,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5419/BF_MovePoint"
+    },
+    {
+      "soldierId": 5422,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5422/BF_MovePoint"
+    },
+    {
+      "soldierId": 5423,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5423/BF_MovePoint"
+    },
+    {
+      "soldierId": 5504,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5504/BF_MovePoint"
+    },
+    {
+      "soldierId": 5507,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5507/BF_MovePoint"
+    },
+    {
+      "soldierId": 5511,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5511/BF_MovePoint"
+    },
+    {
+      "soldierId": 5514,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5514/BF_MovePoint"
+    },
+    {
+      "soldierId": 5602,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5602/BF_MovePoint"
+    },
+    {
+      "soldierId": 5607,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5607/BF_MovePoint"
+    },
+    {
+      "soldierId": 5610,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5610/BF_MovePoint"
+    },
+    {
+      "soldierId": 5621,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5621/BF_MovePoint"
+    },
+    {
+      "soldierId": 5622,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5622/BF_MovePoint"
+    },
+    {
+      "soldierId": 5631,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5631/BF_MovePoint"
+    },
+    {
+      "soldierId": 5634,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5634/BF_MovePoint"
+    },
+    {
+      "soldierId": 5636,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5636/BF_MovePoint"
+    },
+    {
+      "soldierId": 5637,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5637/BF_MovePoint"
+    },
+    {
+      "soldierId": 5638,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5638/BF_MovePoint"
+    },
+    {
+      "soldierId": 5641,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5641/BF_MovePoint"
+    },
+    {
+      "soldierId": 5644,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5644/BF_MovePoint"
+    },
+    {
+      "soldierId": 5802,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5802/BF_MovePoint"
+    },
+    {
+      "soldierId": 5805,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5805/BF_MovePoint"
+    },
+    {
+      "soldierId": 5811,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5811/BF_MovePoint"
+    },
+    {
+      "soldierId": 5812,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5812/BF_MovePoint"
+    },
+    {
+      "soldierId": 5815,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5815/BF_MovePoint"
+    },
+    {
+      "soldierId": 5816,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5816/BF_MovePoint"
+    },
+    {
+      "soldierId": 6015,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6015/BF_MovePoint"
+    },
+    {
+      "soldierId": 6031,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6031/BF_MovePoint"
+    },
+    {
+      "soldierId": 6034,
+      "bfMovePoint": 5,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6034/BF_MovePoint"
+    },
+    {
+      "soldierId": 6101,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6101/BF_MovePoint"
+    },
+    {
+      "soldierId": 6105,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6105/BF_MovePoint"
+    },
+    {
+      "soldierId": 6111,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6111/BF_MovePoint"
+    },
+    {
+      "soldierId": 6113,
+      "bfMovePoint": 3,
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=6113/BF_MovePoint"
     }
   ]
 }
