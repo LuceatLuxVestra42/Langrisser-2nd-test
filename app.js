@@ -178,7 +178,7 @@ try {
   const response = await fetch('./generated/general-ssr-equipment.v1.json');
   if (!response.ok) throw new Error('Generated General SSR Equipment request failed (' + response.status + ')');
   const data = await response.json();
-  if (data.schemaVersion !== 1 || !Array.isArray(data.equipment) || data.equipment.length !== 206) throw new Error('Unsupported General SSR Equipment data');
+  if (data.schemaVersion !== 1 || !Array.isArray(data.equipment)) throw new Error('Unsupported General SSR Equipment data');
   const ids = data.equipment.map((item) => item.equipmentId);
   if (ids.some((id) => !Number.isInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate General SSR Equipment ID');
   if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
@@ -215,9 +215,9 @@ try {
   const response = await fetch('./generated/exclusive-equipment.v1.json');
   if (!response.ok) throw new Error('Generated Exclusive Equipment request failed (' + response.status + ')');
   const data = await response.json();
-  if (data.schemaVersion !== 1 || !Array.isArray(data.equipment) || data.equipment.length !== 167) throw new Error('Unsupported Exclusive Equipment data');
+  if (data.schemaVersion !== 1 || !Array.isArray(data.equipment)) throw new Error('Unsupported Exclusive Equipment data');
   const ids = data.equipment.map((item) => item.equipmentId);
-  if (ids.some((id) => !Number.isSafeInteger(id)) || new Set(ids).size !== 167) throw new Error('Malformed or duplicate Exclusive Equipment ID');
+  if (ids.some((id) => !Number.isSafeInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate Exclusive Equipment ID');
   if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
     || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('Exclusive Equipment presentation is incomplete');
   exclusiveEquipmentContainer.replaceChildren();
