@@ -74,7 +74,7 @@ for (const [generalCount, exclusiveCount] of [[206, 167], [205, 166], [1, 1]]) {
     assert.deepEqual(container.children.map((card) => card.children[0].children[0].textContent),
       data.equipment.map((item) => item.nameKo));
     assert.deepEqual(container.children.map((card) => card.children[1].textContent),
-      data.equipment.map((item) => item.effectDescriptionKo));
+      data.equipment.map((item) => item.effectDescriptionKo.replace(/\\n/g, '\n')));
   }
 }
 for (const mutate of [
