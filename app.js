@@ -169,7 +169,7 @@ function addGeneralEquipment(item) {
   heading.append(name, id);
   const effect = document.createElement('p');
   effect.className = 'general-equipment-effect';
-  effect.textContent = item.effectDescriptionKo;
+  effect.textContent = item.effectDescriptionKo.replace(/\\n/g, '\n');
   article.append(heading, effect);
   generalEquipmentContainer.append(article);
 }
@@ -206,7 +206,7 @@ function addExclusiveEquipment(item) {
   heading.append(name, id);
   const effect = document.createElement('p');
   effect.className = 'general-equipment-effect';
-  effect.textContent = item.effectDescriptionKo;
+  effect.textContent = item.effectDescriptionKo.replace(/\\n/g, '\n');
   article.append(heading, effect);
   exclusiveEquipmentContainer.append(article);
 }
