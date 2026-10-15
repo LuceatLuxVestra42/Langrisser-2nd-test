@@ -61,6 +61,14 @@
           <h2 id="sp-soldier-title">SP 용병</h2>
           <p class="summary">현재 사이트에 등록된 SP 용병 56명의 한국어명, 연결된 일반 용병 ID, 기본 능력치를 표시합니다.</p>
         </header>
+        <div class="soldier-search" role="search" aria-label="SP 용병 검색">
+          <label for="sp-soldier-search">한국어명 또는 SP Soldier ID</label>
+          <div class="equipment-search-controls">
+            <input id="sp-soldier-search" type="search" autocomplete="off" placeholder="한국어명 일부 또는 SP Soldier ID">
+            <button id="sp-soldier-clear" type="button">검색 초기화</button>
+          </div>
+          <p id="sp-soldier-count" class="soldier-search-count" aria-live="polite">SP 용병 전체 목록을 표시합니다.</p>
+        </div>
         <div id="sp-soldiers" class="sp-soldier-grid" aria-label="SP 용병 목록" aria-live="polite">
           <p class="status">SP 용병 정보를 불러오는 중…</p>
         </div>
@@ -71,6 +79,14 @@
           <h2 id="normal-soldier-title">일반 용병</h2>
           <p class="summary">현재 사이트에 등록된 NORMAL 용병 56명의 한국어명, ID, 기본 능력치를 표시합니다. 전체 NORMAL 용병 목록은 아닙니다.</p>
         </header>
+        <div class="soldier-search" role="search" aria-label="일반 용병 검색">
+          <label for="normal-soldier-search">한국어명 또는 NORMAL Soldier ID</label>
+          <div class="equipment-search-controls">
+            <input id="normal-soldier-search" type="search" autocomplete="off" placeholder="한국어명 일부 또는 NORMAL Soldier ID">
+            <button id="normal-soldier-clear" type="button">검색 초기화</button>
+          </div>
+          <p id="normal-soldier-count" class="soldier-search-count" aria-live="polite">일반 용병 전체 목록을 표시합니다.</p>
+        </div>
         <div id="normal-soldiers" class="sp-soldier-grid" aria-label="일반 용병 목록" aria-live="polite">
           <p class="status">일반 용병 정보를 불러오는 중…</p>
         </div>

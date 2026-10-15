@@ -60,6 +60,8 @@ const sandbox = {
   },
   heroBySoldierId: new Map(),
   spSoldiersByNormalId: new Map(),
+  normalSoldierNavigation: null,
+  spSoldierNavigation: null,
   spSoldierContainer: { append(card) { elementsById.set(card.id, card); } },
   normalSoldierContainer: { append(card) { elementsById.set(card.id, card); } },
 };

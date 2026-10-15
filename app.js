@@ -10,10 +10,18 @@ const generalEquipmentCount = document.querySelector('#general-equipment-count')
 const exclusiveEquipmentSearch = document.querySelector('#exclusive-equipment-search');
 const exclusiveEquipmentClear = document.querySelector('#exclusive-equipment-clear');
 const exclusiveEquipmentCount = document.querySelector('#exclusive-equipment-count');
+const spSoldierSearch = document.querySelector('#sp-soldier-search');
+const spSoldierClear = document.querySelector('#sp-soldier-clear');
+const spSoldierCount = document.querySelector('#sp-soldier-count');
+const normalSoldierSearch = document.querySelector('#normal-soldier-search');
+const normalSoldierClear = document.querySelector('#normal-soldier-clear');
+const normalSoldierCount = document.querySelector('#normal-soldier-count');
 let exclusiveEquipmentHeroById = new Map();
 let exclusiveEquipmentNavigation = null;
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
+let spSoldierNavigation = null;
+let normalSoldierNavigation = null;
 
 function indexSpSoldiersByNormalId(soldiers) {
   const byNormalId = new Map();
@@ -130,7 +138,10 @@ function addHero(hero, relationsByHero, soldiersById) {
       const soldier = soldiersById.get(soldierId);
       if (!soldier) throw new Error(`Unresolved Soldier presentation ID ${soldierId}`);
       const item = document.createElement('li');
-      const soldierLink = makeAnchor(soldier.nameKo, soldier.domId);
+      const soldierLink = makeAnchor(soldier.nameKo, soldier.domId, () => {
+        const navigation = soldier.namespace === 'NORMAL' ? normalSoldierNavigation : spSoldierNavigation;
+        navigation?.showAll(false);
+      });
       soldierLink.className = 'soldier-navigation-link';
       item.append(soldierLink);
       list.append(item);
@@ -167,6 +178,7 @@ try {
     soldiersById.set(soldier.normalSoldierId, {
       nameKo: soldier.nameKo,
       domId: `normal-soldier-${soldier.normalSoldierId}`,
+      namespace: 'NORMAL',
     });
   }
   for (const soldier of spData.soldiers) {
@@ -175,6 +187,7 @@ try {
     soldiersById.set(soldier.spSoldierId, {
       nameKo: soldier.nameKo,
       domId: `sp-soldier-${soldier.spSoldierId}`,
+      namespace: 'SP',
     });
   }
 
@@ -301,6 +314,40 @@ function renderEquipmentSearch({ equipment, input, clearButton, count, container
   return { showAll };
 }
 
+function filterSoldiers(soldiers, idField, query) {
+  const term = query.trim();
+  if (!term) return soldiers;
+  if (/^\d+$/.test(term)) return soldiers.filter((soldier) => String(soldier[idField]) === term);
+  if (/^(?:\d|[+-]\d)/.test(term)) return [];
+  const nameQuery = term.toLocaleLowerCase('ko-KR');
+  return soldiers.filter((soldier) => soldier.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
+}
+
+function renderSoldierSearch({ soldiers, idField, input, clearButton, count, container, renderCard, label }) {
+  const update = () => {
+    const matches = filterSoldiers(soldiers, idField, input.value);
+    container.replaceChildren();
+    count.textContent = `검색 결과 ${matches.length}건 / 전체 ${soldiers.length}건`;
+    if (matches.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'status';
+      empty.textContent = `${label} 검색 결과가 없습니다.`;
+      container.append(empty);
+      return;
+    }
+    for (const soldier of matches) renderCard(soldier);
+  };
+  input.addEventListener('input', update);
+  const showAll = (focus = true) => {
+    input.value = '';
+    update();
+    if (focus) input.focus();
+  };
+  clearButton.addEventListener('click', () => showAll());
+  update();
+  return { showAll };
+}
+
 try {
   const response = await fetch('./generated/general-ssr-equipment.v1.json');
   if (!response.ok) throw new Error('Generated General SSR Equipment request failed (' + response.status + ')');
@@ -392,6 +439,7 @@ function addSpSoldier(soldier) {
   const normalLink = makeAnchor(
     `일반 용병 ID ${soldier.normalSoldierId} · ${soldier.normalSoldierNameKo}`,
     `normal-soldier-${soldier.normalSoldierId}`,
+    () => normalSoldierNavigation?.showAll(false),
   );
   normalLink.className = 'normal-soldier-navigation-link';
   normal.append(normalLink);
@@ -434,8 +482,11 @@ try {
   const data = await response.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)) throw new Error('Unsupported SP Soldier data');
   spSoldiersByNormalId = indexSpSoldiersByNormalId(data.soldiers);
-  spSoldierContainer.replaceChildren();
-  for (const soldier of data.soldiers) addSpSoldier(soldier);
+  spSoldierNavigation = renderSoldierSearch({
+    soldiers: data.soldiers, idField: 'spSoldierId', input: spSoldierSearch,
+    clearButton: spSoldierClear, count: spSoldierCount, container: spSoldierContainer,
+    renderCard: addSpSoldier, label: 'SP 용병',
+  });
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';
@@ -483,7 +534,11 @@ function addNormalSoldier(soldier) {
     const linkedSpList = document.createElement('ul');
     for (const linkedSp of spLinks) {
       const item = document.createElement('li');
-      const link = makeAnchor(`${linkedSp.nameKo} (SP 용병 ID ${linkedSp.spSoldierId})`, `sp-soldier-${linkedSp.spSoldierId}`);
+      const link = makeAnchor(
+        `${linkedSp.nameKo} (SP 용병 ID ${linkedSp.spSoldierId})`,
+        `sp-soldier-${linkedSp.spSoldierId}`,
+        () => spSoldierNavigation?.showAll(false),
+      );
       link.className = 'sp-soldier-navigation-link';
       item.append(link);
       linkedSpList.append(item);
@@ -525,8 +580,11 @@ try {
   if (!response.ok) throw new Error(`Generated NORMAL Soldier data request failed (${response.status})`);
   const data = await response.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)) throw new Error('Unsupported NORMAL Soldier data');
-  normalSoldierContainer.replaceChildren();
-  for (const soldier of data.soldiers) addNormalSoldier(soldier);
+  normalSoldierNavigation = renderSoldierSearch({
+    soldiers: data.soldiers, idField: 'normalSoldierId', input: normalSoldierSearch,
+    clearButton: normalSoldierClear, count: normalSoldierCount, container: normalSoldierContainer,
+    renderCard: addNormalSoldier, label: '일반 용병',
+  });
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';
