@@ -104,8 +104,8 @@ const stepsStart=workflow.indexOf('\n    steps:',jobStart);
 assert.notEqual(stepsStart,-1,'CI validate job must contain steps');
 assert.doesNotMatch(workflow.slice(jobStart,stepsStart),/\n\s+if:/,'CI validate job must not be conditional');
 for (const [name, command] of [
-  ['Test app.js cache-key contract', 'node tools/test-app-cache-key.mjs'],
-  ['Validate app.js cache-key contract', 'node tools/validate-app-cache-key.mjs'],
+  ['Test static resource cache-key contract', 'node tools/test-app-cache-key.mjs'],
+  ['Validate static resource cache-key contract', 'node tools/validate-app-cache-key.mjs'],
 ]) {
   const start = workflow.indexOf(`      - name: ${name}\n`);
   assert.notEqual(start, -1, `${name} must be in CI`);
