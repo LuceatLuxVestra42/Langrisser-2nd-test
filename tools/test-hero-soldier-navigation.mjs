@@ -37,6 +37,7 @@ const makeElement = () => ({
 });
 const elementsById = new Map();
 const cards = [];
+const animationFrames = [];
 const sandbox = {
   URL,
   document: {
@@ -44,7 +45,7 @@ const sandbox = {
     createElement: makeElement,
     getElementById: (id) => elementsById.get(id) ?? null,
   },
-  window: { requestAnimationFrame(callback) { callback(); } },
+  window: { location: { hash: '' }, requestAnimationFrame(callback) { animationFrames.push(callback); } },
   container: { append(card) { cards.push(card); elementsById.set(card.id, card); } },
   exclusiveEquipmentHeroById: new Map(),
   exclusiveEquipmentNavigation: null,
@@ -71,6 +72,10 @@ for (const { heroId, soldierId } of generatedApprovedPairs) {
 for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById);
 
 const actualPairs = [];
+const flushAnimationFrames = () => {
+  while (animationFrames.length) animationFrames.shift()();
+};
+let pairIndex = 0;
 for (const card of cards) {
   const section = card.children.find((child) => child.className === 'hero-soldiers');
   const list = section?.children.find((child) => child.className === 'hero-soldier-list');
@@ -83,13 +88,27 @@ for (const card of cards) {
     assert.equal(link.textContent, soldiersById.get(matched.soldierId).nameKo, 'existing Korean Soldier label must be preserved');
     assert.equal(link.className, 'soldier-navigation-link');
     actualPairs.push(`${matched.namespace}:${matched.soldierId}:${matched.heroId}`);
-    const target = makeElement();
-    target.id = targetId;
-    elementsById.set(targetId, target);
+    let target = null;
+    if (pairIndex !== 0) {
+      target = makeElement();
+      target.id = targetId;
+      elementsById.set(targetId, target);
+    }
     let prevented = false;
     link.listeners.click({ preventDefault() { prevented = true; } });
-    assert.equal(prevented, false, 'existing Soldier endpoint should permit native anchor navigation');
-    assert.equal(target.scrolled, true, 'click should scroll the exact Soldier DOM endpoint');
+    if (pairIndex === 0) {
+      assert.equal(prevented, true, 'missing async Soldier endpoint should defer native navigation');
+      target = makeElement();
+      target.id = targetId;
+      elementsById.set(targetId, target);
+      flushAnimationFrames();
+      assert.equal(target.scrolled, true, 'deferred navigation should scroll after Soldier rendering completes');
+    } else {
+      assert.equal(prevented, false, 'existing Soldier endpoint should permit native anchor navigation');
+      flushAnimationFrames();
+      assert.equal(target.scrolled, true, 'click should scroll the exact Soldier DOM endpoint');
+    }
+    pairIndex += 1;
   }
 }
 
