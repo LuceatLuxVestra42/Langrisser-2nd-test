@@ -24,10 +24,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Test app.js cache-key contract
+      - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 
-      - name: Validate app.js cache-key contract
+      - name: Validate static resource cache-key contract
         run: node tools/validate-app-cache-key.mjs
 
       - name: Test CI changed-path routing

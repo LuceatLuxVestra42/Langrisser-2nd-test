@@ -2,7 +2,7 @@ import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment } from './generate.mjs';
-import { validateAppCacheKey } from './validate-app-cache-key.mjs';
+import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -200,11 +200,13 @@ try {
     await cp(resolve(portraitPath), destination);
   }
 
-  const [html, app] = await Promise.all([
+  const [html, app, styles] = await Promise.all([
     readFile(join(output, 'index.html'), 'utf8'),
     readFile(join(output, 'app.js'), 'utf8'),
+    readFile(join(output, 'styles.css'), 'utf8'),
   ]);
   validateAppCacheKey(html, app, 'built site');
+  validateStylesCacheKey(html, styles, 'built site');
   if (!html.includes('./app.js') || !html.includes('./styles.css')) {
     throw new Error('built document is missing app or style entry');
   }

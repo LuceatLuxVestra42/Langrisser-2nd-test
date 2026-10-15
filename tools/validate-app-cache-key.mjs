@@ -1,11 +1,11 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 
-const fail = (message) => { throw new Error(`app.js cache-key contract: ${message}`); };
+const fail = (message) => { throw new Error(`static resource cache-key contract: ${message}`); };
 
 function attributeMap(tag) {
   const attributes = new Map();
-  const body = tag.replace(/^<script\b|\s*\/?\s*>$/gi, '');
+  const body = tag.replace(/^<(?:script|link)\b|\s*\/?\s*>$/gi, '');
   const matcher = /([^\s=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
   for (const match of body.matchAll(matcher)) {
     const name = match[1].toLowerCase();
@@ -44,8 +44,36 @@ export function validateAppCacheKey(html, app, label = 'site') {
   return { src, cacheKey: versions[0], contentSha256: expected };
 }
 
+export function validateStylesCacheKey(html, styles, label = 'site') {
+  if (typeof html !== 'string' || typeof styles !== 'string') fail(`${label}: HTML and CSS must be text`);
+  const withoutComments = html.replace(/<!--[\s\S]*?-->/g, '');
+  const stylesheetLinks = [...withoutComments.matchAll(/<link\b[^>]*>/gi)].map((match) => ({
+    tag: match[0], attributes: attributeMap(match[0]),
+  })).filter(({ attributes }) => {
+    const href = attributes.get('href');
+    return (attributes.get('rel') ?? '').toLowerCase().split(/\s+/).includes('stylesheet')
+      && typeof href === 'string' && /(?:^|\/)styles\.css(?:\?|#|$)/.test(href);
+  });
+
+  if (stylesheetLinks.length !== 1) fail(`${label}: expected exactly one executable styles.css stylesheet; found ${stylesheetLinks.length}`);
+  const { attributes } = stylesheetLinks[0];
+  const href = attributes.get('href');
+  if (href.split(/[?#]/, 1)[0] !== './styles.css') fail(`${label}: styles.css must be loaded from the published site root`);
+  let url;
+  try { url = new URL(href, 'https://pages.invalid/Langrisser-2nd-test/'); }
+  catch { fail(`${label}: invalid styles.css stylesheet URL`); }
+  if (!url.pathname.endsWith('/styles.css') || url.hash) fail(`${label}: styles.css path or fragment is invalid`);
+  const versions = url.searchParams.getAll('v');
+  if (versions.length !== 1 || [...url.searchParams.keys()].length !== 1) fail(`${label}: styles.css URL must have exactly one v cache key`);
+
+  const expected = createHash('sha256').update(styles, 'utf8').digest('hex');
+  if (versions[0] !== expected) fail(`${label}: styles.css URL cache key does not match its SHA-256 content`);
+  return { href, cacheKey: versions[0], contentSha256: expected };
+}
+
 if (process.argv[1] && new URL(`file://${process.argv[1]}`).href === import.meta.url) {
-  const [html, app] = await Promise.all([readFile('index.html', 'utf8'), readFile('app.js', 'utf8')]);
-  const result = validateAppCacheKey(html, app, 'repository');
-  process.stdout.write(`app.js cache-key contract: PASS (${result.src}; SHA-256 ${result.contentSha256})\n`);
+  const [html, app, styles] = await Promise.all([readFile('index.html', 'utf8'), readFile('app.js', 'utf8'), readFile('styles.css', 'utf8')]);
+  const appResult = validateAppCacheKey(html, app, 'repository');
+  const stylesResult = validateStylesCacheKey(html, styles, 'repository');
+  process.stdout.write(`Static cache-key contract: PASS (${appResult.src}; SHA-256 ${appResult.contentSha256}; ${stylesResult.href}; SHA-256 ${stylesResult.contentSha256})\n`);
 }
