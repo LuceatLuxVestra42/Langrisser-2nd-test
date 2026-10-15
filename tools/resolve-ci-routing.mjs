@@ -88,12 +88,13 @@ const entries = [
 ['tools/generate.mjs','EXCLUSIVE_EQUIPMENT HERO_SOLDIER_RELATION BUILD_PRESENTATION'],
 ['tools/validate-hero-soldier-presentation.mjs','HERO_SOLDIER_RELATION'],
 ['tools/test-hero-soldier-presentation.mjs','HERO_SOLDIER_RELATION'],
+['tools/test-soldier-hero-navigation.mjs','SOLDIER HERO_SOLDIER_RELATION BUILD_PRESENTATION'],
 ['generated/hero-soldier-relations.v1.json','HERO_SOLDIER_RELATION'],
 ['tools/build.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['tools/validate-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['tools/test-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['generated/sp-soldiers.v1.json','SOLDIER BUILD_PRESENTATION'],
-['app.js','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],['index.html','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],['styles.css','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
+['app.js','SOLDIER HERO_SOLDIER_RELATION EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],['index.html','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],['styles.css','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ];
 export const PATH_RULES = Object.freeze(entries.map(([path, value, kind='exact']) => Object.freeze({path, kind, groups:Object.freeze(value.split(' '))})));
 

@@ -35,6 +35,15 @@ for (const p of ['app.js','index.html','styles.css']) {
   assert.equal(r.run_general_ssr, false, p);
   assert.equal(r.run_full_suite, false, p);
 }
+const soldierNavigation = route('app.js');
+assert.equal(soldierNavigation.run_soldier, true);
+assert.equal(soldierNavigation.run_hero_soldier_relation, true);
+for (const path of ['tools/test-soldier-hero-navigation.mjs']) {
+  const r = route(path);
+  assert.equal(r.run_soldier, true, path);
+  assert.equal(r.run_hero_soldier_relation, true, path);
+  assert.equal(r.run_build, true, path);
+}
 
 for (const path of ['tools/generate.mjs','tools/validate-hero-soldier-presentation.mjs','tools/test-hero-soldier-presentation.mjs','generated/hero-soldier-relations.v1.json']) {
   const r = route(path);
