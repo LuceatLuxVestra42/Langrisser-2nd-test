@@ -13,6 +13,25 @@ const exclusiveEquipmentCount = document.querySelector('#exclusive-equipment-cou
 let exclusiveEquipmentHeroById = new Map();
 let exclusiveEquipmentNavigation = null;
 let heroBySoldierId = new Map();
+let spSoldiersByNormalId = new Map();
+
+function indexSpSoldiersByNormalId(soldiers) {
+  const byNormalId = new Map();
+  const seenPairs = new Set();
+  for (const soldier of soldiers) {
+    if (!Number.isInteger(soldier.spSoldierId) || !Number.isInteger(soldier.normalSoldierId)
+      || typeof soldier.nameKo !== 'string' || !soldier.nameKo) {
+      throw new Error('Malformed SP–NORMAL Soldier presentation relation');
+    }
+    const pairKey = `${soldier.normalSoldierId}:${soldier.spSoldierId}`;
+    if (seenPairs.has(pairKey)) continue;
+    seenPairs.add(pairKey);
+    const linked = byNormalId.get(soldier.normalSoldierId) ?? [];
+    linked.push({ spSoldierId: soldier.spSoldierId, nameKo: soldier.nameKo });
+    byNormalId.set(soldier.normalSoldierId, linked);
+  }
+  return byNormalId;
+}
 
 function makeAnchor(label, targetId, revealTarget = () => {}) {
   const link = document.createElement('a');
@@ -414,6 +433,7 @@ try {
   if (!response.ok) throw new Error(`Generated SP Soldier data request failed (${response.status})`);
   const data = await response.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)) throw new Error('Unsupported SP Soldier data');
+  spSoldiersByNormalId = indexSpSoldiersByNormalId(data.soldiers);
   spSoldierContainer.replaceChildren();
   for (const soldier of data.soldiers) addSpSoldier(soldier);
 } catch (error) {
@@ -453,8 +473,26 @@ function addNormalSoldier(soldier) {
     stats.append(pair);
   }
   const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId);
+  const spLinks = spSoldiersByNormalId.get(soldier.normalSoldierId);
+  let linkedSpSection = null;
+  if (spLinks?.length) {
+    linkedSpSection = document.createElement('section');
+    linkedSpSection.className = 'normal-soldier-sp-links';
+    const linkedSpHeading = document.createElement('h4');
+    linkedSpHeading.textContent = '연결 SP 용병';
+    const linkedSpList = document.createElement('ul');
+    for (const linkedSp of spLinks) {
+      const item = document.createElement('li');
+      const link = makeAnchor(`${linkedSp.nameKo} (SP 용병 ID ${linkedSp.spSoldierId})`, `sp-soldier-${linkedSp.spSoldierId}`);
+      link.className = 'sp-soldier-navigation-link';
+      item.append(link);
+      linkedSpList.append(item);
+    }
+    linkedSpSection.append(linkedSpHeading, linkedSpList);
+  }
   article.append(heading, stats);
   if (heroLinks) article.append(heroLinks);
+  if (linkedSpSection) article.append(linkedSpSection);
   normalSoldierContainer.append(article);
 }
 

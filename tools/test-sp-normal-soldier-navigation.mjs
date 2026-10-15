@@ -59,7 +59,9 @@ const sandbox = {
     requestAnimationFrame(callback) { pendingFrames.push(callback); },
   },
   heroBySoldierId: new Map(),
+  spSoldiersByNormalId: new Map(),
   spSoldierContainer: { append(card) { elementsById.set(card.id, card); } },
+  normalSoldierContainer: { append(card) { elementsById.set(card.id, card); } },
 };
 const extract = (name, startMarker, endMarker) => {
   const start = frontend.indexOf(startMarker);
@@ -68,11 +70,13 @@ const extract = (name, startMarker, endMarker) => {
   return frontend.slice(start, end + 2);
 };
 const runtime = [
+  extract('reverse index', 'function indexSpSoldiersByNormalId(', '\n}\n\nfunction makeAnchor('),
   extract('anchor helper', 'function makeAnchor(', '\n}\n\nfunction addHero('),
   extract('soldier Hero links', 'function makeSoldierHeroLinks(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/normal-soldiers.v1.json\')'),
   extract('SP Soldier renderer', 'function addSpSoldier(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/sp-soldiers.v1.json\')'),
+  extract('NORMAL Soldier renderer', 'function addNormalSoldier(', '\n}\n\nfunction revealInitialHeroFragment('),
 ].join('\n');
-const functions = runInNewContext(`(() => { ${runtime}; return { addSpSoldier }; })()`, sandbox);
+const functions = runInNewContext(`(() => { ${runtime}; return { addSpSoldier, addNormalSoldier, indexSpSoldiersByNormalId }; })()`, sandbox);
 
 const cards = [];
 for (const normal of normalData.soldiers) {
@@ -84,6 +88,67 @@ for (const soldier of spData.soldiers) {
   const card = makeElement();
   cards.push(card);
   functions.addSpSoldier(soldier);
+}
+
+const reverseIndex = functions.indexSpSoldiersByNormalId(spData.soldiers);
+sandbox.spSoldiersByNormalId = reverseIndex;
+const expectedReversePairs = new Set(expectedPairs.map((pair) => {
+  const [spId, normalId] = pair.split(':').map(Number);
+  return `${normalId}:${spId}`;
+}));
+const actualReversePairs = new Set();
+const reversePairOccurrences = new Map();
+for (const normal of normalData.soldiers) {
+  functions.addNormalSoldier(normal);
+  const card = elementsById.get(`normal-soldier-${normal.normalSoldierId}`);
+  assert.ok(card, `NORMAL card ${normal.normalSoldierId} must render`);
+  const section = card.children.find((child) => child.className === 'normal-soldier-sp-links');
+  const expectedSpIds = spData.soldiers
+    .filter((soldier) => soldier.normalSoldierId === normal.normalSoldierId)
+    .map((soldier) => soldier.spSoldierId);
+  assert.equal(Boolean(section), expectedSpIds.length > 0, 'Only linked NORMAL cards render an SP section');
+  const links = section?.children[1]?.children ?? [];
+  assert.equal(links.length, expectedSpIds.length, 'Every linked SP endpoint is rendered');
+  for (const item of links) {
+    const link = item.children[0];
+    const match = link.href.match(/^#sp-soldier-(\d+)$/);
+    assert.ok(match, 'Reverse link must target an explicit SP Soldier endpoint');
+    const spId = Number(match[1]);
+    const key = `${normal.normalSoldierId}:${spId}`;
+    actualReversePairs.add(key);
+    reversePairOccurrences.set(key, (reversePairOccurrences.get(key) ?? 0) + 1);
+    assert.equal(link.className, 'sp-soldier-navigation-link');
+    assert.equal(link.textContent, `${spData.soldiers.find((soldier) => soldier.spSoldierId === spId).nameKo} (SP 용병 ID ${spId})`);
+    assert.ok(elementsById.has(`sp-soldier-${spId}`), `SP target ${spId} must render`);
+    link.listeners.click({ preventDefault() {} });
+    while (pendingFrames.length) pendingFrames.shift()();
+    assert.equal(elementsById.get(`sp-soldier-${spId}`).scrolled, true, 'Reverse link scrolls to exact SP target');
+  }
+}
+assert.deepEqual([...actualReversePairs].sort(), [...expectedReversePairs].sort(), 'Reverse link pair set must match independently derived pairs');
+assert.ok([...reversePairOccurrences.values()].every((count) => count === 1), 'Reverse link pairs must not duplicate');
+
+const multiValue = functions.indexSpSoldiersByNormalId([
+  { spSoldierId: 9001, normalSoldierId: 101, nameKo: 'fixture-a' },
+  { spSoldierId: 9002, normalSoldierId: 101, nameKo: 'fixture-b' },
+  { spSoldierId: 9002, normalSoldierId: 101, nameKo: 'fixture-b' },
+]);
+assert.deepEqual(JSON.parse(JSON.stringify(multiValue.get(101))), [
+  { spSoldierId: 9001, nameKo: 'fixture-a' }, { spSoldierId: 9002, nameKo: 'fixture-b' },
+], 'Multivalue reverse index preserves distinct SP endpoints and removes duplicate pair only');
+sandbox.spSoldiersByNormalId = multiValue;
+for (const spId of [9001, 9002]) elementsById.set(`sp-soldier-${spId}`, makeElement());
+functions.addNormalSoldier({ normalSoldierId: 101, nameKo: 'fixture-normal', baseStats: { hp: 1, attack: 2, defense: 3, magicDefense: 4 } });
+const fixtureNormal = elementsById.get('normal-soldier-101');
+const fixtureLinks = fixtureNormal.children.find((child) => child.className === 'normal-soldier-sp-links').children[1].children;
+assert.deepEqual(fixtureLinks.map((item) => item.children[0].href), ['#sp-soldier-9001', '#sp-soldier-9002'],
+  'NORMAL card rendering preserves all distinct SP links in a multivalue relation');
+sandbox.spSoldiersByNormalId = reverseIndex;
+functions.addNormalSoldier({ normalSoldierId: 99999, nameKo: 'fixture-unlinked', baseStats: { hp: 1, attack: 2, defense: 3, magicDefense: 4 } });
+assert.equal(elementsById.get('normal-soldier-99999').children.some((child) => child.className === 'normal-soldier-sp-links'), false,
+  'NORMAL card without a validated SP pair renders no inferred link section');
+
+for (const soldier of spData.soldiers) {
   const rendered = elementsById.get(`sp-soldier-${soldier.spSoldierId}`);
   assert.ok(rendered, `SP card ${soldier.spSoldierId} must render`);
   const normalDisplay = rendered.children.find((child) => child.className === 'normal-soldier-id');
@@ -124,4 +189,4 @@ while (pendingFrames.length) pendingFrames.shift()();
 assert.equal(sandbox.window.location.hash, deferredTargetId, 'Deferred navigation should set the exact target fragment');
 assert.equal(deferredTarget.scrolled, true, 'Deferred navigation should scroll after the NORMAL endpoint renders');
 
-process.stdout.write(`SP → NORMAL Soldier navigation PASS (${expectedPairs.length} exact ID pairs; endpoint checks, unique namespaces, visible-label parity, immediate and deferred navigation)\n`);
+process.stdout.write(`SP ↔ NORMAL Soldier navigation PASS (${expectedPairs.length} exact ID pairs; reverse multivalue indexing, endpoint parity, immediate and deferred navigation)\n`);
