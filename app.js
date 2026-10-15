@@ -21,21 +21,26 @@ function makeAnchor(label, targetId, revealTarget = () => {}) {
   link.addEventListener('click', (event) => {
     let target = document.getElementById(targetId);
     if (!target) {
-      event.preventDefault();
       revealTarget();
+      target = document.getElementById(targetId);
+    }
+    if (!target) {
+      event.preventDefault();
       let frames = 0;
       const waitForTarget = () => {
         target = document.getElementById(targetId);
         if (target) {
           window.location.hash = targetId;
-          target.scrollIntoView();
+          target.scrollIntoView?.();
         } else if (frames++ < 300) {
           window.requestAnimationFrame(waitForTarget);
         }
       };
       window.requestAnimationFrame(waitForTarget);
     } else {
-      window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView());
+      const scrollToTarget = () => document.getElementById(targetId)?.scrollIntoView?.();
+      if (typeof window !== 'undefined' && window.requestAnimationFrame) window.requestAnimationFrame(scrollToTarget);
+      else scrollToTarget();
     }
   });
   return link;
