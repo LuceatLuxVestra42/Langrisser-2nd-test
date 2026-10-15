@@ -44,6 +44,9 @@ for (const path of ['tools/test-soldier-hero-navigation.mjs','tools/test-hero-so
   assert.equal(r.run_hero_soldier_relation, true, path);
   assert.equal(r.run_build, true, path);
 }
+const spNormalNavigation = route('tools/test-sp-normal-soldier-navigation.mjs');
+for (const key of ['run_soldier','run_sp_normal_relation','run_build']) assert.equal(spNormalNavigation[key], true, key);
+assert.equal(spNormalNavigation.run_full_suite, false);
 
 for (const path of ['tools/generate.mjs','tools/validate-hero-soldier-presentation.mjs','tools/test-hero-soldier-presentation.mjs','generated/hero-soldier-relations.v1.json']) {
   const r = route(path);
