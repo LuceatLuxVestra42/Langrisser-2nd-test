@@ -4,6 +4,12 @@ const normalSoldierContainer = document.querySelector('#normal-soldiers');
 const jobGlossaryContainer = document.querySelector('#job-glossary');
 const generalEquipmentContainer = document.querySelector('#general-ssr-equipment');
 const exclusiveEquipmentContainer = document.querySelector('#exclusive-equipment');
+const generalEquipmentSearch = document.querySelector('#general-equipment-search');
+const generalEquipmentClear = document.querySelector('#general-equipment-clear');
+const generalEquipmentCount = document.querySelector('#general-equipment-count');
+const exclusiveEquipmentSearch = document.querySelector('#exclusive-equipment-search');
+const exclusiveEquipmentClear = document.querySelector('#exclusive-equipment-clear');
+const exclusiveEquipmentCount = document.querySelector('#exclusive-equipment-count');
 
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
@@ -174,6 +180,37 @@ function addGeneralEquipment(item) {
   generalEquipmentContainer.append(article);
 }
 
+function filterEquipment(equipment, query) {
+  const term = query.trim();
+  if (!term) return equipment;
+  if (/^\d+$/.test(term)) return equipment.filter((item) => String(item.equipmentId) === term);
+  const nameQuery = term.toLocaleLowerCase('ko-KR');
+  return equipment.filter((item) => item.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
+}
+
+function renderEquipmentSearch({ equipment, input, clearButton, count, container, renderCard, label }) {
+  const update = () => {
+    const matches = filterEquipment(equipment, input.value);
+    container.replaceChildren();
+    count.textContent = `검색 결과 ${matches.length}건 / 전체 ${equipment.length}건`;
+    if (matches.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'status';
+      empty.textContent = `${label} 검색 결과가 없습니다.`;
+      container.append(empty);
+      return;
+    }
+    for (const item of matches) renderCard(item);
+  };
+  input.addEventListener('input', update);
+  clearButton.addEventListener('click', () => {
+    input.value = '';
+    update();
+    input.focus();
+  });
+  update();
+}
+
 try {
   const response = await fetch('./generated/general-ssr-equipment.v1.json');
   if (!response.ok) throw new Error('Generated General SSR Equipment request failed (' + response.status + ')');
@@ -183,8 +220,11 @@ try {
   if (ids.some((id) => !Number.isInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate General SSR Equipment ID');
   if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
     || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('General SSR Equipment presentation is incomplete');
-  generalEquipmentContainer.replaceChildren();
-  for (const item of data.equipment) addGeneralEquipment(item);
+  renderEquipmentSearch({
+    equipment: data.equipment, input: generalEquipmentSearch, clearButton: generalEquipmentClear,
+    count: generalEquipmentCount, container: generalEquipmentContainer,
+    renderCard: addGeneralEquipment, label: '일반 SSR 장비',
+  });
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';
@@ -220,8 +260,11 @@ try {
   if (ids.some((id) => !Number.isSafeInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate Exclusive Equipment ID');
   if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
     || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('Exclusive Equipment presentation is incomplete');
-  exclusiveEquipmentContainer.replaceChildren();
-  for (const item of data.equipment) addExclusiveEquipment(item);
+  renderEquipmentSearch({
+    equipment: data.equipment, input: exclusiveEquipmentSearch, clearButton: exclusiveEquipmentClear,
+    count: exclusiveEquipmentCount, container: exclusiveEquipmentContainer,
+    renderCard: addExclusiveEquipment, label: '전용 장비',
+  });
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';

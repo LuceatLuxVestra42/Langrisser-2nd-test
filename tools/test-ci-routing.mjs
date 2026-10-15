@@ -28,6 +28,13 @@ for (const p of ['generated/exclusive-equipment.v1.json','tools/generate.mjs','t
   assert.equal(r.run_build, true, p);
   assert.equal(r.run_full_suite, false, p);
 }
+for (const p of ['app.js','index.html','styles.css']) {
+  const r = route(p);
+  assert.equal(r.run_exclusive, true, p);
+  assert.equal(r.run_build, true, p);
+  assert.equal(r.run_general_ssr, false, p);
+  assert.equal(r.run_full_suite, false, p);
+}
 
 for (const path of ['tools/generate.mjs','tools/validate-hero-soldier-presentation.mjs','tools/test-hero-soldier-presentation.mjs','generated/hero-soldier-relations.v1.json']) {
   const r = route(path);
