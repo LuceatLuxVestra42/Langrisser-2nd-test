@@ -12,14 +12,36 @@ const exclusiveEquipmentClear = document.querySelector('#exclusive-equipment-cle
 const exclusiveEquipmentCount = document.querySelector('#exclusive-equipment-count');
 let exclusiveEquipmentHeroById = new Map();
 let exclusiveEquipmentNavigation = null;
+let heroBySoldierId = new Map();
 
 function makeAnchor(label, targetId, revealTarget = () => {}) {
   const link = document.createElement('a');
   link.href = `#${targetId}`;
   link.textContent = label;
   link.addEventListener('click', (event) => {
-    if (!document.getElementById(targetId)) revealTarget();
-    if (!document.getElementById(targetId)) event.preventDefault();
+    let target = document.getElementById(targetId);
+    if (!target) {
+      revealTarget();
+      target = document.getElementById(targetId);
+    }
+    if (!target) {
+      event.preventDefault();
+      let frames = 0;
+      const waitForTarget = () => {
+        target = document.getElementById(targetId);
+        if (target) {
+          window.location.hash = targetId;
+          target.scrollIntoView?.();
+        } else if (frames++ < 300) {
+          window.requestAnimationFrame(waitForTarget);
+        }
+      };
+      window.requestAnimationFrame(waitForTarget);
+    } else {
+      const scrollToTarget = () => document.getElementById(targetId)?.scrollIntoView?.();
+      if (typeof window !== 'undefined' && window.requestAnimationFrame) window.requestAnimationFrame(scrollToTarget);
+      else scrollToTarget();
+    }
   });
   return link;
 }
@@ -154,7 +176,16 @@ try {
     }
     exclusiveEquipmentHeroById.set(equipmentId, hero);
   }
+  heroBySoldierId = new Map();
+  for (const [heroId, soldierIds] of relationsByHero) {
+    for (const soldierId of soldierIds) {
+      const heroIdsForSoldier = heroBySoldierId.get(soldierId) ?? [];
+      heroIdsForSoldier.push(heroId);
+      heroBySoldierId.set(soldierId, heroIdsForSoldier);
+    }
+  }
   for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById);
+  revealInitialHeroFragment();
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';
@@ -320,6 +351,7 @@ try {
 function addSpSoldier(soldier) {
   const article = document.createElement('article');
   article.className = 'sp-soldier-card';
+  article.id = `sp-soldier-${soldier.spSoldierId}`;
   const heading = document.createElement('div');
   heading.className = 'sp-soldier-heading';
   const name = document.createElement('h3');
@@ -358,7 +390,9 @@ function addSpSoldier(soldier) {
   };
   const spStats = makeStats('SP 기본 능력치', soldier.baseStats, 'sp-stat-group');
   const normalStats = makeStats('일반 기본 능력치', soldier.normalSoldierBaseStats, 'normal-stat-group');
+  const heroLinks = makeSoldierHeroLinks(soldier.spSoldierId);
   article.append(heading, normal, spStats, normalStats);
+  if (heroLinks) article.append(heroLinks);
   spSoldierContainer.append(article);
 }
 
@@ -381,6 +415,7 @@ try {
 function addNormalSoldier(soldier) {
   const article = document.createElement('article');
   article.className = 'sp-soldier-card';
+  article.id = `normal-soldier-${soldier.normalSoldierId}`;
   const heading = document.createElement('div');
   heading.className = 'sp-soldier-heading';
   const name = document.createElement('h3');
@@ -404,8 +439,34 @@ function addNormalSoldier(soldier) {
     pair.append(term, description);
     stats.append(pair);
   }
+  const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId);
   article.append(heading, stats);
+  if (heroLinks) article.append(heroLinks);
   normalSoldierContainer.append(article);
+}
+
+function revealInitialHeroFragment() {
+  const initialTargetId = window.location.hash.slice(1);
+  if (!initialTargetId.startsWith('hero-')) return;
+  window.requestAnimationFrame(() => document.getElementById(initialTargetId)?.scrollIntoView());
+}
+
+function makeSoldierHeroLinks(soldierId) {
+  const heroIds = heroBySoldierId.get(soldierId);
+  if (!heroIds?.length) return null;
+  const section = document.createElement('section');
+  section.className = 'soldier-hero-links';
+  const heading = document.createElement('h4');
+  heading.textContent = '연결 영웅';
+  const list = document.createElement('ul');
+  for (const heroId of heroIds) {
+    const item = document.createElement('li');
+    const heroName = document.querySelector(`#hero-${heroId} h2`)?.textContent ?? `영웅 ID ${heroId}`;
+    item.append(makeAnchor(`${heroName} (영웅 ID ${heroId})`, `hero-${heroId}`));
+    list.append(item);
+  }
+  section.append(heading, list);
+  return section;
 }
 
 try {

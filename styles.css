@@ -49,6 +49,10 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .sp-soldier-stats div { min-width: 0; }
 .sp-soldier-stats dt { color: #aab5c3; font-size: .7rem; }
 .sp-soldier-stats dd { margin: 3px 0 0; font-variant-numeric: tabular-nums; font-weight: 700; }
+.soldier-hero-links { margin-top: 14px; padding-top: 11px; border-top: 1px solid #344050; }
+.soldier-hero-links h4 { margin: 0 0 6px; color: #aab9cc; font-size: .76rem; }
+.soldier-hero-links ul { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 0; padding: 0; list-style: none; }
+.soldier-hero-links a { color: #a9ceff; font-size: .82rem; text-underline-offset: 3px; }
 .job-glossary-section { margin-top: 64px; }
 .job-glossary-table-wrap { overflow-x: auto; border: 1px solid #344050; border-radius: 12px; background: #1a202a; }
 .job-glossary-table { width: 100%; border-collapse: collapse; text-align: left; }
