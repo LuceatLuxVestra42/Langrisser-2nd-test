@@ -370,7 +370,12 @@ function addSpSoldier(soldier) {
 
   const normal = document.createElement('p');
   normal.className = 'normal-soldier-id';
-  normal.textContent = `일반 용병 ID ${soldier.normalSoldierId} · ${soldier.normalSoldierNameKo}`;
+  const normalLink = makeAnchor(
+    `일반 용병 ID ${soldier.normalSoldierId} · ${soldier.normalSoldierNameKo}`,
+    `normal-soldier-${soldier.normalSoldierId}`,
+  );
+  normalLink.className = 'normal-soldier-navigation-link';
+  normal.append(normalLink);
   const makeStats = (labelText, values, className) => {
     const group = document.createElement('div');
     group.className = `soldier-stat-group ${className}`;

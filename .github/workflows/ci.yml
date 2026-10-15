@@ -157,6 +157,10 @@ jobs:
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-soldier-hero-navigation.mjs
 
+      - name: Test SP-to-NORMAL Soldier navigation and exact pair parity
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_sp_normal_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-sp-normal-soldier-navigation.mjs
+
       - name: Test Hero-to-Soldier navigation and exact pair parity
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-soldier-navigation.mjs
