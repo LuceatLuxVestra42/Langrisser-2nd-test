@@ -40,6 +40,7 @@ const selectors = new Map();
 const elementsById = new Map();
 const sandbox = {
   heroBySoldierId: heroesBySoldier,
+  spSoldiersByNormalId: new Map(),
   document: {
     createElement: makeElement,
     getElementById: (id) => elementsById.get(id) ?? null,
@@ -48,6 +49,11 @@ const sandbox = {
   window: { location: { hash: '' }, requestAnimationFrame(callback) { callback(); } },
   makeAnchor: null,
 };
+for (const soldier of spData.soldiers) {
+  const linked = sandbox.spSoldiersByNormalId.get(soldier.normalSoldierId) ?? [];
+  linked.push({ spSoldierId: soldier.spSoldierId, nameKo: soldier.nameKo });
+  sandbox.spSoldiersByNormalId.set(soldier.normalSoldierId, linked);
+}
 const extract = (name, startMarker, endMarker) => {
   const start = frontend.indexOf(startMarker);
   const end = frontend.indexOf(endMarker, start);
