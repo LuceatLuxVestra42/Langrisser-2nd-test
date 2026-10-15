@@ -45,6 +45,10 @@ jobs:
         if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/validate.mjs
 
+      - name: Test Hero search presentation and hidden-target navigation
+        if: steps.ci-routing.outputs.run_hero == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-hero-search-presentation.mjs
+
       - name: Build static site
         if: steps.ci-routing.outputs.run_build == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/build.mjs

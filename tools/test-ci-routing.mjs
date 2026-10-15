@@ -33,9 +33,14 @@ for (const p of ['app.js','index.html','styles.css']) {
   assert.equal(r.run_exclusive, true, p);
   assert.equal(r.run_build, true, p);
   assert.equal(r.run_soldier, true, p);
+  assert.equal(r.run_hero, true, p);
   assert.equal(r.run_general_ssr, false, p);
   assert.equal(r.run_full_suite, false, p);
 }
+const heroSearch = route('tools/test-hero-search-presentation.mjs');
+assert.equal(heroSearch.run_hero, true);
+assert.equal(heroSearch.run_build, true);
+assert.equal(heroSearch.run_full_suite, false);
 for (const path of ['tools/validate-app-cache-key.mjs','tools/test-app-cache-key.mjs']) {
   const routed = route(path);
   assert.equal(routed.run_full_suite, true, path);
