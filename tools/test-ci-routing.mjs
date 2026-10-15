@@ -32,6 +32,7 @@ for (const p of ['app.js','index.html','styles.css']) {
   const r = route(p);
   assert.equal(r.run_exclusive, true, p);
   assert.equal(r.run_build, true, p);
+  assert.equal(r.run_soldier, true, p);
   assert.equal(r.run_general_ssr, false, p);
   assert.equal(r.run_full_suite, false, p);
 }
@@ -47,6 +48,9 @@ for (const path of ['tools/test-soldier-hero-navigation.mjs','tools/test-hero-so
 const spNormalNavigation = route('tools/test-sp-normal-soldier-navigation.mjs');
 for (const key of ['run_soldier','run_sp_normal_relation','run_build']) assert.equal(spNormalNavigation[key], true, key);
 assert.equal(spNormalNavigation.run_full_suite, false);
+const soldierSearch = route('tools/test-soldier-search-presentation.mjs');
+for (const key of ['run_soldier','run_build']) assert.equal(soldierSearch[key], true, key);
+assert.equal(soldierSearch.run_full_suite, false);
 
 for (const path of ['tools/generate.mjs','tools/validate-hero-soldier-presentation.mjs','tools/test-hero-soldier-presentation.mjs','generated/hero-soldier-relations.v1.json']) {
   const r = route(path);

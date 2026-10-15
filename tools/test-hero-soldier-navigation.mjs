@@ -49,6 +49,8 @@ const sandbox = {
   container: { append(card) { cards.push(card); elementsById.set(card.id, card); } },
   exclusiveEquipmentHeroById: new Map(),
   exclusiveEquipmentNavigation: null,
+  normalSoldierNavigation: null,
+  spSoldierNavigation: null,
 };
 const extract = (name, startMarker, endMarker) => {
   const start = frontend.indexOf(startMarker);

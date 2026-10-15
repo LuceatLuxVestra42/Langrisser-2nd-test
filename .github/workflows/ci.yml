@@ -165,6 +165,10 @@ jobs:
         if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-soldier-navigation.mjs
 
+      - name: Test NORMAL and SP Soldier search and filtered navigation
+        if: steps.ci-routing.outputs.run_soldier == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
+        run: node tools/test-soldier-search-presentation.mjs
+
       - name: Test SP Soldier relations
         if: steps.ci-routing.outputs.run_sp_normal_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-sp-soldier-relation.mjs
