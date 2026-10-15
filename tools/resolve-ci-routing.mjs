@@ -89,6 +89,7 @@ const entries = [
 ['tools/validate-hero-soldier-presentation.mjs','HERO_SOLDIER_RELATION'],
 ['tools/test-hero-soldier-presentation.mjs','HERO_SOLDIER_RELATION'],
 ['tools/test-soldier-hero-navigation.mjs','SOLDIER HERO_SOLDIER_RELATION BUILD_PRESENTATION'],
+['tools/test-hero-soldier-navigation.mjs','SOLDIER HERO_SOLDIER_RELATION BUILD_PRESENTATION'],
 ['generated/hero-soldier-relations.v1.json','HERO_SOLDIER_RELATION'],
 ['tools/build.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['tools/validate-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],

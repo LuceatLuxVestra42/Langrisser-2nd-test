@@ -111,7 +111,9 @@ function addHero(hero, relationsByHero, soldiersById) {
       const soldier = soldiersById.get(soldierId);
       if (!soldier) throw new Error(`Unresolved Soldier presentation ID ${soldierId}`);
       const item = document.createElement('li');
-      item.textContent = soldier.nameKo;
+      const soldierLink = makeAnchor(soldier.nameKo, soldier.domId);
+      soldierLink.className = 'soldier-navigation-link';
+      item.append(soldierLink);
       list.append(item);
     }
     section.append(heading, list);
@@ -143,12 +145,18 @@ try {
   for (const soldier of normalData.soldiers) {
     if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo
       || soldiersById.has(soldier.normalSoldierId)) throw new Error('Malformed or duplicate NORMAL Soldier presentation ID');
-    soldiersById.set(soldier.normalSoldierId, { nameKo: soldier.nameKo });
+    soldiersById.set(soldier.normalSoldierId, {
+      nameKo: soldier.nameKo,
+      domId: `normal-soldier-${soldier.normalSoldierId}`,
+    });
   }
   for (const soldier of spData.soldiers) {
     if (!Number.isInteger(soldier.spSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo
       || soldiersById.has(soldier.spSoldierId)) throw new Error('Malformed or duplicate SP Soldier presentation ID');
-    soldiersById.set(soldier.spSoldierId, { nameKo: soldier.nameKo });
+    soldiersById.set(soldier.spSoldierId, {
+      nameKo: soldier.nameKo,
+      domId: `sp-soldier-${soldier.spSoldierId}`,
+    });
   }
 
   const relationsByHero = new Map();

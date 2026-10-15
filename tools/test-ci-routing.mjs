@@ -38,7 +38,7 @@ for (const p of ['app.js','index.html','styles.css']) {
 const soldierNavigation = route('app.js');
 assert.equal(soldierNavigation.run_soldier, true);
 assert.equal(soldierNavigation.run_hero_soldier_relation, true);
-for (const path of ['tools/test-soldier-hero-navigation.mjs']) {
+for (const path of ['tools/test-soldier-hero-navigation.mjs','tools/test-hero-soldier-navigation.mjs']) {
   const r = route(path);
   assert.equal(r.run_soldier, true, path);
   assert.equal(r.run_hero_soldier_relation, true, path);

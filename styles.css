@@ -90,3 +90,4 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-soldiers h3 { margin: 0 0 8px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }
 .hero-soldier-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .hero-soldier-list li { max-width: 100%; padding: 5px 9px; border: 1px solid #344050; border-radius: 999px; color: #d4dce7; font-size: .78rem; overflow-wrap: anywhere; }
+.hero-soldier-list a { color: #a9ceff; text-underline-offset: 3px; }

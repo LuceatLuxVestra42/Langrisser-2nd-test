@@ -1,0 +1,100 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { runInNewContext } from 'node:vm';
+
+const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
+const [frontend, heroData, relationData, normalData, spData] = await Promise.all([
+  readFile('app.js', 'utf8'),
+  readJson('generated/hero-slice.v1.json'),
+  readJson('generated/hero-soldier-relations.v1.json'),
+  readJson('generated/normal-soldiers.v1.json'),
+  readJson('generated/sp-soldiers.v1.json'),
+]);
+
+const normalById = new Map(normalData.soldiers.map((soldier) => [soldier.normalSoldierId, {
+  namespace: 'NORMAL', nameKo: soldier.nameKo, domId: `normal-soldier-${soldier.normalSoldierId}`,
+}]));
+const spById = new Map(spData.soldiers.map((soldier) => [soldier.spSoldierId, {
+  namespace: 'SP', nameKo: soldier.nameKo, domId: `sp-soldier-${soldier.spSoldierId}`,
+}]));
+assert.equal([...normalById.keys()].some((id) => spById.has(id)), false, 'NORMAL and SP endpoint IDs must be disjoint');
+
+const generatedApprovedPairs = relationData.relations.map(({ heroId, soldierId }) => {
+  const normal = normalById.get(soldierId);
+  const sp = spById.get(soldierId);
+  assert.equal(Number(Boolean(normal)) + Number(Boolean(sp)), 1, `Soldier endpoint ${soldierId} must resolve in exactly one namespace`);
+  return { heroId, soldierId, namespace: normal ? 'NORMAL' : 'SP', domId: (normal ?? sp).domId };
+});
+assert.equal(new Set(generatedApprovedPairs.map(({ heroId, soldierId }) => `${heroId}:${soldierId}`)).size,
+  generatedApprovedPairs.length, 'Generated relation pairs must be unique');
+
+const makeElement = () => ({
+  children: [], listeners: {}, attributes: {}, textContent: '', className: '', id: '', href: '',
+  append(...children) { this.children.push(...children); },
+  addEventListener(type, listener) { this.listeners[type] = listener; },
+  setAttribute(key, value) { this.attributes[key] = value; },
+  scrollIntoView() { this.scrolled = true; },
+});
+const elementsById = new Map();
+const cards = [];
+const sandbox = {
+  URL,
+  document: {
+    baseURI: 'https://example.test/',
+    createElement: makeElement,
+    getElementById: (id) => elementsById.get(id) ?? null,
+  },
+  window: { requestAnimationFrame(callback) { callback(); } },
+  container: { append(card) { cards.push(card); elementsById.set(card.id, card); } },
+  exclusiveEquipmentHeroById: new Map(),
+  exclusiveEquipmentNavigation: null,
+};
+const extract = (name, startMarker, endMarker) => {
+  const start = frontend.indexOf(startMarker);
+  const end = frontend.indexOf(endMarker, start);
+  assert.ok(start >= 0 && end > start, `${name} function boundaries must exist`);
+  return frontend.slice(start, end + 2);
+};
+const runtime = [
+  extract('anchor', 'function makeAnchor(', '\n}\n\nfunction addHero('),
+  extract('Hero renderer', 'function addHero(', '\n}\n\ntry {\n  const [heroResponse, relationResponse'),
+].join('\n');
+const functions = runInNewContext(`(() => { ${runtime}; return { makeAnchor, addHero }; })()`, sandbox);
+
+const soldiersById = new Map([...normalById, ...spById]);
+const relationsByHero = new Map();
+for (const { heroId, soldierId } of generatedApprovedPairs) {
+  const ids = relationsByHero.get(heroId) ?? [];
+  ids.push(soldierId);
+  relationsByHero.set(heroId, ids);
+}
+for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById);
+
+const actualPairs = [];
+for (const card of cards) {
+  const section = card.children.find((child) => child.className === 'hero-soldiers');
+  const list = section?.children.find((child) => child.className === 'hero-soldier-list');
+  for (const item of list?.children ?? []) {
+    assert.equal(item.children.length, 1, 'each existing Soldier display entry should remain a single label/link');
+    const link = item.children[0];
+    const targetId = link.href.slice(1);
+    const matched = generatedApprovedPairs.find((pair) => pair.heroId === Number(card.id.slice('hero-'.length)) && pair.domId === targetId);
+    assert.ok(matched, `Hero ${card.id} link ${link.href} must target its explicit Generated Soldier endpoint`);
+    assert.equal(link.textContent, soldiersById.get(matched.soldierId).nameKo, 'existing Korean Soldier label must be preserved');
+    assert.equal(link.className, 'soldier-navigation-link');
+    actualPairs.push(`${matched.namespace}:${matched.soldierId}:${matched.heroId}`);
+    const target = makeElement();
+    target.id = targetId;
+    elementsById.set(targetId, target);
+    let prevented = false;
+    link.listeners.click({ preventDefault() { prevented = true; } });
+    assert.equal(prevented, false, 'existing Soldier endpoint should permit native anchor navigation');
+    assert.equal(target.scrolled, true, 'click should scroll the exact Soldier DOM endpoint');
+  }
+}
+
+const expectedPairs = generatedApprovedPairs.map(({ namespace, soldierId, heroId }) => `${namespace}:${soldierId}:${heroId}`).sort();
+assert.deepEqual(actualPairs.sort(), expectedPairs, 'Hero displayed Soldier pairs must equal Generated approved pairs');
+assert.equal(cards.length, heroData.heroes.length, 'Hero presentation population must remain unchanged');
+assert.equal(actualPairs.length, 72, 'all currently displayed Generated relation pairs must retain a link');
+process.stdout.write(`Hero → Soldier navigation PASS (${actualPairs.length} exact namespace/soldierId/heroId pairs; labels, endpoints, and click target verified)\n`);
