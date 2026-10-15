@@ -10,10 +10,24 @@ const generalEquipmentCount = document.querySelector('#general-equipment-count')
 const exclusiveEquipmentSearch = document.querySelector('#exclusive-equipment-search');
 const exclusiveEquipmentClear = document.querySelector('#exclusive-equipment-clear');
 const exclusiveEquipmentCount = document.querySelector('#exclusive-equipment-count');
+let exclusiveEquipmentHeroById = new Map();
+let exclusiveEquipmentNavigation = null;
+
+function makeAnchor(label, targetId, revealTarget = () => {}) {
+  const link = document.createElement('a');
+  link.href = `#${targetId}`;
+  link.textContent = label;
+  link.addEventListener('click', (event) => {
+    if (!document.getElementById(targetId)) revealTarget();
+    if (!document.getElementById(targetId)) event.preventDefault();
+  });
+  return link;
+}
 
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
+  article.id = `hero-${hero.id}`;
 
   const image = document.createElement('img');
   image.className = 'hero-portrait';
@@ -49,10 +63,16 @@ function addHero(hero, relationsByHero, soldiersById) {
   const equipmentName = document.createElement('p');
   equipmentName.className = 'exclusive-equipment-name';
   equipmentName.textContent = hero.exclusiveEquipment.equipmentNameKo;
+  const equipmentLink = makeAnchor(
+    `Equipment ID ${hero.exclusiveEquipment.equipmentId} 장비로 이동`,
+    `equipment-${hero.exclusiveEquipment.equipmentId}`,
+    () => exclusiveEquipmentNavigation?.showAll(false),
+  );
+  equipmentLink.className = 'equipment-navigation-link';
   const effect = document.createElement('p');
   effect.className = 'exclusive-equipment-effect';
   effect.textContent = hero.exclusiveEquipment.effectDescriptionKo;
-  exclusive.append(exclusiveHeading, equipmentName, effect);
+  exclusive.append(exclusiveHeading, equipmentName, equipmentLink, effect);
   article.append(exclusive);
 
   const soldierIds = relationsByHero.get(hero.id);
@@ -126,6 +146,14 @@ try {
     throw new Error('Hero–Soldier relation references an unavailable Hero presentation');
   }
   container.replaceChildren();
+  exclusiveEquipmentHeroById = new Map();
+  for (const hero of data.heroes) {
+    const equipmentId = hero.exclusiveEquipment?.equipmentId;
+    if (!Number.isSafeInteger(equipmentId) || exclusiveEquipmentHeroById.has(equipmentId)) {
+      throw new Error('Malformed or duplicate Hero Slice Exclusive Equipment endpoint');
+    }
+    exclusiveEquipmentHeroById.set(equipmentId, hero);
+  }
   for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById);
 } catch (error) {
   const status = document.createElement('p');
@@ -203,12 +231,16 @@ function renderEquipmentSearch({ equipment, input, clearButton, count, container
     for (const item of matches) renderCard(item);
   };
   input.addEventListener('input', update);
-  clearButton.addEventListener('click', () => {
+  const showAll = (focus = true) => {
     input.value = '';
     update();
-    input.focus();
+    if (focus) input.focus();
+  };
+  clearButton.addEventListener('click', () => {
+    showAll();
   });
   update();
+  return { showAll };
 }
 
 try {
@@ -236,6 +268,7 @@ try {
 function addExclusiveEquipment(item) {
   const article = document.createElement('article');
   article.className = 'general-equipment-card';
+  article.id = `equipment-${item.equipmentId}`;
   const heading = document.createElement('div');
   heading.className = 'general-equipment-heading';
   const name = document.createElement('h3');
@@ -247,7 +280,14 @@ function addExclusiveEquipment(item) {
   const effect = document.createElement('p');
   effect.className = 'general-equipment-effect';
   effect.textContent = item.effectDescriptionKo.replace(/\\n/g, '\n');
-  article.append(heading, effect);
+  const hero = exclusiveEquipmentHeroById.get(item.equipmentId);
+  if (hero) {
+    const heroLink = makeAnchor(`연결 영웅 · ${hero.nameKo}`, `hero-${hero.id}`);
+    heroLink.className = 'equipment-navigation-link';
+    article.append(heading, heroLink, effect);
+  } else {
+    article.append(heading, effect);
+  }
   exclusiveEquipmentContainer.append(article);
 }
 
@@ -260,7 +300,11 @@ try {
   if (ids.some((id) => !Number.isSafeInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate Exclusive Equipment ID');
   if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
     || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('Exclusive Equipment presentation is incomplete');
-  renderEquipmentSearch({
+  const equipmentIds = new Set(ids);
+  for (const [equipmentId] of exclusiveEquipmentHeroById) {
+    if (!equipmentIds.has(equipmentId)) throw new Error(`Hero Slice references missing Exclusive Equipment ID ${equipmentId}`);
+  }
+  exclusiveEquipmentNavigation = renderEquipmentSearch({
     equipment: data.equipment, input: exclusiveEquipmentSearch, clearButton: exclusiveEquipmentClear,
     count: exclusiveEquipmentCount, container: exclusiveEquipmentContainer,
     renderCard: addExclusiveEquipment, label: '전용 장비',
