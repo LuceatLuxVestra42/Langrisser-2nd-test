@@ -1,4 +1,8 @@
 const container = document.querySelector('#heroes');
+const heroSearch = document.querySelector('#hero-search');
+const heroSearchClear = document.querySelector('#hero-search-clear');
+const heroSearchCount = document.querySelector('#hero-search-count');
+const heroSearchEmpty = document.querySelector('#hero-search-empty');
 const spSoldierContainer = document.querySelector('#sp-soldiers');
 const normalSoldierContainer = document.querySelector('#normal-soldiers');
 const jobGlossaryContainer = document.querySelector('#job-glossary');
@@ -18,6 +22,7 @@ const normalSoldierClear = document.querySelector('#normal-soldier-clear');
 const normalSoldierCount = document.querySelector('#normal-soldier-count');
 let exclusiveEquipmentHeroById = new Map();
 let exclusiveEquipmentNavigation = null;
+let heroNavigation = null;
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
 let spSoldierNavigation = null;
@@ -41,13 +46,13 @@ function indexSpSoldiersByNormalId(soldiers) {
   return byNormalId;
 }
 
-function makeAnchor(label, targetId, revealTarget = () => {}) {
+function makeAnchor(label, targetId, revealTarget = () => {}, revealHiddenTarget = false) {
   const link = document.createElement('a');
   link.href = `#${targetId}`;
   link.textContent = label;
   link.addEventListener('click', (event) => {
     let target = document.getElementById(targetId);
-    if (!target) {
+    if (!target || (revealHiddenTarget && target.hidden)) {
       revealTarget();
       target = document.getElementById(targetId);
     }
@@ -71,6 +76,44 @@ function makeAnchor(label, targetId, revealTarget = () => {}) {
     }
   });
   return link;
+}
+
+function filterHeroes(heroes, query) {
+  const term = query.trim();
+  if (!term) return heroes;
+  if (/^\d+$/.test(term)) return heroes.filter((hero) => String(hero.id) === term);
+  if (/^(?:\d|[+-]\d)/.test(term)) return [];
+  const nameQuery = term.toLocaleLowerCase('ko-KR');
+  return heroes.filter((hero) => hero.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
+}
+
+function renderHeroSearch({ heroes, input, clearButton, count, emptyState }) {
+  const update = () => {
+    const matches = filterHeroes(heroes, input.value);
+    const visibleIds = new Set(matches.map(({ id }) => id));
+    for (const hero of heroes) {
+      const card = document.getElementById(`hero-${hero.id}`);
+      if (!card) throw new Error(`Missing approved Hero presentation endpoint ${hero.id}`);
+      card.hidden = !visibleIds.has(hero.id);
+    }
+    count.textContent = `검색 결과 ${matches.length}명 / 전체 ${heroes.length}명`;
+    emptyState.hidden = matches.length > 0;
+    return matches;
+  };
+  input.addEventListener('input', update);
+  const showAll = (focus = true) => {
+    input.value = '';
+    update();
+    if (focus) input.focus();
+  };
+  const showTarget = (heroId) => {
+    if (!heroes.some(({ id }) => id === heroId)) return false;
+    showAll(false);
+    return true;
+  };
+  clearButton.addEventListener('click', () => showAll());
+  update();
+  return { showAll, showTarget };
 }
 
 function addHero(hero, relationsByHero, soldiersById) {
@@ -225,6 +268,10 @@ try {
     }
   }
   for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById);
+  heroNavigation = renderHeroSearch({
+    heroes: data.heroes, input: heroSearch, clearButton: heroSearchClear,
+    count: heroSearchCount, emptyState: heroSearchEmpty,
+  });
   revealInitialHeroFragment();
 } catch (error) {
   const status = document.createElement('p');
@@ -387,7 +434,12 @@ function addExclusiveEquipment(item) {
   effect.textContent = item.effectDescriptionKo.replace(/\\n/g, '\n');
   const hero = exclusiveEquipmentHeroById.get(item.equipmentId);
   if (hero) {
-    const heroLink = makeAnchor(`연결 영웅 · ${hero.nameKo}`, `hero-${hero.id}`);
+    const heroLink = makeAnchor(
+      `연결 영웅 · ${hero.nameKo}`,
+      `hero-${hero.id}`,
+      () => heroNavigation?.showTarget(hero.id),
+      true,
+    );
     heroLink.className = 'equipment-navigation-link';
     article.append(heading, heroLink, effect);
   } else {
@@ -568,7 +620,12 @@ function makeSoldierHeroLinks(soldierId) {
   for (const heroId of heroIds) {
     const item = document.createElement('li');
     const heroName = document.querySelector(`#hero-${heroId} h2`)?.textContent ?? `영웅 ID ${heroId}`;
-    item.append(makeAnchor(`${heroName} (영웅 ID ${heroId})`, `hero-${heroId}`));
+    item.append(makeAnchor(
+      `${heroName} (영웅 ID ${heroId})`,
+      `hero-${heroId}`,
+      () => heroNavigation?.showTarget(heroId),
+      true,
+    ));
     list.append(item);
   }
   section.append(heading, list);
