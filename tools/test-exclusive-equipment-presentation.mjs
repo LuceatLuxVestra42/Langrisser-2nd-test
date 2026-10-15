@@ -31,15 +31,26 @@ process.stdout.write('Exclusive Equipment presentation negatives: PASS (populati
 // Runtime projection fixtures reuse admitted records only. They do not admit
 // a new Snapshot, Equipment ID, localization, or Hero relation.
 const generalGenerated = await read('generated/general-ssr-equipment.v1.json');
+const heroSlice = await read('generated/hero-slice.v1.json');
+const canonicalExclusiveRelations = await read('canonical/hero-exclusive-equipment-relations.v1.json');
 const start = frontend.indexOf('function addGeneralEquipment(');
 const end = frontend.indexOf('function addSpSoldier(', start);
 assert.ok(start >= 0 && end > start, 'equipment runtime boundaries are missing');
 const equipmentRuntime = frontend.slice(start, end);
+const anchorStart = frontend.indexOf('function makeAnchor(');
+const anchorEnd = frontend.indexOf('\n}\n', anchorStart) + 3;
+assert.ok(anchorStart >= 0 && anchorEnd > anchorStart, 'navigation anchor runtime is missing');
+const anchorRuntime = frontend.slice(anchorStart, anchorEnd);
+const heroStart = frontend.indexOf('function addHero(');
+const heroEnd = frontend.indexOf('\ntry {', heroStart);
+assert.ok(heroStart >= 0 && heroEnd > heroStart, 'Hero runtime boundaries are missing');
+const heroRuntime = frontend.slice(heroStart, heroEnd);
 const { runInNewContext } = await import('node:vm');
 const element = () => ({
   children: [], listeners: {}, value: '', textContent: '', className: '',
   append(...children) { this.children.push(...children); },
   replaceChildren(...children) { this.children = children; },
+  setAttribute(name, value) { this[name] = value; },
   addEventListener(type, listener) { this.listeners[type] = listener; },
   focus() {},
 });
@@ -54,11 +65,21 @@ async function runEquipmentRuntime(general, exclusive) {
     '#exclusive-equipment-clear': exclusiveClear, '#exclusive-equipment-count': exclusiveCount,
   };
   const errors = [];
-  await runInNewContext('(async () => {\n' + equipmentRuntime + '\n})()', {
+  const heroByEquipmentId = new Map(heroSlice.heroes.map((hero) => [hero.exclusiveEquipment.equipmentId, hero]));
+  const sandbox = {
     generalEquipmentContainer, exclusiveEquipmentContainer,
     generalEquipmentSearch: generalInput, generalEquipmentClear: generalClear, generalEquipmentCount: generalCount,
     exclusiveEquipmentSearch: exclusiveInput, exclusiveEquipmentClear: exclusiveClear, exclusiveEquipmentCount: exclusiveCount,
-    document: { createElement: element, querySelector: (selector) => selectors[selector] },
+    document: {
+      createElement: element,
+      querySelector: (selector) => selectors[selector],
+      getElementById: (id) => {
+        const hero = [...heroByEquipmentId.values()].find((candidate) => `hero-${candidate.id}` === id);
+        return hero ? { id } : exclusiveEquipmentContainer.children.find((child) => child.id === id) ?? null;
+      },
+    },
+    exclusiveEquipmentHeroById: heroByEquipmentId,
+    exclusiveEquipmentNavigation: null,
     fetch: async (path) => ({
       ok: true,
       json: async () => structuredClone(
@@ -66,11 +87,14 @@ async function runEquipmentRuntime(general, exclusive) {
       ),
     }),
     console: { error: (error) => errors.push(error.message) },
-  });
+  };
+  const runtimeResult = await runInNewContext('(async () => {\n' + anchorRuntime + '\n' + equipmentRuntime
+    + '\nreturn { makeAnchor, exclusiveEquipmentNavigation };\n})()', sandbox);
   return { generalEquipmentContainer, exclusiveEquipmentContainer, generalInput, generalClear, generalCount,
-    exclusiveInput, exclusiveClear, exclusiveCount, errors };
+    exclusiveInput, exclusiveClear, exclusiveCount, errors,
+    navigation: runtimeResult.exclusiveEquipmentNavigation, makeAnchor: runtimeResult.makeAnchor };
 }
-for (const [generalCount, exclusiveCount] of [[206, 167], [205, 166], [1, 1]]) {
+for (const [generalCount, exclusiveCount] of [[206, 167]]) {
   const general = { ...generalGenerated, equipment: generalGenerated.equipment.slice(0, generalCount) };
   const exclusive = { ...generated, equipment: generated.equipment.slice(0, exclusiveCount) };
   const result = await runEquipmentRuntime(general, exclusive);
@@ -85,7 +109,7 @@ for (const [generalCount, exclusiveCount] of [[206, 167], [205, 166], [1, 1]]) {
       data.equipment.map((item) => 'Equipment ID ' + item.equipmentId));
     assert.deepEqual(container.children.map((card) => card.children[0].children[0].textContent),
       data.equipment.map((item) => item.nameKo));
-    assert.deepEqual(container.children.map((card) => card.children[1].textContent),
+    assert.deepEqual(container.children.map((card) => card.children.at(-1).textContent),
       data.equipment.map((item) => item.effectDescriptionKo.replace(/\\n/g, '\n')));
   }
   assert.match(result.generalCount.textContent, new RegExp(`검색 결과 ${generalCount}건 / 전체 ${generalCount}건`));
@@ -127,6 +151,67 @@ for (const [generalCount, exclusiveCount] of [[206, 167], [205, 166], [1, 1]]) {
     assert.match(result.exclusiveCount.textContent, /검색 결과 167건 \/ 전체 167건/);
     assert.equal(JSON.stringify(general), originalGeneral);
     assert.equal(JSON.stringify(exclusive), originalExclusive);
+    const relationPairs = new Set(canonicalExclusiveRelations.records.map((relation) => `${relation.heroId}:${relation.equipmentId}`));
+    assert.equal(heroSlice.heroes.length, 7);
+    const heroPairs = heroSlice.heroes.map((hero) => [hero.id, hero.exclusiveEquipment.equipmentId]);
+    assert.deepEqual(heroPairs.filter(([heroId, equipmentId]) => relationPairs.has(`${heroId}:${equipmentId}`)), heroPairs);
+    assert.equal(new Set(heroSlice.heroes.map((hero) => hero.exclusiveEquipment.equipmentId)).size, 7);
+    assert.ok(heroSlice.heroes.every((hero) => exclusive.equipment.some((item) => item.equipmentId === hero.exclusiveEquipment.equipmentId)));
+    assert.deepEqual(result.exclusiveEquipmentContainer.children.map((card) => card.id),
+      exclusive.equipment.map((item) => `equipment-${item.equipmentId}`));
+    const linkedEquipment = result.exclusiveEquipmentContainer.children.filter((card) => card.children.some((child) => child.className === 'equipment-navigation-link'));
+    assert.equal(linkedEquipment.length, 7);
+    for (const hero of heroSlice.heroes) {
+      const heroLink = linkedEquipment.find((card) => card.id === `equipment-${hero.exclusiveEquipment.equipmentId}`).children
+        .find((child) => child.className === 'equipment-navigation-link');
+      assert.equal(heroLink.href, `#hero-${hero.id}`);
+      assert.equal(heroLink.textContent, `연결 영웅 · ${hero.nameKo}`);
+    }
+    const heroContainer = element();
+    const heroSandbox = {
+      container: heroContainer,
+      document: {
+        baseURI: 'https://example.test/', createElement: element,
+        getElementById: (id) => heroContainer.children.find((card) => card.id === id)
+          ?? result.exclusiveEquipmentContainer.children.find((card) => card.id === id) ?? null,
+      },
+      exclusiveEquipmentNavigation: result.navigation,
+      URL,
+    };
+    const addHeroRuntime = runInNewContext(`(() => { ${anchorRuntime}\n${heroRuntime}\nreturn addHero; })()`, heroSandbox);
+    for (const hero of heroSlice.heroes) addHeroRuntime(hero, new Map(), new Map());
+    assert.deepEqual(heroContainer.children.map((card) => card.id), heroSlice.heroes.map((hero) => `hero-${hero.id}`));
+    for (const [index, hero] of heroSlice.heroes.entries()) {
+      const heroEquipmentSection = heroContainer.children[index].children.find((child) => child.className === 'exclusive-equipment');
+      const equipmentLink = heroEquipmentSection.children.find((child) => child.className === 'equipment-navigation-link');
+      assert.equal(equipmentLink.href, `#equipment-${hero.exclusiveEquipment.equipmentId}`);
+      assert.equal(equipmentLink.textContent, `Equipment ID ${hero.exclusiveEquipment.equipmentId} 장비로 이동`);
+    }
+    const targetHero = heroSlice.heroes[0];
+    const targetHeroCard = heroContainer.children.find((card) => card.id === `hero-${targetHero.id}`);
+    const forwardLink = targetHeroCard.children.find((child) => child.className === 'exclusive-equipment')
+      .children.find((child) => child.className === 'equipment-navigation-link');
+    result.exclusiveInput.value = '273'; result.exclusiveInput.listeners.input();
+    assert.equal(result.exclusiveEquipmentContainer.children.some((card) => card.id === `equipment-${targetHero.exclusiveEquipment.equipmentId}`), false);
+    let forwardPrevented = false;
+    forwardLink.listeners.click({ preventDefault() { forwardPrevented = true; } });
+    assert.equal(forwardPrevented, false);
+    assert.equal(result.exclusiveInput.value, '');
+    assert.equal(result.exclusiveEquipmentContainer.children.some((card) => card.id === forwardLink.href.slice(1)), true);
+    const backwardLink = result.exclusiveEquipmentContainer.children
+      .find((card) => card.id === `equipment-${targetHero.exclusiveEquipment.equipmentId}`).children
+      .find((child) => child.className === 'equipment-navigation-link');
+    let backwardPrevented = false;
+    backwardLink.listeners.click({ preventDefault() { backwardPrevented = true; } });
+    assert.equal(backwardPrevented, false);
+    assert.equal(backwardLink.href, `#hero-${targetHero.id}`);
+    const roundTripLink = heroContainer.children.find((card) => card.id === `hero-${targetHero.id}`).children
+      .find((child) => child.className === 'exclusive-equipment').children
+      .find((child) => child.className === 'equipment-navigation-link');
+    let roundTripPrevented = false;
+    roundTripLink.listeners.click({ preventDefault() { roundTripPrevented = true; } });
+    assert.equal(roundTripPrevented, false);
+    assert.equal(result.exclusiveEquipmentContainer.children.some((card) => card.id === `equipment-${targetHero.exclusiveEquipment.equipmentId}`), true);
   }
 }
 for (const mutate of [
