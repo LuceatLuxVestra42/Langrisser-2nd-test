@@ -36,6 +36,11 @@ for (const p of ['app.js','index.html','styles.css']) {
   assert.equal(r.run_general_ssr, false, p);
   assert.equal(r.run_full_suite, false, p);
 }
+for (const path of ['tools/validate-app-cache-key.mjs','tools/test-app-cache-key.mjs']) {
+  const routed = route(path);
+  assert.equal(routed.run_full_suite, true, path);
+  assert.equal(routed.routing_review, true, path);
+}
 const soldierNavigation = route('app.js');
 assert.equal(soldierNavigation.run_soldier, true);
 assert.equal(soldierNavigation.run_hero_soldier_relation, true);
@@ -86,5 +91,23 @@ assert.equal(new Set(OUTPUTS).size,OUTPUTS.length);
 const workflow=await readFile(new URL('../.github/workflows/ci.yml',import.meta.url),'utf8');
 assert.match(workflow,/fetch-depth: 0/);
 assert.doesNotMatch(workflow,/changed-files|changed_files|paths-filter|canonical\/|evidence\//);
+assert.doesNotMatch(workflow,/^\s+paths(?:-ignore)?:/m,'workflow must not filter cache-key-relevant changes');
+assert.match(workflow,/on:\s*\n\s+pull_request:\s*\n\s+push:/);
+const jobStart=workflow.indexOf('\n  validate:');
+assert.notEqual(jobStart,-1,'required CI validate job must exist');
+const stepsStart=workflow.indexOf('\n    steps:',jobStart);
+assert.notEqual(stepsStart,-1,'CI validate job must contain steps');
+assert.doesNotMatch(workflow.slice(jobStart,stepsStart),/\n\s+if:/,'CI validate job must not be conditional');
+for (const [name, command] of [
+  ['Test app.js cache-key contract', 'node tools/test-app-cache-key.mjs'],
+  ['Validate app.js cache-key contract', 'node tools/validate-app-cache-key.mjs'],
+]) {
+  const start = workflow.indexOf(`      - name: ${name}\n`);
+  assert.notEqual(start, -1, `${name} must be in CI`);
+  const end = workflow.indexOf('\n      - name:', start + 1);
+  const step = workflow.slice(start, end < 0 ? undefined : end);
+  assert.ok(step.includes(`run: ${command}`), `${name} must execute the expected command`);
+  assert.doesNotMatch(step, /\n\s+if:/, `${name} must not be conditional`);
+}
 for(const output of OUTPUTS) assert.match(workflow,new RegExp('steps\\.ci-routing\\.outputs\\.'+output+'\\b'),output);
 console.log('CI routing regression PASS ('+PATH_RULES.length+' explicit rules, '+OUTPUTS.length+' consumed outputs)');
