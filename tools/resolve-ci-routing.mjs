@@ -93,7 +93,7 @@ const entries = [
 ['tools/validate-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['tools/test-exclusive-equipment-presentation.mjs','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ['generated/sp-soldiers.v1.json','SOLDIER BUILD_PRESENTATION'],
-['app.js','BUILD_PRESENTATION'],['index.html','BUILD_PRESENTATION'],['styles.css','BUILD_PRESENTATION'],
+['app.js','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],['index.html','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],['styles.css','EXCLUSIVE_EQUIPMENT BUILD_PRESENTATION'],
 ];
 export const PATH_RULES = Object.freeze(entries.map(([path, value, kind='exact']) => Object.freeze({path, kind, groups:Object.freeze(value.split(' '))})));
 

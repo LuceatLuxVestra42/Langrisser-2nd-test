@@ -61,9 +61,18 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-card { min-height: 340px; }
   .hero-portrait { height: 270px; }
+  .equipment-search-controls { align-items: stretch; }
+  .equipment-search button { padding-inline: 9px; }
 }
 
 .general-equipment-section { margin-top: 64px; }
+.equipment-search { margin: 0 0 14px; }
+.equipment-search > label { display: block; margin-bottom: 7px; color: #c5cfdb; font-size: .84rem; font-weight: 700; }
+.equipment-search-controls { display: flex; gap: 8px; }
+.equipment-search input { min-width: 0; flex: 1; padding: 10px 12px; border: 1px solid #46566b; border-radius: 8px; background: #151b24; color: #f2f4f8; font: inherit; }
+.equipment-search input:focus-visible, .equipment-search button:focus-visible { outline: 2px solid #91bfff; outline-offset: 2px; }
+.equipment-search button { padding: 9px 12px; border: 1px solid #46566b; border-radius: 8px; background: #263345; color: #f2f4f8; font: inherit; cursor: pointer; }
+.equipment-search-count { margin: 7px 0 0; color: #aab5c3; font-size: .8rem; }
 .general-equipment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
 .general-equipment-card { min-width: 0; padding: 15px 16px; border: 1px solid #344050; border-radius: 12px; background: #1a202a; }
 .general-equipment-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 5px 12px; }
