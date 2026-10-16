@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { extractFunction } from './test-app-function-source.mjs';
 import { validateExclusiveEquipmentPresentation } from './validate-exclusive-equipment-presentation.mjs';
 import { renderExclusiveEquipment } from './generate.mjs';
 const read = async (p) => JSON.parse(await readFile(p, 'utf8'));
@@ -37,15 +38,8 @@ const start = frontend.indexOf('function addGeneralEquipment(');
 const end = frontend.indexOf('function addSpSoldier(', start);
 assert.ok(start >= 0 && end > start, 'equipment runtime boundaries are missing');
 const equipmentRuntime = frontend.slice(start, end);
-const anchorStart = frontend.indexOf('function makeAnchor(');
-const anchorEnd = frontend.indexOf('\n}\n', anchorStart) + 3;
-assert.ok(anchorStart >= 0 && anchorEnd > anchorStart, 'navigation anchor runtime is missing');
-const anchorRuntime = frontend.slice(anchorStart, anchorEnd);
-const heroStart = frontend.indexOf('function addHero(');
-const heroEnd = frontend.indexOf('\ntry {', heroStart);
-assert.ok(heroStart >= 0 && heroEnd > heroStart, 'Hero runtime boundaries are missing');
-const heroRuntime = frontend.slice(heroStart, heroEnd);
-const { runInNewContext } = await import('node:vm');
+const anchorRuntime = extractFunction(frontend, 'makeAnchor');
+const heroRuntime = extractFunction(frontend, 'addHero');const { runInNewContext } = await import('node:vm');
 const element = () => ({
   children: [], listeners: {}, value: '', textContent: '', className: '',
   append(...children) { this.children.push(...children); },

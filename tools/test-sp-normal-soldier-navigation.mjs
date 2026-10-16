@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { extractFunction } from './test-app-function-source.mjs';
 import { runInNewContext } from 'node:vm';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
@@ -65,18 +66,12 @@ const sandbox = {
   spSoldierContainer: { append(card) { elementsById.set(card.id, card); } },
   normalSoldierContainer: { append(card) { elementsById.set(card.id, card); } },
 };
-const extract = (name, startMarker, endMarker) => {
-  const start = frontend.indexOf(startMarker);
-  const end = frontend.indexOf(endMarker, start);
-  assert.ok(start >= 0 && end > start, `${name} runtime boundaries must exist`);
-  return frontend.slice(start, end + 2);
-};
 const runtime = [
-  extract('reverse index', 'function indexSpSoldiersByNormalId(', '\n}\n\nfunction makeAnchor('),
-  extract('anchor helper', 'function makeAnchor(', '\n}\n\nfunction addHero('),
-  extract('soldier Hero links', 'function makeSoldierHeroLinks(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/normal-soldiers.v1.json\')'),
-  extract('SP Soldier renderer', 'function addSpSoldier(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/sp-soldiers.v1.json\')'),
-  extract('NORMAL Soldier renderer', 'function addNormalSoldier(', '\n}\n\nfunction revealInitialHeroFragment('),
+  extractFunction(frontend, 'indexSpSoldiersByNormalId'),
+  extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'makeSoldierHeroLinks'),
+  extractFunction(frontend, 'addSpSoldier'),
+  extractFunction(frontend, 'addNormalSoldier'),
 ].join('\n');
 const functions = runInNewContext(`(() => { ${runtime}; return { addSpSoldier, addNormalSoldier, indexSpSoldiersByNormalId }; })()`, sandbox);
 

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { extractFunction } from './test-app-function-source.mjs';
 import { runInNewContext } from 'node:vm';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
@@ -52,15 +53,9 @@ const sandbox = {
   normalSoldierNavigation: null,
   spSoldierNavigation: null,
 };
-const extract = (name, startMarker, endMarker) => {
-  const start = frontend.indexOf(startMarker);
-  const end = frontend.indexOf(endMarker, start);
-  assert.ok(start >= 0 && end > start, `${name} function boundaries must exist`);
-  return frontend.slice(start, end + 2);
-};
 const runtime = [
-  extract('anchor', 'function makeAnchor(', '\n}\n\nfunction addHero('),
-  extract('Hero renderer', 'function addHero(', '\n}\n\ntry {\n  const [heroResponse, relationResponse'),
+  extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'addHero'),
 ].join('\n');
 const functions = runInNewContext(`(() => { ${runtime}; return { makeAnchor, addHero }; })()`, sandbox);
 

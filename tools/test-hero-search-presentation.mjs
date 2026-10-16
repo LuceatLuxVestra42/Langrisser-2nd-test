@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { extractFunction } from './test-app-function-source.mjs';
 import { runInNewContext } from 'node:vm';
 
 const [frontend, html, heroData, relationData, exclusiveData] = await Promise.all([
@@ -23,12 +24,6 @@ assert.match(html, /id="hero-search-clear" type="button"/);
 assert.match(html, /id="hero-search-count" class="hero-search-count" aria-live="polite"/);
 assert.match(html, /id="hero-search-empty"[^>]*role="status"[^>]*aria-live="polite"[^>]*hidden/);
 
-const extract = (label, startMarker, endMarker) => {
-  const start = frontend.indexOf(startMarker);
-  const end = frontend.indexOf(endMarker, start);
-  assert.ok(start >= 0 && end > start, `${label} function boundaries must exist`);
-  return frontend.slice(start, end + 2);
-};
 
 const makeElement = (id = '') => ({
   id, children: [], listeners: {}, attributes: {}, className: '', textContent: '', value: '', hidden: false,
@@ -62,11 +57,11 @@ const sandbox = {
   heroBySoldierId: new Map(),
 };
 const runtime = [
-  extract('anchor helper', 'function makeAnchor(', '\n}\n\nfunction filterHeroes('),
-  extract('Hero filter', 'function filterHeroes(', '\n}\n\nfunction renderHeroSearch('),
-  extract('Hero search renderer', 'function renderHeroSearch(', '\n}\n\nfunction addHero('),
-  extract('Exclusive Equipment renderer', 'function addExclusiveEquipment(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/exclusive-equipment.v1.json\')'),
-  extract('Soldier-to-Hero link renderer', 'function makeSoldierHeroLinks(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/normal-soldiers.v1.json\')'),
+  extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'filterHeroes'),
+  extractFunction(frontend, 'renderHeroSearch'),
+  extractFunction(frontend, 'addExclusiveEquipment'),
+  extractFunction(frontend, 'makeSoldierHeroLinks'),
 ].join('\n');
 const functions = runInNewContext(`(() => {
   let heroNavigation = null;
