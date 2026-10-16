@@ -63,6 +63,7 @@ const sandbox = {
 };
 
 const runtime = [
+  extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'addHero'),
   extractFunction(frontend, 'filterSoldiers'),

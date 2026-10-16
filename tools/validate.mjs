@@ -19,6 +19,10 @@ const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json
 const canonical = await readJson('canonical/heroes.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
+const heroRarities = await readJson('canonical/hero-rarities.v1.json');
+const heroRarityEvidence = await readJson('evidence/source/hero-rarity.v1.json');
+const heroInfoRarityRecords = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json');
+const rankInfo = await readJson('evidence/source/configdata/ConfigDataRankInfo.json');
 exactKeys(canonical, ['schemaVersion', 'sourceScope', 'records'], 'canonical');
 check(canonical.schemaVersion === 1, 'unsupported canonical schemaVersion');
 check(canonical.sourceScope === 'CN ConfigData snapshot 2026-09-02', 'canonical source scope drift');
@@ -29,6 +33,49 @@ check(canonical.records.length === expectedIds.size, 'canonical must contain exa
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
 check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[5,6,8,28,32,52,53]', 'canonical Hero IDs must be exactly 5, 6, 8, 28, 32, 52, and 53');
+
+const rarityTargets = [5, 6, 8, 28, 32, 52, 53];
+check(heroRarityEvidence.schemaVersion === 1 && heroRarityEvidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'Hero rarity source snapshot pin drift');
+check(heroRarityEvidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+  && heroRarityEvidence.source?.commitTree === '08e1e6c2773730e60b258940e31494f68d65f86a'
+  && heroRarityEvidence.source?.configDataSubtree === 'b18983f60cb054c2e6e094d64cdb98979211d7fc', 'Hero rarity source tree locator drift');
+check(heroRarityEvidence.sourceFiles?.heroInfo?.blobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
+  && heroRarityEvidence.sourceFiles?.rankInfo?.blobSha1 === 'c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b', 'Hero rarity source file anchors drift');
+check(heroRarityEvidence.priorValidatedClaim?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+  && heroRarityEvidence.priorValidatedClaim?.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+  && heroRarityEvidence.priorValidatedClaim?.validationBlobSha1 === 'a572b97addde3a70a2fc4b08758819eef3b10866'
+  && heroRarityEvidence.priorValidatedClaim?.analysisScriptPath === 'scripts/analyze_hero_rarity.cjs'
+  && heroRarityEvidence.priorValidatedClaim?.analysisScriptBlobSha1 === '29fd399b427b60d4093e75c000c1b7a57de30bb7'
+  && heroRarityEvidence.priorValidatedClaim?.status === 'PASS', 'inherited Hero rarity claim anchor drift');
+check(heroRarityEvidence.claims?.heroRank?.class === 'A'
+  && heroRarityEvidence.claims?.rankLabel?.class === 'A'
+  && heroRarityEvidence.claims?.rankMeaning?.class === 'B'
+  && heroRarityEvidence.canonical === false && heroRarityEvidence.generated === false
+  && heroRarityEvidence.productionRuntimeDependency === false, 'Hero rarity evidence claim classes or boundary drift');
+check(JSON.stringify(heroRarityEvidence.records.map((record) => record.heroId)) === JSON.stringify(rarityTargets), 'Hero rarity evidence target scope drift');
+check(JSON.stringify(heroInfoRarityRecords.map((record) => record.ID)) === JSON.stringify(rarityTargets), 'preserved Hero rarity source record IDs drift');
+for (const record of heroInfoRarityRecords) exactKeys(record, ['ID', 'Rank'], `preserved Hero rarity source record ${record.ID}`);
+check(heroRarities.schemaVersion === 1 && heroRarities.sourceScope === canonical.sourceScope
+  && JSON.stringify(heroRarities.records.map((record) => record.heroId)) === JSON.stringify(rarityTargets), 'Hero rarity canonical scope drift');
+const heroInfoRarityById = new Map(heroInfoRarityRecords.map((record) => [record.ID, record]));
+const evidenceRarityById = new Map(heroRarityEvidence.records.map((record) => [record.heroId, record]));
+const rankLabelById = new Map(rankInfo.filter((record) => Number.isSafeInteger(record.ID)).map((record) => [record.ID, record.Desc]));
+for (const rarity of heroRarities.records) {
+  exactKeys(rarity, ['heroId', 'rankId', 'label', 'provenance'], `Hero ${rarity.heroId} rarity canonical`);
+  const source = heroInfoRarityById.get(rarity.heroId);
+  const evidence = evidenceRarityById.get(rarity.heroId);
+  const sourcePath = [5, 6, 8].includes(rarity.heroId)
+    ? 'evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json'
+    : 'evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json';
+  exactKeys(evidence, ['heroId', 'rankId', 'label', 'heroInfoRecord', 'rankInfoRecord'], `Hero ${rarity.heroId} rarity evidence`);
+  check(source && source.Rank === rarity.rankId, `Hero ${rarity.heroId} rarity rank differs from HeroInfo.Rank`);
+  check(evidence?.rankId === source.Rank, `Hero ${rarity.heroId} rarity evidence differs from HeroInfo.Rank`);
+  check(evidence.heroInfoRecord === `${sourcePath}#ID=${rarity.heroId}`
+    && evidence.rankInfoRecord === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${source.Rank}`, `Hero ${rarity.heroId} rarity evidence locator drift`);
+  check(rankLabelById.get(source.Rank) === rarity.label && evidence.label === rarity.label, `Hero ${rarity.heroId} rarity label differs from RankInfo.Desc`);
+  check(rarity.provenance?.rank === `evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=${rarity.heroId}/Rank`
+    && rarity.provenance?.label === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${source.Rank}/Desc`, `Hero ${rarity.heroId} rarity provenance locator drift`);
+}
 
 const heroInfoRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json');
 const heroInfoById = new Map(heroInfoRows.map((record) => [record.ID, record]));
@@ -53,7 +100,7 @@ const connectionById = new Map(connectionRows.map((record) => [record.ID, record
 const jobById = new Map(jobRows.map((record) => [record.ID, record]));
 check(portraits.canonical === false && portraits.generated === false, 'portrait evidence must remain source evidence');
 check(portraits.productionRuntimeDependency === false, 'evidence metadata must not become a runtime dependency');
-check(portraits.scope.krDisplayName === 'C_DEFERRED' && portraits.scope.rankToRarity === 'C_DEFERRED', 'deferred claim status drift');
+check(portraits.scope.krDisplayName === 'C_DEFERRED' && portraits.scope.rankToRarity === 'C_DEFERRED', 'portrait evidence claim scope drift');
 check(portraits.admissionBasis.contradictions.length === 0, 'unresolved contradiction exists in the admitted slice scope');
 check(priorPortraitEvidence.canonical === false && priorPortraitEvidence.generated === false && priorPortraitEvidence.productionRuntimeDependency === false, 'surviving portrait support must remain non-runtime evidence');
 check(priorPortraitEvidence.predecessor.repository === portraits.admissionBasis.priorValidation.repository, 'surviving portrait evidence repository locator drift');
@@ -174,12 +221,12 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
-check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['exclusiveEquipment', 'id', 'jobConnections', 'nameEng', 'nameKo', 'portrait'])), 'generated consumer contains non-presentation fields');
+check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['exclusiveEquipment', 'id', 'jobConnections', 'nameEng', 'nameKo', 'portrait', 'rarity'])), 'generated consumer contains non-presentation fields');
 const heroNameKoById = new Map();
 for (const localization of heroLocalization.records) {
   check(Number.isInteger(localization.heroId), `malformed Hero Korean localization ID ${localization.heroId}`);

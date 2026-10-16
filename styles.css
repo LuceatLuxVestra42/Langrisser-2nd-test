@@ -24,7 +24,9 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-portrait { display: block; width: 100%; height: 320px; padding: 12px; object-fit: contain; background: linear-gradient(180deg, #283444, #1b222c); }
 .hero-details { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 16px 17px; }
 .hero-details h2 { margin: 0; font-size: 1.12rem; }
+.hero-metadata { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 .hero-id { margin: 0; color: #aab5c3; font-size: .82rem; white-space: nowrap; }
+.hero-rarity { display: inline-flex; align-items: center; margin: 0; padding: 3px 7px; border: 1px solid #7186a3; border-radius: 999px; color: #e7effb; background: #28374b; font-size: .72rem; font-weight: 800; letter-spacing: .04em; white-space: nowrap; }
 .job-connections { margin: 0; padding: 0 16px 18px 34px; color: #c5cfdb; font-size: .82rem; line-height: 1.55; }
 .exclusive-equipment { min-width: 0; margin: auto 16px 16px; padding: 13px 14px; border: 1px solid #3c4b5e; border-radius: 10px; background: #151b24; }
 .exclusive-equipment h3 { margin: 0 0 7px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }

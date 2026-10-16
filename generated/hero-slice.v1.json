@@ -5,6 +5,10 @@
       "id": 5,
       "nameEng": "Chris",
       "nameKo": "크리스",
+      "rarity": {
+        "rankId": 3,
+        "label": "SR"
+      },
       "portrait": "assets/portraits/hero-5.png",
       "exclusiveEquipment": {
         "equipmentId": 447,
@@ -54,6 +58,10 @@
       "id": 6,
       "nameEng": "Leon",
       "nameKo": "레온",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
       "portrait": "assets/portraits/hero-6.png",
       "exclusiveEquipment": {
         "equipmentId": 416,
@@ -103,6 +111,10 @@
       "id": 8,
       "nameEng": "Lana",
       "nameKo": "라나",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
       "portrait": "assets/portraits/hero-8.png",
       "exclusiveEquipment": {
         "equipmentId": 275,
@@ -152,6 +164,10 @@
       "id": 28,
       "nameEng": "Zalrahda",
       "nameKo": "젤다",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
       "portrait": "assets/portraits/hero-28.png",
       "exclusiveEquipment": {
         "equipmentId": 412,
@@ -195,6 +211,10 @@
       "id": 32,
       "nameEng": "EmmaLink",
       "nameKo": "에마링크",
+      "rarity": {
+        "rankId": 3,
+        "label": "SR"
+      },
       "portrait": "assets/portraits/hero-32.png",
       "exclusiveEquipment": {
         "equipmentId": 287,
@@ -244,6 +264,10 @@
       "id": 52,
       "nameEng": "Angelina",
       "nameKo": "안젤리나",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
       "portrait": "assets/portraits/hero-52.png",
       "exclusiveEquipment": {
         "equipmentId": 294,
@@ -293,6 +317,10 @@
       "id": 53,
       "nameEng": "Ranford",
       "nameKo": "란포드",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
       "portrait": "assets/portraits/hero-53.png",
       "exclusiveEquipment": {
         "equipmentId": 296,

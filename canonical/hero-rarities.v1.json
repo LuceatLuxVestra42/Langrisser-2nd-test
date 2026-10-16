@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "records": [
+    {
+      "heroId": 5,
+      "rankId": 3,
+      "label": "SR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=5/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc"
+      }
+    },
+    {
+      "heroId": 6,
+      "rankId": 4,
+      "label": "SSR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=6/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
+      }
+    },
+    {
+      "heroId": 8,
+      "rankId": 4,
+      "label": "SSR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=8/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
+      }
+    },
+    {
+      "heroId": 28,
+      "rankId": 4,
+      "label": "SSR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=28/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
+      }
+    },
+    {
+      "heroId": 32,
+      "rankId": 3,
+      "label": "SR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=32/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc"
+      }
+    },
+    {
+      "heroId": 52,
+      "rankId": 4,
+      "label": "SSR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=52/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
+      }
+    },
+    {
+      "heroId": 53,
+      "rankId": 4,
+      "label": "SSR",
+      "provenance": {
+        "rank": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=53/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
+      }
+    }
+  ]
+}

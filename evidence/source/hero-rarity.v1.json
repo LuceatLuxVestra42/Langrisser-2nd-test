@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Source support for the selected visible Hero rarity claims only.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc"
+  },
+  "sourceFiles": {
+    "heroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "blobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b"
+    },
+    "rankInfo": {
+      "path": "data/configdata/ConfigDataRankInfo.json",
+      "blobSha1": "c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b"
+    }
+  },
+  "preservedEvidence": {
+    "rankRecords": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json",
+    "rankLabels": "evidence/source/configdata/ConfigDataRankInfo.json"
+  },
+  "selection": {
+    "heroIds": [
+      5,
+      6,
+      8,
+      28,
+      32,
+      52,
+      53
+    ],
+    "rule": "Select top-level ConfigDataHeroInfo records by exact numeric ID equality for the existing seven-Hero presentation slice. Preserve only ID and Rank unchanged.",
+    "sourceFields": [
+      "ID",
+      "Rank"
+    ]
+  },
+  "claims": {
+    "heroRank": {
+      "class": "A",
+      "claim": "Each selected source-native HeroInfo.ID record has the recorded raw Rank value.",
+      "interpretation": "No value transformation."
+    },
+    "rankLabel": {
+      "class": "A",
+      "claim": "For the selected snapshot, exact equality between HeroInfo.Rank and RankInfo.ID resolves RankInfo.Desc; Desc is copied unchanged as the selected base rarity label.",
+      "interpretation": "Exact numeric key join and direct Desc copy."
+    },
+    "rankMeaning": {
+      "class": "B",
+      "claim": "ConfigDataHeroInfo.Rank is the Hero base rarity code, distinct from Star.",
+      "basis": "Reuse the predecessor rarity semantic validation for the same pinned ConfigData snapshot; no broader population or new rank mapping is inferred."
+    }
+  },
+  "priorValidatedClaim": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "validationPath": "data/validation/hero-page-stage5-5-2-rarity.v1.json",
+    "validationBlobSha1": "a572b97addde3a70a2fc4b08758819eef3b10866",
+    "status": "PASS",
+    "validatedClaim": "ConfigDataHeroInfo.Rank identifies rarity and Star is a separate star-count field; the validation records the scoped rank-to-rarity mapping.",
+    "analysisScriptPath": "scripts/analyze_hero_rarity.cjs",
+    "analysisScriptBlobSha1": "29fd399b427b60d4093e75c000c1b7a57de30bb7"
+  },
+  "records": [
+    {
+      "heroId": 5,
+      "rankId": 3,
+      "label": "SR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=5",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3"
+    },
+    {
+      "heroId": 6,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=6",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 8,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json#ID=8",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 28,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=28",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 32,
+      "rankId": 3,
+      "label": "SR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=32",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3"
+    },
+    {
+      "heroId": 52,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=52",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 53,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=53",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    }
+  ],
+  "limitations": [
+    "Claim scope is only Hero IDs 5, 6, 8, 28, 32, 52, and 53.",
+    "Values are scoped to the pinned CN ConfigData snapshot and are not asserted as current Korea-server data.",
+    "Rank values or labels outside this selected evidence are not admitted."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}

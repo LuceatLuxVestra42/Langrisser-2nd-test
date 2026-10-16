@@ -18,9 +18,10 @@ const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
+const heroRarities = await readJson('canonical/hero-rarities.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -143,10 +144,12 @@ const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
 for (const hero of generated.heroes) {
-  exactKeys(hero, ['id', 'nameEng', 'nameKo', 'portrait', 'jobConnections', 'exclusiveEquipment'], `generated Hero ${hero.id}`);
+  exactKeys(hero, ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'exclusiveEquipment'], `generated Hero ${hero.id}`);
   if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || typeof hero.nameKo !== 'string' || !hero.nameKo || !Array.isArray(hero.jobConnections)) {
     throw new Error(`malformed generated Hero ${String(hero.id)}`);
   }
+  exactKeys(hero.rarity, ['rankId', 'label'], `generated Hero ${hero.id} rarity`);
+  if (!Number.isSafeInteger(hero.rarity.rankId) || typeof hero.rarity.label !== 'string' || !hero.rarity.label.trim()) throw new Error(`malformed generated rarity for Hero ${hero.id}`);
   for (const relation of hero.jobConnections) {
     exactKeys(relation, ['connectionId', 'jobId', 'sourceField', 'jobNameKo'], `generated Hero ${hero.id} Job relation`);
     if (!Number.isInteger(relation.connectionId) || !Number.isInteger(relation.jobId) || typeof relation.sourceField !== 'string'
