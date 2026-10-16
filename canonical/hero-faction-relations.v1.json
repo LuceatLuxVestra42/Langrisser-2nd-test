@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit CN ConfigData Hero-to-Faction membership for the seven-Hero presentation slice only; not a completeness claim beyond this slice.",
+  "sourceEvidence": "evidence/source/hero-faction.v1.json",
+  "membershipField": "RelatedHeros_ID",
+  "records": [
+    {
+      "heroId": 5,
+      "factionId": 1,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=1/RelatedHeros_ID&contains=5"
+    },
+    {
+      "heroId": 5,
+      "factionId": 2,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=2/RelatedHeros_ID&contains=5"
+    },
+    {
+      "heroId": 5,
+      "factionId": 6,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=6/RelatedHeros_ID&contains=5"
+    },
+    {
+      "heroId": 6,
+      "factionId": 4,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=4/RelatedHeros_ID&contains=6"
+    },
+    {
+      "heroId": 6,
+      "factionId": 7,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=7/RelatedHeros_ID&contains=6"
+    },
+    {
+      "heroId": 8,
+      "factionId": 5,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=5/RelatedHeros_ID&contains=8"
+    },
+    {
+      "heroId": 8,
+      "factionId": 6,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=6/RelatedHeros_ID&contains=8"
+    },
+    {
+      "heroId": 28,
+      "factionId": 5,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=5/RelatedHeros_ID&contains=28"
+    },
+    {
+      "heroId": 28,
+      "factionId": 8,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=8/RelatedHeros_ID&contains=28"
+    },
+    {
+      "heroId": 28,
+      "factionId": 11,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=11/RelatedHeros_ID&contains=28"
+    },
+    {
+      "heroId": 32,
+      "factionId": 4,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=4/RelatedHeros_ID&contains=32"
+    },
+    {
+      "heroId": 32,
+      "factionId": 7,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=7/RelatedHeros_ID&contains=32"
+    },
+    {
+      "heroId": 52,
+      "factionId": 6,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=6/RelatedHeros_ID&contains=52"
+    },
+    {
+      "heroId": 52,
+      "factionId": 8,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=8/RelatedHeros_ID&contains=52"
+    },
+    {
+      "heroId": 52,
+      "factionId": 9,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=9/RelatedHeros_ID&contains=52"
+    },
+    {
+      "heroId": 53,
+      "factionId": 7,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=7/RelatedHeros_ID&contains=53"
+    },
+    {
+      "heroId": 53,
+      "factionId": 9,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=9/RelatedHeros_ID&contains=53"
+    }
+  ]
+}
