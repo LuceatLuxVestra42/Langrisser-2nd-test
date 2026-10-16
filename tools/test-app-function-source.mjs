@@ -46,12 +46,32 @@ function skipIgnored(source, index) {
   return index;
 }
 
+// This scanner supports app.js's named function declarations; it is not a JavaScript parser.
+function findDeclaration(source, name) {
+  let cursor = 0;
+  while (cursor < source.length) {
+    const next = skipIgnored(source, cursor);
+    if (next !== cursor) { cursor = next; continue; }
+    if (source.startsWith('function', cursor)
+      && (cursor === 0 || !/[\\w$]/.test(source[cursor - 1]))
+      && !/[\\w$]/.test(source[cursor + 8])) {
+      let nameStart = skipTrivia(source, cursor + 8);
+      const identifier = /^[A-Za-z_$][\\w$]*/.exec(source.slice(nameStart));
+      if (identifier?.[0] === name) {
+        const openParen = skipTrivia(source, nameStart + identifier[0].length);
+        if (source[openParen] === '(') return { index: cursor, openParen };
+      }
+    }
+    cursor += 1;
+  }
+  return null;
+}
+
 export function extractFunction(source, name) {
-  const escapedName = name.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&');
-  const declaration = new RegExp('\\bfunction\\s+' + escapedName + '\\s*\\(').exec(source);
+  const declaration = findDeclaration(source, name);
   if (!declaration) throw new Error('Missing production function declaration: ' + name);
 
-  let cursor = declaration.index + declaration[0].length;
+  let cursor = declaration.openParen + 1;
   let parentheses = 1;
   while (cursor < source.length && parentheses > 0) {
     const next = skipIgnored(source, cursor);
