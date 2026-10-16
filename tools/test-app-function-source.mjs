@@ -53,10 +53,10 @@ function findDeclaration(source, name) {
     const next = skipIgnored(source, cursor);
     if (next !== cursor) { cursor = next; continue; }
     if (source.startsWith('function', cursor)
-      && (cursor === 0 || !/[\\w$]/.test(source[cursor - 1]))
-      && !/[\\w$]/.test(source[cursor + 8])) {
+      && (cursor === 0 || !/[A-Za-z0-9_$]/.test(source[cursor - 1]))
+      && !/[A-Za-z0-9_$]/.test(source[cursor + 8])) {
       let nameStart = skipTrivia(source, cursor + 8);
-      const identifier = /^[A-Za-z_$][\\w$]*/.exec(source.slice(nameStart));
+      const identifier = /^[A-Za-z_$][A-Za-z0-9_$]*/.exec(source.slice(nameStart));
       if (identifier?.[0] === name) {
         const openParen = skipTrivia(source, nameStart + identifier[0].length);
         if (source[openParen] === '(') return { index: cursor, openParen };
