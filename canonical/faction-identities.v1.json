@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "scope": "Faction identities referenced by the admitted seven-Hero relation slice; source-backed CN names only.",
+  "sourceEvidence": "evidence/source/hero-faction.v1.json",
+  "records": [
+    {
+      "factionId": 1,
+      "nameCn": "主角光环",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=1/Name"
+    },
+    {
+      "factionId": 2,
+      "nameCn": "光辉军团",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=2/Name"
+    },
+    {
+      "factionId": 4,
+      "nameCn": "帝国之辉",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=4/Name"
+    },
+    {
+      "factionId": 5,
+      "nameCn": "黑暗轮回",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=5/Name"
+    },
+    {
+      "factionId": 6,
+      "nameCn": "公主联盟",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=6/Name"
+    },
+    {
+      "factionId": 7,
+      "nameCn": "战略大师",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=7/Name"
+    },
+    {
+      "factionId": 8,
+      "nameCn": "流星直击",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=8/Name"
+    },
+    {
+      "factionId": 9,
+      "nameCn": "传说彼端",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=9/Name"
+    },
+    {
+      "factionId": 11,
+      "nameCn": "超凡领域",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=11/Name"
+    }
+  ]
+}
