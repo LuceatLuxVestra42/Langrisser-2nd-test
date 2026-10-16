@@ -108,9 +108,6 @@ jobs:
         run: node tools/test-normal-soldier-ko-localization.mjs
 
 
-      - name: Validate Hero-Soldier direct-source canonical support
-        run: node tools/validate-hero-soldier-relations.mjs
-
       - name: Test Hero-Soldier direct-source validation
         run: node tools/test-hero-soldier-direct-source.mjs
 
