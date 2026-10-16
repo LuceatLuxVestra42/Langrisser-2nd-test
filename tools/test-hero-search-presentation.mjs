@@ -16,7 +16,9 @@ assert.equal(extractFunction(reorderedFunctionFixture, 'target'), `function targ
 }`);
 
 const fakeDeclarationFixture = `// function target(value) { return 7; }
+/* function target(value) { return 8; } */
 const documentation = "function target(value) { return 9; }";
+const templateDocumentation = \`function target(value) { return 11; }\`;
 function target(value) { return 42; }`;
 const extractedTarget = extractFunction(fakeDeclarationFixture, 'target');
 assert.equal(new Function(`${extractedTarget}; return target(0);`)(), 42,
