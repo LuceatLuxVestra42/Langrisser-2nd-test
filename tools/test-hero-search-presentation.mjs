@@ -15,6 +15,13 @@ assert.equal(extractFunction(reorderedFunctionFixture, 'target'), `function targ
   return null;
 }`);
 
+const fakeDeclarationFixture = `// function target(value) { return 7; }
+const documentation = "function target(value) { return 9; }";
+function target(value) { return 42; }`;
+const extractedTarget = extractFunction(fakeDeclarationFixture, 'target');
+assert.equal(new Function(`${extractedTarget}; return target(0);`)(), 42,
+  'comments and strings before the declaration must not be extracted as code');
+
 import { runInNewContext } from 'node:vm';
 
 const [frontend, html, heroData, relationData, exclusiveData] = await Promise.all([
