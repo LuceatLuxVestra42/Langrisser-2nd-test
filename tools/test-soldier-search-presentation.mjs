@@ -66,6 +66,7 @@ const runtime = [
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'addHero'),
   extractFunction(frontend, 'filterSoldiers'),
+  extractFunction(frontend, 'renderSoldierSearch'),
   extractFunction(frontend, 'addSpSoldier'),
   extractFunction(frontend, 'makeSoldierHeroLinks'),
   extractFunction(frontend, 'addNormalSoldier'),
