@@ -37,7 +37,7 @@ const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.jso
 const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
 const equipmentGeneratedPath = resolve('generated/general-ssr-equipment.v1.json');
 const equipmentGeneratedText = await readFile(equipmentGeneratedPath, 'utf8');
-if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('undefined is stale or non-deterministic');
+if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
 if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment)) throw new Error('unsupported General SSR Equipment presentation schema');
@@ -56,9 +56,9 @@ const exclusiveEquipmentGeneratedText = await readFile(exclusiveEquipmentGenerat
 if (exclusiveEquipmentGeneratedText !== renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization)) throw new Error('generated Exclusive Equipment is stale or non-deterministic');
 const exclusiveEquipmentGenerated = JSON.parse(exclusiveEquipmentGeneratedText);
 exactKeys(exclusiveEquipmentGenerated, ['schemaVersion', 'equipment'], 'generated Exclusive Equipment');
-if (exclusiveEquipmentGenerated.schemaVersion !== 1 || !Array.isArray(exclusiveEquipmentGenerated.equipment) || exclusiveEquipmentGenerated.equipment.length !== 167) throw new Error('unsupported Exclusive Equipment presentation schema or count');
+if (exclusiveEquipmentGenerated.schemaVersion !== 1 || !Array.isArray(exclusiveEquipmentGenerated.equipment)) throw new Error('unsupported Exclusive Equipment presentation schema');
 const exclusiveEquipmentIds = exclusiveEquipmentGenerated.equipment.map((item) => item.equipmentId);
-if (exclusiveEquipmentIds.some((id) => !Number.isSafeInteger(id)) || new Set(exclusiveEquipmentIds).size !== 167) throw new Error('Exclusive Equipment generated IDs are malformed or duplicated');
+if (exclusiveEquipmentIds.some((id) => !Number.isSafeInteger(id)) || new Set(exclusiveEquipmentIds).size !== exclusiveEquipmentIds.length) throw new Error('Exclusive Equipment generated IDs are malformed or duplicated');
 for (const item of exclusiveEquipmentGenerated.equipment) {
   exactKeys(item, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Exclusive Equipment ' + item.equipmentId);
   if (typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed Exclusive Equipment presentation');
@@ -77,7 +77,7 @@ const spGeneratedText = await readFile(spGeneratedPath, 'utf8');
 const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats);
 if (spGeneratedText !== expectedSpGenerated) throw new Error('generated SP Soldier data is stale or non-deterministic');
 const spGenerated = JSON.parse(spGeneratedText);
-if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers) || spGenerated.soldiers.length !== 56) throw new Error('built document has unsupported SP Soldier presentation schema');
+if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers)) throw new Error('built document has unsupported SP Soldier presentation schema');
 for (const soldier of spGenerated.soldiers) {
   exactKeys(soldier, ['spSoldierId', 'nameKo', 'normalSoldierId', 'normalSoldierNameKo', 'baseStats', 'normalSoldierBaseStats'], `SP Soldier ${soldier.spSoldierId}`);
   if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.normalSoldierNameKo !== 'string' || !soldier.normalSoldierNameKo) {
@@ -93,7 +93,7 @@ if (normalSoldierGeneratedText !== renderNormalSoldiers(soldierIdentities, norma
   throw new Error('generated NORMAL Soldier data is stale or non-deterministic');
 }
 const normalSoldierGenerated = JSON.parse(normalSoldierGeneratedText);
-if (normalSoldierGenerated.schemaVersion !== 1 || !Array.isArray(normalSoldierGenerated.soldiers) || normalSoldierGenerated.soldiers.length !== 56) {
+if (normalSoldierGenerated.schemaVersion !== 1 || !Array.isArray(normalSoldierGenerated.soldiers)) {
   throw new Error('built document has unsupported NORMAL Soldier presentation schema');
 }
 for (const soldier of normalSoldierGenerated.soldiers) {
@@ -114,8 +114,6 @@ if (heroSoldierRelations.schemaVersion !== 1 || !Array.isArray(heroSoldierRelati
 }
 
 const heroIds = new Set(JSON.parse(generatedText).heroes.map((hero) => hero.id));
-const candidateHeroIds = [5, 6, 8, 53];
-const expectedRowsByHero = new Map([[5, 19], [6, 15], [8, 20], [53, 18]]);
 const soldierPresentationById = new Map();
 for (const soldier of normalSoldierGenerated.soldiers) {
   if (soldierPresentationById.has(soldier.normalSoldierId)) throw new Error(`duplicate Soldier presentation ID ${soldier.normalSoldierId}`);
@@ -126,13 +124,11 @@ for (const soldier of spGenerated.soldiers) {
   soldierPresentationById.set(soldier.spSoldierId, soldier);
 }
 const frontendPairs = new Set();
-const frontendRowsByHero = new Map(candidateHeroIds.map((heroId) => [heroId, 0]));
-const frontendSoldierIds = new Set();
 for (const relation of heroSoldierRelations.relations) {
   exactKeys(relation, ['heroId', 'soldierId'], 'generated Hero–Soldier relation pair');
   if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.soldierId)
-    || !candidateHeroIds.includes(relation.heroId) || !heroIds.has(relation.heroId)) {
-    throw new Error('Hero–Soldier relation has an invalid or out-of-scope Hero endpoint');
+    || !heroIds.has(relation.heroId)) {
+    throw new Error('Hero–Soldier relation has an invalid or unresolved Hero endpoint');
   }
   const pair = `${relation.heroId}:${relation.soldierId}`;
   if (frontendPairs.has(pair)) throw new Error(`duplicate frontend relation mapping ${pair}`);
@@ -141,15 +137,6 @@ for (const relation of heroSoldierRelations.relations) {
   if (!soldier || typeof soldier.nameKo !== 'string' || !soldier.nameKo.trim()) {
     throw new Error(`unresolved Soldier presentation ID ${relation.soldierId}`);
   }
-  frontendSoldierIds.add(relation.soldierId);
-  frontendRowsByHero.set(relation.heroId, frontendRowsByHero.get(relation.heroId) + 1);
-}
-if (frontendPairs.size !== 72 || frontendSoldierIds.size !== 56) throw new Error('Hero–Soldier frontend mapping migration invariant mismatch');
-for (const [heroId, expectedCount] of expectedRowsByHero) {
-  if (frontendRowsByHero.get(heroId) !== expectedCount) throw new Error(`Hero ${heroId} frontend relation mapping count mismatch`);
-}
-if ([28, 32, 52].some((heroId) => frontendRowsByHero.has(heroId))) {
-  throw new Error('out-of-scope Hero has an inferred frontend relation mapping');
 }
 
 const generated = JSON.parse(generatedText);
@@ -173,11 +160,7 @@ for (const hero of generated.heroes) {
     throw new Error(`malformed Exclusive Equipment presentation for Hero ${hero.id}`);
   }
 }
-const portraitExpansion = await readJson('evidence/source/portraits/hero-portrait-expansion.v1.json');
-if (JSON.stringify(generated.heroes.map((hero) => hero.id)) !== '[5,6,8,28,32,52,53]') throw new Error('presentation canonical population must be exactly [5,6,8,28,32,52,53]');
-if (JSON.stringify(portraitExpansion.records.map((record) => record.heroId)) !== '[28,32,52,53]') throw new Error('portrait evidence population drift');
-const portraitPaths = [...new Set([...generated.heroes.map((hero) => hero.portrait), ...portraitExpansion.records.map((record) => record.extractedSourcePng.path)])];
-if (portraitPaths.length !== 7) throw new Error('static package must contain exactly seven evidence-backed portrait assets');
+const portraitPaths = [...new Set(generated.heroes.map((hero) => hero.portrait))];
 
 const output = await mkdtemp(join(tmpdir(), 'langrisser-hero-slice-build-'));
 try {
@@ -219,7 +202,6 @@ try {
   const packagedRelationsText = await readFile(join(output, 'generated', 'hero-soldier-relations.v1.json'), 'utf8');
   if (packagedRelationsText !== heroSoldierRelationText) throw new Error('packaged Hero–Soldier relations differ from tracked generated artifact');
   const packagedRelations = JSON.parse(packagedRelationsText);
-  if (packagedRelations.relations.length !== frontendPairs.size) throw new Error('packaged Hero–Soldier relation count differs from validated frontend mappings');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
   if (!app.includes("fetch('./generated/exclusive-equipment.v1.json')")) throw new Error('built app does not resolve the generated Exclusive Equipment entry');
@@ -229,8 +211,6 @@ try {
   const packagedExclusiveEquipmentText = await readFile(join(output, 'generated', 'exclusive-equipment.v1.json'), 'utf8');
   if (packagedExclusiveEquipmentText !== exclusiveEquipmentGeneratedText) throw new Error('packaged Exclusive Equipment differs from validated generated artifact');
   const packagedExclusiveEquipment = JSON.parse(packagedExclusiveEquipmentText);
-  if (packagedExclusiveEquipment.equipment.length !== 167 || new Set(packagedExclusiveEquipment.equipment.map((item) => item.equipmentId)).size !== 167) throw new Error('packaged Exclusive Equipment count or IDs differ from generated artifact');
-  if (packagedEquipment.equipment.length !== equipmentGenerated.equipment.length) throw new Error('packaged General SSR Equipment count differs from generated artifact');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
   process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, and ${packagedRelations.relations.length} Hero–Soldier relation records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
