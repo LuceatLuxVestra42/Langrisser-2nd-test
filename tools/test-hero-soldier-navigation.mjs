@@ -54,6 +54,7 @@ const sandbox = {
   spSoldierNavigation: null,
 };
 const runtime = [
+  extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'addHero'),
 ].join('\n');

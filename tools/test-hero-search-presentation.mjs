@@ -37,6 +37,7 @@ const [frontend, html, heroData, relationData, exclusiveData] = await Promise.al
 assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
 assert.ok(heroData.heroes.every(({ id, nameKo }) => Number.isSafeInteger(id) && typeof nameKo === 'string' && nameKo.trim()));
+assert.ok(heroData.heroes.every(({ rarity }) => Number.isSafeInteger(rarity?.rankId) && typeof rarity.label === 'string' && rarity.label.trim()));
 assert.equal(new Set(heroData.heroes.map(({ id }) => id)).size, heroData.heroes.length);
 assert.equal(relationData.schemaVersion, 1);
 assert.equal(exclusiveData.schemaVersion, 1);
@@ -80,6 +81,7 @@ const sandbox = {
   heroBySoldierId: new Map(),
 };
 const runtime = [
+  extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'filterHeroes'),
   extractFunction(frontend, 'renderHeroSearch'),
@@ -92,7 +94,7 @@ const functions = runInNewContext(`(() => {
   const exclusiveEquipmentContainer = container;
   ${runtime}
   return {
-    filterHeroes, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
+    filterHeroes, makeHeroRarityLabel, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
     startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, count, emptyState }); return heroNavigation; },
     setExclusiveEquipmentHeroById(value) { exclusiveEquipmentHeroById = value; },
   };
@@ -118,6 +120,14 @@ const verify = (query) => {
 };
 
 verify('');
+
+for (const hero of heroData.heroes) {
+  const label = functions.makeHeroRarityLabel(hero.rarity);
+  assert.equal(label.className, 'hero-rarity');
+  assert.equal(label.textContent, hero.rarity.label);
+  assert.equal(label.attributes['aria-label'], `희귀도 ${hero.rarity.label}`);
+}
+assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\)\)/);
 
 const exclusiveHero = heroData.heroes[0];
 const exclusiveEquipment = exclusiveData.equipment.find(({ equipmentId }) => equipmentId === exclusiveHero.exclusiveEquipment.equipmentId);

@@ -116,6 +116,15 @@ function renderHeroSearch({ heroes, input, clearButton, count, emptyState }) {
   return { showAll, showTarget };
 }
 
+function makeHeroRarityLabel(rarity) {
+  if (!rarity || typeof rarity.label !== 'string' || !rarity.label.trim()) throw new Error('Generated Hero rarity label is missing');
+  const label = document.createElement('span');
+  label.className = 'hero-rarity';
+  label.textContent = rarity.label;
+  label.setAttribute('aria-label', `희귀도 ${rarity.label}`);
+  return label;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -134,8 +143,11 @@ function addHero(hero, relationsByHero, soldiersById) {
   const id = document.createElement('p');
   id.className = 'hero-id';
   id.textContent = `영웅 ID ${hero.id}`;
+  const metadata = document.createElement('div');
+  metadata.className = 'hero-metadata';
+  metadata.append(id, makeHeroRarityLabel(hero.rarity));
 
-  details.append(name, id);
+  details.append(name, metadata);
   const connections = document.createElement('ul');
   connections.className = 'job-connections';
   connections.setAttribute('aria-label', `${hero.nameKo}의 전직 연결과 한국어 표시명`);
@@ -210,6 +222,7 @@ try {
   ]);
   if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated Hero data');
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
+  if (data.heroes.some((hero) => !Number.isSafeInteger(hero.rarity?.rankId) || typeof hero.rarity.label !== 'string' || !hero.rarity.label.trim())) throw new Error('Generated Hero rarity is missing');
   if (relationData.schemaVersion !== 1 || !Array.isArray(relationData.relations)) throw new Error('Unsupported Hero–Soldier relation data');
   if (normalData.schemaVersion !== 1 || !Array.isArray(normalData.soldiers)
     || spData.schemaVersion !== 1 || !Array.isArray(spData.soldiers)) throw new Error('Unsupported generated Soldier data');
