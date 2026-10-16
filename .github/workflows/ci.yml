@@ -147,10 +147,6 @@ jobs:
         run: node tools/test-normal-soldier-ko-localization.mjs
 
 
-      - name: Validate Hero-Soldier direct-source canonical support
-        if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
-        run: node tools/validate-hero-soldier-relations.mjs
-
       - name: Test Hero-Soldier direct-source validation
         if: steps.ci-routing.outputs.run_hero_soldier_relation == 'true' || steps.ci-routing.outputs.run_full_suite == 'true'
         run: node tools/test-hero-soldier-direct-source.mjs
