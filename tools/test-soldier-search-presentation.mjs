@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { extractFunction } from './test-app-function-source.mjs';
 import { runInNewContext } from 'node:vm';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
@@ -12,12 +13,6 @@ const [frontend, html, normalData, spData, heroData, heroSoldierData] = await Pr
   readJson('generated/hero-soldier-relations.v1.json'),
 ]);
 
-const extract = (name, startMarker, endMarker) => {
-  const start = frontend.indexOf(startMarker);
-  const end = frontend.indexOf(endMarker, start);
-  assert.ok(start >= 0 && end > start, `${name} runtime boundaries must exist`);
-  return frontend.slice(start, end + 2);
-};
 
 const makeElement = (tagName = 'div') => ({
   tagName, children: [], listeners: {}, id: '', className: '', href: '', textContent: '', value: '',
@@ -68,12 +63,13 @@ const sandbox = {
 };
 
 const runtime = [
-  extract('anchor helper', 'function makeAnchor(', '\n}\n\nfunction addHero('),
-  extract('Hero renderer', 'function addHero(', '\n}\n\ntry {\n  const [heroResponse, relationResponse'),
-  extract('equipment search helper', 'function filterSoldiers(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/general-ssr-equipment.v1.json\')'),
-  extract('SP Soldier renderer', 'function addSpSoldier(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/sp-soldiers.v1.json\')'),
-  extract('Soldier relation links', 'function makeSoldierHeroLinks(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/normal-soldiers.v1.json\')'),
-  extract('NORMAL Soldier renderer', 'function addNormalSoldier(', '\n}\n\nfunction revealInitialHeroFragment('),
+  extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'addHero'),
+  extractFunction(frontend, 'filterSoldiers'),
+  extractFunction(frontend, 'renderSoldierSearch'),
+  extractFunction(frontend, 'addSpSoldier'),
+  extractFunction(frontend, 'makeSoldierHeroLinks'),
+  extractFunction(frontend, 'addNormalSoldier'),
 ].join('\n');
 const functions = runInNewContext(`(() => {
   let normalSoldierNavigation = null;

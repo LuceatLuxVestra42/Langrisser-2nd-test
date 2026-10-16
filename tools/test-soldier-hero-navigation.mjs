@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { extractFunction } from './test-app-function-source.mjs';
 import { runInNewContext } from 'node:vm';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
@@ -54,18 +55,12 @@ for (const soldier of spData.soldiers) {
   linked.push({ spSoldierId: soldier.spSoldierId, nameKo: soldier.nameKo });
   sandbox.spSoldiersByNormalId.set(soldier.normalSoldierId, linked);
 }
-const extract = (name, startMarker, endMarker) => {
-  const start = frontend.indexOf(startMarker);
-  const end = frontend.indexOf(endMarker, start);
-  assert.ok(start >= 0 && end > start, `${name} runtime boundaries must exist`);
-  return frontend.slice(start, end + 2);
-};
 const runtime = [
-  extract('anchor', 'function makeAnchor(', '\n}\n\nfunction addHero('),
-  extract('NORMAL renderer', 'function addNormalSoldier(', '\n}\n\nfunction revealInitialHeroFragment('),
-  extract('SP renderer', 'function addSpSoldier(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/sp-soldiers.v1.json\')'),
-  extract('fragment handler', 'function revealInitialHeroFragment(', '\n}\n\nfunction makeSoldierHeroLinks('),
-  extract('Hero-link renderer', 'function makeSoldierHeroLinks(', '\n}\n\ntry {\n  const response = await fetch(\'./generated/normal-soldiers.v1.json\')'),
+  extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'addNormalSoldier'),
+  extractFunction(frontend, 'addSpSoldier'),
+  extractFunction(frontend, 'revealInitialHeroFragment'),
+  extractFunction(frontend, 'makeSoldierHeroLinks'),
 ].join('\n');
 const functions = runInNewContext(`(() => { ${runtime}; return { makeAnchor, addNormalSoldier, addSpSoldier, revealInitialHeroFragment, makeSoldierHeroLinks }; })()`, sandbox);
 
