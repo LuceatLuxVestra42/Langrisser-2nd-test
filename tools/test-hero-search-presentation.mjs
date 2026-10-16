@@ -1,6 +1,20 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { extractFunction } from './test-app-function-source.mjs';
+
+const reorderedFunctionFixture = `function trailing() {}
+function target(value) {
+  const closeBrace = '}';
+  if (value) { return { value, closeBrace }; }
+  return null;
+}
+function preceding() {}`;
+assert.equal(extractFunction(reorderedFunctionFixture, 'target'), `function target(value) {
+  const closeBrace = '}';
+  if (value) { return { value, closeBrace }; }
+  return null;
+}`);
+
 import { runInNewContext } from 'node:vm';
 
 const [frontend, html, heroData, relationData, exclusiveData] = await Promise.all([
