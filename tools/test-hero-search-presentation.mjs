@@ -84,6 +84,7 @@ const sandbox = {
 const runtime = [
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
+  extractFunction(frontend, 'makeOriginPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'filterHeroes'),
   extractFunction(frontend, 'renderHeroSearch'),
@@ -96,7 +97,7 @@ const functions = runInNewContext(`(() => {
   const exclusiveEquipmentContainer = container;
   ${runtime}
   return {
-    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
+    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeOriginPresentation, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
     startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, count, emptyState }); return heroNavigation; },
     setExclusiveEquipmentHeroById(value) { exclusiveEquipmentHeroById = value; },
   };
@@ -130,9 +131,12 @@ for (const hero of heroData.heroes) {
   assert.equal(label.attributes['aria-label'], `희귀도 ${hero.rarity.label}`);
 }
 assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\)\)/);
-assert.match(html, /진영 중국어 원문/);
+assert.match(html, /진영·출전작 중국어 원문/);
+assert.match(html, /출전작 중국어 원문/);
 assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions\)\)/);
+assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 중국어 원문'/);
+assert.match(frontend, /heading\.textContent = '출전작 · 중국어 원문'/);
 const expectedFactionIds = new Map([[5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]], [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]]]);
 assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
 for (const hero of heroData.heroes) {
@@ -142,6 +146,23 @@ for (const hero of heroData.heroes) {
   assert.equal(section.className, 'hero-factions');
   assert.equal(section.children[0].textContent, '진영 · 중국어 원문');
   assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map(({ nameCn }) => nameCn));
+}
+const expectedOrigins = new Map([
+  [5, [{ productionId: 4, nameCn: '梦幻模拟战I' }]],
+  [6, [{ productionId: 5, nameCn: '梦幻模拟战II' }]],
+  [8, [{ productionId: 5, nameCn: '梦幻模拟战II' }]],
+  [28, [{ productionId: 3, nameCn: '梦幻模拟战手游I' }]],
+  [32, [{ productionId: 6, nameCn: '梦幻模拟战III' }]],
+  [52, [{ productionId: 7, nameCn: '梦幻模拟战IV' }]],
+  [53, [{ productionId: 7, nameCn: '梦幻模拟战IV' }]],
+]);
+for (const hero of heroData.heroes) {
+  assert.deepEqual(hero.origins, expectedOrigins.get(hero.id), `Production IDs and Chinese names for Hero ${hero.id}`);
+  const section = functions.makeOriginPresentation(hero.origins);
+  assert.equal(section.className, 'hero-origins');
+  assert.equal(section.children[0].textContent, '출전작 · 중국어 원문');
+  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.origins.map(({ nameCn }) => nameCn));
+  assert.ok(hero.origins.every(({ nameCn }) => !/몽환|랑그릿사|전설의 저편/.test(nameCn)), 'no Korean fallback is used for Production names');
 }
 
 const exclusiveHero = heroData.heroes[0];

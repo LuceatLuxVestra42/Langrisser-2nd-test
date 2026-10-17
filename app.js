@@ -147,6 +147,29 @@ function makeFactionPresentation(factions) {
   return section;
 }
 
+function makeOriginPresentation(origins) {
+  if (!Array.isArray(origins) || origins.length === 0) throw new Error('Generated Hero Production presentation is missing');
+  const section = document.createElement('section');
+  section.className = 'hero-origins';
+  const heading = document.createElement('h3');
+  heading.textContent = '출전작 · 중국어 원문';
+  const list = document.createElement('ul');
+  list.className = 'hero-origin-list';
+  const seen = new Set();
+  for (const origin of origins) {
+    if (!Number.isSafeInteger(origin.productionId) || typeof origin.nameCn !== 'string' || !origin.nameCn.trim()
+      || seen.has(origin.productionId)) {
+      throw new Error('Generated Hero Production presentation is malformed');
+    }
+    seen.add(origin.productionId);
+    const item = document.createElement('li');
+    item.textContent = origin.nameCn;
+    list.append(item);
+  }
+  section.append(heading, list);
+  return section;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -180,6 +203,7 @@ function addHero(hero, relationsByHero, soldiersById) {
   }
   article.append(image, details);
   article.append(makeFactionPresentation(hero.factions));
+  article.append(makeOriginPresentation(hero.origins));
   article.append(connections);
   const exclusive = document.createElement('section');
   exclusive.className = 'exclusive-equipment';
@@ -247,6 +271,7 @@ try {
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
   if (data.heroes.some((hero) => !Number.isSafeInteger(hero.rarity?.rankId) || typeof hero.rarity.label !== 'string' || !hero.rarity.label.trim())) throw new Error('Generated Hero rarity is missing');
   if (data.heroes.some((hero) => !Array.isArray(hero.factions) || hero.factions.length === 0)) throw new Error('Generated Hero Faction presentation is missing');
+  if (data.heroes.some((hero) => !Array.isArray(hero.origins) || hero.origins.length === 0)) throw new Error('Generated Hero Production presentation is missing');
   if (relationData.schemaVersion !== 1 || !Array.isArray(relationData.relations)) throw new Error('Unsupported Hero–Soldier relation data');
   if (normalData.schemaVersion !== 1 || !Array.isArray(normalData.soldiers)
     || spData.schemaVersion !== 1 || !Array.isArray(spData.soldiers)) throw new Error('Unsupported generated Soldier data');
