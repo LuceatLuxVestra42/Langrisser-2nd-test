@@ -170,6 +170,71 @@ function makeOriginPresentation(origins) {
   return section;
 }
 
+function makeTalentDescription(raw, star) {
+  if (typeof raw !== 'string' || !raw.trim()) throw new Error('Generated Hero Talent description is missing');
+  const paragraph = document.createElement('p');
+  paragraph.className = 'talent-description';
+  const openTag = '<font color="red">';
+  const closeTag = '</font>';
+  const nextTag = raw.indexOf('<');
+  if (nextTag < 0) {
+    paragraph.textContent = raw;
+    return paragraph;
+  }
+  let cursor = 0;
+  while (cursor < raw.length) {
+    const tagAt = raw.indexOf('<', cursor);
+    if (tagAt < 0) {
+      paragraph.append(document.createTextNode(raw.slice(cursor)));
+      break;
+    }
+    if (tagAt > cursor) paragraph.append(document.createTextNode(raw.slice(cursor, tagAt)));
+    if (!raw.startsWith(openTag, tagAt)) {
+      paragraph.textContent = raw;
+      return paragraph;
+    }
+    const closeAt = raw.indexOf(closeTag, tagAt + openTag.length);
+    if (closeAt < 0 || raw.slice(tagAt + openTag.length, closeAt).includes('<')) {
+      paragraph.textContent = raw;
+      return paragraph;
+    }
+    const emphasis = document.createElement('span');
+    emphasis.className = 'talent-emphasis';
+    emphasis.textContent = raw.slice(tagAt + openTag.length, closeAt);
+    paragraph.append(emphasis);
+    cursor = closeAt + closeTag.length;
+  }
+  return paragraph;
+}
+
+function makeTalentPresentation(heroId, talent) {
+  if (!Number.isSafeInteger(heroId) || !talent || typeof talent.nameKo !== 'string' || !talent.nameKo.trim()
+    || !Array.isArray(talent.starDescriptions) || JSON.stringify(talent.starDescriptions.map(({ star }) => star)) !== '[3,4,5,6]') {
+    throw new Error('Generated Hero Talent presentation is malformed');
+  }
+  const section = document.createElement('section');
+  section.className = 'hero-talent';
+  const heading = document.createElement('h3');
+  heading.id = `hero-${heroId}-talent-heading`;
+  heading.textContent = 'Talent · 프로젝트 검수 한국어 (공식 표기 미확인)';
+  section.setAttribute('aria-labelledby', heading.id);
+  const name = document.createElement('p');
+  name.className = 'talent-name';
+  name.textContent = talent.nameKo;
+  const list = document.createElement('ul');
+  list.className = 'talent-star-list';
+  for (const row of talent.starDescriptions) {
+    if (!Number.isSafeInteger(row.skillId)) throw new Error('Generated Hero Talent Skill ID is malformed');
+    const item = document.createElement('li');
+    const star = document.createElement('h4');
+    star.textContent = `${row.star}성`;
+    item.append(star, makeTalentDescription(row.descriptionKoRaw, row.star));
+    list.append(item);
+  }
+  section.append(heading, name, list);
+  return section;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -204,6 +269,7 @@ function addHero(hero, relationsByHero, soldiersById) {
   article.append(image, details);
   article.append(makeFactionPresentation(hero.factions));
   article.append(makeOriginPresentation(hero.origins));
+  if (hero.talent) article.append(makeTalentPresentation(hero.id, hero.talent));
   article.append(connections);
   const exclusive = document.createElement('section');
   exclusive.className = 'exclusive-equipment';

@@ -23,9 +23,11 @@ const factionIdentities = await readJson('canonical/faction-identities.v1.json')
 const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
+const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
+const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -148,7 +150,9 @@ const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
 for (const hero of generated.heroes) {
-  exactKeys(hero, ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'exclusiveEquipment', 'factions', 'origins'], `generated Hero ${hero.id}`);
+  const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'exclusiveEquipment', 'factions', 'origins'];
+  if (talentRelations.records.some((row) => row.heroId === hero.id)) heroKeys.push('talent');
+  exactKeys(hero, heroKeys, `generated Hero ${hero.id}`);
   if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || typeof hero.nameKo !== 'string' || !hero.nameKo || !Array.isArray(hero.jobConnections)) {
     throw new Error(`malformed generated Hero ${String(hero.id)}`);
   }
@@ -181,6 +185,15 @@ for (const hero of generated.heroes) {
   if (!Number.isInteger(hero.exclusiveEquipment.equipmentId) || typeof hero.exclusiveEquipment.equipmentNameKo !== 'string'
     || !hero.exclusiveEquipment.equipmentNameKo || typeof hero.exclusiveEquipment.effectDescriptionKo !== 'string' || !hero.exclusiveEquipment.effectDescriptionKo) {
     throw new Error(`malformed Exclusive Equipment presentation for Hero ${hero.id}`);
+  }
+  if (hero.talent !== undefined) {
+    exactKeys(hero.talent, ['nameKo', 'starDescriptions'], `generated Hero ${hero.id} Talent`);
+    if (typeof hero.talent.nameKo !== 'string' || !hero.talent.nameKo.trim() || !Array.isArray(hero.talent.starDescriptions)
+      || JSON.stringify(hero.talent.starDescriptions.map((row) => row.star)) !== '[3,4,5,6]') throw new Error(`malformed generated Talent for Hero ${hero.id}`);
+    for (const row of hero.talent.starDescriptions) {
+      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw'], `generated Hero ${hero.id} Talent star`);
+      if (!Number.isSafeInteger(row.star) || !Number.isSafeInteger(row.skillId) || typeof row.descriptionKoRaw !== 'string' || !row.descriptionKoRaw.trim()) throw new Error(`malformed generated Talent star for Hero ${hero.id}`);
+    }
   }
 }
 const portraitPaths = [...new Set(generated.heroes.map((hero) => hero.portrait))];

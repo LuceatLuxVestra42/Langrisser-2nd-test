@@ -45,6 +45,7 @@ const findByClass = (className, node) => {
 const document = {
   baseURI: 'https://example.invalid/',
   createElement: (tagName) => makeElement(tagName),
+  createTextNode: (text) => Object.assign(makeElement('#text'), { textContent: text }),
   getElementById: (id) => roots.map((root) => findById(id, root)).find(Boolean) ?? null,
   querySelector: () => null,
 };
@@ -66,6 +67,8 @@ const runtime = [
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
+  extractFunction(frontend, 'makeTalentDescription'),
+  extractFunction(frontend, 'makeTalentPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'addHero'),
   extractFunction(frontend, 'filterSoldiers'),

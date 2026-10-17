@@ -24,6 +24,8 @@ const factionIdentities = await readJson('canonical/faction-identities.v1.json')
 const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
+const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
+const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const heroRarityEvidence = await readJson('evidence/source/hero-rarity.v1.json');
 const heroInfoRarityRecords = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json');
 const rankInfo = await readJson('evidence/source/configdata/ConfigDataRankInfo.json');
@@ -225,13 +227,26 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
-check(generatedJson.heroes.every((hero) => JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'portrait', 'rarity'])), 'generated consumer contains non-presentation fields');
+check(generatedJson.heroes.every((hero) => {
+  const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'portrait', 'rarity'];
+  if (talentRelations.records.some((row) => row.heroId === hero.id)) expectedKeys.push('talent');
+  return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());
+}), 'generated consumer contains non-presentation fields');
 for (const hero of generatedJson.heroes) {
+  if (hero.talent !== undefined) {
+    exactKeys(hero.talent, ['nameKo', 'starDescriptions'], `Hero ${hero.id} Talent`);
+    check(typeof hero.talent.nameKo === 'string' && hero.talent.nameKo.trim() && Array.isArray(hero.talent.starDescriptions), `Hero ${hero.id} generated Talent is malformed`);
+    check(JSON.stringify(hero.talent.starDescriptions.map((row) => row.star)) === '[3,4,5,6]', `Hero ${hero.id} generated Talent star list is incomplete`);
+    for (const row of hero.talent.starDescriptions) {
+      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw'], `Hero ${hero.id} Talent star ${row.star}`);
+      check(Number.isSafeInteger(row.star) && Number.isSafeInteger(row.skillId) && typeof row.descriptionKoRaw === 'string' && row.descriptionKoRaw.trim(), `Hero ${hero.id} Talent star description is malformed`);
+    }
+  }
   check(Array.isArray(hero.factions) && hero.factions.length > 0, `Hero ${hero.id} generated Faction list is missing`);
   for (const faction of hero.factions) {
     exactKeys(faction, ['factionId', 'nameCn'], `Hero ${hero.id} generated Faction`);
