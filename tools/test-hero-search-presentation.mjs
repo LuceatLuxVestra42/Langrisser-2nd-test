@@ -38,6 +38,7 @@ assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
 assert.ok(heroData.heroes.every(({ id, nameKo }) => Number.isSafeInteger(id) && typeof nameKo === 'string' && nameKo.trim()));
 assert.ok(heroData.heroes.every(({ rarity }) => Number.isSafeInteger(rarity?.rankId) && typeof rarity.label === 'string' && rarity.label.trim()));
+assert.ok(heroData.heroes.every(({ factions }) => Array.isArray(factions) && factions.length > 0));
 assert.equal(new Set(heroData.heroes.map(({ id }) => id)).size, heroData.heroes.length);
 assert.equal(relationData.schemaVersion, 1);
 assert.equal(exclusiveData.schemaVersion, 1);
@@ -82,6 +83,7 @@ const sandbox = {
 };
 const runtime = [
   extractFunction(frontend, 'makeHeroRarityLabel'),
+  extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'filterHeroes'),
   extractFunction(frontend, 'renderHeroSearch'),
@@ -94,7 +96,7 @@ const functions = runInNewContext(`(() => {
   const exclusiveEquipmentContainer = container;
   ${runtime}
   return {
-    filterHeroes, makeHeroRarityLabel, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
+    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
     startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, count, emptyState }); return heroNavigation; },
     setExclusiveEquipmentHeroById(value) { exclusiveEquipmentHeroById = value; },
   };
@@ -128,6 +130,19 @@ for (const hero of heroData.heroes) {
   assert.equal(label.attributes['aria-label'], `희귀도 ${hero.rarity.label}`);
 }
 assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\)\)/);
+assert.match(html, /진영 중국어 원문/);
+assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions\)\)/);
+assert.match(frontend, /heading\.textContent = '진영 · 중국어 원문'/);
+const expectedFactionIds = new Map([[5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]], [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]]]);
+assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
+for (const hero of heroData.heroes) {
+  assert.deepEqual(hero.factions.map(({ factionId }) => factionId), expectedFactionIds.get(hero.id), `Faction IDs for Hero ${hero.id}`);
+  assert.ok(hero.factions.every(({ nameCn }) => nameCn && !/시대의 주역|빛의 군단|제국의 빛|어둠의 윤회|공주 연맹|전략의 대가|메테오 스트라이크|전설의 저편|초월 영역/.test(nameCn)));
+  const section = functions.makeFactionPresentation(hero.factions);
+  assert.equal(section.className, 'hero-factions');
+  assert.equal(section.children[0].textContent, '진영 · 중국어 원문');
+  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map(({ nameCn }) => nameCn));
+}
 
 const exclusiveHero = heroData.heroes[0];
 const exclusiveEquipment = exclusiveData.equipment.find(({ equipmentId }) => equipmentId === exclusiveHero.exclusiveEquipment.equipmentId);

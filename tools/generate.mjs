@@ -2,9 +2,32 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities) {
+export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations) {
   if (heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)) throw new Error('Unsupported Hero Korean localization owner');
   if (heroRarities?.schemaVersion !== 1 || !Array.isArray(heroRarities.records)) throw new Error('Unsupported Hero rarity owner');
+  if (factionIdentities?.schemaVersion !== 1 || !Array.isArray(factionIdentities.records)) throw new Error('Unsupported Faction identity owner');
+  if (heroFactionRelations?.schemaVersion !== 1 || !Array.isArray(heroFactionRelations.records)) throw new Error('Unsupported Hero–Faction relation owner');
+  const factionNameById = new Map();
+  for (const faction of factionIdentities.records) {
+    if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim()) throw new Error('Faction identity owner contains a malformed record');
+    if (factionNameById.has(faction.factionId)) throw new Error(`Duplicate Faction identity ${faction.factionId}`);
+    factionNameById.set(faction.factionId, faction.nameCn);
+  }
+  const heroIds = new Set(canonical.records.map(({ id }) => id));
+  const factionIdsByHeroId = new Map();
+  const factionPairs = new Set();
+  for (const relation of heroFactionRelations.records) {
+    if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.factionId)) throw new Error('Hero–Faction relation contains malformed endpoint');
+    if (!heroIds.has(relation.heroId)) throw new Error(`Hero–Faction relation references unknown Hero ${relation.heroId}`);
+    if (!factionNameById.has(relation.factionId)) throw new Error(`Hero–Faction relation references unknown Faction ${relation.factionId}`);
+    const pair = `${relation.heroId}:${relation.factionId}`;
+    if (factionPairs.has(pair)) throw new Error(`Duplicate Hero–Faction relation ${pair}`);
+    factionPairs.add(pair);
+    const factionIds = factionIdsByHeroId.get(relation.heroId) ?? [];
+    factionIds.push(relation.factionId);
+    factionIdsByHeroId.set(relation.heroId, factionIds);
+  }
+  if ([...heroIds].some((id) => !factionIdsByHeroId.has(id))) throw new Error('Hero–Faction relation owner is missing a visible Hero endpoint');
   const rarityByHeroId = new Map();
   for (const rarity of heroRarities.records) {
     if (!Number.isSafeInteger(rarity.heroId) || !Number.isSafeInteger(rarity.rankId)
@@ -52,11 +75,14 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
       if (!Number.isInteger(equipmentId)) throw new Error(`Missing Exclusive Equipment relation for visible Hero ${id}`);
       const localization = localizationByEquipmentId.get(equipmentId);
       if (!localization) throw new Error(`Missing Korean Exclusive Equipment localization for ${equipmentId}`);
+      const factions = [...factionIdsByHeroId.get(id)].sort((a, b) => a - b)
+        .map((factionId) => ({ factionId, nameCn: factionNameById.get(factionId) }));
       return ({
       id,
       nameEng,
       nameKo,
       rarity: { rankId: rarity.rankId, label: rarity.label },
+      factions,
       portrait,
       exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
       jobConnections: jobConnections.map((relation) => {
@@ -283,6 +309,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const exclusiveRelationPath = resolve('canonical/hero-exclusive-equipment-relations.v1.json');
   const exclusiveLocalizationPath = resolve('canonical/exclusive-equipment-localizations-ko.v1.json');
   const rarityPath = resolve('canonical/hero-rarities.v1.json');
+  const factionIdentityPath = resolve('canonical/faction-identities.v1.json');
+  const heroFactionRelationsPath = resolve('canonical/hero-faction-relations.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
   const canonical = JSON.parse(await readFile(inputPath, 'utf8'));
   const heroLocalization = JSON.parse(await readFile(heroLocalizationPath, 'utf8'));
@@ -291,7 +319,10 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(exclusiveRelationPath, 'utf8'), readFile(exclusiveLocalizationPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const heroRarities = JSON.parse(await readFile(rarityPath, 'utf8'));
-  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities), 'utf8');
+  const [factionIdentities, heroFactionRelations] = await Promise.all([
+    readFile(factionIdentityPath, 'utf8'), readFile(heroFactionRelationsPath, 'utf8'),
+  ]).then(([identities, relations]) => [JSON.parse(identities), JSON.parse(relations)]);
+  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

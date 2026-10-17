@@ -27,6 +27,10 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-metadata { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 .hero-id { margin: 0; color: #aab5c3; font-size: .82rem; white-space: nowrap; }
 .hero-rarity { display: inline-flex; align-items: center; margin: 0; padding: 3px 7px; border: 1px solid #7186a3; border-radius: 999px; color: #e7effb; background: #28374b; font-size: .72rem; font-weight: 800; letter-spacing: .04em; white-space: nowrap; }
+.hero-factions { min-width: 0; margin: 0 16px 14px; }
+.hero-factions h3 { margin: 0 0 7px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }
+.hero-faction-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.hero-faction-list li { max-width: 100%; padding: 4px 8px; border: 1px solid #344050; border-radius: 8px; color: #d4dce7; font-size: .78rem; line-height: 1.4; overflow-wrap: anywhere; }
 .job-connections { margin: 0; padding: 0 16px 18px 34px; color: #c5cfdb; font-size: .82rem; line-height: 1.55; }
 .exclusive-equipment { min-width: 0; margin: auto 16px 16px; padding: 13px 14px; border: 1px solid #3c4b5e; border-radius: 10px; background: #151b24; }
 .exclusive-equipment h3 { margin: 0 0 7px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }

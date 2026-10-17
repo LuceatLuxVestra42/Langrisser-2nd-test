@@ -39,7 +39,7 @@ const end = frontend.indexOf('function addSpSoldier(', start);
 assert.ok(start >= 0 && end > start, 'equipment runtime boundaries are missing');
 const equipmentRuntime = frontend.slice(start, end);
 const anchorRuntime = extractFunction(frontend, 'makeAnchor');
-const heroRuntime = `${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'addHero')}`;
+const heroRuntime = `${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'makeFactionPresentation')}\n${extractFunction(frontend, 'addHero')}`;
 const { runInNewContext } = await import('node:vm');
 const element = () => ({
   children: [], listeners: {}, value: '', textContent: '', className: '',
