@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "claimType": "production-identity-chinese-display-name",
+  "evidenceClass": "B",
+  "projection": true,
+  "scope": {"productionIds": [3, 4, 5, 6, 7]},
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "validatedAtHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "dictionaryArtifact": {
+      "path": "data/validation/hero-page-stage5-5-2-origin.v1.json",
+      "blobSha1": "ea119a55f2aaf42713c9ec196bcb5fc0e322b902",
+      "dictionaryLocator": "dictionary[productionId]"
+    },
+    "dictionaryBuilder": {
+      "path": "scripts/build_hero_origin_map.cjs",
+      "blobSha1": "e55e44c558c628e7b00a8eb8fc5f66232bfb0c69",
+      "source": "ORIGIN_LABELS_CN"
+    },
+    "externalValidation": {
+      "primaryReference": "Bilibili Langrisser Wiki 出典 labels and representative hero biography pages",
+      "validationRule": "Legacy reports human-reviewed productionId-to-work-title mappings; machine validation confirms exact ID coverage and dictionary resolution.",
+      "individualReferenceUrlsPreservedInArtifact": false
+    }
+  },
+  "legacyValidation": {
+    "originArtifactStatus": "PASS",
+    "originArtifactBlobSha1": "ea119a55f2aaf42713c9ec196bcb5fc0e322b902",
+    "sourceTracePath": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+    "sourceTraceBlobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9",
+    "sourceTraceStatus": "PASS_WITH_DATA_GAPS",
+    "dictionaryFieldStatus": "SOURCE_DICTIONARY_CONFIRMED",
+    "dictionaryLanguage": "zh-CN",
+    "dictionaryScope": "32 Production IDs, 1 through 32; 267/267 Hero pointers resolved without missing, unknown, or unused IDs."
+  },
+  "records": [
+    {"productionId": 3, "nameCn": "梦幻模拟战手游I", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=3]"},
+    {"productionId": 4, "nameCn": "梦幻模拟战I", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=4]"},
+    {"productionId": 5, "nameCn": "梦幻模拟战II", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=5]"},
+    {"productionId": 6, "nameCn": "梦幻模拟战III", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=6]"},
+    {"productionId": 7, "nameCn": "梦幻模拟战IV", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=7]"}
+  ],
+  "limitations": [
+    "This is a Legacy-derived projection of the validated dictionary, not a new direct validation of its external references.",
+    "The validation artifact describes human-reviewed external title mappings but does not preserve individual reference URLs or a separate external publication version.",
+    "The names are Chinese source-display titles, not Korean official names or approved Korean localization.",
+    "This artifact supports Production ID-to-name claims only. It does not support Hero-to-Production relations."
+  ]
+}

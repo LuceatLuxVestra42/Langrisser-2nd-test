@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit Hero-to-Production origin relations for the current seven-Hero presentation slice; not a completeness claim beyond this slice.",
+  "sourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json",
+  "relationField": "HeroBelongProduction",
+  "records": [
+    {"heroId": 5, "productionId": 4, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=5"},
+    {"heroId": 6, "productionId": 5, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=6"},
+    {"heroId": 8, "productionId": 5, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=8"},
+    {"heroId": 28, "productionId": 3, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=28"},
+    {"heroId": 32, "productionId": 6, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=32"},
+    {"heroId": 52, "productionId": 7, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=52"},
+    {"heroId": 53, "productionId": 7, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=53"}
+  ]
+}
