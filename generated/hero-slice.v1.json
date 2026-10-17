@@ -23,6 +23,12 @@
           "nameCn": "公主联盟"
         }
       ],
+      "origins": [
+        {
+          "productionId": 4,
+          "nameCn": "梦幻模拟战I"
+        }
+      ],
       "portrait": "assets/portraits/hero-5.png",
       "exclusiveEquipment": {
         "equipmentId": 447,
@@ -86,6 +92,12 @@
           "nameCn": "战略大师"
         }
       ],
+      "origins": [
+        {
+          "productionId": 5,
+          "nameCn": "梦幻模拟战II"
+        }
+      ],
       "portrait": "assets/portraits/hero-6.png",
       "exclusiveEquipment": {
         "equipmentId": 416,
@@ -147,6 +159,12 @@
         {
           "factionId": 6,
           "nameCn": "公主联盟"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 5,
+          "nameCn": "梦幻模拟战II"
         }
       ],
       "portrait": "assets/portraits/hero-8.png",
@@ -216,6 +234,12 @@
           "nameCn": "超凡领域"
         }
       ],
+      "origins": [
+        {
+          "productionId": 3,
+          "nameCn": "梦幻模拟战手游I"
+        }
+      ],
       "portrait": "assets/portraits/hero-28.png",
       "exclusiveEquipment": {
         "equipmentId": 412,
@@ -271,6 +295,12 @@
         {
           "factionId": 7,
           "nameCn": "战略大师"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III"
         }
       ],
       "portrait": "assets/portraits/hero-32.png",
@@ -340,6 +370,12 @@
           "nameCn": "传说彼端"
         }
       ],
+      "origins": [
+        {
+          "productionId": 7,
+          "nameCn": "梦幻模拟战IV"
+        }
+      ],
       "portrait": "assets/portraits/hero-52.png",
       "exclusiveEquipment": {
         "equipmentId": 294,
@@ -401,6 +437,12 @@
         {
           "factionId": 9,
           "nameCn": "传说彼端"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 7,
+          "nameCn": "梦幻模拟战IV"
         }
       ],
       "portrait": "assets/portraits/hero-53.png",

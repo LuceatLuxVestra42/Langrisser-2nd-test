@@ -2,11 +2,13 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations) {
+export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations) {
   if (heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)) throw new Error('Unsupported Hero Korean localization owner');
   if (heroRarities?.schemaVersion !== 1 || !Array.isArray(heroRarities.records)) throw new Error('Unsupported Hero rarity owner');
   if (factionIdentities?.schemaVersion !== 1 || !Array.isArray(factionIdentities.records)) throw new Error('Unsupported Faction identity owner');
   if (heroFactionRelations?.schemaVersion !== 1 || !Array.isArray(heroFactionRelations.records)) throw new Error('Unsupported Hero–Faction relation owner');
+  if (productionIdentities?.schemaVersion !== 1 || !Array.isArray(productionIdentities.records)) throw new Error('Unsupported Production identity owner');
+  if (heroProductionRelations?.schemaVersion !== 1 || !Array.isArray(heroProductionRelations.records)) throw new Error('Unsupported Hero–Production relation owner');
   const factionNameById = new Map();
   for (const faction of factionIdentities.records) {
     if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim()) throw new Error('Faction identity owner contains a malformed record');
@@ -28,6 +30,30 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
     factionIdsByHeroId.set(relation.heroId, factionIds);
   }
   if ([...heroIds].some((id) => !factionIdsByHeroId.has(id))) throw new Error('Hero–Faction relation owner is missing a visible Hero endpoint');
+  const productionNameById = new Map();
+  for (const production of productionIdentities.records) {
+    if (!Number.isSafeInteger(production.productionId) || typeof production.nameCn !== 'string' || !production.nameCn.trim()) {
+      throw new Error('Production identity owner contains a malformed record');
+    }
+    if (productionNameById.has(production.productionId)) throw new Error(`Duplicate Production identity ${production.productionId}`);
+    productionNameById.set(production.productionId, production.nameCn);
+  }
+  const productionIdsByHeroId = new Map();
+  const productionPairs = new Set();
+  for (const relation of heroProductionRelations.records) {
+    if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.productionId)) {
+      throw new Error('Hero–Production relation contains malformed endpoint');
+    }
+    if (!heroIds.has(relation.heroId)) throw new Error(`Hero–Production relation references unknown Hero ${relation.heroId}`);
+    if (!productionNameById.has(relation.productionId)) throw new Error(`Hero–Production relation references unknown Production ${relation.productionId}`);
+    const pair = `${relation.heroId}:${relation.productionId}`;
+    if (productionPairs.has(pair)) throw new Error(`Duplicate Hero–Production relation ${pair}`);
+    productionPairs.add(pair);
+    const productionIds = productionIdsByHeroId.get(relation.heroId) ?? [];
+    productionIds.push(relation.productionId);
+    productionIdsByHeroId.set(relation.heroId, productionIds);
+  }
+  if ([...heroIds].some((id) => !productionIdsByHeroId.has(id))) throw new Error('Hero–Production relation owner is missing a visible Hero endpoint');
   const rarityByHeroId = new Map();
   for (const rarity of heroRarities.records) {
     if (!Number.isSafeInteger(rarity.heroId) || !Number.isSafeInteger(rarity.rankId)
@@ -77,12 +103,15 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
       if (!localization) throw new Error(`Missing Korean Exclusive Equipment localization for ${equipmentId}`);
       const factions = [...factionIdsByHeroId.get(id)].sort((a, b) => a - b)
         .map((factionId) => ({ factionId, nameCn: factionNameById.get(factionId) }));
+      const origins = [...productionIdsByHeroId.get(id)].sort((a, b) => a - b)
+        .map((productionId) => ({ productionId, nameCn: productionNameById.get(productionId) }));
       return ({
       id,
       nameEng,
       nameKo,
       rarity: { rankId: rarity.rankId, label: rarity.label },
       factions,
+      origins,
       portrait,
       exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
       jobConnections: jobConnections.map((relation) => {
@@ -311,6 +340,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const rarityPath = resolve('canonical/hero-rarities.v1.json');
   const factionIdentityPath = resolve('canonical/faction-identities.v1.json');
   const heroFactionRelationsPath = resolve('canonical/hero-faction-relations.v1.json');
+  const productionIdentityPath = resolve('canonical/production-identities.v1.json');
+  const heroProductionRelationsPath = resolve('canonical/hero-production-relations.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
   const canonical = JSON.parse(await readFile(inputPath, 'utf8'));
   const heroLocalization = JSON.parse(await readFile(heroLocalizationPath, 'utf8'));
@@ -322,7 +353,10 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const [factionIdentities, heroFactionRelations] = await Promise.all([
     readFile(factionIdentityPath, 'utf8'), readFile(heroFactionRelationsPath, 'utf8'),
   ]).then(([identities, relations]) => [JSON.parse(identities), JSON.parse(relations)]);
-  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations), 'utf8');
+  const [productionIdentities, heroProductionRelations] = await Promise.all([
+    readFile(productionIdentityPath, 'utf8'), readFile(heroProductionRelationsPath, 'utf8'),
+  ]).then(([identities, relations]) => [JSON.parse(identities), JSON.parse(relations)]);
+  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
