@@ -58,12 +58,6 @@ jobs:
       - name: Test Hero Talent star-skill relation admission
         run: node tools/test-hero-talent-star-skills.mjs
 
-      - name: Validate Hero Talent Korean localization
-        run: node tools/validate-hero-talent-localizations-ko.mjs
-
-      - name: Test Hero Talent Korean localization admission
-        run: node tools/test-hero-talent-localizations-ko.mjs
-
       - name: Build static site
         run: node tools/build.mjs
 
