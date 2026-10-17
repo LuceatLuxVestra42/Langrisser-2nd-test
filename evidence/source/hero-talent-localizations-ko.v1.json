@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "hero-talent-localization-ko",
+  "scope": {
+    "heroIds": [6, 8],
+    "stars": [3, 4, 5, 6],
+    "claim": "Project-reviewed Korean normal Talent display name per Hero and Korean star-specific description keyed by exact Hero ID, star, and already-admitted Skill ID.",
+    "outOfScope": [
+      "official Korean-server terminology",
+      "Skill identity admission",
+      "Chinese Skill Name or Desc admission",
+      "structured combat mechanics",
+      "Talent star-selection rule revalidation",
+      "Hero identity or relation mutation"
+    ]
+  },
+  "source": {
+    "evidenceClass": "A",
+    "claimScope": "Exact Korean TalentName and star-specific Desc source strings at the pinned public-project commit only.",
+    "repository": "redpanda7301/langrisser",
+    "ref": "a85bba49dcf073563e7366dc18e96b7ba67c2ae3",
+    "fetchMode": "PINNED_RAW_GITHUB",
+    "baseUrl": "https://raw.githubusercontent.com/redpanda7301/langrisser/a85bba49dcf073563e7366dc18e96b7ba67c2ae3/",
+    "nameField": "data[0].Talent[0].TalentName",
+    "descriptionFieldRule": "data[0].Talent[0].Abilities[star - 1].Desc",
+    "files": [
+      {
+        "heroId": 6,
+        "heroName": "레온",
+        "path": "hero/data/레온.js",
+        "gitBlobSha1": "3b074244053151e0197c2cd1cfbbc01af0cb02b6"
+      },
+      {
+        "heroId": 8,
+        "heroName": "라나",
+        "path": "hero/data/라나.js",
+        "gitBlobSha1": "f73a45f2df303788f1dd0ea047ca71ec34bba45e"
+      }
+    ]
+  },
+  "projectReview": {
+    "evidenceClass": "B",
+    "claimScope": "Prior project review decision and applicability for the exact Hero 6/8 localization records.",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "contract": {
+      "path": "data/contracts/localization-audit-hero-talent-stage6-final.v1.json",
+      "gitBlobSha1": "942fd0182888ad4d4bce383cedb3f65b019f7eb5"
+    },
+    "finalLocalization": {
+      "path": "data/presentation/hero-talent-localization-final.v1.json",
+      "gitBlobSha1": "fd0cc58eb68a415a7d25064c6f06360e8dd2f9b0",
+      "overallStatus": "PASS_WITH_REVIEW",
+      "overallScope": "251-Hero-normal-talent-KR-localization-through-Taj-Lynn"
+    },
+    "sourceIntake": {
+      "path": "data/presentation/hero-talent-legacy-sheet-intake-stage5.v1.json",
+      "gitBlobSha1": "b9f11bf0d94057acca2b1fd22de39cfe3b3ae0f3",
+      "status": "PASS",
+      "scope": "legacy-korean-sheet-public-hero-talent-source-intake"
+    },
+    "sourceContract": {
+      "path": "data/presentation/hero-talent-kr-sheet-source.v1.json",
+      "gitBlobSha1": "2d5abd279eccc1186335cd513a74472117258090",
+      "status": "PASS",
+      "scope": "localization-presentation-evidence-only"
+    },
+    "owningReview": {
+      "validatorPath": "scripts/audit-localization-hero-talent-stage6-final.mjs",
+      "contractRule": "Reuse Stage 5 accepted Korean text; require four stars, exact decision override parity, current verified Talent references, and literal coverage for explicit overrides.",
+      "selectedRecordDecision": "DIRECT_REUSE_FINAL",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    "parityGuard": {
+      "path": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json",
+      "gitBlobSha1": "470643e627e28454222207674c5c7770f7118738",
+      "status": "PASS_WITH_BLOCKER",
+      "role": "PRESENTATION_PARITY_GUARD_ONLY"
+    },
+    "overlayGuard": {
+      "path": "data/validation/hero-talent-legacy-sheet-stage8-overlay.v1.json",
+      "gitBlobSha1": "48bc78488a20445888aa4a6abd4174c5366196a4",
+      "status": "PASS_WITH_BLOCKER",
+      "role": "EXACT_HERO_STAR_SKILL_PRESENTATION_PARITY_GUARD"
+    },
+    "limitations": [
+      "The per-record reuse decision is project-reviewed Korean presentation text, not official Korean-server terminology.",
+      "Stage 7 and Stage 8 are limited parity and overlay guards; they do not revalidate the Talent star-selection rule.",
+      "The inherited 248 ambiguous Legacy source groups remain outside this two-Hero admission.",
+      "This Evidence does not admit Chinese Skill fields or structured combat mechanics."
+    ]
+  },
+  "records": [
+    {
+      "heroId": 6,
+      "talentNameKo": "전설의 기사",
+      "nameSourceLocator": "hero/data/레온.js#data[0].Talent[0].TalentName",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=6]",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 8,
+      "talentNameKo": "마력 강화",
+      "nameSourceLocator": "hero/data/라나.js#data[0].Talent[0].TalentName",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8]",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    }
+  ],
+  "descriptions": [
+    {
+      "heroId": 6,
+      "star": 3,
+      "skillId": 3067,
+      "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+1%</font> 방어 <font color=\"red\">+5%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+      "sourceLocator": "hero/data/레온.js#data[0].Talent[0].Abilities[2].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=6].descriptions.star3",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 6,
+      "star": 4,
+      "skillId": 3072,
+      "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+2%</font> 방어 <font color=\"red\">+10%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+      "sourceLocator": "hero/data/레온.js#data[0].Talent[0].Abilities[3].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=6].descriptions.star4",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 6,
+      "star": 5,
+      "skillId": 3077,
+      "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+3%</font> 방어 <font color=\"red\">+15%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+      "sourceLocator": "hero/data/레온.js#data[0].Talent[0].Abilities[4].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=6].descriptions.star5",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 6,
+      "star": 6,
+      "skillId": 3082,
+      "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+4%</font> 방어 <font color=\"red\">+20%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+      "sourceLocator": "hero/data/레온.js#data[0].Talent[0].Abilities[5].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=6].descriptions.star6",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 8,
+      "star": 3,
+      "skillId": 3196,
+      "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+10%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+      "sourceLocator": "hero/data/라나.js#data[0].Talent[0].Abilities[2].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8].descriptions.star3",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 8,
+      "star": 4,
+      "skillId": 3197,
+      "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+15%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+      "sourceLocator": "hero/data/라나.js#data[0].Talent[0].Abilities[3].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8].descriptions.star4",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 8,
+      "star": 5,
+      "skillId": 3198,
+      "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+20%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+      "sourceLocator": "hero/data/라나.js#data[0].Talent[0].Abilities[4].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8].descriptions.star5",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 8,
+      "star": 6,
+      "skillId": 3199,
+      "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+30%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+      "sourceLocator": "hero/data/라나.js#data[0].Talent[0].Abilities[5].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8].descriptions.star6",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    }
+  ]
+}
