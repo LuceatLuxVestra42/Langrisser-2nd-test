@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "hero-talent-star-skill-reference",
+  "scope": {
+    "heroIds": [
+      6,
+      8
+    ],
+    "stars": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "claim": "A Hero's normal Talent Skill ID at a specified star stage.",
+    "outOfScope": [
+      "Talent identity or effect",
+      "skill identity",
+      "Korean localization",
+      "skill acquisition",
+      "other Heroes"
+    ]
+  },
+  "sourceArrays": {
+    "evidenceClass": "A",
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "sourcePackIntegrity": {
+      "status": "PASS_REUSED_FROM_H-02-B1",
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+      "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+      "archive": {
+        "name": "configdata-source-v1-6475e63e.tar",
+        "sha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84"
+      }
+    },
+    "sourceFile": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+      "sizeBytes": 11498868,
+      "field": "TalentSkill_IDs"
+    },
+    "preservedEvidencePath": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json",
+    "relationEvidencePath": "evidence/source/jobs/hero-job-connection-slice.v1.json",
+    "rawSourceFileDirectlyRecheckedThisAdmission": false,
+    "records": [
+      {
+        "heroId": 6,
+        "connectionId": 60,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=60",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3067,
+          3067,
+          3067,
+          3072,
+          3077,
+          3082
+        ]
+      },
+      {
+        "heroId": 6,
+        "connectionId": 61,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=61",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3067,
+          3067,
+          3067,
+          3072,
+          3077,
+          3082
+        ]
+      },
+      {
+        "heroId": 6,
+        "connectionId": 62,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=62",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3067,
+          3067,
+          3067,
+          3072,
+          3077,
+          3082
+        ]
+      },
+      {
+        "heroId": 6,
+        "connectionId": 63,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=63",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3067,
+          3067,
+          3067,
+          3072,
+          3077,
+          3082
+        ]
+      },
+      {
+        "heroId": 6,
+        "connectionId": 64,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=64",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3067,
+          3067,
+          3067,
+          3072,
+          3077,
+          3082
+        ]
+      },
+      {
+        "heroId": 6,
+        "connectionId": 65,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=6&connectionId=65",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3067,
+          3067,
+          3067,
+          3072,
+          3077,
+          3082
+        ]
+      },
+      {
+        "heroId": 8,
+        "connectionId": 80,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=80",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3196,
+          3196,
+          3196,
+          3197,
+          3198,
+          3199
+        ]
+      },
+      {
+        "heroId": 8,
+        "connectionId": 81,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=81",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3196,
+          3196,
+          3196,
+          3197,
+          3198,
+          3199
+        ]
+      },
+      {
+        "heroId": 8,
+        "connectionId": 82,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=82",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3196,
+          3196,
+          3196,
+          3197,
+          3198,
+          3199
+        ]
+      },
+      {
+        "heroId": 8,
+        "connectionId": 83,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=83",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3196,
+          3196,
+          3196,
+          3197,
+          3198,
+          3199
+        ]
+      },
+      {
+        "heroId": 8,
+        "connectionId": 84,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=84",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3196,
+          3196,
+          3196,
+          3197,
+          3198,
+          3199
+        ]
+      },
+      {
+        "heroId": 8,
+        "connectionId": 85,
+        "relationLocator": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=8&connectionId=85",
+        "sourceRecordLocator": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85",
+        "field": "TalentSkill_IDs",
+        "values": [
+          3196,
+          3196,
+          3196,
+          3197,
+          3198,
+          3199
+        ]
+      }
+    ]
+  },
+  "selectionRule": {
+    "evidenceClass": "B",
+    "sourceField": "ConfigDataJobConnectionInfo.TalentSkill_IDs",
+    "rule": "TalentSkill_IDs[star - 1]",
+    "starDomain": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "initialStar": 3,
+    "initialStarLocator": "data/validation/hero-talent-legacy-sheet-stage6-identity-completeness.v1.json#confirmedRecords[heroId=6|8].talent.initialStar",
+    "firstLocatedRule": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "contract": {
+        "path": "data/hero-basic-combat-stage4-5.v1.json",
+        "blobSha1": "0566bfc26c54694f089fd765a9aefbe83208ca41",
+        "claim": "TalentSkill_IDs[star - 1] selects the displayed talent for star 1..6; all normal JobConnections for one Hero must carry the same six-slot array."
+      },
+      "producer": {
+        "path": "scripts/prepare_hero_basic_combat_stage45.cjs",
+        "blobSha1": "bb4383e8be590185bf68b56096530dce50e1b527",
+        "operation": "Checks six-slot TalentSkill_IDs across all normal connections; maps each array index i to star i+1; reads initialStar from ConfigDataHeroInfo.Star."
+      },
+      "validator": {
+        "path": "scripts/validate_hero_stage4_final.cjs",
+        "blobSha1": "c4c31d11b8d1c5fb7c3204ddcb7ee6975045f145",
+        "operation": "Validates VERIFIED progression, selectionRule, six rows, and star/index parity."
+      },
+      "validation": {
+        "path": "data/validation/hero-basic-combat-stage4-5-summary.v1.json",
+        "blobSha1": "1ea45f081238ff41995c4e444bc6f953c73c5e64",
+        "status": "PASS",
+        "scope": "Stage 4-5 Hero basic combat and Talent star progression; 267 canonical Heroes."
+      }
+    },
+    "initialStarEvidence": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/validation/hero-talent-legacy-sheet-stage6-identity-completeness.v1.json",
+      "blobSha1": "ffaaaaa7f3ca8a48cadf6ff4f975e10efce87227",
+      "confirmedHeroIds": [
+        6,
+        8
+      ],
+      "value": 3,
+      "class": "B"
+    },
+    "frozenParity": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json",
+      "blobSha1": "470643e627e28454222207674c5c7770f7118738",
+      "role": "PARITY_GUARD_ONLY_NOT_INITIAL_RULE_VALIDATION",
+      "status": "PASS_WITH_BLOCKER",
+      "scope": "Only confirmed Hero IDs 6, 8, 9; preserves frozen exact 3/4/5/6-star Talent Skill IDs while allowing presentation-only localization overlay.",
+      "admittedHeroIds": [
+        6,
+        8
+      ],
+      "rows": [
+        {
+          "heroId": 6,
+          "initialStar": 3,
+          "selectionRule": "TalentSkill_IDs[star - 1]",
+          "starSkills": [
+            {
+              "star": 3,
+              "skillId": 3067
+            },
+            {
+              "star": 4,
+              "skillId": 3072
+            },
+            {
+              "star": 5,
+              "skillId": 3077
+            },
+            {
+              "star": 6,
+              "skillId": 3082
+            }
+          ]
+        },
+        {
+          "heroId": 8,
+          "initialStar": 3,
+          "selectionRule": "TalentSkill_IDs[star - 1]",
+          "starSkills": [
+            {
+              "star": 3,
+              "skillId": 3196
+            },
+            {
+              "star": 4,
+              "skillId": 3197
+            },
+            {
+              "star": 5,
+              "skillId": 3198
+            },
+            {
+              "star": 6,
+              "skillId": 3199
+            }
+          ]
+        }
+      ]
+    },
+    "stage6LocalizationBoundary": {
+      "path": "data/validation/hero-talent-legacy-sheet-stage6-identity-completeness.v1.json",
+      "status": "BLOCKER",
+      "blockerScope": "248 unmapped Korean sheet source groups; Hero 6 and 8 have explicit existing project provenance and confirmed exact identity.",
+      "localizationAdmissionForHero6And8": false
+    },
+    "claimAssessment": {
+      "sourceArrayValues": "A — retained source-record projection tied to the B1 hash-verified source-pack; this admission did not re-read the complete raw source file.",
+      "selectionAndRelation": "B — explicit traceable Stage 4-5 rule/owner validation plus exact Stage 6 confirmed Hero scope and Stage 7 frozen parity guard. The Stage 7 artifact is not treated as the rule's first validation.",
+      "newIndependentRawInterpretation": "NOT_CLAIMED"
+    },
+    "limitations": [
+      "No raw source-pack rehydration or source-file SHA verification was repeated for this admission.",
+      "The first located rule authority is the Legacy Stage 4-5 contract/producer/validator chain; its game-rule interpretation is reused as B, not newly independently proven.",
+      "Stage 7 is a presentation-localization semantic parity guard only, not the first rule validation.",
+      "Only Hero 6 and 8, stars 3 through 6, are admitted.",
+      "Skill IDs are source references; Skill identity, names, descriptions, effects, and acquisition are not admitted.",
+      "Talent Korean localization is not admitted. The Stage 6 248-group localization identity blocker stays separate."
+    ],
+    "fieldContract": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "data/hero-skill-acquisition-stage4-4.v1.json",
+      "blobSha1": "afdabed9f82a401f50ed344e5ee4877bbc024f9c",
+      "locator": "relationContract.jobConnectionInfo.talentSkillIds / fieldEvidence.connectionTalentSkills",
+      "meaning": "ConfigDataJobConnectionInfo.TalentSkill_IDs is a Talent reference set distinct from JobLevelInfo.GotSkill_ID normal-skill acquisition events.",
+      "sourceFieldNumber": "ConfigDataJobConnectionInfo.TalentSkill_IDs protobuf field 8",
+      "evidenceClass": "B"
+    }
+  },
+  "claims": [
+    {
+      "heroId": 6,
+      "star": 3,
+      "skillId": 3067,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=6,star=3]"
+    },
+    {
+      "heroId": 6,
+      "star": 4,
+      "skillId": 3072,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=6,star=4]"
+    },
+    {
+      "heroId": 6,
+      "star": 5,
+      "skillId": 3077,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=6,star=5]"
+    },
+    {
+      "heroId": 6,
+      "star": 6,
+      "skillId": 3082,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=6,star=6]"
+    },
+    {
+      "heroId": 8,
+      "star": 3,
+      "skillId": 3196,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=8,star=3]"
+    },
+    {
+      "heroId": 8,
+      "star": 4,
+      "skillId": 3197,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=8,star=4]"
+    },
+    {
+      "heroId": 8,
+      "star": 5,
+      "skillId": 3198,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=8,star=5]"
+    },
+    {
+      "heroId": 8,
+      "star": 6,
+      "skillId": 3199,
+      "sourceArrayLocators": [
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84.TalentSkill_IDs",
+        "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85.TalentSkill_IDs"
+      ],
+      "selectionRuleLocator": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+      "frozenParityLocator": "data/validation/hero-talent-legacy-sheet-stage7-semantic-parity.v1.json#confirmedParityRecords[heroId=8,star=6]"
+    }
+  ]
+}
