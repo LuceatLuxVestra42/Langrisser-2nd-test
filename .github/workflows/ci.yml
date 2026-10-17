@@ -52,6 +52,12 @@ jobs:
       - name: Test Hero search presentation and hidden-target navigation
         run: node tools/test-hero-search-presentation.mjs
 
+      - name: Validate Hero Talent star-skill relations
+        run: node tools/validate-hero-talent-star-skills.mjs
+
+      - name: Test Hero Talent star-skill relation admission
+        run: node tools/test-hero-talent-star-skills.mjs
+
       - name: Build static site
         run: node tools/build.mjs
 

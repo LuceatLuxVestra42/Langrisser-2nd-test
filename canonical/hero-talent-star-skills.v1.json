@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "scope": "Inherited B-class Hero normal Talent Skill reference by exact Hero ID and star; admitted Heroes 6 and 8 at stars 3 through 6 only.",
+  "records": [
+    {
+      "heroId": 6,
+      "star": 3,
+      "skillId": 3067,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=6&star=3"
+    },
+    {
+      "heroId": 6,
+      "star": 4,
+      "skillId": 3072,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=6&star=4"
+    },
+    {
+      "heroId": 6,
+      "star": 5,
+      "skillId": 3077,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=6&star=5"
+    },
+    {
+      "heroId": 6,
+      "star": 6,
+      "skillId": 3082,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=6&star=6"
+    },
+    {
+      "heroId": 8,
+      "star": 3,
+      "skillId": 3196,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=8&star=3"
+    },
+    {
+      "heroId": 8,
+      "star": 4,
+      "skillId": 3197,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=8&star=4"
+    },
+    {
+      "heroId": 8,
+      "star": 5,
+      "skillId": 3198,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=8&star=5"
+    },
+    {
+      "heroId": 8,
+      "star": 6,
+      "skillId": 3199,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=8&star=6"
+    }
+  ]
+}
