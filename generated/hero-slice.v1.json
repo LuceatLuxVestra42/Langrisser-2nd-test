@@ -9,6 +9,20 @@
         "rankId": 3,
         "label": "SR"
       },
+      "factions": [
+        {
+          "factionId": 1,
+          "nameCn": "主角光环"
+        },
+        {
+          "factionId": 2,
+          "nameCn": "光辉军团"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟"
+        }
+      ],
       "portrait": "assets/portraits/hero-5.png",
       "exclusiveEquipment": {
         "equipmentId": 447,
@@ -62,6 +76,16 @@
         "rankId": 4,
         "label": "SSR"
       },
+      "factions": [
+        {
+          "factionId": 4,
+          "nameCn": "帝国之辉"
+        },
+        {
+          "factionId": 7,
+          "nameCn": "战略大师"
+        }
+      ],
       "portrait": "assets/portraits/hero-6.png",
       "exclusiveEquipment": {
         "equipmentId": 416,
@@ -115,6 +139,16 @@
         "rankId": 4,
         "label": "SSR"
       },
+      "factions": [
+        {
+          "factionId": 5,
+          "nameCn": "黑暗轮回"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟"
+        }
+      ],
       "portrait": "assets/portraits/hero-8.png",
       "exclusiveEquipment": {
         "equipmentId": 275,
@@ -168,6 +202,20 @@
         "rankId": 4,
         "label": "SSR"
       },
+      "factions": [
+        {
+          "factionId": 5,
+          "nameCn": "黑暗轮回"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击"
+        },
+        {
+          "factionId": 11,
+          "nameCn": "超凡领域"
+        }
+      ],
       "portrait": "assets/portraits/hero-28.png",
       "exclusiveEquipment": {
         "equipmentId": 412,
@@ -215,6 +263,16 @@
         "rankId": 3,
         "label": "SR"
       },
+      "factions": [
+        {
+          "factionId": 4,
+          "nameCn": "帝国之辉"
+        },
+        {
+          "factionId": 7,
+          "nameCn": "战略大师"
+        }
+      ],
       "portrait": "assets/portraits/hero-32.png",
       "exclusiveEquipment": {
         "equipmentId": 287,
@@ -268,6 +326,20 @@
         "rankId": 4,
         "label": "SSR"
       },
+      "factions": [
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击"
+        },
+        {
+          "factionId": 9,
+          "nameCn": "传说彼端"
+        }
+      ],
       "portrait": "assets/portraits/hero-52.png",
       "exclusiveEquipment": {
         "equipmentId": 294,
@@ -321,6 +393,16 @@
         "rankId": 4,
         "label": "SSR"
       },
+      "factions": [
+        {
+          "factionId": 7,
+          "nameCn": "战略大师"
+        },
+        {
+          "factionId": 9,
+          "nameCn": "传说彼端"
+        }
+      ],
       "portrait": "assets/portraits/hero-53.png",
       "exclusiveEquipment": {
         "equipmentId": 296,

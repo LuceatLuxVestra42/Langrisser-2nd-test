@@ -125,6 +125,28 @@ function makeHeroRarityLabel(rarity) {
   return label;
 }
 
+function makeFactionPresentation(factions) {
+  if (!Array.isArray(factions) || factions.length === 0) throw new Error('Generated Hero Faction presentation is missing');
+  const section = document.createElement('section');
+  section.className = 'hero-factions';
+  const heading = document.createElement('h3');
+  heading.textContent = '진영 · 중국어 원문';
+  const list = document.createElement('ul');
+  list.className = 'hero-faction-list';
+  const seen = new Set();
+  for (const faction of factions) {
+    if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim() || seen.has(faction.factionId)) {
+      throw new Error('Generated Hero Faction presentation is malformed');
+    }
+    seen.add(faction.factionId);
+    const item = document.createElement('li');
+    item.textContent = faction.nameCn;
+    list.append(item);
+  }
+  section.append(heading, list);
+  return section;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -157,6 +179,7 @@ function addHero(hero, relationsByHero, soldiersById) {
     connections.append(item);
   }
   article.append(image, details);
+  article.append(makeFactionPresentation(hero.factions));
   article.append(connections);
   const exclusive = document.createElement('section');
   exclusive.className = 'exclusive-equipment';
@@ -223,6 +246,7 @@ try {
   if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated Hero data');
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
   if (data.heroes.some((hero) => !Number.isSafeInteger(hero.rarity?.rankId) || typeof hero.rarity.label !== 'string' || !hero.rarity.label.trim())) throw new Error('Generated Hero rarity is missing');
+  if (data.heroes.some((hero) => !Array.isArray(hero.factions) || hero.factions.length === 0)) throw new Error('Generated Hero Faction presentation is missing');
   if (relationData.schemaVersion !== 1 || !Array.isArray(relationData.relations)) throw new Error('Unsupported Hero–Soldier relation data');
   if (normalData.schemaVersion !== 1 || !Array.isArray(normalData.soldiers)
     || spData.schemaVersion !== 1 || !Array.isArray(spData.soldiers)) throw new Error('Unsupported generated Soldier data');

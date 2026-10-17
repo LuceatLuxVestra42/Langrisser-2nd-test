@@ -19,9 +19,11 @@ const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json')
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
 const heroRarities = await readJson('canonical/hero-rarities.v1.json');
+const factionIdentities = await readJson('canonical/faction-identities.v1.json');
+const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -144,12 +146,20 @@ const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
 for (const hero of generated.heroes) {
-  exactKeys(hero, ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'exclusiveEquipment'], `generated Hero ${hero.id}`);
+  exactKeys(hero, ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'exclusiveEquipment', 'factions'], `generated Hero ${hero.id}`);
   if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || typeof hero.nameKo !== 'string' || !hero.nameKo || !Array.isArray(hero.jobConnections)) {
     throw new Error(`malformed generated Hero ${String(hero.id)}`);
   }
   exactKeys(hero.rarity, ['rankId', 'label'], `generated Hero ${hero.id} rarity`);
   if (!Number.isSafeInteger(hero.rarity.rankId) || typeof hero.rarity.label !== 'string' || !hero.rarity.label.trim()) throw new Error(`malformed generated rarity for Hero ${hero.id}`);
+  if (!Array.isArray(hero.factions) || hero.factions.length === 0) throw new Error(`malformed generated Faction list for Hero ${hero.id}`);
+  const factionIds = new Set();
+  for (const faction of hero.factions) {
+    exactKeys(faction, ['factionId', 'nameCn'], `generated Hero ${hero.id} Faction`);
+    if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim()
+      || factionIds.has(faction.factionId)) throw new Error(`malformed or duplicate generated Faction for Hero ${hero.id}`);
+    factionIds.add(faction.factionId);
+  }
   for (const relation of hero.jobConnections) {
     exactKeys(relation, ['connectionId', 'jobId', 'sourceField', 'jobNameKo'], `generated Hero ${hero.id} Job relation`);
     if (!Number.isInteger(relation.connectionId) || !Number.isInteger(relation.jobId) || typeof relation.sourceField !== 'string'
