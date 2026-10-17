@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "scope": "Production identities referenced by the admitted seven-Hero presentation slice; validated Chinese source-display names only.",
+  "sourceEvidence": "evidence/source/hero-origin-dictionary.v1.json",
+  "records": [
+    {"productionId": 3, "nameCn": "梦幻模拟战手游I", "provenance": "evidence/source/hero-origin-dictionary.v1.json#records/productionId=3"},
+    {"productionId": 4, "nameCn": "梦幻模拟战I", "provenance": "evidence/source/hero-origin-dictionary.v1.json#records/productionId=4"},
+    {"productionId": 5, "nameCn": "梦幻模拟战II", "provenance": "evidence/source/hero-origin-dictionary.v1.json#records/productionId=5"},
+    {"productionId": 6, "nameCn": "梦幻模拟战III", "provenance": "evidence/source/hero-origin-dictionary.v1.json#records/productionId=6"},
+    {"productionId": 7, "nameCn": "梦幻模拟战IV", "provenance": "evidence/source/hero-origin-dictionary.v1.json#records/productionId=7"}
+  ]
+}

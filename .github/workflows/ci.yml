@@ -37,6 +37,18 @@ jobs:
       - name: Validate Hero-Faction relation owner
         run: node tools/validate-hero-faction-relations.mjs
 
+      - name: Validate Production identity owner
+        run: node tools/validate-production-identities.mjs
+
+      - name: Test Production identity owner
+        run: node tools/test-production-identities.mjs
+
+      - name: Validate Hero-Production relation owner
+        run: node tools/validate-hero-production-relations.mjs
+
+      - name: Test Hero-Production relation owner
+        run: node tools/test-hero-production-relations.mjs
+
       - name: Test Hero search presentation and hidden-target navigation
         run: node tools/test-hero-search-presentation.mjs
 
