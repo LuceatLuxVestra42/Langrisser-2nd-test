@@ -64,6 +64,9 @@ jobs:
       - name: Test Hero Talent Korean localization admission
         run: node tools/test-hero-talent-localizations-ko.mjs
 
+      - name: Test Hero Talent presentation
+        run: node tools/test-hero-talent-presentation.mjs
+
       - name: Build static site
         run: node tools/build.mjs
 
