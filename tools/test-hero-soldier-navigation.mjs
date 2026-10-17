@@ -44,6 +44,7 @@ const sandbox = {
   document: {
     baseURI: 'https://example.test/',
     createElement: makeElement,
+    createTextNode: (text) => Object.assign(makeElement(), { textContent: text }),
     getElementById: (id) => elementsById.get(id) ?? null,
   },
   window: { location: { hash: '' }, requestAnimationFrame(callback) { animationFrames.push(callback); } },
@@ -57,6 +58,8 @@ const runtime = [
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
+  extractFunction(frontend, 'makeTalentDescription'),
+  extractFunction(frontend, 'makeTalentPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'addHero'),
 ].join('\n');

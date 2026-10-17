@@ -39,7 +39,7 @@ const end = frontend.indexOf('function addSpSoldier(', start);
 assert.ok(start >= 0 && end > start, 'equipment runtime boundaries are missing');
 const equipmentRuntime = frontend.slice(start, end);
 const anchorRuntime = extractFunction(frontend, 'makeAnchor');
-const heroRuntime = `${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'makeFactionPresentation')}\n${extractFunction(frontend, 'makeOriginPresentation')}\n${extractFunction(frontend, 'addHero')}`;
+const heroRuntime = `${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'makeFactionPresentation')}\n${extractFunction(frontend, 'makeOriginPresentation')}\n${extractFunction(frontend, 'makeTalentDescription')}\n${extractFunction(frontend, 'makeTalentPresentation')}\n${extractFunction(frontend, 'addHero')}`;
 const { runInNewContext } = await import('node:vm');
 const element = () => ({
   children: [], listeners: {}, value: '', textContent: '', className: '',
@@ -67,6 +67,7 @@ async function runEquipmentRuntime(general, exclusive) {
     exclusiveEquipmentSearch: exclusiveInput, exclusiveEquipmentClear: exclusiveClear, exclusiveEquipmentCount: exclusiveCount,
     document: {
       createElement: element,
+      createTextNode: (text) => Object.assign(element(), { textContent: text }),
       querySelector: (selector) => selectors[selector],
       getElementById: (id) => {
         const hero = [...heroByEquipmentId.values()].find((candidate) => `hero-${candidate.id}` === id);
@@ -166,7 +167,7 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
     const heroSandbox = {
       container: heroContainer,
       document: {
-        baseURI: 'https://example.test/', createElement: element,
+        baseURI: 'https://example.test/', createElement: element, createTextNode: (text) => Object.assign(element(), { textContent: text }),
         getElementById: (id) => heroContainer.children.find((card) => card.id === id)
           ?? result.exclusiveEquipmentContainer.children.find((card) => card.id === id) ?? null,
       },
