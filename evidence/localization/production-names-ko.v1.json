@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
+  "sourceDescription": "Korean Production display-name mapping explicitly supplied in the user instruction for this task.",
+  "officialKrProvenanceStatus": "unverified",
+  "scope": {
+    "claim": "Project-reviewed Korean Production display label by exact existing Canonical ProductionID.",
+    "productionIds": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "consumer": "Current seven-Hero presentation slice only."
+  },
+  "records": [
+    {
+      "productionId": 3,
+      "nameCn": "梦幻模拟战手游I",
+      "nameKo": "랑그릿사 모바일 Ch.1",
+      "locator": "user-instruction#ProductionID=3",
+      "reviewStatus": "PROJECT_REVIEWED"
+    },
+    {
+      "productionId": 4,
+      "nameCn": "梦幻模拟战I",
+      "nameKo": "랑그릿사I",
+      "locator": "user-instruction#ProductionID=4",
+      "reviewStatus": "PROJECT_REVIEWED"
+    },
+    {
+      "productionId": 5,
+      "nameCn": "梦幻模拟战II",
+      "nameKo": "랑그릿사II",
+      "locator": "user-instruction#ProductionID=5",
+      "reviewStatus": "PROJECT_REVIEWED"
+    },
+    {
+      "productionId": 6,
+      "nameCn": "梦幻模拟战III",
+      "nameKo": "랑그릿사III",
+      "locator": "user-instruction#ProductionID=6",
+      "reviewStatus": "PROJECT_REVIEWED"
+    },
+    {
+      "productionId": 7,
+      "nameCn": "梦幻模拟战IV",
+      "nameKo": "랑그릿사IV",
+      "locator": "user-instruction#ProductionID=7",
+      "reviewStatus": "PROJECT_REVIEWED"
+    }
+  ],
+  "limitations": [
+    "Official Korean-server terminology and release status are unverified.",
+    "This input supports display localization only; it does not establish Production identity, population, Hero relation, release status, or game semantics."
+  ]
+}

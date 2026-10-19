@@ -32,7 +32,9 @@
       "origins": [
         {
           "productionId": 4,
-          "nameCn": "梦幻模拟战I"
+          "nameCn": "梦幻模拟战I",
+          "nameKo": "랑그릿사I",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "portrait": "assets/portraits/hero-5.png",
@@ -105,7 +107,9 @@
       "origins": [
         {
           "productionId": 5,
-          "nameCn": "梦幻模拟战II"
+          "nameCn": "梦幻模拟战II",
+          "nameKo": "랑그릿사II",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "talent": {
@@ -203,7 +207,9 @@
       "origins": [
         {
           "productionId": 5,
-          "nameCn": "梦幻模拟战II"
+          "nameCn": "梦幻模拟战II",
+          "nameKo": "랑그릿사II",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "talent": {
@@ -307,7 +313,9 @@
       "origins": [
         {
           "productionId": 3,
-          "nameCn": "梦幻模拟战手游I"
+          "nameCn": "梦幻模拟战手游I",
+          "nameKo": "랑그릿사 모바일 Ch.1",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "portrait": "assets/portraits/hero-28.png",
@@ -374,7 +382,9 @@
       "origins": [
         {
           "productionId": 6,
-          "nameCn": "梦幻模拟战III"
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "portrait": "assets/portraits/hero-32.png",
@@ -453,7 +463,9 @@
       "origins": [
         {
           "productionId": 7,
-          "nameCn": "梦幻模拟战IV"
+          "nameCn": "梦幻模拟战IV",
+          "nameKo": "랑그릿사IV",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "portrait": "assets/portraits/hero-52.png",
@@ -526,7 +538,9 @@
       "origins": [
         {
           "productionId": 7,
-          "nameCn": "梦幻模拟战IV"
+          "nameCn": "梦幻模拟战IV",
+          "nameKo": "랑그릿사IV",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "portrait": "assets/portraits/hero-53.png",
