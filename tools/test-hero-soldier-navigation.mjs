@@ -60,6 +60,7 @@ const runtime = [
   extractFunction(frontend, 'makeOriginPresentation'),
   extractFunction(frontend, 'makeTalentDescription'),
   extractFunction(frontend, 'makeTalentPresentation'),
+  extractFunction(frontend, 'makeSpJobPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'addHero'),
 ].join('\n');
