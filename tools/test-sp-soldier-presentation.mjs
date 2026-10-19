@@ -3,23 +3,24 @@ import { renderSpSoldiers } from './generate.mjs';
 import { validateSpSoldierPresentation } from './validate-sp-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats] = await Promise.all([
+const [identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints] = await Promise.all([
   readJson('canonical/soldiers.v1.json'),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
   readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/sp-soldier-base-stats.v1.json'),
   readJson('canonical/sp-soldier-normal-relations.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
+  readJson('canonical/soldier-bf-move-points.v1.json'),
 ]);
-const render = (names = localizations, normalNames = normalLocalizations, stats = baseStats, links = relations, soldiers = identities, normalStats = normalBaseStats) =>
-  renderSpSoldiers(soldiers, names, normalNames, stats, links, normalStats);
+const render = (names = localizations, normalNames = normalLocalizations, stats = baseStats, links = relations, soldiers = identities, normalStats = normalBaseStats, points = movePoints) =>
+  renderSpSoldiers(soldiers, names, normalNames, stats, links, normalStats, points);
 const generated = render();
 const mustFail = (label, action) => {
   let failed = false;
   try { action(); } catch { failed = true; }
   if (!failed) throw new Error(`regression did not fail: ${label}`);
 };
-const validate = (text) => validateSpSoldierPresentation(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, text);
+const validate = (text, points = movePoints) => validateSpSoldierPresentation(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, text, points);
 
 validate(generated);
 mustFail('missing SP localization', () => render({ ...localizations, records: localizations.records.slice(1) }));
@@ -32,8 +33,16 @@ mustFail('missing NORMAL base stats', () => render(localizations, normalLocaliza
 mustFail('duplicate NORMAL base stats', () => render(localizations, normalLocalizations, baseStats, relations, identities, { ...normalBaseStats, records: [...normalBaseStats.records, normalBaseStats.records[0]] }));
 mustFail('missing relation', () => render(localizations, normalLocalizations, baseStats, { ...relations, records: relations.records.slice(1) }));
 mustFail('duplicate relation', () => render(localizations, normalLocalizations, baseStats, { ...relations, records: [...relations.records, relations.records[0]] }));
+mustFail('missing BF_MovePoint', () => render(localizations, normalLocalizations, baseStats, relations, identities, normalBaseStats, { ...movePoints, records: movePoints.records.slice(1) }));
+mustFail('duplicate BF_MovePoint', () => render(localizations, normalLocalizations, baseStats, relations, identities, normalBaseStats, { ...movePoints, records: [...movePoints.records, movePoints.records[0]] }));
 mustFail('identity set mismatch', () => render(localizations, normalLocalizations, baseStats, relations, { ...identities, records: identities.records.filter((r) => r.id !== 5115) }));
 
+const missingMovePoint = JSON.parse(generated);
+delete missingMovePoint.soldiers[0].bfMovePoint;
+mustFail('missing generated BF_MovePoint', () => validate(`${JSON.stringify(missingMovePoint, null, 2)}\n`));
+const wrongMovePoint = JSON.parse(generated);
+wrongMovePoint.soldiers[0].bfMovePoint += 1;
+mustFail('wrong generated BF_MovePoint', () => validate(`${JSON.stringify(wrongMovePoint, null, 2)}\n`));
 const missingName = JSON.parse(generated);
 delete missingName.soldiers[0].normalSoldierNameKo;
 mustFail('generated NORMAL name missing', () => validate(`${JSON.stringify(missingName, null, 2)}\n`));

@@ -615,6 +615,9 @@ function addSpSoldier(soldier) {
   const id = document.createElement('p');
   id.textContent = `SP Soldier ID ${soldier.spSoldierId}`;
   heading.append(name, id);
+  const bfMovePoint = document.createElement('p');
+  bfMovePoint.className = 'soldier-bf-move-point';
+  bfMovePoint.textContent = `BF_MovePoint (원본 값): ${soldier.bfMovePoint}`;
 
   const normal = document.createElement('p');
   normal.className = 'normal-soldier-id';
@@ -653,7 +656,7 @@ function addSpSoldier(soldier) {
   const spStats = makeStats('SP 기본 능력치', soldier.baseStats, 'sp-stat-group');
   const normalStats = makeStats('일반 기본 능력치', soldier.normalSoldierBaseStats, 'normal-stat-group');
   const heroLinks = makeSoldierHeroLinks(soldier.spSoldierId);
-  article.append(heading, normal, spStats, normalStats);
+  article.append(heading, normal, bfMovePoint, spStats, normalStats);
   if (heroLinks) article.append(heroLinks);
   spSoldierContainer.append(article);
 }
@@ -662,7 +665,8 @@ try {
   const response = await fetch('./generated/sp-soldiers.v1.json');
   if (!response.ok) throw new Error(`Generated SP Soldier data request failed (${response.status})`);
   const data = await response.json();
-  if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)) throw new Error('Unsupported SP Soldier data');
+  if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)
+    || !data.soldiers.every((soldier) => Number.isFinite(soldier.bfMovePoint))) throw new Error('Unsupported SP Soldier data');
   spSoldiersByNormalId = indexSpSoldiersByNormalId(data.soldiers);
   spSoldierNavigation = renderSoldierSearch({
     soldiers: data.soldiers, idField: 'spSoldierId', input: spSoldierSearch,
@@ -689,6 +693,9 @@ function addNormalSoldier(soldier) {
   const id = document.createElement('p');
   id.textContent = `일반 용병 ID ${soldier.normalSoldierId}`;
   heading.append(name, id);
+  const bfMovePoint = document.createElement('p');
+  bfMovePoint.className = 'soldier-bf-move-point';
+  bfMovePoint.textContent = `BF_MovePoint (원본 값): ${soldier.bfMovePoint}`;
   const stats = document.createElement('dl');
   stats.className = 'sp-soldier-stats';
   for (const [label, value] of [
@@ -727,7 +734,7 @@ function addNormalSoldier(soldier) {
     }
     linkedSpSection.append(linkedSpHeading, linkedSpList);
   }
-  article.append(heading, stats);
+  article.append(heading, bfMovePoint, stats);
   if (heroLinks) article.append(heroLinks);
   if (linkedSpSection) article.append(linkedSpSection);
   normalSoldierContainer.append(article);
@@ -766,7 +773,8 @@ try {
   const response = await fetch('./generated/normal-soldiers.v1.json');
   if (!response.ok) throw new Error(`Generated NORMAL Soldier data request failed (${response.status})`);
   const data = await response.json();
-  if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)) throw new Error('Unsupported NORMAL Soldier data');
+  if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)
+    || !data.soldiers.every((soldier) => Number.isFinite(soldier.bfMovePoint))) throw new Error('Unsupported NORMAL Soldier data');
   normalSoldierNavigation = renderSoldierSearch({
     soldiers: data.soldiers, idField: 'normalSoldierId', input: normalSoldierSearch,
     clearButton: normalSoldierClear, count: normalSoldierCount, container: normalSoldierContainer,

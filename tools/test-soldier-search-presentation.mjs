@@ -169,6 +169,8 @@ verifySearch({ records: normalData.soldiers, idField: 'normalSoldierId', prefix:
   clear: normalClear, count: normalCount, container: normalSoldierContainer, label: 'NORMAL' });
 verifySearch({ records: spData.soldiers, idField: 'spSoldierId', prefix: 'sp-soldier', control: spInput,
   clear: spClear, count: spCount, container: spSoldierContainer, label: 'SP' });
+for (const soldier of normalData.soldiers) { const card = findById(`normal-soldier-${soldier.normalSoldierId}`, normalSoldierContainer); assert.equal(findByClass('soldier-bf-move-point', card)?.textContent, `BF_MovePoint (원본 값): ${soldier.bfMovePoint}`); }
+for (const soldier of spData.soldiers) { const card = findById(`sp-soldier-${soldier.spSoldierId}`, spSoldierContainer); assert.equal(findByClass('soldier-bf-move-point', card)?.textContent, `BF_MovePoint (원본 값): ${soldier.bfMovePoint}`); }
 
 input(normalInput, String(normalData.soldiers[0].normalSoldierId));
 const normalState = { query: normalInput.value, count: normalCount.textContent, ids: idsIn(normalSoldierContainer, 'normal-soldier-') };
