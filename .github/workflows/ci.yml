@@ -49,6 +49,12 @@ jobs:
       - name: Test Production identity owner
         run: node tools/test-production-identities.mjs
 
+      - name: Validate Production Korean localization
+        run: node tools/validate-production-ko-localization.mjs
+
+      - name: Test Production Korean localization
+        run: node tools/test-production-ko-localization.mjs
+
       - name: Validate Hero-Production relation owner
         run: node tools/validate-hero-production-relations.mjs
 

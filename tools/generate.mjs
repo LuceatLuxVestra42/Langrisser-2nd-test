@@ -29,7 +29,7 @@ function validateTalentDescriptionMarkup(value, label) {
   }
 }
 
-export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations) {
+export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations) {
   if (heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)) throw new Error('Unsupported Hero Korean localization owner');
   if (heroRarities?.schemaVersion !== 1 || !Array.isArray(heroRarities.records)) throw new Error('Unsupported Hero rarity owner');
   if (factionIdentities?.schemaVersion !== 1 || !Array.isArray(factionIdentities.records)) throw new Error('Unsupported Faction identity owner');
@@ -37,6 +37,7 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
     || !Array.isArray(factionLocalizations.untranslatedFactionIds)) throw new Error('Unsupported Faction Korean localization owner');
   if (heroFactionRelations?.schemaVersion !== 1 || !Array.isArray(heroFactionRelations.records)) throw new Error('Unsupported Hero–Faction relation owner');
   if (productionIdentities?.schemaVersion !== 1 || !Array.isArray(productionIdentities.records)) throw new Error('Unsupported Production identity owner');
+  if (productionLocalizations?.schemaVersion !== 1 || !Array.isArray(productionLocalizations.records)) throw new Error('Unsupported Production Korean localization owner');
   if (heroProductionRelations?.schemaVersion !== 1 || !Array.isArray(heroProductionRelations.records)) throw new Error('Unsupported Hero–Production relation owner');
   if (talentRelations?.schemaVersion !== 1 || !Array.isArray(talentRelations.records)) throw new Error('Unsupported Hero Talent star-skill relation owner');
   if (talentLocalizations?.schemaVersion !== 1 || !Array.isArray(talentLocalizations.nameRecords)
@@ -125,6 +126,16 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
     if (productionNameById.has(production.productionId)) throw new Error(`Duplicate Production identity ${production.productionId}`);
     productionNameById.set(production.productionId, production.nameCn);
   }
+  const productionLocalizationById = new Map();
+  for (const localization of productionLocalizations.records) {
+    if (!Number.isSafeInteger(localization.productionId) || typeof localization.nameKo !== 'string' || !localization.nameKo.trim()
+      || localization.evidenceClass !== 'A' || typeof localization.provenance !== 'string') throw new Error('Production Korean localization owner contains a malformed record');
+    if (!productionNameById.has(localization.productionId)) throw new Error('Production localization references unknown Production ' + localization.productionId);
+    if (productionLocalizationById.has(localization.productionId)) throw new Error('Duplicate Production Korean localization ' + localization.productionId);
+    productionLocalizationById.set(localization.productionId, localization.nameKo);
+  }
+  if (productionLocalizationById.size !== productionNameById.size
+    || [...productionNameById.keys()].some((id) => !productionLocalizationById.has(id))) throw new Error('Production Korean localization IDs must exactly match current Production identities');
   const productionIdsByHeroId = new Map();
   const productionPairs = new Set();
   for (const relation of heroProductionRelations.records) {
@@ -197,7 +208,11 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
           throw new Error(`Faction ${factionId} has no admitted Korean localization or explicit untranslated status`);
         });
       const origins = [...productionIdsByHeroId.get(id)].sort((a, b) => a - b)
-        .map((productionId) => ({ productionId, nameCn: productionNameById.get(productionId) }));
+        .map((productionId) => {
+          const nameKo = productionLocalizationById.get(productionId);
+          if (!nameKo) throw new Error('Production ' + productionId + ' has no admitted Korean localization');
+          return { productionId, nameCn: productionNameById.get(productionId), nameKo, localizationStatus: 'PROJECT_REVIEWED' };
+        });
       const talentStars = [...talentRelationByKey.keys()].filter((key) => key.startsWith(`${id}:`))
         .map((key) => Number(key.split(':')[1])).sort((a, b) => a - b);
       const talent = talentStars.length ? {
@@ -451,6 +466,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const talentRelationsPath = resolve('canonical/hero-talent-star-skills.v1.json');
   const talentLocalizationsPath = resolve('canonical/hero-talent-localizations-ko.v1.json');
   const factionLocalizationsPath = resolve('canonical/faction-localizations-ko.v1.json');
+  const productionLocalizationsPath = resolve('canonical/production-localizations-ko.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
   const canonical = JSON.parse(await readFile(inputPath, 'utf8'));
   const heroLocalization = JSON.parse(await readFile(heroLocalizationPath, 'utf8'));
@@ -469,7 +485,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(talentRelationsPath, 'utf8'), readFile(talentLocalizationsPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const factionLocalizations = JSON.parse(await readFile(factionLocalizationsPath, 'utf8'));
-  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations), 'utf8');
+  const productionLocalizations = JSON.parse(await readFile(productionLocalizationsPath, 'utf8'));
+  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

@@ -154,18 +154,18 @@ function makeOriginPresentation(origins) {
   const section = document.createElement('section');
   section.className = 'hero-origins';
   const heading = document.createElement('h3');
-  heading.textContent = '출전작 · 중국어 원문';
+  heading.textContent = '출전작 · 프로젝트 검수 한국어명';
   const list = document.createElement('ul');
   list.className = 'hero-origin-list';
   const seen = new Set();
   for (const origin of origins) {
     if (!Number.isSafeInteger(origin.productionId) || typeof origin.nameCn !== 'string' || !origin.nameCn.trim()
-      || seen.has(origin.productionId)) {
-      throw new Error('Generated Hero Production presentation is malformed');
-    }
+      || typeof origin.nameKo !== 'string' || !origin.nameKo.trim() || origin.localizationStatus !== 'PROJECT_REVIEWED'
+      || Object.keys(origin).sort().join('|') !== ['localizationStatus', 'nameCn', 'nameKo', 'productionId'].sort().join('|')
+      || seen.has(origin.productionId)) throw new Error('Generated Hero Production presentation is malformed');
     seen.add(origin.productionId);
     const item = document.createElement('li');
-    item.textContent = origin.nameCn;
+    item.textContent = origin.nameKo + ' (' + origin.nameCn + ')';
     list.append(item);
   }
   section.append(heading, list);

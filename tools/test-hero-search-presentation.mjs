@@ -131,12 +131,12 @@ for (const hero of heroData.heroes) {
   assert.equal(label.attributes['aria-label'], `희귀도 ${hero.rarity.label}`);
 }
 assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\)\)/);
-assert.match(html, /진영 한국어명·출전작 중국어 원문/);
-assert.match(html, /출전작 중국어 원문/);
+assert.match(html, /진영 한국어명과 출전작 프로젝트 검수 한국어명·중국어 원문/);
+assert.match(html, /공식 한국 서버 표기는 확인되지 않았습니다/);
 assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions\)\)/);
 assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
-assert.match(frontend, /heading\.textContent = '출전작 · 중국어 원문'/);
+assert.match(frontend, /heading\.textContent = '출전작 · 프로젝트 검수 한국어명'/);
 const expectedFactionIds = new Map([[5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]], [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]]]);
 const expectedFactionNames = new Map([[1, '시대의 주역'], [2, '빛의 군단'], [4, '제국의 빛'], [5, '어둠의 윤회'], [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역']]);
 assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
@@ -153,21 +153,20 @@ for (const hero of heroData.heroes) {
   assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map((faction) => `${faction.nameKo} (${faction.nameCn})`));
 }
 const expectedOrigins = new Map([
-  [5, [{ productionId: 4, nameCn: '梦幻模拟战I' }]],
-  [6, [{ productionId: 5, nameCn: '梦幻模拟战II' }]],
-  [8, [{ productionId: 5, nameCn: '梦幻模拟战II' }]],
-  [28, [{ productionId: 3, nameCn: '梦幻模拟战手游I' }]],
-  [32, [{ productionId: 6, nameCn: '梦幻模拟战III' }]],
-  [52, [{ productionId: 7, nameCn: '梦幻模拟战IV' }]],
-  [53, [{ productionId: 7, nameCn: '梦幻模拟战IV' }]],
+  [5, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [6, [{ productionId: 5, nameCn: '梦幻模拟战II', nameKo: '랑그릿사II', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [8, [{ productionId: 5, nameCn: '梦幻模拟战II', nameKo: '랑그릿사II', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [28, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [32, [{ productionId: 6, nameCn: '梦幻模拟战III', nameKo: '랑그릿사III', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [52, [{ productionId: 7, nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [53, [{ productionId: 7, nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV', localizationStatus: 'PROJECT_REVIEWED' }]],
 ]);
 for (const hero of heroData.heroes) {
   assert.deepEqual(hero.origins, expectedOrigins.get(hero.id), `Production IDs and Chinese names for Hero ${hero.id}`);
   const section = functions.makeOriginPresentation(hero.origins);
   assert.equal(section.className, 'hero-origins');
-  assert.equal(section.children[0].textContent, '출전작 · 중국어 원문');
-  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.origins.map(({ nameCn }) => nameCn));
-  assert.ok(hero.origins.every(({ nameCn }) => !/몽환|랑그릿사|전설의 저편/.test(nameCn)), 'no Korean fallback is used for Production names');
+  assert.equal(section.children[0].textContent, '출전작 · 프로젝트 검수 한국어명');
+  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.origins.map(({ nameKo, nameCn }) => nameKo + ' (' + nameCn + ')'));
 }
 
 const exclusiveHero = heroData.heroes[0];

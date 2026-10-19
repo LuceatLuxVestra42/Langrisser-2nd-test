@@ -23,6 +23,7 @@ const heroRarities = await readJson('canonical/hero-rarities.v1.json');
 const factionIdentities = await readJson('canonical/faction-identities.v1.json');
 const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
 const factionLocalizations = await readJson('canonical/faction-localizations-ko.v1.json');
+const productionLocalizations = await readJson('canonical/production-localizations-ko.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
@@ -228,7 +229,7 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
@@ -258,8 +259,9 @@ for (const hero of generatedJson.heroes) {
   check(Array.isArray(hero.origins) && hero.origins.length > 0, `Hero ${hero.id} generated Production list is missing`);
   const originIds = new Set();
   for (const origin of hero.origins) {
-    exactKeys(origin, ['productionId', 'nameCn'], `Hero ${hero.id} generated Production`);
+    exactKeys(origin, ['productionId', 'nameCn', 'nameKo', 'localizationStatus'], `Hero ${hero.id} generated Production`);
     check(Number.isSafeInteger(origin.productionId) && typeof origin.nameCn === 'string' && origin.nameCn.trim()
+      && typeof origin.nameKo === 'string' && origin.nameKo.trim() && origin.localizationStatus === 'PROJECT_REVIEWED'
       && !originIds.has(origin.productionId), `Hero ${hero.id} generated Production is malformed or duplicated`);
     originIds.add(origin.productionId);
   }
@@ -268,7 +270,8 @@ for (const hero of generatedJson.heroes) {
   const expectedOrigins = heroProductionRelations.records.filter((relation) => relation.heroId === hero.id)
     .map((relation) => {
       const identity = productionIdentities.records.find((record) => record.productionId === relation.productionId);
-      return identity && { productionId: identity.productionId, nameCn: identity.nameCn };
+      const localization = productionLocalizations.records.find((record) => record.productionId === relation.productionId);
+      return identity && localization && { productionId: identity.productionId, nameCn: identity.nameCn, nameKo: localization.nameKo, localizationStatus: 'PROJECT_REVIEWED' };
     })
     .sort((a, b) => a.productionId - b.productionId);
   check(JSON.stringify(hero.origins) === JSON.stringify(expectedOrigins), `Hero ${hero.id} generated Production data differs from Canonical ID JOIN`);
