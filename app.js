@@ -130,17 +130,19 @@ function makeFactionPresentation(factions) {
   const section = document.createElement('section');
   section.className = 'hero-factions';
   const heading = document.createElement('h3');
-  heading.textContent = '진영 · 중국어 원문';
+  heading.textContent = '진영 · 한국어명';
   const list = document.createElement('ul');
   list.className = 'hero-faction-list';
   const seen = new Set();
   for (const faction of factions) {
-    if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim() || seen.has(faction.factionId)) {
-      throw new Error('Generated Hero Faction presentation is malformed');
-    }
+    const localized = faction.localizationStatus === 'PROJECT_REVIEWED';
+    const expectedKeys = localized ? ['factionId', 'nameCn', 'nameKo', 'localizationStatus'] : ['factionId', 'nameCn', 'localizationStatus'];
+    if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim()
+      || (localized ? typeof faction.nameKo !== 'string' || !faction.nameKo.trim() : faction.localizationStatus !== 'UNTRANSLATED')
+      || Object.keys(faction).sort().join('|') !== expectedKeys.sort().join('|') || seen.has(faction.factionId)) throw new Error('Generated Hero Faction presentation is malformed');
     seen.add(faction.factionId);
     const item = document.createElement('li');
-    item.textContent = faction.nameCn;
+    item.textContent = localized ? `${faction.nameKo} (${faction.nameCn})` : `미번역 · ${faction.nameCn}`;
     list.append(item);
   }
   section.append(heading, list);

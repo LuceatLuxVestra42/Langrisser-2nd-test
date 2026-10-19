@@ -131,21 +131,26 @@ for (const hero of heroData.heroes) {
   assert.equal(label.attributes['aria-label'], `희귀도 ${hero.rarity.label}`);
 }
 assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\)\)/);
-assert.match(html, /진영·출전작 중국어 원문/);
+assert.match(html, /진영 한국어명·출전작 중국어 원문/);
 assert.match(html, /출전작 중국어 원문/);
 assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions\)\)/);
 assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
-assert.match(frontend, /heading\.textContent = '진영 · 중국어 원문'/);
+assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
 assert.match(frontend, /heading\.textContent = '출전작 · 중국어 원문'/);
 const expectedFactionIds = new Map([[5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]], [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]]]);
+const expectedFactionNames = new Map([[1, '시대의 주역'], [2, '빛의 군단'], [4, '제국의 빛'], [5, '어둠의 윤회'], [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역']]);
 assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
 for (const hero of heroData.heroes) {
   assert.deepEqual(hero.factions.map(({ factionId }) => factionId), expectedFactionIds.get(hero.id), `Faction IDs for Hero ${hero.id}`);
-  assert.ok(hero.factions.every(({ nameCn }) => nameCn && !/시대의 주역|빛의 군단|제국의 빛|어둠의 윤회|공주 연맹|전략의 대가|메테오 스트라이크|전설의 저편|초월 영역/.test(nameCn)));
+  for (const faction of hero.factions) {
+    assert.ok(faction.nameCn);
+    assert.equal(faction.nameKo, expectedFactionNames.get(faction.factionId));
+    assert.equal(faction.localizationStatus, 'PROJECT_REVIEWED');
+  }
   const section = functions.makeFactionPresentation(hero.factions);
   assert.equal(section.className, 'hero-factions');
-  assert.equal(section.children[0].textContent, '진영 · 중국어 원문');
-  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map(({ nameCn }) => nameCn));
+  assert.equal(section.children[0].textContent, '진영 · 한국어명');
+  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map((faction) => `${faction.nameKo} (${faction.nameCn})`));
 }
 const expectedOrigins = new Map([
   [5, [{ productionId: 4, nameCn: '梦幻模拟战I' }]],

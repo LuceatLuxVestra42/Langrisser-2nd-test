@@ -21,13 +21,14 @@ const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-loc
 const heroRarities = await readJson('canonical/hero-rarities.v1.json');
 const factionIdentities = await readJson('canonical/faction-identities.v1.json');
 const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
+const factionLocalizations = await readJson('canonical/faction-localizations-ko.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -161,8 +162,10 @@ for (const hero of generated.heroes) {
   if (!Array.isArray(hero.factions) || hero.factions.length === 0) throw new Error(`malformed generated Faction list for Hero ${hero.id}`);
   const factionIds = new Set();
   for (const faction of hero.factions) {
-    exactKeys(faction, ['factionId', 'nameCn'], `generated Hero ${hero.id} Faction`);
+    const localized = faction.localizationStatus === 'PROJECT_REVIEWED';
+    exactKeys(faction, localized ? ['factionId', 'nameCn', 'nameKo', 'localizationStatus'] : ['factionId', 'nameCn', 'localizationStatus'], `generated Hero ${hero.id} Faction`);
     if (!Number.isSafeInteger(faction.factionId) || typeof faction.nameCn !== 'string' || !faction.nameCn.trim()
+      || (localized ? typeof faction.nameKo !== 'string' || !faction.nameKo.trim() : faction.localizationStatus !== 'UNTRANSLATED')
       || factionIds.has(faction.factionId)) throw new Error(`malformed or duplicate generated Faction for Hero ${hero.id}`);
     factionIds.add(faction.factionId);
   }

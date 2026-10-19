@@ -12,15 +12,21 @@
       "factions": [
         {
           "factionId": 1,
-          "nameCn": "主角光环"
+          "nameCn": "主角光环",
+          "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 2,
-          "nameCn": "光辉军团"
+          "nameCn": "光辉军团",
+          "nameKo": "빛의 군단",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 6,
-          "nameCn": "公主联盟"
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
@@ -85,11 +91,15 @@
       "factions": [
         {
           "factionId": 4,
-          "nameCn": "帝国之辉"
+          "nameCn": "帝国之辉",
+          "nameKo": "제국의 빛",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 7,
-          "nameCn": "战略大师"
+          "nameCn": "战略大师",
+          "nameKo": "전략의 대가",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
@@ -179,11 +189,15 @@
       "factions": [
         {
           "factionId": 5,
-          "nameCn": "黑暗轮回"
+          "nameCn": "黑暗轮回",
+          "nameKo": "어둠의 윤회",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 6,
-          "nameCn": "公主联盟"
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
@@ -273,15 +287,21 @@
       "factions": [
         {
           "factionId": 5,
-          "nameCn": "黑暗轮回"
+          "nameCn": "黑暗轮回",
+          "nameKo": "어둠의 윤회",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 8,
-          "nameCn": "流星直击"
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 11,
-          "nameCn": "超凡领域"
+          "nameCn": "超凡领域",
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
@@ -340,11 +360,15 @@
       "factions": [
         {
           "factionId": 4,
-          "nameCn": "帝国之辉"
+          "nameCn": "帝国之辉",
+          "nameKo": "제국의 빛",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 7,
-          "nameCn": "战略大师"
+          "nameCn": "战略大师",
+          "nameKo": "전략의 대가",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
@@ -409,15 +433,21 @@
       "factions": [
         {
           "factionId": 6,
-          "nameCn": "公主联盟"
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 8,
-          "nameCn": "流星直击"
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 9,
-          "nameCn": "传说彼端"
+          "nameCn": "传说彼端",
+          "nameKo": "전설의 저편",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
@@ -482,11 +512,15 @@
       "factions": [
         {
           "factionId": 7,
-          "nameCn": "战略大师"
+          "nameCn": "战略大师",
+          "nameKo": "전략의 대가",
+          "localizationStatus": "PROJECT_REVIEWED"
         },
         {
           "factionId": 9,
-          "nameCn": "传说彼端"
+          "nameCn": "传说彼端",
+          "nameKo": "전설의 저편",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [

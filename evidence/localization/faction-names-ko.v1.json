@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
+  "sourceDescription": "Korean display-name mapping explicitly supplied in the user instruction for this task.",
+  "officialKrProvenanceStatus": "unverified",
+  "scope": {
+    "claim": "Project-reviewed Korean Faction display label by exact existing Canonical FactionID.",
+    "factionIds": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11
+    ],
+    "consumer": "Current seven-Hero presentation slice only."
+  },
+  "records": [
+    {
+      "factionId": 1,
+      "nameKo": "시대의 주역",
+      "locator": "user-instruction#FactionID=1",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "主角光环"
+    },
+    {
+      "factionId": 2,
+      "nameKo": "빛의 군단",
+      "locator": "user-instruction#FactionID=2",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "光辉军团"
+    },
+    {
+      "factionId": 4,
+      "nameKo": "제국의 빛",
+      "locator": "user-instruction#FactionID=4",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "帝国之辉"
+    },
+    {
+      "factionId": 5,
+      "nameKo": "어둠의 윤회",
+      "locator": "user-instruction#FactionID=5",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "黑暗轮回"
+    },
+    {
+      "factionId": 6,
+      "nameKo": "공주 연맹",
+      "locator": "user-instruction#FactionID=6",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "公主联盟"
+    },
+    {
+      "factionId": 7,
+      "nameKo": "전략의 대가",
+      "locator": "user-instruction#FactionID=7",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "战略大师"
+    },
+    {
+      "factionId": 8,
+      "nameKo": "메테오 스트라이크",
+      "locator": "user-instruction#FactionID=8",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "流星直击"
+    },
+    {
+      "factionId": 9,
+      "nameKo": "전설의 저편",
+      "locator": "user-instruction#FactionID=9",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "传说彼端"
+    },
+    {
+      "factionId": 11,
+      "nameKo": "초월 영역",
+      "nameCn": "超凡领域",
+      "locator": "user-instruction#FactionID=11",
+      "reviewStatus": "PROJECT_REVIEWED"
+    }
+  ],
+  "limitations": [
+    "Official Korean-server terminology and release status are unverified.",
+    "Faction 3 is outside the current Canonical population and this localization scope; its supplied label is not admitted.",
+    "This input supports display localization only; it does not establish identity, population, relation, release status, or mechanics."
+  ],
+  "outOfScope": [
+    {
+      "factionId": 3,
+      "nameCn": "光之起源",
+      "nameKo": "빛의 기원",
+      "status": "OUT_OF_SCOPE",
+      "reason": "Faction 3 is outside the current Canonical population scoped to the admitted seven-Hero relation slice; no Identity, Relation, or Canonical localization is admitted."
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Project-reviewed Korean Faction display localization only; not Faction identity, population, relation, release status, or official Korean-server authority.",
+  "sourceScope": "Exact FactionID mapping for the nine explicitly supplied project-reviewed Korean labels that exist in the current Canonical identity owner. Faction 3 is outside the current Canonical population and this localization scope.",
+  "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
+  "officialKrProvenanceStatus": "unverified",
+  "evidence": "evidence/localization/faction-names-ko.v1.json",
+  "untranslatedFactionIds": [],
+  "records": [
+    {
+      "factionId": 1,
+      "nameKo": "시대의 주역",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=1"
+    },
+    {
+      "factionId": 2,
+      "nameKo": "빛의 군단",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=2"
+    },
+    {
+      "factionId": 4,
+      "nameKo": "제국의 빛",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=4"
+    },
+    {
+      "factionId": 5,
+      "nameKo": "어둠의 윤회",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=5"
+    },
+    {
+      "factionId": 6,
+      "nameKo": "공주 연맹",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=6"
+    },
+    {
+      "factionId": 7,
+      "nameKo": "전략의 대가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=7"
+    },
+    {
+      "factionId": 8,
+      "nameKo": "메테오 스트라이크",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=8"
+    },
+    {
+      "factionId": 9,
+      "nameKo": "전설의 저편",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=9"
+    },
+    {
+      "factionId": 11,
+      "nameKo": "초월 영역",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=11"
+    }
+  ]
+}

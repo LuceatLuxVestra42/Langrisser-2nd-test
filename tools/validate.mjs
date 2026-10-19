@@ -22,6 +22,7 @@ const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-loc
 const heroRarities = await readJson('canonical/hero-rarities.v1.json');
 const factionIdentities = await readJson('canonical/faction-identities.v1.json');
 const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
+const factionLocalizations = await readJson('canonical/faction-localizations-ko.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
@@ -227,7 +228,7 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
@@ -249,8 +250,10 @@ for (const hero of generatedJson.heroes) {
   }
   check(Array.isArray(hero.factions) && hero.factions.length > 0, `Hero ${hero.id} generated Faction list is missing`);
   for (const faction of hero.factions) {
-    exactKeys(faction, ['factionId', 'nameCn'], `Hero ${hero.id} generated Faction`);
+    const localized = faction.localizationStatus === 'PROJECT_REVIEWED';
+    exactKeys(faction, localized ? ['factionId', 'nameCn', 'nameKo', 'localizationStatus'] : ['factionId', 'nameCn', 'localizationStatus'], `Hero ${hero.id} generated Faction`);
     check(Number.isSafeInteger(faction.factionId) && typeof faction.nameCn === 'string' && faction.nameCn.trim(), `Hero ${hero.id} generated Faction is malformed`);
+    check(localized ? typeof faction.nameKo === 'string' && faction.nameKo.trim() : faction.localizationStatus === 'UNTRANSLATED', `Hero ${hero.id} generated Faction localization state is malformed`);
   }
   check(Array.isArray(hero.origins) && hero.origins.length > 0, `Hero ${hero.id} generated Production list is missing`);
   const originIds = new Set();
