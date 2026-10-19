@@ -172,7 +172,10 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
     nameByHeroId.set(localization.heroId, localization.nameKo);
   }
   const nameByJobId = new Map(jobLocalization.records.map(({ jobId, nameKo }) => [jobId, nameKo]));
-  const SP_JOB_PRESENTATION_TARGETS = [{ heroId: 6, jobId: 377 }];
+  const SP_JOB_PRESENTATION_TARGETS = [
+    { heroId: 6, jobId: 377, nameKo: '어둠의 청룡' },
+    { heroId: 8, jobId: 864, nameKo: '단죄의 성녀' },
+  ];
   const spJobPresentationByHeroId = new Map();
   for (const target of SP_JOB_PRESENTATION_TARGETS) {
     const targetHero = canonical.records.find((hero) => hero.id === target.heroId);
@@ -187,7 +190,7 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
       throw new Error(`Canonical Hero–SP Job relation ${target.heroId}:${target.jobId} is missing, duplicated, or has unexpected provenance`);
     }
     const localizationRows = jobLocalization.records.filter((localization) => localization.jobId === target.jobId);
-    if (localizationRows.length !== 1 || localizationRows[0].nameKo !== '어둠의 청룡'
+    if (localizationRows.length !== 1 || localizationRows[0].nameKo !== target.nameKo
       || localizationRows[0].evidenceClass !== 'A'
       || localizationRows[0].provenance !== `evidence/localization/sp-job-namespace.v1.json#jobId=${target.jobId}`
       || jobLocalization.sourceScope !== 'KR display text from preserved project source; official KR provenance unverified') {

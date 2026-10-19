@@ -240,11 +240,15 @@ check(generatedJson.heroes.every((hero) => {
   if (talentRelations.records.some((row) => row.heroId === hero.id)) expectedKeys.push('talent');
   return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());
 }), 'generated consumer contains non-presentation fields');
+const expectedSpJobsByHeroId = new Map([
+  [6, [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [8, [{ jobId: 864, nameKo: '단죄의 성녀', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+]);
 for (const hero of generatedJson.heroes) {
   check(Array.isArray(hero.spJobConnections), `Hero ${hero.id} generated SP Job list is missing`);
-  const expectedSpJobs = hero.id === 6 ? [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }] : [];
+  const expectedSpJobs = expectedSpJobsByHeroId.get(hero.id) ?? [];
   check(JSON.stringify(hero.spJobConnections) === JSON.stringify(expectedSpJobs), `Hero ${hero.id} generated SP Job presentation scope or values drift`);
-  check(!hero.jobConnections.some((connection) => connection.jobId === 377), `SP Job 377 was duplicated into Hero ${hero.id} ordinary Job connections`);
+  check(!hero.jobConnections.some((connection) => [377, 864].includes(connection.jobId)), `SP Job was duplicated into Hero ${hero.id} ordinary Job connections`);
 }
 for (const hero of generatedJson.heroes) {
   if (hero.talent !== undefined) {
