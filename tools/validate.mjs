@@ -249,6 +249,25 @@ for (const hero of generatedJson.heroes) {
   const expectedSpJobs = expectedSpJobsByHeroId.get(hero.id) ?? [];
   check(JSON.stringify(hero.spJobConnections) === JSON.stringify(expectedSpJobs), `Hero ${hero.id} generated SP Job presentation scope or values drift`);
   check(!hero.jobConnections.some((connection) => [377, 864].includes(connection.jobId)), `SP Job was duplicated into Hero ${hero.id} ordinary Job connections`);
+  const expectedClassifiedConnections = hero.id === 53 ? [{
+    connectionId: 536,
+    jobId: 426,
+    sourceField: 'JobConnection_ID',
+    jobNameKo: '빛나는 지략가',
+    classification: 'SP Job',
+    localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+    officialKrProvenanceStatus: 'UNVERIFIED',
+  }] : [];
+  const actualClassifiedConnections = hero.jobConnections.filter((connection) => connection.classification !== undefined);
+  check(JSON.stringify(actualClassifiedConnections) === JSON.stringify(expectedClassifiedConnections),
+    `Hero ${hero.id} generated SP classification scope or values drift`);
+  for (const connection of hero.jobConnections) {
+    const isSpClassified = connection.classification !== undefined;
+    exactKeys(connection, isSpClassified
+      ? ['connectionId', 'jobId', 'sourceField', 'jobNameKo', 'classification', 'localizationClassification', 'officialKrProvenanceStatus']
+      : ['connectionId', 'jobId', 'sourceField', 'jobNameKo'],
+    `Hero ${hero.id} generated Job connection ${connection.jobId}`);
+  }
 }
 for (const hero of generatedJson.heroes) {
   if (hero.talent !== undefined) {

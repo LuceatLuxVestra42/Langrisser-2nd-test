@@ -252,6 +252,21 @@ function makeSpJobPresentation(spJobConnections) {
   return section;
 }
 
+function makeJobConnectionLabel(relation) {
+  if (relation.classification === 'SP Job') {
+    if (relation.localizationClassification !== 'PROJECT_REVIEWED_LOCALIZATION'
+      || relation.officialKrProvenanceStatus !== 'UNVERIFIED') {
+      throw new Error(`Malformed SP Job localization status for Job ${relation.jobId}`);
+    }
+    return `SP Job · ${relation.jobNameKo} (전직 ID ${relation.jobId}) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인`;
+  }
+  if (relation.classification !== undefined || relation.localizationClassification !== undefined
+    || relation.officialKrProvenanceStatus !== undefined) {
+    throw new Error(`Unexpected Job classification metadata for Job ${relation.jobId}`);
+  }
+  return `연결 ${relation.connectionId} → ${relation.jobNameKo} (전직 ID ${relation.jobId})`;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -280,7 +295,7 @@ function addHero(hero, relationsByHero, soldiersById) {
   connections.setAttribute('aria-label', `${hero.nameKo}의 전직 연결과 한국어 표시명`);
   for (const relation of hero.jobConnections) {
     const item = document.createElement('li');
-    item.textContent = `연결 ${relation.connectionId} → ${relation.jobNameKo} (전직 ID ${relation.jobId})`;
+    item.textContent = makeJobConnectionLabel(relation);
     connections.append(item);
   }
   article.append(image, details);

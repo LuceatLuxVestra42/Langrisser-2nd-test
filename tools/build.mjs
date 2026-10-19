@@ -192,9 +192,17 @@ for (const hero of generated.heroes) {
     throw new Error(`malformed or out-of-scope SP Job presentation for Hero ${hero.id}`);
   }
   for (const relation of hero.jobConnections) {
-    exactKeys(relation, ['connectionId', 'jobId', 'sourceField', 'jobNameKo'], `generated Hero ${hero.id} Job relation`);
+    const isSpClassified = hero.id === 53 && relation.jobId === 426;
+    exactKeys(relation, isSpClassified
+      ? ['connectionId', 'jobId', 'sourceField', 'jobNameKo', 'classification', 'localizationClassification', 'officialKrProvenanceStatus']
+      : ['connectionId', 'jobId', 'sourceField', 'jobNameKo'],
+    `generated Hero ${hero.id} Job relation`);
     if (!Number.isInteger(relation.connectionId) || !Number.isInteger(relation.jobId) || typeof relation.sourceField !== 'string'
-      || typeof relation.jobNameKo !== 'string' || !relation.jobNameKo) {
+      || typeof relation.jobNameKo !== 'string' || !relation.jobNameKo
+      || (isSpClassified && (relation.connectionId !== 536 || relation.sourceField !== 'JobConnection_ID'
+        || relation.jobNameKo !== '빛나는 지략가' || relation.classification !== 'SP Job'
+        || relation.localizationClassification !== 'PROJECT_REVIEWED_LOCALIZATION'
+        || relation.officialKrProvenanceStatus !== 'UNVERIFIED'))) {
       throw new Error(`malformed generated Job relation for Hero ${hero.id}`);
     }
   }
