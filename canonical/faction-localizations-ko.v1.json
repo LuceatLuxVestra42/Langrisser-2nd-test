@@ -1,13 +1,11 @@
 {
   "schemaVersion": 1,
   "purpose": "Project-reviewed Korean Faction display localization only; not Faction identity, population, relation, release status, or official Korean-server authority.",
-  "sourceScope": "Exact FactionID mapping for the eight explicitly supplied Korean labels that exist in the current Canonical identity owner. Faction 11 remains explicitly untranslated; Faction 3 is excluded because it is not a current Canonical identity.",
+  "sourceScope": "Exact FactionID mapping for the nine explicitly supplied project-reviewed Korean labels that exist in the current Canonical identity owner. Faction 3 is outside the current Canonical population and this localization scope.",
   "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
   "officialKrProvenanceStatus": "unverified",
   "evidence": "evidence/localization/faction-names-ko.v1.json",
-  "untranslatedFactionIds": [
-    11
-  ],
+  "untranslatedFactionIds": [],
   "records": [
     {
       "factionId": 1,
@@ -56,6 +54,12 @@
       "nameKo": "전설의 저편",
       "evidenceClass": "A",
       "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=9"
+    },
+    {
+      "factionId": 11,
+      "nameKo": "초월 영역",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=11"
     }
   ]
 }

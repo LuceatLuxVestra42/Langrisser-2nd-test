@@ -300,7 +300,8 @@
         {
           "factionId": 11,
           "nameCn": "超凡领域",
-          "localizationStatus": "UNTRANSLATED"
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
         }
       ],
       "origins": [
