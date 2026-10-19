@@ -23,13 +23,15 @@ const factionIdentities = await readJson('canonical/faction-identities.v1.json')
 const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
 const factionLocalizations = await readJson('canonical/faction-localizations-ko.v1.json');
 const productionLocalizations = await readJson('canonical/production-localizations-ko.v1.json');
+const heroJobRelations = await readJson('canonical/hero-job-relations.v1.json');
+const spJobIdentities = await readJson('canonical/sp-job-identities.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -153,7 +155,7 @@ const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
 for (const hero of generated.heroes) {
-  const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'exclusiveEquipment', 'factions', 'origins'];
+  const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'spJobConnections', 'exclusiveEquipment', 'factions', 'origins'];
   if (talentRelations.records.some((row) => row.heroId === hero.id)) heroKeys.push('talent');
   exactKeys(hero, heroKeys, `generated Hero ${hero.id}`);
   if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || typeof hero.nameKo !== 'string' || !hero.nameKo || !Array.isArray(hero.jobConnections)) {
@@ -179,6 +181,17 @@ for (const hero of generated.heroes) {
       || typeof origin.nameKo !== 'string' || !origin.nameKo.trim() || origin.localizationStatus !== 'PROJECT_REVIEWED'
       || productionIds.has(origin.productionId)) throw new Error(`malformed or duplicate generated Production for Hero ${hero.id}`);
     productionIds.add(origin.productionId);
+  }
+  const expectedSpJobs = hero.id === 6 ? [{
+    jobId: 377,
+    nameKo: '어둠의 청룡',
+    classification: 'SP Job',
+    localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+    officialKrProvenanceStatus: 'UNVERIFIED',
+  }] : [];
+  if (!Array.isArray(hero.spJobConnections) || JSON.stringify(hero.spJobConnections) !== JSON.stringify(expectedSpJobs)
+    || hero.jobConnections.some((relation) => relation.jobId === 377)) {
+    throw new Error(`malformed or out-of-scope SP Job presentation for Hero ${hero.id}`);
   }
   for (const relation of hero.jobConnections) {
     exactKeys(relation, ['connectionId', 'jobId', 'sourceField', 'jobNameKo'], `generated Hero ${hero.id} Job relation`);

@@ -85,6 +85,7 @@ const runtime = [
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
+  extractFunction(frontend, 'makeSpJobPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'filterHeroes'),
   extractFunction(frontend, 'renderHeroSearch'),
@@ -97,7 +98,7 @@ const functions = runInNewContext(`(() => {
   const exclusiveEquipmentContainer = container;
   ${runtime}
   return {
-    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeOriginPresentation, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
+    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeOriginPresentation, makeSpJobPresentation, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
     startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, count, emptyState }); return heroNavigation; },
     setExclusiveEquipmentHeroById(value) { exclusiveEquipmentHeroById = value; },
   };
@@ -152,6 +153,23 @@ for (const hero of heroData.heroes) {
   assert.equal(section.children[0].textContent, '진영 · 한국어명');
   assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map((faction) => `${faction.nameKo} (${faction.nameCn})`));
 }
+const hero6SpJobs = heroData.heroes.find(({ id }) => id === 6).spJobConnections;
+assert.deepEqual(hero6SpJobs, [{
+  jobId: 377,
+  nameKo: '어둠의 청룡',
+  classification: 'SP Job',
+  localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+  officialKrProvenanceStatus: 'UNVERIFIED',
+}]);
+assert.ok(!heroData.heroes.find(({ id }) => id === 6).jobConnections.some(({ jobId }) => jobId === 377));
+for (const hero of heroData.heroes.filter(({ id }) => id !== 6)) assert.deepEqual(hero.spJobConnections, [], `SP Job presentation scope for Hero ${hero.id}`);
+const spSection = functions.makeSpJobPresentation(hero6SpJobs);
+assert.equal(spSection.className, 'sp-job-presentation');
+assert.equal(spSection.children[0].children[0].textContent, 'SP Job · 어둠의 청룡 (전직 ID 377) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인');
+assert.equal(functions.makeSpJobPresentation([]), null);
+assert.match(frontend, /makeSpJobPresentation\(hero\.spJobConnections\)/);
+assert.match(frontend, /article\.append\(spJobPresentation\)/);
+
 const expectedOrigins = new Map([
   [5, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],
   [6, [{ productionId: 5, nameCn: '梦幻模拟战II', nameKo: '랑그릿사II', localizationStatus: 'PROJECT_REVIEWED' }]],
