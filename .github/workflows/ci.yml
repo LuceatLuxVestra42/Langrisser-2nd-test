@@ -37,6 +37,12 @@ jobs:
       - name: Validate Hero-Faction relation owner
         run: node tools/validate-hero-faction-relations.mjs
 
+      - name: Validate Faction Korean localization
+        run: node tools/validate-faction-ko-localization.mjs
+
+      - name: Test Faction Korean localization
+        run: node tools/test-faction-ko-localization.mjs
+
       - name: Validate Production identity owner
         run: node tools/validate-production-identities.mjs
 
