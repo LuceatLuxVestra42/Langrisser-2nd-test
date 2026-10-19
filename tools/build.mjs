@@ -173,8 +173,9 @@ for (const hero of generated.heroes) {
   if (!Array.isArray(hero.origins) || hero.origins.length === 0) throw new Error(`malformed generated Production list for Hero ${hero.id}`);
   const productionIds = new Set();
   for (const origin of hero.origins) {
-    exactKeys(origin, ['productionId', 'nameCn'], `generated Hero ${hero.id} Production`);
+    exactKeys(origin, ['productionId', 'nameCn', 'nameKo', 'localizationStatus'], `generated Hero ${hero.id} Production`);
     if (!Number.isSafeInteger(origin.productionId) || typeof origin.nameCn !== 'string' || !origin.nameCn.trim()
+      || typeof origin.nameKo !== 'string' || !origin.nameKo.trim() || origin.localizationStatus !== 'PROJECT_REVIEWED'
       || productionIds.has(origin.productionId)) throw new Error(`malformed or duplicate generated Production for Hero ${hero.id}`);
     productionIds.add(origin.productionId);
   }
