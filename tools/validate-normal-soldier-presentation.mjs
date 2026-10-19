@@ -9,8 +9,8 @@ const exactKeys = (value, expected, label) => {
   if (JSON.stringify(actual) !== JSON.stringify(wanted)) throw new Error(`${label} fields were ${actual.join(',')}; expected ${wanted.join(',')}`);
 };
 
-export function validateNormalSoldierPresentation(identities, localizations, baseStats, generatedText) {
-  const expectedText = renderNormalSoldiers(identities, localizations, baseStats);
+export function validateNormalSoldierPresentation(identities, localizations, baseStats, generatedText, movePoints) {
+  const expectedText = renderNormalSoldiers(identities, localizations, baseStats, movePoints);
   if (generatedText !== expectedText) throw new Error('generated NORMAL Soldier presentation is stale or non-deterministic');
   const generated = JSON.parse(generatedText);
   exactKeys(generated, ['schemaVersion', 'soldiers'], 'generated NORMAL Soldier data');
@@ -22,8 +22,8 @@ export function validateNormalSoldierPresentation(identities, localizations, bas
   if (new Set(actualIds).size !== actualIds.length) throw new Error('NORMAL Soldier IDs are not unique');
   if (JSON.stringify(actualIds) !== JSON.stringify(expectedIds)) throw new Error('generated NORMAL Soldier IDs differ from current canonical identity set or ordering');
   for (const record of generated.soldiers) {
-    exactKeys(record, ['normalSoldierId', 'nameKo', 'baseStats'], `NORMAL Soldier ${record.normalSoldierId}`);
-    if (!Number.isInteger(record.normalSoldierId) || typeof record.nameKo !== 'string' || !record.nameKo.trim()) {
+    exactKeys(record, ['normalSoldierId', 'nameKo', 'bfMovePoint', 'baseStats'], `NORMAL Soldier ${record.normalSoldierId}`);
+    if (!Number.isInteger(record.normalSoldierId) || typeof record.nameKo !== 'string' || !record.nameKo.trim() || !Number.isFinite(record.bfMovePoint)) {
       throw new Error(`malformed generated NORMAL Soldier ${String(record.normalSoldierId)}`);
     }
     exactKeys(record.baseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${record.normalSoldierId} base stats`);
@@ -35,12 +35,13 @@ export function validateNormalSoldierPresentation(identities, localizations, bas
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-  const [identities, localizations, baseStats, generatedText] = await Promise.all([
+  const [identities, localizations, baseStats, generatedText, movePoints] = await Promise.all([
     readJson('canonical/soldiers.v1.json'),
     readJson('canonical/normal-soldier-localizations-ko.v1.json'),
     readJson('canonical/normal-soldier-base-stats.v1.json'),
     readFile(resolve('generated/normal-soldiers.v1.json'), 'utf8'),
+    readJson('canonical/soldier-bf-move-points.v1.json'),
   ]);
-  const generated = validateNormalSoldierPresentation(identities, localizations, baseStats, generatedText);
+  const generated = validateNormalSoldierPresentation(identities, localizations, baseStats, generatedText, movePoints);
   process.stdout.write(`NORMAL Soldier presentation: PASS (${generated.soldiers.length} records; exact IDs, fields and freshness)\n`);
 }

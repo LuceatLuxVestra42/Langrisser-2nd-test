@@ -81,15 +81,16 @@ const [soldierIdentities, soldierLocalizations, normalSoldierLocalizations, sold
   readJson('canonical/sp-soldier-normal-relations.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
 ]);
+const soldierBfMovePoints = await readJson('canonical/soldier-bf-move-points.v1.json');
 const spGeneratedPath = resolve('generated/sp-soldiers.v1.json');
 const spGeneratedText = await readFile(spGeneratedPath, 'utf8');
-const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats);
+const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats, soldierBfMovePoints);
 if (spGeneratedText !== expectedSpGenerated) throw new Error('generated SP Soldier data is stale or non-deterministic');
 const spGenerated = JSON.parse(spGeneratedText);
 if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers)) throw new Error('built document has unsupported SP Soldier presentation schema');
 for (const soldier of spGenerated.soldiers) {
-  exactKeys(soldier, ['spSoldierId', 'nameKo', 'normalSoldierId', 'normalSoldierNameKo', 'baseStats', 'normalSoldierBaseStats'], `SP Soldier ${soldier.spSoldierId}`);
-  if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.normalSoldierNameKo !== 'string' || !soldier.normalSoldierNameKo) {
+  exactKeys(soldier, ['spSoldierId', 'nameKo', 'bfMovePoint', 'normalSoldierId', 'normalSoldierNameKo', 'baseStats', 'normalSoldierBaseStats'], `SP Soldier ${soldier.spSoldierId}`);
+  if (!Number.isFinite(soldier.bfMovePoint) || !Number.isInteger(soldier.normalSoldierId) || typeof soldier.normalSoldierNameKo !== 'string' || !soldier.normalSoldierNameKo) {
     throw new Error(`malformed NORMAL Soldier presentation for SP Soldier ${soldier.spSoldierId}`);
   }
   exactKeys(soldier.normalSoldierBaseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${soldier.normalSoldierId} base stats`);
@@ -98,7 +99,7 @@ for (const soldier of spGenerated.soldiers) {
 
 const normalSoldierGeneratedPath = resolve('generated/normal-soldiers.v1.json');
 const normalSoldierGeneratedText = await readFile(normalSoldierGeneratedPath, 'utf8');
-if (normalSoldierGeneratedText !== renderNormalSoldiers(soldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats)) {
+if (normalSoldierGeneratedText !== renderNormalSoldiers(soldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats, soldierBfMovePoints)) {
   throw new Error('generated NORMAL Soldier data is stale or non-deterministic');
 }
 const normalSoldierGenerated = JSON.parse(normalSoldierGeneratedText);
@@ -106,8 +107,8 @@ if (normalSoldierGenerated.schemaVersion !== 1 || !Array.isArray(normalSoldierGe
   throw new Error('built document has unsupported NORMAL Soldier presentation schema');
 }
 for (const soldier of normalSoldierGenerated.soldiers) {
-  exactKeys(soldier, ['normalSoldierId', 'nameKo', 'baseStats'], `NORMAL Soldier ${soldier.normalSoldierId}`);
-  if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo.trim()) {
+  exactKeys(soldier, ['normalSoldierId', 'nameKo', 'bfMovePoint', 'baseStats'], `NORMAL Soldier ${soldier.normalSoldierId}`);
+  if (!Number.isInteger(soldier.normalSoldierId) || typeof soldier.nameKo !== 'string' || !soldier.nameKo.trim() || !Number.isFinite(soldier.bfMovePoint)) {
     throw new Error(`malformed NORMAL Soldier presentation ${String(soldier.normalSoldierId)}`);
   }
   exactKeys(soldier.baseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${soldier.normalSoldierId} base stats`);

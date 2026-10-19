@@ -290,7 +290,7 @@ const assertSameIds = (expected, actual, label) => {
   }
 };
 
-export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats) {
+export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints) {
   const spRecords = identities.records.filter((record) => record.variant === 'SP');
   const normalRecords = identities.records.filter((record) => record.variant === 'NORMAL');
   const identityIds = idSet(spRecords, (record) => record.id, 'identity');
@@ -299,6 +299,9 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
   const normalLocalizationIds = idSet(normalLocalizations.records, (record) => record.soldierId, 'NORMAL localization');
   const statsIds = idSet(baseStats.records, (record) => record.id, 'base stats');
   const normalStatsIds = idSet(normalBaseStats.records, (record) => record.id, 'NORMAL base stats');
+  const allIdentityIds = idSet(identities.records, (record) => record.id, 'identity');
+  const movePointIds = idSet(movePoints.records, (record) => record.soldierId, 'BF_MovePoint');
+  assertSameIds(allIdentityIds, movePointIds, 'BF_MovePoint');
   const relationIds = idSet(relations.records, (record) => record.spSoldierId, 'relation');
   assertSameIds(identityIds, localizationIds, 'localization');
   assertSameIds(identityIds, statsIds, 'base stats');
@@ -320,15 +323,18 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
   const statsById = new Map(baseStats.records.map(({ id, baseStats: stats }) => [id, stats]));
   const normalStatsById = new Map(normalBaseStats.records.map(({ id, baseStats: stats }) => [id, stats]));
   const normalIdBySpId = new Map(relations.records.map(({ spSoldierId, normalSoldierId }) => [spSoldierId, normalSoldierId]));
+  const movePointById = new Map(movePoints.records.map(({ soldierId, bfMovePoint }) => [soldierId, bfMovePoint]));
   const soldiers = [...spRecords]
     .sort((a, b) => a.id - b.id)
     .map(({ id }) => {
       const stats = statsById.get(id);
       const nameKo = nameById.get(id);
+      const bfMovePoint = movePointById.get(id);
       const normalSoldierId = normalIdBySpId.get(id);
       const normalSoldierNameKo = normalNameById.get(normalSoldierId);
       const normalSoldierBaseStats = normalStatsById.get(normalSoldierId);
       if (typeof nameKo !== 'string' || !nameKo) throw new Error(`Missing Korean localization for SP Soldier ${id}`);
+      if (!Number.isFinite(bfMovePoint)) throw new Error(`Missing BF_MovePoint for SP Soldier ${id}`);
       if (!stats || !['hp', 'attack', 'defense', 'magicDefense'].every((key) => Number.isFinite(stats[key]))) {
         throw new Error(`Missing base stats for SP Soldier ${id}`);
       }
@@ -342,6 +348,7 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
       return {
         spSoldierId: id,
         nameKo,
+        bfMovePoint,
         normalSoldierId,
         normalSoldierNameKo,
         baseStats: { hp: stats.hp, attack: stats.attack, defense: stats.defense, magicDefense: stats.magicDefense },
@@ -356,24 +363,30 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
 
-export function renderNormalSoldiers(identities, localizations, baseStats) {
+export function renderNormalSoldiers(identities, localizations, baseStats, movePoints) {
   const normalRecords = identities.records.filter((record) => record.entity === 'Soldier' && record.variant === 'NORMAL');
   const identityIds = idSet(normalRecords, (record) => record.id, 'NORMAL identity');
   const localizationIds = idSet(localizations.records, (record) => record.soldierId, 'NORMAL localization');
   const statsIds = idSet(baseStats.records, (record) => record.id, 'NORMAL base stats');
+  const allIdentityIds = idSet(identities.records, (record) => record.id, 'identity');
+  const movePointIds = idSet(movePoints.records, (record) => record.soldierId, 'BF_MovePoint');
+  assertSameIds(allIdentityIds, movePointIds, 'BF_MovePoint');
   assertSameIds(identityIds, localizationIds, 'NORMAL localization');
   assertSameIds(identityIds, statsIds, 'NORMAL base stats');
   if (identityIds.size !== 56) throw new Error('NORMAL Soldier candidate scope must contain exactly 56 admitted identities');
   const nameById = new Map(localizations.records.map(({ soldierId, nameKo }) => [soldierId, nameKo]));
   const statsById = new Map(baseStats.records.map(({ id, baseStats: values }) => [id, values]));
+  const movePointById = new Map(movePoints.records.map(({ soldierId, bfMovePoint }) => [soldierId, bfMovePoint]));
   const soldiers = [...normalRecords].sort((a, b) => a.id - b.id).map(({ id }) => {
     const nameKo = nameById.get(id);
     const values = statsById.get(id);
+    const bfMovePoint = movePointById.get(id);
     if (typeof nameKo !== 'string' || !nameKo.trim()) throw new Error(`Missing Korean localization for NORMAL Soldier ${id}`);
+    if (!Number.isFinite(bfMovePoint)) throw new Error(`Missing BF_MovePoint for NORMAL Soldier ${id}`);
     if (!values || !['hp', 'attack', 'defense', 'magicDefense'].every((key) => Number.isFinite(values[key]))) {
       throw new Error(`Missing base stats for NORMAL Soldier ${id}`);
     }
-    return { normalSoldierId: id, nameKo, baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense } };
+    return { normalSoldierId: id, nameKo, bfMovePoint, baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense } };
   });
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
@@ -490,22 +503,25 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
-  const [soldiers, spLocalizations, normalLocalizations, spBaseStats, spRelations, normalBaseStats] = await Promise.all([
+  const soldierBfMovePointsPath = resolve('canonical/soldier-bf-move-points.v1.json');
+  const [soldiers, spLocalizations, normalLocalizations, spBaseStats, spRelations, normalBaseStats, soldierBfMovePoints] = await Promise.all([
     readFile(resolve('canonical/soldiers.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-base-stats.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-normal-relations.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-base-stats.v1.json'), 'utf8'),
+    readFile(soldierBfMovePointsPath, 'utf8'),
   ]);
-  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations), JSON.parse(normalBaseStats)), 'utf8');
-  const [normalSoldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats] = await Promise.all([
+  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations), JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints)), 'utf8');
+  const [normalSoldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats, normalSoldierBfMovePoints] = await Promise.all([
     readFile(resolve('canonical/soldiers.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-base-stats.v1.json'), 'utf8'),
+    readFile(soldierBfMovePointsPath, 'utf8'),
   ]);
   const normalSoldierOutputPath = resolve('generated/normal-soldiers.v1.json');
-  await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats)), 'utf8');
+  await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats), JSON.parse(normalSoldierBfMovePoints)), 'utf8');
   const heroSoldierRelationOwner = JSON.parse(await readFile(resolve('canonical/hero-soldier-relations.v1.json'), 'utf8'));
   const heroSoldierOutputPath = resolve('generated/hero-soldier-relations.v1.json');
   await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(canonical, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');
