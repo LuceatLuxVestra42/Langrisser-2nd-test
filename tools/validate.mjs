@@ -99,6 +99,7 @@ const expansionPortraits = await readJson('evidence/source/portraits/hero-portra
 const expansionPortraitByHero = new Map(expansionPortraits.records.map((record) => [record.heroId, record]));
 const expansionJobConnections = await readJson('evidence/source/jobs/hero-job-connection-expansion.v1.json');
 const relationOwner = await readJson('canonical/hero-job-relations.v1.json');
+const spJobIdentities = await readJson('canonical/sp-job-identities.v1.json');
 const spRelationEvidence = await readJson('evidence/source/jobs/hero-sp-job-relation.v1.json');
 const priorPortraitEvidence = await readJson('evidence/source/portraits/hero-portrait-prior-validation.v1.json');
 const jobEvidence = await readJson('evidence/source/jobs/hero-job-connection-slice.v1.json');
@@ -229,16 +230,22 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations);
+const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
 check(generatedJson.heroes.every((hero) => {
-  const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'portrait', 'rarity'];
+  const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'portrait', 'rarity', 'spJobConnections'];
   if (talentRelations.records.some((row) => row.heroId === hero.id)) expectedKeys.push('talent');
   return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());
 }), 'generated consumer contains non-presentation fields');
+for (const hero of generatedJson.heroes) {
+  check(Array.isArray(hero.spJobConnections), `Hero ${hero.id} generated SP Job list is missing`);
+  const expectedSpJobs = hero.id === 6 ? [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }] : [];
+  check(JSON.stringify(hero.spJobConnections) === JSON.stringify(expectedSpJobs), `Hero ${hero.id} generated SP Job presentation scope or values drift`);
+  check(!hero.jobConnections.some((connection) => connection.jobId === 377), `SP Job 377 was duplicated into Hero ${hero.id} ordinary Job connections`);
+}
 for (const hero of generatedJson.heroes) {
   if (hero.talent !== undefined) {
     exactKeys(hero.talent, ['nameKo', 'starDescriptions'], `Hero ${hero.id} Talent`);

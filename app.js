@@ -237,6 +237,21 @@ function makeTalentPresentation(heroId, talent) {
   return section;
 }
 
+function makeSpJobPresentation(spJobConnections) {
+  if (!Array.isArray(spJobConnections)) throw new Error('Generated SP Job presentation data is missing');
+  if (spJobConnections.length === 0) return null;
+  const section = document.createElement('section');
+  section.className = 'sp-job-presentation';
+  const list = document.createElement('ul');
+  for (const spJob of spJobConnections) {
+    const item = document.createElement('li');
+    item.textContent = `${spJob.classification} · ${spJob.nameKo} (전직 ID ${spJob.jobId}) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인`;
+    list.append(item);
+  }
+  section.append(list);
+  return section;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -273,6 +288,8 @@ function addHero(hero, relationsByHero, soldiersById) {
   article.append(makeOriginPresentation(hero.origins));
   if (hero.talent) article.append(makeTalentPresentation(hero.id, hero.talent));
   article.append(connections);
+  const spJobPresentation = makeSpJobPresentation(hero.spJobConnections);
+  if (spJobPresentation) article.append(spJobPresentation);
   const exclusive = document.createElement('section');
   exclusive.className = 'exclusive-equipment';
   const exclusiveHeading = document.createElement('h3');

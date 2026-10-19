@@ -29,7 +29,7 @@ function validateTalentDescriptionMarkup(value, label) {
   }
 }
 
-export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations) {
+export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities) {
   if (heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)) throw new Error('Unsupported Hero Korean localization owner');
   if (heroRarities?.schemaVersion !== 1 || !Array.isArray(heroRarities.records)) throw new Error('Unsupported Hero rarity owner');
   if (factionIdentities?.schemaVersion !== 1 || !Array.isArray(factionIdentities.records)) throw new Error('Unsupported Faction identity owner');
@@ -38,6 +38,8 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
   if (heroFactionRelations?.schemaVersion !== 1 || !Array.isArray(heroFactionRelations.records)) throw new Error('Unsupported Hero–Faction relation owner');
   if (productionIdentities?.schemaVersion !== 1 || !Array.isArray(productionIdentities.records)) throw new Error('Unsupported Production identity owner');
   if (productionLocalizations?.schemaVersion !== 1 || !Array.isArray(productionLocalizations.records)) throw new Error('Unsupported Production Korean localization owner');
+  if (heroJobRelations?.schemaVersion !== 1 || !Array.isArray(heroJobRelations.records)) throw new Error('Unsupported canonical Hero–Job relation owner');
+  if (spJobIdentities?.schemaVersion !== 1 || !Array.isArray(spJobIdentities.records)) throw new Error('Unsupported canonical SP Job identity owner');
   if (heroProductionRelations?.schemaVersion !== 1 || !Array.isArray(heroProductionRelations.records)) throw new Error('Unsupported Hero–Production relation owner');
   if (talentRelations?.schemaVersion !== 1 || !Array.isArray(talentRelations.records)) throw new Error('Unsupported Hero Talent star-skill relation owner');
   if (talentLocalizations?.schemaVersion !== 1 || !Array.isArray(talentLocalizations.nameRecords)
@@ -170,6 +172,35 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
     nameByHeroId.set(localization.heroId, localization.nameKo);
   }
   const nameByJobId = new Map(jobLocalization.records.map(({ jobId, nameKo }) => [jobId, nameKo]));
+  const SP_JOB_PRESENTATION_TARGETS = [{ heroId: 6, jobId: 377 }];
+  const spJobPresentationByHeroId = new Map();
+  for (const target of SP_JOB_PRESENTATION_TARGETS) {
+    const targetHero = canonical.records.find((hero) => hero.id === target.heroId);
+    if (!targetHero) throw new Error(`Missing visible Hero ${target.heroId} for SP Job presentation`);
+    if (targetHero.jobConnections.some((relation) => relation.jobId === target.jobId)) {
+      throw new Error(`SP Job ${target.jobId} must remain separate from Hero ${target.heroId} ordinary Job connections`);
+    }
+    const identityRows = spJobIdentities.records.filter((identity) => identity.id === target.jobId);
+    if (identityRows.length !== 1) throw new Error(`SP Job identity ${target.jobId} is missing or duplicated`);
+    const relationRows = heroJobRelations.records.filter((relation) => relation.heroId === target.heroId && relation.jobId === target.jobId);
+    if (relationRows.length !== 1 || relationRows[0].provenance !== `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${target.heroId}`) {
+      throw new Error(`Canonical Hero–SP Job relation ${target.heroId}:${target.jobId} is missing, duplicated, or has unexpected provenance`);
+    }
+    const localizationRows = jobLocalization.records.filter((localization) => localization.jobId === target.jobId);
+    if (localizationRows.length !== 1 || localizationRows[0].nameKo !== '어둠의 청룡'
+      || localizationRows[0].evidenceClass !== 'A'
+      || localizationRows[0].provenance !== `evidence/localization/sp-job-namespace.v1.json#jobId=${target.jobId}`
+      || jobLocalization.sourceScope !== 'KR display text from preserved project source; official KR provenance unverified') {
+      throw new Error(`SP Job ${target.jobId} Korean localization or provenance is missing, duplicated, or unverified`);
+    }
+    spJobPresentationByHeroId.set(target.heroId, [{
+      jobId: target.jobId,
+      nameKo: localizationRows[0].nameKo,
+      classification: 'SP Job',
+      localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+      officialKrProvenanceStatus: 'UNVERIFIED',
+    }]);
+  }
   const relationByHeroId = new Map();
   const equipmentIds = new Set();
   for (const relation of exclusiveRelations.records) {
@@ -235,6 +266,7 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
       ...(talent ? { talent } : {}),
       portrait,
       exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
+      spJobConnections: spJobPresentationByHeroId.get(id) ?? [],
       jobConnections: jobConnections.map((relation) => {
         const jobNameKo = nameByJobId.get(relation.jobId);
         if (typeof jobNameKo !== 'string' || !jobNameKo) throw new Error(`Missing admitted Korean Job localization for JobInfo.ID ${relation.jobId}`);
@@ -499,7 +531,11 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const factionLocalizations = JSON.parse(await readFile(factionLocalizationsPath, 'utf8'));
   const productionLocalizations = JSON.parse(await readFile(productionLocalizationsPath, 'utf8'));
-  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations), 'utf8');
+  const [heroJobRelations, spJobIdentities] = await Promise.all([
+    readFile(resolve('canonical/hero-job-relations.v1.json'), 'utf8'),
+    readFile(resolve('canonical/sp-job-identities.v1.json'), 'utf8'),
+  ]).then(([relations, identities]) => [JSON.parse(relations), JSON.parse(identities)]);
+  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
