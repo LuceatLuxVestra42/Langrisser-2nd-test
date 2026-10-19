@@ -154,6 +154,10 @@ for (const relation of heroSoldierRelations.relations) {
 const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
+const expectedSpJobsByHeroId = new Map([
+  [6, [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [8, [{ jobId: 864, nameKo: '단죄의 성녀', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+]);
 for (const hero of generated.heroes) {
   const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'spJobConnections', 'exclusiveEquipment', 'factions', 'origins'];
   if (talentRelations.records.some((row) => row.heroId === hero.id)) heroKeys.push('talent');
@@ -182,15 +186,9 @@ for (const hero of generated.heroes) {
       || productionIds.has(origin.productionId)) throw new Error(`malformed or duplicate generated Production for Hero ${hero.id}`);
     productionIds.add(origin.productionId);
   }
-  const expectedSpJobs = hero.id === 6 ? [{
-    jobId: 377,
-    nameKo: '어둠의 청룡',
-    classification: 'SP Job',
-    localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
-    officialKrProvenanceStatus: 'UNVERIFIED',
-  }] : [];
+  const expectedSpJobs = expectedSpJobsByHeroId.get(hero.id) ?? [];
   if (!Array.isArray(hero.spJobConnections) || JSON.stringify(hero.spJobConnections) !== JSON.stringify(expectedSpJobs)
-    || hero.jobConnections.some((relation) => relation.jobId === 377)) {
+    || hero.jobConnections.some((relation) => [377, 864].includes(relation.jobId))) {
     throw new Error(`malformed or out-of-scope SP Job presentation for Hero ${hero.id}`);
   }
   for (const relation of hero.jobConnections) {
