@@ -253,7 +253,15 @@
         "equipmentNameKo": "검정 드레스",
         "effectDescriptionKo": "생명 +5%\n전투 진입 전, 적에게 무작위 1개의 강력한 디버프 부여"
       },
-      "spJobConnections": [],
+      "spJobConnections": [
+        {
+          "jobId": 864,
+          "nameKo": "단죄의 성녀",
+          "classification": "SP Job",
+          "localizationClassification": "PROJECT_REVIEWED_LOCALIZATION",
+          "officialKrProvenanceStatus": "UNVERIFIED"
+        }
+      ],
       "jobConnections": [
         {
           "connectionId": 80,

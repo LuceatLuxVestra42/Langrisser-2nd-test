@@ -153,19 +153,36 @@ for (const hero of heroData.heroes) {
   assert.equal(section.children[0].textContent, '진영 · 한국어명');
   assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map((faction) => `${faction.nameKo} (${faction.nameCn})`));
 }
-const hero6SpJobs = heroData.heroes.find(({ id }) => id === 6).spJobConnections;
-assert.deepEqual(hero6SpJobs, [{
-  jobId: 377,
-  nameKo: '어둠의 청룡',
-  classification: 'SP Job',
-  localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
-  officialKrProvenanceStatus: 'UNVERIFIED',
-}]);
-assert.ok(!heroData.heroes.find(({ id }) => id === 6).jobConnections.some(({ jobId }) => jobId === 377));
-for (const hero of heroData.heroes.filter(({ id }) => id !== 6)) assert.deepEqual(hero.spJobConnections, [], `SP Job presentation scope for Hero ${hero.id}`);
-const spSection = functions.makeSpJobPresentation(hero6SpJobs);
-assert.equal(spSection.className, 'sp-job-presentation');
-assert.equal(spSection.children[0].children[0].textContent, 'SP Job · 어둠의 청룡 (전직 ID 377) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인');
+const expectedSpJobsByHeroId = new Map([
+  [6, [{
+    jobId: 377,
+    nameKo: '어둠의 청룡',
+    classification: 'SP Job',
+    localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+    officialKrProvenanceStatus: 'UNVERIFIED',
+  }]],
+  [8, [{
+    jobId: 864,
+    nameKo: '단죄의 성녀',
+    classification: 'SP Job',
+    localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+    officialKrProvenanceStatus: 'UNVERIFIED',
+  }]],
+]);
+for (const hero of heroData.heroes) {
+  assert.deepEqual(hero.spJobConnections, expectedSpJobsByHeroId.get(hero.id) ?? [], `SP Job presentation scope for Hero ${hero.id}`);
+  assert.ok(!hero.jobConnections.some(({ jobId }) => [377, 864].includes(jobId)), `SP Job duplicated in ordinary connections for Hero ${hero.id}`);
+}
+assert.deepEqual(heroData.heroes.find(({ id }) => id === 6).jobConnections.map(({ jobId }) => jobId), [301, 303, 302, 202, 307, 306]);
+assert.deepEqual(heroData.heroes.find(({ id }) => id === 8).jobConnections.map(({ jobId }) => jobId), [701, 805, 702, 703, 810, 706]);
+for (const [heroId, expectedText] of [
+  [6, 'SP Job · 어둠의 청룡 (전직 ID 377) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인'],
+  [8, 'SP Job · 단죄의 성녀 (전직 ID 864) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인'],
+]) {
+  const spSection = functions.makeSpJobPresentation(heroData.heroes.find(({ id }) => id === heroId).spJobConnections);
+  assert.equal(spSection.className, 'sp-job-presentation');
+  assert.equal(spSection.children[0].children[0].textContent, expectedText);
+}
 assert.equal(functions.makeSpJobPresentation([]), null);
 assert.match(frontend, /makeSpJobPresentation\(hero\.spJobConnections\)/);
 assert.match(frontend, /article\.append\(spJobPresentation\)/);
