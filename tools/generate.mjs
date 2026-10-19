@@ -177,6 +177,37 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
     { heroId: 8, jobId: 864, nameKo: '단죄의 성녀' },
   ];
   const spJobPresentationByHeroId = new Map();
+  const SP_JOB_CLASSIFIED_ORDINARY_CONNECTIONS = [
+    { heroId: 53, jobId: 426, connectionId: 536, nameKo: '빛나는 지략가' },
+  ];
+  const spJobClassificationByPair = new Map();
+  for (const target of SP_JOB_CLASSIFIED_ORDINARY_CONNECTIONS) {
+    const targetHero = canonical.records.find((hero) => hero.id === target.heroId);
+    if (!targetHero) throw new Error(`Missing visible Hero ${target.heroId} for SP Job classification`);
+    const ordinaryRows = targetHero.jobConnections.filter((relation) => relation.jobId === target.jobId);
+    if (ordinaryRows.length !== 1 || ordinaryRows[0].connectionId !== target.connectionId
+      || ordinaryRows[0].sourceField !== 'JobConnection_ID') {
+      throw new Error(`SP Job ${target.jobId} must match exactly one existing ordinary Hero ${target.heroId} Job connection`);
+    }
+    const identityRows = spJobIdentities.records.filter((identity) => identity.id === target.jobId);
+    if (identityRows.length !== 1) throw new Error(`SP Job identity ${target.jobId} is missing or duplicated`);
+    const relationRows = heroJobRelations.records.filter((relation) => relation.heroId === target.heroId && relation.jobId === target.jobId);
+    if (relationRows.length !== 1 || relationRows[0].provenance !== `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${target.heroId}`) {
+      throw new Error(`Canonical Hero–SP Job relation ${target.heroId}:${target.jobId} is missing, duplicated, or has unexpected provenance`);
+    }
+    const localizationRows = jobLocalization.records.filter((localization) => localization.jobId === target.jobId);
+    if (localizationRows.length !== 1 || localizationRows[0].nameKo !== target.nameKo
+      || localizationRows[0].evidenceClass !== 'A'
+      || localizationRows[0].provenance !== `evidence/localization/sp-job-namespace.v1.json#jobId=${target.jobId}`
+      || jobLocalization.sourceScope !== 'KR display text from preserved project source; official KR provenance unverified') {
+      throw new Error(`SP Job ${target.jobId} Korean localization or provenance is missing, duplicated, or unverified`);
+    }
+    spJobClassificationByPair.set(`${target.heroId}:${target.jobId}`, {
+      classification: 'SP Job',
+      localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+      officialKrProvenanceStatus: 'UNVERIFIED',
+    });
+  }
   for (const target of SP_JOB_PRESENTATION_TARGETS) {
     const targetHero = canonical.records.find((hero) => hero.id === target.heroId);
     if (!targetHero) throw new Error(`Missing visible Hero ${target.heroId} for SP Job presentation`);
@@ -273,7 +304,8 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
       jobConnections: jobConnections.map((relation) => {
         const jobNameKo = nameByJobId.get(relation.jobId);
         if (typeof jobNameKo !== 'string' || !jobNameKo) throw new Error(`Missing admitted Korean Job localization for JobInfo.ID ${relation.jobId}`);
-        return { ...relation, jobNameKo };
+        const classification = spJobClassificationByPair.get(`${id}:${relation.jobId}`);
+        return { ...relation, jobNameKo, ...(classification ?? {}) };
       }),
     });
     });

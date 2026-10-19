@@ -86,6 +86,7 @@ const runtime = [
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
   extractFunction(frontend, 'makeSpJobPresentation'),
+  extractFunction(frontend, 'makeJobConnectionLabel'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'filterHeroes'),
   extractFunction(frontend, 'renderHeroSearch'),
@@ -98,7 +99,7 @@ const functions = runInNewContext(`(() => {
   const exclusiveEquipmentContainer = container;
   ${runtime}
   return {
-    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeOriginPresentation, makeSpJobPresentation, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
+    filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeOriginPresentation, makeSpJobPresentation, makeJobConnectionLabel, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
     startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, count, emptyState }); return heroNavigation; },
     setExclusiveEquipmentHeroById(value) { exclusiveEquipmentHeroById = value; },
   };
@@ -184,6 +185,25 @@ for (const [heroId, expectedText] of [
   assert.equal(spSection.children[0].children[0].textContent, expectedText);
 }
 assert.equal(functions.makeSpJobPresentation([]), null);
+const hero53 = heroData.heroes.find(({ id }) => id === 53);
+assert.deepEqual(hero53.jobConnections.map(({ jobId }) => jobId), [301, 202, 302, 403, 207, 304, 426]);
+const classifiedConnections = hero53.jobConnections.filter(({ classification }) => classification === 'SP Job');
+assert.deepEqual(classifiedConnections, [{
+  connectionId: 536,
+  jobId: 426,
+  sourceField: 'JobConnection_ID',
+  jobNameKo: '빛나는 지략가',
+  classification: 'SP Job',
+  localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
+  officialKrProvenanceStatus: 'UNVERIFIED',
+}]);
+assert.equal(hero53.spJobConnections.some(({ jobId }) => jobId === 426), false, 'Hero 53 SP Job is displayed only once in its existing ordinary connection');
+assert.equal(functions.makeJobConnectionLabel(classifiedConnections[0]),
+  'SP Job · 빛나는 지략가 (전직 ID 426) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인');
+assert.equal(functions.makeJobConnectionLabel(hero53.jobConnections[0]), '연결 530 → 나이트 (전직 ID 301)');
+assert.deepEqual(heroData.heroes.filter(({ id }) => id !== 53).flatMap(({ jobConnections }) =>
+  jobConnections.filter(({ classification }) => classification !== undefined)), [], 'SP classification stays within Hero 53:426');
+assert.match(frontend, /item\.textContent = makeJobConnectionLabel\(relation\)/);
 assert.match(frontend, /makeSpJobPresentation\(hero\.spJobConnections\)/);
 assert.match(frontend, /article\.append\(spJobPresentation\)/);
 

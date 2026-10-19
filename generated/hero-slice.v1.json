@@ -613,7 +613,10 @@
           "connectionId": 536,
           "jobId": 426,
           "sourceField": "JobConnection_ID",
-          "jobNameKo": "빛나는 지략가"
+          "jobNameKo": "빛나는 지략가",
+          "classification": "SP Job",
+          "localizationClassification": "PROJECT_REVIEWED_LOCALIZATION",
+          "officialKrProvenanceStatus": "UNVERIFIED"
         }
       ]
     }
