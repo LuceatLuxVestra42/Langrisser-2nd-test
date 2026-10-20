@@ -17,6 +17,13 @@ for (const [label, mutate] of [
   ['missing Production localization', (x) => { x.localization.records.pop(); }],
   ['unknown Production localization', (x) => x.localization.records.push({ productionId: 9, nameKo: '다른 작품', evidenceClass: 'A', provenance: 'test' })],
   ['changed project reference label', (x) => { x.localization.records[0].nameKo = '다른 이름'; }],
+  ['ID 8 Evidence has wrong Korean label', (x) => { x.evidence.records.find((row) => row.productionId === 8).nameKo = '랭그릿사V'; }],
+  ['ID 8 Canonical has wrong Korean label', (x) => { x.localization.records.find((row) => row.productionId === 8).nameKo = '랭그릿사V'; }],
+  ['ID 8 Evidence and Canonical share wrong Korean label', (x) => { x.evidence.records.find((row) => row.productionId === 8).nameKo = '랭그릿사V'; x.localization.records.find((row) => row.productionId === 8).nameKo = '랭그릿사V'; }],
+  ['wrong ID 8 source locator', (x) => { x.evidence.records.find((row) => row.productionId === 8).locator = 'evidence/localization/source/production-names-ko.reference.v1.txt#L49'; }],
+  ['missing ID 8 source row', (x) => { x.referenceBytes = Buffer.from(x.referenceBytes.toString('utf8').replace('8 - 梦幻模拟战V - 랑그릿사V\n', '')); }],
+  ['ID 8 source checksum mismatch', (x) => { x.referenceBytes = Buffer.from(x.referenceBytes.toString('utf8').replace('랑그릿사V', '랭그릿사V')); }],
+  ['existing ID 3–7 name changed', (x) => { x.evidence.records.find((row) => row.productionId === 4).nameKo = '다른 이름'; }],
   ['official status drift', (x) => { x.evidence.officialKrProvenanceStatus = 'verified'; }],
   ['Chinese identity mismatch', (x) => { x.evidence.records[0].nameCn = '错误名称'; }],
   ['duplicate evidence', (x) => x.evidence.records.push(structuredClone(x.evidence.records[0]))],
@@ -26,4 +33,4 @@ for (const [label, mutate] of [
   mutate(candidate);
   assert.throws(() => validateProductionKoLocalization(candidate), undefined, label);
 }
-process.stdout.write('Production Korean localization regression: PASS (exact IDs/labels, provenance, and presentation relation boundary)\\n');
+process.stdout.write('Production Korean localization regression: PASS (exact IDs/labels, provenance, and presentation relation boundary)\n');
