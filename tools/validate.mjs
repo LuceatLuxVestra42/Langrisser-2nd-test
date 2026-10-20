@@ -123,7 +123,7 @@ for (const rarity of heroRarities.records) {
   const evidence = evidenceRarityById.get(rarity.heroId);
   const expectedEvidenceLocator = directSource
     ? `evidence/source/configdata/${[5, 6, 8].includes(rarity.heroId) ? 'ConfigDataHeroInfo.records-5-6-8.json' : 'ConfigDataHeroInfo.records-hero-expansion.v1.json'}#ID=${rarity.heroId}`
-    : `evidence/source/hero-rarity-inherited-records.v1.json#heroId=${rarity.heroId}/Rank`;
+    : `evidence/source/hero-rarity-inherited-records.v1.json#heroId=${rarity.heroId}/rank`;
   const expectedRankLocator = directSource
     ? `evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=${rarity.heroId}/Rank`
     : expectedEvidenceLocator;

@@ -70,7 +70,7 @@
       "rankId": 1,
       "label": "N",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=1/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=1/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=1/Desc"
       }
     },
@@ -79,7 +79,7 @@
       "rankId": 1,
       "label": "N",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=3/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=3/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=1/Desc"
       }
     },
@@ -88,7 +88,7 @@
       "rankId": 1,
       "label": "N",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=4/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=4/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=1/Desc"
       }
     },
@@ -97,7 +97,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=7/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=7/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -106,7 +106,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=9/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=9/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -115,7 +115,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=10/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=10/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -124,7 +124,7 @@
       "rankId": 3,
       "label": "SR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=11/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=11/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc"
       }
     },
@@ -133,7 +133,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=12/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=12/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -142,7 +142,7 @@
       "rankId": 3,
       "label": "SR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=13/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=13/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc"
       }
     },
@@ -151,7 +151,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=14/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=14/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -160,7 +160,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=25/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=25/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -169,7 +169,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=26/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=26/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -178,7 +178,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=27/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=27/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -187,7 +187,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=29/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=29/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -196,7 +196,7 @@
       "rankId": 3,
       "label": "SR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=33/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=33/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc"
       }
     },
@@ -205,7 +205,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=37/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=37/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -214,7 +214,7 @@
       "rankId": 2,
       "label": "R",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=40/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=40/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=2/Desc"
       }
     },
@@ -223,7 +223,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=55/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=55/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -232,7 +232,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=56/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=56/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -241,7 +241,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=60/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=60/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -250,7 +250,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=67/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=67/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     },
@@ -259,7 +259,7 @@
       "rankId": 4,
       "label": "SSR",
       "provenance": {
-        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=89/Rank",
+        "rank": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=89/rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
     }
