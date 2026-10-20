@@ -45,6 +45,138 @@
       "nameKo": "란포드",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=53"
+    },
+    {
+      "heroId": 1,
+      "nameKo": "매튜",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=1"
+    },
+    {
+      "heroId": 3,
+      "nameKo": "그레니어",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=3"
+    },
+    {
+      "heroId": 4,
+      "nameKo": "아멜다",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=4"
+    },
+    {
+      "heroId": 7,
+      "nameKo": "베른하르트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=7"
+    },
+    {
+      "heroId": 9,
+      "nameKo": "보젤",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=9"
+    },
+    {
+      "heroId": 10,
+      "nameKo": "레딘",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=10"
+    },
+    {
+      "heroId": 11,
+      "nameKo": "나암",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=11"
+    },
+    {
+      "heroId": 12,
+      "nameKo": "엘윈",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=12"
+    },
+    {
+      "heroId": 13,
+      "nameKo": "헤인",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=13"
+    },
+    {
+      "heroId": 14,
+      "nameKo": "쉐리",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=14"
+    },
+    {
+      "heroId": 25,
+      "nameKo": "알테뮬러",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=25"
+    },
+    {
+      "heroId": 26,
+      "nameKo": "루나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=26"
+    },
+    {
+      "heroId": 27,
+      "nameKo": "디하르트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=27"
+    },
+    {
+      "heroId": 29,
+      "nameKo": "티아리스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=29"
+    },
+    {
+      "heroId": 33,
+      "nameKo": "프레아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=33"
+    },
+    {
+      "heroId": 37,
+      "nameKo": "쥬그라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=37"
+    },
+    {
+      "heroId": 40,
+      "nameKo": "루인",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=40"
+    },
+    {
+      "heroId": 55,
+      "nameKo": "란디우스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=55"
+    },
+    {
+      "heroId": 56,
+      "nameKo": "레이첼",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=56"
+    },
+    {
+      "heroId": 60,
+      "nameKo": "시그마",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=60"
+    },
+    {
+      "heroId": 67,
+      "nameKo": "오메가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=67"
+    },
+    {
+      "heroId": 89,
+      "nameKo": "유리아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=89"
     }
   ]
 }
