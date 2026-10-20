@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
 
 const evidencePath = 'evidence/source/hero-faction.v1.json';
@@ -58,7 +59,7 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
     && evidence.semantics?.excludedField?.name === 'SuperHero_ID', 'membership source must be RelatedHeros_ID; SuperHero_ID is excluded');
   exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'membershipField', 'records'], 'relation canonical');
   check(canonical.schemaVersion === 1
-    && canonical.scope === 'Explicit CN ConfigData Hero-to-Faction membership for the seven-Hero presentation slice only; not a completeness claim beyond this slice.'
+    && canonical.scope === 'Explicit CN ConfigData Hero-to-Faction memberships for the 28 Heroes covered by the cited source evidence; not a completeness claim beyond that evidence scope and not an admission to the seven-Hero presentation slice.'
     && canonical.sourceEvidence === evidencePath
     && canonical.membershipField === 'RelatedHeros_ID', 'canonical scope or provenance pointer drift');
   exactKeys(heroes, ['schemaVersion', 'scope', 'records'], 'Hero identity owner');
@@ -87,24 +88,26 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
   check(isDeepStrictEqual(sourcePairs, expectedEvidencePairs), 'source RelatedHeros_ID target projection differs from the exact evidence-scoped relation set');
   const expectedPairs = new Set([...expectedByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId))));
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expectedPairs.size, 'relation count must be exactly 17 for the current presentation Canonical slice');
-  const expectedOrderedPairs = [...expectedByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId)));
-  check(isDeepStrictEqual(canonical.records.map(({ heroId, factionId }) => pairKey(heroId, factionId)), expectedOrderedPairs), 'canonical relation order drift');
+  check(Array.isArray(canonical.records) && canonical.records.length === expectedEvidencePairs.size, 'relation count must be exactly 65 for the current evidence-backed Canonical scope');
   const canonicalPairs = new Set();
   for (const record of canonical.records) {
     exactKeys(record, ['heroId', 'factionId', 'provenance'], `relation ${record.heroId}:${record.factionId}`);
-    check(expectedByHero.has(record.heroId), `Hero endpoint ${record.heroId} is out of scope`);
+    check(expectedEvidenceByHero.has(record.heroId), `Hero endpoint ${record.heroId} is out of scope`);
     check(heroIds.has(record.heroId), `unknown Hero endpoint ${record.heroId}`);
     check(factionIds.has(record.factionId), `unknown Faction endpoint ${record.factionId}`);
     const key = pairKey(record.heroId, record.factionId);
-    check(expectedPairs.has(key) && !canonicalPairs.has(key), `unexpected or duplicate relation ${key}`);
+    check(expectedEvidencePairs.has(key) && !canonicalPairs.has(key), `unexpected or duplicate relation ${key}`);
     const source = sourceByFaction.get(record.factionId);
     check(source.RelatedHeros_ID.includes(record.heroId), `relation ${key} is not present in source RelatedHeros_ID`);
     check(record.provenance === `${evidencePath}#ID=${record.factionId}/RelatedHeros_ID&contains=${record.heroId}`, `relation source locator drift for ${key}`);
     canonicalPairs.add(key);
   }
-  check(isDeepStrictEqual(canonicalPairs, expectedPairs), 'canonical relation edge set differs from exact 17-edge set');
-  process.stdout.write('Hero–Faction relation owner: PASS (7 Canonical Heroes, 17 admitted edges; 28 source-evidence Heroes, 65 exact source-backed edges)\n');
+  check(isDeepStrictEqual(canonicalPairs, expectedEvidencePairs), 'canonical relation edge set differs from exact 65-edge evidence-backed set');
+  for (const [heroId, factionIdsForHero] of expectedByHero) {
+    for (const factionId of factionIdsForHero) check(canonicalPairs.has(pairKey(heroId, factionId)), `visible Hero ${heroId} presentation relation ${factionId} is missing`);
+  }
+  process.stdout.write('Hero–Faction relation owner: PASS (28 Canonical Heroes, 65 admitted edges; seven-Hero presentation relations preserved)\n');
 }
 
-await validateHeroFactionRelations();
+const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
+if (invokedPath === fileURLToPath(import.meta.url)) await validateHeroFactionRelations();

@@ -29,7 +29,14 @@ function validateTalentDescriptionMarkup(value, label) {
   }
 }
 
-export function renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities) {
+export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities) {
+  if (heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)) throw new Error('Unsupported Hero identity owner');
+  const heroIdentityIds = new Set();
+  for (const identity of heroIdentities.records) {
+    if (!Number.isSafeInteger(identity.heroId) || typeof identity.provenance !== 'string' || !identity.provenance.trim()
+      || heroIdentityIds.has(identity.heroId)) throw new Error('Hero identity owner contains a malformed or duplicate ID');
+    heroIdentityIds.add(identity.heroId);
+  }
   if (heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)) throw new Error('Unsupported Hero Korean localization owner');
   if (heroRarities?.schemaVersion !== 1 || !Array.isArray(heroRarities.records)) throw new Error('Unsupported Hero rarity owner');
   if (factionIdentities?.schemaVersion !== 1 || !Array.isArray(factionIdentities.records)) throw new Error('Unsupported Faction identity owner');
@@ -109,8 +116,14 @@ export function renderGenerated(canonical, heroLocalization, jobLocalization, ex
   const factionIdsByHeroId = new Map();
   const factionPairs = new Set();
   for (const relation of heroFactionRelations.records) {
-    if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.factionId)) throw new Error('Hero–Faction relation contains malformed endpoint');
-    if (!heroIds.has(relation.heroId)) throw new Error(`Hero–Faction relation references unknown Hero ${relation.heroId}`);
+    if (relation === null || typeof relation !== 'object' || Array.isArray(relation)
+      || Object.keys(relation).sort().join(',') !== 'factionId,heroId,provenance') throw new Error('Hero–Faction relation contains malformed fields');
+    if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.factionId)
+      || typeof relation.provenance !== 'string') throw new Error('Hero–Faction relation contains malformed endpoint or provenance');
+    if (!heroIdentityIds.has(relation.heroId)) throw new Error(`Hero–Faction relation references unknown Hero identity ${relation.heroId}`);
+    if (relation.provenance !== `evidence/source/hero-faction.v1.json#ID=${relation.factionId}/RelatedHeros_ID&contains=${relation.heroId}`) {
+      throw new Error(`Hero–Faction relation has unsupported provenance for ${relation.heroId}:${relation.factionId}`);
+    }
     if (!factionNameById.has(relation.factionId)) throw new Error(`Hero–Faction relation references unknown Faction ${relation.factionId}`);
     const pair = `${relation.heroId}:${relation.factionId}`;
     if (factionPairs.has(pair)) throw new Error(`Duplicate Hero–Faction relation ${pair}`);
@@ -555,6 +568,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(exclusiveRelationPath, 'utf8'), readFile(exclusiveLocalizationPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const heroRarities = JSON.parse(await readFile(rarityPath, 'utf8'));
+  const heroIdentities = JSON.parse(await readFile(resolve('canonical/hero-identities.v1.json'), 'utf8'));
   const [factionIdentities, heroFactionRelations] = await Promise.all([
     readFile(factionIdentityPath, 'utf8'), readFile(heroFactionRelationsPath, 'utf8'),
   ]).then(([identities, relations]) => [JSON.parse(identities), JSON.parse(relations)]);
@@ -570,7 +584,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/hero-job-relations.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-job-identities.v1.json'), 'utf8'),
   ]).then(([relations, identities]) => [JSON.parse(relations), JSON.parse(identities)]);
-  await writeFile(outputPath, renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities), 'utf8');
+  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

@@ -137,6 +137,10 @@ try {
     await writeFile(localizationPath, originalLocalization);
   }
 
+  const factionRelationTests = spawnSync(process.execPath, ['tools/test-hero-faction-relations.mjs'], { cwd: repo, encoding: 'utf8' });
+  assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
+  if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
+
   process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 66 Hero→Job pairs, 42-pair presentation-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
