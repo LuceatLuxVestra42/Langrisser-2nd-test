@@ -15,13 +15,34 @@
       11
     ],
     "heroIds": [
+      1,
+      3,
+      4,
       5,
       6,
+      7,
       8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      25,
+      26,
+      27,
       28,
+      29,
       32,
+      33,
+      37,
       52,
-      53
+      53,
+      55,
+      56,
+      60,
+      67,
+      89
     ]
   },
   "source": {
@@ -58,7 +79,9 @@
   },
   "limitations": [
     "Projection preserves only selected faction IDs and fields; it does not preserve the complete ConfigData source file.",
-    "Membership arrays are preserved as read; Canonical relation admission is limited to the seven Hero IDs in scope.",
+    "Membership arrays are preserved as read. This projection's Hero-ID coverage is limited to the listed scope.heroIds and does not claim completeness for any unlisted Hero ID.",
+    "Canonical relation admission remains limited to the seven Hero IDs admitted in canonical/hero-faction-relations.v1.json. This expanded source-evidence scope does not itself admit additional Canonical relations or Presentation eligibility.",
+    "Hero 40 remains intentionally outside the expanded Hero-ID scope; no positive membership relation for it is admitted from this evidence.",
     "No Korean localization or faction icon claim is admitted."
   ],
   "records": [

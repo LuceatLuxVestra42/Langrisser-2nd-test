@@ -26,7 +26,7 @@ export async function validateFactionIdentities(root = process.cwd()) {
   exactKeys(evidence.semantics.excludedField, ['name', 'meaning'], 'excluded source field');
   check(evidence.schemaVersion === 1 && evidence.evidenceClass === 'A' && evidence.projection === true, 'evidence classification or projection flag drift');
   check(isDeepStrictEqual(evidence.scope.factionIds, [...expected.keys()]), 'evidence faction scope drift');
-  check(isDeepStrictEqual(evidence.scope.heroIds, [5, 6, 8, 28, 32, 52, 53]), 'evidence Hero scope drift');
+  check(isDeepStrictEqual(evidence.scope.heroIds, [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 52, 53, 55, 56, 60, 67, 89]), 'evidence Hero source-coverage scope drift');
   check(evidence.source.repository === 'LuceatLuxVestra42/langrisser-future-guide'
     && evidence.source.predecessorHead === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
     && evidence.source.snapshotDate === '2026-09-02'

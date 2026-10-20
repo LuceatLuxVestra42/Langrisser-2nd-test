@@ -10,6 +10,36 @@ const expectedByHero = new Map([
   [5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]],
   [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]],
 ]);
+const expectedEvidenceByHero = new Map([
+  [1, [1, 2]],
+  [3, [2]],
+  [4, [1, 2, 11]],
+  [5, [1, 2, 6]],
+  [6, [4, 7]],
+  [7, [4, 5, 11]],
+  [8, [5, 6]],
+  [9, [5, 11]],
+  [10, [1, 2]],
+  [11, [2, 6, 8]],
+  [12, [1, 2, 4]],
+  [13, [2, 4]],
+  [14, [2, 6, 8]],
+  [25, [4, 5, 7]],
+  [26, [6, 7]],
+  [27, [1, 8]],
+  [28, [5, 8, 11]],
+  [29, [1, 6]],
+  [32, [4, 7]],
+  [33, [6]],
+  [37, [8, 11]],
+  [52, [6, 8, 9]],
+  [53, [7, 9]],
+  [55, [1, 9]],
+  [56, [1, 9]],
+  [60, [1, 8, 9]],
+  [67, [5, 8]],
+  [89, [2, 6, 11]],
+]);
 const pairKey = (heroId, factionId) => `${heroId}:${factionId}`;
 const fail = (message) => { throw new Error(`Hero–Faction relation validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
@@ -36,19 +66,28 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
   const heroIds = new Set(heroes.records.map((record) => record.heroId));
   for (const heroId of expectedByHero.keys()) check(heroIds.has(heroId), `Hero endpoint ${heroId} missing from identity owner`);
   const factionIds = new Set(factions.records.map((record) => record.factionId));
+  check(isDeepStrictEqual(evidence.scope?.heroIds, [...expectedEvidenceByHero.keys()]), 'source evidence Hero scope drift');
+  check(isDeepStrictEqual(evidence.scope?.factionIds, [...factionIds].sort((a, b) => a - b)), 'source evidence Faction scope drift');
+  check(isDeepStrictEqual(evidence.records.map(({ ID }) => ID), [...factionIds].sort((a, b) => a - b)), 'source evidence Faction records drift');
+  check(evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    && evidence.source?.sourcePath === 'data/configdata/ConfigDataHeroTagInfo.json'
+    && evidence.source?.sourceFileSha256 === '545e662920cde9f379ac03e15632e970d8a530bf2821e4dbeddc21d0f4ce4a91', 'Faction source identity drift');
+  for (const heroId of expectedEvidenceByHero.keys()) check(heroIds.has(heroId), `source evidence Hero endpoint ${heroId} missing from identity owner`);
 
   const sourceByFaction = new Map(evidence.records.map((record) => [record.ID, record]));
+  check(sourceByFaction.size === evidence.records.length, 'duplicate source Faction ID');
   const sourcePairs = new Set();
   for (const [factionId, row] of sourceByFaction) {
     check(Array.isArray(row.RelatedHeros_ID), `missing source membership list for faction ${factionId}`);
     for (const heroId of row.RelatedHeros_ID) {
-      if (expectedByHero.has(heroId)) sourcePairs.add(pairKey(heroId, factionId));
+      if (expectedEvidenceByHero.has(heroId)) sourcePairs.add(pairKey(heroId, factionId));
     }
   }
+  const expectedEvidencePairs = new Set([...expectedEvidenceByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId))));
+  check(isDeepStrictEqual(sourcePairs, expectedEvidencePairs), 'source RelatedHeros_ID target projection differs from the exact evidence-scoped relation set');
   const expectedPairs = new Set([...expectedByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId))));
-  check(isDeepStrictEqual(sourcePairs, expectedPairs), 'source RelatedHeros_ID target projection differs from the exact 17-edge scope');
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expectedPairs.size, 'relation count must be exactly 17');
+  check(Array.isArray(canonical.records) && canonical.records.length === expectedPairs.size, 'relation count must be exactly 17 for the current presentation Canonical slice');
   const expectedOrderedPairs = [...expectedByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId)));
   check(isDeepStrictEqual(canonical.records.map(({ heroId, factionId }) => pairKey(heroId, factionId)), expectedOrderedPairs), 'canonical relation order drift');
   const canonicalPairs = new Set();
@@ -65,7 +104,7 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
     canonicalPairs.add(key);
   }
   check(isDeepStrictEqual(canonicalPairs, expectedPairs), 'canonical relation edge set differs from exact 17-edge set');
-  process.stdout.write('Hero–Faction relation owner: PASS (7 Heroes, 17 exact source-backed edges)\n');
+  process.stdout.write('Hero–Faction relation owner: PASS (7 Canonical Heroes, 17 admitted edges; 28 source-evidence Heroes, 65 exact source-backed edges)\n');
 }
 
 await validateHeroFactionRelations();
