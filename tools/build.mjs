@@ -15,6 +15,7 @@ const exactKeys = (value, expected, label) => {
 
 const canonical = await readJson('canonical/heroes.v1.json');
 const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
+const heroIdentities = await readJson('canonical/hero-identities.v1.json');
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
@@ -31,7 +32,7 @@ const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.jso
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities);
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }

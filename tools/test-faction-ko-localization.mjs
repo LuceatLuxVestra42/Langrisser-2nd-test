@@ -17,7 +17,7 @@ for (const [label, mutate] of [
   ['missing exact target', (x) => { x.localization.records = x.localization.records.filter((r) => r.factionId !== 8); }],
   ['Faction 3 scope drift', (x) => { x.evidence.outOfScope = []; }],
   ['Faction 11 Chinese identity mismatch', (x) => { x.evidence.records.find((r) => r.factionId === 11).nameCn = '错误名称'; }],
-  ['relation scope drift', (x) => { x.relations.records.pop(); }],
+  ['presentation relation scope drift', (x) => { x.relations.records = x.relations.records.filter((row) => !(row.heroId === 5 && row.factionId === 1)); }],
 ]) {
   const candidate = clone();
   mutate(candidate);

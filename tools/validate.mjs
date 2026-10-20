@@ -17,6 +17,7 @@ const check = (condition, message) => { if (!condition) throw new Error(message)
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
 const canonical = await readJson('canonical/heroes.v1.json');
+const heroIdentities = await readJson('canonical/hero-identities.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
 const heroRarities = await readJson('canonical/hero-rarities.v1.json');
@@ -230,7 +231,7 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
-const expectedGenerated = renderGenerated(canonical, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
