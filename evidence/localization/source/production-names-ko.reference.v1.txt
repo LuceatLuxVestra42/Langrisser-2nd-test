@@ -1,0 +1,91 @@
+# 랑그릿사 출전작 / 진영 한글화 작업용 — localization / presentation reference
+# 역할 경계 보강: 2026-09-12
+#
+# [문서 역할과 authority 경계]
+# - 이 파일은 Hero presentation에서 사용하는 출전작/진영 분류의 ID, 중국 표시명, 한국 표시명을 정리한 localization 작업용 reference다.
+# - Hero canonical population, 출전작/진영 canonical population, Hero↔출전작·Hero↔진영 semantic relation의 authority가 아니다.
+# - current identity/population/relation의 최종 기준은 repository가 지정한 current authoritative source와 owning validator를 따른다.
+# - 이 파일의 이름, ID 배열, 표시 순서만으로 새로운 identity나 relation을 만들지 않는다.
+# - production/frontend에서 별도 frozen/generated metadata 또는 localization consumer가 존재하면 current consumer와 owning contract를 우선한다.
+#
+# [presentation eligibility 경계]
+# - `LLR 영웅은 한글화 대상 분류 산출에서 제외` 규칙은 이 작업 파일의 localization/presentation 대상 범위를 뜻한다.
+# - 위 제외 규칙을 canonical Hero 삭제, canonical relation 제거, 출전작/진영 population 변경으로 해석하지 않는다.
+# - 화면 노출/필터 대상과 canonical population/relation은 별도로 검증한다.
+#
+# [한국명 사용 규칙]
+# - 기존 한국명은 localization 표시/reference로 사용한다.
+# - `[한글화 필요]`는 미확정 표시 상태이며 임의 번역으로 confirmed 이름에 승격하지 않는다.
+# - 이름 일치만으로 Hero나 다른 객체와 JOIN하지 않는다.
+# - 이름 충돌, 변형명, 신규 ID, 관계 불일치는 name JOIN, ID arithmetic, 순서 기반 추론으로 해결하지 않고 MANUAL_REVIEW 또는 owning localization/semantic source를 확인한다.
+#
+# [count와 snapshot 경계]
+# - 이 파일 하단의 출전작/진영 개수는 이 파일에 기록된 당시 localization 작업 대상의 count다.
+# - 해당 count를 current canonical population, current release 상태, current admission의 authority로 사용하지 않는다.
+# - 신규 항목 여부와 현재 대상 범위는 current repository authority와 presentation/localization owner를 다시 확인한다.
+#
+# [non-scope]
+# - Hero canonical identity/population 판정
+# - Hero↔출전작 / Hero↔진영 relation 생성·재계산
+# - release/admission 상태 판정
+# - LLR 또는 기타 객체의 canonical 제외
+# - 이름 유사성 기반 자동 JOIN
+#
+# 아래 기존 작업용 데이터는 내용 변경 없이 보존한다.
+
+# 랑그릿사 출전작 / 진영 한글화 작업용 목록
+# 기준: 현재 Hero presentation의 ID / 중섭명
+# LLR 영웅은 한글화 대상 분류 산출에서 제외
+# 한섭명은 임의 번역하지 않고 [한글화 필요]로 표시
+# 형식: ID - 중섭명 - 한섭명
+
+[출전작]
+1 - 空之轨迹 - 영웅전설 하늘의 궤적
+2 - 樱花大战 - 사쿠라 대전
+3 - 梦幻模拟战手游I - 랑그릿사 모바일 Ch.1
+4 - 梦幻模拟战I - 랑그릿사I
+5 - 梦幻模拟战II - 랑그릿사II
+6 - 梦幻模拟战III - 랑그릿사III
+7 - 梦幻模拟战IV - 랑그릿사IV
+8 - 梦幻模拟战V - 랑그릿사V
+9 - 梦幻模拟战·转生 - 랑그릿사 RE:인카네이션 -전생-
+10 - 幽☆游☆白书 - 유유백서
+11 - 罗德斯岛 - 로도스도 전기
+12 - 梦幻模拟战手游II - 랑그릿사 모바일 Ch.2
+13 - 闪之轨迹 - 영웅전설 섬의 궤적
+14 - OVERLORD - 오버로드
+15 - 魔神英雄传 - 마신영웅전 와타루
+16 - 魔神坛斗士 - 사무라이 트루퍼
+17 - 银魂 - 은혼
+18 - 梦幻模拟战手游III - 랑그릿사 모바일 Ch.3
+19 - 战场女武神 - 전장의 발큐리아
+20 - 黎之轨迹 - 영웅전설 여의 궤적
+21 - 光明之响 - 샤이닝 레조넌스
+22 - 梦幻模拟战手游IV - 랑그릿사 모바일 Ch.4(토이바르)
+23 - 秀逗魔导士 - 슬레이어즈
+24 - 强殖装甲凯普 - 강식장갑 가이버
+25 - 梦幻模拟战·千年纪WS - 랑그릿사 밀레니엄 WS the Last Century
+26 - 名将战队 - 캡틴 코만도
+27 - 死或生 - 데드 오어 어라이브 6
+28 - 妖精的尾巴 - 페어리테일
+29 - 莱莎的炼金工房3 ～终结之炼金术士与秘密钥匙～ -라이자의 아틀리에3 ~종극의 연금술사와 비밀의 열쇠~
+30 - 梦幻模拟战·千年纪DC - 랑그릿사 밀레니엄 DC
+31 - 宇宙骑士 - 우주의 기사 테카맨 블레이드
+32 - 天空战记 - 천공전기 슈라토
+
+[진영]
+1 - 主角光环 - 시대의 주역
+2 - 光辉军团 - 빛의 군단
+3 - 光之起源 - 빛의 기원
+4 - 帝国之辉 - 제국의 빛
+5 - 黑暗轮回 - 어둠의 윤회
+6 - 公主联盟 - 공주 연맹
+7 - 战略大师 - 전략의 대가
+8 - 流星直击 - 메테오 스트라이크
+9 - 传说彼端 - 전설의 저편
+10 - 时空枢纽 - 시공의 중심
+11 - 超凡领域 - 초월 영역
+12 - 梦幻转生 - 리인카네이션 전생
+
+# 출전작: 32개
+# 진영: 12개
