@@ -7,6 +7,7 @@ import { isDeepStrictEqual } from 'node:util';
 const PATHS = Object.freeze({
   heroIdentities: 'canonical/hero-identities.v1.json',
   heroInfo: 'evidence/source/configdata/ConfigDataHeroInfo.records-hero-ko-localization.v1.json',
+  nameMaster: 'evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json',
   snapshot: 'evidence/source/configdata/snapshot.json',
   heroIdentityManifest: 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.source-manifest.v1.json',
   source: 'evidence/localization/source/hero-names-ko.v1.txt',
@@ -44,10 +45,11 @@ export function parseHeroLocalizationSource(text) {
 
 export async function readHeroKoLocalizationInputs(root = process.cwd()) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [heroIdentities, heroInfoBytes, snapshot, heroIdentityManifest, sourceBytes, sourceManifest, evidence, canonical] =
+  const [heroIdentities, heroInfoBytes, nameMaster, snapshot, heroIdentityManifest, sourceBytes, sourceManifest, evidence, canonical] =
     await Promise.all([
       readJson(PATHS.heroIdentities),
       readFile(resolve(root, PATHS.heroInfo)),
+      readJson(PATHS.nameMaster),
       readJson(PATHS.snapshot),
       readJson(PATHS.heroIdentityManifest),
       readFile(resolve(root, PATHS.source)),
@@ -58,6 +60,7 @@ export async function readHeroKoLocalizationInputs(root = process.cwd()) {
   return {
     heroIdentities,
     heroInfoBytes,
+    nameMaster,
     heroInfoRecords: JSON.parse(heroInfoBytes.toString('utf8')),
     snapshot,
     heroIdentityManifest,
@@ -74,7 +77,7 @@ function sourceGitBlobSha1(bytes) {
 }
 
 export function validateHeroKoLocalization(input) {
-  const { heroIdentities, heroInfoBytes, heroInfoRecords, snapshot, heroIdentityManifest,
+  const { heroIdentities, heroInfoBytes, heroInfoRecords, nameMaster, snapshot, heroIdentityManifest,
     sourceText, sourceManifest, evidence, canonical } = input;
   check(heroIdentities.schemaVersion === 1 && Array.isArray(heroIdentities.records), 'Hero identity schema mismatch');
   check(heroIdentities.records.length === 267, 'Hero identity population count changed');
@@ -133,7 +136,9 @@ export function validateHeroKoLocalization(input) {
   'selected source locator count mismatch');
   const selectedById = new Map();
   for (const row of sourceManifest.selectedRows) {
-    exactKeys(row, ['heroId', 'sourceLine', 'sourceRow', 'nameCn'], 'selected localization source row');
+    exactKeys(row, row.nameMasterLocator === undefined
+      ? ['heroId', 'sourceLine', 'sourceRow', 'nameCn']
+      : ['heroId', 'sourceLine', 'sourceRow', 'nameCn', 'nameMasterLocator'], 'selected localization source row');
     check(Number.isInteger(row.heroId) && !selectedById.has(row.heroId),
       'duplicate or malformed selected source Hero ID');
     check(Number.isInteger(row.sourceLine) && row.sourceLine > 0
@@ -143,7 +148,58 @@ export function validateHeroKoLocalization(input) {
     selectedById.set(row.heroId, row);
   }
   check(sameIdSet([...selectedById.keys()], targetIds), 'target declaration/selected rows mismatch');
-  check(sameIdSet(directIds, targetIds), 'direct ConfigData target ID set mismatch');
+  const directTargetIds = sourceManifest.directTargetIds;
+  const nameMasterTargetIds = sourceManifest.nameMasterTargetIds;
+  check(Array.isArray(directTargetIds) && directTargetIds.every(Number.isInteger)
+    && new Set(directTargetIds).size === directTargetIds.length, 'direct ConfigData target declaration malformed');
+  check(Array.isArray(nameMasterTargetIds) && nameMasterTargetIds.every(Number.isInteger)
+    && new Set(nameMasterTargetIds).size === nameMasterTargetIds.length, 'name master target declaration malformed');
+  check(sameIdSet(directIds, directTargetIds), 'direct ConfigData source ID set mismatch');
+  check(!directTargetIds.some((id) => nameMasterTargetIds.includes(id)), 'direct and name master source targets overlap');
+  check(sameIdSet([...directTargetIds, ...nameMasterTargetIds], targetIds), 'source target ID sets do not exactly match localization target');
+  check(nameMaster?.schemaVersion === 1 && Array.isArray(nameMaster.records), 'Hero name master projection schema mismatch');
+  const authority = heroIdentityManifest.identityAuthority;
+  check(authority?.repository === nameMaster.source?.repository
+    && authority.commit === nameMaster.source.commit
+    && authority.masterPath === nameMaster.source.path
+    && authority.masterBlobSha1 === nameMaster.source.gitBlobSha1
+    && authority.contractPath === nameMaster.source.contractPath
+    && authority.contractBlobSha1 === nameMaster.source.contractBlobSha1,
+  'Hero name master projection does not match the pinned identity authority');
+  check(nameMaster.source?.sourceRepository === snapshot.source.repository
+    && nameMaster.source.sourceCommit === snapshot.source.commit
+    && nameMaster.source.sourcePath === 'data/configdata/ConfigDataHeroInfo.json'
+    && nameMaster.source.sourceBlobSha1 === snapshot.sourceFiles['data/configdata/ConfigDataHeroInfo.json'].gitBlob,
+  'Hero name master ConfigData source anchor mismatch');
+  check(same(nameMaster.fieldMapping, { heroId: 'ConfigData Hero ID', nameCn: 'ConfigData Chinese display-name key as represented by the pinned Hero name master' }),
+    'Hero name master field mapping changed');
+  const nameMasterById = new Map();
+  for (const row of nameMaster.records) {
+    check(Number.isInteger(row.heroId) && typeof row.nameCn === 'string' && row.nameCn.length > 0
+      && row.status === 'verified', 'malformed or unverified Hero name master projection row');
+    check(!nameMasterById.has(row.heroId), `duplicate Hero name master Hero ID ${row.heroId}`);
+    nameMasterById.set(row.heroId, row);
+  }
+  check(sameIdSet([...nameMasterById.keys()], nameMasterTargetIds), 'Hero name master projection ID set mismatch');
+  check(nameMasterTargetIds.every((id) => identitySet.has(id)), 'Hero name master target is absent from existing Hero identity owner');
+  check(sourceManifest.nameMasterProjection?.projectionPath === PATHS.nameMaster
+    && sourceManifest.nameMasterProjection.repository === nameMaster.source.repository
+    && sourceManifest.nameMasterProjection.commit === nameMaster.source.commit
+    && sourceManifest.nameMasterProjection.path === nameMaster.source.path
+    && sourceManifest.nameMasterProjection.gitBlobSha1 === nameMaster.source.gitBlobSha1
+    && sourceManifest.nameMasterProjection.contractPath === nameMaster.source.contractPath
+    && sourceManifest.nameMasterProjection.contractBlobSha1 === nameMaster.source.contractBlobSha1
+    && sourceManifest.nameMasterProjection.rawConfigDataFieldReparsed === false,
+  'localization manifest name master provenance mismatch');
+  check(evidence.additionalNameSource?.projectionPath === PATHS.nameMaster
+    && evidence.additionalNameSource.repository === nameMaster.source.repository
+    && evidence.additionalNameSource.commit === nameMaster.source.commit
+    && evidence.additionalNameSource.path === nameMaster.source.path
+    && evidence.additionalNameSource.gitBlobSha1 === nameMaster.source.gitBlobSha1
+    && evidence.additionalNameSource.contractPath === nameMaster.source.contractPath
+    && evidence.additionalNameSource.contractBlobSha1 === nameMaster.source.contractBlobSha1
+    && evidence.additionalNameSource.rawConfigDataFieldReparsed === false,
+  'Hero localization additional name source provenance mismatch');
 
   check(evidence.schemaVersion === 1 && Array.isArray(evidence.records), 'Hero localization evidence schema mismatch');
   check(evidence.canonical === false && evidence.generated === false && evidence.productionRuntimeDependency === false,
@@ -178,25 +234,35 @@ export function validateHeroKoLocalization(input) {
   const directById = new Map(heroInfoRecords.map((row) => [row.ID, row]));
   for (const heroId of targetIds) {
     const direct = directById.get(heroId);
-    check(direct, `ConfigData Hero ID=${heroId} is missing`);
+    const masterRow = nameMasterById.get(heroId);
+    check(Boolean(direct) !== Boolean(masterRow), `Hero ${heroId} must have exactly one pinned name source`);
+    const nameCn = direct?.Name ?? masterRow?.nameCn;
     const selected = selectedById.get(heroId);
-    const sourceRow = sourceByName.get(direct.Name);
-    check(selected && selected.nameCn === direct.Name,
-      `ConfigData Chinese Name mismatch for Hero ${heroId}`);
+    const sourceRow = sourceByName.get(nameCn);
+    check(selected && selected.nameCn === nameCn,
+      `pinned Chinese display key mismatch for Hero ${heroId}`);
     check(sourceRow, `localization source has no exact Chinese key for Hero ${heroId}`);
     check(selected.sourceLine === sourceRow.sourceLine && selected.sourceRow === sourceRow.sourceRow,
       `source locator mismatch for Hero ${heroId}`);
+    check(direct
+      ? selected.nameMasterLocator === undefined
+      : selected.nameMasterLocator === `${PATHS.nameMaster}#heroId=${heroId}/nameCn`,
+    `Chinese key source locator mismatch for Hero ${heroId}`);
 
     const evidenceRow = evidenceById.get(heroId);
     const canonicalRow = canonicalById.get(heroId);
     check(evidenceRow && canonicalRow, `localization missing for Hero ${heroId}`);
-    exactKeys(evidenceRow, ['heroId','nameCn','nameKo','identityLocator','configDataLocator','sourceLocator','sourceLine','sourceRow','evidenceClass'],
+    exactKeys(evidenceRow, direct
+      ? ['heroId','nameCn','nameKo','identityLocator','configDataLocator','sourceLocator','sourceLine','sourceRow','evidenceClass']
+      : ['heroId','nameCn','nameKo','identityLocator','nameMasterLocator','sourceLocator','sourceLine','sourceRow','evidenceClass'],
       `localization evidence Hero ${heroId}`);
-    check(evidenceRow.nameCn === direct.Name && evidenceRow.nameKo === sourceRow.nameKo,
+    check(evidenceRow.nameCn === nameCn && evidenceRow.nameKo === sourceRow.nameKo,
       `source/evidence localization mismatch for Hero ${heroId}`);
     check(evidenceRow.identityLocator === `canonical/hero-identities.v1.json#heroId=${heroId}`
-      && evidenceRow.configDataLocator === `${PATHS.heroInfo}#ID=${heroId}/Name`
-      && evidenceRow.sourceLocator === `hero-names-ko.v1.txt#nameCn=${direct.Name}`
+      && (direct
+        ? evidenceRow.configDataLocator === `${PATHS.heroInfo}#ID=${heroId}/Name`
+        : evidenceRow.nameMasterLocator === `${PATHS.nameMaster}#heroId=${heroId}/nameCn`)
+      && evidenceRow.sourceLocator === `hero-names-ko.v1.txt#nameCn=${nameCn}`
       && evidenceRow.sourceLine === sourceRow.sourceLine && evidenceRow.sourceRow === sourceRow.sourceRow
       && evidenceRow.evidenceClass === 'A',
     `localization evidence locator/class mismatch for Hero ${heroId}`);

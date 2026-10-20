@@ -28,15 +28,20 @@ const rowFor = (rows, id) => rows.find(row => row.heroId === id);
 
 rejected('duplicate target ID', x => { x.sourceManifest.targetIds[1] = firstId; }, /duplicate target Hero ID/);
 rejected('missing declared target', x => { x.sourceManifest.targetIds.pop(); }, /selected source locator count mismatch|target declaration\/selected rows mismatch/);
-rejected('extra declared target', x => { x.sourceManifest.targetIds.push(extraId); }, /selected source locator count mismatch|target declaration\/selected rows mismatch|direct ConfigData target ID set mismatch/);
+rejected('extra declared target', x => { x.sourceManifest.targetIds.push(extraId); }, /selected source locator count mismatch|target declaration\/selected rows mismatch|target Hero ID is absent from the existing identity owner|source target ID sets do not exactly match localization target/);
 rejected('identity endpoint missing', x => {
   x.sourceManifest.targetIds[0] = 999999;
   x.sourceManifest.selectedRows[0].heroId = 999999;
 }, /target Hero ID is absent from the existing identity owner/);
-rejected('missing direct source record', x => { x.heroInfoRecords.pop(); }, /direct ConfigData target ID set mismatch/);
-rejected('extra direct source record', x => { x.heroInfoRecords.push({ ...x.heroInfoRecords[0], ID: extraId }); }, /direct ConfigData target ID set mismatch/);
+rejected('missing direct source record', x => { x.heroInfoRecords.pop(); }, /direct ConfigData source ID set mismatch/);
+rejected('extra direct source record', x => { x.heroInfoRecords.push({ ...x.heroInfoRecords[0], ID: extraId }); }, /direct ConfigData source ID set mismatch/);
 rejected('duplicate direct source ID', x => { x.heroInfoRecords[x.heroInfoRecords.length - 1].ID = x.heroInfoRecords[0].ID; }, /duplicate direct ConfigData Hero ID/);
-rejected('Chinese key mismatch', x => { x.heroInfoRecords[0].Name = '不存在的中文名'; }, /ConfigData Chinese Name mismatch|localization source has no exact Chinese key/);
+rejected('Chinese key mismatch', x => { x.heroInfoRecords[0].Name = '不存在的中文名'; }, /pinned Chinese display key mismatch|localization source has no exact Chinese key/);
+rejected('missing name master record', x => { x.nameMaster.records.pop(); }, /Hero name master projection ID set mismatch/);
+rejected('extra name master record', x => { x.nameMaster.records.push({ ...x.nameMaster.records[0], heroId: extraId }); }, /Hero name master projection ID set mismatch/);
+rejected('duplicate name master ID', x => { x.nameMaster.records[1].heroId = x.nameMaster.records[0].heroId; }, /duplicate Hero name master Hero ID/);
+rejected('name master key mismatch', x => { x.nameMaster.records[0].nameCn = '不存在的中文名'; }, /pinned Chinese display key mismatch|localization source has no exact Chinese key/);
+rejected('name master provenance mismatch', x => { x.nameMaster.source.gitBlobSha1 = '0000000000000000000000000000000000000000'; }, /does not match the pinned identity authority/);
 rejected('Korean value mismatch', x => { rowFor(x.canonical.records, firstId).nameKo += 'X'; }, /canonical localization\/provenance mismatch/);
 rejected('evidence missing', x => { x.evidence.records.pop(); }, /Hero localization evidence target ID set mismatch/);
 rejected('evidence extra', x => { x.evidence.records.push({ ...x.evidence.records[0], heroId: extraId }); }, /Hero localization evidence target ID set mismatch/);

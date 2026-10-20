@@ -15,7 +15,7 @@
   },
   "claims": {
     "heroEndpoints": "Hero IDs are read from the existing canonical Hero identity owner; this slice creates no identity or population claim.",
-    "sourceChineseDisplayKey": "ConfigDataHeroInfo.Name is retained as the upstream display key for each already admitted Hero ID.",
+    "sourceChineseDisplayKey": "For original 7 Heroes, ConfigDataHeroInfo.Name is retained directly; for the 22 extension Heroes, the pinned identity-authority hero-name-master nameCn row is used as the Chinese display key. The latter was not independently re-parsed against the raw ConfigData JSON in this work.",
     "koreanDisplayLabel": "The supplied project localization reference directly provides the Korean display label selected by exact Chinese-key equality.",
     "officialKrName": "unverified"
   },
@@ -96,11 +96,267 @@
       "sourceLine": 79,
       "sourceRow": 50,
       "evidenceClass": "A"
+    },
+    {
+      "heroId": 1,
+      "nameCn": "马修",
+      "nameKo": "매튜",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=1",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=1/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=马修",
+      "sourceLine": 30,
+      "sourceRow": 1,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 3,
+      "nameCn": "格尼尔",
+      "nameKo": "그레니어",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=3",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=3/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=格尼尔",
+      "sourceLine": 31,
+      "sourceRow": 2,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 4,
+      "nameCn": "艾梅达",
+      "nameKo": "아멜다",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=4",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=4/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=艾梅达",
+      "sourceLine": 32,
+      "sourceRow": 3,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 7,
+      "nameCn": "巴恩哈特",
+      "nameKo": "베른하르트",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=7",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=7/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=巴恩哈特",
+      "sourceLine": 35,
+      "sourceRow": 6,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 9,
+      "nameCn": "波赞鲁",
+      "nameKo": "보젤",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=9",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=9/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=波赞鲁",
+      "sourceLine": 37,
+      "sourceRow": 8,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 10,
+      "nameCn": "雷丁",
+      "nameKo": "레딘",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=10",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=10/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=雷丁",
+      "sourceLine": 38,
+      "sourceRow": 9,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 11,
+      "nameCn": "娜姆",
+      "nameKo": "나암",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=11",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=11/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=娜姆",
+      "sourceLine": 39,
+      "sourceRow": 10,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 12,
+      "nameCn": "艾尔文",
+      "nameKo": "엘윈",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=12",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=12/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=艾尔文",
+      "sourceLine": 40,
+      "sourceRow": 11,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 13,
+      "nameCn": "海恩",
+      "nameKo": "헤인",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=13",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=13/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=海恩",
+      "sourceLine": 41,
+      "sourceRow": 12,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 14,
+      "nameCn": "雪莉",
+      "nameKo": "쉐리",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=14",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=14/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=雪莉",
+      "sourceLine": 42,
+      "sourceRow": 13,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 25,
+      "nameCn": "亚鲁特缪拉",
+      "nameKo": "알테뮬러",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=25",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=25/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=亚鲁特缪拉",
+      "sourceLine": 53,
+      "sourceRow": 24,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 26,
+      "nameCn": "露娜",
+      "nameKo": "루나",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=26",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=26/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=露娜",
+      "sourceLine": 54,
+      "sourceRow": 25,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 27,
+      "nameCn": "迪哈尔特",
+      "nameKo": "디하르트",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=27",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=27/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=迪哈尔特",
+      "sourceLine": 55,
+      "sourceRow": 26,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 29,
+      "nameCn": "蒂亚莉丝",
+      "nameKo": "티아리스",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=29",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=29/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=蒂亚莉丝",
+      "sourceLine": 57,
+      "sourceRow": 28,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 33,
+      "nameCn": "芙蕾雅",
+      "nameKo": "프레아",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=33",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=33/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=芙蕾雅",
+      "sourceLine": 61,
+      "sourceRow": 32,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 37,
+      "nameCn": "古巨拉",
+      "nameKo": "쥬그라",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=37",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=37/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=古巨拉",
+      "sourceLine": 65,
+      "sourceRow": 36,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 40,
+      "nameCn": "路因",
+      "nameKo": "루인",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=40",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=40/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=路因",
+      "sourceLine": 68,
+      "sourceRow": 39,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 55,
+      "nameCn": "兰迪乌斯",
+      "nameKo": "란디우스",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=55",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=55/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=兰迪乌斯",
+      "sourceLine": 81,
+      "sourceRow": 52,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 56,
+      "nameCn": "蕾伽尔",
+      "nameKo": "레이첼",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=56",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=56/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=蕾伽尔",
+      "sourceLine": 82,
+      "sourceRow": 53,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 60,
+      "nameCn": "西格玛",
+      "nameKo": "시그마",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=60",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=60/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=西格玛",
+      "sourceLine": 86,
+      "sourceRow": 57,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 67,
+      "nameCn": "欧米伽",
+      "nameKo": "오메가",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=67",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=67/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=欧米伽",
+      "sourceLine": 93,
+      "sourceRow": 64,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 89,
+      "nameCn": "尤利娅",
+      "nameKo": "유리아",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=89",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=89/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=尤利娅",
+      "sourceLine": 114,
+      "sourceRow": 85,
+      "evidenceClass": "A"
     }
   ],
   "limitations": [
     "Official Korean-server provenance and the reference source version are unverified.",
     "The source list is a display-localization reference, not Hero identity, population, release-status, or relation authority.",
     "The exact Chinese-key comparison is used only to select a Korean display label for an already identified Hero ID."
-  ]
+  ],
+  "additionalNameSource": {
+    "projectionPath": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/hero-name-master.v1.json",
+    "gitBlobSha1": "12eaf4f84a3e91477c80fbccd78c949b79c3829f",
+    "contractPath": "data/contracts/hero-identity-contract.v1.json",
+    "contractBlobSha1": "7bd0450ba517953ae5c623244e9cb5e2aeb44c4a",
+    "fieldMapping": {
+      "heroId": "ConfigData Hero ID",
+      "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
+    },
+    "rawConfigDataFieldReparsed": false
+  }
 }

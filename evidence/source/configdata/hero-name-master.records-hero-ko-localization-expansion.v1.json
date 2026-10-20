@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/hero-name-master.v1.json",
+    "gitBlobSha1": "12eaf4f84a3e91477c80fbccd78c949b79c3829f",
+    "contractPath": "data/contracts/hero-identity-contract.v1.json",
+    "contractBlobSha1": "7bd0450ba517953ae5c623244e9cb5e2aeb44c4a",
+    "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+    "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
+    "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
+  },
+  "scope": "Pinned Hero name master mappings for the 22 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
+  "fieldMapping": {
+    "heroId": "ConfigData Hero ID",
+    "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
+  },
+  "records": [
+    {
+      "heroId": 1,
+      "nameCn": "马修",
+      "status": "verified"
+    },
+    {
+      "heroId": 3,
+      "nameCn": "格尼尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 4,
+      "nameCn": "艾梅达",
+      "status": "verified"
+    },
+    {
+      "heroId": 7,
+      "nameCn": "巴恩哈特",
+      "status": "verified"
+    },
+    {
+      "heroId": 9,
+      "nameCn": "波赞鲁",
+      "status": "verified"
+    },
+    {
+      "heroId": 10,
+      "nameCn": "雷丁",
+      "status": "verified"
+    },
+    {
+      "heroId": 11,
+      "nameCn": "娜姆",
+      "status": "verified"
+    },
+    {
+      "heroId": 12,
+      "nameCn": "艾尔文",
+      "status": "verified"
+    },
+    {
+      "heroId": 13,
+      "nameCn": "海恩",
+      "status": "verified"
+    },
+    {
+      "heroId": 14,
+      "nameCn": "雪莉",
+      "status": "verified"
+    },
+    {
+      "heroId": 25,
+      "nameCn": "亚鲁特缪拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 26,
+      "nameCn": "露娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 27,
+      "nameCn": "迪哈尔特",
+      "status": "verified"
+    },
+    {
+      "heroId": 29,
+      "nameCn": "蒂亚莉丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 33,
+      "nameCn": "芙蕾雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 37,
+      "nameCn": "古巨拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 40,
+      "nameCn": "路因",
+      "status": "verified"
+    },
+    {
+      "heroId": 55,
+      "nameCn": "兰迪乌斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 56,
+      "nameCn": "蕾伽尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 60,
+      "nameCn": "西格玛",
+      "status": "verified"
+    },
+    {
+      "heroId": 67,
+      "nameCn": "欧米伽",
+      "status": "verified"
+    },
+    {
+      "heroId": 89,
+      "nameCn": "尤利娅",
+      "status": "verified"
+    }
+  ],
+  "limitations": [
+    "This projection preserves rows from the pinned hero-name-master artifact, not raw ConfigDataHeroInfo records.",
+    "The artifact is declared by the identity authority manifest as sourced from ConfigDataHeroInfo; direct raw JSON field equality against ConfigDataHeroInfo.Name was not re-parsed in this work.",
+    "Chinese names are display-localization keys only and create no Hero identity, population, relation, release, or official Korean-server claim.",
+    "Korean display labels are selected from the repository-preserved project reference by exact nameCn equality; official KR provenance remains unverified."
+  ]
+}
