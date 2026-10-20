@@ -23,8 +23,6 @@ const exactKeys = (value, fields, label) => check(value && typeof value === 'obj
 
 function parseProductionReference(referenceBytes) {
   const bytes = Buffer.from(referenceBytes);
-  check(createHash('sha256').update(bytes).digest('hex') === REFERENCE_SHA256,
-    'Production localization reference snapshot checksum mismatch');
   const lines = bytes.toString('utf8').split(/\r?\n/);
   const rows = new Map();
   let inProductions = false;
@@ -50,6 +48,8 @@ function parseProductionReference(referenceBytes) {
   for (const id of EXPECTED_IDS) check(rows.has(id), 'missing Production reference ID ' + id);
   check(rows.get(8).line === 50 && lines[49] === '8 - 梦幻模拟战V - 랑그릿사V',
     'ID 8 Korean display label source row/line locator mismatch');
+  check(createHash('sha256').update(bytes).digest('hex') === REFERENCE_SHA256,
+    'Production localization reference snapshot checksum mismatch');
   return rows;
 }
 
