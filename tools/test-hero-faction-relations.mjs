@@ -52,7 +52,7 @@ try {
 
   await mutateAndRun(canonicalPath, (doc) => { doc.records[0].heroId = 999999; }, 'tools/generate.mjs',
     'Generator rejects Hero endpoint absent from Identity owner', /unknown Hero identity 999999/);
-  await mutateAndRun(canonicalPath, (doc) => { doc.records[0].factionId = 999999; }, 'tools/generate.mjs',
+  await mutateAndRun(canonicalPath, (doc) => { doc.records[0].factionId = 999999; doc.records[0].provenance = 'evidence/source/hero-faction.v1.json#ID=999999/RelatedHeros_ID&contains=5'; }, 'tools/generate.mjs',
     'Generator rejects missing Faction endpoint', /unknown Faction 999999/);
   await mutateAndRun(canonicalPath, (doc) => { doc.records.push({ ...doc.records[0] }); }, relationValidator,
     'duplicate Canonical pair', /exactly 65/);
