@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { renderGenerated, renderGeneralSsrEquipment } from './generate.mjs';
+import { validateHeroPortraitSelection } from './validate-hero-portrait-selection.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -404,4 +405,5 @@ for (const record of equipmentGenerated.equipment) {
   check(localized && record.nameKo === localized.nameKo && record.effectDescriptionKo === localized.effectDescriptionKo, 'generated General SSR Equipment localization parity mismatch for ' + record.equipmentId);
 }
 
+await validateHeroPortraitSelection(root);
 process.stdout.write('Hero slice and General SSR Equipment validators: PASS (Hero relation/source locators, portrait asset integrity, generated freshness and presentation shape; unrelated semantic domains excluded)\n');
