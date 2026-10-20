@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "purpose": "Project-reviewed Korean Production display localization only; not Production identity, population, relation, release status, or official Korean-server authority.",
-  "sourceScope": "Exact ProductionID mapping for the five explicitly supplied project-reviewed Korean display names that exist in the current Canonical identity owner; consumed only by the current seven-Hero presentation slice.",
-  "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
+  "purpose": "Project-supplied Korean Production display localization references only; not Production identity, population, relation, release status, or official Korean-server authority.",
+  "sourceScope": "Exact ProductionID mapping for project-supplied Korean display-name references that exist in the current Canonical identity owner; consumed only by the current seven-Hero presentation slice.",
+  "inputClassification": "PROJECT_SUPPLIED_LOCALIZATION",
   "officialKrProvenanceStatus": "unverified",
   "evidence": "evidence/localization/production-names-ko.v1.json",
   "records": [
@@ -35,6 +35,12 @@
       "nameKo": "랑그릿사IV",
       "evidenceClass": "A",
       "provenance": "evidence/localization/production-names-ko.v1.json#ProductionID=7"
+    },
+    {
+      "productionId": 8,
+      "nameKo": "랭그릿사V",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/production-names-ko.v1.json#ProductionID=8"
     }
   ]
 }

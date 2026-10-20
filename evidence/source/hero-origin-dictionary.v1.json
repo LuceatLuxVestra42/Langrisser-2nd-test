@@ -3,7 +3,16 @@
   "claimType": "production-identity-chinese-display-name",
   "evidenceClass": "B",
   "projection": true,
-  "scope": {"productionIds": [3, 4, 5, 6, 7]},
+  "scope": {
+    "productionIds": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
   "source": {
     "repository": "LuceatLuxVestra42/langrisser-future-guide",
     "validatedAtHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
@@ -34,11 +43,36 @@
     "dictionaryScope": "32 Production IDs, 1 through 32; 267/267 Hero pointers resolved without missing, unknown, or unused IDs."
   },
   "records": [
-    {"productionId": 3, "nameCn": "梦幻模拟战手游I", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=3]"},
-    {"productionId": 4, "nameCn": "梦幻模拟战I", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=4]"},
-    {"productionId": 5, "nameCn": "梦幻模拟战II", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=5]"},
-    {"productionId": 6, "nameCn": "梦幻模拟战III", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=6]"},
-    {"productionId": 7, "nameCn": "梦幻模拟战IV", "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=7]"}
+    {
+      "productionId": 3,
+      "nameCn": "梦幻模拟战手游I",
+      "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=3]"
+    },
+    {
+      "productionId": 4,
+      "nameCn": "梦幻模拟战I",
+      "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=4]"
+    },
+    {
+      "productionId": 5,
+      "nameCn": "梦幻模拟战II",
+      "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=5]"
+    },
+    {
+      "productionId": 6,
+      "nameCn": "梦幻模拟战III",
+      "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=6]"
+    },
+    {
+      "productionId": 7,
+      "nameCn": "梦幻模拟战IV",
+      "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=7]"
+    },
+    {
+      "productionId": 8,
+      "nameCn": "梦幻模拟战V",
+      "sourceLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#dictionary[productionId=8]"
+    }
   ],
   "limitations": [
     "This is a Legacy-derived projection of the validated dictionary, not a new direct validation of its external references.",

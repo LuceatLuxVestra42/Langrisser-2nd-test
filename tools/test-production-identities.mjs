@@ -23,7 +23,7 @@ try {
   await writeJson(canonicalPath, missing);
   result = validator();
   assert.notEqual(result.status, 0, 'missing identity must fail');
-  assert.match(diagnostic(result), /exactly five scoped identities/);
+  assert.match(diagnostic(result), /exactly six scoped identities/);
   await writeJson(canonicalPath, originalCanonical);
 
   const wrongNameProvenance = structuredClone(originalCanonical);

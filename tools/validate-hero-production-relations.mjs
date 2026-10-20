@@ -9,7 +9,7 @@ const heroIdentityPath = 'canonical/hero-identities.v1.json';
 const productionIdentityPath = 'canonical/production-identities.v1.json';
 const directExpected = new Map([[5, 4], [6, 5], [8, 5], [28, 3], [32, 6], [52, 7], [53, 7]]);
 const inheritedExpected = new Map([[1, 3], [3, 3], [4, 3], [7, 5], [9, 4], [10, 4], [11, 4], [12, 5], [13, 5], [14, 5], [25, 6], [26, 6], [27, 6], [29, 6], [33, 6], [37, 6], [40, 6], [55, 7], [56, 7], [60, 8], [67, 8], [89, 3]]);
-const admittedInherited = new Set([...inheritedExpected].filter(([, productionId]) => productionId >= 3 && productionId <= 7).map(([heroId]) => heroId));
+const admittedInherited = new Set([...inheritedExpected].filter(([, productionId]) => productionId >= 3 && productionId <= 8).map(([heroId]) => heroId));
 const expected = new Map([...directExpected, ...[...inheritedExpected].filter(([heroId]) => admittedInherited.has(heroId))]);
 const reportPath = 'data/validation/hero-page-stage5-5-2-origin.v1.json';
 const fail = (message) => { throw new Error(`Hero–Production relation validation failed: ${message}`); };
@@ -88,14 +88,14 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
   'Legacy PASS_WITH_DATA_GAPS scope must remain explicit');
   check(isDeepStrictEqual([...inherited.scope.heroIds].sort((a,b)=>a-b), [...inheritedExpected.keys()].sort((a,b)=>a-b))
     && isDeepStrictEqual([...inherited.scope.admittedHeroIds].sort((a,b)=>a-b), [...admittedInherited].sort((a,b)=>a-b))
-    && isDeepStrictEqual([...inherited.scope.reviewOnlyHeroIds].sort((a,b)=>a-b), [60,67])
+    && isDeepStrictEqual([...inherited.scope.reviewOnlyHeroIds].sort((a,b)=>a-b), [])
     && isDeepStrictEqual([...inherited.scope.productionIds].sort((a,b)=>a-b), [3,4,5,6,7,8]),
   'inherited relation scope ID coverage drift');
   check(isDeepStrictEqual(inherited.limitations, [
     'This projection inherits ID-specific Production pointers from the pinned Legacy validation report; it is not a direct copy or reparse of ConfigDataHeroInfo records.',
     'The raw HeroInfo file was not re-downloaded or parsed in this change. The source commit, path, Git blob SHA-1, source-pack pins, and Legacy validation chain identify the claimed source scope.',
     "The Legacy report's PASS and source-pack hydration PASS support only the claims and checks they explicitly cover; they do not independently establish Production identity or Korean localization.",
-    'Hero 60 and 67 point to Production ID 8 in the inherited report. Their pointers are retained as review-only evidence because Production identity 8 is not admitted here; no Canonical relation is created for them.',
+    'Hero 60 and 67 point to Production ID 8 in the inherited report. Their pointers were held review-only until Production identity 8 was admitted; this update admits those two relation claims without asserting Korean localization or Hero presentation eligibility.',
     'This artifact supports Hero-to-Production relation claims only and does not support Production name or localization claims.'
   ]), 'inherited relation limitations drift');
 
@@ -103,7 +103,7 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
   check(canonical.schemaVersion === 1 && canonical.sourceEvidence === evidencePath
     && canonical.inheritedSourceEvidence === inheritedPath
     && canonical.relationField === 'HeroBelongProduction'
-    && canonical.scope === 'Explicit Hero-to-Production origin relations supported by the admitted evidence scope (27 Hero endpoints / 27 relations); independent of the seven-Hero presentation population and not a completeness claim beyond this evidence.',
+    && canonical.scope === 'Explicit Hero-to-Production origin relations supported by the admitted evidence scope (29 Hero endpoints / 29 relations); independent of the seven-Hero presentation population and not a completeness claim beyond this evidence.',
   'relation canonical scope or evidence pointer drift');
   exactKeys(heroes, ['schemaVersion', 'scope', 'records'], 'Hero identity owner');
   check(heroes.schemaVersion === 1 && Array.isArray(heroes.records), 'unsupported Hero identity owner');
@@ -138,7 +138,7 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
     `inherited relation claim ${claim.heroId} must preserve an inherited singleton-array value`);
     check(claim.legacyLocator === `${reportPath}#heroes[heroId=${claim.heroId}]/productionId`,
       `Legacy relation locator drift for Hero ${claim.heroId}`);
-    check(claim.canonicalAdmission === (claim.projectedArray[0] >= 3 && claim.projectedArray[0] <= 7
+    check(claim.canonicalAdmission === (claim.projectedArray[0] >= 3 && claim.projectedArray[0] <= 8
       ? 'ADMITTED' : 'REVIEW_PRODUCTION_IDENTITY_NOT_ADMITTED'), `incorrect Canonical status for Hero ${claim.heroId}`);
     check(heroIds.has(claim.heroId), `inherited Hero endpoint ${claim.heroId} missing from Identity`);
     check(!inheritedByHero.has(claim.heroId), `duplicate inherited relation evidence for Hero ${claim.heroId}`);
@@ -147,7 +147,7 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
   check(isDeepStrictEqual([...inheritedByHero.keys()].sort((a,b)=>a-b), [...inheritedExpected.keys()].sort((a,b)=>a-b)), 'inherited relation evidence Hero ID set mismatch');
   for (const [heroId, productionId] of inheritedExpected) check(inheritedByHero.get(heroId) === productionId, `inherited Production pointer drift for Hero ${heroId}`);
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'relation canonical must contain exactly 27 admitted edges');
+  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'relation canonical must contain exactly 29 admitted edges');
   const seen = new Set();
   const perHero = new Map();
   for (const row of canonical.records) {
@@ -166,11 +166,12 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
     seen.add(key);
     perHero.set(row.heroId, (perHero.get(row.heroId) ?? 0) + 1);
   }
-  check(isDeepStrictEqual([...seen].sort(), [...expected].map(([heroId, productionId]) => `${heroId}:${productionId}`).sort()), 'exact 27-edge relation set mismatch');
+  check(isDeepStrictEqual([...seen].sort(), [...expected].map(([heroId, productionId]) => `${heroId}:${productionId}`).sort()), 'exact 29-edge relation set mismatch');
   for (const heroId of expected.keys()) check(perHero.get(heroId) === 1, `Hero ${heroId} must have one Production relation in this admitted scope`);
-  check(!canonical.records.some((row) => row.heroId === 60 || row.heroId === 67 || row.productionId === 8),
-    'Production ID 8 review-only pointers must not be admitted to Canonical relations');
-  process.stdout.write('Hero–Production relation validator: PASS (27 admitted edges, 22 inherited pointers including two review-only endpoints, identity validation and provenance)\\n');
+  check(canonical.records.some((row) => row.heroId === 60 && row.productionId === 8)
+    && canonical.records.some((row) => row.heroId === 67 && row.productionId === 8),
+  'Hero 60 and 67 must retain their supported Production ID 8 relations');
+  process.stdout.write('Hero–Production relation validator: PASS (29 admitted edges, all 22 inherited pointers admitted against the six Production identities, identity validation and provenance)\\n');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)) {

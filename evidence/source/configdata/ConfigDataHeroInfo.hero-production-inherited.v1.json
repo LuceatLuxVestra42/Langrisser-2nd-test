@@ -48,12 +48,11 @@
       40,
       55,
       56,
-      89
-    ],
-    "reviewOnlyHeroIds": [
+      89,
       60,
       67
     ],
+    "reviewOnlyHeroIds": [],
     "productionIds": [
       3,
       4,
@@ -353,7 +352,7 @@
       "directRawRecordRead": false,
       "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=60]/productionId",
       "evidenceClass": "B",
-      "canonicalAdmission": "REVIEW_PRODUCTION_IDENTITY_NOT_ADMITTED"
+      "canonicalAdmission": "ADMITTED"
     },
     {
       "heroId": 67,
@@ -365,7 +364,7 @@
       "directRawRecordRead": false,
       "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=67]/productionId",
       "evidenceClass": "B",
-      "canonicalAdmission": "REVIEW_PRODUCTION_IDENTITY_NOT_ADMITTED"
+      "canonicalAdmission": "ADMITTED"
     },
     {
       "heroId": 89,
@@ -384,7 +383,7 @@
     "This projection inherits ID-specific Production pointers from the pinned Legacy validation report; it is not a direct copy or reparse of ConfigDataHeroInfo records.",
     "The raw HeroInfo file was not re-downloaded or parsed in this change. The source commit, path, Git blob SHA-1, source-pack pins, and Legacy validation chain identify the claimed source scope.",
     "The Legacy report's PASS and source-pack hydration PASS support only the claims and checks they explicitly cover; they do not independently establish Production identity or Korean localization.",
-    "Hero 60 and 67 point to Production ID 8 in the inherited report. Their pointers are retained as review-only evidence because Production identity 8 is not admitted here; no Canonical relation is created for them.",
+    "Hero 60 and 67 point to Production ID 8 in the inherited report. Their pointers were held review-only until Production identity 8 was admitted; this update admits those two relation claims without asserting Korean localization or Hero presentation eligibility.",
     "This artifact supports Hero-to-Production relation claims only and does not support Production name or localization claims."
   ]
 }

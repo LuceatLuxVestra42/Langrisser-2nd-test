@@ -1,15 +1,20 @@
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 
 const EVIDENCE_PATH = 'evidence/localization/production-names-ko.v1.json';
 const CANONICAL_PATH = 'canonical/production-localizations-ko.v1.json';
+const REFERENCE_PATH = 'evidence/localization/source/production-names-ko.reference.v1.txt';
+const REFERENCE_SHA256 = '945957a30a35126f477d8efcdeabd013785eeb1032fe2a04bc18ee184df9093c';
 const EXPECTED = new Map([
   [3, { nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1' }],
   [4, { nameCn: '梦幻模拟战I', nameKo: '랑그릿사I' }],
   [5, { nameCn: '梦幻模拟战II', nameKo: '랑그릿사II' }],
   [6, { nameCn: '梦幻模拟战III', nameKo: '랑그릿사III' }],
   [7, { nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV' }],
+  [8, { nameCn: '梦幻模拟战V', nameKo: '랭그릿사V' }],
 ]);
 const EXPECTED_IDS = [...EXPECTED.keys()];
 const fail = (message) => { throw new Error('Production Korean localization validation failed: ' + message); };
@@ -30,12 +35,16 @@ export function validateProductionKoLocalization({ identities, relations, heroes
     'sourceDescription', 'officialKrProvenanceStatus', 'scope', 'records', 'limitations'], 'localization evidence');
   check(evidence.schemaVersion === 1 && evidence.canonical === false && evidence.generated === false
     && evidence.productionRuntimeDependency === false, 'evidence authority boundary drift');
-  check(evidence.inputClassification === 'PROJECT_REVIEWED_LOCALIZATION'
+  check(evidence.inputClassification === 'PROJECT_SUPPLIED_LOCALIZATION'
     && evidence.officialKrProvenanceStatus === 'unverified'
-    && evidence.sourceDescription === 'Korean Production display-name mapping explicitly supplied in the user instruction for this task.',
+    && evidence.sourceDescription === 'Korean Production display-name reference supplied as project_sources/04-txt; preserved verbatim at evidence/localization/source/production-names-ko.reference.v1.txt (SHA-256 945957a30a35126f477d8efcdeabd013785eeb1032fe2a04bc18ee184df9093c). ID 8 is sourced from line 50.',
   'input classification, provenance status, or source description drift');
+  const referenceBytes = readFileSync(resolve(REFERENCE_PATH));
+  const referenceLines = referenceBytes.toString('utf8').split(/\r?\n/);
+  check(createHash('sha256').update(referenceBytes).digest('hex') === REFERENCE_SHA256
+    && referenceLines[49] === '8 - 梦幻模拟战V - 랑그릿사V', 'ID 8 Korean display label source snapshot or line locator mismatch');
   exactKeys(evidence.scope, ['claim', 'productionIds', 'consumer'], 'evidence scope');
-  check(evidence.scope.claim === 'Project-reviewed Korean Production display label by exact existing Canonical ProductionID.'
+  check(evidence.scope.claim === 'Project-supplied Korean Production display label by exact existing Canonical ProductionID.'
     && isDeepStrictEqual(evidence.scope.productionIds, EXPECTED_IDS)
     && evidence.scope.consumer === 'Current seven-Hero presentation slice only.', 'evidence target or consumer scope drift');
   check(isDeepStrictEqual(evidence.limitations, [
@@ -50,8 +59,8 @@ export function validateProductionKoLocalization({ identities, relations, heroes
     const expected = EXPECTED.get(row.productionId);
     check(expected && row.nameCn === expected.nameCn && row.nameKo === expected.nameKo
       && row.nameCn === identityById.get(row.productionId)?.nameCn
-      && row.locator === 'user-instruction#ProductionID=' + row.productionId
-      && row.reviewStatus === 'PROJECT_REVIEWED', 'input or Canonical identity mismatch for Production ' + row.productionId);
+      && row.locator === (row.productionId === 8 ? REFERENCE_PATH + '#L50' : 'user-instruction#ProductionID=' + row.productionId)
+      && row.reviewStatus === (row.productionId === 8 ? 'PROJECT_REFERENCE' : 'PROJECT_REVIEWED'), 'input or Canonical identity mismatch for Production ' + row.productionId);
     check(!evidenceById.has(row.productionId), 'duplicate evidence Production ' + row.productionId);
     evidenceById.set(row.productionId, row);
   }
@@ -60,9 +69,9 @@ export function validateProductionKoLocalization({ identities, relations, heroes
   exactKeys(localization, ['schemaVersion', 'purpose', 'sourceScope', 'inputClassification',
     'officialKrProvenanceStatus', 'evidence', 'records'], 'Canonical localization owner');
   check(localization.schemaVersion === 1
-    && localization.purpose === 'Project-reviewed Korean Production display localization only; not Production identity, population, relation, release status, or official Korean-server authority.'
-    && localization.sourceScope === 'Exact ProductionID mapping for the five explicitly supplied project-reviewed Korean display names that exist in the current Canonical identity owner; consumed only by the current seven-Hero presentation slice.'
-    && localization.inputClassification === 'PROJECT_REVIEWED_LOCALIZATION'
+    && localization.purpose === 'Project-supplied Korean Production display localization references only; not Production identity, population, relation, release status, or official Korean-server authority.'
+    && localization.sourceScope === 'Exact ProductionID mapping for project-supplied Korean display-name references that exist in the current Canonical identity owner; consumed only by the current seven-Hero presentation slice.'
+    && localization.inputClassification === 'PROJECT_SUPPLIED_LOCALIZATION'
     && localization.officialKrProvenanceStatus === 'unverified'
     && localization.evidence === EVIDENCE_PATH, 'Canonical localization metadata/provenance drift');
   check(Array.isArray(localization.records) && localization.records.length === EXPECTED.size, 'Canonical localization count mismatch');

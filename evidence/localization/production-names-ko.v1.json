@@ -3,17 +3,18 @@
   "canonical": false,
   "generated": false,
   "productionRuntimeDependency": false,
-  "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
-  "sourceDescription": "Korean Production display-name mapping explicitly supplied in the user instruction for this task.",
+  "inputClassification": "PROJECT_SUPPLIED_LOCALIZATION",
+  "sourceDescription": "Korean Production display-name reference supplied as project_sources/04-txt; preserved verbatim at evidence/localization/source/production-names-ko.reference.v1.txt (SHA-256 945957a30a35126f477d8efcdeabd013785eeb1032fe2a04bc18ee184df9093c). ID 8 is sourced from line 50.",
   "officialKrProvenanceStatus": "unverified",
   "scope": {
-    "claim": "Project-reviewed Korean Production display label by exact existing Canonical ProductionID.",
+    "claim": "Project-supplied Korean Production display label by exact existing Canonical ProductionID.",
     "productionIds": [
       3,
       4,
       5,
       6,
-      7
+      7,
+      8
     ],
     "consumer": "Current seven-Hero presentation slice only."
   },
@@ -52,6 +53,13 @@
       "nameKo": "랑그릿사IV",
       "locator": "user-instruction#ProductionID=7",
       "reviewStatus": "PROJECT_REVIEWED"
+    },
+    {
+      "productionId": 8,
+      "nameCn": "梦幻模拟战V",
+      "nameKo": "랭그릿사V",
+      "locator": "evidence/localization/source/production-names-ko.reference.v1.txt#L50",
+      "reviewStatus": "PROJECT_REFERENCE"
     }
   ],
   "limitations": [

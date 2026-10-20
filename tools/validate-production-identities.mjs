@@ -6,7 +6,7 @@ const evidencePath = 'evidence/source/hero-origin-dictionary.v1.json';
 const canonicalPath = 'canonical/production-identities.v1.json';
 const expected = new Map([
   [3, '梦幻模拟战手游I'], [4, '梦幻模拟战I'], [5, '梦幻模拟战II'],
-  [6, '梦幻模拟战III'], [7, '梦幻模拟战IV'],
+  [6, '梦幻模拟战III'], [7, '梦幻模拟战IV'], [8, '梦幻模拟战V'],
 ]);
 const fail = (message) => { throw new Error(`Production identity validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
@@ -27,15 +27,18 @@ export async function validateProductionIdentities(root = process.cwd()) {
   check(evidence.legacyValidation?.originArtifactStatus === 'PASS'
     && evidence.legacyValidation?.originArtifactBlobSha1 === 'ea119a55f2aaf42713c9ec196bcb5fc0e322b902'
     && evidence.legacyValidation?.dictionaryFieldStatus === 'SOURCE_DICTIONARY_CONFIRMED'
-    && evidence.legacyValidation?.dictionaryLanguage === 'zh-CN', 'Legacy dictionary validation scope drift');
+    && evidence.legacyValidation?.dictionaryLanguage === 'zh-CN'
+    && evidence.legacyValidation?.sourceTraceStatus === 'PASS_WITH_DATA_GAPS'
+    && evidence.legacyValidation?.dictionaryScope === '32 Production IDs, 1 through 32; 267/267 Hero pointers resolved without missing, unknown, or unused IDs.',
+  'Legacy dictionary validation scope drift');
   check(evidence.source?.externalValidation?.individualReferenceUrlsPreservedInArtifact === false,
     'external reference limitation must remain explicit');
   exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'records'], 'Production identity canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceEvidence === evidencePath
-    && canonical.scope === 'Production identities referenced by the admitted seven-Hero presentation slice; validated Chinese source-display names only.',
+    && canonical.scope === 'Production identities supported by the admitted Legacy dictionary evidence (IDs 3–8); validated Chinese source-display names only, independent of current presentation population.',
   'canonical schema, scope, or evidence pointer drift');
-  check(Array.isArray(evidence.records) && evidence.records.length === expected.size, 'dictionary evidence must contain exactly five scoped records');
-  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'canonical must contain exactly five scoped identities');
+  check(Array.isArray(evidence.records) && evidence.records.length === expected.size, 'dictionary evidence must contain exactly six scoped records');
+  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'canonical must contain exactly six scoped identities');
   const evidenceById = new Map();
   for (const row of evidence.records) {
     exactKeys(row, ['productionId', 'nameCn', 'sourceLocator'], `Dictionary evidence ${row.productionId}`);
@@ -58,7 +61,7 @@ export async function validateProductionIdentities(root = process.cwd()) {
     canonicalIds.add(row.productionId);
   }
   check(isDeepStrictEqual([...canonicalIds].sort((a, b) => a - b), [...expected.keys()]), 'canonical Production ID set mismatch');
-  process.stdout.write('Production identity validator: PASS (five scoped IDs, exact Legacy dictionary parity, independent B provenance)\n');
+  process.stdout.write('Production identity validator: PASS (six scoped IDs, exact Legacy dictionary parity, independent B provenance)\n');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)) {

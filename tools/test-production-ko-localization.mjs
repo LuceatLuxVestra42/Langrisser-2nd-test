@@ -3,9 +3,9 @@ import { loadProductionKoLocalizationInputs, validateProductionKoLocalization } 
 
 const input = await loadProductionKoLocalizationInputs();
 const result = validateProductionKoLocalization(input);
-assert.deepEqual(result.localizedIds, [3, 4, 5, 6, 7]);
-assert.equal(result.identityCount, 5);
-assert.equal(result.relationCount, 27);
+assert.deepEqual(result.localizedIds, [3, 4, 5, 6, 7, 8]);
+assert.equal(result.identityCount, 6);
+assert.equal(result.relationCount, 29);
 assert.equal(result.presentationRelationCount, 7);
 
 const withoutHiddenRelation = structuredClone(input);
@@ -15,8 +15,8 @@ assert.doesNotThrow(() => validateProductionKoLocalization(withoutHiddenRelation
 for (const [label, mutate] of [
   ['duplicate localization', (x) => x.localization.records.push(structuredClone(x.localization.records[0]))],
   ['missing Production localization', (x) => { x.localization.records.pop(); }],
-  ['unknown Production localization', (x) => x.localization.records.push({ productionId: 8, nameKo: '다른 작품', evidenceClass: 'A', provenance: 'test' })],
-  ['changed reviewed label', (x) => { x.localization.records[0].nameKo = '다른 이름'; }],
+  ['unknown Production localization', (x) => x.localization.records.push({ productionId: 9, nameKo: '다른 작품', evidenceClass: 'A', provenance: 'test' })],
+  ['changed project reference label', (x) => { x.localization.records[0].nameKo = '다른 이름'; }],
   ['official status drift', (x) => { x.evidence.officialKrProvenanceStatus = 'verified'; }],
   ['Chinese identity mismatch', (x) => { x.evidence.records[0].nameCn = '错误名称'; }],
   ['duplicate evidence', (x) => x.evidence.records.push(structuredClone(x.evidence.records[0]))],
