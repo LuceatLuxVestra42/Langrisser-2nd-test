@@ -17,12 +17,14 @@ const check = (condition, message) => { if (!condition) fail(message); };
 const exactKeys = (value, fields, label) => check(value && typeof value === 'object' && !Array.isArray(value)
   && isDeepStrictEqual(Object.keys(value).sort(), [...fields].sort()), label + ' fields drift');
 
-export function validateProductionKoLocalization({ identities, relations, evidence, localization }) {
+export function validateProductionKoLocalization({ identities, relations, heroes, evidence, localization }) {
   check(identities.schemaVersion === 1 && Array.isArray(identities.records), 'Production identity owner schema mismatch');
   const identityIds = identities.records.map(({ productionId }) => productionId);
   check(isDeepStrictEqual(identityIds, EXPECTED_IDS), 'current Production identity set/order changed; reassess scope');
-  check(relations.schemaVersion === 1 && Array.isArray(relations.records) && relations.records.length === 7,
-    'current seven-Hero relation scope changed; reassess scope');
+  check(relations.schemaVersion === 1 && Array.isArray(relations.records),
+    'Hero–Production Canonical schema mismatch');
+  check(heroes?.schemaVersion === 1 && Array.isArray(heroes.records),
+    'Hero presentation Canonical schema mismatch');
 
   exactKeys(evidence, ['schemaVersion', 'canonical', 'generated', 'productionRuntimeDependency', 'inputClassification',
     'sourceDescription', 'officialKrProvenanceStatus', 'scope', 'records', 'limitations'], 'localization evidence');
@@ -76,18 +78,33 @@ export function validateProductionKoLocalization({ identities, relations, eviden
   }
   check(isDeepStrictEqual([...localizationById.keys()], EXPECTED_IDS), 'Canonical localization ID set/order mismatch');
   check(EXPECTED_IDS.every((id) => identityById.has(id)), 'localization target missing from Production identity owner');
-  return { localizedIds: [...localizationById.keys()], identityCount: identityIds.length, relationCount: relations.records.length };
+  const presentationHeroIds = heroes.records.map((row) => row.id);
+  check(presentationHeroIds.every(Number.isSafeInteger) && new Set(presentationHeroIds).size === presentationHeroIds.length,
+    'presentation Hero IDs are malformed or duplicated');
+  for (const heroId of presentationHeroIds) {
+    const heroRelations = relations.records.filter((row) => row.heroId === heroId);
+    check(heroRelations.length === 1, 'presentation Hero ' + heroId + ' must have exactly one Production relation');
+    check(localizationById.has(heroRelations[0].productionId),
+      'presentation Hero ' + heroId + ' references an unlocalized Production ID');
+  }
+  return {
+    localizedIds: [...localizationById.keys()],
+    identityCount: identityIds.length,
+    relationCount: relations.records.length,
+    presentationRelationCount: presentationHeroIds.length,
+  };
 }
 
 export async function loadProductionKoLocalizationInputs(root = process.cwd()) {
   const read = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [identities, relations, evidence, localization] = await Promise.all([
+  const [identities, relations, heroes, evidence, localization] = await Promise.all([
     read('canonical/production-identities.v1.json'),
     read('canonical/hero-production-relations.v1.json'),
+    read('canonical/heroes.v1.json'),
     read(EVIDENCE_PATH),
     read(CANONICAL_PATH),
   ]);
-  return { identities, relations, evidence, localization };
+  return { identities, relations, heroes, evidence, localization };
 }
 
 export async function validateProductionKoLocalizationFromDisk(root = process.cwd()) {
@@ -97,5 +114,6 @@ export async function validateProductionKoLocalizationFromDisk(root = process.cw
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-production-ko-localization.mjs')) {
   const result = await validateProductionKoLocalizationFromDisk();
   process.stdout.write('Production Korean localization: PASS (' + result.localizedIds.length + ' IDs; '
-    + result.identityCount + ' identities; ' + result.relationCount + ' existing Hero–Production relations)\n');
+    + result.identityCount + ' identities; ' + result.presentationRelationCount
+    + ' presentation relations across ' + result.relationCount + ' Canonical relations)\n');
 }
