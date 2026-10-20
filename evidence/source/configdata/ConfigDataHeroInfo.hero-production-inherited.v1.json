@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-production-relation",
+  "evidenceClass": "B",
+  "projection": true,
+  "scope": {
+    "heroIds": [
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      25,
+      26,
+      27,
+      29,
+      33,
+      37,
+      40,
+      55,
+      56,
+      60,
+      67,
+      89
+    ],
+    "admittedHeroIds": [
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      25,
+      26,
+      27,
+      29,
+      33,
+      37,
+      40,
+      55,
+      56,
+      89
+    ],
+    "reviewOnlyHeroIds": [
+      60,
+      67
+    ],
+    "productionIds": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceTree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "byteLength": 16894185,
+    "fileSha256": null,
+    "fileSha256Status": "NOT_DIRECTLY_RETRIEVED",
+    "sourcePack": {
+      "releaseTag": "source-configdata-v1-6475e63e",
+      "releaseId": 380931071,
+      "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+      "inventorySha256": "ea7c6381e0901a55fe11014d14bb82862d9474c418e89d11869e03ba876dcade",
+      "checksumsSha256": "be81655d43cacbb31fd55d4c64f0cdb46a47953b8247eea1b600025719a56be2"
+    }
+  },
+  "semantics": {
+    "heroIdField": "ID",
+    "relationField": "HeroBelongProduction",
+    "valueType": "integer[]",
+    "meaning": "Hero origin / production relation",
+    "currentScopeCardinality": "The inherited Legacy validation report records one Production pointer per Hero within its 267-Hero scope.",
+    "nameClaimIsSeparate": true
+  },
+  "legacyValidation": {
+    "repositoryHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "originArtifact": {
+      "path": "data/validation/hero-page-stage5-5-2-origin.v1.json",
+      "blobSha1": "ea119a55f2aaf42713c9ec196bcb5fc0e322b902",
+      "status": "PASS",
+      "coverage": "267/267 Heroes mapped; one Production pointer each; no missing, duplicate, invalid, unknown, missing-dictionary, or unused-dictionary IDs."
+    },
+    "sourceTrace": {
+      "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+      "blobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9",
+      "status": "PASS_WITH_DATA_GAPS",
+      "originFieldStatus": "SOURCE_DICTIONARY_CONFIRMED",
+      "originField": "ConfigDataHeroInfo.HeroBelongProduction"
+    },
+    "sourcePackHydration": {
+      "path": "data/validation/configdata-source-pack-b2-hydration.v1.json",
+      "blobSha1": "61c759bf4aaeb162dc49c9e905f33cf73cebb9b1",
+      "status": "PASS",
+      "workflowRunId": 33582774237,
+      "perFileSha256AndSizeVerified": true,
+      "trackedSourceByteParityVerified": true
+    },
+    "claimScope": "The pinned report validates HeroBelongProduction pointers for 267 Heroes. PASS_WITH_DATA_GAPS concerns unencoded skin-acquisition rows; the report's origin field is SOURCE_DICTIONARY_CONFIRMED.",
+    "rawHeroInfoReparsedInThisChange": false
+  },
+  "records": [
+    {
+      "heroId": 1,
+      "recordId": 1,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        3
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=1]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 3,
+      "recordId": 3,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        3
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=3]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 4,
+      "recordId": 4,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        3
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=4]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 7,
+      "recordId": 7,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        5
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=7]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 9,
+      "recordId": 9,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        4
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=9]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 10,
+      "recordId": 10,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        4
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=10]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 11,
+      "recordId": 11,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        4
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=11]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 12,
+      "recordId": 12,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        5
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=12]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 13,
+      "recordId": 13,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        5
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=13]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 14,
+      "recordId": 14,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        5
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=14]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 25,
+      "recordId": 25,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=25]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 26,
+      "recordId": 26,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=26]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 27,
+      "recordId": 27,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=27]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 29,
+      "recordId": 29,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=29]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 33,
+      "recordId": 33,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=33]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 37,
+      "recordId": 37,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=37]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 40,
+      "recordId": 40,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        6
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=40]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 55,
+      "recordId": 55,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        7
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=55]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 56,
+      "recordId": 56,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        7
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=56]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    },
+    {
+      "heroId": 60,
+      "recordId": 60,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        8
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=60]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "REVIEW_PRODUCTION_IDENTITY_NOT_ADMITTED"
+    },
+    {
+      "heroId": 67,
+      "recordId": 67,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        8
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=67]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "REVIEW_PRODUCTION_IDENTITY_NOT_ADMITTED"
+    },
+    {
+      "heroId": 89,
+      "recordId": 89,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        3
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=89]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    }
+  ],
+  "limitations": [
+    "This projection inherits ID-specific Production pointers from the pinned Legacy validation report; it is not a direct copy or reparse of ConfigDataHeroInfo records.",
+    "The raw HeroInfo file was not re-downloaded or parsed in this change. The source commit, path, Git blob SHA-1, source-pack pins, and Legacy validation chain identify the claimed source scope.",
+    "The Legacy report's PASS and source-pack hydration PASS support only the claims and checks they explicitly cover; they do not independently establish Production identity or Korean localization.",
+    "Hero 60 and 67 point to Production ID 8 in the inherited report. Their pointers are retained as review-only evidence because Production identity 8 is not admitted here; no Canonical relation is created for them.",
+    "This artifact supports Hero-to-Production relation claims only and does not support Production name or localization claims."
+  ]
+}

@@ -1,15 +1,144 @@
 {
   "schemaVersion": 1,
-  "scope": "Explicit Hero-to-Production origin relations for the current seven-Hero presentation slice; not a completeness claim beyond this slice.",
+  "scope": "Explicit Hero-to-Production origin relations supported by the admitted evidence scope (27 Hero endpoints / 27 relations); independent of the seven-Hero presentation population and not a completeness claim beyond this evidence.",
   "sourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json",
   "relationField": "HeroBelongProduction",
   "records": [
-    {"heroId": 5, "productionId": 4, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=5"},
-    {"heroId": 6, "productionId": 5, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=6"},
-    {"heroId": 8, "productionId": 5, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=8"},
-    {"heroId": 28, "productionId": 3, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=28"},
-    {"heroId": 32, "productionId": 6, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=32"},
-    {"heroId": 52, "productionId": 7, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=52"},
-    {"heroId": 53, "productionId": 7, "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=53"}
-  ]
+    {
+      "heroId": 5,
+      "productionId": 4,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=5"
+    },
+    {
+      "heroId": 6,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=6"
+    },
+    {
+      "heroId": 8,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=8"
+    },
+    {
+      "heroId": 28,
+      "productionId": 3,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=28"
+    },
+    {
+      "heroId": 32,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=32"
+    },
+    {
+      "heroId": 52,
+      "productionId": 7,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=52"
+    },
+    {
+      "heroId": 53,
+      "productionId": 7,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json#claims/heroId=53"
+    },
+    {
+      "heroId": 1,
+      "productionId": 3,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=1"
+    },
+    {
+      "heroId": 3,
+      "productionId": 3,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=3"
+    },
+    {
+      "heroId": 4,
+      "productionId": 3,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=4"
+    },
+    {
+      "heroId": 7,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=7"
+    },
+    {
+      "heroId": 9,
+      "productionId": 4,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=9"
+    },
+    {
+      "heroId": 10,
+      "productionId": 4,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=10"
+    },
+    {
+      "heroId": 11,
+      "productionId": 4,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=11"
+    },
+    {
+      "heroId": 12,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=12"
+    },
+    {
+      "heroId": 13,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=13"
+    },
+    {
+      "heroId": 14,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=14"
+    },
+    {
+      "heroId": 25,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=25"
+    },
+    {
+      "heroId": 26,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=26"
+    },
+    {
+      "heroId": 27,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=27"
+    },
+    {
+      "heroId": 29,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=29"
+    },
+    {
+      "heroId": 33,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=33"
+    },
+    {
+      "heroId": 37,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=37"
+    },
+    {
+      "heroId": 40,
+      "productionId": 6,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=40"
+    },
+    {
+      "heroId": 55,
+      "productionId": 7,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=55"
+    },
+    {
+      "heroId": 56,
+      "productionId": 7,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=56"
+    },
+    {
+      "heroId": 89,
+      "productionId": 3,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=89"
+    }
+  ],
+  "inheritedSourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json"
 }

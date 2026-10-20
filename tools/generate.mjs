@@ -157,7 +157,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.productionId)) {
       throw new Error('Hero–Production relation contains malformed endpoint');
     }
-    if (!heroIds.has(relation.heroId)) throw new Error(`Hero–Production relation references unknown Hero ${relation.heroId}`);
+    if (!heroIdentityIds.has(relation.heroId)) throw new Error(`Hero–Production relation references unknown Hero identity ${relation.heroId}`);
     if (!productionNameById.has(relation.productionId)) throw new Error(`Hero–Production relation references unknown Production ${relation.productionId}`);
     const pair = `${relation.heroId}:${relation.productionId}`;
     if (productionPairs.has(pair)) throw new Error(`Duplicate Hero–Production relation ${pair}`);
