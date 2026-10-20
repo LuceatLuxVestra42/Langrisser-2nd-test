@@ -174,8 +174,11 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     if (rarityByHeroId.has(rarity.heroId)) throw new Error(`Duplicate Hero rarity for Hero ${rarity.heroId}`);
     rarityByHeroId.set(rarity.heroId, rarity);
   }
-  if (rarityByHeroId.size !== canonical.records.length || canonical.records.some((hero) => !rarityByHeroId.has(hero.id))) {
-    throw new Error('Hero rarity owner IDs do not exactly match the visible Hero canonical slice');
+  for (const heroId of rarityByHeroId.keys()) {
+    if (!heroIdentityIds.has(heroId)) throw new Error(`Hero rarity references unknown Hero identity ${heroId}`);
+  }
+  if ([...heroIds].some((heroId) => !rarityByHeroId.has(heroId))) {
+    throw new Error('Hero rarity owner is missing a visible Hero canonical endpoint');
   }
   const nameByHeroId = new Map();
   for (const localization of heroLocalization.records) {

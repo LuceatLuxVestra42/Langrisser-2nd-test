@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Selected HeroInfo.Rank claims inherited from a validated 267-Hero rarity analysis; this is a preserved report projection, not a re-parsed raw ConfigData file.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "rawSource": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "blobSha1": "728daab3370f0c7779449663ea02e638677944d4"
+  },
+  "validation": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/validation/hero-page-stage5-5-2-rarity.v1.json",
+    "blobSha1": "a572b97addde3a70a2fc4b08758819eef3b10866",
+    "status": "PASS",
+    "canonicalHeroCount": 267,
+    "mappedHeroCount": 267,
+    "missingHeroIds": [],
+    "duplicateHeroIds": [],
+    "unknownRankHeroIds": [],
+    "rankStarMismatches": [],
+    "analyzer": {
+      "path": "scripts/analyze_hero_rarity.cjs",
+      "blobSha1": "29fd399b427b60d4093e75c000c1b7a57de30bb7",
+      "behavior": "Reads ConfigDataHeroInfo rows by exact ID and copies Rank into the validated hero projection."
+    }
+  },
+  "inheritance": {
+    "evidenceClass": "B",
+    "existingNewRepositoryAnchor": "evidence/source/hero-rarity.v1.json#priorValidatedClaim",
+    "claim": "For each selected Hero ID, the prior validated rarity report records ConfigDataHeroInfo.Rank and the corresponding rarity label.",
+    "limitation": "The legacy validation report does not embed the input HeroInfo blob SHA. Read-only GitHub path history shows ConfigDataHeroInfo.json last changed at 7af1ac5 (2026-08-24), the validation artifact was recorded on 2026-08-25, the pinned source snapshot is 6475e63 (2026-09-02 01:45Z) with blob 728daab..., and the next path change was deletion at d57b5af (2026-09-02 11:51Z). This supports same-blob continuity for B reuse; this Work run did not fetch or re-parse the raw HeroInfo bytes.",
+    "rawHeroInfoReparsedInThisRun": false,
+    "projectionCheckedInThisRun": true
+  },
+  "records": [
+    {
+      "heroId": 1,
+      "rank": 1,
+      "rarity": "N",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=1].rank"
+    },
+    {
+      "heroId": 3,
+      "rank": 1,
+      "rarity": "N",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=3].rank"
+    },
+    {
+      "heroId": 4,
+      "rank": 1,
+      "rarity": "N",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=4].rank"
+    },
+    {
+      "heroId": 7,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=7].rank"
+    },
+    {
+      "heroId": 9,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=9].rank"
+    },
+    {
+      "heroId": 10,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=10].rank"
+    },
+    {
+      "heroId": 11,
+      "rank": 3,
+      "rarity": "SR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=11].rank"
+    },
+    {
+      "heroId": 12,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=12].rank"
+    },
+    {
+      "heroId": 13,
+      "rank": 3,
+      "rarity": "SR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=13].rank"
+    },
+    {
+      "heroId": 14,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=14].rank"
+    },
+    {
+      "heroId": 25,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=25].rank"
+    },
+    {
+      "heroId": 26,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=26].rank"
+    },
+    {
+      "heroId": 27,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=27].rank"
+    },
+    {
+      "heroId": 29,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=29].rank"
+    },
+    {
+      "heroId": 33,
+      "rank": 3,
+      "rarity": "SR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=33].rank"
+    },
+    {
+      "heroId": 37,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=37].rank"
+    },
+    {
+      "heroId": 40,
+      "rank": 2,
+      "rarity": "R",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=40].rank"
+    },
+    {
+      "heroId": 55,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=55].rank"
+    },
+    {
+      "heroId": 56,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=56].rank"
+    },
+    {
+      "heroId": 60,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=60].rank"
+    },
+    {
+      "heroId": 67,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=67].rank"
+    },
+    {
+      "heroId": 89,
+      "rank": 4,
+      "rarity": "SSR",
+      "evidenceClass": "B",
+      "validationRecord": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=89].rank"
+    }
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "sourceContinuity": {
+    "heroInfoLastContentChangeBeforePinnedSnapshot": {
+      "commit": "7af1ac562aa3a0c340c42fde2e4a0f588ff82e03",
+      "date": "2026-08-24T14:07:37Z",
+      "message": "Replace ConfigData with UnityDataTool parsed data"
+    },
+    "validationArtifactHistory": {
+      "commits": [
+        "1eb857f3d971fca07d9cb172725ac5bfe369dfe7",
+        "5de42abb8ea9f68b645bc7395a7eb8f6bc49199b"
+      ],
+      "dates": [
+        "2026-08-25T10:53:20Z",
+        "2026-08-25T10:56:20Z"
+      ]
+    },
+    "pinnedSnapshot": {
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "date": "2026-09-02T01:45:21Z",
+      "heroInfoBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "nextHeroInfoPathChange": {
+      "commit": "d57b5afc8147ba607e9d7d4826521d76895ab15c",
+      "date": "2026-09-02T11:51:03Z",
+      "message": "B6 delete tracked ConfigData source root"
+    },
+    "conclusion": "The source-path history shows the validation artifact was recorded after the last HeroInfo content change and before the pinned snapshot, and that the next HeroInfo path change was deletion after the pinned snapshot. This supports reuse as an inherited claim tied to the pinned blob; the Rank values were not directly re-parsed in this Work run."
+  }
+}

@@ -43,7 +43,10 @@ const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
 check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[5,6,8,28,32,52,53]', 'canonical Hero IDs must be exactly 5, 6, 8, 28, 32, 52, and 53');
 
-const rarityTargets = [5, 6, 8, 28, 32, 52, 53];
+const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
+const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
+const inheritedRarityTargets = [1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89];
+const inheritedRarityEvidence = await readJson('evidence/source/hero-rarity-inherited-records.v1.json');
 check(heroRarityEvidence.schemaVersion === 1 && heroRarityEvidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'Hero rarity source snapshot pin drift');
 check(heroRarityEvidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
   && heroRarityEvidence.source?.commitTree === '08e1e6c2773730e60b258940e31494f68d65f86a'
@@ -56,14 +59,56 @@ check(heroRarityEvidence.priorValidatedClaim?.repository === 'LuceatLuxVestra42/
   && heroRarityEvidence.priorValidatedClaim?.analysisScriptPath === 'scripts/analyze_hero_rarity.cjs'
   && heroRarityEvidence.priorValidatedClaim?.analysisScriptBlobSha1 === '29fd399b427b60d4093e75c000c1b7a57de30bb7'
   && heroRarityEvidence.priorValidatedClaim?.status === 'PASS', 'inherited Hero rarity claim anchor drift');
-check(heroRarityEvidence.claims?.heroRank?.class === 'A'
+check(heroRarityEvidence.claims?.heroRank?.class === 'mixed'
+  && heroRarityEvidence.claims?.heroRank?.directClass === 'A'
+  && heroRarityEvidence.claims?.heroRank?.inheritedClass === 'B'
   && heroRarityEvidence.claims?.rankLabel?.class === 'A'
   && heroRarityEvidence.claims?.rankMeaning?.class === 'B'
   && heroRarityEvidence.canonical === false && heroRarityEvidence.generated === false
   && heroRarityEvidence.productionRuntimeDependency === false, 'Hero rarity evidence claim classes or boundary drift');
+check(JSON.stringify(heroRarityEvidence.selection?.heroIds) === JSON.stringify(rarityTargets), 'Hero rarity selection scope drift');
 check(JSON.stringify(heroRarityEvidence.records.map((record) => record.heroId)) === JSON.stringify(rarityTargets), 'Hero rarity evidence target scope drift');
-check(JSON.stringify(heroInfoRarityRecords.map((record) => record.ID)) === JSON.stringify(rarityTargets), 'preserved Hero rarity source record IDs drift');
-for (const record of heroInfoRarityRecords) exactKeys(record, ['ID', 'Rank'], `preserved Hero rarity source record ${record.ID}`);
+check(JSON.stringify(heroInfoRarityRecords.map((record) => record.ID)) === JSON.stringify(directRarityTargets), 'preserved direct Hero rarity source record IDs drift');
+for (const record of heroInfoRarityRecords) {
+  exactKeys(record, ['ID', 'Rank'], `preserved Hero rarity source record ${record.ID}`);
+  check(Number.isSafeInteger(record.ID) && Number.isSafeInteger(record.Rank), `malformed direct Hero rarity source record ${record.ID}`);
+}
+check(JSON.stringify(inheritedRarityEvidence.records.map((record) => record.heroId)) === JSON.stringify(inheritedRarityTargets), 'inherited Hero rarity source IDs drift');
+check(inheritedRarityEvidence.sourceContinuity?.heroInfoLastContentChangeBeforePinnedSnapshot?.commit === '7af1ac562aa3a0c340c42fde2e4a0f588ff82e03'
+  && inheritedRarityEvidence.sourceContinuity?.validationArtifactHistory?.commits?.includes('5de42abb8ea9f68b645bc7395a7eb8f6bc49199b')
+  && inheritedRarityEvidence.sourceContinuity?.pinnedSnapshot?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+  && inheritedRarityEvidence.sourceContinuity?.pinnedSnapshot?.heroInfoBlobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
+  && inheritedRarityEvidence.sourceContinuity?.nextHeroInfoPathChange?.commit === 'd57b5afc8147ba607e9d7d4826521d76895ab15c',
+  'inherited Hero rarity source continuity anchor drift');
+check(inheritedRarityEvidence.rawSource?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+  && inheritedRarityEvidence.rawSource?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+  && inheritedRarityEvidence.rawSource?.path === 'data/configdata/ConfigDataHeroInfo.json'
+  && inheritedRarityEvidence.rawSource?.blobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
+  && inheritedRarityEvidence.inheritance?.existingNewRepositoryAnchor === 'evidence/source/hero-rarity.v1.json#priorValidatedClaim',
+  'inherited Hero rarity raw source anchor drift');
+check(inheritedRarityEvidence.validation?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+  && inheritedRarityEvidence.validation?.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+  && inheritedRarityEvidence.validation?.path === 'data/validation/hero-page-stage5-5-2-rarity.v1.json'
+  && inheritedRarityEvidence.validation?.blobSha1 === 'a572b97addde3a70a2fc4b08758819eef3b10866'
+  && inheritedRarityEvidence.validation?.status === 'PASS'
+  && inheritedRarityEvidence.validation?.canonicalHeroCount === 267
+  && inheritedRarityEvidence.validation?.mappedHeroCount === 267
+  && inheritedRarityEvidence.validation?.analyzer?.path === 'scripts/analyze_hero_rarity.cjs'
+  && inheritedRarityEvidence.validation?.analyzer?.blobSha1 === '29fd399b427b60d4093e75c000c1b7a57de30bb7'
+  && inheritedRarityEvidence.inheritance?.evidenceClass === 'B'
+  && inheritedRarityEvidence.inheritance?.rawHeroInfoReparsedInThisRun === false
+  && inheritedRarityEvidence.canonical === false && inheritedRarityEvidence.generated === false
+  && inheritedRarityEvidence.productionRuntimeDependency === false, 'inherited Hero rarity provenance contract drift');
+const inheritedRankById = new Map();
+for (const record of inheritedRarityEvidence.records) {
+  exactKeys(record, ['heroId', 'rank', 'rarity', 'evidenceClass', 'validationRecord'], `inherited Hero rarity record ${record.heroId}`);
+  check(Number.isSafeInteger(record.heroId) && Number.isSafeInteger(record.rank)
+    && typeof record.rarity === 'string' && record.evidenceClass === 'B'
+    && record.validationRecord === `data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=${record.heroId}].rank`,
+  `malformed inherited Hero rarity record ${record.heroId}`);
+  if (inheritedRankById.has(record.heroId)) throw new Error(`duplicate inherited Hero rarity record ${record.heroId}`);
+  inheritedRankById.set(record.heroId, record);
+}
 check(heroRarities.schemaVersion === 1 && heroRarities.sourceScope === canonical.sourceScope
   && JSON.stringify(heroRarities.records.map((record) => record.heroId)) === JSON.stringify(rarityTargets), 'Hero rarity canonical scope drift');
 const heroInfoRarityById = new Map(heroInfoRarityRecords.map((record) => [record.ID, record]));
@@ -71,19 +116,30 @@ const evidenceRarityById = new Map(heroRarityEvidence.records.map((record) => [r
 const rankLabelById = new Map(rankInfo.filter((record) => Number.isSafeInteger(record.ID)).map((record) => [record.ID, record.Desc]));
 for (const rarity of heroRarities.records) {
   exactKeys(rarity, ['heroId', 'rankId', 'label', 'provenance'], `Hero ${rarity.heroId} rarity canonical`);
-  const source = heroInfoRarityById.get(rarity.heroId);
+  const directSource = heroInfoRarityById.get(rarity.heroId);
+  const inheritedSource = inheritedRankById.get(rarity.heroId);
+  check(Boolean(directSource) !== Boolean(inheritedSource), `Hero ${rarity.heroId} must have exactly one rarity source path`);
+  const sourceRank = directSource ? directSource.Rank : inheritedSource.rank;
   const evidence = evidenceRarityById.get(rarity.heroId);
-  const sourcePath = [5, 6, 8].includes(rarity.heroId)
-    ? 'evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json'
-    : 'evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json';
+  const expectedEvidenceLocator = directSource
+    ? `evidence/source/configdata/${[5, 6, 8].includes(rarity.heroId) ? 'ConfigDataHeroInfo.records-5-6-8.json' : 'ConfigDataHeroInfo.records-hero-expansion.v1.json'}#ID=${rarity.heroId}`
+    : `evidence/source/hero-rarity-inherited-records.v1.json#heroId=${rarity.heroId}/rank`;
+  const expectedRankLocator = directSource
+    ? `evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=${rarity.heroId}/Rank`
+    : expectedEvidenceLocator;
   exactKeys(evidence, ['heroId', 'rankId', 'label', 'heroInfoRecord', 'rankInfoRecord'], `Hero ${rarity.heroId} rarity evidence`);
-  check(source && source.Rank === rarity.rankId, `Hero ${rarity.heroId} rarity rank differs from HeroInfo.Rank`);
-  check(evidence?.rankId === source.Rank, `Hero ${rarity.heroId} rarity evidence differs from HeroInfo.Rank`);
-  check(evidence.heroInfoRecord === `${sourcePath}#ID=${rarity.heroId}`
-    && evidence.rankInfoRecord === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${source.Rank}`, `Hero ${rarity.heroId} rarity evidence locator drift`);
-  check(rankLabelById.get(source.Rank) === rarity.label && evidence.label === rarity.label, `Hero ${rarity.heroId} rarity label differs from RankInfo.Desc`);
-  check(rarity.provenance?.rank === `evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=${rarity.heroId}/Rank`
-    && rarity.provenance?.label === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${source.Rank}/Desc`, `Hero ${rarity.heroId} rarity provenance locator drift`);
+  check(Number.isSafeInteger(sourceRank) && sourceRank === rarity.rankId,
+    `Hero ${rarity.heroId} rarity rank differs from its supported HeroInfo.Rank claim`);
+  check(evidence?.rankId === sourceRank && evidence.heroInfoRecord === expectedEvidenceLocator
+    && evidence.rankInfoRecord === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${sourceRank}`,
+    `Hero ${rarity.heroId} rarity evidence locator drift`);
+  if (inheritedSource) check(inheritedSource.rarity === rankLabelById.get(sourceRank),
+    `Hero ${rarity.heroId} inherited rarity label differs from RankInfo.Desc`);
+  check(rankLabelById.get(sourceRank) === rarity.label && evidence.label === rarity.label,
+    `Hero ${rarity.heroId} rarity label differs from RankInfo.Desc`);
+  check(rarity.provenance?.rank === expectedRankLocator
+    && rarity.provenance?.label === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${sourceRank}/Desc`,
+    `Hero ${rarity.heroId} rarity provenance locator drift`);
 }
 
 const heroInfoRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json');
