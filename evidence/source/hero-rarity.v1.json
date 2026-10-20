@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "purpose": "Source support for the selected visible Hero rarity claims only.",
+  "purpose": "Source support for the existing seven direct Hero rarity claims and 22 inherited validated Hero rarity claims; Presentation remains the existing seven-Hero slice.",
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
   "source": {
     "repository": "LuceatLuxVestra42/langrisser-future-guide",
@@ -21,7 +21,8 @@
   },
   "preservedEvidence": {
     "rankRecords": "evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json",
-    "rankLabels": "evidence/source/configdata/ConfigDataRankInfo.json"
+    "rankLabels": "evidence/source/configdata/ConfigDataRankInfo.json",
+    "inheritedRankRecords": "evidence/source/hero-rarity-inherited-records.v1.json"
   },
   "selection": {
     "heroIds": [
@@ -31,9 +32,31 @@
       28,
       32,
       52,
-      53
+      53,
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      25,
+      26,
+      27,
+      29,
+      33,
+      37,
+      40,
+      55,
+      56,
+      60,
+      67,
+      89
     ],
-    "rule": "Select top-level ConfigDataHeroInfo records by exact numeric ID equality for the existing seven-Hero presentation slice. Preserve only ID and Rank unchanged.",
+    "rule": "Preserve the existing seven direct ID-selected HeroInfo records and add only the 22 exact Hero IDs selected from the prior validated 267-Hero rank report; inherited rows remain class B.",
     "sourceFields": [
       "ID",
       "Rank"
@@ -41,13 +64,15 @@
   },
   "claims": {
     "heroRank": {
-      "class": "A",
-      "claim": "Each selected source-native HeroInfo.ID record has the recorded raw Rank value.",
-      "interpretation": "No value transformation."
+      "class": "mixed",
+      "directClass": "A",
+      "inheritedClass": "B",
+      "claim": "Each admitted Hero ID has the recorded HeroInfo.Rank; the existing seven are preserved direct source projections and the added 22 are inherited from the cited validated report.",
+      "interpretation": "No rank value transformation."
     },
     "rankLabel": {
       "class": "A",
-      "claim": "For the selected snapshot, exact equality between HeroInfo.Rank and RankInfo.ID resolves RankInfo.Desc; Desc is copied unchanged as the selected base rarity label.",
+      "claim": "For the pinned RankInfo projection, exact equality between HeroInfo.Rank and RankInfo.ID resolves RankInfo.Desc; Desc is copied unchanged as the base rarity label.",
       "interpretation": "Exact numeric key join and direct Desc copy."
     },
     "rankMeaning": {
@@ -115,12 +140,168 @@
       "label": "SSR",
       "heroInfoRecord": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=53",
       "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 1,
+      "rankId": 1,
+      "label": "N",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=1/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=1"
+    },
+    {
+      "heroId": 3,
+      "rankId": 1,
+      "label": "N",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=3/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=1"
+    },
+    {
+      "heroId": 4,
+      "rankId": 1,
+      "label": "N",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=4/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=1"
+    },
+    {
+      "heroId": 7,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=7/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 9,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=9/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 10,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=10/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 11,
+      "rankId": 3,
+      "label": "SR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=11/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3"
+    },
+    {
+      "heroId": 12,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=12/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 13,
+      "rankId": 3,
+      "label": "SR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=13/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3"
+    },
+    {
+      "heroId": 14,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=14/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 25,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=25/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 26,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=26/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 27,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=27/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 29,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=29/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 33,
+      "rankId": 3,
+      "label": "SR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=33/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3"
+    },
+    {
+      "heroId": 37,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=37/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 40,
+      "rankId": 2,
+      "label": "R",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=40/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=2"
+    },
+    {
+      "heroId": 55,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=55/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 56,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=56/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 60,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=60/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 67,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=67/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
+    },
+    {
+      "heroId": 89,
+      "rankId": 4,
+      "label": "SSR",
+      "heroInfoRecord": "evidence/source/hero-rarity-inherited-records.v1.json#heroId=89/Rank",
+      "rankInfoRecord": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4"
     }
   ],
   "limitations": [
-    "Claim scope is only Hero IDs 5, 6, 8, 28, 32, 52, and 53.",
-    "Values are scoped to the pinned CN ConfigData snapshot and are not asserted as current Korea-server data.",
-    "Rank values or labels outside this selected evidence are not admitted."
+    "The existing seven direct HeroInfo Rank records retain their original direct-source evidence.",
+    "The added 22 Hero Rank claims are inherited B claims from the cited 267-Hero validation report; the raw HeroInfo blob was not re-parsed in this task.",
+    "The predecessor validation report does not embed the HeroInfo input blob SHA; its association with the pinned source snapshot is inherited from the existing new-repository rarity evidence.",
+    "Rank labels are scoped to the pinned CN ConfigData snapshot and are not asserted as current Korea-server data.",
+    "Rarity admission does not expand Hero Presentation beyond the existing seven Heroes."
   ],
   "canonical": false,
   "generated": false,

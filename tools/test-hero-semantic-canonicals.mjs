@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -135,6 +136,36 @@ try {
     expectSuccess(independent, 'Hero→Job localization independence', /Hero semantic canonicals: PASS/);
   } finally {
     await writeFile(localizationPath, originalLocalization);
+  }
+
+  const rarityValidation = spawnSync(process.execPath, ['tools/validate.mjs'], { cwd: repo, encoding: 'utf8' });
+  assertExecution(rarityValidation, 'Hero Rarity ownership validation');
+  if (rarityValidation.status !== 0) throw new Error(`Hero Rarity ownership validation failed:\n${rarityValidation.stdout ?? ''}\n${rarityValidation.stderr ?? ''}`);
+  const generatedRarityText = await readFile(join(repo, 'generated/hero-slice.v1.json'), 'utf8');
+  assert.equal(createHash('sha256').update(generatedRarityText).digest('hex'),
+    '336a064ddc5e81af92d8820fd1dbe46e83c8dbf119b9f3071ff4a1a0f56907e4',
+    'Generated Hero slice must remain byte-identical to the pre-expansion baseline');
+  const generatedRarity = JSON.parse(generatedRarityText);
+  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [5, 6, 8, 28, 32, 52, 53],
+    'off-slice Rarity Canonical records must not expand Generated Hero population');
+  for (const [change, label, command, diagnostic] of [
+    [(doc) => { doc.records.push({ ...doc.records[0] }); }, 'duplicate Hero Rarity rejected', 'tools/generate.mjs', /Duplicate Hero rarity for Hero 5/],
+    [(doc) => { doc.records[7].heroId = 999999; }, 'unknown Hero Rarity identity endpoint rejected', 'tools/generate.mjs', /Hero rarity references unknown Hero identity 999999/],
+    [(doc) => { doc.records[7].rankId = 99; }, 'Hero Rarity source Rank mismatch rejected', 'tools/validate.mjs', /rarity rank differs from its supported HeroInfo.Rank claim/],
+    [(doc) => { doc.records[7].label = 'SSR'; }, 'Hero Rarity label mismatch rejected', 'tools/validate.mjs', /rarity label differs from RankInfo.Desc/],
+    [(doc) => { doc.records[7].provenance.rank = 'evidence/wrong.json#ID=1'; }, 'Hero Rarity provenance mismatch rejected', 'tools/validate.mjs', /rarity provenance locator drift/],
+  ]) {
+    const fullPath = join(repo, 'canonical/hero-rarities.v1.json');
+    const original = await readFile(fullPath, 'utf8');
+    try {
+      const doc = JSON.parse(original);
+      change(doc);
+      await writeFile(fullPath, `${JSON.stringify(doc, null, 2)}\n`);
+      const result = spawnSync(process.execPath, [command], { cwd: repo, encoding: 'utf8' });
+      expectFailure(result, label, diagnostic);
+    } finally {
+      await writeFile(fullPath, original);
+    }
   }
 
   const factionRelationTests = spawnSync(process.execPath, ['tools/test-hero-faction-relations.mjs'], { cwd: repo, encoding: 'utf8' });
