@@ -636,6 +636,36 @@
       "heroId": 67,
       "jobId": 1105,
       "provenance": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#heroId=67&connectionId=675"
+    },
+    {
+      "heroId": 14,
+      "jobId": 401,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14&connectionId=140"
+    },
+    {
+      "heroId": 14,
+      "jobId": 404,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14&connectionId=141"
+    },
+    {
+      "heroId": 14,
+      "jobId": 403,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14&connectionId=142"
+    },
+    {
+      "heroId": 14,
+      "jobId": 1103,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14&connectionId=143"
+    },
+    {
+      "heroId": 14,
+      "jobId": 405,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14&connectionId=144"
+    },
+    {
+      "heroId": 14,
+      "jobId": 1105,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14&connectionId=145"
     }
   ]
 }

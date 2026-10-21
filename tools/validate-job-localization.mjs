@@ -22,6 +22,7 @@ export async function validateJobLocalization(root = process.cwd()) {
   const presentationSubset = await readJson('evidence/localization/job-names-ko.hero-1-3-10-25.v1.json');
   const hero13Subset = await readJson('evidence/localization/job-names-ko.hero-13.v1.json');
   const batch3Subset = await readJson('evidence/localization/job-names-ko.hero-27-67.v1.json');
+  const hero14Subset = await readJson('evidence/localization/job-names-ko.hero-14.v1.json');
   const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
   const localizationBytes = await readFile(resolve(root, localizationSourcePath));
   const localizationText = localizationBytes.toString('utf8').replace(/^\uFEFF/, '');
@@ -128,6 +129,20 @@ export async function validateJobLocalization(root = process.cwd()) {
       && row.evidenceClass === 'A' && batch3JobById.get(row.jobId)?.Name === row.nameCn,
     `Hero 27/67 Job ${row.jobId} keyed source value or explicit JobInfo ID mismatch`);
   }
+  check(hero14Subset.schemaVersion === 1 && hero14Subset.sourceManifest === 'evidence/localization/source/job-names-ko.source-manifest.v1.json'
+    && hero14Subset.records.length === 1 && hero14Subset.canonical === false && hero14Subset.generated === false
+    && hero14Subset.productionRuntimeDependency === false && hero14Subset.sourceScope.includes('source version unknown')
+    && hero14Subset.sourceScope.includes('official Korean-server provenance unverified')
+    && hero14Subset.claims?.rowValues?.startsWith('A:') && hero14Subset.claims?.jobInfoIdentityLinkage?.startsWith('B:')
+    && hero14Subset.claims?.officialKrName === 'unverified', 'Hero 14 localization evidence scope/class/limitation drift');
+  const hero14Label = hero14Subset.records[0];
+  exactKeys(hero14Label, ['jobId','nameCn','nameKo','sourceLocator','evidenceClass'], 'Hero 14 Job 404 localization evidence');
+  const hero14JobInfo = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-hero-14.v1.json');
+  check(hero14JobInfo.some((row) => row.ID === 404 && row.Name === '圣天马将军')
+    && hero14Label.jobId === 404 && hero14Label.nameCn === '圣天马将军' && hero14Label.nameKo === '페가수스 로드'
+    && localizationRows.get(404)?.nameCn === hero14Label.nameCn && localizationRows.get(404)?.nameKo === hero14Label.nameKo
+    && hero14Label.sourceLocator === 'job-names-ko.v1.txt#전직ID=404' && hero14Label.evidenceClass === 'A',
+  'Hero 14 Job 404 keyed source row or pinned JobInfo value mismatch');
 
   const spValidation = await validateSpJobNamespaceEvidence();
   const spEvidenceById = new Map(spValidation.records.map((row) => [row.jobId, row]));
@@ -137,7 +152,7 @@ export async function validateJobLocalization(root = process.cwd()) {
       .map((row) => [row.jobId, row.nameKo]),
   );
   const spStatusIds = spValidation.statusOnlyIds;
-  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 3 + spExpected.size, 'canonical Job localization must contain expected complete record population');
+  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 4 + spExpected.size, 'canonical Job localization must contain expected complete record population');
   const admittedLocalization = new Map();
   for (const row of jobLocalization.records) {
     exactKeys(row, ['jobId', 'nameKo', 'evidenceClass', 'provenance'], `canonical Job localization ${row.jobId}`);
@@ -148,6 +163,9 @@ export async function validateJobLocalization(root = process.cwd()) {
       const evidence = batch3Subset.records.find((item) => item.jobId === row.jobId);
       check(evidence && row.nameKo === evidence.nameKo && row.evidenceClass === 'A'
         && row.provenance === `evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=${row.jobId}`, `Hero 27/67 localization provenance drift for Job ${row.jobId}`);
+    } else if (row.jobId === 404) {
+      check(row.nameKo === hero14Label.nameKo && row.evidenceClass === 'A'
+        && row.provenance === 'evidence/localization/job-names-ko.hero-14.v1.json#jobId=404', 'Hero 14 Job 404 canonical localization provenance drift');
     } else if (targetJobIds.includes(row.jobId) || expansionJobIds.includes(row.jobId) || presentationJobIds.includes(row.jobId)) {
       const sourceRow = localizationRows.get(row.jobId);
       check(sourceRow && row.nameKo === sourceRow.nameKo && row.nameKo.trim() !== '' && !statusOnly.test(row.nameKo.trim()), `canonical KR label differs from usable source value for Job ${row.jobId}`);
@@ -167,7 +185,7 @@ export async function validateJobLocalization(root = process.cwd()) {
 
   return {
     canonicalCount: jobLocalization.records.length,
-    projectTextCount: targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 3,
+    projectTextCount: targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 4,
     spCount: spExpected.size,
   };
 }
