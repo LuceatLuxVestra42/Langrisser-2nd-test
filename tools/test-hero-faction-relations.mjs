@@ -48,7 +48,7 @@ try {
   expectSuccess(run('tools/generate.mjs'), 'Generator with 28-hero Canonical relation owner', /Generated .*hero-slice\.v1\.json/);
   const generatedAfter = await readFile(generatedPath, 'utf8');
   assert.equal(generatedAfter, generatedBefore, 'valid out-of-slice Faction relations changed generated Hero bytes');
-  assert.deepEqual(JSON.parse(generatedAfter).heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 12, 13, 14, 25, 27, 28, 32, 52, 53, 55, 67]);
+  assert.deepEqual(JSON.parse(generatedAfter).heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 11, 12, 13, 14, 25, 27, 28, 32, 52, 53, 55, 67]);
 
   await mutateAndRun(canonicalPath, (doc) => { doc.records[0].heroId = 999999; }, 'tools/generate.mjs',
     'Generator rejects Hero endpoint absent from Identity owner', /unknown Hero identity 999999/);

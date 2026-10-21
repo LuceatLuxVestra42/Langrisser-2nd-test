@@ -89,7 +89,7 @@ export async function validateHeroSpJobRelationEvidence(root = process.cwd()) {
   check(evidence.population.spHeroInfoRecords === 25 && evidence.population.uniqueHeroIds === 25 && evidence.population.uniqueJobConnectionIds === 25 && evidence.population.uniqueSpJobIds === 25, 'relation population counts changed');
   check(evidence.ownerAssessment.existingRelationOwner === 'canonical/heroes.v1.json#/records/*/jobConnections' && isDeepStrictEqual(evidence.ownerAssessment.currentCanonicalHeroPopulation, [5, 6, 8]) && evidence.ownerAssessment.admission === 'deferred', 'historical SP relation owner assessment changed');
   const heroCanonical = await readJson('canonical/heroes.v1.json');
-  check(isDeepStrictEqual(heroCanonical.records.map((row) => row.id), [1, 3, 5, 6, 8, 10, 12, 13, 14, 25, 27, 28, 32, 52, 53, 55, 67]), 'current canonical Hero presentation population differs from the current admitted Presentation scope');
+  check(isDeepStrictEqual(heroCanonical.records.map((row) => row.id), [1, 3, 5, 6, 8, 10, 11, 12, 13, 14, 25, 27, 28, 32, 52, 53, 55, 67]), 'current canonical Hero presentation population differs from the current admitted Presentation scope');
   exactKeys(evidence.claims, ['spHeroIdToHeroInfoId', 'spHeroConnectionToConnectionInfo', 'connectionJobIdToJobInfoId', 'selectedRecordsExist'], 'relation evidence claims');
   for (const claim of Object.values(evidence.claims)) exactKeys(claim, ['class', 'claim', 'basis'], 'relation evidence claim');
   check(evidence.records.every((row) => !Object.hasOwn(row, 'nameKo') && !Object.hasOwn(row, 'releaseStatus')), 'relation records must not depend on localization or release fields');

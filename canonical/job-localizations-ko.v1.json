@@ -434,6 +434,18 @@
       "nameKo": "페가수스 로드",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-14.v1.json#jobId=404"
+    },
+    {
+      "jobId": 406,
+      "nameKo": "페가수스 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=406"
+    },
+    {
+      "jobId": 601,
+      "nameKo": "아처",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=601"
     }
   ]
 }

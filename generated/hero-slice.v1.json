@@ -590,6 +590,88 @@
       ]
     },
     {
+      "id": 11,
+      "nameEng": "Nurm",
+      "nameKo": "나암",
+      "rarity": {
+        "rankId": 3,
+        "label": "SR"
+      },
+      "factions": [
+        {
+          "factionId": 2,
+          "nameCn": "光辉军团",
+          "nameKo": "빛의 군단",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 4,
+          "nameCn": "梦幻模拟战I",
+          "nameKo": "랑그릿사I",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-11.png",
+      "exclusiveEquipment": {
+        "equipmentId": 436,
+        "equipmentNameKo": "발키리의 샛별",
+        "effectDescriptionKo": "마방 +10%\n영웅의 고유기술 쿨타임 -1"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 110,
+          "jobId": 601,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "아처"
+        },
+        {
+          "connectionId": 111,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "제네럴"
+        },
+        {
+          "connectionId": 112,
+          "jobId": 602,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "스나이퍼"
+        },
+        {
+          "connectionId": 113,
+          "jobId": 404,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "페가수스 로드"
+        },
+        {
+          "connectionId": 114,
+          "jobId": 604,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "레인저"
+        },
+        {
+          "connectionId": 115,
+          "jobId": 406,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "페가수스 마스터"
+        }
+      ]
+    },
+    {
       "id": 12,
       "nameEng": "Elwin",
       "nameKo": "엘윈",

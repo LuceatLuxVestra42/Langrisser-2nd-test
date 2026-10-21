@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for ordinary Jobs 601 and 406 selected by Hero 11; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved localization source rows directly contain keyed Job ID and Chinese/Korean text values.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality with pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 601,
+      "nameCn": "射手",
+      "nameKo": "아처",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=601",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 406,
+      "nameCn": "圣天马统帅",
+      "nameKo": "페가수스 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=406",
+      "evidenceClass": "A"
+    }
+  ]
+}
