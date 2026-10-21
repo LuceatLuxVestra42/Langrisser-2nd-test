@@ -6,7 +6,7 @@ const result = validateFactionKoLocalization(input);
 assert.deepEqual(result.localizedIds, [1, 2, 4, 5, 6, 7, 8, 9, 11]);
 assert.deepEqual(result.untranslatedIds, []);
 assert.deepEqual(result.outOfScopeIds, [3]);
-assert.equal(result.relationCount, 32);
+assert.equal(result.relationCount, 36);
 
 const clone = () => structuredClone(input);
 for (const [label, mutate] of [

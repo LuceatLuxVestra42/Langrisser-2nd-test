@@ -1,0 +1,28 @@
+[
+  {
+    "ID": 27,
+    "Name": "迪哈尔特",
+    "Name_Eng": "Dehault",
+    "JobConnection_ID": 270,
+    "UseableJobConnections_ID": [
+      271,
+      272,
+      273,
+      274,
+      275
+    ]
+  },
+  {
+    "ID": 67,
+    "Name": "欧米伽",
+    "Name_Eng": "Omega",
+    "JobConnection_ID": 670,
+    "UseableJobConnections_ID": [
+      671,
+      672,
+      673,
+      674,
+      675
+    ]
+  }
+]

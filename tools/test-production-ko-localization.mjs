@@ -6,7 +6,7 @@ const result = validateProductionKoLocalization(input);
 assert.deepEqual(result.localizedIds, [3, 4, 5, 6, 7, 8]);
 assert.equal(result.identityCount, 6);
 assert.equal(result.relationCount, 29);
-assert.equal(result.presentationRelationCount, 14);
+assert.equal(result.presentationRelationCount, 16);
 
 const withoutHiddenRelation = structuredClone(input);
 withoutHiddenRelation.relations.records = withoutHiddenRelation.relations.records.filter((row) => row.heroId !== 4);

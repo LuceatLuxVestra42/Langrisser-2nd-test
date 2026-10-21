@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for ordinary Jobs 1103 and 1105 selected by Heroes 27 and 67; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved localization source rows directly contain keyed Job IDs and Chinese/Korean text values.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality to pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 1103,
+      "nameCn": "突击者",
+      "nameKo": "라이더",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1103",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1105,
+      "nameCn": "大统帅",
+      "nameKo": "하이 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1105",
+      "evidenceClass": "A"
+    }
+  ]
+}

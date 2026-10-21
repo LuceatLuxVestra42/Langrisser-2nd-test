@@ -416,6 +416,18 @@
       "nameKo": "위저드",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-13.v1.json#jobId=704"
+    },
+    {
+      "jobId": 1103,
+      "nameKo": "라이더",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1103"
+    },
+    {
+      "jobId": 1105,
+      "nameKo": "하이 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1105"
     }
   ]
 }
