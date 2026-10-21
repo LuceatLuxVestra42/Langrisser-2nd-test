@@ -48,7 +48,7 @@ try {
   expectSuccess(run('tools/generate.mjs'), 'Generator with 28-hero Canonical relation owner', /Generated .*hero-slice\.v1\.json/);
   const generatedAfter = await readFile(generatedPath, 'utf8');
   assert.equal(generatedAfter, generatedBefore, 'valid out-of-slice Faction relations changed generated Hero bytes');
-  assert.deepEqual(JSON.parse(generatedAfter).heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 25, 28, 32, 52, 53]);
+  assert.deepEqual(JSON.parse(generatedAfter).heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 12, 25, 28, 32, 52, 53, 55]);
 
   await mutateAndRun(canonicalPath, (doc) => { doc.records[0].heroId = 999999; }, 'tools/generate.mjs',
     'Generator rejects Hero endpoint absent from Identity owner', /unknown Hero identity 999999/);
@@ -67,7 +67,7 @@ try {
     row.RelatedHeros_ID = row.RelatedHeros_ID.filter((heroId) => heroId !== 1);
   }, relationValidator, 'Canonical cannot outgrow source membership', /source RelatedHeros_ID target projection differs/);
 
-  process.stdout.write('Hero–Faction relation regression tests: PASS (65-pair admission, endpoint/provenance negatives, Hero 40 exclusion, and byte-identical seven-Hero generated output)\n');
+  process.stdout.write('Hero–Faction relation regression tests: PASS (65-pair admission, endpoint/provenance negatives, Hero 40 exclusion, and byte-identical generated output across generator run)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

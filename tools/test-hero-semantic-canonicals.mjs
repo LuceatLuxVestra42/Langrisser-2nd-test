@@ -9,6 +9,7 @@ const source = process.cwd();
 const temp = await mkdtemp(join(tmpdir(), 'langrisser-hero-canonicals-'));
 const repo = join(temp, 'repo');
 await cp(source, repo, { recursive: true, filter: (path) => !path.split('/').includes('.git') });
+const generatedBaselineText = await readFile(join(repo, 'generated/hero-slice.v1.json'), 'utf8');
 
 function run() {
   return spawnSync(process.execPath, ['tools/validate-hero-semantic-canonicals.mjs'], { cwd: repo, encoding: 'utf8' });
@@ -87,8 +88,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 97 relations; 73 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 97 relations; 73 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 97/73 Hero→Job relation counts');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 109 relations; 85 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 109 relations; 85 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 109/85 Hero→Job relation counts');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -142,11 +143,10 @@ try {
   assertExecution(rarityValidation, 'Hero Rarity ownership validation');
   if (rarityValidation.status !== 0) throw new Error(`Hero Rarity ownership validation failed:\n${rarityValidation.stdout ?? ''}\n${rarityValidation.stderr ?? ''}`);
   const generatedRarityText = await readFile(join(repo, 'generated/hero-slice.v1.json'), 'utf8');
-  assert.equal(createHash('sha256').update(generatedRarityText).digest('hex'),
-    '6f0e4560c41fce8eeff451dc627ca47e7139e405da49aeb9cc62f2de896af3b8',
-    'Generated Hero slice must remain byte-identical to the pre-expansion baseline');
+  assert.equal(generatedRarityText, generatedBaselineText,
+    'off-slice Rarity changes must not alter the current Generated Hero consumer');
   const generatedRarity = JSON.parse(generatedRarityText);
-  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 25, 28, 32, 52, 53],
+  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 12, 25, 28, 32, 52, 53, 55],
     'off-slice Rarity Canonical records must not expand Generated Hero population');
   for (const [change, label, command, diagnostic] of [
     [(doc) => { doc.records.push({ ...doc.records[0] }); }, 'duplicate Hero Rarity rejected', 'tools/generate.mjs', /Duplicate Hero rarity for Hero 5/],
@@ -172,7 +172,7 @@ try {
   assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
   if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 66 Hero→Job pairs, 42-pair presentation-slice parity, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 109 Hero→Job pairs, 85-pair presentation-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
