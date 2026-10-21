@@ -139,7 +139,7 @@ assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions
 assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
 assert.match(frontend, /heading\.textContent = '출전작 · 프로젝트 검수 한국어명'/);
-const expectedFactionIds = new Map([[1,[1,2]],[3,[2]],[5,[1,2,6]],[6,[4,7]],[7,[4,5,11]],[8,[5,6]],[10,[1,2]],[11,[2,6,8]],[12,[1,2,4]],[13,[2,4]],[14,[2,6,8]],[25,[4,5,7]],[26,[6,7]],[27,[1,8]],[28,[5,8,11]],[32,[4,7]],[52,[6,8,9]],[53,[7,9]],[55,[1,9]],[67,[5,8]]]);
+const expectedFactionIds = new Map([[1,[1,2]],[3,[2]],[5,[1,2,6]],[6,[4,7]],[7,[4,5,11]],[8,[5,6]],[10,[1,2]],[11,[2,6,8]],[12,[1,2,4]],[13,[2,4]],[14,[2,6,8]],[25,[4,5,7]],[26,[6,7]],[27,[1,8]],[28,[5,8,11]],[32,[4,7]],[52,[6,8,9]],[53,[7,9]],[55,[1,9]],[60,[1,8,9]],[67,[5,8]]]);
 const expectedFactionNames = new Map([[1, '시대의 주역'], [2, '빛의 군단'], [4, '제국의 빛'], [5, '어둠의 윤회'], [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역']]);
 assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
 for (const hero of heroData.heroes) {
@@ -231,6 +231,7 @@ const expectedOrigins = new Map([
   [52, [{ productionId: 7, nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV', localizationStatus: 'PROJECT_REVIEWED' }]],
   [53, [{ productionId: 7, nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV', localizationStatus: 'PROJECT_REVIEWED' }]],
   [55, [{ productionId: 7, nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [60, [{ productionId: 8, nameCn: '梦幻模拟战V', nameKo: '랑그릿사V', localizationStatus: 'PROJECT_REVIEWED' }]],
   [67, [{ productionId: 8, nameCn: '梦幻模拟战V', nameKo: '랑그릿사V', localizationStatus: 'PROJECT_REVIEWED' }]],
 ]);
 for (const hero of heroData.heroes) {

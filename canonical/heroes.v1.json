@@ -855,6 +855,49 @@
       }
     },
     {
+      "id": 60,
+      "nameEng": "Sigma",
+      "portrait": "assets/portraits/hero-60.png",
+      "jobConnections": [
+        {
+          "connectionId": 600,
+          "jobId": 601,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 601,
+          "jobId": 213,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 602,
+          "jobId": 602,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 603,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 604,
+          "jobId": 214,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 605,
+          "jobId": 604,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=60",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-hero-60.v1.json#inspectedSourceRows.heroInfo[ID=60]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=60",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-hero-60.v1.json#heroId=60"
+      }
+    },
+    {
       "id": 67,
       "nameEng": "Omega",
       "portrait": "assets/portraits/hero-67.png",
