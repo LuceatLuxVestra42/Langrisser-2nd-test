@@ -7,7 +7,7 @@ const EXPECTED_NAMES = new Map([
   [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역'],
 ]);
 const EXPECTED_FACTION_IDS = [1, 2, 4, 5, 6, 7, 8, 9, 11];
-const PRESENTATION_HERO_IDS = new Set([5, 6, 8, 28, 32, 52, 53]);
+const PRESENTATION_HERO_IDS = new Set([1, 3, 5, 6, 8, 10, 25, 28, 32, 52, 53]);
 const EVIDENCE_PATH = 'evidence/localization/faction-names-ko.v1.json';
 const CANONICAL_PATH = 'canonical/faction-localizations-ko.v1.json';
 const fail = (message) => { throw new Error(`Faction Korean localization validation failed: ${message}`); };
@@ -22,8 +22,8 @@ export function validateFactionKoLocalization({ identities, relations, evidence,
   check(isDeepStrictEqual(identityIds, EXPECTED_FACTION_IDS), 'current Faction identity set/order changed; reassess this task scope');
   check(relations.schemaVersion === 1 && Array.isArray(relations.records), 'Hero–Faction relation owner schema mismatch');
   const presentationRelations = relations.records.filter((relation) => PRESENTATION_HERO_IDS.has(relation.heroId));
-  check(presentationRelations.length === 17,
-    'existing seven-Hero relation projection changed; reassess this task scope');
+  check(presentationRelations.length === 25,
+    'current presentation relation projection changed; reassess this task scope');
   check(evidence.schemaVersion === 1 && evidence.canonical === false && evidence.generated === false
     && evidence.productionRuntimeDependency === false, 'evidence authority boundary changed');
   check(evidence.inputClassification === 'PROJECT_REVIEWED_LOCALIZATION'
@@ -31,7 +31,7 @@ export function validateFactionKoLocalization({ identities, relations, evidence,
     && evidence.scope?.claim === 'Project-reviewed Korean Faction display label by exact existing Canonical FactionID.',
   'input classification, provenance state, or claim scope drift');
   check(isDeepStrictEqual(evidence.scope?.factionIds, [...EXPECTED_NAMES.keys()])
-    && evidence.scope?.consumer === 'Current seven-Hero presentation slice only.', 'evidence target/consumer scope drift');
+    && evidence.scope?.consumer === 'Current Hero Presentation slice only.', 'evidence target/consumer scope drift');
   check(isDeepStrictEqual(evidence.limitations, [
     'Official Korean-server terminology and release status are unverified.',
     'Faction 3 is outside the current Canonical population and this localization scope; its supplied label is not admitted.',
@@ -94,5 +94,5 @@ export async function validateFactionKoLocalizationFromDisk(root = process.cwd()
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-faction-ko-localization.mjs')) {
   const result = await validateFactionKoLocalizationFromDisk();
-  process.stdout.write(`Faction Korean localization: PASS (${result.localizedIds.length} localized IDs; Faction 3 OUT_OF_SCOPE; 17 seven-Hero presentation relations)\n`);
+  process.stdout.write(`Faction Korean localization: PASS (${result.localizedIds.length} localized IDs; Faction 3 OUT_OF_SCOPE; 25 presentation relations)\n`);
 }

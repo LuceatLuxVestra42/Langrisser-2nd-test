@@ -38,11 +38,12 @@ check(canonical.schemaVersion === 1, 'unsupported canonical schemaVersion');
 check(canonical.sourceScope === 'CN ConfigData snapshot 2026-09-02', 'canonical source scope drift');
 const expected = new Map([[5, 'Chris'], [6, 'Leon'], [8, 'Lana']]);
 const expectedExpansion = new Map([[28, 'Zalrahda'], [32, 'EmmaLink'], [52, 'Angelina'], [53, 'Ranford']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys()]);
-check(canonical.records.length === expectedIds.size, 'canonical must contain exactly seven admitted Heroes');
+const expectedPresentation = new Map([[1, 'Matthew'], [3, 'Grenier'], [10, 'Ledin'], [25, 'Altemuller']]);
+const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys()]);
+check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[5,6,8,28,32,52,53]', 'canonical Hero IDs must be exactly 5, 6, 8, 28, 32, 52, and 53');
+check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,8,10,25,28,32,52,53]', 'canonical Hero IDs differ from exact presentation population');
 
 const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
 const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
@@ -288,6 +289,38 @@ for (const record of canonical.records.filter((item) => expectedExpansion.has(it
   check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
 }
 
+const presentationHeroRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-presentation-1-3-10-25.v1.json');
+const allPortraitSelection = await readJson('evidence/source/portraits/hero-portrait-selection.v1.json');
+const presentationConnectionRows = await readJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-presentation-1-3-10-25.v1.json');
+const presentationJobRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-1-3-10-25.v1.json');
+const presentationJobEvidence = await readJson('evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json');
+check(JSON.stringify(presentationHeroRows.map((row) => row.ID)) === '[1,3,10,25]', 'presentation source HeroInfo population drift');
+check(JSON.stringify(presentationJobEvidence.selection.heroIds) === '[1,3,10,25]' && presentationJobEvidence.canonical === false && presentationJobEvidence.generated === false, 'presentation relation evidence scope/authority drift');
+check(presentationJobEvidence.claims.heroFieldToConnectionId.class === 'B' && presentationJobEvidence.claims.connectionJobIdToJobInfoId.class === 'B' && presentationJobEvidence.claims.selectedRecordsExist.class === 'A', 'presentation relation evidence classes drift');
+const presentationSourceById = new Map(presentationHeroRows.map((row) => [row.ID, row]));
+const presentationConnectionById = new Map(presentationConnectionRows.map((row) => [row.ID, row]));
+const presentationJobById = new Map(presentationJobRows.map((row) => [row.ID, row]));
+const presentationEvidenceById = new Map(presentationJobEvidence.records.map((row) => [`${row.heroId}:${row.connectionId}`, row]));
+const presentationPortraitById = new Map(allPortraitSelection.records.map((row) => [row.heroId, row]));
+for (const heroId of expectedPresentation.keys()) {
+  const record = canonical.records.find((row) => row.id === heroId);
+  const source = presentationSourceById.get(heroId);
+  const portrait = presentationPortraitById.get(heroId);
+  check(record && source && portrait && heroIdentities.records.some((row) => row.heroId === heroId), `Hero ${heroId} Presentation source/identity/portrait missing`);
+  check(record.nameEng === source.Name_Eng && record.provenance.identity.includes(`#ID=${heroId}`) && record.provenance.nameEng.includes(`#ID=${heroId}/Name_Eng`), `Hero ${heroId} identity source mismatch`);
+  check(record.portrait === `assets/portraits/hero-${heroId}.png` && portrait.extractedSourcePng.path === record.portrait, `Hero ${heroId} portrait locator mismatch`);
+  const bytes = await readFile(resolve(root, record.portrait));
+  check(bytes.length === portrait.extractedSourcePng.bytes && createHash('sha256').update(bytes).digest('hex') === portrait.extractedSourcePng.sha256, `Hero ${heroId} portrait bytes mismatch`);
+  const refs = [{ connectionId: source.JobConnection_ID, jobId: presentationConnectionById.get(source.JobConnection_ID)?.Job_ID, sourceField: 'JobConnection_ID' }, ...source.UseableJobConnections_ID.map((connectionId) => ({ connectionId, jobId: presentationConnectionById.get(connectionId)?.Job_ID, sourceField: 'UseableJobConnections_ID' }))];
+  check(JSON.stringify(record.jobConnections) === JSON.stringify(refs), `Hero ${heroId} job references differ from explicit HeroInfo source fields`);
+  for (const ref of refs) {
+    const ev = presentationEvidenceById.get(`${heroId}:${ref.connectionId}`);
+    check(presentationJobById.has(ref.jobId) && ev?.jobId === ref.jobId && ev.sourceField === ref.sourceField, `Hero ${heroId} Job relation evidence mismatch at connection ${ref.connectionId}`);
+  }
+  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json#heroId=${heroId}`, `Hero ${heroId} relation provenance mismatch`);
+}
+check(talentRelations.records.every((row) => [6,8].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6 and 8');
+
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
@@ -299,6 +332,10 @@ check(generatedJson.heroes.every((hero) => {
   return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());
 }), 'generated consumer contains non-presentation fields');
 const expectedSpJobsByHeroId = new Map([
+  [1, [{ jobId: 262, nameKo: '고독한 검객', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [3, [{ jobId: 633, nameKo: '바람의 기사', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [10, [{ jobId: 878, nameKo: '선택받은 왕', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [25, [{ jobId: 414, nameKo: '천공의 마룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
   [6, [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
   [8, [{ jobId: 864, nameKo: '단죄의 성녀', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
 ]);
@@ -373,8 +410,8 @@ for (const localization of heroLocalization.records) {
 }
 check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[5, 447], [6, 416], [8, 275], [28, 412], [32, 287], [52, 294], [53, 296]]);
-check(generatedJson.heroes.length === 7 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[5,6,8,28,32,52,53]', 'visible Hero population must be exactly 5, 6, 8, 28, 32, 52, and 53');
+const expectedEquipmentByHero = new Map([[1,277],[3,415],[5,447],[6,416],[8,275],[10,406],[25,278],[28,412],[32,287],[52,294],[53,296]]);
+check(generatedJson.heroes.length === 11 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,8,10,25,28,32,52,53]', 'visible Hero population differs from Presentation Canonical');
 for (const hero of generatedJson.heroes) {
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
   check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);

@@ -212,7 +212,7 @@ try {
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.push({ jobId: 1220, nameKo: '한섭 미실장', evidenceClass: 'A', provenance: 'evidence/localization/sp-job-namespace.v1.json#jobId=1220' });
   });
-  expectFailure(run(localizationValidator), 'status-only SP admission', /canonical Job localization must contain exactly 55 records/);
+  expectFailure(run(localizationValidator), 'status-only SP admission', /canonical Job localization must contain expected complete record population/);
   await restore();
 
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
@@ -230,7 +230,7 @@ try {
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.push({ ...canonical.records[0] });
   });
-  expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /canonical Job localization must contain exactly 55 records/);
+  expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /canonical Job localization must contain expected complete record population/);
   await restore();
 
   const clean = run(localizationValidator);

@@ -139,7 +139,7 @@ assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions
 assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
 assert.match(frontend, /heading\.textContent = '출전작 · 프로젝트 검수 한국어명'/);
-const expectedFactionIds = new Map([[5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]], [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]]]);
+const expectedFactionIds = new Map([[1,[1,2]],[3,[2]],[5,[1,2,6]],[6,[4,7]],[8,[5,6]],[10,[1,2]],[25,[4,5,7]],[28,[5,8,11]],[32,[4,7]],[52,[6,8,9]],[53,[7,9]]]);
 const expectedFactionNames = new Map([[1, '시대의 주역'], [2, '빛의 군단'], [4, '제국의 빛'], [5, '어둠의 윤회'], [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역']]);
 assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
 for (const hero of heroData.heroes) {
@@ -162,6 +162,10 @@ const expectedSpJobsByHeroId = new Map([
     localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
     officialKrProvenanceStatus: 'UNVERIFIED',
   }]],
+  [1, [{ jobId: 262, nameKo: '고독한 검객', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [3, [{ jobId: 633, nameKo: '바람의 기사', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [10, [{ jobId: 878, nameKo: '선택받은 왕', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [25, [{ jobId: 414, nameKo: '천공의 마룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
   [8, [{
     jobId: 864,
     nameKo: '단죄의 성녀',
@@ -172,7 +176,7 @@ const expectedSpJobsByHeroId = new Map([
 ]);
 for (const hero of heroData.heroes) {
   assert.deepEqual(hero.spJobConnections, expectedSpJobsByHeroId.get(hero.id) ?? [], `SP Job presentation scope for Hero ${hero.id}`);
-  assert.ok(!hero.jobConnections.some(({ jobId }) => [377, 864].includes(jobId)), `SP Job duplicated in ordinary connections for Hero ${hero.id}`);
+  assert.ok(!hero.jobConnections.some(({ jobId }) => [262, 377, 414, 633, 864, 878].includes(jobId)), `SP Job duplicated in ordinary connections for Hero ${hero.id}`);
 }
 assert.deepEqual(heroData.heroes.find(({ id }) => id === 6).jobConnections.map(({ jobId }) => jobId), [301, 303, 302, 202, 307, 306]);
 assert.deepEqual(heroData.heroes.find(({ id }) => id === 8).jobConnections.map(({ jobId }) => jobId), [701, 805, 702, 703, 810, 706]);
@@ -208,6 +212,10 @@ assert.match(frontend, /makeSpJobPresentation\(hero\.spJobConnections\)/);
 assert.match(frontend, /article\.append\(spJobPresentation\)/);
 
 const expectedOrigins = new Map([
+  [1, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [3, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [10, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [25, [{ productionId: 6, nameCn: '梦幻模拟战III', nameKo: '랑그릿사III', localizationStatus: 'PROJECT_REVIEWED' }]],
   [5, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],
   [6, [{ productionId: 5, nameCn: '梦幻模拟战II', nameKo: '랑그릿사II', localizationStatus: 'PROJECT_REVIEWED' }]],
   [8, [{ productionId: 5, nameCn: '梦幻模拟战II', nameKo: '랑그릿사II', localizationStatus: 'PROJECT_REVIEWED' }]],

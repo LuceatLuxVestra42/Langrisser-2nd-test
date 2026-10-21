@@ -191,6 +191,10 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   const SP_JOB_PRESENTATION_TARGETS = [
     { heroId: 6, jobId: 377, nameKo: '어둠의 청룡' },
     { heroId: 8, jobId: 864, nameKo: '단죄의 성녀' },
+    { heroId: 1, jobId: 262, nameKo: '고독한 검객' },
+    { heroId: 3, jobId: 633, nameKo: '바람의 기사' },
+    { heroId: 10, jobId: 878, nameKo: '선택받은 왕' },
+    { heroId: 25, jobId: 414, nameKo: '천공의 마룡' },
   ];
   const spJobPresentationByHeroId = new Map();
   const SP_JOB_CLASSIFIED_ORDINARY_CONNECTIONS = [

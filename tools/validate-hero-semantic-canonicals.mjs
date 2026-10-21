@@ -16,6 +16,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const expansionConnectionPath = 'evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-expansion.v1.json';
   const expansionJobPath = 'evidence/source/configdata/ConfigDataJobInfo.records-hero-expansion.v1.json';
   const expansionEvidencePath = 'evidence/source/jobs/hero-job-connection-expansion.v1.json';
+  const presentationEvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json';
   const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, expansionEvidence, expansionHeroes, expansionConnections, expansionJobs, spEvidence, classicJobs, spJobs] = await Promise.all([
     readJson(identityPath),
     readJson(identityEvidencePath),
@@ -31,6 +32,8 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     readJson('evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json'),
     readJson('evidence/source/configdata/ConfigDataJobInfo.records-sp-job-localization.v1.json'),
   ]);
+  const presentationEvidence = await readJson(presentationEvidencePath);
+  const presentationJobs = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-1-3-10-25.v1.json');
 
   exactKeys(identities, ['schemaVersion', 'scope', 'records'], 'Hero identity canonical');
   check(identities.schemaVersion === 1 && identities.scope === 'Playable Hero identities from ConfigDataHeroInfo records where Useable == true.', 'Hero identity schema or scope drift');
@@ -160,12 +163,15 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     addExpectedRelation(row.heroId, row.jobId,
       `evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 28/32/52/53 connection evidence');
   }
+  for (const row of presentationEvidence.records) {
+    addExpectedRelation(row.heroId, row.jobId, `${presentationEvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 1/3/10/25 direct selected relation evidence');
+  }
   for (const row of spEvidence.records) {
     addExpectedRelation(row.heroId, row.spJobId,
       `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${row.heroId}`, 'SP relation evidence');
   }
   check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
-  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
+  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
   const assertUniqueJobSubset = (rows, label) => {
     const ids = rows.map((row) => row.ID);
@@ -174,7 +180,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   assertUniqueJobSubset(classicJobs, 'selected JobInfo evidence');
   assertUniqueJobSubset(expansionJobs, 'expansion JobInfo evidence');
   assertUniqueJobSubset(spJobs, 'SP JobInfo evidence');
-  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs].map((row) => row.ID));
+  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs].map((row) => row.ID));
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
@@ -209,11 +215,13 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const selectedOwnerPairs = [
     ...classicEvidence.records.filter((row) => selectedIds.has(row.heroId)).map((row) => `${row.heroId}:${row.jobId}`),
     ...expansionEvidence.records.filter((row) => expansionPresentationIds.has(row.heroId)).map((row) => `${row.heroId}:${row.jobId}`),
+    ...presentationEvidence.records.map((row) => `${row.heroId}:${row.jobId}`),
     ...spEvidence.records.filter((row) => row.heroId === 53).map((row) => `${row.heroId}:${row.spJobId}`),
   ];
-  check(selectedPairs.size === 42 && selectedOwnerPairs.length === 42, 'selected presentation relation parity must cover the existing 18 and expanded 24 admitted relation records');
+  check(selectedPairs.size === 73 && selectedOwnerPairs.length === 73, 'selected presentation relation parity must cover 73 exact admitted relation records');
   for (const row of classicEvidence.records) if (selectedIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of expansionEvidence.records) if (expansionPresentationIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected expansion relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of presentationEvidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected admission relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of spEvidence.records) if (row.heroId === 53) check(selectedPairs.has(`${row.heroId}:${row.spJobId}`), `selected SP relation ${row.heroId}:${row.spJobId} is missing from the slice`);
 
   return { identities: identityById.size, relations: relationByPair.size, selectedHeroes: selectedIds.size, selectedRelations: selectedPairs.size };

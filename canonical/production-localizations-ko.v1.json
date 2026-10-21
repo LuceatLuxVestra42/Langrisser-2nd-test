@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "Project-supplied Korean Production display localization references only; not Production identity, population, relation, release status, or official Korean-server authority.",
-  "sourceScope": "Exact ProductionID mapping for project-supplied Korean display-name references that exist in the current Canonical identity owner; consumed only by the current seven-Hero presentation slice.",
+  "sourceScope": "Exact ProductionID mapping for project-supplied Korean display-name references that exist in the current Canonical identity owner; consumed by the current Hero Presentation slice.",
   "inputClassification": "PROJECT_SUPPLIED_LOCALIZATION",
   "officialKrProvenanceStatus": "unverified",
   "evidence": "evidence/localization/production-names-ko.v1.json",

@@ -158,6 +158,10 @@ if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new
 const expectedSpJobsByHeroId = new Map([
   [6, [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
   [8, [{ jobId: 864, nameKo: '단죄의 성녀', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [1, [{ jobId: 262, nameKo: '고독한 검객', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [3, [{ jobId: 633, nameKo: '바람의 기사', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [10, [{ jobId: 878, nameKo: '선택받은 왕', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
+  [25, [{ jobId: 414, nameKo: '천공의 마룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
 ]);
 for (const hero of generated.heroes) {
   const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'spJobConnections', 'exclusiveEquipment', 'factions', 'origins'];

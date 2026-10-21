@@ -5,8 +5,8 @@ import { resolve, sep } from 'node:path';
 const fail = (message) => { throw new Error('Hero portrait selection validation failed: ' + message); };
 const check = (condition, message) => { if (!condition) fail(message); };
 const targets = [1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89];
-const presentationIds = [5, 6, 8, 28, 32, 52, 53];
-const generatedSha256 = '336a064ddc5e81af92d8820fd1dbe46e83c8dbf119b9f3071ff4a1a0f56907e4';
+const presentationIds = [1, 3, 5, 6, 8, 10, 25, 28, 32, 52, 53];
+const generatedSha256 = '6f0e4560c41fce8eeff451dc627ca47e7139e405da49aeb9cc62f2de896af3b8';
 const reportPath = 'data/validation/hero-page-stage5-5-2-artwork.v1.json';
 const reportBlob = '6e52ebf142d40d4a82709753e6c5a086dcfb299a';
 const expected = new Map([
@@ -804,7 +804,7 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
     check(createHash('sha256').update(bytes).digest('hex') === want.pngSha256
       && want.rgbaSha256.length === 64, `verified PNG content pin mismatch for ${row.heroId}`);
   }
-  process.stdout.write(`Hero portrait selection: PASS (3 inherited source joins; ${targets.length - 3} direct raw joins; ${targets.length} exact H-A5 Sprite selections; ${targets.length} PNG byte/hash/dimension matches; 7-Hero Generated parity)\n`);
+  process.stdout.write(`Hero portrait selection: PASS (3 inherited source joins; ${targets.length - 3} direct raw joins; ${targets.length} exact H-A5 Sprite selections; ${targets.length} PNG byte/hash/dimension matches; 11-Hero Generated parity)\n`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)) {
