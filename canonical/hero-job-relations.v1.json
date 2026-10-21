@@ -264,6 +264,36 @@
     },
     {
       "heroId": 12,
+      "jobId": 102,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12&connectionId=123"
+    },
+    {
+      "heroId": 12,
+      "jobId": 104,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12&connectionId=125"
+    },
+    {
+      "heroId": 12,
+      "jobId": 201,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12&connectionId=120"
+    },
+    {
+      "heroId": 12,
+      "jobId": 202,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12&connectionId=122"
+    },
+    {
+      "heroId": 12,
+      "jobId": 206,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12&connectionId=124"
+    },
+    {
+      "heroId": 12,
+      "jobId": 302,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12&connectionId=121"
+    },
+    {
+      "heroId": 12,
       "jobId": 368,
       "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=12"
     },
@@ -461,6 +491,36 @@
       "heroId": 53,
       "jobId": 426,
       "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=53"
+    },
+    {
+      "heroId": 55,
+      "jobId": 102,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55&connectionId=551"
+    },
+    {
+      "heroId": 55,
+      "jobId": 104,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55&connectionId=554"
+    },
+    {
+      "heroId": 55,
+      "jobId": 202,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55&connectionId=553"
+    },
+    {
+      "heroId": 55,
+      "jobId": 301,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55&connectionId=550"
+    },
+    {
+      "heroId": 55,
+      "jobId": 302,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55&connectionId=552"
+    },
+    {
+      "heroId": 55,
+      "jobId": 306,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55&connectionId=555"
     },
     {
       "heroId": 55,

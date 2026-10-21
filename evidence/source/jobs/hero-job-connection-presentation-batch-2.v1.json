@@ -1,0 +1,291 @@
+{
+  "version": 1,
+  "purpose": "Directly inspected HeroInfo to JobConnectionInfo to JobInfo relation evidence for Presentation batch 2; evidence only.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc"
+  },
+  "sourceFiles": {
+    "ConfigDataHeroInfo.json": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlob": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "ConfigDataJobConnectionInfo.json": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlob": "cdad8d6fda6edd30c92fbcda53e0f63af1903139"
+    },
+    "ConfigDataJobInfo.json": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlob": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133"
+    }
+  },
+  "selection": {
+    "heroIds": [
+      12,
+      55
+    ],
+    "heroRule": "Select explicit numeric HeroInfo.IDs 12 and 55; follow JobConnection_ID and every UseableJobConnections_ID through exact JobConnectionInfo.ID to Job_ID and exact JobInfo.ID.",
+    "connectionIds": [
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      550,
+      551,
+      552,
+      553,
+      554,
+      555
+    ],
+    "jobIds": [
+      102,
+      104,
+      201,
+      202,
+      206,
+      301,
+      302,
+      306
+    ]
+  },
+  "claimClasses": {
+    "heroFieldToConnectionId": "B",
+    "connectionJobIdToJobInfoId": "B",
+    "selectedRecordsExist": "A"
+  },
+  "inspectedSourceRows": {
+    "heroInfo": [
+      {
+        "ID": 12,
+        "Name_Eng": "Elwin",
+        "JobConnection_ID": 120,
+        "UseableJobConnections_ID": [
+          121,
+          122,
+          123,
+          124,
+          125
+        ]
+      },
+      {
+        "ID": 55,
+        "Name_Eng": "Landius",
+        "JobConnection_ID": 550,
+        "UseableJobConnections_ID": [
+          551,
+          552,
+          553,
+          554,
+          555
+        ]
+      }
+    ],
+    "jobConnectionInfo": [
+      {
+        "ID": 120,
+        "Job_ID": 201
+      },
+      {
+        "ID": 121,
+        "Job_ID": 302
+      },
+      {
+        "ID": 122,
+        "Job_ID": 202
+      },
+      {
+        "ID": 123,
+        "Job_ID": 102
+      },
+      {
+        "ID": 124,
+        "Job_ID": 206
+      },
+      {
+        "ID": 125,
+        "Job_ID": 104
+      },
+      {
+        "ID": 550,
+        "Job_ID": 301
+      },
+      {
+        "ID": 551,
+        "Job_ID": 102
+      },
+      {
+        "ID": 552,
+        "Job_ID": 302
+      },
+      {
+        "ID": 553,
+        "Job_ID": 202
+      },
+      {
+        "ID": 554,
+        "Job_ID": 104
+      },
+      {
+        "ID": 555,
+        "Job_ID": 306
+      }
+    ],
+    "jobInfo": [
+      {
+        "ID": 102,
+        "Name": "将军"
+      },
+      {
+        "ID": 104,
+        "Name": "大元帅"
+      },
+      {
+        "ID": 201,
+        "Name": "战士"
+      },
+      {
+        "ID": 202,
+        "Name": "剑士"
+      },
+      {
+        "ID": 206,
+        "Name": "英雄"
+      },
+      {
+        "ID": 301,
+        "Name": "骑士"
+      },
+      {
+        "ID": 302,
+        "Name": "骑士长"
+      },
+      {
+        "ID": 306,
+        "Name": "皇家骑士"
+      }
+    ]
+  },
+  "records": [
+    {
+      "heroId": 12,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].JobConnection_ID",
+      "sourceField": "JobConnection_ID",
+      "connectionId": 120,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=120]",
+      "jobId": 201,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=201]"
+    },
+    {
+      "heroId": 12,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 121,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=121]",
+      "jobId": 302,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=302]"
+    },
+    {
+      "heroId": 12,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 122,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=122]",
+      "jobId": 202,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=202]"
+    },
+    {
+      "heroId": 12,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 123,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=123]",
+      "jobId": 102,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=102]"
+    },
+    {
+      "heroId": 12,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 124,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=124]",
+      "jobId": 206,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=206]"
+    },
+    {
+      "heroId": 12,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 125,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=125]",
+      "jobId": 104,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=104]"
+    },
+    {
+      "heroId": 55,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=55].JobConnection_ID",
+      "sourceField": "JobConnection_ID",
+      "connectionId": 550,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=550]",
+      "jobId": 301,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=301]"
+    },
+    {
+      "heroId": 55,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=55].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 551,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=551]",
+      "jobId": 102,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=102]"
+    },
+    {
+      "heroId": 55,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=55].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 552,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=552]",
+      "jobId": 302,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=302]"
+    },
+    {
+      "heroId": 55,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=55].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 553,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=553]",
+      "jobId": 202,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=202]"
+    },
+    {
+      "heroId": 55,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=55].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 554,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=554]",
+      "jobId": 104,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=104]"
+    },
+    {
+      "heroId": 55,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=55].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 555,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=555]",
+      "jobId": 306,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=306]"
+    }
+  ],
+  "limitations": [
+    "Source records are from the pinned CN ConfigData snapshot; client install package release synchronization is not independently established.",
+    "Korean Job names are project-reviewed localization; official Korean server provenance is unverified.",
+    "This packet supports only Hero IDs 12 and 55 and the listed explicit fields."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}

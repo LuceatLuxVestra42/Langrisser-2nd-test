@@ -5,8 +5,8 @@ import { resolve, sep } from 'node:path';
 const fail = (message) => { throw new Error('Hero portrait selection validation failed: ' + message); };
 const check = (condition, message) => { if (!condition) fail(message); };
 const targets = [1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89];
-const presentationIds = [1, 3, 5, 6, 8, 10, 25, 28, 32, 52, 53];
-const generatedSha256 = '6f0e4560c41fce8eeff451dc627ca47e7139e405da49aeb9cc62f2de896af3b8';
+const presentationIds = [1, 3, 5, 6, 8, 10, 12, 25, 28, 32, 52, 53, 55];
+const priorPresentationRecordSha256 = new Map([[1,'8a7c2f34dd698517d3463f08cf7afc3ba6427173b345cf580dcff93233d53ceb'],[3,'76d0974c5bcf4130dbb829d5f7de9fc20c704014542106271bfd04af9f433a50'],[5,'e4fd3b59ef45ccce5403a72e3fc4605c64bc245663e0fe83eb9e7e1b5c229a5e'],[6,'89846000923eca5eb3caa2710cb1ae69c01ece0e43ae7f6c34ea97533b290dcc'],[8,'7c48ca0482565539fdf7cb37120396dde111dcec6c37074940b7d51f70ca06af'],[10,'5c75e60f144db3b0642eeef90d1bf8e6be44006a00041be99f8eff0332421605'],[25,'d6646591876be4c73d74dd1647e7b6a57f141139f26184f0c781b1d13cc9fbde'],[28,'c039ba3f560b90f418dc8f6c2665d5ff1bfc3afecf9832e3c08649bf9655c301'],[32,'5f4b54dcfb48e71fa3c105517c4fcef11ce7692f62867a81a09643771c319ee0'],[52,'c3431f4da9d96111115832d13a6151ae87837291e49f82e8c298c6a6db7d6658'],[53,'a24417323e71772052cc09381cf11d656280a95e12df1bdbe3d2df324c8bc6ab']]);
 const reportPath = 'data/validation/hero-page-stage5-5-2-artwork.v1.json';
 const reportBlob = '6e52ebf142d40d4a82709753e6c5a086dcfb299a';
 const expected = new Map([
@@ -733,7 +733,10 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
   'existing slice or expansion population changed');
   check(JSON.stringify(canonical.records.map((r) => r.id)) === JSON.stringify(presentationIds)
     && JSON.stringify(generated.heroes.map((r) => r.id)) === JSON.stringify(presentationIds), 'Hero Presentation population changed');
-  check(createHash('sha256').update(generatedBytes).digest('hex') === generatedSha256, 'Generated Hero slice byte parity mismatch');
+  for (const [heroId, expectedSha256] of priorPresentationRecordSha256) {
+    const row = generated.heroes.find((hero) => hero.id === heroId);
+    check(row && createHash('sha256').update(JSON.stringify(row)).digest('hex') === expectedSha256, `Prior Hero ${heroId} generated record parity mismatch`);
+  }
 
   check(evidence.predecessor.packageIdentity.fullPackageCryptographicHash === 'not recorded'
     && evidence.predecessor.packageIdentity.configDataAndClientReleaseSynchronization === 'not independently established',
@@ -804,7 +807,7 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
     check(createHash('sha256').update(bytes).digest('hex') === want.pngSha256
       && want.rgbaSha256.length === 64, `verified PNG content pin mismatch for ${row.heroId}`);
   }
-  process.stdout.write(`Hero portrait selection: PASS (3 inherited source joins; ${targets.length - 3} direct raw joins; ${targets.length} exact H-A5 Sprite selections; ${targets.length} PNG byte/hash/dimension matches; 11-Hero Generated parity)\n`);
+  process.stdout.write(`Hero portrait selection: PASS (3 inherited source joins; ${targets.length - 3} direct raw joins; ${targets.length} exact H-A5 Sprite selections; ${targets.length} PNG byte/hash/dimension matches; 13-Hero Generated parity)\n`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)) {

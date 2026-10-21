@@ -296,6 +296,49 @@
       }
     },
     {
+      "id": 12,
+      "nameEng": "Elwin",
+      "portrait": "assets/portraits/hero-12.png",
+      "jobConnections": [
+        {
+          "connectionId": 120,
+          "jobId": 201,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 121,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 122,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 123,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 124,
+          "jobId": 206,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 125,
+          "jobId": 104,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=12",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#inspectedSourceRows.heroInfo[ID=12]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=12",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=12"
+      }
+    },
+    {
       "id": 25,
       "nameEng": "Alutemurat",
       "portrait": "assets/portraits/hero-25.png",
@@ -508,6 +551,49 @@
         "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=53/Name_Eng",
         "portrait": "evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=53",
         "jobConnections": "canonical/hero-job-relations.v1.json#heroId=53"
+      }
+    },
+    {
+      "id": 55,
+      "nameEng": "Landius",
+      "portrait": "assets/portraits/hero-55.png",
+      "jobConnections": [
+        {
+          "connectionId": 550,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 551,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 552,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 553,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 554,
+          "jobId": 104,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 555,
+          "jobId": 306,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=55",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#inspectedSourceRows.heroInfo[ID=55]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=55",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55"
       }
     }
   ]
