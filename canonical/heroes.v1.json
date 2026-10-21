@@ -339,6 +339,49 @@
       }
     },
     {
+      "id": 13,
+      "nameEng": "Hein",
+      "portrait": "assets/portraits/hero-13.png",
+      "jobConnections": [
+        {
+          "connectionId": 130,
+          "jobId": 701,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 131,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 132,
+          "jobId": 702,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 133,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 134,
+          "jobId": 704,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 135,
+          "jobId": 810,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=13",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#inspectedSourceRows.heroInfo[ID=13]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=13",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13"
+      }
+    },
+    {
       "id": 25,
       "nameEng": "Alutemurat",
       "portrait": "assets/portraits/hero-25.png",

@@ -672,6 +672,82 @@
       ]
     },
     {
+      "id": 13,
+      "nameEng": "Hein",
+      "nameKo": "헤인",
+      "rarity": {
+        "rankId": 3,
+        "label": "SR"
+      },
+      "factions": [
+        {
+          "factionId": 2,
+          "nameCn": "光辉军团",
+          "nameKo": "빛의 군단",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 4,
+          "nameCn": "帝国之辉",
+          "nameKo": "제국의 빛",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 5,
+          "nameCn": "梦幻模拟战II",
+          "nameKo": "랑그릿사II",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-13.png",
+      "exclusiveEquipment": {
+        "equipmentId": 298,
+        "equipmentNameKo": "내, 내, 내가 공주라고?",
+        "effectDescriptionKo": "생명 +5%\n영웅의 고유기 최대 중첩 +1\n공주 연맹의 초절을 받을 수 있음"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 130,
+          "jobId": 701,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "메이지"
+        },
+        {
+          "connectionId": 131,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "마터"
+        },
+        {
+          "connectionId": 132,
+          "jobId": 702,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "아크 메이지"
+        },
+        {
+          "connectionId": 133,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "주교"
+        },
+        {
+          "connectionId": 134,
+          "jobId": 704,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "위저드"
+        },
+        {
+          "connectionId": 135,
+          "jobId": 810,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "세인트"
+        }
+      ]
+    },
+    {
       "id": 25,
       "nameEng": "Alutemurat",
       "nameKo": "알테뮬러",

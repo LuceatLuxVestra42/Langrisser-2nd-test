@@ -88,8 +88,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 109 relations; 85 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 109 relations; 85 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 109/85 Hero→Job relation counts');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 115 relations; 91 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 115 relations; 91 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 115/91 Hero→Job relation counts');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -146,7 +146,7 @@ try {
   assert.equal(generatedRarityText, generatedBaselineText,
     'off-slice Rarity changes must not alter the current Generated Hero consumer');
   const generatedRarity = JSON.parse(generatedRarityText);
-  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 12, 25, 28, 32, 52, 53, 55],
+  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 12, 13, 25, 28, 32, 52, 53, 55],
     'off-slice Rarity Canonical records must not expand Generated Hero population');
   for (const [change, label, command, diagnostic] of [
     [(doc) => { doc.records.push({ ...doc.records[0] }); }, 'duplicate Hero Rarity rejected', 'tools/generate.mjs', /Duplicate Hero rarity for Hero 5/],

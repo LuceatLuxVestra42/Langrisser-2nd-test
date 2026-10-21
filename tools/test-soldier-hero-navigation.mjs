@@ -11,7 +11,7 @@ const [frontend, heroData, relationData, normalData, spData] = await Promise.all
   readJson('generated/normal-soldiers.v1.json'),
   readJson('generated/sp-soldiers.v1.json'),
 ]);
-assert.equal(heroData.heroes.length, 13);
+assert.equal(heroData.heroes.length, 14);
 assert.equal(normalData.soldiers.length, 56);
 assert.equal(spData.soldiers.length, 56);
 
