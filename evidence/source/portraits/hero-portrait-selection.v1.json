@@ -8,13 +8,25 @@
     "heroIds": [
       1,
       3,
+      4,
+      7,
+      9,
       10,
+      11,
+      12,
+      13,
       25
     ],
     "charImageIds": [
       1,
       3,
+      4,
+      7,
+      9,
       10,
+      11,
+      12,
+      13,
       25
     ],
     "configDataSnapshot": "CN ConfigData snapshot 2026-09-02",
@@ -227,6 +239,222 @@
       }
     },
     {
+      "heroId": 4,
+      "charImageId": 4,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Aimeeda.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=4].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 3,
+          "record": {
+            "ID": 4,
+            "Name": "艾梅达",
+            "Name_Eng": "Aimeeda",
+            "Useable": true,
+            "CharImage_ID": 4
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 2,
+          "record": {
+            "ID": 4,
+            "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Aimeeda.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/begin_ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "3a6ca0062dc5aa53c9db44761e2559bc1819dd81",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/begin_ui_heropainting_ssr_abs-b.json#heroes[heroId=4]",
+        "recordHeroId": 4,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Aimeeda.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_26.zip",
+        "packageIndex": 25,
+        "packageBytes": 113636260,
+        "bundleName": "begin_ui_heropainting_ssr_abs.b",
+        "bundleBytes": 3710837,
+        "bundleMd5": "16CF10B79FF22F3CE1BF78B45D05DFA8",
+        "bundleSha256": "7C1551C8A4626CAA0BAB5E83A6A5BC4B3EF804E831D570C724D94193C4569F8A",
+        "bundleCrc32": "A06A3B3B",
+        "prefabPathId": "5595021069487437813",
+        "spritePathId": "2356460918224325981",
+        "texturePathId": "5964614618677259072"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/4.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=4]",
+        "gitBlobSha1": "cf49736706b75da986cd71ab19b37eb4fbd22041",
+        "bytes": 172310,
+        "sha256": "7e2f806b4b23c28f93b9b949c308eb1c981874ba9cd79e929eeaa2183e5cdf9b",
+        "width": 277,
+        "height": 770
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-4.png",
+        "bytes": 172310,
+        "sha256": "7e2f806b4b23c28f93b9b949c308eb1c981874ba9cd79e929eeaa2183e5cdf9b",
+        "width": 277,
+        "height": 770,
+        "bytesClass": "A"
+      }
+    },
+    {
+      "heroId": 7,
+      "charImageId": 7,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Bernhardt.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=7].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 6,
+          "record": {
+            "ID": 7,
+            "Name": "巴恩哈特",
+            "Name_Eng": "Bernhardt",
+            "Useable": true,
+            "CharImage_ID": 7
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 5,
+          "record": {
+            "ID": 7,
+            "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Bernhardt.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "b6cb8f827367fc367af8c544aa6877a85bcfee32",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json#heroes[heroId=7]",
+        "recordHeroId": 7,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Bernhardt.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_ssr_abs.b",
+        "bundleBytes": 25793935,
+        "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+        "bundleCrc32": "4682CEA2",
+        "prefabPathId": "-7741299618317976723",
+        "spritePathId": "-387997680886506757",
+        "texturePathId": "-3990265620095198334"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/7.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=7]",
+        "gitBlobSha1": "550079b01196eb036ffb274e470b4ddb44b85633",
+        "bytes": 455546,
+        "sha256": "c4355c375da225a625b792367db273cd0111a0b2e061a21a45ea280379c23f0f",
+        "width": 753,
+        "height": 935
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-7.png",
+        "bytes": 455546,
+        "sha256": "c4355c375da225a625b792367db273cd0111a0b2e061a21a45ea280379c23f0f",
+        "width": 753,
+        "height": 935,
+        "bytesClass": "A"
+      }
+    },
+    {
+      "heroId": 9,
+      "charImageId": 9,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Bozel.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=9].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=9].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 8,
+          "record": {
+            "ID": 9,
+            "Name": "波赞鲁",
+            "Name_Eng": "Bozel",
+            "Useable": true,
+            "CharImage_ID": 9
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 7,
+          "record": {
+            "ID": 9,
+            "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Bozel.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "b6cb8f827367fc367af8c544aa6877a85bcfee32",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json#heroes[heroId=9]",
+        "recordHeroId": 9,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Bozel.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_ssr_abs.b",
+        "bundleBytes": 25793935,
+        "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+        "bundleCrc32": "4682CEA2",
+        "prefabPathId": "-4625550339973129610",
+        "spritePathId": "3599312645041572683",
+        "texturePathId": "3859372328942134523"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/9.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=9]",
+        "gitBlobSha1": "f65e540ac69f6a677cdb58a2dce86f15b5f8d514",
+        "bytes": 399655,
+        "sha256": "7f4dab52b096398ca5f7de8e0c00a1fc7f589603ac3eb1c3c519ec569c0d203d",
+        "width": 743,
+        "height": 981
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-9.png",
+        "bytes": 399655,
+        "sha256": "7f4dab52b096398ca5f7de8e0c00a1fc7f589603ac3eb1c3c519ec569c0d203d",
+        "width": 743,
+        "height": 981,
+        "bytesClass": "A"
+      }
+    },
+    {
       "heroId": 10,
       "charImageId": 10,
       "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Ledyn.prefab",
@@ -271,6 +499,222 @@
         "sha256": "d838076bde84825e594f22db9b87ed8b869f26b2dfddf7395c506982ee87d73d",
         "width": 607,
         "height": 833,
+        "bytesClass": "A"
+      }
+    },
+    {
+      "heroId": 11,
+      "charImageId": 11,
+      "heroPainting": "UI/HeroPainting/SR_ABS/Prefab/Nurm.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=11].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=11].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 10,
+          "record": {
+            "ID": 11,
+            "Name": "娜姆",
+            "Name_Eng": "Nurm",
+            "Useable": true,
+            "CharImage_ID": 11
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 9,
+          "record": {
+            "ID": 11,
+            "HeroPainting": "UI/HeroPainting/SR_ABS/Prefab/Nurm.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_sr_abs-b.json",
+        "recordGitBlobSha1": "b989c2cc29e520e1004c3a1b27338839df84d0e7",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_sr_abs-b.json#heroes[heroId=11]",
+        "recordHeroId": 11,
+        "sourceArtworkPath": "UI/HeroPainting/SR_ABS/Prefab/Nurm.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_sr_abs.b",
+        "bundleBytes": 4204670,
+        "bundleMd5": "50C4FFD5AB6F7CBD8A0B39117F9CA101",
+        "bundleSha256": "294750FF12725BF5B8DF906B6CFAB702AF6352F7BAAF2203553E3E5EACDE8ED2",
+        "bundleCrc32": "BD688F0F",
+        "prefabPathId": "-3361140095441352504",
+        "spritePathId": "3867621537412067373",
+        "texturePathId": "8286383844118524683"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/11.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=11]",
+        "gitBlobSha1": "9795e3542fa01c1ffd8f9117af87a80866146f1d",
+        "bytes": 142640,
+        "sha256": "47ab77fb1927262d8cb632ea109f3ce16cebbe86668d73f01fb9f31bcee83250",
+        "width": 216,
+        "height": 749
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-11.png",
+        "bytes": 142640,
+        "sha256": "47ab77fb1927262d8cb632ea109f3ce16cebbe86668d73f01fb9f31bcee83250",
+        "width": 216,
+        "height": 749,
+        "bytesClass": "A"
+      }
+    },
+    {
+      "heroId": 12,
+      "charImageId": 12,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Elwin.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=12].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=12].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 11,
+          "record": {
+            "ID": 12,
+            "Name": "艾尔文",
+            "Name_Eng": "Elwin",
+            "Useable": true,
+            "CharImage_ID": 12
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 10,
+          "record": {
+            "ID": 12,
+            "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Elwin.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "b6cb8f827367fc367af8c544aa6877a85bcfee32",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json#heroes[heroId=12]",
+        "recordHeroId": 12,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Elwin.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_ssr_abs.b",
+        "bundleBytes": 25793935,
+        "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+        "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+        "bundleCrc32": "4682CEA2",
+        "prefabPathId": "123499102554842030",
+        "spritePathId": "1754904592508790156",
+        "texturePathId": "-4777522484743103452"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/12.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=12]",
+        "gitBlobSha1": "2a6244233d87242d80ca2dd8de9c2bedf8a1e392",
+        "bytes": 254740,
+        "sha256": "079f93df0579cff93bc51caba81c5326a04dc824711ce55ccdd59fd356a54700",
+        "width": 501,
+        "height": 806
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-12.png",
+        "bytes": 254740,
+        "sha256": "079f93df0579cff93bc51caba81c5326a04dc824711ce55ccdd59fd356a54700",
+        "width": 501,
+        "height": 806,
+        "bytesClass": "A"
+      }
+    },
+    {
+      "heroId": 13,
+      "charImageId": 13,
+      "heroPainting": "UI/HeroPainting/SR_ABS/Prefab/Hein.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=13].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=13].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 12,
+          "record": {
+            "ID": 13,
+            "Name": "海恩",
+            "Name_Eng": "Hein",
+            "Useable": true,
+            "CharImage_ID": 13
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 11,
+          "record": {
+            "ID": 13,
+            "HeroPainting": "UI/HeroPainting/SR_ABS/Prefab/Hein.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_sr_abs-b.json",
+        "recordGitBlobSha1": "b989c2cc29e520e1004c3a1b27338839df84d0e7",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_sr_abs-b.json#heroes[heroId=13]",
+        "recordHeroId": 13,
+        "sourceArtworkPath": "UI/HeroPainting/SR_ABS/Prefab/Hein.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_61.zip",
+        "packageIndex": 60,
+        "packageBytes": 109027105,
+        "bundleName": "ui_heropainting_sr_abs.b",
+        "bundleBytes": 4204670,
+        "bundleMd5": "50C4FFD5AB6F7CBD8A0B39117F9CA101",
+        "bundleSha256": "294750FF12725BF5B8DF906B6CFAB702AF6352F7BAAF2203553E3E5EACDE8ED2",
+        "bundleCrc32": "BD688F0F",
+        "prefabPathId": "1702538137014189570",
+        "spritePathId": "-1310573539659438491",
+        "texturePathId": "-8778693388439772692"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/13.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=13]",
+        "gitBlobSha1": "2f7b27ce39e7858c48759dee60865c9030cb474d",
+        "bytes": 195420,
+        "sha256": "fe5e0673aefc2bdb35ce0dec1fb6116c48f11f2a1bafa90f786134bd315147fb",
+        "width": 369,
+        "height": 821
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-13.png",
+        "bytes": 195420,
+        "sha256": "fe5e0673aefc2bdb35ce0dec1fb6116c48f11f2a1bafa90f786134bd315147fb",
+        "width": 369,
+        "height": 821,
         "bytesClass": "A"
       }
     },
