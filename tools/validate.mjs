@@ -46,11 +46,12 @@ const expectedHero14 = new Map([[14, 'Sherry']]);
 const expectedHero11 = new Map([[11, 'Nurm']]);
 const expectedHero7 = new Map([[7, 'Bernhardt']]);
 const expectedHero26 = new Map([[26, 'Luna']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys(), ...expectedHero11.keys(), ...expectedHero7.keys(), ...expectedHero26.keys()]);
+const expectedHero60 = new Map([[60, 'Sigma']]);
+const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys(), ...expectedHero11.keys(), ...expectedHero7.keys(), ...expectedHero26.keys(), ...expectedHero60.keys()]);
 check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,7,8,10,11,12,13,14,25,26,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
+check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,7,8,10,11,12,13,14,25,26,27,28,32,52,53,55,60,67]', 'canonical Hero IDs differ from exact presentation population');
 
 const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
 const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
@@ -425,6 +426,7 @@ const hero14JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJ
 check(JSON.stringify(hero14JobInfoRows.map((row) => row.ID)) === '[401,403,404,405,1103,1105]', 'Hero 14 preserved JobInfo ID set drift');
 check(hero14JobInfoRows.find((row) => row.ID === 404)?.Name === '圣天马将军', 'Hero 14 Job 404 pinned source label drift');
 const hero11Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json');
+const hero60Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-60.v1.json');
 const hero7Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-7.v1.json');
 check(hero11Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
   && hero11Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
@@ -481,6 +483,35 @@ const hero7JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJo
 check(JSON.stringify(hero7JobInfoRows.map((row) => row.ID)) === '[102,201,202,203,205,208]'
   && hero7JobInfoRows.find((row) => row.ID === 205)?.Name === '皇帝'
   && hero7JobInfoRows.find((row) => row.ID === 208)?.Name === '勇者', 'Hero 7 pinned JobInfo ID/name set drift');
+const hero60Source = hero60Packet.inspectedSourceRows.heroInfo.find((row) => row.ID === 60);
+const hero60Canonical = canonical.records.find((row) => row.id === 60);
+check(hero60Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+  && hero60Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+  && JSON.stringify(hero60Packet.selection?.heroIds) === '[60]'
+  && JSON.stringify(hero60Packet.selection?.connectionIds) === '[600,601,602,603,604,605]'
+  && JSON.stringify(hero60Packet.selection?.jobIds) === '[601,213,602,1103,214,604]'
+  && hero60Packet.claimClasses?.heroFieldToConnectionId === 'B' && hero60Packet.claimClasses?.connectionJobIdToJobInfoId === 'B'
+  && hero60Packet.claimClasses?.selectedRecordsExist === 'A' && hero60Packet.claimClasses?.jobInfoNameValue === 'A'
+  && hero60Packet.directInspection?.rawRecordDirectlyInspected === true
+  && hero60Packet.directInspection?.inspectionCommit === hero60Packet.source.commit
+  && hero60Packet.canonical === false && hero60Packet.generated === false && hero60Packet.productionRuntimeDependency === false,
+'Hero 60 Source packet pin/scope/class drift');
+check(hero60Source?.Name === '西格玛' && hero60Source?.Name_Eng === 'Sigma' && hero60Source?.Useable === true
+  && hero60Source?.JobConnection_ID === 600 && JSON.stringify(hero60Source?.UseableJobConnections_ID) === '[601,602,603,604,605]'
+  && hero60Canonical?.nameEng === 'Sigma' && hero60Canonical.portrait === 'assets/portraits/hero-60.png'
+  && hero60Canonical.provenance.identity === 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=60'
+  && hero60Canonical.provenance.jobConnections === 'evidence/source/jobs/hero-job-connection-presentation-hero-60.v1.json#heroId=60',
+'Hero 60 identity/name/portrait or Source locator mismatch');
+const hero60Refs = [{connectionId:hero60Source.JobConnection_ID,sourceField:'JobConnection_ID'},...hero60Source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
+  .map((row)=>({connectionId:row.connectionId,jobId:hero60Packet.inspectedSourceRows.jobConnectionInfo.find((item)=>item.ID===row.connectionId)?.Job_ID,sourceField:row.sourceField}));
+check(JSON.stringify(hero60Canonical.jobConnections) === JSON.stringify(hero60Refs) && hero60Refs.length === 6,
+  'Hero 60 exact Source Job connections mismatch');
+for (const row of hero60Refs) check(hero60Packet.records.some((ev)=>ev.heroId===60&&ev.connectionId===row.connectionId&&ev.jobId===row.jobId&&ev.sourceField===row.sourceField),
+  `Hero 60 explicit Source join evidence missing at ${row.connectionId}`);
+const hero60JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-hero-60.v1.json');
+check(JSON.stringify(hero60JobInfoRows.map((row) => row.ID)) === '[213,214]'
+  && hero60JobInfoRows.find((row) => row.ID === 213)?.Name === '剑斗士'
+  && hero60JobInfoRows.find((row) => row.ID === 214)?.Name === '剑斗统帅', 'Hero 60 pinned JobInfo ID/name set drift');
 check(talentRelations.records.every((row) => [6,8].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6 and 8');
 
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
@@ -572,8 +603,8 @@ for (const localization of heroLocalization.records) {
 }
 check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[1,277],[3,415],[7,295],[5,447],[6,416],[8,275],[10,406],[11,436],[12,273],[13,298],[14,292],[25,278],[26,462],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
-check(generatedJson.heroes.length === 20 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,7,8,10,11,12,13,14,25,26,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
+const expectedEquipmentByHero = new Map([[1,277],[3,415],[7,295],[5,447],[6,416],[8,275],[10,406],[11,436],[12,273],[13,298],[14,292],[25,278],[26,462],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[60,428],[67,465]]);
+check(generatedJson.heroes.length === 21 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,7,8,10,11,12,13,14,25,26,27,28,32,52,53,55,60,67]', 'visible Hero population differs from Presentation Canonical');
 for (const hero of generatedJson.heroes) {
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
   check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);

@@ -11,8 +11,8 @@ const [heroPresentation, relationOwner, soldierIdentities, generatedText] = awai
   readFile(resolve('generated/hero-soldier-relations.v1.json'), 'utf8'),
 ]);
 const result = validateHeroSoldierPresentation(heroPresentation, relationOwner, soldierIdentities, generatedText);
-assert.equal(result.rows, 247);
-assert.equal(result.distinctSoldiers, 96);
+assert.equal(result.rows, 259);
+assert.equal(result.distinctSoldiers, 98);
 
 const source = JSON.parse(generatedText);
 const encode = (relations) => JSON.stringify({ schemaVersion: 1, relations }, null, 2) + '\n';

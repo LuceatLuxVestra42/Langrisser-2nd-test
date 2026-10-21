@@ -1631,6 +1631,88 @@
       ]
     },
     {
+      "id": 60,
+      "nameEng": "Sigma",
+      "nameKo": "시그마",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 1,
+          "nameCn": "主角光环",
+          "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 9,
+          "nameCn": "传说彼端",
+          "nameKo": "전설의 저편",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 8,
+          "nameCn": "梦幻模拟战V",
+          "nameKo": "랑그릿사V",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-60.png",
+      "exclusiveEquipment": {
+        "equipmentId": 428,
+        "equipmentNameKo": "애널라이즈 글래스",
+        "effectDescriptionKo": "생명 +5%\n행동 종료 시, 25% 확률로 '공격 +20%' 획득, 지속 4행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 600,
+          "jobId": 601,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "아처"
+        },
+        {
+          "connectionId": 601,
+          "jobId": 213,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "글래디에이터"
+        },
+        {
+          "connectionId": 602,
+          "jobId": 602,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "스나이퍼"
+        },
+        {
+          "connectionId": 603,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "라이더"
+        },
+        {
+          "connectionId": 604,
+          "jobId": 214,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "배틀 마스터"
+        },
+        {
+          "connectionId": 605,
+          "jobId": 604,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "레인저"
+        }
+      ]
+    },
+    {
       "id": 67,
       "nameEng": "Omega",
       "nameKo": "오메가",

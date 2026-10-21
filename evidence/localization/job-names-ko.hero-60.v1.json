@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for ordinary Jobs 213 and 214 selected by Hero 60; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved localization source rows directly contain keyed Job ID and Chinese/Korean text values.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality with pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 213,
+      "nameCn": "剑斗士",
+      "nameKo": "글래디에이터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=213",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 214,
+      "nameCn": "剑斗统帅",
+      "nameKo": "배틀 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=214",
+      "evidenceClass": "A"
+    }
+  ]
+}

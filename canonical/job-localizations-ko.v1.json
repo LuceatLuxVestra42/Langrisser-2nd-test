@@ -464,6 +464,18 @@
       "nameKo": "유니콘 나이트",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-26.v1.json#jobId=351"
+    },
+    {
+      "jobId": 213,
+      "nameKo": "글래디에이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-60.v1.json#jobId=213"
+    },
+    {
+      "jobId": 214,
+      "nameKo": "배틀 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-60.v1.json#jobId=214"
     }
   ]
 }
