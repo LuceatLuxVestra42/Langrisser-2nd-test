@@ -1,0 +1,429 @@
+{
+  "version": 1,
+  "purpose": "Directly inspected Hero 4 ordinary Job source records and explicit HeroInfo→JobConnectionInfo→JobInfo references for Presentation admission; evidence only.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc"
+  },
+  "sourceFiles": {
+    "ConfigDataHeroInfo.json": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlob": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "ConfigDataJobConnectionInfo.json": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlob": "cdad8d6fda6edd30c92fbcda53e0f63af1903139"
+    },
+    "ConfigDataJobInfo.json": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlob": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133"
+    }
+  },
+  "selection": {
+    "heroIds": [
+      4
+    ],
+    "heroRule": "Select explicit numeric HeroInfo.ID=4; follow exact JobConnection_ID and every UseableJobConnections_ID through JobConnectionInfo.ID to Job_ID and JobInfo.ID.",
+    "connectionIds": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "jobIds": [
+      899,
+      802,
+      803,
+      805,
+      806,
+      810,
+      808
+    ]
+  },
+  "claimClasses": {
+    "heroFieldToConnectionId": "B",
+    "connectionJobIdToJobInfoId": "B",
+    "selectedRecordsExist": "A",
+    "jobInfoNameValue": "A"
+  },
+  "directInspection": {
+    "rawRecordDirectlyInspected": true,
+    "inspectionCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "method": "Parsed pinned Git blob JSON arrays with git show and selected exact numeric ID records."
+  },
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "inspectedSourceRows": {
+    "heroInfo": [
+      {
+        "ID": 4,
+        "Name": "艾梅达",
+        "Name_Eng": "Aimeeda",
+        "Useable": true,
+        "JobConnection_ID": 40,
+        "UseableJobConnections_ID": [
+          41,
+          42,
+          43,
+          44,
+          45,
+          46
+        ]
+      }
+    ],
+    "jobConnectionInfo": [
+      {
+        "ID": 40,
+        "Job_ID": 899,
+        "JobLevels_ID": [
+          401,
+          402
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 1,
+        "PropertyRating": "CCBCAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_fs/Aimeeda_fs01_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "IsJobOpen": true
+      },
+      {
+        "ID": 41,
+        "Job_ID": 802,
+        "JobLevels_ID": [
+          411,
+          412,
+          413
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 2,
+        "PropertyRating": "CCBCAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_fs/Aimeeda_fs02_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "PreJobConnectionList": [
+          40
+        ],
+        "IsJobOpen": true
+      },
+      {
+        "ID": 42,
+        "Job_ID": 803,
+        "JobLevels_ID": [
+          421,
+          422,
+          423,
+          424
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 3,
+        "PropertyRating": "CCBCAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Bishop/Aimeeda_Bishop02_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "PreJobConnectionList": [
+          41
+        ],
+        "IsJobOpen": true,
+        "Skins_ID": [
+          401,
+          402,
+          403,
+          499,
+          405,
+          406
+        ]
+      },
+      {
+        "ID": 43,
+        "Job_ID": 805,
+        "JobLevels_ID": [
+          431,
+          432,
+          433,
+          434
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 4,
+        "PropertyRating": "CCABAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Pilgrim/Aimeeda_Pilgrim02_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "PreJobConnectionList": [
+          41
+        ],
+        "IsJobOpen": true,
+        "Skins_ID": [
+          401,
+          402,
+          403,
+          499,
+          405,
+          406
+        ]
+      },
+      {
+        "ID": 44,
+        "Job_ID": 806,
+        "JobLevels_ID": [
+          441,
+          442,
+          443,
+          444
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 5,
+        "PropertyRating": "CCBCAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_fs/Aimeeda_fs03_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "PreJobConnectionList": [
+          41
+        ],
+        "IsJobOpen": true
+      },
+      {
+        "ID": 45,
+        "Job_ID": 810,
+        "JobLevels_ID": [
+          451,
+          452,
+          453,
+          454,
+          455
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 7,
+        "PropertyRating": "CCABAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Pilgrim/Aimeeda_Pilgrim03_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "PreJobConnectionList": [
+          43
+        ],
+        "IsJobOpen": true,
+        "Skins_ID": [
+          401,
+          402,
+          403,
+          499,
+          405,
+          406
+        ]
+      },
+      {
+        "ID": 46,
+        "Job_ID": 808,
+        "JobLevels_ID": [
+          461,
+          462,
+          463,
+          464,
+          465
+        ],
+        "TalentSkill_IDs": [
+          3313,
+          3314,
+          3315,
+          3316,
+          3317,
+          93318
+        ],
+        "UISort": 6,
+        "PropertyRating": "CCACAD",
+        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Avatar/Aimeeda_Avatar3_Prefab.prefab",
+        "ModelScale": 65,
+        "BF_ModelScale": 70,
+        "UI_ModelScale": 75,
+        "UI_ModelOffsetY": 10,
+        "Radius": 36,
+        "Height": 80,
+        "PreJobConnectionList": [
+          42
+        ],
+        "IsJobOpen": true,
+        "Skins_ID": [
+          401,
+          402,
+          403,
+          499,
+          405,
+          406
+        ]
+      }
+    ],
+    "jobInfo": [
+      {
+        "ID": 899,
+        "Name": "见习修女"
+      },
+      {
+        "ID": 802,
+        "Name": "修女"
+      },
+      {
+        "ID": 803,
+        "Name": "主教"
+      },
+      {
+        "ID": 805,
+        "Name": "圣徒"
+      },
+      {
+        "ID": 806,
+        "Name": "司祭"
+      },
+      {
+        "ID": 810,
+        "Name": "圣者"
+      },
+      {
+        "ID": 808,
+        "Name": "神使"
+      }
+    ]
+  },
+  "records": [
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].JobConnection_ID",
+      "sourceField": "JobConnection_ID",
+      "connectionId": 40,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=40]",
+      "jobId": 899,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=899]"
+    },
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 41,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=41]",
+      "jobId": 802,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=802]"
+    },
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 42,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=42]",
+      "jobId": 803,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=803]"
+    },
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 43,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=43]",
+      "jobId": 805,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=805]"
+    },
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 44,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=44]",
+      "jobId": 806,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=806]"
+    },
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 45,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=45]",
+      "jobId": 810,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=810]"
+    },
+    {
+      "heroId": 4,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=4].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 46,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=46]",
+      "jobId": 808,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=808]"
+    }
+  ],
+  "limitations": [
+    "The pinned ConfigData is a CN source snapshot; ConfigData-to-client release synchronization is not independently established.",
+    "The Korean Job display labels are project-source values; the source version and official Korean-server name provenance are unverified.",
+    "Relation interpretation follows explicit numeric ID fields and remains evidence class B."
+  ]
+}

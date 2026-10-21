@@ -17,7 +17,7 @@ try {
  success(run());
  const selection = runSelection();
  assert.equal(selection.error, undefined); assert.equal(selection.signal, null); assert.equal(selection.status, 0, selection.stderr || selection.stdout);
- assert.match(selection.stdout, /3 inherited source joins; \d+ direct raw joins; \d+ exact H-A5 Sprite selections; \d+ PNG byte\/hash\/dimension matches; 21-Hero Generated parity/);
+ assert.match(selection.stdout, /3 inherited source joins; \d+ direct raw joins; \d+ exact H-A5 Sprite selections; \d+ PNG byte\/hash\/dimension matches; 22-Hero Generated parity/);
  await mutate('evidence/source/portraits/hero-portrait-expansion.v1.json',d=>{d.records=d.records.filter(x=>x.heroId!==28)},/portrait evidence population must contain exactly/);
  await mutate('canonical/heroes.v1.json',d=>{d.records.push({id:28})},/presentation canonical population must be exactly/);
  const p=join(repo,'assets/portraits/hero-28.png'),old=await readFile(p);

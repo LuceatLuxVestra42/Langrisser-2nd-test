@@ -113,6 +113,41 @@
       "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=4"
     },
     {
+      "heroId": 4,
+      "jobId": 899,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=40"
+    },
+    {
+      "heroId": 4,
+      "jobId": 802,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=41"
+    },
+    {
+      "heroId": 4,
+      "jobId": 803,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=42"
+    },
+    {
+      "heroId": 4,
+      "jobId": 805,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=43"
+    },
+    {
+      "heroId": 4,
+      "jobId": 806,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=44"
+    },
+    {
+      "heroId": 4,
+      "jobId": 810,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=45"
+    },
+    {
+      "heroId": 4,
+      "jobId": 808,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4&connectionId=46"
+    },
+    {
       "heroId": 5,
       "jobId": 803,
       "provenance": "evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=5&connectionId=53"

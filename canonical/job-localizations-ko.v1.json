@@ -476,6 +476,24 @@
       "nameKo": "배틀 마스터",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-60.v1.json#jobId=214"
+    },
+    {
+      "jobId": 899,
+      "nameKo": "견습 시스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-4.v1.json#jobId=899"
+    },
+    {
+      "jobId": 802,
+      "nameKo": "시스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-4.v1.json#jobId=802"
+    },
+    {
+      "jobId": 808,
+      "nameKo": "오라클",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-4.v1.json#jobId=808"
     }
   ]
 }
