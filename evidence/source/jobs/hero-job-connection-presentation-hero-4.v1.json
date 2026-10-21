@@ -81,248 +81,31 @@
     "jobConnectionInfo": [
       {
         "ID": 40,
-        "Job_ID": 899,
-        "JobLevels_ID": [
-          401,
-          402
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 1,
-        "PropertyRating": "CCBCAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_fs/Aimeeda_fs01_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "IsJobOpen": true
+        "Job_ID": 899
       },
       {
         "ID": 41,
-        "Job_ID": 802,
-        "JobLevels_ID": [
-          411,
-          412,
-          413
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 2,
-        "PropertyRating": "CCBCAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_fs/Aimeeda_fs02_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "PreJobConnectionList": [
-          40
-        ],
-        "IsJobOpen": true
+        "Job_ID": 802
       },
       {
         "ID": 42,
-        "Job_ID": 803,
-        "JobLevels_ID": [
-          421,
-          422,
-          423,
-          424
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 3,
-        "PropertyRating": "CCBCAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Bishop/Aimeeda_Bishop02_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "PreJobConnectionList": [
-          41
-        ],
-        "IsJobOpen": true,
-        "Skins_ID": [
-          401,
-          402,
-          403,
-          499,
-          405,
-          406
-        ]
+        "Job_ID": 803
       },
       {
         "ID": 43,
-        "Job_ID": 805,
-        "JobLevels_ID": [
-          431,
-          432,
-          433,
-          434
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 4,
-        "PropertyRating": "CCABAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Pilgrim/Aimeeda_Pilgrim02_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "PreJobConnectionList": [
-          41
-        ],
-        "IsJobOpen": true,
-        "Skins_ID": [
-          401,
-          402,
-          403,
-          499,
-          405,
-          406
-        ]
+        "Job_ID": 805
       },
       {
         "ID": 44,
-        "Job_ID": 806,
-        "JobLevels_ID": [
-          441,
-          442,
-          443,
-          444
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 5,
-        "PropertyRating": "CCBCAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_fs/Aimeeda_fs03_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "PreJobConnectionList": [
-          41
-        ],
-        "IsJobOpen": true
+        "Job_ID": 806
       },
       {
         "ID": 45,
-        "Job_ID": 810,
-        "JobLevels_ID": [
-          451,
-          452,
-          453,
-          454,
-          455
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 7,
-        "PropertyRating": "CCABAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Pilgrim/Aimeeda_Pilgrim03_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "PreJobConnectionList": [
-          43
-        ],
-        "IsJobOpen": true,
-        "Skins_ID": [
-          401,
-          402,
-          403,
-          499,
-          405,
-          406
-        ]
+        "Job_ID": 810
       },
       {
         "ID": 46,
-        "Job_ID": 808,
-        "JobLevels_ID": [
-          461,
-          462,
-          463,
-          464,
-          465
-        ],
-        "TalentSkill_IDs": [
-          3313,
-          3314,
-          3315,
-          3316,
-          3317,
-          93318
-        ],
-        "UISort": 6,
-        "PropertyRating": "CCACAD",
-        "Model": "Spine/General/Aimeeda_ABS/Aimeeda_Avatar/Aimeeda_Avatar3_Prefab.prefab",
-        "ModelScale": 65,
-        "BF_ModelScale": 70,
-        "UI_ModelScale": 75,
-        "UI_ModelOffsetY": 10,
-        "Radius": 36,
-        "Height": 80,
-        "PreJobConnectionList": [
-          42
-        ],
-        "IsJobOpen": true,
-        "Skins_ID": [
-          401,
-          402,
-          403,
-          499,
-          405,
-          406
-        ]
+        "Job_ID": 808
       }
     ],
     "jobInfo": [
