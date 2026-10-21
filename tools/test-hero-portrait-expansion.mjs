@@ -17,14 +17,20 @@ try {
  success(run());
  const selection = runSelection();
  assert.equal(selection.error, undefined); assert.equal(selection.signal, null); assert.equal(selection.status, 0, selection.stderr || selection.stdout);
- assert.match(selection.stdout, /3 inherited source joins; 3 exact H-A5 Sprite selections; 3 PNG byte\/hash\/dimension matches; 7-Hero Generated parity/);
+ assert.match(selection.stdout, /3 inherited source joins; \d+ direct raw joins; \d+ exact H-A5 Sprite selections; \d+ PNG byte\/hash\/dimension matches; 7-Hero Generated parity/);
  await mutate('evidence/source/portraits/hero-portrait-expansion.v1.json',d=>{d.records=d.records.filter(x=>x.heroId!==28)},/portrait evidence population must contain exactly/);
  await mutate('canonical/heroes.v1.json',d=>{d.records.push({id:28})},/presentation canonical population must be exactly/);
  const p=join(repo,'assets/portraits/hero-28.png'),old=await readFile(p);
  try{const b=Buffer.from(old);b[b.length-1]^=1;await writeFile(p,b);failure(run(),/PNG SHA-256 mismatch for 28/)}finally{await writeFile(p,old)}
  await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records[0].charImageId=2},/frozen HeroInfo\.CharImage_ID claim mismatch for 1/);
- await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records[1].heroPainting='UI/HeroPainting/SSR_ABS/Prefab/Other.prefab'},/frozen CharImageInfo\.HeroPainting claim mismatch for 10/);
- await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records[2].charImageInfoLocator='wrong'},/frozen report locator mismatch for 25/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===10).heroPainting='UI/HeroPainting/SSR_ABS/Prefab/Other.prefab'},/frozen CharImageInfo\.HeroPainting claim mismatch for 10/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===25).charImageInfoLocator='wrong'},/frozen report locator mismatch for 25/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===3).directSource.heroInfo.record.CharImage_ID=4},/direct source foreign-key\/field mismatch for 3/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===3).directSource.charImageInfo.rawRecordDirectlyInspected=false},/direct inspection record\/index mismatch for 3/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===3).relationClass='B'},/claim-scoped evidence class drift for 3/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===1).relationClass='A'},/inherited evidence class drift for 1/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===3).predecessorPng.gitBlobSha1='0'.repeat(40)},/H-A6 source PNG manifest mismatch for 3/);
+ await mutateSelection('evidence/source/portraits/hero-portrait-selection.v1.json',d=>{d.records.find(r=>r.heroId===3).directSource.spriteReextractionPerformed=true},/extraction reuse limitation missing for 3/);
  const selectionPng=join(repo,'assets/portraits/hero-10.png'),selectionPngOld=await readFile(selectionPng);
  try{const b=Buffer.from(selectionPngOld);b[b.length-1]^=1;await writeFile(selectionPng,b);failure(runSelection(),/PNG SHA-256 mismatch for 10/)}finally{await writeFile(selectionPng,selectionPngOld)}
  const generatedPath=join(repo,'generated/hero-slice.v1.json'),generatedOld=await readFile(generatedPath);

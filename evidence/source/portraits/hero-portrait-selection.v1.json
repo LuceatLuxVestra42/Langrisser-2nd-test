@@ -1,15 +1,25 @@
 {
   "schemaVersion": 1,
-  "purpose": "Additive source selection and extracted PNG evidence for Heroes 1, 10, and 25.",
+  "purpose": "Additive claim-scoped source selection and extracted PNG evidence; no presentation eligibility change.",
   "canonical": false,
   "generated": false,
   "productionRuntimeDependency": false,
   "scope": {
-    "heroIds": [1, 10, 25],
-    "charImageIds": [1, 10, 25],
+    "heroIds": [
+      1,
+      3,
+      10,
+      25
+    ],
+    "charImageIds": [
+      1,
+      3,
+      10,
+      25
+    ],
     "configDataSnapshot": "CN ConfigData snapshot 2026-09-02",
-    "claimClass": "B",
-    "claim": "Pinned predecessor validation rows preserve each HeroInfo.CharImage_ID to CharImageInfo.ID/HeroPainting join; pinned H-A5 Sprite selections and H-A6 materialized PNGs preserve the selected source artwork and its extracted bytes."
+    "claimClass": "per-record",
+    "claim": "Per-record direct raw-field joins (A) or inherited frozen joins (B), with separately inherited B artwork role/Sprite extraction provenance and directly verified A PNG bytes."
   },
   "source": {
     "repository": "LuceatLuxVestra42/langrisser-future-guide",
@@ -20,15 +30,31 @@
       "path": "data/configdata/ConfigDataHeroInfo.json",
       "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
       "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
-      "fields": ["ID", "CharImage_ID"],
-      "rawRecordDirectlyInspected": false
+      "fields": [
+        "ID",
+        "CharImage_ID"
+      ],
+      "rawRecordDirectlyInspected": false,
+      "directInspectionLimitationAppliesToHeroIds": [
+        1,
+        10,
+        25
+      ]
     },
     "charImageInfo": {
       "path": "data/configdata/ConfigDataCharImageInfo.json",
       "gitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
       "sha256": "3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a",
-      "fields": ["ID", "HeroPainting"],
-      "rawRecordDirectlyInspected": false
+      "fields": [
+        "ID",
+        "HeroPainting"
+      ],
+      "rawRecordDirectlyInspected": false,
+      "directInspectionLimitationAppliesToHeroIds": [
+        1,
+        10,
+        25
+      ]
     },
     "frozenJoinValidation": {
       "path": "data/validation/hero-page-stage5-5-2-artwork.v1.json",
@@ -125,6 +151,78 @@
         "sha256": "072bde658943017dfc68e35ff97c4666cf74848bbe53112d5d9c772fd38c4c4c",
         "width": 381,
         "height": 812,
+        "bytesClass": "A"
+      }
+    },
+    {
+      "heroId": 3,
+      "charImageId": 3,
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Grenier.prefab",
+      "heroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=3].CharImage_ID",
+      "charImageInfoLocator": "data/configdata/ConfigDataCharImageInfo.json#[ID=3].HeroPainting",
+      "relationClass": "A",
+      "charImageIdClass": "A",
+      "heroPaintingFieldClass": "A",
+      "heroPaintingRoleClass": "B",
+      "sourceAssetClass": "B",
+      "reproducibilityClass": "B",
+      "directSource": {
+        "heroInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 2,
+          "record": {
+            "ID": 3,
+            "Name": "格尼尔",
+            "Name_Eng": "Grenier",
+            "Useable": true,
+            "CharImage_ID": 3
+          }
+        },
+        "charImageInfo": {
+          "rawRecordDirectlyInspected": true,
+          "arrayIndex": 1,
+          "record": {
+            "ID": 3,
+            "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Grenier.prefab"
+          }
+        },
+        "interpretation": "Exact HeroInfo.CharImage_ID foreign-key equality to CharImageInfo.ID, followed by the literal HeroPainting field; artwork field role and extraction interpretation remain inherited B.",
+        "spriteReextractionPerformed": false
+      },
+      "predecessorExtraction": {
+        "recordPath": "data/generated/hero-artwork-h-a5-index.v1/begin_ui_heropainting_ssr_abs-b.json",
+        "recordGitBlobSha1": "3a6ca0062dc5aa53c9db44761e2559bc1819dd81",
+        "recordLocator": "data/generated/hero-artwork-h-a5-index.v1/begin_ui_heropainting_ssr_abs-b.json#heroes[heroId=3]",
+        "recordHeroId": 3,
+        "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Grenier.prefab",
+        "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+        "packageName": "InstallPage_1.1.113_26.zip",
+        "packageIndex": 25,
+        "packageBytes": 113636260,
+        "bundleName": "begin_ui_heropainting_ssr_abs.b",
+        "bundleBytes": 3710837,
+        "bundleMd5": "16CF10B79FF22F3CE1BF78B45D05DFA8",
+        "bundleSha256": "7C1551C8A4626CAA0BAB5E83A6A5BC4B3EF804E831D570C724D94193C4569F8A",
+        "bundleCrc32": "A06A3B3B",
+        "prefabPathId": "2379866903544210750",
+        "spritePathId": "639412478775696337",
+        "texturePathId": "7747863799803620895"
+      },
+      "predecessorPng": {
+        "path": "public/images/heroes/cards/3.png",
+        "recordLocator": "data/generated/hero-artwork-h-a6-web-assets.v1.json#records[heroId=3]",
+        "gitBlobSha1": "28006e9d0ce1dc52f2928d1a349391e1b5f86e5f",
+        "bytes": 238677,
+        "sha256": "440677163c7297bdc6b13fb29cffc273c324b6682209522fa932e20d4fd0e165",
+        "width": 407,
+        "height": 986
+      },
+      "extractedSourcePng": {
+        "path": "assets/portraits/hero-3.png",
+        "bytes": 238677,
+        "sha256": "440677163c7297bdc6b13fb29cffc273c324b6682209522fa932e20d4fd0e165",
+        "width": 407,
+        "height": 986,
         "bytesClass": "A"
       }
     },
@@ -226,9 +324,9 @@
     }
   ],
   "limitations": [
-    "HeroInfo and CharImageInfo records were not re-parsed from raw ConfigData in this work; the per-Hero join is inherited as B from the pinned Legacy validation report.",
+    "Heroes 1, 10, and 25 retain their inherited B source joins and rawRecordDirectlyInspected=false. Added directSource records preserve inspected raw fields and exact locators, not new extraction claims.",
     "The predecessor report establishes the fixed ConfigData join claim but does not by itself establish asset bytes or extraction provenance; those are separately pinned to H-A5/H-A6 and checked against actual PNG bytes.",
     "The historical installation packages have no recorded full-package cryptographic hash, and ConfigData/client release synchronization is not independently established.",
-    "The packet covers only Heroes 1, 10, and 25; it does not admit Hero Presentation eligibility."
+    "Only the explicitly listed Hero IDs are admitted as source evidence and assets; no Hero Presentation eligibility is admitted."
   ]
 }
