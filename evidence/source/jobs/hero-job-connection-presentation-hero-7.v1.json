@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "purpose": "Directly inspected Hero 7 ordinary Job source records and explicit HeroInfo to JobConnectionInfo to JobInfo references for Presentation admission; evidence only.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc"
+  },
+  "sourceFiles": {
+    "ConfigDataHeroInfo.json": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlob": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "ConfigDataJobConnectionInfo.json": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlob": "cdad8d6fda6edd30c92fbcda53e0f63af1903139"
+    },
+    "ConfigDataJobInfo.json": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlob": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133"
+    }
+  },
+  "selection": {
+    "heroIds": [
+      7
+    ],
+    "heroRule": "Select explicit numeric HeroInfo.ID=7; follow exact JobConnection_ID and every UseableJobConnections_ID through JobConnectionInfo.ID to Job_ID and JobInfo.ID.",
+    "connectionIds": [
+      70,
+      71,
+      72,
+      73,
+      74,
+      75
+    ],
+    "jobIds": [
+      201,
+      202,
+      203,
+      102,
+      205,
+      208
+    ]
+  },
+  "claimClasses": {
+    "heroFieldToConnectionId": "B",
+    "connectionJobIdToJobInfoId": "B",
+    "selectedRecordsExist": "A",
+    "jobInfoNameValue": "A"
+  },
+  "directInspection": {
+    "rawRecordDirectlyInspected": true,
+    "inspectionCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "method": "Parsed pinned Git blob JSON arrays with git show and selected exact numeric ID records."
+  },
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "inspectedSourceRows": {
+    "heroInfo": [
+      {
+        "ID": 7,
+        "Name": "巴恩哈特",
+        "Name_Eng": "Bernhardt",
+        "Useable": true,
+        "JobConnection_ID": 70,
+        "UseableJobConnections_ID": [
+          71,
+          72,
+          73,
+          74,
+          75
+        ]
+      }
+    ],
+    "jobConnectionInfo": [
+      {
+        "ID": 70,
+        "Job_ID": 201
+      },
+      {
+        "ID": 71,
+        "Job_ID": 202
+      },
+      {
+        "ID": 72,
+        "Job_ID": 203
+      },
+      {
+        "ID": 73,
+        "Job_ID": 102
+      },
+      {
+        "ID": 74,
+        "Job_ID": 205
+      },
+      {
+        "ID": 75,
+        "Job_ID": 208
+      }
+    ],
+    "jobInfo": [
+      {
+        "ID": 102,
+        "Name": "将军"
+      },
+      {
+        "ID": 201,
+        "Name": "战士"
+      },
+      {
+        "ID": 202,
+        "Name": "剑士"
+      },
+      {
+        "ID": 203,
+        "Name": "盾剑士"
+      },
+      {
+        "ID": 205,
+        "Name": "皇帝"
+      },
+      {
+        "ID": 208,
+        "Name": "勇者"
+      }
+    ]
+  },
+  "records": [
+    {
+      "heroId": 7,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].JobConnection_ID",
+      "sourceField": "JobConnection_ID",
+      "connectionId": 70,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=70]",
+      "jobId": 201,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=201]"
+    },
+    {
+      "heroId": 7,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 71,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=71]",
+      "jobId": 202,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=202]"
+    },
+    {
+      "heroId": 7,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 72,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=72]",
+      "jobId": 203,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=203]"
+    },
+    {
+      "heroId": 7,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 73,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=73]",
+      "jobId": 102,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=102]"
+    },
+    {
+      "heroId": 7,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 74,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=74]",
+      "jobId": 205,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=205]"
+    },
+    {
+      "heroId": 7,
+      "sourceHeroInfoLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=7].UseableJobConnections_ID",
+      "sourceField": "UseableJobConnections_ID",
+      "connectionId": 75,
+      "jobConnectionInfoLocator": "data/configdata/ConfigDataJobConnectionInfo.json#[ID=75]",
+      "jobId": 208,
+      "jobInfoLocator": "data/configdata/ConfigDataJobInfo.json#[ID=208]"
+    }
+  ],
+  "limitations": [
+    "Source version is the pinned CN ConfigData snapshot dated 2026-09-02.",
+    "ConfigData and client release synchronization was not independently established.",
+    "Relation interpretation follows explicit numeric ID fields and remains evidence class B."
+  ]
+}

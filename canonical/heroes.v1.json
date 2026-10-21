@@ -210,6 +210,49 @@
       }
     },
     {
+      "id": 7,
+      "nameEng": "Bernhardt",
+      "portrait": "assets/portraits/hero-7.png",
+      "jobConnections": [
+        {
+          "connectionId": 70,
+          "jobId": 201,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 71,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 72,
+          "jobId": 203,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 73,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 74,
+          "jobId": 205,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 75,
+          "jobId": 208,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=7",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-hero-7.v1.json#inspectedSourceRows.heroInfo[ID=7]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=7",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-hero-7.v1.json#heroId=7"
+      }
+    },
+    {
       "id": 8,
       "nameEng": "Lana",
       "portrait": "assets/portraits/hero-8.png",

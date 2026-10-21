@@ -24,7 +24,7 @@ To view the page locally, serve the repository root with any static HTTP server 
 ## Boundaries
 
 - `evidence/` preserves source and claim-scoped provenance. It is not canonical data or a production runtime dependency.
-- `canonical/heroes.v1.json` owns the current 18-Hero presentation slice; `canonical/hero-identities.v1.json` and `canonical/hero-job-relations.v1.json` own broader semantic responsibilities.
+- `canonical/heroes.v1.json` owns the current 19-Hero presentation slice; `canonical/hero-identities.v1.json` and `canonical/hero-job-relations.v1.json` own broader semantic responsibilities.
 - `canonical/hero-localizations-ko.v1.json` owns project-qualified Korean Hero display labels. Official Korean-server provenance is unverified; the reference list does not define Hero population or a migration backlog.
 - `canonical/general-ssr-equipment.v1.json` owns the 206-record General SSR Equipment population; `canonical/general-ssr-equipment-localizations-ko.v1.json` owns its Korean display names and effect descriptions.
 - `generated/general-ssr-equipment.v1.json` is deterministic ID-joined presentation data, ordered by numeric Equipment ID for display only. It adds no Equipment type, category, slot, alias, replacement, Hero relation, or structured mechanics.

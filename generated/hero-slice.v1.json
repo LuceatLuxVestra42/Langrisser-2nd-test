@@ -397,6 +397,88 @@
       ]
     },
     {
+      "id": 7,
+      "nameEng": "Bernhardt",
+      "nameKo": "베른하르트",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 4,
+          "nameCn": "帝国之辉",
+          "nameKo": "제국의 빛",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 5,
+          "nameCn": "黑暗轮回",
+          "nameKo": "어둠의 윤회",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 11,
+          "nameCn": "超凡领域",
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 5,
+          "nameCn": "梦幻模拟战II",
+          "nameKo": "랑그릿사II",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-7.png",
+      "exclusiveEquipment": {
+        "equipmentId": 295,
+        "equipmentNameKo": "패왕의 전투 갑주",
+        "effectDescriptionKo": "생명 +5%\n영웅 고유기 범위 +1"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 70,
+          "jobId": 201,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "파이터"
+        },
+        {
+          "connectionId": 71,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드맨"
+        },
+        {
+          "connectionId": 72,
+          "jobId": 203,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "글래디에이터"
+        },
+        {
+          "connectionId": 73,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "제네럴"
+        },
+        {
+          "connectionId": 74,
+          "jobId": 205,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "엠퍼러"
+        },
+        {
+          "connectionId": 75,
+          "jobId": 208,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "용사"
+        }
+      ]
+    },
+    {
       "id": 8,
       "nameEng": "Lana",
       "nameKo": "라나",
