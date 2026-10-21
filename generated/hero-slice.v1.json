@@ -1084,6 +1084,82 @@
       ]
     },
     {
+      "id": 26,
+      "nameEng": "Luna",
+      "nameKo": "루나",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 7,
+          "nameCn": "战略大师",
+          "nameKo": "전략의 대가",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-26.png",
+      "exclusiveEquipment": {
+        "equipmentId": 462,
+        "equipmentNameKo": "하늘을 누비는 여신",
+        "effectDescriptionKo": "생명 마방 +5%\n고유기 및 스킬의 지휘 효과 범위 +1\n행동 종료 시, 주위 1칸 내 아군 2부대에 '주는 피해 +15%' 부여, 지속 1행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 260,
+          "jobId": 402,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "페가수스 나이트"
+        },
+        {
+          "connectionId": 261,
+          "jobId": 603,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "보우 나이트"
+        },
+        {
+          "connectionId": 262,
+          "jobId": 404,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "페가수스 로드"
+        },
+        {
+          "connectionId": 263,
+          "jobId": 351,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "유니콘 나이트"
+        },
+        {
+          "connectionId": 264,
+          "jobId": 605,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "보우 마스터"
+        },
+        {
+          "connectionId": 265,
+          "jobId": 406,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "페가수스 마스터"
+        }
+      ]
+    },
+    {
       "id": 27,
       "nameEng": "Dehault",
       "nameKo": "디하르트",
