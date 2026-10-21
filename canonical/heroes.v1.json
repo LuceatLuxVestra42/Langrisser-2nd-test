@@ -425,6 +425,49 @@
       }
     },
     {
+      "id": 27,
+      "nameEng": "Dehault",
+      "portrait": "assets/portraits/hero-27.png",
+      "jobConnections": [
+        {
+          "connectionId": 270,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 271,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 272,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 273,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 274,
+          "jobId": 306,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 275,
+          "jobId": 1105,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=27",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#inspectedSourceRows.heroInfo[ID=27]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=27",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#heroId=27"
+      }
+    },
+    {
       "id": 28,
       "nameEng": "Zalrahda",
       "portrait": "assets/portraits/hero-28.png",
@@ -637,6 +680,49 @@
         "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#inspectedSourceRows.heroInfo[ID=55]/Name_Eng",
         "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=55",
         "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=55"
+      }
+    },
+    {
+      "id": 67,
+      "nameEng": "Omega",
+      "portrait": "assets/portraits/hero-67.png",
+      "jobConnections": [
+        {
+          "connectionId": 670,
+          "jobId": 1101,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 671,
+          "jobId": 602,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 672,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 673,
+          "jobId": 502,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 674,
+          "jobId": 604,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 675,
+          "jobId": 1105,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=67",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#inspectedSourceRows.heroInfo[ID=67]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=67",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#heroId=67"
       }
     }
   ]

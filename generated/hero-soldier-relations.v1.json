@@ -538,6 +538,74 @@
       "soldierId": 5423
     },
     {
+      "heroId": 27,
+      "soldierId": 308
+    },
+    {
+      "heroId": 27,
+      "soldierId": 324
+    },
+    {
+      "heroId": 27,
+      "soldierId": 402
+    },
+    {
+      "heroId": 27,
+      "soldierId": 631
+    },
+    {
+      "heroId": 27,
+      "soldierId": 637
+    },
+    {
+      "heroId": 27,
+      "soldierId": 1101
+    },
+    {
+      "heroId": 27,
+      "soldierId": 1105
+    },
+    {
+      "heroId": 27,
+      "soldierId": 1113
+    },
+    {
+      "heroId": 27,
+      "soldierId": 5308
+    },
+    {
+      "heroId": 27,
+      "soldierId": 5324
+    },
+    {
+      "heroId": 27,
+      "soldierId": 5402
+    },
+    {
+      "heroId": 27,
+      "soldierId": 5631
+    },
+    {
+      "heroId": 27,
+      "soldierId": 5634
+    },
+    {
+      "heroId": 27,
+      "soldierId": 5637
+    },
+    {
+      "heroId": 27,
+      "soldierId": 6101
+    },
+    {
+      "heroId": 27,
+      "soldierId": 6105
+    },
+    {
+      "heroId": 27,
+      "soldierId": 6113
+    },
+    {
       "heroId": 53,
       "soldierId": 115
     },
@@ -676,6 +744,62 @@
     {
       "heroId": 55,
       "soldierId": 5326
+    },
+    {
+      "heroId": 67,
+      "soldierId": 507
+    },
+    {
+      "heroId": 67,
+      "soldierId": 610
+    },
+    {
+      "heroId": 67,
+      "soldierId": 634
+    },
+    {
+      "heroId": 67,
+      "soldierId": 1015
+    },
+    {
+      "heroId": 67,
+      "soldierId": 1101
+    },
+    {
+      "heroId": 67,
+      "soldierId": 1105
+    },
+    {
+      "heroId": 67,
+      "soldierId": 5507
+    },
+    {
+      "heroId": 67,
+      "soldierId": 5607
+    },
+    {
+      "heroId": 67,
+      "soldierId": 5610
+    },
+    {
+      "heroId": 67,
+      "soldierId": 5634
+    },
+    {
+      "heroId": 67,
+      "soldierId": 6015
+    },
+    {
+      "heroId": 67,
+      "soldierId": 6101
+    },
+    {
+      "heroId": 67,
+      "soldierId": 6105
+    },
+    {
+      "heroId": 67,
+      "soldierId": 6113
     }
   ]
 }

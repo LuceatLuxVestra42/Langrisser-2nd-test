@@ -41,11 +41,12 @@ const expectedExpansion = new Map([[28, 'Zalrahda'], [32, 'EmmaLink'], [52, 'Ang
 const expectedPresentation = new Map([[1, 'Matthew'], [3, 'Grenier'], [10, 'Ledin'], [25, 'Altemuller']]);
 const expectedBatch2 = new Map([[12, 'Elwin'], [55, 'Landius']]);
 const expectedHero13 = new Map([[13, 'Hein']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys()]);
+const expectedBatch3 = new Map([[27, 'Dehault'], [67, 'Omega']]);
+const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys()]);
 check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,8,10,12,13,25,28,32,52,53,55]', 'canonical Hero IDs differ from exact presentation population');
+check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,8,10,12,13,25,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
 
 const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
 const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
@@ -372,6 +373,28 @@ check(hero13Packet.records.length === 6 && JSON.stringify(hero13Canonical.jobCon
   'Hero 13 Presentation Job connections differ from explicit source refs');
 check(hero13Canonical.jobConnections.every((row) => hero13Packet.records.some((evidence) => evidence.connectionId === row.connectionId && evidence.jobId === row.jobId)),
   'Hero 13 Job connection has no packet evidence');
+const batch3Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json');
+check(batch3Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch3Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+  && JSON.stringify(batch3Packet.selection?.heroIds) === '[27,67]' && batch3Packet.claimClasses?.heroFieldToConnectionId === 'B'
+  && batch3Packet.claimClasses?.connectionJobIdToJobInfoId === 'B' && batch3Packet.claimClasses?.selectedRecordsExist === 'A'
+  && batch3Packet.claimClasses?.jobInfoNameValue === 'A' && batch3Packet.directInspection?.rawRecordDirectlyInspected === true
+  && batch3Packet.canonical === false && batch3Packet.generated === false && batch3Packet.productionRuntimeDependency === false,
+  'Hero 27/67 evidence source/scope/class boundary drift');
+const batch3ByHero = new Map(batch3Packet.inspectedSourceRows.heroInfo.map((row) => [row.ID, row]));
+for (const heroId of [27,67]) {
+  const source = batch3ByHero.get(heroId); const record = canonical.records.find((row) => row.id === heroId);
+  const portrait = allPortraitSelection.records.find((row) => row.heroId === heroId);
+  check(source && expectedBatch3.get(heroId) === source.Name_Eng && record?.nameEng === source.Name_Eng
+    && record.provenance.identity === `evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=${heroId}`
+    && record.provenance.nameEng === `evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#inspectedSourceRows.heroInfo[ID=${heroId}]/Name_Eng`
+    && portrait && record.portrait === `assets/portraits/hero-${heroId}.png`, `Hero ${heroId} batch 3 identity/portrait mismatch`);
+  const refs = [{connectionId:source.JobConnection_ID,sourceField:'JobConnection_ID'},...source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
+    .map((item)=>({connectionId:item.connectionId,jobId:batch3Packet.inspectedSourceRows.jobConnectionInfo.find((row)=>row.ID===item.connectionId)?.Job_ID,sourceField:item.sourceField}));
+  check(JSON.stringify(record.jobConnections)===JSON.stringify(refs) && record.provenance.jobConnections===`evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#heroId=${heroId}`,
+    `Hero ${heroId} batch 3 explicit source refs mismatch`);
+  for(const ref of refs) check(batch3Packet.records.some((ev)=>ev.heroId===heroId&&ev.connectionId===ref.connectionId&&ev.jobId===ref.jobId&&ev.sourceField===ref.sourceField),
+    `Hero ${heroId} batch 3 join evidence missing at ${ref.connectionId}`);
+}
 check(talentRelations.records.every((row) => [6,8].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6 and 8');
 
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
@@ -463,8 +486,8 @@ for (const localization of heroLocalization.records) {
 }
 check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[1,277],[3,415],[5,447],[6,416],[8,275],[10,406],[12,273],[13,298],[25,278],[28,412],[32,287],[52,294],[53,296],[55,466]]);
-check(generatedJson.heroes.length === 14 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,8,10,12,13,25,28,32,52,53,55]', 'visible Hero population differs from Presentation Canonical');
+const expectedEquipmentByHero = new Map([[1,277],[3,415],[5,447],[6,416],[8,275],[10,406],[12,273],[13,298],[25,278],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
+check(generatedJson.heroes.length === 16 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,8,10,12,13,25,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
 for (const hero of generatedJson.heroes) {
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
   check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);

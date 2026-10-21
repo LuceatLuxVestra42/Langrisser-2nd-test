@@ -148,15 +148,15 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
     assert.equal(JSON.stringify(general), originalGeneral);
     assert.equal(JSON.stringify(exclusive), originalExclusive);
     const relationPairs = new Set(canonicalExclusiveRelations.records.map((relation) => `${relation.heroId}:${relation.equipmentId}`));
-    assert.equal(heroSlice.heroes.length, 14);
+    assert.equal(heroSlice.heroes.length, 16);
     const heroPairs = heroSlice.heroes.map((hero) => [hero.id, hero.exclusiveEquipment.equipmentId]);
     assert.deepEqual(heroPairs.filter(([heroId, equipmentId]) => relationPairs.has(`${heroId}:${equipmentId}`)), heroPairs);
-    assert.equal(new Set(heroSlice.heroes.map((hero) => hero.exclusiveEquipment.equipmentId)).size, 14);
+    assert.equal(new Set(heroSlice.heroes.map((hero) => hero.exclusiveEquipment.equipmentId)).size, 16);
     assert.ok(heroSlice.heroes.every((hero) => exclusive.equipment.some((item) => item.equipmentId === hero.exclusiveEquipment.equipmentId)));
     assert.deepEqual(result.exclusiveEquipmentContainer.children.map((card) => card.id),
       exclusive.equipment.map((item) => `equipment-${item.equipmentId}`));
     const linkedEquipment = result.exclusiveEquipmentContainer.children.filter((card) => card.children.some((child) => child.className === 'equipment-navigation-link'));
-    assert.equal(linkedEquipment.length, 14);
+    assert.equal(linkedEquipment.length, 16);
     for (const hero of heroSlice.heroes) {
       const heroLink = linkedEquipment.find((card) => card.id === `equipment-${hero.exclusiveEquipment.equipmentId}`).children
         .find((child) => child.className === 'equipment-navigation-link');

@@ -838,6 +838,82 @@
       ]
     },
     {
+      "id": 27,
+      "nameEng": "Dehault",
+      "nameKo": "디하르트",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 1,
+          "nameCn": "主角光环",
+          "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-27.png",
+      "exclusiveEquipment": {
+        "equipmentId": 274,
+        "equipmentNameKo": "황금 사자",
+        "effectDescriptionKo": "마방 +10%\n공격하여 적을 처치한 후 행동 종료 시 주위 3칸 내 적 1명에게 '기절' 부여, 지속 1행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 270,
+          "jobId": 301,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "나이트"
+        },
+        {
+          "connectionId": 271,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이랜더"
+        },
+        {
+          "connectionId": 272,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "라이더"
+        },
+        {
+          "connectionId": 273,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드맨"
+        },
+        {
+          "connectionId": 274,
+          "jobId": 306,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "로열 나이트"
+        },
+        {
+          "connectionId": 275,
+          "jobId": 1105,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이 마스터"
+        }
+      ]
+    },
+    {
       "id": 28,
       "nameEng": "Zalrahda",
       "nameKo": "젤다",
@@ -1229,6 +1305,82 @@
           "jobId": 306,
           "sourceField": "UseableJobConnections_ID",
           "jobNameKo": "로열 나이트"
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "nameEng": "Omega",
+      "nameKo": "오메가",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 5,
+          "nameCn": "黑暗轮回",
+          "nameKo": "어둠의 윤회",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 8,
+          "nameCn": "梦幻模拟战V",
+          "nameKo": "랑그릿사V",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-67.png",
+      "exclusiveEquipment": {
+        "equipmentId": 465,
+        "equipmentNameKo": "아집",
+        "effectDescriptionKo": "생명 +10%\n스킬을 사용해 적 처치 시, 해당 스킬 쿨타임 -2 및 행동 종료 시 '기술 +20%' 및 '이동력 +2' 획득, 지속 1행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 670,
+          "jobId": 1101,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "밴디트"
+        },
+        {
+          "connectionId": 671,
+          "jobId": 602,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "스나이퍼"
+        },
+        {
+          "connectionId": 672,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "라이더"
+        },
+        {
+          "connectionId": 673,
+          "jobId": 502,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "서펜트 나이트"
+        },
+        {
+          "connectionId": 674,
+          "jobId": 604,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "레인저"
+        },
+        {
+          "connectionId": 675,
+          "jobId": 1105,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이 마스터"
         }
       ]
     }
