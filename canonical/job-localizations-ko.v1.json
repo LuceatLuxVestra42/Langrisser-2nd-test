@@ -4,82 +4,40 @@
   "sourceScope": "KR display text from preserved project source; official KR provenance unverified",
   "records": [
     {
-      "jobId": 101,
-      "nameKo": "서전트",
+      "jobId": 817,
+      "nameKo": "워 프리스티스",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=101"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=817"
     },
     {
-      "jobId": 102,
-      "nameKo": "제네럴",
+      "jobId": 806,
+      "nameKo": "프리스트",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=102"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=806"
     },
     {
-      "jobId": 104,
-      "nameKo": "마샬",
+      "jobId": 807,
+      "nameKo": "세인트",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=104"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=807"
     },
     {
-      "jobId": 128,
-      "nameKo": "태초의 군주",
+      "jobId": 803,
+      "nameKo": "주교",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=128"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=803"
     },
     {
-      "jobId": 199,
-      "nameKo": "견습 서전트",
+      "jobId": 812,
+      "nameKo": "발키리",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=199"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=812"
     },
     {
-      "jobId": 201,
-      "nameKo": "파이터",
+      "jobId": 813,
+      "nameKo": "프린세스",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=201"
-    },
-    {
-      "jobId": 202,
-      "nameKo": "소드맨",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=202"
-    },
-    {
-      "jobId": 203,
-      "nameKo": "글래디에이터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=203"
-    },
-    {
-      "jobId": 206,
-      "nameKo": "영웅",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=206"
-    },
-    {
-      "jobId": 207,
-      "nameKo": "검성",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=207"
-    },
-    {
-      "jobId": 209,
-      "nameKo": "킹",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=209"
-    },
-    {
-      "jobId": 262,
-      "nameKo": "고독한 검객",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=262"
-    },
-    {
-      "jobId": 299,
-      "nameKo": "견습 파이터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=299"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=813"
     },
     {
       "jobId": 301,
@@ -88,22 +46,28 @@
       "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=301"
     },
     {
-      "jobId": 302,
-      "nameKo": "하이랜더",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=302"
-    },
-    {
       "jobId": 303,
       "nameKo": "그랜드 나이트",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=303"
     },
     {
-      "jobId": 304,
-      "nameKo": "나이트 마스터",
+      "jobId": 302,
+      "nameKo": "하이랜더",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=304"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=302"
+    },
+    {
+      "jobId": 202,
+      "nameKo": "소드맨",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=202"
+    },
+    {
+      "jobId": 307,
+      "nameKo": "스트라이크 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=307"
     },
     {
       "jobId": 306,
@@ -112,10 +76,52 @@
       "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=306"
     },
     {
-      "jobId": 307,
-      "nameKo": "스트라이크 마스터",
+      "jobId": 701,
+      "nameKo": "메이지",
       "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=307"
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=701"
+    },
+    {
+      "jobId": 805,
+      "nameKo": "마터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=805"
+    },
+    {
+      "jobId": 702,
+      "nameKo": "아크 메이지",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=702"
+    },
+    {
+      "jobId": 703,
+      "nameKo": "서모너",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=703"
+    },
+    {
+      "jobId": 810,
+      "nameKo": "세인트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=810"
+    },
+    {
+      "jobId": 706,
+      "nameKo": "다크 프린세스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=706"
+    },
+    {
+      "jobId": 128,
+      "nameKo": "태초의 군주",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=128"
+    },
+    {
+      "jobId": 262,
+      "nameKo": "고독한 검객",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=262"
     },
     {
       "jobId": 368,
@@ -142,42 +148,6 @@
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=390"
     },
     {
-      "jobId": 401,
-      "nameKo": "호크 나이트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=401"
-    },
-    {
-      "jobId": 402,
-      "nameKo": "페가수스 나이트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=402"
-    },
-    {
-      "jobId": 403,
-      "nameKo": "드래곤 나이트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=403"
-    },
-    {
-      "jobId": 404,
-      "nameKo": "페가수스 로드",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-14.v1.json#jobId=404"
-    },
-    {
-      "jobId": 405,
-      "nameKo": "드래곤 마스터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=405"
-    },
-    {
-      "jobId": 406,
-      "nameKo": "페가수스 마스터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=406"
-    },
-    {
       "jobId": 414,
       "nameKo": "천공의 마룡",
       "evidenceClass": "A",
@@ -196,48 +166,6 @@
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=437"
     },
     {
-      "jobId": 502,
-      "nameKo": "서펜트 나이트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=502"
-    },
-    {
-      "jobId": 503,
-      "nameKo": "서펜트 마스터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=503"
-    },
-    {
-      "jobId": 601,
-      "nameKo": "아처",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=601"
-    },
-    {
-      "jobId": 602,
-      "nameKo": "스나이퍼",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=602"
-    },
-    {
-      "jobId": 603,
-      "nameKo": "보우 나이트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=603"
-    },
-    {
-      "jobId": 604,
-      "nameKo": "레인저",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=604"
-    },
-    {
-      "jobId": 605,
-      "nameKo": "보우 마스터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=605"
-    },
-    {
       "jobId": 622,
       "nameKo": "레인저 제네럴",
       "evidenceClass": "A",
@@ -250,36 +178,6 @@
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=633"
     },
     {
-      "jobId": 701,
-      "nameKo": "메이지",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=701"
-    },
-    {
-      "jobId": 702,
-      "nameKo": "아크 메이지",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=702"
-    },
-    {
-      "jobId": 703,
-      "nameKo": "서모너",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=703"
-    },
-    {
-      "jobId": 704,
-      "nameKo": "위저드",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-13.v1.json#jobId=704"
-    },
-    {
-      "jobId": 706,
-      "nameKo": "다크 프린세스",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=706"
-    },
-    {
       "jobId": 744,
       "nameKo": "흑룡 마도사",
       "evidenceClass": "A",
@@ -290,66 +188,6 @@
       "nameKo": "새벽빛의 은혜",
       "evidenceClass": "A",
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=769"
-    },
-    {
-      "jobId": 803,
-      "nameKo": "주교",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=803"
-    },
-    {
-      "jobId": 804,
-      "nameKo": "팔라딘",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=804"
-    },
-    {
-      "jobId": 805,
-      "nameKo": "마터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=805"
-    },
-    {
-      "jobId": 806,
-      "nameKo": "프리스트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=806"
-    },
-    {
-      "jobId": 807,
-      "nameKo": "세인트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=807"
-    },
-    {
-      "jobId": 809,
-      "nameKo": "템플러",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=809"
-    },
-    {
-      "jobId": 810,
-      "nameKo": "세인트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=810"
-    },
-    {
-      "jobId": 812,
-      "nameKo": "발키리",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=812"
-    },
-    {
-      "jobId": 813,
-      "nameKo": "프린세스",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=813"
-    },
-    {
-      "jobId": 817,
-      "nameKo": "워 프리스티스",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=817"
     },
     {
       "jobId": 841,
@@ -376,52 +214,10 @@
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=878"
     },
     {
-      "jobId": 1006,
-      "nameKo": "데몬 스워드",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1006"
-    },
-    {
-      "jobId": 1007,
-      "nameKo": "디스오더",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1007"
-    },
-    {
       "jobId": 1097,
       "nameKo": "암흑의 마왕",
       "evidenceClass": "A",
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=1097"
-    },
-    {
-      "jobId": 1101,
-      "nameKo": "밴디트",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1101"
-    },
-    {
-      "jobId": 1102,
-      "nameKo": "닌자",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1102"
-    },
-    {
-      "jobId": 1103,
-      "nameKo": "라이더",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1103"
-    },
-    {
-      "jobId": 1104,
-      "nameKo": "쉐도우",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1104"
-    },
-    {
-      "jobId": 1105,
-      "nameKo": "하이 마스터",
-      "evidenceClass": "A",
-      "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1105"
     },
     {
       "jobId": 1119,
@@ -446,6 +242,210 @@
       "nameKo": "여명의 성기사",
       "evidenceClass": "A",
       "provenance": "evidence/localization/sp-job-namespace.v1.json#jobId=20811"
+    },
+    {
+      "jobId": 102,
+      "nameKo": "제네럴",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=102"
+    },
+    {
+      "jobId": 104,
+      "nameKo": "마샬",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=104"
+    },
+    {
+      "jobId": 207,
+      "nameKo": "검성",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=207"
+    },
+    {
+      "jobId": 304,
+      "nameKo": "나이트 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=304"
+    },
+    {
+      "jobId": 402,
+      "nameKo": "페가수스 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=402"
+    },
+    {
+      "jobId": 403,
+      "nameKo": "드래곤 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=403"
+    },
+    {
+      "jobId": 405,
+      "nameKo": "드래곤 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=405"
+    },
+    {
+      "jobId": 502,
+      "nameKo": "서펜트 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=502"
+    },
+    {
+      "jobId": 503,
+      "nameKo": "서펜트 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=503"
+    },
+    {
+      "jobId": 603,
+      "nameKo": "보우 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=603"
+    },
+    {
+      "jobId": 1006,
+      "nameKo": "데몬 스워드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1006"
+    },
+    {
+      "jobId": 1007,
+      "nameKo": "디스오더",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1007"
+    },
+    {
+      "jobId": 1101,
+      "nameKo": "밴디트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1101"
+    },
+    {
+      "jobId": 1102,
+      "nameKo": "닌자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1102"
+    },
+    {
+      "jobId": 1104,
+      "nameKo": "쉐도우",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1104"
+    },
+    {
+      "jobId": 101,
+      "nameKo": "서전트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=101"
+    },
+    {
+      "jobId": 199,
+      "nameKo": "견습 서전트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=199"
+    },
+    {
+      "jobId": 201,
+      "nameKo": "파이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=201"
+    },
+    {
+      "jobId": 203,
+      "nameKo": "글래디에이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=203"
+    },
+    {
+      "jobId": 206,
+      "nameKo": "영웅",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=206"
+    },
+    {
+      "jobId": 209,
+      "nameKo": "킹",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=209"
+    },
+    {
+      "jobId": 299,
+      "nameKo": "견습 파이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=299"
+    },
+    {
+      "jobId": 401,
+      "nameKo": "호크 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=401"
+    },
+    {
+      "jobId": 602,
+      "nameKo": "스나이퍼",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=602"
+    },
+    {
+      "jobId": 604,
+      "nameKo": "레인저",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=604"
+    },
+    {
+      "jobId": 605,
+      "nameKo": "보우 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=605"
+    },
+    {
+      "jobId": 804,
+      "nameKo": "팔라딘",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=804"
+    },
+    {
+      "jobId": 809,
+      "nameKo": "템플러",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=809"
+    },
+    {
+      "jobId": 704,
+      "nameKo": "위저드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-13.v1.json#jobId=704"
+    },
+    {
+      "jobId": 1103,
+      "nameKo": "라이더",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1103"
+    },
+    {
+      "jobId": 1105,
+      "nameKo": "하이 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1105"
+    },
+    {
+      "jobId": 404,
+      "nameKo": "페가수스 로드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-14.v1.json#jobId=404"
+    },
+    {
+      "jobId": 406,
+      "nameKo": "페가수스 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=406"
+    },
+    {
+      "jobId": 601,
+      "nameKo": "아처",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=601"
     }
   ]
 }
