@@ -428,6 +428,12 @@
       "nameKo": "하이 마스터",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-27-67.v1.json#jobId=1105"
+    },
+    {
+      "jobId": 404,
+      "nameKo": "페가수스 로드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-14.v1.json#jobId=404"
     }
   ]
 }

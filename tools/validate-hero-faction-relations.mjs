@@ -106,7 +106,7 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
   for (const [heroId, factionIdsForHero] of expectedByHero) {
     for (const factionId of factionIdsForHero) check(canonicalPairs.has(pairKey(heroId, factionId)), `visible Hero ${heroId} presentation relation ${factionId} is missing`);
   }
-  process.stdout.write('Hero–Faction relation owner: PASS (28 Canonical Heroes, 65 admitted edges; seven-Hero presentation relations preserved)\n');
+  process.stdout.write('Hero–Faction relation owner: PASS (28 Canonical Heroes, 65 admitted edges; relation evidence unchanged)\n');
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';

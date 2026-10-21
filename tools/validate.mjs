@@ -42,11 +42,12 @@ const expectedPresentation = new Map([[1, 'Matthew'], [3, 'Grenier'], [10, 'Ledi
 const expectedBatch2 = new Map([[12, 'Elwin'], [55, 'Landius']]);
 const expectedHero13 = new Map([[13, 'Hein']]);
 const expectedBatch3 = new Map([[27, 'Dehault'], [67, 'Omega']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys()]);
+const expectedHero14 = new Map([[14, 'Sherry']]);
+const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys()]);
 check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,8,10,12,13,25,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
+check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,8,10,12,13,14,25,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
 
 const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
 const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
@@ -395,6 +396,31 @@ for (const heroId of [27,67]) {
   for(const ref of refs) check(batch3Packet.records.some((ev)=>ev.heroId===heroId&&ev.connectionId===ref.connectionId&&ev.jobId===ref.jobId&&ev.sourceField===ref.sourceField),
     `Hero ${heroId} batch 3 join evidence missing at ${ref.connectionId}`);
 }
+const batch4Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json');
+check(batch4Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch4Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+  && JSON.stringify(batch4Packet.selection?.heroIds) === '[14]' && JSON.stringify(batch4Packet.selection?.connectionIds) === '[140,141,142,143,144,145]'
+  && batch4Packet.claimClasses?.heroFieldToConnectionId === 'B' && batch4Packet.claimClasses?.connectionJobIdToJobInfoId === 'B'
+  && batch4Packet.claimClasses?.selectedRecordsExist === 'A' && batch4Packet.claimClasses?.jobInfoNameValue === 'A'
+  && batch4Packet.directInspection?.rawRecordDirectlyInspected === true && batch4Packet.directInspection?.inspectionCommit === batch4Packet.source.commit
+  && batch4Packet.canonical === false && batch4Packet.generated === false && batch4Packet.productionRuntimeDependency === false,
+  'Hero 14 source packet source/scope/class boundary drift');
+const batch4Source = batch4Packet.inspectedSourceRows.heroInfo.find((row) => row.ID === 14);
+const hero14Canonical = canonical.records.find((row) => row.id === 14);
+const hero14Portrait = allPortraitSelection.records.find((row) => row.heroId === 14);
+check(batch4Source?.Name === '雪莉' && batch4Source?.Name_Eng === 'Sherry' && batch4Source?.Useable === true
+  && hero14Canonical?.nameEng === 'Sherry' && hero14Canonical.provenance.identity === 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=14'
+  && hero14Canonical.provenance.nameEng === 'evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#inspectedSourceRows.heroInfo[ID=14]/Name_Eng'
+  && hero14Portrait && hero14Canonical.portrait === 'assets/portraits/hero-14.png', 'Hero 14 identity/name/portrait admission mismatch');
+const hero14Refs = [{connectionId:batch4Source.JobConnection_ID,sourceField:'JobConnection_ID'},...batch4Source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
+  .map((row)=>({connectionId:row.connectionId,jobId:batch4Packet.inspectedSourceRows.jobConnectionInfo.find((item)=>item.ID===row.connectionId)?.Job_ID,sourceField:row.sourceField}));
+check(JSON.stringify(hero14Canonical.jobConnections) === JSON.stringify(hero14Refs)
+  && hero14Canonical.provenance.jobConnections === 'evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14', 'Hero 14 exact Source connection refs mismatch');
+for (const row of hero14Refs) check(batch4Packet.records.some((ev)=>ev.heroId===14&&ev.connectionId===row.connectionId&&ev.jobId===row.jobId&&ev.sourceField===row.sourceField),
+  `Hero 14 explicit join evidence missing at ${row.connectionId}`);
+check(hero14Refs.length === 6, 'Hero 14 must preserve all six ordinary Job connections');
+const hero14JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-hero-14.v1.json');
+check(JSON.stringify(hero14JobInfoRows.map((row) => row.ID)) === '[401,403,404,405,1103,1105]', 'Hero 14 preserved JobInfo ID set drift');
+check(hero14JobInfoRows.find((row) => row.ID === 404)?.Name === '圣天马将军', 'Hero 14 Job 404 pinned source label drift');
 check(talentRelations.records.every((row) => [6,8].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6 and 8');
 
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
@@ -486,8 +512,8 @@ for (const localization of heroLocalization.records) {
 }
 check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[1,277],[3,415],[5,447],[6,416],[8,275],[10,406],[12,273],[13,298],[25,278],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
-check(generatedJson.heroes.length === 16 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,8,10,12,13,25,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
+const expectedEquipmentByHero = new Map([[1,277],[3,415],[5,447],[6,416],[8,275],[10,406],[12,273],[13,298],[14,292],[25,278],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
+check(generatedJson.heroes.length === 17 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,8,10,12,13,14,25,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
 for (const hero of generatedJson.heroes) {
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
   check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);

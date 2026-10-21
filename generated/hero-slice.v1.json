@@ -748,6 +748,88 @@
       ]
     },
     {
+      "id": 14,
+      "nameEng": "Sherry",
+      "nameKo": "쉐리",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 2,
+          "nameCn": "光辉军团",
+          "nameKo": "빛의 군단",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 5,
+          "nameCn": "梦幻模拟战II",
+          "nameKo": "랑그릿사II",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-14.png",
+      "exclusiveEquipment": {
+        "equipmentId": 292,
+        "equipmentNameKo": "1UP",
+        "effectDescriptionKo": "방어 마방 +5%\n공격하여 전투 진입 시, 치명 피해를 받아도 사망하지 않음\n([쿨타임 효과]해당 효과는 4턴 후 재발동 가능)"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 140,
+          "jobId": 401,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "호크 나이트"
+        },
+        {
+          "connectionId": 141,
+          "jobId": 404,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "페가수스 로드"
+        },
+        {
+          "connectionId": 142,
+          "jobId": 403,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "드래곤 나이트"
+        },
+        {
+          "connectionId": 143,
+          "jobId": 1103,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "라이더"
+        },
+        {
+          "connectionId": 144,
+          "jobId": 405,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "드래곤 마스터"
+        },
+        {
+          "connectionId": 145,
+          "jobId": 1105,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이 마스터"
+        }
+      ]
+    },
+    {
       "id": 25,
       "nameEng": "Alutemurat",
       "nameKo": "알테뮬러",
