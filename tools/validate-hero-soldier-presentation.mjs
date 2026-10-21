@@ -4,9 +4,9 @@ import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 import { renderHeroSoldierRelations } from './generate.mjs';
 
-const invariantHeroCounts = new Map([[1,22],[3,7],[5,19],[6,15],[8,20],[10,12],[12,13],[25,16],[53,18],[55,17]]);
+const invariantHeroCounts = new Map([[1,22],[3,7],[5,19],[6,15],[8,20],[10,12],[12,13],[13,10],[25,16],[53,18],[55,17]]);
 const invariantHeroIds = [...invariantHeroCounts.keys()];
-const invariantRowCount = 159;
+const invariantRowCount = 169;
 const check = (condition, message) => { if (!condition) throw new Error('Hero-Soldier presentation validation failed: ' + message); };
 const exactKeys = (value, expected, label) => check(
   isDeepStrictEqual(Object.keys(value).sort(), [...expected].sort()),
@@ -39,7 +39,7 @@ export function validateHeroSoldierPresentation(heroPresentation, relationOwner,
   const countsByHero = new Map(candidateHeroIds.map((heroId) => [heroId, candidatePairs.filter((pair) => pair.heroId === heroId).length]));
   check(candidatePairs.length === invariantRowCount
     && invariantHeroIds.every((heroId) => countsByHero.get(heroId) === invariantHeroCounts.get(heroId)),
-  'SCOPE_CONTRADICTION: owner-derived subset differs from expected 159 rows across ten supported Heroes');
+  'SCOPE_CONTRADICTION: owner-derived subset differs from expected 169 rows across eleven supported Heroes');
 
   const canonicalPairKeys = new Set(sourcePairKeys);
   for (const relation of candidatePairs) {

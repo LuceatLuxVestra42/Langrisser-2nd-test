@@ -410,6 +410,12 @@
       "nameKo": "템플러",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=809"
+    },
+    {
+      "jobId": 704,
+      "nameKo": "위저드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-13.v1.json#jobId=704"
     }
   ]
 }

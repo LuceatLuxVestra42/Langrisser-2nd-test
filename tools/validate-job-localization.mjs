@@ -20,6 +20,7 @@ export async function validateJobLocalization(root = process.cwd()) {
   const localizationSubset = await readJson('evidence/localization/job-names-ko.hero-5-6-8.v1.json');
   const expansionSubset = await readJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json');
   const presentationSubset = await readJson('evidence/localization/job-names-ko.hero-1-3-10-25.v1.json');
+  const hero13Subset = await readJson('evidence/localization/job-names-ko.hero-13.v1.json');
   const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
   const localizationBytes = await readFile(resolve(root, localizationSourcePath));
   const localizationText = localizationBytes.toString('utf8').replace(/^\uFEFF/, '');
@@ -101,6 +102,19 @@ export async function validateJobLocalization(root = process.cwd()) {
     check(presentationJobIds.includes(row.jobId) && sourceRow && row.nameCn===sourceRow.nameCn && row.nameKo===sourceRow.nameKo && row.sourceLocator===`job-names-ko.v1.txt#전직ID=${row.jobId}` && row.evidenceClass==='A', `presentation localization source mapping mismatch for Job ${row.jobId}`);
     check(presentationJobById.get(row.jobId)?.Name===row.nameCn, `presentation localization CN/JobInfo mismatch for Job ${row.jobId}`);
   }
+  check(hero13Subset.schemaVersion === 1 && hero13Subset.sourceManifest === 'evidence/localization/source/job-names-ko.source-manifest.v1.json'
+    && hero13Subset.records.length === 1 && hero13Subset.canonical === false && hero13Subset.generated === false
+    && hero13Subset.productionRuntimeDependency === false, 'Hero 13 localization evidence scope/authority drift');
+  const hero13Label = hero13Subset.records[0];
+  exactKeys(hero13Label, ['jobId','nameCn','nameKo','sourceLocator','evidenceClass'], 'Hero 13 Job 704 localization evidence');
+  check(hero13Label.jobId === 704 && hero13Label.nameCn === localizationRows.get(704)?.nameCn && hero13Label.nameKo === localizationRows.get(704)?.nameKo
+    && hero13Label.nameKo === '위저드' && hero13Label.nameCn === '巫师'
+    && hero13Label.sourceLocator === 'job-names-ko.v1.txt#전직ID=704' && hero13Label.evidenceClass === 'A'
+    && hero13Subset.sourceScope.includes('official Korean-server provenance unverified')
+    && hero13Subset.claims?.rowValues?.startsWith('A:') && hero13Subset.claims?.jobInfoIdentityLinkage?.startsWith('B:')
+    && hero13Subset.claims?.officialKrName === 'unverified', 'Hero 13 Job 704 localization source value/class/limitations drift');
+  const hero13JobInfo = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-hero-13.v1.json');
+  check(hero13JobInfo.length === 1 && hero13JobInfo[0].ID === 704 && hero13JobInfo[0].Name === hero13Label.nameCn, 'Hero 13 Job 704 explicit JobInfo record mismatch');
 
   const spValidation = await validateSpJobNamespaceEvidence();
   const spEvidenceById = new Map(spValidation.records.map((row) => [row.jobId, row]));
@@ -110,12 +124,14 @@ export async function validateJobLocalization(root = process.cwd()) {
       .map((row) => [row.jobId, row.nameKo]),
   );
   const spStatusIds = spValidation.statusOnlyIds;
-  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + spExpected.size, 'canonical Job localization must contain expected complete record population');
+  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 1 + spExpected.size, 'canonical Job localization must contain expected complete record population');
   const admittedLocalization = new Map();
   for (const row of jobLocalization.records) {
     exactKeys(row, ['jobId', 'nameKo', 'evidenceClass', 'provenance'], `canonical Job localization ${row.jobId}`);
     check(!admittedLocalization.has(row.jobId), `duplicate canonical Job localization ID ${row.jobId}`);
-    if (targetJobIds.includes(row.jobId) || expansionJobIds.includes(row.jobId) || presentationJobIds.includes(row.jobId)) {
+    if (row.jobId === 704) {
+      check(row.nameKo === hero13Label.nameKo && row.evidenceClass === 'A' && row.provenance === 'evidence/localization/job-names-ko.hero-13.v1.json#jobId=704', 'Hero 13 Job 704 canonical localization provenance drift');
+    } else if (targetJobIds.includes(row.jobId) || expansionJobIds.includes(row.jobId) || presentationJobIds.includes(row.jobId)) {
       const sourceRow = localizationRows.get(row.jobId);
       check(sourceRow && row.nameKo === sourceRow.nameKo && row.nameKo.trim() !== '' && !statusOnly.test(row.nameKo.trim()), `canonical KR label differs from usable source value for Job ${row.jobId}`);
       const expectedEvidencePath = targetJobIds.includes(row.jobId) ? 'evidence/localization/job-names-ko.hero-5-6-8.v1.json' : expansionJobIds.includes(row.jobId) ? 'evidence/localization/job-names-ko.hero-28-32-52-53.v1.json' : 'evidence/localization/job-names-ko.hero-1-3-10-25.v1.json';
@@ -134,7 +150,7 @@ export async function validateJobLocalization(root = process.cwd()) {
 
   return {
     canonicalCount: jobLocalization.records.length,
-    projectTextCount: targetJobIds.length + expansionJobIds.length + presentationJobIds.length,
+    projectTextCount: targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 1,
     spCount: spExpected.size,
   };
 }

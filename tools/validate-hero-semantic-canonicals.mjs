@@ -18,6 +18,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const expansionEvidencePath = 'evidence/source/jobs/hero-job-connection-expansion.v1.json';
   const presentationEvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json';
   const batch2EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json';
+  const hero13EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json';
   const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, expansionEvidence, expansionHeroes, expansionConnections, expansionJobs, spEvidence, classicJobs, spJobs] = await Promise.all([
     readJson(identityPath),
     readJson(identityEvidencePath),
@@ -35,6 +36,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   ]);
   const presentationEvidence = await readJson(presentationEvidencePath);
   const batch2Evidence = await readJson(batch2EvidencePath);
+  const hero13Evidence = await readJson(hero13EvidencePath);
   check(batch2Evidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
     && batch2Evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
     && JSON.stringify(batch2Evidence.selection?.heroIds) === '[12,55]'
@@ -64,6 +66,34 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     }
   }
   check(batch2Refs.size === batch2Evidence.records.length, 'batch 2 relation packet contains missing or extra rows');
+  check(hero13Evidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && hero13Evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    && hero13Evidence.sourceFiles?.['ConfigDataHeroInfo.json']?.gitBlob === '728daab3370f0c7779449663ea02e638677944d4'
+    && hero13Evidence.sourceFiles?.['ConfigDataJobConnectionInfo.json']?.gitBlob === 'cdad8d6fda6edd30c92fbcda53e0f63af1903139'
+    && hero13Evidence.sourceFiles?.['ConfigDataJobInfo.json']?.gitBlob === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133'
+    && JSON.stringify(hero13Evidence.selection?.heroIds) === '[13]'
+    && JSON.stringify(hero13Evidence.selection?.connectionIds) === '[130,131,132,133,134,135]'
+    && JSON.stringify(hero13Evidence.selection?.jobIds) === '[701,805,702,803,704,810]'
+    && hero13Evidence.claimClasses?.heroFieldToConnectionId === 'B'
+    && hero13Evidence.claimClasses?.connectionJobIdToJobInfoId === 'B'
+    && hero13Evidence.claimClasses?.selectedRecordsExist === 'A'
+    && hero13Evidence.claimClasses?.jobInfoNameValue === 'A'
+    && hero13Evidence.directInspection?.rawRecordDirectlyInspected === true
+    && hero13Evidence.directInspection?.inspectionCommit === hero13Evidence.source.commit
+    && hero13Evidence.canonical === false && hero13Evidence.generated === false
+    && hero13Evidence.productionRuntimeDependency === false, 'Hero 13 source packet pin/scope/class drift');
+  const hero13Source = hero13Evidence.inspectedSourceRows.heroInfo.find((row) => row.ID === 13);
+  const hero13Connections = new Map(hero13Evidence.inspectedSourceRows.jobConnectionInfo.map((row) => [row.ID, row]));
+  const hero13Jobs = new Map(hero13Evidence.inspectedSourceRows.jobInfo.map((row) => [row.ID, row]));
+  check(hero13Source?.JobConnection_ID === 130 && JSON.stringify(hero13Source.UseableJobConnections_ID) === '[131,132,133,134,135]', 'Hero 13 explicit HeroInfo source references drift');
+  for (const row of hero13Evidence.records) {
+    const connection = hero13Connections.get(row.connectionId);
+    check(row.heroId === 13 && connection?.Job_ID === row.jobId && hero13Jobs.has(row.jobId)
+      && row.sourceHeroInfoLocator === `data/configdata/ConfigDataHeroInfo.json#[ID=13].${row.sourceField}`
+      && row.jobConnectionInfoLocator === `data/configdata/ConfigDataJobConnectionInfo.json#[ID=${row.connectionId}]`
+      && row.jobInfoLocator === `data/configdata/ConfigDataJobInfo.json#[ID=${row.jobId}]`, `Hero 13 exact source join locator drift at ${row.connectionId}`);
+  }
+  check(hero13Evidence.records.length === 6, 'Hero 13 source packet must contain six explicit connections');
   const presentationJobs = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-1-3-10-25.v1.json');
 
   exactKeys(identities, ['schemaVersion', 'scope', 'records'], 'Hero identity canonical');
@@ -200,12 +230,15 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   for (const row of batch2Evidence.records) {
     addExpectedRelation(row.heroId, row.jobId, `${batch2EvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 12/55 direct selected relation evidence');
   }
+  for (const row of hero13Evidence.records) {
+    addExpectedRelation(row.heroId, row.jobId, `${hero13EvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 13 direct selected relation evidence');
+  }
   for (const row of spEvidence.records) {
     addExpectedRelation(row.heroId, row.spJobId,
       `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${row.heroId}`, 'SP relation evidence');
   }
   check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
-  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
+  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
   const assertUniqueJobSubset = (rows, label) => {
     const ids = rows.map((row) => row.ID);
@@ -214,7 +247,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   assertUniqueJobSubset(classicJobs, 'selected JobInfo evidence');
   assertUniqueJobSubset(expansionJobs, 'expansion JobInfo evidence');
   assertUniqueJobSubset(spJobs, 'SP JobInfo evidence');
-  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID));
+  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID));
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
@@ -251,13 +284,15 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     ...expansionEvidence.records.filter((row) => expansionPresentationIds.has(row.heroId)).map((row) => `${row.heroId}:${row.jobId}`),
     ...presentationEvidence.records.map((row) => `${row.heroId}:${row.jobId}`),
     ...batch2Evidence.records.map((row) => `${row.heroId}:${row.jobId}`),
+    ...hero13Evidence.records.map((row) => `${row.heroId}:${row.jobId}`),
     ...spEvidence.records.filter((row) => row.heroId === 53).map((row) => `${row.heroId}:${row.spJobId}`),
   ];
-  check(selectedPairs.size === 85 && selectedOwnerPairs.length === 85, 'selected presentation relation parity must cover 73 exact admitted relation records');
+  check(selectedPairs.size === 91 && selectedOwnerPairs.length === 91, 'selected presentation relation parity must cover 91 exact admitted relation records');
   for (const row of classicEvidence.records) if (selectedIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of expansionEvidence.records) if (expansionPresentationIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected expansion relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of presentationEvidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected admission relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of batch2Evidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected batch 2 relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of hero13Evidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected Hero 13 relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of spEvidence.records) if (row.heroId === 53) check(selectedPairs.has(`${row.heroId}:${row.spJobId}`), `selected SP relation ${row.heroId}:${row.spJobId} is missing from the slice`);
 
   return { identities: identityById.size, relations: relationByPair.size, selectedHeroes: selectedIds.size, selectedRelations: selectedPairs.size };

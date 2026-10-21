@@ -299,8 +299,38 @@
     },
     {
       "heroId": 13,
+      "jobId": 701,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13&connectionId=130"
+    },
+    {
+      "heroId": 13,
+      "jobId": 702,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13&connectionId=132"
+    },
+    {
+      "heroId": 13,
+      "jobId": 704,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13&connectionId=134"
+    },
+    {
+      "heroId": 13,
       "jobId": 744,
       "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=13"
+    },
+    {
+      "heroId": 13,
+      "jobId": 803,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13&connectionId=133"
+    },
+    {
+      "heroId": 13,
+      "jobId": 805,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13&connectionId=131"
+    },
+    {
+      "heroId": 13,
+      "jobId": 810,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13&connectionId=135"
     },
     {
       "heroId": 14,

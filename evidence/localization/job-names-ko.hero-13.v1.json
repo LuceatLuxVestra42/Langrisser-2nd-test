@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for Hero 13 ordinary Job 704; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved localization source row directly contains Job ID, Chinese text, and Korean display text.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality to pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 704,
+      "nameCn": "巫师",
+      "nameKo": "위저드",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=704",
+      "evidenceClass": "A"
+    }
+  ]
+}
