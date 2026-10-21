@@ -296,6 +296,49 @@
       }
     },
     {
+      "id": 11,
+      "nameEng": "Nurm",
+      "portrait": "assets/portraits/hero-11.png",
+      "jobConnections": [
+        {
+          "connectionId": 110,
+          "jobId": 601,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 111,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 112,
+          "jobId": 602,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 113,
+          "jobId": 404,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 114,
+          "jobId": 604,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 115,
+          "jobId": 406,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=11",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json#inspectedSourceRows.heroInfo[ID=11]/Name_Eng",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json#heroId=11",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=11"
+      }
+    },
+    {
       "id": 12,
       "nameEng": "Elwin",
       "portrait": "assets/portraits/hero-12.png",

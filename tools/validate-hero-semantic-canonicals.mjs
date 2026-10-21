@@ -21,6 +21,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const hero13EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json';
   const batch3EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json';
   const batch4EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json';
+  const hero11EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json';
   const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, expansionEvidence, expansionHeroes, expansionConnections, expansionJobs, spEvidence, classicJobs, spJobs] = await Promise.all([
     readJson(identityPath),
     readJson(identityEvidencePath),
@@ -41,6 +42,39 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const hero13Evidence = await readJson(hero13EvidencePath);
   const batch3Evidence = await readJson(batch3EvidencePath);
   const batch4Evidence = await readJson(batch4EvidencePath);
+  const hero11Evidence = await readJson(hero11EvidencePath);
+  check(hero11Evidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && hero11Evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    && hero11Evidence.sourceFiles?.['ConfigDataHeroInfo.json']?.gitBlob === '728daab3370f0c7779449663ea02e638677944d4'
+    && hero11Evidence.sourceFiles?.['ConfigDataJobConnectionInfo.json']?.gitBlob === 'cdad8d6fda6edd30c92fbcda53e0f63af1903139'
+    && hero11Evidence.sourceFiles?.['ConfigDataJobInfo.json']?.gitBlob === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133'
+    && JSON.stringify(hero11Evidence.selection?.heroIds) === '[11]'
+    && JSON.stringify(hero11Evidence.selection?.connectionIds) === '[110,111,112,113,114,115]'
+    && JSON.stringify(hero11Evidence.selection?.jobIds) === '[601,102,602,404,604,406]'
+    && hero11Evidence.claimClasses?.heroFieldToConnectionId === 'B'
+    && hero11Evidence.claimClasses?.connectionJobIdToJobInfoId === 'B'
+    && hero11Evidence.claimClasses?.selectedRecordsExist === 'A'
+    && hero11Evidence.claimClasses?.jobInfoNameValue === 'A'
+    && hero11Evidence.directInspection?.rawRecordDirectlyInspected === true
+    && hero11Evidence.directInspection?.inspectionCommit === hero11Evidence.source.commit
+    && hero11Evidence.canonical === false && hero11Evidence.generated === false
+    && hero11Evidence.productionRuntimeDependency === false, 'Hero 11 evidence pin/scope/class boundary drift');
+  const hero11Source = hero11Evidence.inspectedSourceRows.heroInfo.find((row) => row.ID === 11);
+  const hero11Connections = new Map(hero11Evidence.inspectedSourceRows.jobConnectionInfo.map((row) => [row.ID, row]));
+  const hero11Jobs = new Map(hero11Evidence.inspectedSourceRows.jobInfo.map((row) => [row.ID, row]));
+  check(hero11Source?.Name === '娜姆' && hero11Source?.Name_Eng === 'Nurm' && hero11Source?.Useable === true
+    && hero11Source?.JobConnection_ID === 110 && JSON.stringify(hero11Source?.UseableJobConnections_ID) === '[111,112,113,114,115]',
+  'Hero 11 exact HeroInfo source record drift');
+  for (const row of hero11Evidence.records) {
+    const sourceFieldIds = row.sourceField === 'JobConnection_ID' ? [hero11Source.JobConnection_ID] : hero11Source.UseableJobConnections_ID;
+    const connection = hero11Connections.get(row.connectionId);
+    check(row.heroId === 11 && sourceFieldIds.includes(row.connectionId) && connection?.Job_ID === row.jobId
+      && hero11Jobs.has(row.jobId)
+      && row.sourceHeroInfoLocator === `data/configdata/ConfigDataHeroInfo.json#[ID=11].${row.sourceField}`
+      && row.jobConnectionInfoLocator === `data/configdata/ConfigDataJobConnectionInfo.json#[ID=${row.connectionId}]`
+      && row.jobInfoLocator === `data/configdata/ConfigDataJobInfo.json#[ID=${row.jobId}]`, `Hero 11 explicit source join mismatch ${row.connectionId}`);
+  }
+  check(hero11Evidence.records.length === 6 && hero11Connections.size === 6 && hero11Jobs.size === 6, 'Hero 11 source packet cardinality drift');
   check(batch3Evidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
     && batch3Evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
     && JSON.stringify(batch3Evidence.selection?.heroIds) === '[27,67]'
@@ -305,12 +339,14 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     `${batch3EvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 27/67 directly inspected relation evidence');
   for (const row of batch4Evidence.records) addExpectedRelation(row.heroId, row.jobId,
     `${batch4EvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 14 directly inspected relation evidence');
+  for (const row of hero11Evidence.records) addExpectedRelation(row.heroId, row.jobId,
+    `${hero11EvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 11 directly inspected relation evidence');
   for (const row of spEvidence.records) {
     addExpectedRelation(row.heroId, row.spJobId,
       `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${row.heroId}`, 'SP relation evidence');
   }
   check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
-  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
+  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + hero11Evidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
   const assertUniqueJobSubset = (rows, label) => {
     const ids = rows.map((row) => row.ID);
@@ -319,7 +355,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   assertUniqueJobSubset(classicJobs, 'selected JobInfo evidence');
   assertUniqueJobSubset(expansionJobs, 'expansion JobInfo evidence');
   assertUniqueJobSubset(spJobs, 'SP JobInfo evidence');
-  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo, ...batch3Evidence.inspectedSourceRows.jobInfo, ...batch4Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID));
+  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo, ...batch3Evidence.inspectedSourceRows.jobInfo, ...batch4Evidence.inspectedSourceRows.jobInfo, ...hero11Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID));
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
@@ -359,9 +395,10 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     ...hero13Evidence.records.map((row) => `${row.heroId}:${row.jobId}`),
     ...batch3Evidence.records.map((row) => `${row.heroId}:${row.jobId}`),
     ...batch4Evidence.records.map((row) => `${row.heroId}:${row.jobId}`),
+    ...hero11Evidence.records.map((row) => `${row.heroId}:${row.jobId}`),
     ...spEvidence.records.filter((row) => row.heroId === 53).map((row) => `${row.heroId}:${row.spJobId}`),
   ];
-  check(selectedPairs.size === 109 && selectedOwnerPairs.length === 109, 'selected presentation relation parity must cover 109 exact admitted relation records');
+  check(selectedPairs.size === 115 && selectedOwnerPairs.length === 115, 'selected presentation relation parity must cover 115 exact admitted relation records');
   for (const row of classicEvidence.records) if (selectedIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of expansionEvidence.records) if (expansionPresentationIds.has(row.heroId)) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected expansion relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of presentationEvidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected admission relation ${row.heroId}:${row.jobId} is missing from the slice`);
@@ -369,6 +406,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   for (const row of hero13Evidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected Hero 13 relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of batch3Evidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected batch 3 relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of batch4Evidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected batch 4 relation ${row.heroId}:${row.jobId} is missing from the slice`);
+  for (const row of hero11Evidence.records) check(selectedPairs.has(`${row.heroId}:${row.jobId}`), `selected Hero 11 relation ${row.heroId}:${row.jobId} is missing from the slice`);
   for (const row of spEvidence.records) if (row.heroId === 53) check(selectedPairs.has(`${row.heroId}:${row.spJobId}`), `selected SP relation ${row.heroId}:${row.spJobId} is missing from the slice`);
 
   return { identities: identityById.size, relations: relationByPair.size, selectedHeroes: selectedIds.size, selectedRelations: selectedPairs.size };
