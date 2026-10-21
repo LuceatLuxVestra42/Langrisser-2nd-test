@@ -332,6 +332,84 @@
       "nameKo": "쉐도우",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-28-32-52-53.v1.json#jobId=1104"
+    },
+    {
+      "jobId": 101,
+      "nameKo": "서전트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=101"
+    },
+    {
+      "jobId": 199,
+      "nameKo": "견습 서전트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=199"
+    },
+    {
+      "jobId": 201,
+      "nameKo": "파이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=201"
+    },
+    {
+      "jobId": 203,
+      "nameKo": "글래디에이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=203"
+    },
+    {
+      "jobId": 206,
+      "nameKo": "영웅",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=206"
+    },
+    {
+      "jobId": 209,
+      "nameKo": "킹",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=209"
+    },
+    {
+      "jobId": 299,
+      "nameKo": "견습 파이터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=299"
+    },
+    {
+      "jobId": 401,
+      "nameKo": "호크 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=401"
+    },
+    {
+      "jobId": 602,
+      "nameKo": "스나이퍼",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=602"
+    },
+    {
+      "jobId": 604,
+      "nameKo": "레인저",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=604"
+    },
+    {
+      "jobId": 605,
+      "nameKo": "보우 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=605"
+    },
+    {
+      "jobId": 804,
+      "nameKo": "팔라딘",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=804"
+    },
+    {
+      "jobId": 809,
+      "nameKo": "템플러",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-1-3-10-25.v1.json#jobId=809"
     }
   ]
 }

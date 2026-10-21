@@ -120,5 +120,5 @@ for (const card of cards) {
 const expectedPairs = generatedApprovedPairs.map(({ namespace, soldierId, heroId }) => `${namespace}:${soldierId}:${heroId}`).sort();
 assert.deepEqual(actualPairs.sort(), expectedPairs, 'Hero displayed Soldier pairs must equal Generated approved pairs');
 assert.equal(cards.length, heroData.heroes.length, 'Hero presentation population must remain unchanged');
-assert.equal(actualPairs.length, 72, 'all currently displayed Generated relation pairs must retain a link');
+assert.equal(actualPairs.length, 129, 'all currently displayed Generated relation pairs must retain a link');
 process.stdout.write(`Hero → Soldier navigation PASS (${actualPairs.length} exact namespace/soldierId/heroId pairs; labels, endpoints, and click target verified)\n`);

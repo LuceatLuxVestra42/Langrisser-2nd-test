@@ -87,8 +87,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 66 relations; 42 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 66 relations; 42 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and exactly the current 66/42 Hero→Job relation pairs');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 97 relations; 73 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 97 relations; 73 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 97/73 Hero→Job relation counts');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -110,7 +110,7 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records[1] = { ...doc.records[0] }; }, 'duplicate Hero/Job pair', /duplicate Hero→Job relation pair/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].jobId = 368; }, 'relation pair mutation', /relation pair\/evidence locator mismatch for 1:368/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records.push({ heroId: 15, jobId: 368, provenance: 'evidence/not-authorized.json#record=1' }); }, 'identity expansion must not expand Hero→Job relations', /relation pair\/evidence locator mismatch for 15:368/);
-  await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].provenance = 'evidence/wrong.json#record=1'; }, 'relation provenance mismatch', /relation pair\/evidence locator mismatch for 1:262/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 1 && row.jobId === 262).provenance = 'evidence/wrong.json#record=1'; }, 'relation provenance mismatch', /relation pair\/evidence locator mismatch for 1:262/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 5 && row.jobId === 817)); }, 'missing selected relation', /Hero→Job relation count differs from the current evidence-backed scope/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 6 && row.jobId === 377)); }, 'missing SP relation', /Hero→Job relation count differs from the current evidence-backed scope/);
 
@@ -121,7 +121,7 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 53 && row.jobId === 426).provenance = 'evidence/wrong.json#heroId=53'; }, 'Hero 53 SP provenance protection', /relation pair\/evidence locator mismatch for 53:426/);
 
   const selectedPath = 'canonical/heroes.v1.json';
-  await mutateAndExpectFailure(selectedPath, (doc) => { doc.records[0].jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation', /selected slice relation 5:999999 is absent from the general relation owner/);
+  await mutateAndExpectFailure(selectedPath, (doc) => { doc.records.find((row) => row.id === 5).jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation', /selected slice relation 5:999999 is absent from the general relation owner/);
   await mutateAndExpectFailure(selectedPath, (doc) => { doc.records.find((row) => row.id === 28).jobConnections[0].jobId = 999999; }, 'expanded selected-slice parity mutation', /selected slice relation 28:999999 is absent from the general relation owner/);
 
   const relationDoc = JSON.parse(await readFile(join(repo, relationPath), 'utf8'));
@@ -143,10 +143,10 @@ try {
   if (rarityValidation.status !== 0) throw new Error(`Hero Rarity ownership validation failed:\n${rarityValidation.stdout ?? ''}\n${rarityValidation.stderr ?? ''}`);
   const generatedRarityText = await readFile(join(repo, 'generated/hero-slice.v1.json'), 'utf8');
   assert.equal(createHash('sha256').update(generatedRarityText).digest('hex'),
-    '336a064ddc5e81af92d8820fd1dbe46e83c8dbf119b9f3071ff4a1a0f56907e4',
+    '6f0e4560c41fce8eeff451dc627ca47e7139e405da49aeb9cc62f2de896af3b8',
     'Generated Hero slice must remain byte-identical to the pre-expansion baseline');
   const generatedRarity = JSON.parse(generatedRarityText);
-  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [5, 6, 8, 28, 32, 52, 53],
+  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 5, 6, 8, 10, 25, 28, 32, 52, 53],
     'off-slice Rarity Canonical records must not expand Generated Hero population');
   for (const [change, label, command, diagnostic] of [
     [(doc) => { doc.records.push({ ...doc.records[0] }); }, 'duplicate Hero Rarity rejected', 'tools/generate.mjs', /Duplicate Hero rarity for Hero 5/],

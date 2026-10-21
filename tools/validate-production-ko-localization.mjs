@@ -75,7 +75,7 @@ export function validateProductionKoLocalization({ identities, relations, heroes
   exactKeys(evidence.scope, ['claim', 'productionIds', 'consumer'], 'evidence scope');
   check(evidence.scope.claim === 'Project-supplied Korean Production display label by exact existing Canonical ProductionID.'
     && isDeepStrictEqual(evidence.scope.productionIds, EXPECTED_IDS)
-    && evidence.scope.consumer === 'Current seven-Hero presentation slice only.', 'evidence target or consumer scope drift');
+    && evidence.scope.consumer === 'Current Hero Presentation slice only.', 'evidence target or consumer scope drift');
   check(isDeepStrictEqual(evidence.limitations, [
     'Official Korean-server terminology and release status are unverified.',
     'This input supports display localization only; it does not establish Production identity, population, Hero relation, release status, or game semantics.',
@@ -100,7 +100,7 @@ export function validateProductionKoLocalization({ identities, relations, heroes
     'officialKrProvenanceStatus', 'evidence', 'records'], 'Canonical localization owner');
   check(localization.schemaVersion === 1
     && localization.purpose === 'Project-supplied Korean Production display localization references only; not Production identity, population, relation, release status, or official Korean-server authority.'
-    && localization.sourceScope === 'Exact ProductionID mapping for project-supplied Korean display-name references that exist in the current Canonical identity owner; consumed only by the current seven-Hero presentation slice.'
+    && localization.sourceScope === 'Exact ProductionID mapping for project-supplied Korean display-name references that exist in the current Canonical identity owner; consumed by the current Hero Presentation slice.'
     && localization.inputClassification === 'PROJECT_SUPPLIED_LOCALIZATION'
     && localization.officialKrProvenanceStatus === 'unverified'
     && localization.evidence === EVIDENCE_PATH, 'Canonical localization metadata/provenance drift');

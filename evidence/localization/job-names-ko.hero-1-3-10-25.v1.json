@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "KR display text from preserved project source; official KR provenance unverified",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "records": [
+    {
+      "jobId": 101,
+      "nameCn": "士官",
+      "nameKo": "서전트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=101",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 199,
+      "nameCn": "见习士官",
+      "nameKo": "견습 서전트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=199",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 201,
+      "nameCn": "战士",
+      "nameKo": "파이터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=201",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 203,
+      "nameCn": "盾剑士",
+      "nameKo": "글래디에이터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=203",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 206,
+      "nameCn": "英雄",
+      "nameKo": "영웅",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=206",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 209,
+      "nameCn": "王者",
+      "nameKo": "킹",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=209",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 299,
+      "nameCn": "见习战士",
+      "nameKo": "견습 파이터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=299",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 401,
+      "nameCn": "鹰骑士",
+      "nameKo": "호크 나이트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=401",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 602,
+      "nameCn": "狙击手",
+      "nameKo": "스나이퍼",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=602",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 604,
+      "nameCn": "游侠",
+      "nameKo": "레인저",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=604",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 605,
+      "nameCn": "弓骑统帅",
+      "nameKo": "보우 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=605",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 804,
+      "nameCn": "圣骑士",
+      "nameKo": "팔라딘",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=804",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 809,
+      "nameCn": "圣骑统帅",
+      "nameKo": "템플러",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=809",
+      "evidenceClass": "A"
+    }
+  ]
+}

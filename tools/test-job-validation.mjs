@@ -120,12 +120,12 @@ try {
   }
 
   const invalidConnection = JSON.parse(originalCanonical);
-  invalidConnection.records[0].jobConnections[0].connectionId = 999999;
+  invalidConnection.records.find((row) => row.id === 5).jobConnections[0].connectionId = 999999;
   await writeFile(canonicalPath, `${JSON.stringify(invalidConnection, null, 2)}\n`);
   expectFailure(run('tools/validate.mjs'), 'connection ID differs from explicit source order', /Hero 5 Job connection IDs must follow the explicit raw HeroInfo fields in stored source order/);
 
   const invalidTarget = JSON.parse(originalCanonical);
-  invalidTarget.records[0].jobConnections[0].jobId = 303;
+  invalidTarget.records.find((row) => row.id === 5).jobConnections[0].jobId = 303;
   await writeFile(canonicalPath, `${JSON.stringify(invalidTarget, null, 2)}\n`);
   expectFailure(run('tools/validate.mjs'), 'wrong but existing JobInfo target ID', /Hero 5 Job relation pairs changed from the admitted slice/);
 

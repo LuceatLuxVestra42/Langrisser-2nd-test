@@ -19,6 +19,7 @@ export async function validateJobLocalization(root = process.cwd()) {
   const localizationManifest = await readJson('evidence/localization/source/job-names-ko.source-manifest.v1.json');
   const localizationSubset = await readJson('evidence/localization/job-names-ko.hero-5-6-8.v1.json');
   const expansionSubset = await readJson('evidence/localization/job-names-ko.hero-28-32-52-53.v1.json');
+  const presentationSubset = await readJson('evidence/localization/job-names-ko.hero-1-3-10-25.v1.json');
   const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
   const localizationBytes = await readFile(resolve(root, localizationSourcePath));
   const localizationText = localizationBytes.toString('utf8').replace(/^\uFEFF/, '');
@@ -46,6 +47,7 @@ export async function validateJobLocalization(root = process.cwd()) {
   }
   const targetJobIds = [817, 806, 807, 803, 812, 813, 301, 303, 302, 202, 307, 306, 701, 805, 702, 703, 810, 706];
   const expansionJobIds = [102, 104, 207, 304, 402, 403, 405, 502, 503, 603, 1006, 1007, 1101, 1102, 1104];
+  const presentationJobIds = [101, 199, 201, 203, 206, 209, 299, 401, 602, 604, 605, 804, 809];
   check(localizationSubset.schemaVersion === 1 && localizationSubset.records.length === targetJobIds.length, 'localization subset must contain exactly 18 records');
   check(localizationSubset.canonical === false && localizationSubset.generated === false && localizationSubset.productionRuntimeDependency === false, 'localization evidence subset authority boundary drift');
   check(localizationSubset.sourceManifest === 'evidence/localization/source/job-names-ko.source-manifest.v1.json', 'localization subset source manifest locator drift');
@@ -88,6 +90,18 @@ export async function validateJobLocalization(root = process.cwd()) {
     check(jobInfo.Name === row.nameCn, `expansion localization CN consistency check failed for Job ${row.jobId}`);
   }
 
+  exactKeys(presentationSubset, ['schemaVersion','sourceManifest','sourceScope','canonical','generated','productionRuntimeDependency','records'], 'Hero presentation localization evidence');
+  check(presentationSubset.schemaVersion === 1 && presentationSubset.sourceManifest === 'evidence/localization/source/job-names-ko.source-manifest.v1.json' && presentationSubset.records.length === presentationJobIds.length && JSON.stringify(presentationSubset.records.map((row)=>row.jobId)) === JSON.stringify(presentationJobIds), 'Hero presentation localization evidence scope drift');
+  check(presentationSubset.canonical === false && presentationSubset.generated === false && presentationSubset.productionRuntimeDependency === false, 'Hero presentation localization evidence authority boundary drift');
+  const presentationJobInfo = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-1-3-10-25.v1.json');
+  const presentationJobById = new Map(presentationJobInfo.map((row)=>[row.ID,row]));
+  for (const row of presentationSubset.records) {
+    exactKeys(row, ['jobId','nameCn','nameKo','sourceLocator','evidenceClass'], `presentation localization Job ${row.jobId}`);
+    const sourceRow=localizationRows.get(row.jobId);
+    check(presentationJobIds.includes(row.jobId) && sourceRow && row.nameCn===sourceRow.nameCn && row.nameKo===sourceRow.nameKo && row.sourceLocator===`job-names-ko.v1.txt#전직ID=${row.jobId}` && row.evidenceClass==='A', `presentation localization source mapping mismatch for Job ${row.jobId}`);
+    check(presentationJobById.get(row.jobId)?.Name===row.nameCn, `presentation localization CN/JobInfo mismatch for Job ${row.jobId}`);
+  }
+
   const spValidation = await validateSpJobNamespaceEvidence();
   const spEvidenceById = new Map(spValidation.records.map((row) => [row.jobId, row]));
   const spExpected = new Map(
@@ -96,15 +110,15 @@ export async function validateJobLocalization(root = process.cwd()) {
       .map((row) => [row.jobId, row.nameKo]),
   );
   const spStatusIds = spValidation.statusOnlyIds;
-  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + spExpected.size, 'canonical Job localization must contain exactly 55 records');
+  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + spExpected.size, 'canonical Job localization must contain expected complete record population');
   const admittedLocalization = new Map();
   for (const row of jobLocalization.records) {
     exactKeys(row, ['jobId', 'nameKo', 'evidenceClass', 'provenance'], `canonical Job localization ${row.jobId}`);
     check(!admittedLocalization.has(row.jobId), `duplicate canonical Job localization ID ${row.jobId}`);
-    if (targetJobIds.includes(row.jobId) || expansionJobIds.includes(row.jobId)) {
+    if (targetJobIds.includes(row.jobId) || expansionJobIds.includes(row.jobId) || presentationJobIds.includes(row.jobId)) {
       const sourceRow = localizationRows.get(row.jobId);
       check(sourceRow && row.nameKo === sourceRow.nameKo && row.nameKo.trim() !== '' && !statusOnly.test(row.nameKo.trim()), `canonical KR label differs from usable source value for Job ${row.jobId}`);
-      const expectedEvidencePath = targetJobIds.includes(row.jobId) ? 'evidence/localization/job-names-ko.hero-5-6-8.v1.json' : 'evidence/localization/job-names-ko.hero-28-32-52-53.v1.json';
+      const expectedEvidencePath = targetJobIds.includes(row.jobId) ? 'evidence/localization/job-names-ko.hero-5-6-8.v1.json' : expansionJobIds.includes(row.jobId) ? 'evidence/localization/job-names-ko.hero-28-32-52-53.v1.json' : 'evidence/localization/job-names-ko.hero-1-3-10-25.v1.json';
       check(row.evidenceClass === 'A' && row.provenance === `${expectedEvidencePath}#jobId=${row.jobId}`, `canonical localization provenance drift for Job ${row.jobId}`);
     } else if (spExpected.has(row.jobId)) {
       const evidence = spEvidenceById.get(row.jobId);
@@ -120,7 +134,7 @@ export async function validateJobLocalization(root = process.cwd()) {
 
   return {
     canonicalCount: jobLocalization.records.length,
-    projectTextCount: targetJobIds.length + expansionJobIds.length,
+    projectTextCount: targetJobIds.length + expansionJobIds.length + presentationJobIds.length,
     spCount: spExpected.size,
   };
 }

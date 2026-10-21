@@ -4,9 +4,9 @@ import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 import { renderHeroSoldierRelations } from './generate.mjs';
 
-const invariantHeroCounts = new Map([[5, 19], [6, 15], [8, 20], [53, 18]]);
+const invariantHeroCounts = new Map([[1,22],[3,7],[5,19],[6,15],[8,20],[10,12],[25,16],[53,18]]);
 const invariantHeroIds = [...invariantHeroCounts.keys()];
-const invariantRowCount = 72;
+const invariantRowCount = 129;
 const check = (condition, message) => { if (!condition) throw new Error('Hero-Soldier presentation validation failed: ' + message); };
 const exactKeys = (value, expected, label) => check(
   isDeepStrictEqual(Object.keys(value).sort(), [...expected].sort()),
@@ -35,11 +35,11 @@ export function validateHeroSoldierPresentation(heroPresentation, relationOwner,
 
   const candidateHeroIds = [...new Set(candidatePairs.map(({ heroId }) => heroId))].sort((a, b) => a - b);
   check(JSON.stringify(candidateHeroIds) === JSON.stringify(invariantHeroIds),
-    'SCOPE_CONTRADICTION: current candidate Hero scope differs from [5,6,8,53]');
+    'SCOPE_CONTRADICTION: current candidate Hero scope differs from the owner-backed presentation subset');
   const countsByHero = new Map(candidateHeroIds.map((heroId) => [heroId, candidatePairs.filter((pair) => pair.heroId === heroId).length]));
   check(candidatePairs.length === invariantRowCount
     && invariantHeroIds.every((heroId) => countsByHero.get(heroId) === invariantHeroCounts.get(heroId)),
-  'SCOPE_CONTRADICTION: owner-derived subset differs from expected 72 / 19·15·20·18');
+  'SCOPE_CONTRADICTION: owner-derived subset differs from expected 129 rows across eight supported Heroes');
 
   const canonicalPairKeys = new Set(sourcePairKeys);
   for (const relation of candidatePairs) {
