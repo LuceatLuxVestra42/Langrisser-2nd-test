@@ -554,6 +554,49 @@
       }
     },
     {
+      "id": 26,
+      "nameEng": "Luna",
+      "portrait": "assets/portraits/hero-26.png",
+      "jobConnections": [
+        {
+          "connectionId": 260,
+          "jobId": 402,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 261,
+          "jobId": 603,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 262,
+          "jobId": 404,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 263,
+          "jobId": 351,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 264,
+          "jobId": 605,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 265,
+          "jobId": 406,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=26",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#inspectedSourceRows.heroInfo[ID=26]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=26",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26"
+      }
+    },
+    {
       "id": 27,
       "nameEng": "Dehault",
       "portrait": "assets/portraits/hero-27.png",

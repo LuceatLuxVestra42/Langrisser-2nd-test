@@ -374,6 +374,36 @@
     },
     {
       "heroId": 26,
+      "jobId": 351,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26&connectionId=263"
+    },
+    {
+      "heroId": 26,
+      "jobId": 402,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26&connectionId=260"
+    },
+    {
+      "heroId": 26,
+      "jobId": 404,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26&connectionId=262"
+    },
+    {
+      "heroId": 26,
+      "jobId": 406,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26&connectionId=265"
+    },
+    {
+      "heroId": 26,
+      "jobId": 603,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26&connectionId=261"
+    },
+    {
+      "heroId": 26,
+      "jobId": 605,
+      "provenance": "evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json#heroId=26&connectionId=264"
+    },
+    {
+      "heroId": 26,
       "jobId": 437,
       "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=26"
     },

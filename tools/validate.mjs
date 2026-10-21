@@ -45,11 +45,12 @@ const expectedBatch3 = new Map([[27, 'Dehault'], [67, 'Omega']]);
 const expectedHero14 = new Map([[14, 'Sherry']]);
 const expectedHero11 = new Map([[11, 'Nurm']]);
 const expectedHero7 = new Map([[7, 'Bernhardt']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys(), ...expectedHero11.keys(), ...expectedHero7.keys()]);
+const expectedHero26 = new Map([[26, 'Luna']]);
+const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys(), ...expectedHero11.keys(), ...expectedHero7.keys(), ...expectedHero26.keys()]);
 check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
 const ids = canonical.records.map((record) => record.id);
 check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,7,8,10,11,12,13,14,25,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
+check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,7,8,10,11,12,13,14,25,26,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
 
 const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
 const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
@@ -571,8 +572,8 @@ for (const localization of heroLocalization.records) {
 }
 check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
 check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[1,277],[3,415],[7,295],[5,447],[6,416],[8,275],[10,406],[11,436],[12,273],[13,298],[14,292],[25,278],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
-check(generatedJson.heroes.length === 19 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,7,8,10,11,12,13,14,25,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
+const expectedEquipmentByHero = new Map([[1,277],[3,415],[7,295],[5,447],[6,416],[8,275],[10,406],[11,436],[12,273],[13,298],[14,292],[25,278],[26,462],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
+check(generatedJson.heroes.length === 20 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,7,8,10,11,12,13,14,25,26,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
 for (const hero of generatedJson.heroes) {
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
   check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);

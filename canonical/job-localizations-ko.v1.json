@@ -458,6 +458,12 @@
       "nameKo": "용사",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-7.v1.json#jobId=208"
+    },
+    {
+      "jobId": 351,
+      "nameKo": "유니콘 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-26.v1.json#jobId=351"
     }
   ]
 }
