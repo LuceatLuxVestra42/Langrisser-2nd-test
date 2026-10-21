@@ -446,6 +446,18 @@
       "nameKo": "아처",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-11.v1.json#jobId=601"
+    },
+    {
+      "jobId": 205,
+      "nameKo": "엠퍼러",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-7.v1.json#jobId=205"
+    },
+    {
+      "jobId": 208,
+      "nameKo": "용사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-7.v1.json#jobId=208"
     }
   ]
 }

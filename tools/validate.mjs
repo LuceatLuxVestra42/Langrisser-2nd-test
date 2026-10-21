@@ -1,581 +1,3 @@
-import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
-import { resolve, sep } from 'node:path';
-import { renderGenerated, renderGeneralSsrEquipment } from './generate.mjs';
-import { validateHeroPortraitSelection } from './validate-hero-portrait-selection.mjs';
-
-const root = process.cwd();
-const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-const exactKeys = (value, expected, label) => {
-  const actual = Object.keys(value).sort();
-  const wanted = [...expected].sort();
-  if (JSON.stringify(actual) !== JSON.stringify(wanted)) {
-    throw new Error(`${label} fields were ${actual.join(',')}; expected ${wanted.join(',')}`);
-  }
-};
-const check = (condition, message) => { if (!condition) throw new Error(message); };
-
-const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
-const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
-const canonical = await readJson('canonical/heroes.v1.json');
-const heroIdentities = await readJson('canonical/hero-identities.v1.json');
-const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
-const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
-const heroRarities = await readJson('canonical/hero-rarities.v1.json');
-const factionIdentities = await readJson('canonical/faction-identities.v1.json');
-const heroFactionRelations = await readJson('canonical/hero-faction-relations.v1.json');
-const factionLocalizations = await readJson('canonical/faction-localizations-ko.v1.json');
-const productionLocalizations = await readJson('canonical/production-localizations-ko.v1.json');
-const productionIdentities = await readJson('canonical/production-identities.v1.json');
-const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
-const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
-const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
-const heroRarityEvidence = await readJson('evidence/source/hero-rarity.v1.json');
-const heroInfoRarityRecords = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json');
-const rankInfo = await readJson('evidence/source/configdata/ConfigDataRankInfo.json');
-exactKeys(canonical, ['schemaVersion', 'sourceScope', 'records'], 'canonical');
-check(canonical.schemaVersion === 1, 'unsupported canonical schemaVersion');
-check(canonical.sourceScope === 'CN ConfigData snapshot 2026-09-02', 'canonical source scope drift');
-const expected = new Map([[5, 'Chris'], [6, 'Leon'], [8, 'Lana']]);
-const expectedExpansion = new Map([[28, 'Zalrahda'], [32, 'EmmaLink'], [52, 'Angelina'], [53, 'Ranford']]);
-const expectedPresentation = new Map([[1, 'Matthew'], [3, 'Grenier'], [10, 'Ledin'], [25, 'Altemuller']]);
-const expectedBatch2 = new Map([[12, 'Elwin'], [55, 'Landius']]);
-const expectedHero13 = new Map([[13, 'Hein']]);
-const expectedBatch3 = new Map([[27, 'Dehault'], [67, 'Omega']]);
-const expectedHero14 = new Map([[14, 'Sherry']]);
-const expectedHero11 = new Map([[11, 'Nurm']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys(), ...expectedHero11.keys()]);
-check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
-const ids = canonical.records.map((record) => record.id);
-check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,5,6,8,10,11,12,13,14,25,27,28,32,52,53,55,67]', 'canonical Hero IDs differ from exact presentation population');
-
-const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
-const directRarityTargets = [5, 6, 8, 28, 32, 52, 53];
-const inheritedRarityTargets = [1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89];
-const inheritedRarityEvidence = await readJson('evidence/source/hero-rarity-inherited-records.v1.json');
-check(heroRarityEvidence.schemaVersion === 1 && heroRarityEvidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'Hero rarity source snapshot pin drift');
-check(heroRarityEvidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
-  && heroRarityEvidence.source?.commitTree === '08e1e6c2773730e60b258940e31494f68d65f86a'
-  && heroRarityEvidence.source?.configDataSubtree === 'b18983f60cb054c2e6e094d64cdb98979211d7fc', 'Hero rarity source tree locator drift');
-check(heroRarityEvidence.sourceFiles?.heroInfo?.blobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
-  && heroRarityEvidence.sourceFiles?.rankInfo?.blobSha1 === 'c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b', 'Hero rarity source file anchors drift');
-check(heroRarityEvidence.priorValidatedClaim?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
-  && heroRarityEvidence.priorValidatedClaim?.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
-  && heroRarityEvidence.priorValidatedClaim?.validationBlobSha1 === 'a572b97addde3a70a2fc4b08758819eef3b10866'
-  && heroRarityEvidence.priorValidatedClaim?.analysisScriptPath === 'scripts/analyze_hero_rarity.cjs'
-  && heroRarityEvidence.priorValidatedClaim?.analysisScriptBlobSha1 === '29fd399b427b60d4093e75c000c1b7a57de30bb7'
-  && heroRarityEvidence.priorValidatedClaim?.status === 'PASS', 'inherited Hero rarity claim anchor drift');
-check(heroRarityEvidence.claims?.heroRank?.class === 'mixed'
-  && heroRarityEvidence.claims?.heroRank?.directClass === 'A'
-  && heroRarityEvidence.claims?.heroRank?.inheritedClass === 'B'
-  && heroRarityEvidence.claims?.rankLabel?.class === 'A'
-  && heroRarityEvidence.claims?.rankMeaning?.class === 'B'
-  && heroRarityEvidence.canonical === false && heroRarityEvidence.generated === false
-  && heroRarityEvidence.productionRuntimeDependency === false, 'Hero rarity evidence claim classes or boundary drift');
-check(JSON.stringify(heroRarityEvidence.selection?.heroIds) === JSON.stringify(rarityTargets), 'Hero rarity selection scope drift');
-check(JSON.stringify(heroRarityEvidence.records.map((record) => record.heroId)) === JSON.stringify(rarityTargets), 'Hero rarity evidence target scope drift');
-check(JSON.stringify(heroInfoRarityRecords.map((record) => record.ID)) === JSON.stringify(directRarityTargets), 'preserved direct Hero rarity source record IDs drift');
-for (const record of heroInfoRarityRecords) {
-  exactKeys(record, ['ID', 'Rank'], `preserved Hero rarity source record ${record.ID}`);
-  check(Number.isSafeInteger(record.ID) && Number.isSafeInteger(record.Rank), `malformed direct Hero rarity source record ${record.ID}`);
-}
-check(JSON.stringify(inheritedRarityEvidence.records.map((record) => record.heroId)) === JSON.stringify(inheritedRarityTargets), 'inherited Hero rarity source IDs drift');
-check(inheritedRarityEvidence.sourceContinuity?.heroInfoLastContentChangeBeforePinnedSnapshot?.commit === '7af1ac562aa3a0c340c42fde2e4a0f588ff82e03'
-  && inheritedRarityEvidence.sourceContinuity?.validationArtifactHistory?.commits?.includes('5de42abb8ea9f68b645bc7395a7eb8f6bc49199b')
-  && inheritedRarityEvidence.sourceContinuity?.pinnedSnapshot?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && inheritedRarityEvidence.sourceContinuity?.pinnedSnapshot?.heroInfoBlobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
-  && inheritedRarityEvidence.sourceContinuity?.nextHeroInfoPathChange?.commit === 'd57b5afc8147ba607e9d7d4826521d76895ab15c',
-  'inherited Hero rarity source continuity anchor drift');
-check(inheritedRarityEvidence.rawSource?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
-  && inheritedRarityEvidence.rawSource?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && inheritedRarityEvidence.rawSource?.path === 'data/configdata/ConfigDataHeroInfo.json'
-  && inheritedRarityEvidence.rawSource?.blobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
-  && inheritedRarityEvidence.inheritance?.existingNewRepositoryAnchor === 'evidence/source/hero-rarity.v1.json#priorValidatedClaim',
-  'inherited Hero rarity raw source anchor drift');
-check(inheritedRarityEvidence.validation?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
-  && inheritedRarityEvidence.validation?.commit === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
-  && inheritedRarityEvidence.validation?.path === 'data/validation/hero-page-stage5-5-2-rarity.v1.json'
-  && inheritedRarityEvidence.validation?.blobSha1 === 'a572b97addde3a70a2fc4b08758819eef3b10866'
-  && inheritedRarityEvidence.validation?.status === 'PASS'
-  && inheritedRarityEvidence.validation?.canonicalHeroCount === 267
-  && inheritedRarityEvidence.validation?.mappedHeroCount === 267
-  && inheritedRarityEvidence.validation?.analyzer?.path === 'scripts/analyze_hero_rarity.cjs'
-  && inheritedRarityEvidence.validation?.analyzer?.blobSha1 === '29fd399b427b60d4093e75c000c1b7a57de30bb7'
-  && inheritedRarityEvidence.inheritance?.evidenceClass === 'B'
-  && inheritedRarityEvidence.inheritance?.rawHeroInfoReparsedInThisRun === false
-  && inheritedRarityEvidence.canonical === false && inheritedRarityEvidence.generated === false
-  && inheritedRarityEvidence.productionRuntimeDependency === false, 'inherited Hero rarity provenance contract drift');
-const inheritedRankById = new Map();
-for (const record of inheritedRarityEvidence.records) {
-  exactKeys(record, ['heroId', 'rank', 'rarity', 'evidenceClass', 'validationRecord'], `inherited Hero rarity record ${record.heroId}`);
-  check(Number.isSafeInteger(record.heroId) && Number.isSafeInteger(record.rank)
-    && typeof record.rarity === 'string' && record.evidenceClass === 'B'
-    && record.validationRecord === `data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=${record.heroId}].rank`,
-  `malformed inherited Hero rarity record ${record.heroId}`);
-  if (inheritedRankById.has(record.heroId)) throw new Error(`duplicate inherited Hero rarity record ${record.heroId}`);
-  inheritedRankById.set(record.heroId, record);
-}
-check(heroRarities.schemaVersion === 1 && heroRarities.sourceScope === canonical.sourceScope
-  && JSON.stringify(heroRarities.records.map((record) => record.heroId)) === JSON.stringify(rarityTargets), 'Hero rarity canonical scope drift');
-const heroInfoRarityById = new Map(heroInfoRarityRecords.map((record) => [record.ID, record]));
-const evidenceRarityById = new Map(heroRarityEvidence.records.map((record) => [record.heroId, record]));
-const rankLabelById = new Map(rankInfo.filter((record) => Number.isSafeInteger(record.ID)).map((record) => [record.ID, record.Desc]));
-for (const rarity of heroRarities.records) {
-  exactKeys(rarity, ['heroId', 'rankId', 'label', 'provenance'], `Hero ${rarity.heroId} rarity canonical`);
-  const directSource = heroInfoRarityById.get(rarity.heroId);
-  const inheritedSource = inheritedRankById.get(rarity.heroId);
-  check(Boolean(directSource) !== Boolean(inheritedSource), `Hero ${rarity.heroId} must have exactly one rarity source path`);
-  const sourceRank = directSource ? directSource.Rank : inheritedSource.rank;
-  const evidence = evidenceRarityById.get(rarity.heroId);
-  const expectedEvidenceLocator = directSource
-    ? `evidence/source/configdata/${[5, 6, 8].includes(rarity.heroId) ? 'ConfigDataHeroInfo.records-5-6-8.json' : 'ConfigDataHeroInfo.records-hero-expansion.v1.json'}#ID=${rarity.heroId}`
-    : `evidence/source/hero-rarity-inherited-records.v1.json#heroId=${rarity.heroId}/rank`;
-  const expectedRankLocator = directSource
-    ? `evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json#ID=${rarity.heroId}/Rank`
-    : expectedEvidenceLocator;
-  exactKeys(evidence, ['heroId', 'rankId', 'label', 'heroInfoRecord', 'rankInfoRecord'], `Hero ${rarity.heroId} rarity evidence`);
-  check(Number.isSafeInteger(sourceRank) && sourceRank === rarity.rankId,
-    `Hero ${rarity.heroId} rarity rank differs from its supported HeroInfo.Rank claim`);
-  check(evidence?.rankId === sourceRank && evidence.heroInfoRecord === expectedEvidenceLocator
-    && evidence.rankInfoRecord === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${sourceRank}`,
-    `Hero ${rarity.heroId} rarity evidence locator drift`);
-  if (inheritedSource) check(inheritedSource.rarity === rankLabelById.get(sourceRank),
-    `Hero ${rarity.heroId} inherited rarity label differs from RankInfo.Desc`);
-  check(rankLabelById.get(sourceRank) === rarity.label && evidence.label === rarity.label,
-    `Hero ${rarity.heroId} rarity label differs from RankInfo.Desc`);
-  check(rarity.provenance?.rank === expectedRankLocator
-    && rarity.provenance?.label === `evidence/source/configdata/ConfigDataRankInfo.json#ID=${sourceRank}/Desc`,
-    `Hero ${rarity.heroId} rarity provenance locator drift`);
-}
-
-const heroInfoRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-5-6-8.json');
-const heroInfoById = new Map(heroInfoRows.map((record) => [record.ID, record]));
-const charRows = await readJson('evidence/source/configdata/ConfigDataCharImageInfo.records-5-6-8.json');
-const charById = new Map(charRows.map((record) => [record.ID, record]));
-const expansionHeroInfoRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json');
-const expansionHeroInfoById = new Map(expansionHeroInfoRows.map((record) => [record.ID, record]));
-const expansionCharRows = await readJson('evidence/source/configdata/ConfigDataCharImageInfo.records-hero-expansion.v1.json');
-const expansionCharById = new Map(expansionCharRows.records.map((record) => [record.ID, record]));
-const portraits = await readJson('evidence/source/portraits/hero-portrait-slice.v1.json');
-const portraitByHero = new Map(portraits.records.map((record) => [record.heroId, record]));
-const expansionPortraits = await readJson('evidence/source/portraits/hero-portrait-expansion.v1.json');
-const expansionPortraitByHero = new Map(expansionPortraits.records.map((record) => [record.heroId, record]));
-const expansionJobConnections = await readJson('evidence/source/jobs/hero-job-connection-expansion.v1.json');
-const relationOwner = await readJson('canonical/hero-job-relations.v1.json');
-const spJobIdentities = await readJson('canonical/sp-job-identities.v1.json');
-const spRelationEvidence = await readJson('evidence/source/jobs/hero-sp-job-relation.v1.json');
-const priorPortraitEvidence = await readJson('evidence/source/portraits/hero-portrait-prior-validation.v1.json');
-const jobEvidence = await readJson('evidence/source/jobs/hero-job-connection-slice.v1.json');
-const connectionRows = await readJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json');
-const jobRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json');
-const connectionById = new Map(connectionRows.map((record) => [record.ID, record]));
-const jobById = new Map(jobRows.map((record) => [record.ID, record]));
-check(portraits.canonical === false && portraits.generated === false, 'portrait evidence must remain source evidence');
-check(portraits.productionRuntimeDependency === false, 'evidence metadata must not become a runtime dependency');
-check(portraits.scope.krDisplayName === 'C_DEFERRED' && portraits.scope.rankToRarity === 'C_DEFERRED', 'portrait evidence claim scope drift');
-check(portraits.admissionBasis.contradictions.length === 0, 'unresolved contradiction exists in the admitted slice scope');
-check(priorPortraitEvidence.canonical === false && priorPortraitEvidence.generated === false && priorPortraitEvidence.productionRuntimeDependency === false, 'surviving portrait support must remain non-runtime evidence');
-check(priorPortraitEvidence.predecessor.repository === portraits.admissionBasis.priorValidation.repository, 'surviving portrait evidence repository locator drift');
-check(priorPortraitEvidence.predecessor.commit === portraits.admissionBasis.priorValidation.commit, 'surviving portrait evidence commit locator drift');
-check(priorPortraitEvidence.predecessor.validation.sourceTrace.gitBlobSha1 === portraits.admissionBasis.priorValidation.sourceTrace.gitBlobSha1, 'surviving source-trace locator drift');
-check(priorPortraitEvidence.predecessor.validation.artworkValidation.gitBlobSha1 === portraits.admissionBasis.priorValidation.artworkValidation.gitBlobSha1, 'surviving artwork-validation locator drift');
-check(priorPortraitEvidence.predecessor.sourceRecords.heroInfo.gitBlobSha1 === portraits.sourceRecords.heroInfo.sourceGitBlobSha1, 'surviving HeroInfo source locator drift');
-check(priorPortraitEvidence.predecessor.sourceRecords.charImageInfo.gitBlobSha1 === portraits.sourceRecords.charImageInfo.sourceGitBlobSha1, 'surviving CharImageInfo source locator drift');
-check(portraits.sourceRecords.charImageInfo.sourceGitBlobSha1 === '397afb3e76c0fe4f3e424c04ba68459ff48d74c5', 'CharImageInfo source locator drift');
-check(portraits.sourceRecords.charImageInfo.sourceSha256 === '3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a', 'CharImageInfo source hash drift');
-check(portraits.extraction.procedure.scriptGitBlobSha1 === 'a13be98a59dadcfc95e2287c138ff56e76b86518', 'extraction procedure locator drift');
-check(priorPortraitEvidence.extraction.script.gitBlobSha1 === portraits.extraction.procedure.scriptGitBlobSha1, 'surviving extraction procedure locator drift');
-check(priorPortraitEvidence.extraction.clientBuild.installVersion === portraits.extraction.clientBuild.installVersion, 'surviving client-build locator drift');
-check(priorPortraitEvidence.extraction.clientBuild.packageBytes === portraits.extraction.clientBuild.packageBytes, 'surviving client-package size locator drift');
-check(priorPortraitEvidence.records.length === 3, 'surviving portrait evidence must cover the selected slice only');
-check(jobEvidence.canonical === false && jobEvidence.generated === false && jobEvidence.productionRuntimeDependency === false, 'Job relation evidence must remain source-only');
-check(jobEvidence.sourceScope === canonical.sourceScope, 'Job relation evidence scope differs from canonical snapshot');
-check(jobEvidence.claims.heroFieldToConnectionId.class === 'B' && jobEvidence.claims.connectionJobIdToJobInfoId.class === 'B' && jobEvidence.claims.selectedRecordsExist.class === 'A', 'Job relation evidence classes drift');
-check(jobEvidence.limitations.some((item) => item.includes('not confirmed to match this exact snapshot')), 'Job relation version limitation must remain explicit');
-check(connectionRows.length === 18 && jobRows.length === 18, 'preserved Job relation source subsets must contain exactly the 18 selected rows');
-check(jobEvidence.records.length === 18, 'Job relation evidence manifest must cover exactly the selected relation rows');
-const admittedPairs = new Set();
-const expectedByHero = new Map([[5, 6], [6, 6], [8, 6]]);
-const expectedPairs = new Map([
-  [5, [817, 806, 807, 803, 812, 813]],
-  [6, [301, 303, 302, 202, 307, 306]],
-  [8, [701, 805, 702, 703, 810, 706]],
-]);
-
-for (const record of canonical.records.filter((item) => expected.has(item.id))) {
-  exactKeys(record, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], `Hero ${record.id}`);
-  exactKeys(record.provenance, ['identity', 'nameEng', 'portrait', 'jobConnections'], `Hero ${record.id} provenance`);
-  check(expected.get(record.id) === record.nameEng, `Hero ${record.id} Name_Eng differs from admitted expected value`);
-  const sourceHero = heroInfoById.get(record.id);
-  check(sourceHero, `missing HeroInfo source record ${record.id}`);
-  check(sourceHero.Name_Eng === record.nameEng, `Hero ${record.id} Name_Eng differs from raw source`);
-  check(record.provenance.identity.includes(`#ID=${record.id}`), `Hero ${record.id} identity provenance locator missing`);
-  check(record.provenance.nameEng.includes(`#ID=${record.id}/Name_Eng`), `Hero ${record.id} Name_Eng provenance locator missing`);
-  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-slice.v1.json#heroId=${record.id}`, `Hero ${record.id} Job relation evidence locator missing`);
-
-  const portrait = portraitByHero.get(record.id);
-  check(portrait, `missing portrait evidence record ${record.id}`);
-  check(portrait.charImageIdClass === 'A', `Hero ${record.id} P1 raw CharImage_ID must remain A`);
-  check(portrait.relationClass === 'B' && portrait.heroPaintingRoleClass === 'B' && portrait.sourceAssetClass === 'B' && portrait.reproducibilityClass === 'B', `Hero ${record.id} P2â€“P5 must remain B`);
-  const survivingPortrait = priorPortraitEvidence.records.find((item) => item.heroId === record.id);
-  check(survivingPortrait, `missing surviving portrait support record ${record.id}`);
-  check(survivingPortrait.charImageId === portrait.charImageId && survivingPortrait.heroPainting === portrait.heroPainting, `Hero ${record.id} surviving source-record locator mismatch`);
-  check(survivingPortrait.bundle.name === portrait.bundleName, `Hero ${record.id} surviving bundle locator mismatch`);
-  check(survivingPortrait.objectGraph.prefabPathId === portrait.prefabPathId && survivingPortrait.objectGraph.spritePathId === portrait.spritePathId && survivingPortrait.objectGraph.texturePathId === portrait.texturePathId, `Hero ${record.id} surviving object-path locator mismatch`);
-  check(survivingPortrait.extractedPng.sha256 === portrait.extractedSourcePng.sha256 && survivingPortrait.extractedPng.bytes === portrait.extractedSourcePng.bytes, `Hero ${record.id} surviving extracted-image integrity locator mismatch`);
-  const bundleEvidence = priorPortraitEvidence.extraction.bundles[portrait.bundleName];
-  check(bundleEvidence && bundleEvidence.sha256 === survivingPortrait.bundle.sha256 && bundleEvidence.bundleBytes === survivingPortrait.bundle.bytes, `Hero ${record.id} surviving bundle integrity locator mismatch`);
-  check(sourceHero.CharImage_ID === portrait.charImageId, `Hero ${record.id} raw CharImage_ID does not match its source evidence value`);
-  const charImage = charById.get(sourceHero.CharImage_ID);
-  check(charImage, `CharImageInfo foreign-key lookup unresolved for Hero ${record.id}`);
-  check(charImage.HeroPainting === portrait.heroPainting, `Hero ${record.id} HeroPainting differs from preserved source row`);
-  check(record.provenance.portrait.endsWith(`#heroId=${record.id}`), `Hero ${record.id} portrait provenance locator missing`);
-  check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonical portrait path differs from evidence`);
-  const sourceFields = new Map([[sourceHero.JobConnection_ID, 'JobConnection_ID'], ...sourceHero.UseableJobConnections_ID.map((connectionId) => [connectionId, 'UseableJobConnections_ID'])]);
-  check(record.jobConnections.length === expectedByHero.get(record.id), `Hero ${record.id} must have exactly the selected six Job connection records`);
-  check(JSON.stringify(record.jobConnections.map((item) => item.jobId)) === JSON.stringify(expectedPairs.get(record.id)), `Hero ${record.id} Job relation pairs changed from the admitted slice`);
-  const sourceIds = [sourceHero.JobConnection_ID, ...sourceHero.UseableJobConnections_ID];
-  check(JSON.stringify(record.jobConnections.map((item) => item.connectionId)) === JSON.stringify(sourceIds), `Hero ${record.id} Job connection IDs must follow the explicit raw HeroInfo fields in stored source order`);
-  for (const relation of record.jobConnections) {
-    exactKeys(relation, ['connectionId', 'jobId', 'sourceField'], `Hero ${record.id} Job relation`);
-    check(relation.sourceField === sourceFields.get(relation.connectionId), `Hero ${record.id} relation sourceField differs from raw HeroInfo`);
-    const key = `${record.id}:${relation.connectionId}`;
-    check(!admittedPairs.has(key), `duplicate Hero connection pair ${key}`);
-    admittedPairs.add(key);
-    const sourceRelation = connectionById.get(relation.connectionId);
-    check(sourceRelation, `missing preserved JobConnectionInfo.ID ${relation.connectionId}`);
-    check(sourceRelation.Job_ID === relation.jobId, `Hero ${record.id} connection ${relation.connectionId} Job_ID differs from canonical target`);
-    check(jobById.has(relation.jobId), `missing preserved JobInfo.ID ${relation.jobId}`);
-    const manifestRow = jobEvidence.records.find((item) => item.heroId === record.id && item.connectionId === relation.connectionId);
-    check(manifestRow && manifestRow.jobId === relation.jobId && manifestRow.sourceField === relation.sourceField, `Hero ${record.id} relation evidence locator mismatch for connection ${relation.connectionId}`);
-  }
-  check(/^assets\/portraits\/hero-(5|6|8)\.png$/.test(record.portrait), `Hero ${record.id} portrait path outside slice asset scope`);
-  check(/^[-]?\d+$/.test(portrait.prefabPathId) && /^[-]?\d+$/.test(portrait.spritePathId) && /^[-]?\d+$/.test(portrait.texturePathId), `Hero ${record.id} Unity path IDs must be exact decimal strings`);
-  const assetPath = resolve(root, record.portrait);
-  check(assetPath.startsWith(`${root}${sep}`), `Hero ${record.id} portrait path escapes repository`);
-  const bytes = await readFile(assetPath);
-  const digest = createHash('sha256').update(bytes).digest('hex');
-  check(bytes.length === portrait.extractedSourcePng.bytes, `Hero ${record.id} portrait byte length mismatch`);
-  check(digest === portrait.extractedSourcePng.sha256, `Hero ${record.id} portrait SHA-256 mismatch`);
-  check(portrait.extractedSourcePng.width > 0 && portrait.extractedSourcePng.height > 0, `Hero ${record.id} portrait dimensions invalid`);
-  check(JSON.stringify(survivingPortrait.extractedPng.dimensions) === JSON.stringify([portrait.extractedSourcePng.width, portrait.extractedSourcePng.height]), `Hero ${record.id} surviving image dimensions locator mismatch`);
-}
-
-for (const record of canonical.records.filter((item) => expectedExpansion.has(item.id))) {
-  exactKeys(record, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], `Hero ${record.id}`);
-  exactKeys(record.provenance, ['identity', 'nameEng', 'portrait', 'jobConnections'], `Hero ${record.id} provenance`);
-  check(expectedExpansion.get(record.id) === record.nameEng, `Hero ${record.id} Name_Eng differs from admitted expected value`);
-  const sourceHero = expansionHeroInfoById.get(record.id);
-  check(sourceHero && sourceHero.Name_Eng === record.nameEng, `Hero ${record.id} Name_Eng differs from preserved expansion source`);
-  check(record.provenance.identity === `evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=${record.id}`, `Hero ${record.id} identity provenance locator mismatch`);
-  check(record.provenance.nameEng === `evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=${record.id}/Name_Eng`, `Hero ${record.id} Name_Eng provenance locator mismatch`);
-  const portrait = expansionPortraitByHero.get(record.id);
-  check(portrait && sourceHero.CharImage_ID === portrait.charImageId, `Hero ${record.id} portrait evidence linkage mismatch`);
-  const charImage = expansionCharById.get(sourceHero.CharImage_ID);
-  check(charImage && charImage.HeroPainting === portrait.heroPainting, `Hero ${record.id} CharImageInfo HeroPainting mismatch`);
-  check(record.provenance.portrait === `evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=${record.id}`, `Hero ${record.id} portrait provenance locator mismatch`);
-  check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonical portrait path differs from admitted evidence`);
-  const assetPath = resolve(root, record.portrait);
-  const bytes = await readFile(assetPath);
-  check(bytes.length === portrait.extractedSourcePng.bytes, `Hero ${record.id} portrait byte length mismatch`);
-  check(createHash('sha256').update(bytes).digest('hex') === portrait.extractedSourcePng.sha256, `Hero ${record.id} portrait SHA-256 mismatch`);
-  const expectedConnections = expansionJobConnections.records.filter((row) => row.heroId === record.id).map((row) => ({ connectionId: row.connectionId, jobId: row.jobId, sourceField: row.sourceField }));
-  if (record.id === 53) {
-    const spRelation = spRelationEvidence.records.find((row) => row.heroId === 53);
-    check(spRelation && spRelation.spJobConnectionId === 536 && spRelation.spJobId === 426, 'Hero 53 SP presentation relation source locator drift');
-    expectedConnections.push({ connectionId: spRelation.spJobConnectionId, jobId: spRelation.spJobId, sourceField: 'JobConnection_ID' });
-  }
-  check(JSON.stringify(record.jobConnections) === JSON.stringify(expectedConnections), `Hero ${record.id} Job connection presentation differs from current evidence owners`);
-  const expectedRelationPairs = relationOwner.records.filter((row) => row.heroId === record.id).map((row) => row.jobId).sort((a, b) => a - b);
-  const actualRelationPairs = record.jobConnections.map((row) => row.jobId).sort((a, b) => a - b);
-  check(JSON.stringify(actualRelationPairs) === JSON.stringify(expectedRelationPairs), `Hero ${record.id} presented Job IDs differ from current relation canonical`);
-  const expectedJobProvenance = record.id === 53 ? 'canonical/hero-job-relations.v1.json#heroId=53' : `evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=${record.id}`;
-  check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
-}
-
-const presentationHeroRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-presentation-1-3-10-25.v1.json');
-const allPortraitSelection = await readJson('evidence/source/portraits/hero-portrait-selection.v1.json');
-const presentationConnectionRows = await readJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-presentation-1-3-10-25.v1.json');
-const presentationJobRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-1-3-10-25.v1.json');
-const presentationJobEvidence = await readJson('evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json');
-check(JSON.stringify(presentationHeroRows.map((row) => row.ID)) === '[1,3,10,25]', 'presentation source HeroInfo population drift');
-check(JSON.stringify(presentationJobEvidence.selection.heroIds) === '[1,3,10,25]' && presentationJobEvidence.canonical === false && presentationJobEvidence.generated === false, 'presentation relation evidence scope/authority drift');
-check(presentationJobEvidence.claims.heroFieldToConnectionId.class === 'B' && presentationJobEvidence.claims.connectionJobIdToJobInfoId.class === 'B' && presentationJobEvidence.claims.selectedRecordsExist.class === 'A', 'presentation relation evidence classes drift');
-const presentationSourceById = new Map(presentationHeroRows.map((row) => [row.ID, row]));
-const presentationConnectionById = new Map(presentationConnectionRows.map((row) => [row.ID, row]));
-const presentationJobById = new Map(presentationJobRows.map((row) => [row.ID, row]));
-const presentationEvidenceById = new Map(presentationJobEvidence.records.map((row) => [`${row.heroId}:${row.connectionId}`, row]));
-const presentationPortraitById = new Map(allPortraitSelection.records.map((row) => [row.heroId, row]));
-for (const heroId of expectedPresentation.keys()) {
-  const record = canonical.records.find((row) => row.id === heroId);
-  const source = presentationSourceById.get(heroId);
-  const portrait = presentationPortraitById.get(heroId);
-  check(record && source && portrait && heroIdentities.records.some((row) => row.heroId === heroId), `Hero ${heroId} Presentation source/identity/portrait missing`);
-  check(record.nameEng === source.Name_Eng && record.provenance.identity.includes(`#ID=${heroId}`) && record.provenance.nameEng.includes(`#ID=${heroId}/Name_Eng`), `Hero ${heroId} identity source mismatch`);
-  check(record.portrait === `assets/portraits/hero-${heroId}.png` && portrait.extractedSourcePng.path === record.portrait, `Hero ${heroId} portrait locator mismatch`);
-  const bytes = await readFile(resolve(root, record.portrait));
-  check(bytes.length === portrait.extractedSourcePng.bytes && createHash('sha256').update(bytes).digest('hex') === portrait.extractedSourcePng.sha256, `Hero ${heroId} portrait bytes mismatch`);
-  const refs = [{ connectionId: source.JobConnection_ID, jobId: presentationConnectionById.get(source.JobConnection_ID)?.Job_ID, sourceField: 'JobConnection_ID' }, ...source.UseableJobConnections_ID.map((connectionId) => ({ connectionId, jobId: presentationConnectionById.get(connectionId)?.Job_ID, sourceField: 'UseableJobConnections_ID' }))];
-  check(JSON.stringify(record.jobConnections) === JSON.stringify(refs), `Hero ${heroId} job references differ from explicit HeroInfo source fields`);
-  for (const ref of refs) {
-    const ev = presentationEvidenceById.get(`${heroId}:${ref.connectionId}`);
-    check(presentationJobById.has(ref.jobId) && ev?.jobId === ref.jobId && ev.sourceField === ref.sourceField, `Hero ${heroId} Job relation evidence mismatch at connection ${ref.connectionId}`);
-  }
-  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json#heroId=${heroId}`, `Hero ${heroId} relation provenance mismatch`);
-}
-const batch2Jobs = await readJson('evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json');
-check(batch2Jobs.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch2Jobs.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'batch 2 Job source pin drift');
-check(batch2Jobs.sourceFiles?.['ConfigDataHeroInfo.json']?.gitBlob === '728daab3370f0c7779449663ea02e638677944d4'
-  && batch2Jobs.sourceFiles?.['ConfigDataJobConnectionInfo.json']?.gitBlob === 'cdad8d6fda6edd30c92fbcda53e0f63af1903139'
-  && batch2Jobs.sourceFiles?.['ConfigDataJobInfo.json']?.gitBlob === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133', 'batch 2 Job source blob drift');
-check(JSON.stringify(batch2Jobs.selection.heroIds) === '[12,55]' && batch2Jobs.claimClasses?.heroFieldToConnectionId === 'B'
-  && batch2Jobs.claimClasses?.connectionJobIdToJobInfoId === 'B' && batch2Jobs.claimClasses?.selectedRecordsExist === 'A'
-  && batch2Jobs.canonical === false && batch2Jobs.generated === false && batch2Jobs.productionRuntimeDependency === false, 'batch 2 Job evidence scope/class drift');
-const batch2CanonicalIds = [12,55];
-const batch2HeroById = new Map(batch2Jobs.inspectedSourceRows.heroInfo.map((row) => [row.ID,row]));
-const batch2ConnectionById = new Map(batch2Jobs.inspectedSourceRows.jobConnectionInfo.map((row) => [row.ID,row]));
-const batch2JobById = new Map(batch2Jobs.inspectedSourceRows.jobInfo.map((row) => [row.ID,row]));
-const batch2EvidenceByKey = new Map(batch2Jobs.records.map((row) => [`${row.heroId}:${row.connectionId}`,row]));
-const batch2PortraitById = new Map(allPortraitSelection.records.map((row) => [row.heroId,row]));
-for (const heroId of batch2CanonicalIds) {
-  const source = batch2HeroById.get(heroId); const record = canonical.records.find((row) => row.id === heroId);
-  const portrait = batch2PortraitById.get(heroId);
-  check(expectedBatch2.get(heroId) === source?.Name_Eng && record?.nameEng === source.Name_Eng
-    && record.provenance.nameEng === `evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#inspectedSourceRows.heroInfo[ID=${heroId}]/Name_Eng`
-    && portrait && record.portrait === `assets/portraits/hero-${heroId}.png`, `Hero ${heroId} batch 2 identity/portrait mismatch`);
-  const refs = [{connectionId:source.JobConnection_ID,sourceField:'JobConnection_ID'},...source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
-    .map((row)=>({connectionId:row.connectionId,jobId:batch2ConnectionById.get(row.connectionId)?.Job_ID,sourceField:row.sourceField}));
-  check(JSON.stringify(record.jobConnections) === JSON.stringify(refs), `Hero ${heroId} batch 2 HeroInfo connection refs mismatch`);
-  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=${heroId}`, `Hero ${heroId} batch 2 relation provenance mismatch`);
-  for(const ref of refs){ const ev=batch2EvidenceByKey.get(`${heroId}:${ref.connectionId}`); check(ev?.sourceField===ref.sourceField && ev.jobId===ref.jobId && batch2JobById.has(ref.jobId), `Hero ${heroId} batch 2 explicit Job join mismatch at ${ref.connectionId}`); }
-}
-const hero13Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json');
-check(hero13Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && hero13Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && JSON.stringify(hero13Packet.selection?.heroIds) === '[13]' && hero13Packet.claimClasses?.heroFieldToConnectionId === 'B'
-  && hero13Packet.claimClasses?.connectionJobIdToJobInfoId === 'B' && hero13Packet.claimClasses?.selectedRecordsExist === 'A'
-  && hero13Packet.claimClasses?.jobInfoNameValue === 'A' && hero13Packet.canonical === false && hero13Packet.generated === false
-  && hero13Packet.productionRuntimeDependency === false && hero13Packet.directInspection?.rawRecordDirectlyInspected === true,
-  'Hero 13 Job evidence source/scope/class boundary drift');
-const hero13Canonical = canonical.records.find((row) => row.id === 13);
-const hero13Source = hero13Packet.inspectedSourceRows.heroInfo.find((row) => row.ID === 13);
-check(hero13Source?.JobConnection_ID === 130 && JSON.stringify(hero13Source.UseableJobConnections_ID) === '[131,132,133,134,135]'
-  && hero13Canonical?.nameEng === 'Hein' && hero13Canonical.provenance.jobConnections === 'evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13',
-  'Hero 13 exact HeroInfo relation or identity evidence drift');
-for (const row of hero13Packet.records) {
-  const connection = hero13Packet.inspectedSourceRows.jobConnectionInfo.find((item) => item.ID === row.connectionId);
-  const job = connection && hero13Packet.inspectedSourceRows.jobInfo.find((item) => item.ID === connection.Job_ID);
-  check(connection?.Job_ID === row.jobId && job?.ID === row.jobId
-    && row.sourceHeroInfoLocator === `data/configdata/ConfigDataHeroInfo.json#[ID=13].${row.sourceField}`
-    && row.jobConnectionInfoLocator === `data/configdata/ConfigDataJobConnectionInfo.json#[ID=${row.connectionId}]`
-    && row.jobInfoLocator === `data/configdata/ConfigDataJobInfo.json#[ID=${row.jobId}]`,
-    `Hero 13 explicit Job source join evidence drift at ${row.connectionId}`);
-}
-check(hero13Packet.records.length === 6 && JSON.stringify(hero13Canonical.jobConnections.map((row) => row.connectionId)) === '[130,131,132,133,134,135]',
-  'Hero 13 Presentation Job connections differ from explicit source refs');
-check(hero13Canonical.jobConnections.every((row) => hero13Packet.records.some((evidence) => evidence.connectionId === row.connectionId && evidence.jobId === row.jobId)),
-  'Hero 13 Job connection has no packet evidence');
-const batch3Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json');
-check(batch3Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch3Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && JSON.stringify(batch3Packet.selection?.heroIds) === '[27,67]' && batch3Packet.claimClasses?.heroFieldToConnectionId === 'B'
-  && batch3Packet.claimClasses?.connectionJobIdToJobInfoId === 'B' && batch3Packet.claimClasses?.selectedRecordsExist === 'A'
-  && batch3Packet.claimClasses?.jobInfoNameValue === 'A' && batch3Packet.directInspection?.rawRecordDirectlyInspected === true
-  && batch3Packet.canonical === false && batch3Packet.generated === false && batch3Packet.productionRuntimeDependency === false,
-  'Hero 27/67 evidence source/scope/class boundary drift');
-const batch3ByHero = new Map(batch3Packet.inspectedSourceRows.heroInfo.map((row) => [row.ID, row]));
-for (const heroId of [27,67]) {
-  const source = batch3ByHero.get(heroId); const record = canonical.records.find((row) => row.id === heroId);
-  const portrait = allPortraitSelection.records.find((row) => row.heroId === heroId);
-  check(source && expectedBatch3.get(heroId) === source.Name_Eng && record?.nameEng === source.Name_Eng
-    && record.provenance.identity === `evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=${heroId}`
-    && record.provenance.nameEng === `evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#inspectedSourceRows.heroInfo[ID=${heroId}]/Name_Eng`
-    && portrait && record.portrait === `assets/portraits/hero-${heroId}.png`, `Hero ${heroId} batch 3 identity/portrait mismatch`);
-  const refs = [{connectionId:source.JobConnection_ID,sourceField:'JobConnection_ID'},...source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
-    .map((item)=>({connectionId:item.connectionId,jobId:batch3Packet.inspectedSourceRows.jobConnectionInfo.find((row)=>row.ID===item.connectionId)?.Job_ID,sourceField:item.sourceField}));
-  check(JSON.stringify(record.jobConnections)===JSON.stringify(refs) && record.provenance.jobConnections===`evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#heroId=${heroId}`,
-    `Hero ${heroId} batch 3 explicit source refs mismatch`);
-  for(const ref of refs) check(batch3Packet.records.some((ev)=>ev.heroId===heroId&&ev.connectionId===ref.connectionId&&ev.jobId===ref.jobId&&ev.sourceField===ref.sourceField),
-    `Hero ${heroId} batch 3 join evidence missing at ${ref.connectionId}`);
-}
-const batch4Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json');
-check(batch4Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch4Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && JSON.stringify(batch4Packet.selection?.heroIds) === '[14]' && JSON.stringify(batch4Packet.selection?.connectionIds) === '[140,141,142,143,144,145]'
-  && batch4Packet.claimClasses?.heroFieldToConnectionId === 'B' && batch4Packet.claimClasses?.connectionJobIdToJobInfoId === 'B'
-  && batch4Packet.claimClasses?.selectedRecordsExist === 'A' && batch4Packet.claimClasses?.jobInfoNameValue === 'A'
-  && batch4Packet.directInspection?.rawRecordDirectlyInspected === true && batch4Packet.directInspection?.inspectionCommit === batch4Packet.source.commit
-  && batch4Packet.canonical === false && batch4Packet.generated === false && batch4Packet.productionRuntimeDependency === false,
-  'Hero 14 source packet source/scope/class boundary drift');
-const batch4Source = batch4Packet.inspectedSourceRows.heroInfo.find((row) => row.ID === 14);
-const hero14Canonical = canonical.records.find((row) => row.id === 14);
-const hero14Portrait = allPortraitSelection.records.find((row) => row.heroId === 14);
-check(batch4Source?.Name === 'é›ªèŽ‰' && batch4Source?.Name_Eng === 'Sherry' && batch4Source?.Useable === true
-  && hero14Canonical?.nameEng === 'Sherry' && hero14Canonical.provenance.identity === 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=14'
-  && hero14Canonical.provenance.nameEng === 'evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#inspectedSourceRows.heroInfo[ID=14]/Name_Eng'
-  && hero14Portrait && hero14Canonical.portrait === 'assets/portraits/hero-14.png', 'Hero 14 identity/name/portrait admission mismatch');
-const hero14Refs = [{connectionId:batch4Source.JobConnection_ID,sourceField:'JobConnection_ID'},...batch4Source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
-  .map((row)=>({connectionId:row.connectionId,jobId:batch4Packet.inspectedSourceRows.jobConnectionInfo.find((item)=>item.ID===row.connectionId)?.Job_ID,sourceField:row.sourceField}));
-check(JSON.stringify(hero14Canonical.jobConnections) === JSON.stringify(hero14Refs)
-  && hero14Canonical.provenance.jobConnections === 'evidence/source/jobs/hero-job-connection-presentation-hero-14.v1.json#heroId=14', 'Hero 14 exact Source connection refs mismatch');
-for (const row of hero14Refs) check(batch4Packet.records.some((ev)=>ev.heroId===14&&ev.connectionId===row.connectionId&&ev.jobId===row.jobId&&ev.sourceField===row.sourceField),
-  `Hero 14 explicit join evidence missing at ${row.connectionId}`);
-check(hero14Refs.length === 6, 'Hero 14 must preserve all six ordinary Job connections');
-const hero14JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-hero-14.v1.json');
-check(JSON.stringify(hero14JobInfoRows.map((row) => row.ID)) === '[401,403,404,405,1103,1105]', 'Hero 14 preserved JobInfo ID set drift');
-check(hero14JobInfoRows.find((row) => row.ID === 404)?.Name === 'åœ£å¤©é©¬å°†å†›', 'Hero 14 Job 404 pinned source label drift');
-const hero11Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json');
-check(hero11Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
-  && hero11Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && JSON.stringify(hero11Packet.selection?.heroIds) === '[11]'
-  && JSON.stringify(hero11Packet.selection?.connectionIds) === '[110,111,112,113,114,115]'
-  && JSON.stringify(hero11Packet.selection?.jobIds) === '[601,102,602,404,604,406]'
-  && hero11Packet.claimClasses?.heroFieldToConnectionId === 'B'
-  && hero11Packet.claimClasses?.connectionJobIdToJobInfoId === 'B'
-  && hero11Packet.claimClasses?.selectedRecordsExist === 'A'
-  && hero11Packet.claimClasses?.jobInfoNameValue === 'A'
-  && hero11Packet.directInspection?.rawRecordDirectlyInspected === true
-  && hero11Packet.directInspection?.inspectionCommit === hero11Packet.source.commit
-  && hero11Packet.canonical === false && hero11Packet.generated === false
-  && hero11Packet.productionRuntimeDependency === false, 'Hero 11 Source packet pin/scope/class drift');
-const hero11Source = hero11Packet.inspectedSourceRows.heroInfo.find((row) => row.ID === 11);
-const hero11Canonical = canonical.records.find((row) => row.id === 11);
-const hero11Portrait = allPortraitSelection.records.find((row) => row.heroId === 11);
-check(hero11Source?.Name === 'å¨œå§†' && hero11Source?.Name_Eng === 'Nurm' && hero11Source?.Useable === true
-  && hero11Canonical?.nameEng === 'Nurm'
-  && hero11Canonical.provenance.identity === 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=11'
-  && hero11Canonical.provenance.nameEng === 'evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json#inspectedSourceRows.heroInfo[ID=11]/Name_Eng'
-  && hero11Portrait && hero11Canonical.portrait === 'assets/portraits/hero-11.png', 'Hero 11 identity/name/portrait mismatch');
-const hero11Refs = [{connectionId:hero11Source.JobConnection_ID,sourceField:'JobConnection_ID'},...hero11Source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
-  .map((row)=>({connectionId:row.connectionId,jobId:hero11Packet.inspectedSourceRows.jobConnectionInfo.find((item)=>item.ID===row.connectionId)?.Job_ID,sourceField:row.sourceField}));
-check(JSON.stringify(hero11Canonical.jobConnections) === JSON.stringify(hero11Refs)
-  && hero11Canonical.provenance.jobConnections === 'evidence/source/jobs/hero-job-connection-presentation-hero-11.v1.json#heroId=11', 'Hero 11 exact Source connections mismatch');
-for (const row of hero11Refs) check(hero11Packet.records.some((ev)=>ev.heroId===11&&ev.connectionId===row.connectionId&&ev.jobId===row.jobId&&ev.sourceField===row.sourceField),
-  `Hero 11 explicit Source join evidence missing at ${row.connectionId}`);
-check(hero11Refs.length === 6, 'Hero 11 must preserve all six ordinary Job connections');
-const hero11JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-hero-11.v1.json');
-check(JSON.stringify(hero11JobInfoRows.map((row) => row.ID)) === '[102,404,406,601,602,604]', 'Hero 11 preserved JobInfo ID set drift');
-check(hero11JobInfoRows.find((row) => row.ID === 601)?.Name === 'å°„æ‰‹' && hero11JobInfoRows.find((row) => row.ID === 406)?.Name === 'åœ£å¤©é©¬ç»Ÿå¸…', 'Hero 11 pinned JobInfo names drift');
-check(talentRelations.records.every((row) => [6,8].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6 and 8');
-
-const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
-const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
-check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
-const generatedJson = JSON.parse(generated);
-exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
-check(generatedJson.heroes.every((hero) => {
-  const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'portrait', 'rarity', 'spJobConnections'];
-  if (talentRelations.records.some((row) => row.heroId === hero.id)) expectedKeys.push('talent');
-  return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());
-}), 'generated consumer contains non-presentation fields');
-const expectedSpJobsByHeroId = new Map([
-  [1, [{ jobId: 262, nameKo: 'ê³ ë…í•œ ê²€ê°', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
-  [3, [{ jobId: 633, nameKo: 'ë°”ëžŒì˜ ê¸°ì‚¬', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
-  [10, [{ jobId: 878, nameKo: 'ì„ íƒë°›ì€ ì™•', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
-  [25, [{ jobId: 414, nameKo: 'ì²œê³µì˜ ë§ˆë£¡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
-  [6, [{ jobId: 377, nameKo: 'ì–´ë‘ ì˜ ì²­ë£¡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
-  [8, [{ jobId: 864, nameKo: 'ë‹¨ì£„ì˜ ì„±ë…€', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
-]);
-for (const hero of generatedJson.heroes) {
-  check(Array.isArray(hero.spJobConnections), `Hero ${hero.id} generated SP Job list is missing`);
-  const expectedSpJobs = expectedSpJobsByHeroId.get(hero.id) ?? [];
-  check(JSON.stringify(hero.spJobConnections) === JSON.stringify(expectedSpJobs), `Hero ${hero.id} generated SP Job presentation scope or values drift`);
-  check(!hero.jobConnections.some((connection) => [377, 864].includes(connection.jobId)), `SP Job was duplicated into Hero ${hero.id} ordinary Job connections`);
-  const expectedClassifiedConnections = hero.id === 53 ? [{
-    connectionId: 536,
-    jobId: 426,
-    sourceField: 'JobConnection_ID',
-    jobNameKo: 'ë¹›ë‚˜ëŠ” ì§€ëžµê°€',
-    classification: 'SP Job',
-    localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION',
-    officialKrProvenanceStatus: 'UNVERIFIED',
-  }] : [];
-  const actualClassifiedConnections = hero.jobConnections.filter((connection) => connection.classification !== undefined);
-  check(JSON.stringify(actualClassifiedConnections) === JSON.stringify(expectedClassifiedConnections),
-    `Hero ${hero.id} generated SP classification scope or values drift`);
-  for (const connection of hero.jobConnections) {
-    const isSpClassified = connection.classification !== undefined;
-    exactKeys(connection, isSpClassified
-      ? ['connectionId', 'jobId', 'sourceField', 'jobNameKo', 'classification', 'localizationClassification', 'officialKrProvenanceStatus']
-      : ['connectionId', 'jobId', 'sourceField', 'jobNameKo'],
-    `Hero ${hero.id} generated Job connection ${connection.jobId}`);
-  }
-}
-for (const hero of generatedJson.heroes) {
-  if (hero.talent !== undefined) {
-    exactKeys(hero.talent, ['nameKo', 'starDescriptions'], `Hero ${hero.id} Talent`);
-    check(typeof hero.talent.nameKo === 'string' && hero.talent.nameKo.trim() && Array.isArray(hero.talent.starDescriptions), `Hero ${hero.id} generated Talent is malformed`);
-    check(JSON.stringify(hero.talent.starDescriptions.map((row) => row.star)) === '[3,4,5,6]', `Hero ${hero.id} generated Talent star list is incomplete`);
-    for (const row of hero.talent.starDescriptions) {
-      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw'], `Hero ${hero.id} Talent star ${row.star}`);
-      check(Number.isSafeInteger(row.star) && Number.isSafeInteger(row.skillId) && typeof row.descriptionKoRaw === 'string' && row.descriptionKoRaw.trim(), `Hero ${hero.id} Talent star description is malformed`);
-    }
-  }
-  check(Array.isArray(hero.factions) && hero.factions.length > 0, `Hero ${hero.id} generated Faction list is missing`);
-  for (const faction of hero.factions) {
-    const localized = faction.localizationStatus === 'PROJECT_REVIEWED';
-    exactKeys(faction, localized ? ['factionId', 'nameCn', 'nameKo', 'localizationStatus'] : ['factionId', 'nameCn', 'localizationStatus'], `Hero ${hero.id} generated Faction`);
-    check(Number.isSafeInteger(faction.factionId) && typeof faction.nameCn === 'string' && faction.nameCn.trim(), `Hero ${hero.id} generated Faction is malformed`);
-    check(localized ? typeof faction.nameKo === 'string' && faction.nameKo.trim() : faction.localizationStatus === 'UNTRANSLATED', `Hero ${hero.id} generated Faction localization state is malformed`);
-  }
-  check(Array.isArray(hero.origins) && hero.origins.length > 0, `Hero ${hero.id} generated Production list is missing`);
-  const originIds = new Set();
-  for (const origin of hero.origins) {
-    exactKeys(origin, ['productionId', 'nameCn', 'nameKo', 'localizationStatus'], `Hero ${hero.id} generated Production`);
-    check(Number.isSafeInteger(origin.productionId) && typeof origin.nameCn === 'string' && origin.nameCn.trim()
-      && typeof origin.nameKo === 'string' && origin.nameKo.trim() && origin.localizationStatus === 'PROJECT_REVIEWED'
-      && !originIds.has(origin.productionId), `Hero ${hero.id} generated Production is malformed or duplicated`);
-    originIds.add(origin.productionId);
-  }
-}
-for (const hero of generatedJson.heroes) {
-  const expectedOrigins = heroProductionRelations.records.filter((relation) => relation.heroId === hero.id)
-    .map((relation) => {
-      const identity = productionIdentities.records.find((record) => record.productionId === relation.productionId);
-      const localization = productionLocalizations.records.find((record) => record.productionId === relation.productionId);
-      return identity && localization && { productionId: identity.productionId, nameCn: identity.nameCn, nameKo: localization.nameKo, localizationStatus: 'PROJECT_REVIEWED' };
-    })
-    .sort((a, b) => a.productionId - b.productionId);
-  check(JSON.stringify(hero.origins) === JSON.stringify(expectedOrigins), `Hero ${hero.id} generated Production data differs from Canonical ID JOIN`);
-}
-const heroNameKoById = new Map();
-for (const localization of heroLocalization.records) {
-  check(Number.isInteger(localization.heroId), `malformed Hero Korean localization ID ${localization.heroId}`);
-  check(!heroNameKoById.has(localization.heroId), `duplicate Hero Korean localization ID ${localization.heroId}`);
-  check(typeof localization.nameKo === 'string' && localization.nameKo.length > 0, `missing Hero Korean display name for ${localization.heroId}`);
-  heroNameKoById.set(localization.heroId, localization.nameKo);
-}
-check(generatedJson.heroes.every((hero) => hero.nameKo === heroNameKoById.get(hero.id)), 'generated Korean Hero labels differ from canonical localization by Hero ID');
-check(generatedJson.heroes.every((hero) => hero.jobConnections.every((relation) => typeof relation.jobNameKo === 'string' && relation.jobNameKo.length > 0)), 'generated consumer has missing Korean Job localization');
-const expectedEquipmentByHero = new Map([[1,277],[3,415],[5,447],[6,416],[8,275],[10,406],[11,436],[12,273],[13,298],[14,292],[25,278],[27,274],[28,412],[32,287],[52,294],[53,296],[55,466],[67,465]]);
-check(generatedJson.heroes.length === 18 && JSON.stringify(generatedJson.heroes.map((hero) => hero.id)) === '[1,3,5,6,8,10,11,12,13,14,25,27,28,32,52,53,55,67]', 'visible Hero population differs from Presentation Canonical');
-for (const hero of generatedJson.heroes) {
-  exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `Hero ${hero.id} Exclusive Equipment`);
-  check(hero.exclusiveEquipment.equipmentId === expectedEquipmentByHero.get(hero.id), `Hero ${hero.id} Exclusive Equipment relation ID mismatch`);
-  check(typeof hero.exclusiveEquipment.equipmentNameKo === 'string' && hero.exclusiveEquipment.equipmentNameKo.length > 0, `Hero ${hero.id} Exclusive Equipment Korean name missing`);
-  check(typeof hero.exclusiveEquipment.effectDescriptionKo === 'string' && hero.exclusiveEquipment.effectDescriptionKo.length > 0, `Hero ${hero.id} Exclusive Equipment effect missing`);
-}
-
-
-const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.json');
-const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
-const equipmentGeneratedText = await readFile(resolve(root, 'generated/general-ssr-equipment.v1.json'), 'utf8');
-check(Array.isArray(equipmentIdentity.records) && Array.isArray(equipmentLocalization.records), 'General SSR Equipment canonical records missing');
-check(equipmentGeneratedText === renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'generated General SSR Equipment consumer is stale or non-deterministic');
-const equipmentGenerated = JSON.parse(equipmentGeneratedText);
-exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
-check(equipmentGenerated.schemaVersion === 1 && Array.isArray(equipmentGenerated.equipment), 'generated General SSR Equipment schema mismatch');
-const identityIds = new Set(equipmentIdentity.records.map((record) => record.id));
-const localizationById = new Map();
-for (const record of equipmentLocalization.records) {
-  check(Number.isInteger(record.equipmentId) && !localizationById.has(record.equipmentId), 'malformed or duplicate General SSR Equipment localization ID');
-  localizationById.set(record.equipmentId, record);
-}
-const generatedIds = equipmentGenerated.equipment.map((record) => record.equipmentId);
-check(new Set(generatedIds).size === generatedIds.length && generatedIds.length === identityIds.size && generatedIds.every((id) => identityIds.has(id)), 'generated General SSR Equipment ID set differs from canonical identity');
-for (const record of equipmentGenerated.equipment) {
-  exactKeys(record, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'generated General SSR Equipment ' + record.equipmentId);
-  const localized = localizationById.get(record.equipmentId);
-  check(localized && record.nameKo === localized.nameKo && record.effectDescriptionKo === localized.effectDescriptionKo, 'generated General SSR Equipment localization parity mismatch for ' + record.equipmentId);
-}
-
-await validateHeroPortraitSelection(root);
-process.stdout.write('Hero slice and General SSR Equipment validators: PASS (Hero relation/source locators, portrait asset integrity, generated freshness and presentation shape; unrelated semantic domains excluded)\n');
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíÛO9Õ:-jZ.¶›­–)Þ³V–×÷'B²7&VFT†6‚Òg&öÒvæöFS¦7'—Fòs°¦–×÷'B²&VDf–ÆRÒg&öÒvæöFS¦g2÷&öÖ—6W2s°¦–×÷'B²&W6öÇfRÂ6WÒg&öÒvæöFS§F‚s°¦–×÷'B²&VæFW$vVæW&FVBÂ&VæFW$vVæW&Å77$WV—ÖVçBÒg&öÒrâövVæW&FRæÖ§2s°¦–×÷'B²fÆ–FFT†W&õ÷'G&—E6VÆV7F–öâÒg&öÒrâ÷fÆ–FFRÖ†W&ò×÷'G&—B×6VÆV7F–öâæÖ§2s° ¦6öç7B&ö÷BÒ&ö6W72æ7vB‚“°¦6öç7B&VD§6öâÒ7–æ2‡F‚’Óâ¥4ôâç'6R†v—B&VDf–ÆR‡&W6öÇfR‡&ö÷BÂF‚’ÂwWFc‚r’“°¦6öç7BW†7D¶W—2Ò‡fÇVRÂW‡V7FVBÂÆ&VÂ’Óâ°¢6öç7B7GVÂÒö&¦V7Bæ¶W—2‡fÇVR’ç6÷'B‚“°¢6öç7BvçFVBÒ²ââæW‡V7FVEÒç6÷'B‚“°¢–b„¥4ôâç7G&–æv–g’†7GVÂ’ÓÒ¥4ôâç7G&–æv–g’‡vçFVB’’°¢F‡&÷ræWrW'&÷"†G¶Æ&VÇÒf–VÆG2vW&RG¶7GVÂæ¦ö–â‚rÂr—Ó²W‡V7FVBG·vçFVBæ¦ö–â‚rÂr—Ö“°¢Ð§Ó°¦6öç7B6†V6²Ò†6öæF—F–öâÂÖW76vR’Óâ²–b‚6öæF—F–öâ’F‡&÷ræWrW'&÷"†ÖW76vR“²Ó° ¦6öç7B¦ö$Æö6Æ—¦F–öâÒv—B&VD§6öâ‚v6æöæ–6Âö¦ö"ÖÆö6Æ—¦F–öç2Ö¶òçcæ§6öâr“°¦6öç7B†W&ôÆö6Æ—¦F–öâÒv—B&VD§6öâ‚v6æöæ–6Âö†W&òÖÆö6Æ—¦F–öç2Ö¶òçcæ§6öâr“°¦6öç7B6æöæ–6ÂÒv—B&VD§6öâ‚v6æöæ–6Âö†W&öW2çcæ§6öâr“°¦6öç7B†W&ô–FVçF—F–W2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&òÖ–FVçF—F–W2çcæ§6öâr“°¦6öç7BW†6ÇW6—fU&VÆF–öç2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&òÖW†6ÇW6—fRÖWV—ÖVçB×&VÆF–öç2çcæ§6öâr“°¦6öç7BW†6ÇW6—fTÆö6Æ—¦F–öç2Òv—B&VD§6öâ‚v6æöæ–6ÂöW†6ÇW6—fRÖWV—ÖVçBÖÆö6Æ—¦F–öç2Ö¶òçcæ§6öâr“°¦6öç7B†W&õ&&—F–W2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&ò×&&—F–W2çcæ§6öâr“°¦6öç7Bf7F–öä–FVçF—F–W2Òv—B&VD§6öâ‚v6æöæ–6Âöf7F–öâÖ–FVçF—F–W2çcæ§6öâr“°¦6öç7B†W&ôf7F–öå&VÆF–öç2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&òÖf7F–öâ×&VÆF–öç2çcæ§6öâr“°¦6öç7Bf7F–öäÆö6Æ—¦F–öç2Òv—B&VD§6öâ‚v6æöæ–6Âöf7F–öâÖÆö6Æ—¦F–öç2Ö¶òçcæ§6öâr“°¦6öç7B&öGV7F–öäÆö6Æ—¦F–öç2Òv—B&VD§6öâ‚v6æöæ–6Â÷&öGV7F–öâÖÆö6Æ—¦F–öç2Ö¶òçcæ§6öâr“°¦6öç7B&öGV7F–öä–FVçF—F–W2Òv—B&VD§6öâ‚v6æöæ–6Â÷&öGV7F–öâÖ–FVçF—F–W2çcæ§6öâr“°¦6öç7B†W&õ&öGV7F–öå&VÆF–öç2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&ò×&öGV7F–öâ×&VÆF–öç2çcæ§6öâr“°¦6öç7BFÆVçE&VÆF–öç2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&ò×FÆVçB×7F"×6¶–ÆÇ2çcæ§6öâr“°¦6öç7BFÆVçDÆö6Æ—¦F–öç2Òv—B&VD§6öâ‚v6æöæ–6Âö†W&ò×FÆVçBÖÆö6Æ—¦F–öç2Ö¶òçcæ§6öâr“°¦6öç7B†W&õ&&—G”Wf–FVæ6RÒv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö†W&ò×&&—G’çcæ§6öâr“°¦6öç7B†W&ô–æfõ&&—G•&V6÷&G2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF†W&ô–æfòç&V6÷&G2×&&—G’çcæ§6öâr“°¦6öç7B&æ´–æfòÒv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF&æ´–æfòæ§6öâr“°¦W†7D¶W—2†6æöæ–6ÂÂ²w66†VÖfW'6–öârÂw6÷W&6U66÷RrÂw&V6÷&G2uÒÂv6æöæ–6Âr“°¦6†V6²†6æöæ–6Âç66†VÖfW'6–öâÓÓÒÂwVç7W÷'FVB6æöæ–6Â66†VÖfW'6–öâr“°¦6†V6²†6æöæ–6Âç6÷W&6U66÷RÓÓÒt4â6öæf–tFF6æ6†÷B##bÓ’Ó"rÂv6æöæ–6Â6÷W&6R66÷RG&–gBr“°¦6öç7BW‡V7FVBÒæWrÖ…µ³RÂt6‡&—2uÒÂ³bÂtÆVöâuÒÂ³‚ÂtÆæuÕÒ“°¦6öç7BW‡V7FVDW‡ç6–öâÒæWrÖ…µ³#‚Âu¦Ç&†FuÒÂ³3"ÂtVÖÖÆ–æ²uÒÂ³S"ÂtævVÆ–æuÒÂ³S2Âu&æf÷&BuÕÒ“°¦6öç7BW‡V7FVE&W6VçFF–öâÒæWrÖ…µ³ÂtÖGF†WruÒÂ³2Âtw&Væ–W"uÒÂ³ÂtÆVF–âuÒÂ³#RÂtÇFV×VÆÆW"uÕÒ“°¦6öç7BW‡V7FVD&F6ƒ"ÒæWrÖ…µ³"ÂtVÇv–âuÒÂ³SRÂtÆæF—W2uÕÒ“°¦6öç7BW‡V7FVD†W&ó2ÒæWrÖ…µ³2Ât†V–âuÕÒ“°¦6öç7BW‡V7FVD&F6ƒ2ÒæWrÖ…µ³#rÂtFV†VÇBuÒÂ³crÂtöÖVvuÕÒ“°¦6öç7BW‡V7FVD†W&óBÒæWrÖ…µ³BÂu6†W''’uÕÒ“°¦6öç7BW‡V7FVD†W&óÒæWrÖ…µ³ÂtçW&ÒuÕÒ“°¦6öç7BW‡V7FVD†W&órÒæWrÖ…µ³rÂt&W&æ†&GBuÕÒ“°¦6öç7BW‡V7FVD–G2ÒæWr6WB…²ââæW‡V7FVBæ¶W—2‚’ÂââæW‡V7FVDW‡ç6–öâæ¶W—2‚’ÂââæW‡V7FVE&W6VçFF–öâæ¶W—2‚’ÂââæW‡V7FVD&F6ƒ"æ¶W—2‚’ÂââæW‡V7FVD†W&ó2æ¶W—2‚’ÂââæW‡V7FVD&F6ƒ2æ¶W—2‚’ÂââæW‡V7FVD†W&óBæ¶W—2‚’ÂââæW‡V7FVD†W&óæ¶W—2‚’ÂââæW‡V7FVD†W&óræ¶W—2‚•Ò“°¦6†V6²†6æöæ–6Âç&V6÷&G2æÆVæwF‚ÓÓÒW‡V7FVD–G2ç6—¦RÂv6æöæ–6Â÷VÆF–öâF–ffW'2g&öÒFÖ—GFVB†W&ò6WBr“°¦6öç7B–G2Ò6æöæ–6Âç&V6÷&G2æÖ‚‡&V6÷&B’Óâ&V6÷&Bæ–B“°¦6†V6²†æWr6WB†–G2’ç6—¦RÓÓÒ–G2æÆVæwF‚ÂvGWÆ–6FR6æöæ–6Â†W&ò”Br“°¦6†V6²„¥4ôâç7G&–æv–g’…²ââæ–G5Òç6÷'B‚†Â"’ÓâÒ"’’ÓÓÒu³Ã2ÃRÃbÃrÃ‚ÃÃÃ"Ã2ÃBÃ#RÃ#rÃ#‚Ã3"ÃS"ÃS2ÃSRÃcuÒrÂv6æöæ–6Â†W&ò”G2F–ffW"g&öÒW†7B&W6VçFF–öâ÷VÆF–öâr“° ¦6öç7B&&—G•F&vWG2Ò³RÂbÂ‚Â#‚Â3"ÂS"ÂS2Âââå³Â2ÂBÂrÂ’ÂÂÂ"Â2ÂBÂ#RÂ#bÂ#rÂ#’Â32Â3rÂCÂSRÂSbÂcÂcrÂƒ•ÕÓ°¦6öç7BF—&V7E&&—G•F&vWG2Ò³RÂbÂ‚Â#‚Â3"ÂS"ÂS5Ó°¦6öç7B–æ†W&—FVE&&—G•F&vWG2Ò³Â2ÂBÂrÂ’ÂÂÂ"Â2ÂBÂ#RÂ#bÂ#rÂ#’Â32Â3rÂCÂSRÂSbÂcÂcrÂƒ•Ó°¦6öç7B–æ†W&—FVE&&—G”Wf–FVæ6RÒv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö†W&ò×&&—G’Ö–æ†W&—FVB×&V6÷&G2çcæ§6öâr“°¦6†V6²††W&õ&&—G”Wf–FVæ6Rç66†VÖfW'6–öâÓÓÒbb†W&õ&&—G”Wf–FVæ6Rç6÷W&6Sòæ6öÖÖ—BÓÓÒscCsVSc6VS#6C†Fcs33sSf3#fFf–S6VCcc&2rÂt†W&ò&&—G’6÷W&6R6æ6†÷B–âG&–gBr“°¦6†V6²††W&õ&&—G”Wf–FVæ6Rç6÷W&6Sòç&W÷6—F÷'’ÓÓÒtÇV6VDÇW…fW7G&C"öÆæw&—76W"ÖgWGW&RÖwV–FRp¢bb†W&õ&&—G”Wf–FVæ6Rç6÷W&6Sòæ6öÖÖ—EG&VRÓÓÒs†SSf3#ss3s3Sc##Sƒ“CS3C“Fcc†CcVcƒfp¢bb†W&õ&&—G”Wf–FVæ6Rç6÷W&6Sòæ6öæf–tFF7V'G&VRÓÓÒv#ƒ“ƒ6cc6#SF3&SfS“FCcF6F#“ƒ“s“#Cvf2rÂt†W&ò&&—G’6÷W&6RG&VRÆö6F÷"G&–gBr“°¦6†V6²††W&õ&&—G”Wf–FVæ6Rç6÷W&6Tf–ÆW3òæ†W&ô–æfóòæ&Æö%6†ÓÓÒss#†F#33sc3sss“CC“cc6V&Sc3ƒcss“CFCBp¢bb†W&õ&&—G”Wf–FVæ6Rç6÷W&6Tf–ÆW3òç&æ´–æfóòæ&Æö%6†ÓÓÒv3†V&#–V6SVS6C#ƒc“sVFc†3“†cVS6Sƒ†c63"rÂt†W&ò&&—G’6÷W&6Rf–ÆRæ6†÷'2G&–gBr“°¦6†V6²††W&õ&&—G”Wf–FVæ6Rç&–÷%fÆ–FFVD6Æ–Óòç&W÷6—F÷'’ÓÓÒtÇV6VDÇW…fW7G&C"öÆæw&—76W"ÖgWGW&RÖwV–FRp¢bb†W&õ&&—G”Wf–FVæ6Rç&–÷%fÆ–FFVD6Æ–Óòæ6öÖÖ—BÓÓÒsSvf###c&cCsVC#F6FFC†F3CSƒƒ63&V&SFfbp¢bb†W&õ&&—G”Wf–FVæ6Rç&–÷%fÆ–FFVD6Æ–ÓòçfÆ–FF–öä&Æö%6†ÓÓÒvSs&#“vFFFS6s&f3F#ƒsSƒƒ–VVc6#ƒcbp¢bb†W&õ&&—G”Wf–FVæ6Rç&–÷%fÆ–FFVD6Æ–ÓòææÇ—6—567&—EF‚ÓÓÒw67&—G2öæÇ—¦Uö†W&õ÷&&—G’æ6§2p¢bb†W&õ&&—G”Wf–FVæ6Rç&–÷%fÆ–FFVD6Æ–ÓòææÇ—6—567&—D&Æö%6†ÓÓÒs#–fC3“–#C#v#cCC“6SsV33#vSvFS3&#rp¢bb†W&õ&&—G”Wf–FVæ6Rç&–÷%fÆ–FFVD6Æ–Óòç7FGW2ÓÓÒu52rÂv–æ†W&—FVB†W&ò&&—G’6Æ–Òæ6†÷"G&–gBr“°¦6†V6²††W&õ&&—G”Wf–FVæ6Ræ6Æ–×3òæ†W&õ&æ³òæ6Æ72ÓÓÒvÖ—†VBp¢bb†W&õ&&—G”Wf–FVæ6Ræ6Æ–×3òæ†W&õ&æ³òæF—&V7D6Æ72ÓÓÒtp¢bb†W&õ&&—G”Wf–FVæ6Ræ6Æ–×3òæ†W&õ&æ³òæ–æ†W&—FVD6Æ72ÓÓÒt"p¢bb†W&õ&&—G”Wf–FVæ6Ræ6Æ–×3òç&æ´Æ&VÃòæ6Æ72ÓÓÒtp¢bb†W&õ&&—G”Wf–FVæ6Ræ6Æ–×3òç&æ´ÖVæ–æsòæ6Æ72ÓÓÒt"p¢bb†W&õ&&—G”Wf–FVæ6Ræ6æöæ–6ÂÓÓÒfÇ6Rbb†W&õ&&—G”Wf–FVæ6RævVæW&FVBÓÓÒfÇ6P¢bb†W&õ&&—G”Wf–FVæ6Rç&öGV7F–öå'VçF–ÖTFWVæFVæ7’ÓÓÒfÇ6RÂt†W&ò&&—G’Wf–FVæ6R6Æ–Ò6Æ76W2÷"&÷VæF'’G&–gBr“°¦6†V6²„¥4ôâç7G&–æv–g’††W&õ&&—G”Wf–FVæ6Rç6VÆV7F–öãòæ†W&ô–G2’ÓÓÒ¥4ôâç7G&–æv–g’‡&&—G•F&vWG2’Ât†W&ò&&—G’6VÆV7F–öâ66÷RG&–gBr“°¦6†V6²„¥4ôâç7G&–æv–g’††W&õ&&—G”Wf–FVæ6Rç&V6÷&G2æÖ‚‡&V6÷&B’Óâ&V6÷&Bæ†W&ô–B’’ÓÓÒ¥4ôâç7G&–æv–g’‡&&—G•F&vWG2’Ât†W&ò&&—G’Wf–FVæ6RF&vWB66÷RG&–gBr“°¦6†V6²„¥4ôâç7G&–æv–g’††W&ô–æfõ&&—G•&V6÷&G2æÖ‚‡&V6÷&B’Óâ&V6÷&Bä”B’’ÓÓÒ¥4ôâç7G&–æv–g’†F—&V7E&&—G•F&vWG2’Âw&W6W'fVBF—&V7B†W&ò&&—G’6÷W&6R&V6÷&B”G2G&–gBr“°¦f÷"†6öç7B&V6÷&Böb†W&ô–æfõ&&—G•&V6÷&G2’°¢W†7D¶W—2‡&V6÷&BÂ²t”BrÂu&æ²uÒÂ&W6W'fVB†W&ò&&—G’6÷W&6R&V6÷&BG·&V6÷&Bä”GÖ“°¢6†V6²„çVÖ&W"æ—56fT–çFVvW"‡&V6÷&Bä”B’bbçVÖ&W"æ—56fT–çFVvW"‡&V6÷&Bå&æ²’ÂÖÆf÷&ÖVBF—&V7B†W&ò&&—G’6÷W&6R&V6÷&BG·&V6÷&Bä”GÖ“°§Ð¦6†V6²„¥4ôâç7G&–æv–g’†–æ†W&—FVE&&—G”Wf–FVæ6Rç&V6÷&G2æÖ‚‡&V6÷&B’Óâ&V6÷&Bæ†W&ô–B’’ÓÓÒ¥4ôâç7G&–æv–g’†–æ†W&—FVE&&—G•F&vWG2’Âv–æ†W&—FVB†W&ò&&—G’6÷W&6R”G2G&–gBr“°¦6†V6²†–æ†W&—FVE&&—G”Wf–FVæ6Rç6÷W&6T6öçF–çV—G“òæ†W&ô–æfôÆ7D6öçFVçD6†ævT&Vf÷&U–ææVE6æ6†÷Còæ6öÖÖ—BÓÓÒsvc3Sc&633C3C&fFS&SFcSƒ†fcƒ&S2p¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç6÷W&6T6öçF–çV—G“òçfÆ–FF–öä'F–f7D†—7F÷'“òæ6öÖÖ—G3òæ–æ6ÇVFW2‚sVFSC&&#†V–cc†#cCV&3s3“VvV#†cf&3C““–"r¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç6÷W&6T6öçF–çV—G“òç–ææVE6æ6†÷Còæ6öÖÖ—BÓÓÒscCsVSc6VS#6C†Fcs33sSf3#fFf–S6VCcc&2p¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç6÷W&6T6öçF–çV—G“òç–ææVE6æ6†÷Còæ†W&ô–æfô&Æö%6†ÓÓÒss#†F#33sc3sss“CC“cc6V&Sc3ƒcss“CFCBp¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç6÷W&6T6öçF–çV—G“òææW‡D†W&ô–æfõF„6†ævSòæ6öÖÖ—BÓÓÒvCSv#Vf3ƒCv&cvS–CvCCƒ#cS#Cscƒ“V#V2rÀ¢v–æ†W&—FVB†W&ò&&—G’6÷W&6R6öçF–çV—G’æ6†÷"G&–gBr“°¦6†V6²†–æ†W&—FVE&&—G”Wf–FVæ6Rç&u6÷W&6Sòç&W÷6—F÷'’ÓÓÒtÇV6VDÇW…fW7G&C"öÆæw&—76W"ÖgWGW&RÖwV–FRp¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç&u6÷W&6Sòæ6öÖÖ—BÓÓÒscCsVSc6VS#6C†Fcs33sSf3#fFf–S6VCcc&2p¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç&u6÷W&6SòçF‚ÓÓÒvFFö6öæf–vFFô6öæf–tFF†W&ô–æfòæ§6öâp¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç&u6÷W&6Sòæ&Æö%6†ÓÓÒss#†F#33sc3sss“CC“cc6V&Sc3ƒcss“CFCBp¢bb–æ†W&—FVE&&—G”Wf–FVæ6Ræ–æ†W&—Fæ6SòæW†—7F–ætæWu&W÷6—F÷'”æ6†÷"ÓÓÒvWf–FVæ6R÷6÷W&6Rö†W&ò×&&—G’çcæ§6öâ7&–÷%fÆ–FFVD6Æ–ÒrÀ¢v–æ†W&—FVB†W&ò&&—G’&r6÷W&6Ræ6†÷"G&–gBr“°¦6†V6²†–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòç&W÷6—F÷'’ÓÓÒtÇV6VDÇW…fW7G&C"öÆæw&—76W"ÖgWGW&RÖwV–FRp¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòæ6öÖÖ—BÓÓÒsSvf###c&cCsVC#F6FFC†F3CSƒƒ63&V&SFfbp¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòçF‚ÓÓÒvFF÷fÆ–FF–öâö†W&ò×vR×7FvSRÓRÓ"×&&—G’çcæ§6öâp¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòæ&Æö%6†ÓÓÒvSs&#“vFFFS6s&f3F#ƒsSƒƒ–VVc6#ƒcbp¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòç7FGW2ÓÓÒu52p¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòæ6æöæ–6Ä†W&ô6÷VçBÓÓÒ#cp¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòæÖVD†W&ô6÷VçBÓÓÒ#cp¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòææÇ—¦W#òçF‚ÓÓÒw67&—G2öæÇ—¦Uö†W&õ÷&&—G’æ6§2p¢bb–æ†W&—FVE&&—G”Wf–FVæ6RçfÆ–FF–öãòææÇ—¦W#òæ&Æö%6†ÓÓÒs#–fC3“–#C#v#cCC“6SsV33#vSvFS3&#rp¢bb–æ†W&—FVE&&—G”Wf–FVæ6Ræ–æ†W&—Fæ6SòæWf–FVæ6T6Æ72ÓÓÒt"p¢bb–æ†W&—FVE&&—G”Wf–FVæ6Ræ–æ†W&—Fæ6Sòç&t†W&ô–æfõ&W'6VD–åF†—5'VâÓÓÒfÇ6P¢bb–æ†W&—FVE&&—G”Wf–FVæ6Ræ6æöæ–6ÂÓÓÒfÇ6Rbb–æ†W&—FVE&&—G”Wf–FVæ6RævVæW&FVBÓÓÒfÇ6P¢bb–æ†W&—FVE&&—G”Wf–FVæ6Rç&öGV7F–öå'VçF–ÖTFWVæFVæ7’ÓÓÒfÇ6RÂv–æ†W&—FVB†W&ò&&—G’&÷fVææ6R6öçG&7BG&–gBr“°¦6öç7B–æ†W&—FVE&æ´'”–BÒæWrÖ‚“°¦f÷"†6öç7B&V6÷&Böb–æ†W&—FVE&&—G”Wf–FVæ6Rç&V6÷&G2’°¢W†7D¶W—2‡&V6÷&BÂ²v†W&ô–BrÂw&æ²rÂw&&—G’rÂvWf–FVæ6T6Æ72rÂwfÆ–FF–öå&V6÷&BuÒÂ–æ†W&—FVB†W&ò&&—G’&V6÷&BG·&V6÷&Bæ†W&ô–GÖ“°¢6†V6²„çVÖ&W"æ—56fT–çFVvW"‡&V6÷&Bæ†W&ô–B’bbçVÖ&W"æ—56fT–çFVvW"‡&V6÷&Bç&æ²¢bbG—Vöb&V6÷&Bç&&—G’ÓÓÒw7G&–ærrbb&V6÷&BæWf–FVæ6T6Æ72ÓÓÒt"p¢bb&V6÷&BçfÆ–FF–öå&V6÷&BÓÓÒFF÷fÆ–FF–öâö†W&ò×vR×7FvSRÓRÓ"×&&—G’çcæ§6öâ6†W&öW5¶†W&ô–CÒG·&V6÷&Bæ†W&ô–GÕÒç&æ¶À¢ÖÆf÷&ÖVB–æ†W&—FVB†W&ò&&—G’&V6÷&BG·&V6÷&Bæ†W&ô–GÖ“°¢–b†–æ†W&—FVE&æ´'”–Bæ†2‡&V6÷&Bæ†W&ô–B’’F‡&÷ræWrW'&÷"†GWÆ–6FR–æ†W&—FVB†W&ò&&—G’&V6÷&BG·&V6÷&Bæ†W&ô–GÖ“°¢–æ†W&—FVE&æ´'”–Bç6WB‡&V6÷&Bæ†W&ô–BÂ&V6÷&B“°§Ð¦6†V6²††W&õ&&—F–W2ç66†VÖfW'6–öâÓÓÒbb†W&õ&&—F–W2ç6÷W&6U66÷RÓÓÒ6æöæ–6Âç6÷W&6U66÷P¢bb¥4ôâç7G&–æv–g’††W&õ&&—F–W2ç&V6÷&G2æÖ‚‡&V6÷&B’Óâ&V6÷&Bæ†W&ô–B’’ÓÓÒ¥4ôâç7G&–æv–g’‡&&—G•F&vWG2’Ât†W&ò&&—G’6æöæ–6Â66÷RG&–gBr“°¦6öç7B†W&ô–æfõ&&—G”'”–BÒæWrÖ††W&ô–æfõ&&—G•&V6÷&G2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6öç7BWf–FVæ6U&&—G”'”–BÒæWrÖ††W&õ&&—G”Wf–FVæ6Rç&V6÷&G2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bæ†W&ô–BÂ&V6÷&EÒ’“°¦6öç7B&æ´Æ&VÄ'”–BÒæWrÖ‡&æ´–æfòæf–ÇFW"‚‡&V6÷&B’ÓâçVÖ&W"æ—56fT–çFVvW"‡&V6÷&Bä”B’’æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&BäFW65Ò’“°¦f÷"†6öç7B&&—G’öb†W&õ&&—F–W2ç&V6÷&G2’°¢W†7D¶W—2‡&&—G’Â²v†W&ô–BrÂw&æ´–BrÂvÆ&VÂrÂw&÷fVææ6RuÒÂ†W&òG·&&—G’æ†W&ô–GÒ&&—G’6æöæ–6Æ“°¢6öç7BF—&V7E6÷W&6RÒ†W&ô–æfõ&&—G”'”–BævWB‡&&—G’æ†W&ô–B“°¢6öç7B–æ†W&—FVE6÷W&6RÒ–æ†W&—FVE&æ´'”–BævWB‡&&—G’æ†W&ô–B“°¢6†V6²„&ööÆVâ†F—&V7E6÷W&6R’ÓÒ&ööÆVâ†–æ†W&—FVE6÷W&6R’Â†W&òG·&&—G’æ†W&ô–GÒ×W7B†fRW†7FÇ’öæR&&—G’6÷W&6RF†“°¢6öç7B6÷W&6U&æ²ÒF—&V7E6÷W&6RòF—&V7E6÷W&6Rå&æ²¢–æ†W&—FVE6÷W&6Rç&æ³°¢6öç7BWf–FVæ6RÒWf–FVæ6U&&—G”'”–BævWB‡&&—G’æ†W&ô–B“°¢6öç7BW‡V7FVDWf–FVæ6TÆö6F÷"ÒF—&V7E6÷W&6P¢òWf–FVæ6R÷6÷W&6Rö6öæf–vFFòGµ³RÂbÂ…Òæ–æ6ÇVFW2‡&&—G’æ†W&ô–B’òt6öæf–tFF†W&ô–æfòç&V6÷&G2ÓRÓbÓ‚æ§6öâr¢t6öæf–tFF†W&ô–æfòç&V6÷&G2Ö†W&òÖW‡ç6–öâçcæ§6öâwÒ4”CÒG·&&—G’æ†W&ô–GÖ ¢¢Wf–FVæ6R÷6÷W&6Rö†W&ò×&&—G’Ö–æ†W&—FVB×&V6÷&G2çcæ§6öâ6†W&ô–CÒG·&&—G’æ†W&ô–GÒ÷&æ¶°¢6öç7BW‡V7FVE&æ´Æö6F÷"ÒF—&V7E6÷W&6P¢òWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF†W&ô–æfòç&V6÷&G2×&&—G’çcæ§6öâ4”CÒG·&&—G’æ†W&ô–GÒõ&æ¶ ¢¢W‡V7FVDWf–FVæ6TÆö6F÷#°¢W†7D¶W—2†Wf–FVæ6RÂ²v†W&ô–BrÂw&æ´–BrÂvÆ&VÂrÂv†W&ô–æfõ&V6÷&BrÂw&æ´–æfõ&V6÷&BuÒÂ†W&òG·&&—G’æ†W&ô–GÒ&&—G’Wf–FVæ6V“°¢6†V6²„çVÖ&W"æ—56fT–çFVvW"‡6÷W&6U&æ²’bb6÷W&6U&æ²ÓÓÒ&&—G’ç&æ´–BÀ¢†W&òG·&&—G’æ†W&ô–GÒ&&—G’&æ²F–ffW'2g&öÒ—G27W÷'FVB†W&ô–æfòå&æ²6Æ–Ö“°¢6†V6²†Wf–FVæ6Sòç&æ´–BÓÓÒ6÷W&6U&æ²bbWf–FVæ6Ræ†W&ô–æfõ&V6÷&BÓÓÒW‡V7FVDWf–FVæ6TÆö6F÷ ¢bbWf–FVæ6Rç&æ´–æfõ&V6÷&BÓÓÒWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF&æ´–æfòæ§6öâ4”CÒG·6÷W&6U&æ·ÖÀ¢†W&òG·&&—G’æ†W&ô–GÒ&&—G’Wf–FVæ6RÆö6F÷"G&–gF“°¢–b†–æ†W&—FVE6÷W&6R’6†V6²†–æ†W&—FVE6÷W&6Rç&&—G’ÓÓÒ&æ´Æ&VÄ'”–BævWB‡6÷W&6U&æ²’À¢†W&òG·&&—G’æ†W&ô–GÒ–æ†W&—FVB&&—G’Æ&VÂF–ffW'2g&öÒ&æ´–æfòäFW66“°¢6†V6²‡&æ´Æ&VÄ'”–BævWB‡6÷W&6U&æ²’ÓÓÒ&&—G’æÆ&VÂbbWf–FVæ6RæÆ&VÂÓÓÒ&&—G’æÆ&VÂÀ¢†W&òG·&&—G’æ†W&ô–GÒ&&—G’Æ&VÂF–ffW'2g&öÒ&æ´–æfòäFW66“°¢6†V6²‡&&—G’ç&÷fVææ6Sòç&æ²ÓÓÒW‡V7FVE&æ´Æö6F÷ ¢bb&&—G’ç&÷fVææ6SòæÆ&VÂÓÓÒWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF&æ´–æfòæ§6öâ4”CÒG·6÷W&6U&æ·ÒôFW66À¢†W&òG·&&—G’æ†W&ô–GÒ&&—G’&÷fVææ6RÆö6F÷"G&–gF“°§Ð ¦6öç7B†W&ô–æfõ&÷w2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF†W&ô–æfòç&V6÷&G2ÓRÓbÓ‚æ§6öâr“°¦6öç7B†W&ô–æfô'”–BÒæWrÖ††W&ô–æfõ&÷w2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6öç7B6†%&÷w2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF6†$–ÖvT–æfòç&V6÷&G2ÓRÓbÓ‚æ§6öâr“°¦6öç7B6†$'”–BÒæWrÖ†6†%&÷w2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6öç7BW‡ç6–öä†W&ô–æfõ&÷w2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF†W&ô–æfòç&V6÷&G2Ö†W&òÖW‡ç6–öâçcæ§6öâr“°¦6öç7BW‡ç6–öä†W&ô–æfô'”–BÒæWrÖ†W‡ç6–öä†W&ô–æfõ&÷w2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6öç7BW‡ç6–öä6†%&÷w2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF6†$–ÖvT–æfòç&V6÷&G2Ö†W&òÖW‡ç6–öâçcæ§6öâr“°¦6öç7BW‡ç6–öä6†$'”–BÒæWrÖ†W‡ç6–öä6†%&÷w2ç&V6÷&G2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6öç7B÷'G&—G2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6R÷÷'G&—G2ö†W&ò×÷'G&—B×6Æ–6Rçcæ§6öâr“°¦6öç7B÷'G&—D'”†W&òÒæWrÖ‡÷'G&—G2ç&V6÷&G2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bæ†W&ô–BÂ&V6÷&EÒ’“°¦6öç7BW‡ç6–öå÷'G&—G2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6R÷÷'G&—G2ö†W&ò×÷'G&—BÖW‡ç6–öâçcæ§6öâr“°¦6öç7BW‡ç6–öå÷'G&—D'”†W&òÒæWrÖ†W‡ç6–öå÷'G&—G2ç&V6÷&G2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bæ†W&ô–BÂ&V6÷&EÒ’“°¦6öç7BW‡ç6–öä¦ö$6öææV7F–öç2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö¦ö'2ö†W&òÖ¦ö"Ö6öææV7F–öâÖW‡ç6–öâçcæ§6öâr“°¦6öç7B&VÆF–öä÷væW"Òv—B&VD§6öâ‚v6æöæ–6Âö†W&òÖ¦ö"×&VÆF–öç2çcæ§6öâr“°¦6öç7B7¦ö$–FVçF—F–W2Òv—B&VD§6öâ‚v6æöæ–6Â÷7Ö¦ö"Ö–FVçF—F–W2çcæ§6öâr“°¦6öç7B7&VÆF–öäWf–FVæ6RÒv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö¦ö'2ö†W&ò×7Ö¦ö"×&VÆF–öâçcæ§6öâr“°¦6öç7B&–÷%÷'G&—DWf–FVæ6RÒv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6R÷÷'G&—G2ö†W&ò×÷'G&—B×&–÷"×fÆ–FF–öâçcæ§6öâr“°¦6öç7B¦ö$Wf–FVæ6RÒv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö¦ö'2ö†W&òÖ¦ö"Ö6öææV7F–öâ×6Æ–6Rçcæ§6öâr“°¦6öç7B6öææV7F–öå&÷w2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF¦ö$6öææV7F–öä–æfòç&V6÷&G2Ö†W&òÓRÓbÓ‚æ§6öâr“°¦6öç7B¦ö%&÷w2Òv—B&VD§6öâ‚vWf–FVæ6R÷6÷W&6Rö6öæf–vFFô6öæf–tFF¦ö$–æfòç&V6÷&G2Ö†W&òÓRÓbÓ‚æ§6öâr“°¦6öç7B6öææV7F–öä'”–BÒæWrÖ†6öææV7F–öå&÷w2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6öç7B¦ö$'”–BÒæWrÖ†¦ö%&÷w2æÖ‚‡&V6÷&B’Óâ·&V6÷&Bä”BÂ&V6÷&EÒ’“°¦6†V6²‡÷'G&—G2æ6æöæ–6ÂÓÓÒfÇ6Rbb÷'G&—G2ævVæW&FVBÓÓÒfÇ6RÂw÷'G&—BWf–FVæ6R×W7B&VÖ–â6÷W&6RWf–FVæ6Rr“°¦6†V6²‡÷'G&—G2ç&öGV7F–öå'VçF–ÖTFWVæFVæ7’ÓÓÒfÇ6RÂvWf–FVæ6RÖWFFF×W7Bæ÷B&V6öÖR'VçF–ÖRFWVæFVæ7’r“°¦6†V6²‡÷'G&—G2ç66÷Ræ·$F—7Æ”æÖRÓÓÒt5ôDTdU%$TBrbb÷'G&—G2ç66÷Rç&æµFõ&&—G’ÓÓÒt5ôDTdU%$TBrÂw÷'G&—BWf–FVæ6R6Æ–Ò66÷RG&–gBr“°¦6†V6²‡÷'G&—G2æFÖ—76–öä&6—2æ6öçG&F–7F–öç2æÆVæwF‚ÓÓÒÂwVç&W6öÇfVB6öçG&F–7F–öâW†—7G2–âF†RFÖ—GFVB6Æ–6R66÷Rr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Ræ6æöæ–6ÂÓÓÒfÇ6Rbb&–÷%÷'G&—DWf–FVæ6RævVæW&FVBÓÓÒfÇ6Rbb&–÷%÷'G&—DWf–FVæ6Rç&öGV7F–öå'VçF–ÖTFWVæFVæ7’ÓÓÒfÇ6RÂw7W'f—f–ær÷'G&—B7W÷'B×W7B&VÖ–âæöâ×'VçF–ÖRWf–FVæ6Rr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&VFV6W76÷"ç&W÷6—F÷'’ÓÓÒ÷'G&—G2æFÖ—76–öä&6—2ç&–÷%fÆ–FF–öâç&W÷6—F÷'’Âw7W'f—f–ær÷'G&—BWf–FVæ6R&W÷6—F÷'’Æö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&VFV6W76÷"æ6öÖÖ—BÓÓÒ÷'G&—G2æFÖ—76–öä&6—2ç&–÷%fÆ–FF–öâæ6öÖÖ—BÂw7W'f—f–ær÷'G&—BWf–FVæ6R6öÖÖ—BÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&VFV6W76÷"çfÆ–FF–öâç6÷W&6UG&6Ræv—D&Æö%6†ÓÓÒ÷'G&—G2æFÖ—76–öä&6—2ç&–÷%fÆ–FF–öâç6÷W&6UG&6Ræv—D&Æö%6†Âw7W'f—f–ær6÷W&6R×G&6RÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&VFV6W76÷"çfÆ–FF–öâæ'Gv÷&µfÆ–FF–öâæv—D&Æö%6†ÓÓÒ÷'G&—G2æFÖ—76–öä&6—2ç&–÷%fÆ–FF–öâæ'Gv÷&µfÆ–FF–öâæv—D&Æö%6†Âw7W'f—f–ær'Gv÷&²×fÆ–FF–öâÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&VFV6W76÷"ç6÷W&6U&V6÷&G2æ†W&ô–æfòæv—D&Æö%6†ÓÓÒ÷'G&—G2ç6÷W&6U&V6÷&G2æ†W&ô–æfòç6÷W&6Tv—D&Æö%6†Âw7W'f—f–ær†W&ô–æfò6÷W&6RÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&VFV6W76÷"ç6÷W&6U&V6÷&G2æ6†$–ÖvT–æfòæv—D&Æö%6†ÓÓÒ÷'G&—G2ç6÷W&6U&V6÷&G2æ6†$–ÖvT–æfòç6÷W&6Tv—D&Æö%6†Âw7W'f—f–ær6†$–ÖvT–æfò6÷W&6RÆö6F÷"G&–gBr“°¦6†V6²‡÷'G&—G2ç6÷W&6U&V6÷&G2æ6†$–ÖvT–æfòç6÷W&6Tv—D&Æö%6†ÓÓÒs3“vf#6Ssf3fSFc6SC#F3F&cƒCS–fcC†CsF3RrÂt6†$–ÖvT–æfò6÷W&6RÆö6F÷"G&–gBr“°¦6†V6²‡÷'G&—G2ç6÷W&6U&V6÷&G2æ6†$–ÖvT–æfòç6÷W&6U6†#SbÓÓÒs6C&fs&c†SCc#f&3Vs#6#†&VFSfV#c“3#s&33“#&cC#3FV3#&#ƒSƒ&rÂt6†$–ÖvT–æfò6÷W&6R†6‚G&–gBr“°¦6†V6²‡÷'G&—G2æW‡G&7F–öâç&ö6VGW&Rç67&—Dv—D&Æö%6†ÓÓÒv6&S“†S–FF6f3“VS##ƒv33†fcSfSsf#ƒcS‚rÂvW‡G&7F–öâ&ö6VGW&RÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6RæW‡G&7F–öâç67&—Bæv—D&Æö%6†ÓÓÒ÷'G&—G2æW‡G&7F–öâç&ö6VGW&Rç67&—Dv—D&Æö%6†Âw7W'f—f–ærW‡G&7F–öâ&ö6VGW&RÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6RæW‡G&7F–öâæ6Æ–VçD'V–ÆBæ–ç7FÆÅfW'6–öâÓÓÒ÷'G&—G2æW‡G&7F–öâæ6Æ–VçD'V–ÆBæ–ç7FÆÅfW'6–öâÂw7W'f—f–ær6Æ–VçBÖ'V–ÆBÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6RæW‡G&7F–öâæ6Æ–VçD'V–ÆBç6¶vT'—FW2ÓÓÒ÷'G&—G2æW‡G&7F–öâæ6Æ–VçD'V–ÆBç6¶vT'—FW2Âw7W'f—f–ær6Æ–VçB×6¶vR6—¦RÆö6F÷"G&–gBr“°¦6†V6²‡&–÷%÷'G&—DWf–FVæ6Rç&V6÷&G2æÆVï<ç[h‘éì¶»§q«^uÌ¹±•¹Ñ €ôôô€Ø°€!•É¼€ÄÐµÕÍÐÁÉ•Í•ÉÙ”…±°Í¥à½É‘¥¹…Éä)½ˆ½¹¹•Ñ¥½¹Ìœ¤ì)½¹ÍÐ¡•É¼ÄÑ)½‰%¹™½I½ÝÌ€ô…Ý…¥ÐÉ•…‘)Í½¸ •Ù¥‘•¹”½Í½ÕÉ”½½¹™¥‘…Ñ„½½¹™¥…Ñ…)½‰%¹™¼¹É•½É‘ÌµÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´ÄÐ¹ØÄ¹©Í½¸œ¤ì)¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÑ)½‰%¹™½I½ÝÌ¹µ…À ¡É½Ü¤€ôøÉ½Ü¹%¤¤€ôôô€lÐÀÄ°ÐÀÌ°ÐÀÐ°ÐÀÔ°ÄÄÀÌ°ÄÄÀÕtœ°€!•É¼€ÄÐÁÉ•Í•ÉÙ•)½‰%¹™¼%Í•Ð‘É¥™Ðœ¤ì)¡•¬¡¡•É¼ÄÑ)½‰%¹™½I½ÝÌ¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€ÐÀÐ¤ü¹9…µ”€ôôô€Ÿ–r–’§¦¦³–Â–lœ°€!•É¼€ÄÐ)½ˆ€ÐÀÐÁ¥¹¹•Í½ÕÉ”±…‰•°‘É¥™Ðœ¤ì)½¹ÍÐ¡•É¼ÄÅA…­•Ð€ô…Ý…¥ÐÉ•…‘)Í½¸ •Ù¥‘•¹”½Í½ÕÉ”½©½‰Ì½¡•É¼µ©½ˆµ½¹¹•Ñ¥½¸µÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´ÄÄ¹ØÄ¹©Í½¸œ¤ì)½¹ÍÐ¡•É¼ÝA…­•Ð€ô…Ý…¥ÐÉ•…‘)Í½¸ •Ù¥‘•¹”½Í½ÕÉ”½©½‰Ì½¡•É¼µ©½ˆµ½¹¹•Ñ¥½¸µÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´Ü¹ØÄ¹©Í½¸œ¤ì)¡•¬¡¡•É¼ÄÅA…­•Ð¹Í½ÕÉ”ü¹É•Á½Í¥Ñ½Éä€ôôô€1Õ•…Ñ1ÕáY•ÍÑÉ„ÐÈ½±…¹É¥ÍÍ•Èµ™ÕÑÕÉ”µÕ¥‘”œ(€€˜˜¡•É¼ÄÅA…­•Ð¹Í½ÕÉ”ü¹½µµ¥Ð€ôôô€œØÐÜÕ”ØÍ•”ÈÍÄá…‘˜ÜÌÌÜÔÙŒÈÙ„ÄÑ™„å”Í•ØØÉŒœ(€€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÅA…­•Ð¹Í•±•Ñ¥½¸ü¹¡•É½%‘Ì¤€ôôô€lÄÅtœ(€€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÅA…­•Ð¹Í•±•Ñ¥½¸ü¹½¹¹•Ñ¥½¹%‘Ì¤€ôôô€lÄÄÀ°ÄÄÄ°ÄÄÈ°ÄÄÌ°ÄÄÐ°ÄÄÕtœ(€€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÅA…­•Ð¹Í•±•Ñ¥½¸ü¹©½‰%‘Ì¤€ôôô€lØÀÄ°ÄÀÈ°ØÀÈ°ÐÀÐ°ØÀÐ°ÐÀÙtœ(€€˜˜¡•É¼ÄÅA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹¡•É½¥•±‘Q½½¹¹•Ñ¥½¹%€ôôô€œ(€€˜˜¡•É¼ÄÅA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹½¹¹•Ñ¥½¹)½‰%‘Q½)½‰%¹™½%€ôôô€œ(€€˜˜¡•É¼ÄÅA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹Í•±•Ñ•‘I•½É‘Íá¥ÍÐ€ôôô€œ(€€˜˜¡•É¼ÄÅA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹©½‰%¹™½9…µ•Y…±Õ”€ôôô€œ(€€˜˜¡•É¼ÄÅA…­•Ð¹‘¥É•Ñ%¹ÍÁ•Ñ¥½¸ü¹É…ÝI•½É‘¥É•Ñ±å%¹ÍÁ•Ñ•€ôôôÑÉÕ”(€€˜˜¡•É¼ÄÅA…­•Ð¹‘¥É•Ñ%¹ÍÁ•Ñ¥½¸ü¹¥¹ÍÁ•Ñ¥½¹½µµ¥Ð€ôôô¡•É¼ÄÅA…­•Ð¹Í½ÕÉ”¹½µµ¥Ð(€€˜˜¡•É¼ÄÅA…­•Ð¹…¹½¹¥…°€ôôô™…±Í”€˜˜¡•É¼ÄÅA…­•Ð¹•¹•É…Ñ•€ôôô™…±Í”(€€˜˜¡•É¼ÄÅA…­•Ð¹ÁÉ½‘ÕÑ¥½¹IÕ¹Ñ¥µ••Á•¹‘•¹ä€ôôô™…±Í”°€!•É¼€ÄÄM½ÕÉ”Á…­•ÐÁ¥¸½Í½Á”½±…ÍÌ‘É¥™Ðœ¤ì)½¹ÍÐ¡•É¼ÄÅM½ÕÉ”€ô¡•É¼ÄÅA…­•Ð¹¥¹ÍÁ•Ñ•‘M½ÕÉ•I½ÝÌ¹¡•É½%¹™¼¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€ÄÄ¤ì)½¹ÍÐ¡•É¼ÄÅ…¹½¹¥…°€ô…¹½¹¥…°¹É•½É‘Ì¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹¥€ôôô€ÄÄ¤ì)½¹ÍÐ¡•É¼ÄÅA½ÉÑÉ…¥Ð€ô…±±A½ÉÑÉ…¥ÑM•±•Ñ¥½¸¹É•½É‘Ì¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹¡•É½%€ôôô€ÄÄ¤ì)¡•¬¡¡•É¼ÄÅM½ÕÉ”ü¹9…µ”€ôôô€Ÿ–¢s–žœ€˜˜¡•É¼ÄÅM½ÕÉ”ü¹9…µ•}¹œ€ôôô€9ÕÉ´œ€˜˜¡•É¼ÄÅM½ÕÉ”ü¹UÍ•…‰±”€ôôôÑÉÕ”(€€˜˜¡•É¼ÄÅ…¹½¹¥…°ü¹¹…µ•¹œ€ôôô€9ÕÉ´œ(€€˜˜¡•É¼ÄÅ…¹½¹¥…°¹ÁÉ½Ù•¹…¹”¹¥‘•¹Ñ¥Ñä€ôôô€•Ù¥‘•¹”½Í½ÕÉ”½½¹™¥‘…Ñ„½½¹™¥…Ñ…!•É½%¹™¼¹É•½É‘ÌµÁ±…å…‰±”µ¥‘•¹Ñ¥Ñä¹ØÄ¹©Í½¸%ôÄÄœ(€€˜˜¡•É¼ÄÅ…¹½¹¥…°¹ÁÉ½Ù•¹…¹”¹¹…µ•¹œ€ôôô€•Ù¥‘•¹”½Í½ÕÉ”½©½‰Ì½¡•É¼µ©½ˆµ½¹¹•Ñ¥½¸µÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´ÄÄ¹ØÄ¹©Í½¸¥¹ÍÁ•Ñ•‘M½ÕÉ•I½ÝÌ¹¡•É½%¹™½m%ôÄÅt½9…µ•}¹œœ(€€˜˜¡•É¼ÄÅA½ÉÑÉ…¥Ð€˜˜¡•É¼ÄÅ…¹½¹¥…°¹Á½ÉÑÉ…¥Ð€ôôô€…ÍÍ•ÑÌ½Á½ÉÑÉ…¥ÑÌ½¡•É¼´ÄÄ¹Á¹œœ°€!•É¼€ÄÄ¥‘•¹Ñ¥Ñä½¹…µ”½Á½ÉÑÉ…¥Ðµ¥Íµ…Ñ œ¤ì)½¹ÍÐ¡•É¼ÄÅI•™Ì€ômí½¹¹•Ñ¥½¹%é¡•É¼ÄÅM½ÕÉ”¹)½‰½¹¹•Ñ¥½¹}%±Í½ÕÉ•¥•±è)½‰½¹¹•Ñ¥½¹}%ô°¸¸¹¡•É¼ÄÅM½ÕÉ”¹UÍ•…‰±•)½‰½¹¹•Ñ¥½¹Í}%¹µ…À ¡½¹¹•Ñ¥½¹%¤ôø¡í½¹¹•Ñ¥½¹%±Í½ÕÉ•¥•±èUÍ•…‰±•)½‰½¹¹•Ñ¥½¹Í}%ô¤¥t(€€¹µ…À ¡É½Ü¤ôø¡í½¹¹•Ñ¥½¹%éÉ½Ü¹½¹¹•Ñ¥½¹%±©½‰%é¡•É¼ÄÅA…­•Ð¹¥¹ÍÁ•Ñ•‘M½ÕÉ•I½ÝÌ¹©½‰½¹¹•Ñ¥½¹%¹™¼¹™¥¹ ¡¥Ñ•´¤ôù¥Ñ•´¹%ôôõÉ½Ü¹½¹¹•Ñ¥½¹%¤ü¹)½‰}%±Í½ÕÉ•¥•±éÉ½Ü¹Í½ÕÉ•¥•±‘ô¤¤ì)¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÅ…¹½¹¥…°¹©½‰½¹¹•Ñ¥½¹Ì¤€ôôô)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÅI•™Ì¤(€€˜˜¡•É¼ÄÅ…¹½¹¥…°¹ÁÉ½Ù•¹…¹”¹©½‰½¹¹•Ñ¥½¹Ì€ôôô€•Ù¥‘•¹”½Í½ÕÉ”½©½‰Ì½¡•É¼µ©½ˆµ½¹¹•Ñ¥½¸µÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´ÄÄ¹ØÄ¹©Í½¸¡•É½%ôÄÄœ°€!•É¼€ÄÄ•á…ÐM½ÕÉ”½¹¹•Ñ¥½¹Ìµ¥Íµ…Ñ œ¤ì)™½È€¡½¹ÍÐÉ½Ü½˜¡•É¼ÄÅI•™Ì¤¡•¬¡¡•É¼ÄÅA…­•Ð¹É•½É‘Ì¹Í½µ” ¡•Ø¤ôù•Ø¹¡•É½%ôôôÄÄ˜™•Ø¹½¹¹•Ñ¥½¹%ôôõÉ½Ü¹½¹¹•Ñ¥½¹%˜™•Ø¹©½‰%ôôõÉ½Ü¹©½‰%˜™•Ø¹Í½ÕÉ•¥•±ôôõÉ½Ü¹Í½ÕÉ•¥•±¤°(€!•É¼€ÄÄ•áÁ±¥¥ÐM½ÕÉ”©½¥¸•Ù¥‘•¹”µ¥ÍÍ¥¹œ…Ð€‘íÉ½Ü¹½¹¹•Ñ¥½¹%‘õ€¤ì)¡•¬¡¡•É¼ÄÅI•™Ì¹±•¹Ñ €ôôô€Ø°€!•É¼€ÄÄµÕÍÐÁÉ•Í•ÉÙ”…±°Í¥à½É‘¥¹…Éä)½ˆ½¹¹•Ñ¥½¹Ìœ¤ì)½¹ÍÐ¡•É¼ÄÅ)½‰%¹™½I½ÝÌ€ô…Ý…¥ÐÉ•…‘)Í½¸ •Ù¥‘•¹”½Í½ÕÉ”½½¹™¥‘…Ñ„½½¹™¥…Ñ…)½‰%¹™¼¹É•½É‘ÌµÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´ÄÄ¹ØÄ¹©Í½¸œ¤ì)¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÄÅ)½‰%¹™½I½ÝÌ¹µ…À ¡É½Ü¤€ôøÉ½Ü¹%¤¤€ôôô€lÄÀÈ°ÐÀÐ°ÐÀØ°ØÀÄ°ØÀÈ°ØÀÑtœ°€!•É¼€ÄÄÁÉ•Í•ÉÙ•)½‰%¹™¼%Í•Ð‘É¥™Ðœ¤ì)¡•¬¡¡•É¼ÄÅ)½‰%¹™½I½ÝÌ¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€ØÀÄ¤ü¹9…µ”€ôôô€Ÿ–Âš&,œ€˜˜¡•É¼ÄÅ)½‰%¹™½I½ÝÌ¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€ÐÀØ¤ü¹9…µ”€ôôô€Ÿ–r–’§¦¦³žî–âœ°€!•É¼€ÄÄÁ¥¹¹•)½‰%¹™¼¹…µ•Ì‘É¥™Ðœ¤ì)½¹ÍÐ¡•É¼ÝM½ÕÉ”€ô¡•É¼ÝA…­•Ð¹¥¹ÍÁ•Ñ•‘M½ÕÉ•I½ÝÌ¹¡•É½%¹™¼¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€Ü¤ì)½¹ÍÐ¡•É¼Ý…¹½¹¥…°€ô…¹½¹¥…°¹É•½É‘Ì¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹¥€ôôô€Ü¤ì)¡•¬¡¡•É¼ÝA…­•Ð¹Í½ÕÉ”ü¹É•Á½Í¥Ñ½Éä€ôôô€1Õ•…Ñ1ÕáY•ÍÑÉ„ÐÈ½±…¹É¥ÍÍ•Èµ™ÕÑÕÉ”µÕ¥‘”œ(€€˜˜¡•É¼ÝA…­•Ð¹Í½ÕÉ”ü¹½µµ¥Ð€ôôô€œØÐÜÕ”ØÍ•”ÈÍÄá…‘˜ÜÌÌÜÔÙŒÈÙ„ÄÑ™„å”Í•ØØÉŒœ(€€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÝA…­•Ð¹Í•±•Ñ¥½¸ü¹¡•É½%‘Ì¤€ôôô€lÝtœ(€€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÝA…­•Ð¹Í•±•Ñ¥½¸ü¹½¹¹•Ñ¥½¹%‘Ì¤€ôôô€lÜÀ°ÜÄ°ÜÈ°ÜÌ°ÜÐ°ÜÕtœ(€€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÝA…­•Ð¹Í•±•Ñ¥½¸ü¹©½‰%‘Ì¤€ôôô€lÈÀÄ°ÈÀÈ°ÈÀÌ°ÄÀÈ°ÈÀÔ°ÈÀátœ(€€˜˜¡•É¼ÝA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹¡•É½¥•±‘Q½½¹¹•Ñ¥½¹%€ôôô€œ€˜˜¡•É¼ÝA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹½¹¹•Ñ¥½¹)½‰%‘Q½)½‰%¹™½%€ôôô€œ(€€˜˜¡•É¼ÝA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹Í•±•Ñ•‘I•½É‘Íá¥ÍÐ€ôôô€œ€˜˜¡•É¼ÝA…­•Ð¹±…¥µ±…ÍÍ•Ìü¹©½‰%¹™½9…µ•Y…±Õ”€ôôô€œ(€€˜˜¡•É¼ÝA…­•Ð¹‘¥É•Ñ%¹ÍÁ•Ñ¥½¸ü¹É…ÝI•½É‘¥É•Ñ±å%¹ÍÁ•Ñ•€ôôôÑÉÕ”(€€˜˜¡•É¼ÝA…­•Ð¹‘¥É•Ñ%¹ÍÁ•Ñ¥½¸ü¹¥¹ÍÁ•Ñ¥½¹½µµ¥Ð€ôôô¡•É¼ÝA…­•Ð¹Í½ÕÉ”¹½µµ¥Ð(€€˜˜¡•É¼ÝA…­•Ð¹…¹½¹¥…°€ôôô™…±Í”€˜˜¡•É¼ÝA…­•Ð¹•¹•É…Ñ•€ôôô™…±Í”€˜˜¡•É¼ÝA…­•Ð¹ÁÉ½‘ÕÑ¥½¹IÕ¹Ñ¥µ••Á•¹‘•¹ä€ôôô™…±Í”°(!•É¼€ÜM½ÕÉ”Á…­•ÐÁ¥¸½Í½Á”½±…ÍÌ‘É¥™Ðœ¤ì)½¹ÍÐ¡•É¼ÝI•™Ì€ômí½¹¹•Ñ¥½¹%é¡•É¼ÝM½ÕÉ”¹)½‰½¹¹•Ñ¥½¹}%±Í½ÕÉ•¥•±è)½‰½¹¹•Ñ¥½¹}%ô°¸¸¹¡•É¼ÝM½ÕÉ”¹UÍ•…‰±•)½‰½¹¹•Ñ¥½¹Í}%¹µ…À ¡½¹¹•Ñ¥½¹%¤ôø¡í½¹¹•Ñ¥½¹%±Í½ÕÉ•¥•±èUÍ•…‰±•)½‰½¹¹•Ñ¥½¹Í}%ô¤¥t(€€¹µ…À ¡É½Ü¤ôø¡í½¹¹•Ñ¥½¹%éÉ½Ü¹½¹¹•Ñ¥½¹%±©½‰%é¡•É¼ÝA…­•Ð¹¥¹ÍÁ•Ñ•‘M½ÕÉ•I½ÝÌ¹©½‰½¹¹•Ñ¥½¹%¹™¼¹™¥¹ ¡¥Ñ•´¤ôù¥Ñ•´¹%ôôõÉ½Ü¹½¹¹•Ñ¥½¹%¤ü¹)½‰}%±Í½ÕÉ•¥•±éÉ½Ü¹Í½ÕÉ•¥•±‘ô¤¤ì)¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼Ý…¹½¹¥…°¹©½‰½¹¹•Ñ¥½¹Ì¤€ôôô)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼ÝI•™Ì¤(€€˜˜¡•É¼Ý…¹½¹¥…°¹ÁÉ½Ù•¹…¹”¹©½‰½¹¹•Ñ¥½¹Ì€ôôô€•Ù¥‘•¹”½Í½ÕÉ”½©½‰Ì½¡•É¼µ©½ˆµ½¹¹•Ñ¥½¸µÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´Ü¹ØÄ¹©Í½¸¡•É½%ôÜœ(€€˜˜¡•É¼ÝI•™Ì¹±•¹Ñ €ôôô€Ø°€!•É¼€Ü•á…ÐM½ÕÉ”½¹¹•Ñ¥½¹Ìµ¥Íµ…Ñ œ¤ì)™½È€¡½¹ÍÐÉ½Ü½˜¡•É¼ÝI•™Ì¤¡•¬¡¡•É¼ÝA…­•Ð¹É•½É‘Ì¹Í½µ” ¡•Ø¤ôù•Ø¹¡•É½%ôôôÜ˜™•Ø¹½¹¹•Ñ¥½¹%ôôõÉ½Ü¹½¹¹•Ñ¥½¹%˜™•Ø¹©½‰%ôôõÉ½Ü¹©½‰%˜™•Ø¹Í½ÕÉ•¥•±ôôõÉ½Ü¹Í½ÕÉ•¥•±¤°(€!•É¼€Ü•áÁ±¥¥ÐM½ÕÉ”©½¥¸•Ù¥‘•¹”µ¥ÍÍ¥¹œ…Ð€‘íÉ½Ü¹½¹¹•Ñ¥½¹%‘õ€¤ì)½¹ÍÐ¡•É¼Ý)½‰%¹™½I½ÝÌ€ô…Ý…¥ÐÉ•…‘)Í½¸ •Ù¥‘•¹”½Í½ÕÉ”½½¹™¥‘…Ñ„½½¹™¥…Ñ…)½‰%¹™¼¹É•½É‘ÌµÁÉ•Í•¹Ñ…Ñ¥½¸µ¡•É¼´Ü¹ØÄ¹©Í½¸œ¤ì)¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼Ý)½‰%¹™½I½ÝÌ¹µ…À ¡É½Ü¤€ôøÉ½Ü¹%¤¤€ôôô€lÄÀÈ°ÈÀÄ°ÈÀÈ°ÈÀÌ°ÈÀÔ°ÈÀátœ(€€˜˜¡•É¼Ý)½‰%¹™½I½ÝÌ¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€ÈÀÔ¤ü¹9…µ”€ôôô€Ÿžj–âtœ(€€˜˜¡•É¼Ý)½‰%¹™½I½ÝÌ¹™¥¹ ¡É½Ü¤€ôøÉ½Ü¹%€ôôô€ÈÀà¤ü¹9…µ”€ôôô€Ÿ–.¢œ°€!•É¼€ÜÁ¥¹¹•)½‰%¹™¼%½¹…µ”Í•Ð‘É¥™Ðœ¤ì)¡•¬¡Ñ…±•¹ÑI•±…Ñ¥½¹Ì¹É•½É‘Ì¹•Ù•Éä ¡É½Ü¤€ôølØ°át¹¥¹±Õ‘•Ì¡É½Ü¹¡•É½%¤¤°€Q…±•¹Ð½Ý¹•ÈÍ½Á”•áÁ…¹‘•‰•å½¹!•É½•Ì€Ø…¹€àœ¤ì()½¹ÍÐ•áÁ•Ñ•‘•¹•É…Ñ•€ôÉ•¹‘•É•¹•É…Ñ•¡…¹½¹¥…°°¡•É½%‘•¹Ñ¥Ñ¥•Ì°¡•É½1½…±¥é…Ñ¥½¸°©½‰1½…±¥é…Ñ¥½¸°•á±ÕÍ¥Ù•I•±…Ñ¥½¹Ì°•á±ÕÍ¥Ù•1½…±¥é…Ñ¥½¹Ì°¡•É½I…É¥Ñ¥•Ì°™…Ñ¥½¹%‘•¹Ñ¥Ñ¥•Ì°¡•É½…Ñ¥½¹I•±…Ñ¥½¹Ì°ÁÉ½‘ÕÑ¥½¹%‘•¹Ñ¥Ñ¥•Ì°¡•É½AÉ½‘ÕÑ¥½¹I•±…Ñ¥½¹Ì°Ñ…±•¹ÑI•±…Ñ¥½¹Ì°Ñ…±•¹Ñ1½…±¥é…Ñ¥½¹Ì°™…Ñ¥½¹1½…±¥é…Ñ¥½¹Ì°ÁÉ½‘ÕÑ¥½¹1½…±¥é…Ñ¥½¹Ì°É•±…Ñ¥½¹=Ý¹•È°ÍÁ)½‰%‘•¹Ñ¥Ñ¥•Ì¤ì)½¹ÍÐ•¹•É…Ñ•€ô…Ý…¥ÐÉ•…‘¥±”¡É•Í½±Ù”¡É½½Ð°€•¹•É…Ñ•½¡•É¼µÍ±¥”¹ØÄ¹©Í½¸œ¤°€ÕÑ˜àœ¤ì)¡•¬¡•¹•É…Ñ•€ôôô•áÁ•Ñ•‘•¹•É…Ñ•°€•¹•É…Ñ•½¹ÍÕµ•È¥ÌÍÑ…±”½È¹½¸µ‘•Ñ•Éµ¥¹¥ÍÑ¥ŒÉ•±…Ñ¥Ù”Ñ¼…¹½¹¥…°¥¹ÁÕÐœ¤ì)½¹ÍÐ•¹•É…Ñ•‘)Í½¸€ô)M=8¹Á…ÉÍ”¡•¹•É…Ñ•¤ì)•á…Ñ-•åÌ¡•¹•É…Ñ•‘)Í½¸°lÍ¡•µ…Y•ÉÍ¥½¸œ°€¡•É½•Ìt°€•¹•É…Ñ•½¹ÍÕµ•Èœ¤ì)¡•¬¡•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¹•Ù•Éä ¡¡•É¼¤€ôøì(€½¹ÍÐ•áÁ•Ñ•‘-•åÌ€ôl•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ðœ°€™…Ñ¥½¹Ìœ°€¥œ°€©½‰½¹¹•Ñ¥½¹Ìœ°€¹…µ•¹œœ°€¹…µ•-¼œ°€½É¥¥¹Ìœ°€Á½ÉÑÉ…¥Ðœ°€É…É¥Ñäœ°€ÍÁ)½‰½¹¹•Ñ¥½¹Ìtì(€¥˜€¡Ñ…±•¹ÑI•±…Ñ¥½¹Ì¹É•½É‘Ì¹Í½µ” ¡É½Ü¤€ôøÉ½Ü¹¡•É½%€ôôô¡•É¼¹¥¤¤•áÁ•Ñ•‘-•åÌ¹ÁÕÍ  Ñ…±•¹Ðœ¤ì(€É•ÑÕÉ¸)M=8¹ÍÑÉ¥¹¥™ä¡=‰©•Ð¹­•åÌ¡¡•É¼¤¹Í½ÉÐ ¤¤€ôôô)M=8¹ÍÑÉ¥¹¥™ä¡•áÁ•Ñ•‘-•åÌ¹Í½ÉÐ ¤¤ì)ô¤°€•¹•É…Ñ•½¹ÍÕµ•È½¹Ñ…¥¹Ì¹½¸µÁÉ•Í•¹Ñ…Ñ¥½¸™¥•±‘Ìœ¤ì)½¹ÍÐ•áÁ•Ñ•‘MÁ)½‰Í	å!•É½%€ô¹•Ü5…À¡l(€lÄ°mì©½‰%è€ÈØÈ°¹…µ•-¼è€ŸªÎƒ®>¶VpƒªÊªÂtœ°±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œõut°(€lÌ°mì©½‰%è€ØÌÌ°¹…µ•-¼è€Ÿ®ÂS®z3²v`ƒªâÃ²
+°œ°±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œõut°(€lÄÀ°mì©½‰%è€àÜà°¹…µ•-¼è€Ÿ²ƒ¶w®Âo²v ƒ²fTœ°±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œõut°(€lÈÔ°mì©½‰%è€ÐÄÐ°¹…µ•-¼è€Ÿ²ÊsªÎ×²v`ƒ®ž#®Ž„œ°±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œõut°(€lØ°mì©½‰%è€ÌÜÜ°¹…µ•-¼è€Ÿ²ZÓ®Fƒ²v`ƒ²Ê·®Ž„œ°±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œõut°(€là°mì©½‰%è€àØÐ°¹…µ•-¼è€Ÿ®.£²Ž²v`ƒ²Ç® œ°±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œõut°)t¤ì)™½È€¡½¹ÍÐ¡•É¼½˜•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¤ì(€¡•¬¡ÉÉ…ä¹¥ÍÉÉ…ä¡¡•É¼¹ÍÁ)½‰½¹¹•Ñ¥½¹Ì¤°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•M@)½ˆ±¥ÍÐ¥Ìµ¥ÍÍ¥¹€¤ì(€½¹ÍÐ•áÁ•Ñ•‘MÁ)½‰Ì€ô•áÁ•Ñ•‘MÁ)½‰Í	å!•É½%¹•Ð¡¡•É¼¹¥¤€üümtì(€¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼¹ÍÁ)½‰½¹¹•Ñ¥½¹Ì¤€ôôô)M=8¹ÍÑÉ¥¹¥™ä¡•áÁ•Ñ•‘MÁ)½‰Ì¤°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•M@)½ˆÁÉ•Í•¹Ñ…Ñ¥½¸Í½Á”½ÈÙ…±Õ•Ì‘É¥™Ñ€¤ì(€¡•¬ …¡•É¼¹©½‰½¹¹•Ñ¥½¹Ì¹Í½µ” ¡½¹¹•Ñ¥½¸¤€ôølÌÜÜ°€àØÑt¹¥¹±Õ‘•Ì¡½¹¹•Ñ¥½¸¹©½‰%¤¤°M@)½ˆÝ…Ì‘ÕÁ±¥…Ñ•¥¹Ñ¼!•É¼€‘í¡•É¼¹¥‘ô½É‘¥¹…Éä)½ˆ½¹¹•Ñ¥½¹Í€¤ì(€½¹ÍÐ•áÁ•Ñ•‘±…ÍÍ¥™¥•‘½¹¹•Ñ¥½¹Ì€ô¡•É¼¹¥€ôôô€ÔÌ€ümì(€€€½¹¹•Ñ¥½¹%è€ÔÌØ°(€€€©½‰%è€ÐÈØ°(€€€Í½ÕÉ•¥•±è€)½‰½¹¹•Ñ¥½¹}%œ°(€€€©½‰9…µ•-¼è€Ÿ®æo®
+c®*Pƒ²ž®z×ªÂ œ°(€€€±…ÍÍ¥™¥…Ñ¥½¸è€M@)½ˆœ°(€€€±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸è€AI=)Q}IY%]}1=1%iQ%=8œ°(€€€½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌè€U9YI%%œ°(€õt€èmtì(€½¹ÍÐ…ÑÕ…±±…ÍÍ¥™¥•‘½¹¹•Ñ¥½¹Ì€ô¡•É¼¹©½‰½¹¹•Ñ¥½¹Ì¹™¥±Ñ•È ¡½¹¹•Ñ¥½¸¤€ôø½¹¹•Ñ¥½¸¹±…ÍÍ¥™¥…Ñ¥½¸€„ôôÕ¹‘•™¥¹•¤ì(€¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡…ÑÕ…±±…ÍÍ¥™¥•‘½¹¹•Ñ¥½¹Ì¤€ôôô)M=8¹ÍÑÉ¥¹¥™ä¡•áÁ•Ñ•‘±…ÍÍ¥™¥•‘½¹¹•Ñ¥½¹Ì¤°(€€€!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•M@±…ÍÍ¥™¥…Ñ¥½¸Í½Á”½ÈÙ…±Õ•Ì‘É¥™Ñ€¤ì(€™½È€¡½¹ÍÐ½¹¹•Ñ¥½¸½˜¡•É¼¹©½‰½¹¹•Ñ¥½¹Ì¤ì(€€€½¹ÍÐ¥ÍMÁ±…ÍÍ¥™¥•€ô½¹¹•Ñ¥½¸¹±…ÍÍ¥™¥…Ñ¥½¸€„ôôÕ¹‘•™¥¹•ì(€€€•á…Ñ-•åÌ¡½¹¹•Ñ¥½¸°¥ÍMÁ±…ÍÍ¥™¥•(€€€€€€ül½¹¹•Ñ¥½¹%œ°€©½‰%œ°€Í½ÕÉ•¥•±œ°€©½‰9…µ•-¼œ°€±…ÍÍ¥™¥…Ñ¥½¸œ°€±½…±¥é…Ñ¥½¹±…ÍÍ¥™¥…Ñ¥½¸œ°€½™™¥¥…±-ÉAÉ½Ù•¹…¹•MÑ…ÑÕÌt(€€€€€€èl½¹¹•Ñ¥½¹%œ°€©½‰%œ°€Í½ÕÉ•¥•±œ°€©½‰9…µ•-¼t°(€€€!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•)½ˆ½¹¹•Ñ¥½¸€‘í½¹¹•Ñ¥½¸¹©½‰%‘õ€¤ì(€ô)ô)™½È€¡½¹ÍÐ¡•É¼½˜•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¤ì(€¥˜€¡¡•É¼¹Ñ…±•¹Ð€„ôôÕ¹‘•™¥¹•¤ì(€€€•á…Ñ-•åÌ¡¡•É¼¹Ñ…±•¹Ð°l¹…µ•-¼œ°€ÍÑ…É•ÍÉ¥ÁÑ¥½¹Ìt°!•É¼€‘í¡•É¼¹¥‘ôQ…±•¹Ñ€¤ì(€€€¡•¬¡ÑåÁ•½˜¡•É¼¹Ñ…±•¹Ð¹¹…µ•-¼€ôôô€ÍÑÉ¥¹œœ€˜˜¡•É¼¹Ñ…±•¹Ð¹¹…µ•-¼¹ÑÉ¥´ ¤€˜˜ÉÉ…ä¹¥ÍÉÉ…ä¡¡•É¼¹Ñ…±•¹Ð¹ÍÑ…É•ÍÉ¥ÁÑ¥½¹Ì¤°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•Q…±•¹Ð¥Ìµ…±™½Éµ•‘€¤ì(€€€¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼¹Ñ…±•¹Ð¹ÍÑ…É•ÍÉ¥ÁÑ¥½¹Ì¹µ…À ¡É½Ü¤€ôøÉ½Ü¹ÍÑ…È¤¤€ôôô€lÌ°Ð°Ô°Ùtœ°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•Q…±•¹ÐÍÑ…È±¥ÍÐ¥Ì¥¹½µÁ±•Ñ•€¤ì(€€€™½È€¡½¹ÍÐÉ½Ü½˜¡•É¼¹Ñ…±•¹Ð¹ÍÑ…É•ÍÉ¥ÁÑ¥½¹Ì¤ì(€€€€€•á…Ñ-•åÌ¡É½Ü°lÍÑ…Èœ°€Í­¥±±%œ°€‘•ÍÉ¥ÁÑ¥½¹-½I…Üt°!•É¼€‘í¡•É¼¹¥‘ôQ…±•¹ÐÍÑ…È€‘íÉ½Ü¹ÍÑ…Éõ€¤ì(€€€€€¡•¬¡9Õµ‰•È¹¥ÍM…™•%¹Ñ••È¡É½Ü¹ÍÑ…È¤€˜˜9Õµ‰•È¹¥ÍM…™•%¹Ñ••È¡É½Ü¹Í­¥±±%¤€˜˜ÑåÁ•½˜É½Ü¹‘•ÍÉ¥ÁÑ¥½¹-½I…Ü€ôôô€ÍÑÉ¥¹œœ€˜˜É½Ü¹‘•ÍÉ¥ÁÑ¥½¹-½I…Ü¹ÑÉ¥´ ¤°!•É¼€‘í¡•É¼¹¥‘ôQ…±•¹ÐÍÑ…È‘•ÍÉ¥ÁÑ¥½¸¥Ìµ…±™½Éµ•‘€¤ì(€€€ô(€ô(€¡•¬¡ÉÉ…ä¹¥ÍÉÉ…ä¡¡•É¼¹™…Ñ¥½¹Ì¤€˜˜¡•É¼¹™…Ñ¥½¹Ì¹±•¹Ñ €ø€À°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•…Ñ¥½¸±¥ÍÐ¥Ìµ¥ÍÍ¥¹€¤ì(€™½È€¡½¹ÍÐ™…Ñ¥½¸½˜¡•É¼¹™…Ñ¥½¹Ì¤ì(€€€½¹ÍÐ±½…±¥é•€ô™…Ñ¥½¸¹±½…±¥é…Ñ¥½¹MÑ…ÑÕÌ€ôôô€AI=)Q}IY%]œì(€€€•á…Ñ-•åÌ¡™…Ñ¥½¸°±½…±¥é•€ül™…Ñ¥½¹%œ°€¹…µ•¸œ°€¹…µ•-¼œ°€±½…±¥é…Ñ¥½¹MÑ…ÑÕÌt€èl™…Ñ¥½¹%œ°€¹…µ•¸œ°€±½…±¥é…Ñ¥½¹MÑ…ÑÕÌt°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•…Ñ¥½¹€¤ì(€€€¡•¬¡9Õµ‰•È¹¥ÍM…™•%¹Ñ••È¡™…Ñ¥½¸¹™…Ñ¥½¹%¤€˜˜ÑåÁ•½˜™…Ñ¥½¸¹¹…µ•¸€ôôô€ÍÑÉ¥¹œœ€˜˜™…Ñ¥½¸¹¹…µ•¸¹ÑÉ¥´ ¤°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•…Ñ¥½¸¥Ìµ…±™½Éµ•‘€¤ì(€€€¡•¬¡±½…±¥é•€üÑåÁ•½˜™…Ñ¥½¸¹¹…µ•-¼€ôôô€ÍÑÉ¥¹œœ€˜˜™…Ñ¥½¸¹¹…µ•-¼¹ÑÉ¥´ ¤€è™…Ñ¥½¸¹±½…±¥é…Ñ¥½¹MÑ…ÑÕÌ€ôôô€U9QI9M1Qœ°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•…Ñ¥½¸±½…±¥é…Ñ¥½¸ÍÑ…Ñ”¥Ìµ…±™½Éµ•‘€¤ì(€ô(€¡•¬¡ÉÉ…ä¹¥ÍÉÉ…ä¡¡•É¼¹½É¥¥¹Ì¤€˜˜¡•É¼¹½É¥¥¹Ì¹±•¹Ñ €ø€À°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•AÉ½‘ÕÑ¥½¸±¥ÍÐ¥Ìµ¥ÍÍ¥¹€¤ì(€½¹ÍÐ½É¥¥¹%‘Ì€ô¹•ÜM•Ð ¤ì(€™½È€¡½¹ÍÐ½É¥¥¸½˜¡•É¼¹½É¥¥¹Ì¤ì(€€€•á…Ñ-•åÌ¡½É¥¥¸°lÁÉ½‘ÕÑ¥½¹%œ°€¹…µ•¸œ°€¹…µ•-¼œ°€±½…±¥é…Ñ¥½¹MÑ…ÑÕÌt°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•AÉ½‘ÕÑ¥½¹€¤ì(€€€¡•¬¡9Õµ‰•È¹¥ÍM…™•%¹Ñ••È¡½É¥¥¸¹ÁÉ½‘ÕÑ¥½¹%¤€˜˜ÑåÁ•½˜½É¥¥¸¹¹…µ•¸€ôôô€ÍÑÉ¥¹œœ€˜˜½É¥¥¸¹¹…µ•¸¹ÑÉ¥´ ¤(€€€€€€˜˜ÑåÁ•½˜½É¥¥¸¹¹…µ•-¼€ôôô€ÍÑÉ¥¹œœ€˜˜½É¥¥¸¹¹…µ•-¼¹ÑÉ¥´ ¤€˜˜½É¥¥¸¹±½…±¥é…Ñ¥½¹MÑ…ÑÕÌ€ôôô€AI=)Q}IY%]œ(€€€€€€˜˜€…½É¥¥¹%‘Ì¹¡…Ì¡½É¥¥¸¹ÁÉ½‘ÕÑ¥½¹%¤°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•AÉ½‘ÕÑ¥½¸¥Ìµ…±™½Éµ•½È‘ÕÁ±¥…Ñ•‘€¤ì(€€€½É¥¥¹%‘Ì¹…‘¡½É¥¥¸¹ÁÉ½‘ÕÑ¥½¹%¤ì(€ô)ô)™½È€¡½¹ÍÐ¡•É¼½˜•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¤ì(€½¹ÍÐ•áÁ•Ñ•‘=É¥¥¹Ì€ô¡•É½AÉ½‘ÕÑ¥½¹I•±…Ñ¥½¹Ì¹É•½É‘Ì¹™¥±Ñ•È ¡É•±…Ñ¥½¸¤€ôøÉ•±…Ñ¥½¸¹¡•É½%€ôôô¡•É¼¹¥¤(€€€€¹µ…À ¡É•±…Ñ¥½¸¤€ôøì(€€€€€½¹ÍÐ¥‘•¹Ñ¥Ñä€ôÁÉ½‘ÕÑ¥½¹%‘•¹Ñ¥Ñ¥•Ì¹É•½É‘Ì¹™¥¹ ¡É•½É¤€ôøÉ•½É¹ÁÉ½‘ÕÑ¥½¹%€ôôôÉ•±…Ñ¥½¸¹ÁÉ½‘ÕÑ¥½¹%¤ì(€€€€€½¹ÍÐ±½…±¥é…Ñ¥½¸€ôÁÉ½‘ÕÑ¥½¹1½…±¥é…Ñ¥½¹Ì¹É•½É‘Ì¹™¥¹ ¡É•½É¤€ôøÉ•½É¹ÁÉ½‘ÕÑ¥½¹%€ôôôÉ•±…Ñ¥½¸¹ÁÉ½‘ÕÑ¥½¹%¤ì(€€€€€É•ÑÕÉ¸¥‘•¹Ñ¥Ñä€˜˜±½…±¥é…Ñ¥½¸€˜˜ìÁÉ½‘ÕÑ¥½¹%è¥‘•¹Ñ¥Ñä¹ÁÉ½‘ÕÑ¥½¹%°¹…µ•¸è¥‘•¹Ñ¥Ñä¹¹…µ•¸°¹…µ•-¼è±½…±¥é…Ñ¥½¸¹¹…µ•-¼°±½…±¥é…Ñ¥½¹MÑ…ÑÕÌè€AI=)Q}IY%]œôì(€€€ô¤(€€€€¹Í½ÉÐ ¡„°ˆ¤€ôø„¹ÁÉ½‘ÕÑ¥½¹%€´ˆ¹ÁÉ½‘ÕÑ¥½¹%¤ì(€¡•¬¡)M=8¹ÍÑÉ¥¹¥™ä¡¡•É¼¹½É¥¥¹Ì¤€ôôô)M=8¹ÍÑÉ¥¹¥™ä¡•áÁ•Ñ•‘=É¥¥¹Ì¤°!•É¼€‘í¡•É¼¹¥‘ô•¹•É…Ñ•AÉ½‘ÕÑ¥½¸‘…Ñ„‘¥™™•ÉÌ™É½´…¹½¹¥…°%)=%9€¤ì)ô)½¹ÍÐ¡•É½9…µ•-½	å%€ô¹•Ü5…À ¤ì)™½È€¡½¹ÍÐ±½…±¥é…Ñ¥½¸½˜¡•É½1½…±¥é…Ñ¥½¸¹É•½É‘Ì¤ì(€¡•¬¡9Õµ‰•È¹¥Í%¹Ñ••È¡±½…±¥é…Ñ¥½¸¹¡•É½%¤°µ…±™½Éµ•!•É¼-½É•…¸±½…±¥é…Ñ¥½¸%€‘í±½…±¥é…Ñ¥½¸¹¡•É½%‘õ€¤ì(€¡•¬ …¡•É½9…µ•-½	å%¹¡…Ì¡±½…±¥é…Ñ¥½¸¹¡•É½%¤°‘ÕÁ±¥…Ñ”!•É¼-½É•…¸±½…±¥é…Ñ¥½¸%€‘í±½…±¥é…Ñ¥½¸¹¡•É½%‘õ€¤ì(€¡•¬¡ÑåÁ•½˜±½…±¥é…Ñ¥½¸¹¹…µ•-¼€ôôô€ÍÑÉ¥¹œœ€˜˜±½…±¥é…Ñ¥½¸¹¹…µ•-¼¹±•¹Ñ €ø€À°µ¥ÍÍ¥¹œ!•É¼-½É•…¸‘¥ÍÁ±…ä¹…µ”™½È€‘í±½…±¥é…Ñ¥½¸¹¡•É½%‘õ€¤ì(€¡•É½9…µ•-½	å%¹Í•Ð¡±½…±¥é…Ñ¥½¸¹¡•É½%°±½…±¥é…Ñ¥½¸¹¹…µ•-¼¤ì)ô)¡•¬¡•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¹•Ù•Éä ¡¡•É¼¤€ôø¡•É¼¹¹…µ•-¼€ôôô¡•É½9…µ•-½	å%¹•Ð¡¡•É¼¹¥¤¤°€•¹•É…Ñ•-½É•…¸!•É¼±…‰•±Ì‘¥™™•È™É½´…¹½¹¥…°±½…±¥é…Ñ¥½¸‰ä!•É¼%œ¤ì)¡•¬¡•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¹•Ù•Éä ¡¡•É¼¤€ôø¡•É¼¹©½‰½¹¹•Ñ¥½¹Ì¹•Ù•Éä ¡É•±…Ñ¥½¸¤€ôøÑåÁ•½˜É•±…Ñ¥½¸¹©½‰9…µ•-¼€ôôô€ÍÑÉ¥¹œœ€˜˜É•±…Ñ¥½¸¹©½‰9…µ•-¼¹±•¹Ñ €ø€À¤¤°€•¹•É…Ñ•½¹ÍÕµ•È¡…Ìµ¥ÍÍ¥¹œ-½É•…¸)½ˆ±½…±¥é…Ñ¥½¸œ¤ì)½¹ÍÐ•áÁ•Ñ•‘ÅÕ¥Áµ•¹Ñ	å!•É¼€ô¹•Ü5…À¡mlÄ°ÈÜÝt±lÌ°ÐÄÕt±lÜ°ÈäÕt±lÔ°ÐÐÝt±lØ°ÐÄÙt±là°ÈÜÕt±lÄÀ°ÐÀÙt±lÄÄ°ÐÌÙt±lÄÈ°ÈÜÍt±lÄÌ°Èäát±lÄÐ°ÈäÉt±lÈÔ°ÈÜát±lÈÜ°ÈÜÑt±lÈà°ÐÄÉt±lÌÈ°ÈàÝt±lÔÈ°ÈäÑt±lÔÌ°ÈäÙt±lÔÔ°ÐØÙt±lØÜ°ÐØÕut¤ì)¡•¬¡•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¹±•¹Ñ €ôôô€Ää€˜˜)M=8¹ÍÑÉ¥¹¥™ä¡•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¹µ…À ¡¡•É¼¤€ôø¡•É¼¹¥¤¤€ôôô€lÄ°Ì°Ô°Ø°Ü°à°ÄÀ°ÄÄ°ÄÈ°ÄÌ°ÄÐ°ÈÔ°ÈÜ°Èà°ÌÈ°ÔÈ°ÔÌ°ÔÔ°ØÝtœ°€Ù¥Í¥‰±”!•É¼Á½ÁÕ±…Ñ¥½¸‘¥™™•ÉÌ™É½´AÉ•Í•¹Ñ…Ñ¥½¸…¹½¹¥…°œ¤ì)™½È€¡½¹ÍÐ¡•É¼½˜•¹•É…Ñ•‘)Í½¸¹¡•É½•Ì¤ì(€•á…Ñ-•åÌ¡¡•É¼¹•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ð°l•ÅÕ¥Áµ•¹Ñ%œ°€•ÅÕ¥Áµ•¹Ñ9…µ•-¼œ°€•™™•Ñ•ÍÉ¥ÁÑ¥½¹-¼t°!•É¼€‘í¡•É¼¹¥‘ôá±ÕÍ¥Ù”ÅÕ¥Áµ•¹Ñ€¤ì(€¡•¬¡¡•É¼¹•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ð¹•ÅÕ¥Áµ•¹Ñ%€ôôô•áÁ•Ñ•‘ÅÕ¥Áµ•¹Ñ	å!•É¼¹•Ð¡¡•É¼¹¥¤°!•É¼€‘í¡•É¼¹¥‘ôá±ÕÍ¥Ù”ÅÕ¥Áµ•¹ÐÉ•±…Ñ¥½¸%µ¥Íµ…Ñ¡€¤ì(€¡•¬¡ÑåÁ•½˜¡•É¼¹•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ð¹•ÅÕ¥Áµ•¹Ñ9…µ•-¼€ôôô€ÍÑÉ¥¹œœ€˜˜¡•É¼¹•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ð¹•ÅÕ¥Áµ•¹Ñ9…µ•-¼¹±•¹Ñ €ø€À°!•É¼€‘í¡•É¼¹¥‘ôá±ÕÍ¥Ù”ÅÕ¥Áµ•¹Ð-½É•…¸¹…µ”µ¥ÍÍ¥¹€¤ì(€¡•¬¡ÑåÁ•½˜¡•É¼¹•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ð¹•™™•Ñ•ÍÉ¥ÁÑ¥½¹-¼€ôôô€ÍÑÉ¥¹œœ€˜˜¡•É¼¹•á±ÕÍ¥Ù•ÅÕ¥Áµ•¹Ð¹•™™•Ñ•ÍÉ¥ÁÑ¥½¹-¼¹±•¹Ñ €ø€À°!•É¼€‘í¡•É¼¹¥‘ôá±ÕÍ¥Ù”ÅÕ¥Áµ•¹Ð•™™•Ðµ¥ÍÍ¥¹€¤ì)ô(()½¹ÍÐ•ÅÕ¥Áµ•¹Ñ%‘•¹Ñ¥Ñä€ô…Ý…¥ÐÉ•…‘)Í½¸ …¹½¹¥…°½•¹•É…°µÍÍÈµ•ÅÕ¥Áµ•¹Ð¹ØÄ¹©Í½¸œ¤ì)½¹ÍÐ•ÅÕ¥Áµ•¹Ñ1½…±¥é…Ñ¥½¸€ô…Ý…¥ÐÉ•…‘)Í½¸ …¹½¹¥…°½•¹•É…°µÍÍÈµ•ÅÕ¥Áµ•¹Ðµ±½…±¥é…Ñ¥½¹Ìµ­¼¹ØÄ¹©Í½¸œ¤ì)½¹ÍÐ•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•‘Q•áÐ€ô…Ý…¥ÐÉ•…‘¥±”¡É•Í½±Ù”¡É½½Ð°€•¹•É…Ñ•½•¹•É…°µÍÍÈµ•ÅÕ¥Áµ•¹Ð¹ØÄ¹©Í½¸œ¤°€ÕÑ˜àœ¤ì)¡•¬¡ÉÉ…ä¹¥ÍÉÉ…ä¡•ÅÕ¥Áµ•¹Ñ%‘•¹Ñ¥Ñä¹É•½É‘Ì¤€˜˜ÉÉ…ä¹¥ÍÉÉ…ä¡•ÅÕ¥Áµ•¹Ñ1½…±¥é…Ñ¥½¸¹É•½É‘Ì¤°€•¹•É…°MMHÅÕ¥Áµ•¹Ð…¹½¹¥…°É•½É‘Ìµ¥ÍÍ¥¹œœ¤ì)¡•¬¡•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•‘Q•áÐ€ôôôÉ•¹‘•É•¹•É…±MÍÉÅÕ¥Áµ•¹Ð¡•ÅÕ¥Áµ•¹Ñ%‘•¹Ñ¥Ñä°•ÅÕ¥Áµ•¹Ñ1½…±¥é…Ñ¥½¸¤°€•¹•É…Ñ••¹•É…°MMHÅÕ¥Áµ•¹Ð½¹ÍÕµ•È¥ÌÍÑ…±”½È¹½¸µ‘•Ñ•Éµ¥¹¥ÍÑ¥Œœ¤ì)½¹ÍÐ•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•€ô)M=8¹Á…ÉÍ”¡•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•‘Q•áÐ¤ì)•á…Ñ-•åÌ¡•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•°lÍ¡•µ…Y•ÉÍ¥½¸œ°€•ÅÕ¥Áµ•¹Ðt°€•¹•É…Ñ••¹•É…°MMHÅÕ¥Áµ•¹Ðœ¤ì)¡•¬¡•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•¹Í¡•µ…Y•ÉÍ¥½¸€ôôô€Ä€˜˜ÉÉ…ä¹¥ÍÉÉ…ä¡•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•¹•ÅÕ¥Áµ•¹Ð¤°€•¹•É…Ñ••¹•É…°MMHÅÕ¥Áµ•¹ÐÍ¡•µ„µ¥Íµ…Ñ œ¤ì)½¹ÍÐ¥‘•¹Ñ¥Ñå%‘Ì€ô¹•ÜM•Ð¡•ÅÕ¥Áµ•¹Ñ%‘•¹Ñ¥Ñä¹É•½É‘Ì¹µ…À ¡É•½É¤€ôøÉ•½É¹¥¤¤ì)½¹ÍÐ±½…±¥é…Ñ¥½¹	å%€ô¹•Ü5…À ¤ì)™½È€¡½¹ÍÐÉ•½É½˜•ÅÕ¥Áµ•¹Ñ1½…±¥é…Ñ¥½¸¹É•½É‘Ì¤ì(€¡•¬¡9Õµ‰•È¹¥Í%¹Ñ••È¡É•½É¹•ÅÕ¥Áµ•¹Ñ%¤€˜˜€…±½…±¥é…Ñ¥½¹	å%¹¡…Ì¡É•½É¹•ÅÕ¥Áµ•¹Ñ%¤°€µ…±™½Éµ•½È‘ÕÁ±¥…Ñ”•¹•É…°MMHÅÕ¥Áµ•¹Ð±½…±¥é…Ñ¥½¸%œ¤ì(€±½…±¥é…Ñ¥½¹	å%¹Í•Ð¡É•½É¹•ÅÕ¥Áµ•¹Ñ%°É•½É¤ì)ô)½¹ÍÐ•¹•É…Ñ•‘%‘Ì€ô•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•¹•ÅÕ¥Áµ•¹Ð¹µ…À ¡É•½É¤€ôøÉ•½É¹•ÅÕ¥Áµ•¹Ñ%¤ì)¡•¬¡¹•ÜM•Ð¡•¹•É…Ñ•‘%‘Ì¤¹Í¥é”€ôôô•¹•É…Ñ•‘%‘Ì¹±•¹Ñ €˜˜•¹•É…Ñ•‘%‘Ì¹±•¹Ñ €ôôô¥‘•¹Ñ¥Ñå%‘Ì¹Í¥é”€˜˜•¹•É…Ñ•‘%‘Ì¹•Ù•Éä ¡¥¤€ôø¥‘•¹Ñ¥Ñå%‘Ì¹¡…Ì¡¥¤¤°€•¹•É…Ñ••¹•É…°MMHÅÕ¥Áµ•¹Ð%Í•Ð‘¥™™•ÉÌ™É½´…¹½¹¥…°¥‘•¹Ñ¥Ñäœ¤ì)™½È€¡½¹ÍÐÉ•½É½˜•ÅÕ¥Áµ•¹Ñ•¹•É…Ñ•¹•ÅÕ¥Áµ•¹Ð¤ì(€•á…Ñ-•åÌ¡É•½É°l•ÅÕ¥Áµ•¹Ñ%œ°€¹…µ•-¼œ°€•™™•Ñ•ÍÉ¥ÁÑ¥½¹-¼t°€•¹•É…Ñ••¹•É…°MMHÅÕ¥Áµ•¹Ð€œ€¬É•½É¹•ÅÕ¥Áµ•¹Ñ%¤ì(€½¹ÍÐ±½…±¥é•€ô±½…±¥é…Ñ¥½¹	å%¹•Ð¡É•½É¹•ÅÕ¥Áµ•¹Ñ%¤ì(€¡•¬¡±½…±¥é•€˜˜É•½É¹¹…µ•-¼€ôôô±½…±¥é•¹¹…µ•-¼€˜˜É•½É¹•™™•Ñ•ÍÉ¥ÁÑ¥½¹-¼€ôôô±½…±¥é•¹•™™•Ñ•ÍÉ¥ÁÑ¥½¹-¼°€•¹•É…Ñ••¹•É…°MMHÅÕ¥Áµ•¹Ð±½…±¥é…Ñ¥½¸Á…É¥Ñäµ¥Íµ…Ñ ™½È€œ€¬É•½É¹•ÅÕ¥Áµ•¹Ñ%¤ì)ô()…Ý…¥ÐÙ…±¥‘…Ñ•!•É½A½ÉÑÉ…¥ÑM•±•Ñ¥½¸¡É½½Ð¤ì)ÁÉ½•ÍÌ¹ÍÑ‘½ÕÐ¹ÝÉ¥Ñ” !•É¼Í±¥”…¹•¹•É…°MMHÅÕ¥Áµ•¹ÐÙ…±¥‘…Ñ½ÉÌèAML€¡!•É¼É•±…Ñ¥½¸½Í½ÕÉ”±½…Ñ½ÉÌ°Á½ÉÑÉ…¥Ð…ÍÍ•Ð¥¹Ñ•É¥Ñä°•¹•É…Ñ•™É•Í¡¹•ÍÌ…¹ÁÉ•Í•¹Ñ…Ñ¥½¸Í¡…Á”ìÕ¹É•±…Ñ•Í•µ…¹Ñ¥Œ‘½µ…¥¹Ì•á±Õ‘•¥q¸œ¤ì(

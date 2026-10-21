@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for ordinary Jobs 205 and 208 selected by Hero 7; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved localization source rows directly contain keyed Job ID and Chinese/Korean text values.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality with pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 205,
+      "nameCn": "皇帝",
+      "nameKo": "엠퍼러",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=205",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 208,
+      "nameCn": "勇者",
+      "nameKo": "용사",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=208",
+      "evidenceClass": "A"
+    }
+  ]
+}

@@ -34,12 +34,20 @@
       "nameKo": "글래디에이터"
     },
     {
+      "jobId": 205,
+      "nameKo": "엠퍼러"
+    },
+    {
       "jobId": 206,
       "nameKo": "영웅"
     },
     {
       "jobId": 207,
       "nameKo": "검성"
+    },
+    {
+      "jobId": 208,
+      "nameKo": "용사"
     },
     {
       "jobId": 209,
