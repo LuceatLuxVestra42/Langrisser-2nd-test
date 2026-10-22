@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-training-tech-description-source-slice",
+  "scope": {
+    "claim": "The pinned CN ConfigData contains source-native TrainingTech 223 explicitly related to NORMAL Soldier 115 and SP Soldier 5115; its listed LevelInfo records contain the corresponding NORMAL Description and SP SpSoidlierDescription raw strings.",
+    "admitted": [
+      "Source-native IDs and explicit TrainingTech-to-soldier endpoints",
+      "Opaque NORMAL and SP Chinese description strings keyed by source LevelInfo ID"
+    ],
+    "excluded": [
+      "Game-level or slot application",
+      "Training progression or unlock conditions",
+      "SoldierSkillID or SoldierSkillLevelup relations",
+      "Combat formula interpretation",
+      "Korean localization",
+      "Generated or frontend presentation"
+    ]
+  },
+  "sources": {
+    "trainingTech": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/configdata/ConfigDataTrainingTechInfo.json",
+      "gitBlobSha1": "ad8b290f0e34de24b6eab9538894068a06e086d4",
+      "locator": "data/configdata/ConfigDataTrainingTechInfo.json#ID=223"
+    },
+    "trainingTechLevelInfo": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/configdata/ConfigDataTrainingTechLevelInfo.json",
+      "gitBlobSha1": "30789c3e4fb0d79b56514e720bb71a053df78c72",
+      "sha256": "4d4afb874c0540bf4999cd5aa7c2f8a6ce5d3fa5838a7522c343365e165e8905",
+      "sizeBytes": 1862920,
+      "sourcePopulation": 2945,
+      "selection": "Select only records whose numeric ID occurs in TrainingTech 223 TechLevelupInfoList; preserve ID, Description, and SpSoidlierDescription only.",
+      "sourceVersionScope": "Pinned CN ConfigData source at commit 6475e63ee23d18adf733756c26a14fa9e3ed662c"
+    }
+  },
+  "rawTrainingTechRecord": {
+    "ID": 223,
+    "Name": "近卫枪兵",
+    "SoldierIDRelated": [
+      115,
+      5115
+    ],
+    "TechLevelupInfoList": [
+      2230,
+      2231,
+      2232,
+      2233,
+      2234,
+      2235,
+      2236,
+      2237,
+      2238,
+      2239
+    ]
+  },
+  "rawLevelInfoRecords": [
+    {
+      "ID": 2230,
+      "Description": "全属性<color=#DC143C>+2%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>15%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+2%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>15%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>70%</color>），且战后恢复已损失生命的<color=#DC143C>10%</color>。"
+    },
+    {
+      "ID": 2231,
+      "Description": "全属性<color=#DC143C>+4%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>18%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+4%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>18%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>8%</color>），且战后恢复已损失生命的<color=#DC143C>12%</color>。"
+    },
+    {
+      "ID": 2232,
+      "Description": "全属性<color=#DC143C>+6%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>21%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+6%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>21%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>9%</color>），且战后恢复已损失生命的<color=#DC143C>14%</color>。"
+    },
+    {
+      "ID": 2233,
+      "Description": "全属性<color=#DC143C>+9%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>24%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+9%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>24%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>10%</color>），且战后恢复已损失生命的<color=#DC143C>16%</color>。"
+    },
+    {
+      "ID": 2234,
+      "Description": "全属性<color=#DC143C>+12%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>27%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+12%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>27%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>11%</color>），且战后恢复已损失生命的<color=#DC143C>18%</color>。"
+    },
+    {
+      "ID": 2235,
+      "Description": "全属性<color=#DC143C>+15%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>30%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+15%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>30%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>12%</color>），且战后恢复已损失生命的<color=#DC143C>20%</color>。"
+    },
+    {
+      "ID": 2236,
+      "Description": "全属性<color=#DC143C>+18%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>33%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+18%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>33%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>14%</color>），且战后恢复已损失生命的<color=#DC143C>22%</color>。"
+    },
+    {
+      "ID": 2237,
+      "Description": "全属性<color=#DC143C>+22%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>36%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+22%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>36%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>16%</color>），且战后恢复已损失生命的<color=#DC143C>24%</color>。"
+    },
+    {
+      "ID": 2238,
+      "Description": "全属性<color=#DC143C>+26%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>40%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+26%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>40%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>18%</color>），且战后恢复已损失生命的<color=#DC143C>27%</color>。"
+    },
+    {
+      "ID": 2239,
+      "Description": "全属性<color=#DC143C>+30%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>45%</color>。",
+      "SpSoidlierDescription": "全属性<color=#DC143C>+30%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>45%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>20%</color>），且战后恢复已损失生命的<color=#DC143C>30%</color>。"
+    }
+  ],
+  "interpretation": {
+    "normalTextField": {
+      "sourceField": "Description",
+      "evidenceClass": "A",
+      "meaning": "Opaque source description string for the explicitly related NORMAL Soldier 115 text channel."
+    },
+    "spTextField": {
+      "sourceField": "SpSoidlierDescription",
+      "evidenceClass": "B",
+      "meaning": "Opaque source string used as SP Soldier 5115 description by the prior validated Legacy projection and stage contract; SP slot/application is not established."
+    },
+    "trainingTechRelation": {
+      "sourceField": "SoldierIDRelated",
+      "evidenceClass": "A",
+      "meaning": "Explicit endpoint list [115,5115] on TrainingTech 223; endpoints are independently admitted Soldier identities."
+    },
+    "levelInfoLink": {
+      "sourceField": "TechLevelupInfoList",
+      "evidenceClass": "A",
+      "meaning": "Explicit list of source LevelInfo record IDs; no game level semantics asserted."
+    }
+  },
+  "priorValidation": {
+    "purpose": "Narrow comparison of legacy text projection and source-field mapping; not independent evidence of game-level application.",
+    "validatedProjection": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/generated/soldier-detail-stage5-3.v1.json",
+      "gitBlobSha1": "61a59e9bb9d51b90fe5d417425f64978e4715667",
+      "normalClaim": "records[soldierId=115].ability.levels[levelInfoId].description equals ConfigDataTrainingTechLevelInfo#ID=<levelInfoId>/Description; Legacy output level is not admitted here.",
+      "spClaim": "records[soldierId=5115].sp.descriptionSourceTechId=223 and sp.descriptionLevels[levelInfoId].description equals ConfigDataTrainingTechLevelInfo#ID=<levelInfoId>/SpSoidlierDescription; Legacy output order/slot is not admitted here."
+    },
+    "parser": {
+      "path": "scripts/lib/configdata-direct.cjs",
+      "gitBlobSha1": "89db7903a4891dd71e09abf47d138bb90a9b0f70"
+    },
+    "producer": {
+      "path": "scripts/finalize-soldier-stage5-3-ability.cjs",
+      "gitBlobSha1": "46fe4106925d892d9d7802d8476a59e5dc5a9419"
+    },
+    "contract": {
+      "path": "data/contracts/soldier-detail-stage5-1-contract.v1.json",
+      "gitBlobSha1": "2943af041025c76c647b790661babe784e05f4f2",
+      "status": "FROZEN",
+      "limitation": "Documents ordered descriptions on the primary TrainingTech path; does not establish actual SP slot or game application."
+    },
+    "validation": {
+      "path": "data/validation/soldier-stage5-3-ability.v1.json",
+      "gitBlobSha1": "34c50188a36f870146d75b1754ae31a04e11591d",
+      "result": "PASS",
+      "limitation": "Source description and relation coverage only; does not validate actual SP rank application."
+    }
+  },
+  "archive": {
+    "sha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+    "fullArchiveBytesVerifiedHere": false
+  }
+}

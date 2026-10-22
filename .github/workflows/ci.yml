@@ -197,6 +197,13 @@ jobs:
 
       - name: Test Soldier provenance integrity
         run: node tools/test-soldier-provenance.mjs
+
+      - name: Validate Soldier TrainingTech description claims
+        run: node tools/validate-soldier-training-tech-descriptions.mjs
+
+      - name: Test Soldier TrainingTech description claim boundaries
+        run: node tools/test-soldier-training-tech-descriptions.mjs
+
       - name: Validate General SSR Equipment identity
         run: node tools/validate-general-ssr-equipment-identity.mjs
 
