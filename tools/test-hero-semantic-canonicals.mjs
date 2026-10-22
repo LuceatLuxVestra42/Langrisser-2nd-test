@@ -88,8 +88,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 157 relations; 133 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 157 relations; 133 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 157/133 Hero→Job relation counts');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 164 relations; 140 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 164 relations; 140 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 164/140 Hero→Job relation counts');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -146,7 +146,7 @@ try {
   assert.equal(generatedRarityText, generatedBaselineText,
     'off-slice Rarity changes must not alter the current Generated Hero consumer');
   const generatedRarity = JSON.parse(generatedRarityText);
-  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 5, 6, 7, 8, 10, 11, 12, 13, 14, 25, 26, 27, 28, 32, 52, 53, 55, 60, 67],
+  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 25, 26, 27, 28, 32, 52, 53, 55, 60, 67],
     'off-slice Rarity Canonical records must not expand Generated Hero population');
   for (const [change, label, command, diagnostic] of [
     [(doc) => { doc.records.push({ ...doc.records[0] }); }, 'duplicate Hero Rarity rejected', 'tools/generate.mjs', /Duplicate Hero rarity for Hero 5/],
@@ -172,7 +172,7 @@ try {
   assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
   if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 157 Hero→Job pairs, 133-pair presentation-slice parity, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 164 Hero→Job pairs, 140-pair presentation-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

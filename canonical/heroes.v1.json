@@ -124,6 +124,54 @@
       }
     },
     {
+      "id": 4,
+      "nameEng": "Aimeeda",
+      "portrait": "assets/portraits/hero-4.png",
+      "jobConnections": [
+        {
+          "connectionId": 40,
+          "jobId": 899,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 41,
+          "jobId": 802,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 42,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 43,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 44,
+          "jobId": 806,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 45,
+          "jobId": 810,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 46,
+          "jobId": 808,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=4",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#inspectedSourceRows.heroInfo[ID=4]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=4",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json#heroId=4"
+      }
+    },
+    {
       "id": 5,
       "nameEng": "Chris",
       "portrait": "assets/portraits/hero-5.png",

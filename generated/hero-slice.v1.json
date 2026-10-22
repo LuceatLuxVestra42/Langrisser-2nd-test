@@ -206,6 +206,94 @@
       ]
     },
     {
+      "id": 4,
+      "nameEng": "Aimeeda",
+      "nameKo": "아멜다",
+      "rarity": {
+        "rankId": 1,
+        "label": "N"
+      },
+      "factions": [
+        {
+          "factionId": 1,
+          "nameCn": "主角光环",
+          "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 2,
+          "nameCn": "光辉军团",
+          "nameKo": "빛의 군단",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 11,
+          "nameCn": "超凡领域",
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 3,
+          "nameCn": "梦幻模拟战手游I",
+          "nameKo": "랑그릿사 모바일 Ch.1",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-4.png",
+      "exclusiveEquipment": {
+        "equipmentId": 404,
+        "equipmentNameKo": "■■■■",
+        "effectDescriptionKo": "지력 +10%\n공격하여 피해를 입힌 후, 적군에게 '이동력 -1, 호위 불가' 부여, 지속 1행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 40,
+          "jobId": 899,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "견습 시스터"
+        },
+        {
+          "connectionId": 41,
+          "jobId": 802,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "시스터"
+        },
+        {
+          "connectionId": 42,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "주교"
+        },
+        {
+          "connectionId": 43,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "마터"
+        },
+        {
+          "connectionId": 44,
+          "jobId": 806,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "프리스트"
+        },
+        {
+          "connectionId": 45,
+          "jobId": 810,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "세인트"
+        },
+        {
+          "connectionId": 46,
+          "jobId": 808,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "오라클"
+        }
+      ]
+    },
+    {
       "id": 5,
       "nameEng": "Chris",
       "nameKo": "크리스",

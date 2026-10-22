@@ -29,6 +29,8 @@ export async function validateJobLocalization(root = process.cwd()) {
   const hero26SourcePacket = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-26.v1.json');
   const hero60Subset = await readJson('evidence/localization/job-names-ko.hero-60.v1.json');
   const hero60SourcePacket = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-60.v1.json');
+  const hero4Subset = await readJson('evidence/localization/job-names-ko.hero-4.v1.json');
+  const hero4SourcePacket = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json');
   const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
   const localizationBytes = await readFile(resolve(root, localizationSourcePath));
   const localizationText = localizationBytes.toString('utf8').replace(/^\uFEFF/, '');
@@ -204,6 +206,20 @@ export async function validateJobLocalization(root = process.cwd()) {
     `Hero 60 Job ${jobId} keyed source row or pinned JobInfo value mismatch`);
   }
 
+  check(hero4Subset.schemaVersion === 1 && hero4Subset.sourceManifest === 'evidence/localization/source/job-names-ko.source-manifest.v1.json'
+    && JSON.stringify(hero4Subset.records.map((row) => row.jobId)) === '[899,802,808]'
+    && hero4Subset.canonical === false && hero4Subset.generated === false && hero4Subset.productionRuntimeDependency === false
+    && hero4Subset.claims?.officialKrName === 'unverified', 'Hero 4 localization evidence scope/class/limitation drift');
+  const hero4JobInfo = hero4SourcePacket.inspectedSourceRows.jobInfo;
+  for (const [jobId, nameCn, nameKo] of [[899, '见习修女', '견습 시스터'], [802, '修女', '시스터'], [808, '神使', '오라클']]) {
+    const label = hero4Subset.records.find((row) => row.jobId === jobId);
+    exactKeys(label, ['jobId','nameCn','nameKo','sourceLocator','evidenceClass'], `Hero 4 Job ${jobId} localization evidence`);
+    check(label.nameCn === nameCn && label.nameKo === nameKo && label.nameCn === localizationRows.get(jobId)?.nameCn
+      && label.nameKo === localizationRows.get(jobId)?.nameKo && label.sourceLocator === `job-names-ko.v1.txt#전직ID=${jobId}`
+      && label.evidenceClass === 'A' && hero4JobInfo.some((row) => row.ID === jobId && row.Name === nameCn),
+    `Hero 4 Job ${jobId} keyed source row or pinned JobInfo value mismatch`);
+  }
+
   const hero26Label = hero26Subset.records[0];
   exactKeys(hero26Label, ['jobId','nameCn','nameKo','sourceLocator','evidenceClass'], 'Hero 26 Job 351 localization evidence');
   check(hero26Label.jobId === 351 && hero26Label.nameCn === localizationRows.get(351)?.nameCn
@@ -220,7 +236,7 @@ export async function validateJobLocalization(root = process.cwd()) {
       .map((row) => [row.jobId, row.nameKo]),
   );
   const spStatusIds = spValidation.statusOnlyIds;
-  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 11 + spExpected.size, 'canonical Job localization must contain expected complete record population');
+  check(jobLocalization.schemaVersion === 1 && jobLocalization.records.length === targetJobIds.length + expansionJobIds.length + presentationJobIds.length + 14 + spExpected.size, 'canonical Job localization must contain expected complete record population');
   const admittedLocalization = new Map();
   for (const row of jobLocalization.records) {
     exactKeys(row, ['jobId', 'nameKo', 'evidenceClass', 'provenance'], `canonical Job localization ${row.jobId}`);
@@ -233,6 +249,10 @@ export async function validateJobLocalization(root = process.cwd()) {
       const evidence = hero7Subset.records.find((item) => item.jobId === row.jobId);
       check(row.nameKo === evidence?.nameKo && row.evidenceClass === 'A'
         && row.provenance === `evidence/localization/job-names-ko.hero-7.v1.json#jobId=${row.jobId}`, `Hero 7 localization provenance drift for Job ${row.jobId}`);
+    } else if ([899,802,808].includes(row.jobId)) {
+      const evidence = hero4Subset.records.find((item) => item.jobId === row.jobId);
+      check(row.nameKo === evidence?.nameKo && row.evidenceClass === 'A'
+        && row.provenance === `evidence/localization/job-names-ko.hero-4.v1.json#jobId=${row.jobId}`, `Hero 4 localization provenance drift for Job ${row.jobId}`);
     } else if ([213,214].includes(row.jobId)) {
       const evidence = hero60Subset.records.find((item) => item.jobId === row.jobId);
       check(row.nameKo === evidence?.nameKo && row.evidenceClass === 'A'

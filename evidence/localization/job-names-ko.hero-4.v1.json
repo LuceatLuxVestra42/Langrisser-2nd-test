@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for ordinary Jobs 899, 802, and 808 selected by Hero 4; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved localization source rows directly contain keyed Job ID and Chinese/Korean text values.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality with pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 899,
+      "nameCn": "见习修女",
+      "nameKo": "견습 시스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=899",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 802,
+      "nameCn": "修女",
+      "nameKo": "시스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=802",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 808,
+      "nameCn": "神使",
+      "nameKo": "오라클",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=808",
+      "evidenceClass": "A"
+    }
+  ]
+}
