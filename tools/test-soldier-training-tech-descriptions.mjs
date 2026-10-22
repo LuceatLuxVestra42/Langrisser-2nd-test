@@ -32,4 +32,7 @@ mustReject('combat semantic added', c => { c.records[0].combatEffect = 'inferred
 mustReject('soldier skill relation added', c => { c.records[0].soldierSkillId = 65110; });
 mustReject('raw source slice changed without reviewed re-verification', e => { e.rawLevelInfoRecords[0].Description += ' '; }, 'evidence');
 mustReject('unscoped Source Relation expanded', e => { e.rawTrainingTechRecord.SoldierIDRelated.push(1150); }, 'evidence');
-console.log(`Soldier TrainingTech description validator negatives PASS (13 cases).`);
+mustReject('combat mechanics admitted through evidence scope', e => { e.scope.admitted.push('Combat formula interpretation'); }, 'evidence');
+mustReject('slot/application boundary removed', e => { e.interpretation.spTextField.meaning = 'SP slot is established'; }, 'evidence');
+mustReject('canonical scope widened to unlock rules', c => { c.scope.excluded = c.scope.excluded.filter(x => x !== 'Training unlock semantics'); });
+console.log(`Soldier TrainingTech description validator negatives PASS (16 cases).`);

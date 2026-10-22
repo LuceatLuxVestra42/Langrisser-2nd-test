@@ -29,6 +29,30 @@ function digest(value) {
 export function validate(evidence, canonical, soldiers, spRelations) {
   if (evidence?.schemaVersion !== 1 || evidence?.responsibility !== 'soldier-training-tech-description-source-slice') fail('Unexpected evidence owner/schema');
   if (canonical?.schemaVersion !== 1 || canonical?.responsibility !== 'soldier-training-tech-description-text') fail('Unexpected canonical owner/schema');
+  if (JSON.stringify(evidence.scope?.admitted) !== JSON.stringify([
+    'Source-native IDs and explicit TrainingTech-to-soldier endpoints',
+    'Opaque NORMAL and SP Chinese description strings keyed by source LevelInfo ID',
+  ])) fail('Evidence admission boundary changed');
+  if (JSON.stringify(evidence.scope?.excluded) !== JSON.stringify([
+    'Game-level or slot application',
+    'Training progression or unlock conditions',
+    'SoldierSkillID or SoldierSkillLevelup relations',
+    'Combat formula interpretation',
+    'Korean localization',
+    'Generated or frontend presentation',
+  ])) fail('Evidence exclusion boundary changed');
+  if (evidence.interpretation?.normalTextField?.sourceField !== 'Description' || evidence.interpretation.normalTextField.evidenceClass !== 'A') fail('NORMAL text field meaning changed');
+  if (evidence.interpretation?.spTextField?.sourceField !== 'SpSoidlierDescription' || evidence.interpretation.spTextField.evidenceClass !== 'B' || !evidence.interpretation.spTextField.meaning.includes('SP slot/application is not established')) fail('SP text field support/limitation changed');
+  if (evidence.priorValidation?.validatedProjection?.path !== 'data/generated/soldier-detail-stage5-3.v1.json' || evidence.priorValidation.validatedProjection.gitBlobSha1 !== '61a59e9bb9d51b90fe5d417425f64978e4715667' || evidence.priorValidation.validatedProjection.commit !== EXPECTED_SOURCE.commit) fail('Prior validated projection pin changed');
+  if (canonical.scope?.claim !== 'Preserve opaque TrainingTech NORMAL/SP description text for Soldier 115 and related SP Soldier 5115, keyed by source LevelInfo ID.' || JSON.stringify(canonical.scope?.excluded) !== JSON.stringify([
+    'Game level or slot assignment',
+    'SP level application',
+    'Training unlock semantics',
+    'Soldier skill relations',
+    'Combat mechanics interpretation',
+    'Korean localization',
+    'Frontend display',
+  ])) fail('Canonical semantic boundary changed');
   if (!Array.isArray(evidence.rawLevelInfoRecords) || evidence.rawLevelInfoRecords.length !== 10) fail('Evidence must contain exactly ten selected LevelInfo rows');
   if (digest(evidence.rawTrainingTechRecord) !== TRAINING_TECH_RECORD_SHA256) fail('TrainingTech source slice differs from the reviewed source record');
   if (digest(evidence.rawLevelInfoRecords) !== LEVEL_RECORDS_SHA256) fail('LevelInfo source slice differs from the reviewed source records');

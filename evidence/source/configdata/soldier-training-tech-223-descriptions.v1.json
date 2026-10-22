@@ -132,6 +132,14 @@
   },
   "priorValidation": {
     "purpose": "Narrow comparison of legacy text projection and source-field mapping; not independent evidence of game-level application.",
+    "validatedProjection": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/generated/soldier-detail-stage5-3.v1.json",
+      "gitBlobSha1": "61a59e9bb9d51b90fe5d417425f64978e4715667",
+      "normalClaim": "records[soldierId=115].ability.levels[levelInfoId].description equals ConfigDataTrainingTechLevelInfo#ID=<levelInfoId>/Description; Legacy output level is not admitted here.",
+      "spClaim": "records[soldierId=5115].sp.descriptionSourceTechId=223 and sp.descriptionLevels[levelInfoId].description equals ConfigDataTrainingTechLevelInfo#ID=<levelInfoId>/SpSoidlierDescription; Legacy output order/slot is not admitted here."
+    },
     "parser": {
       "path": "scripts/lib/configdata-direct.cjs",
       "gitBlobSha1": "89db7903a4891dd71e09abf47d138bb90a9b0f70"
