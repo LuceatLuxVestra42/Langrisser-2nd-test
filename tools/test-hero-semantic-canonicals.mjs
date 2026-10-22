@@ -88,8 +88,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic) {
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 164 relations; 140 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 164 relations; 140 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 164/140 Hero→Job relation counts');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 205 relations; 181 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 205 relations; 181 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 205/181 Hero→Job relation counts');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -121,6 +121,12 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 28 && row.jobId === 1101)); }, 'missing additive expansion relation', /Hero→Job relation count differs from the current evidence-backed scope/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 53 && row.jobId === 426).provenance = 'evidence/wrong.json#heroId=53'; }, 'Hero 53 SP provenance protection', /relation pair\/evidence locator mismatch for 53:426/);
 
+  const batch5Path = 'evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json';
+  await mutateAndExpectFailure(batch5Path, (doc) => { doc.records.find((row) => row.heroId === 9 && row.connectionId === 91).jobId = 999999; },
+    'batch 5 explicit connection target corruption', /batch 5 explicit source join mismatch 9:91/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 89 && row.jobId === 219)); },
+    'missing batch 5 relation', /Hero→Job relation count differs from the current evidence-backed scope/);
+
   const selectedPath = 'canonical/heroes.v1.json';
   await mutateAndExpectFailure(selectedPath, (doc) => { doc.records.find((row) => row.id === 5).jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation', /selected slice relation 5:999999 is absent from the general relation owner/);
   await mutateAndExpectFailure(selectedPath, (doc) => { doc.records.find((row) => row.id === 28).jobConnections[0].jobId = 999999; }, 'expanded selected-slice parity mutation', /selected slice relation 28:999999 is absent from the general relation owner/);
@@ -146,7 +152,7 @@ try {
   assert.equal(generatedRarityText, generatedBaselineText,
     'off-slice Rarity changes must not alter the current Generated Hero consumer');
   const generatedRarity = JSON.parse(generatedRarityText);
-  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 25, 26, 27, 28, 32, 52, 53, 55, 60, 67],
+  assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 40, 52, 53, 55, 56, 60, 67, 89],
     'off-slice Rarity Canonical records must not expand Generated Hero population');
   for (const [change, label, command, diagnostic] of [
     [(doc) => { doc.records.push({ ...doc.records[0] }); }, 'duplicate Hero Rarity rejected', 'tools/generate.mjs', /Duplicate Hero rarity for Hero 5/],
@@ -172,7 +178,7 @@ try {
   assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
   if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 164 Hero→Job pairs, 140-pair presentation-slice parity, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, current 205 Hero→Job pairs, 181-pair presentation-slice parity, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

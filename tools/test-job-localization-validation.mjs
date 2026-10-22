@@ -210,6 +210,18 @@ try {
   await restore();
 
   restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.find((row) => row.jobId === 902).nameKo = '잘못된 다크 메이지';
+  });
+  expectFailure(run(localizationValidator), 'batch 5 canonical ID/name mapping mismatch', /batch 5 localization provenance or JobInfo ID parity drift for Job 902/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.presentation-batch-5.v1.json', (evidence) => {
+    evidence.records.find((row) => row.jobId === 902).nameKo = '잘못된 다크 메이지';
+  });
+  expectFailure(run(localizationValidator), 'batch 5 source localization mismatch', /batch 5 Job localization source row\/JobInfo parity mismatch/);
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
     canonical.records.push({ jobId: 1220, nameKo: '한섭 미실장', evidenceClass: 'A', provenance: 'evidence/localization/sp-job-namespace.v1.json#jobId=1220' });
   });
   expectFailure(run(localizationValidator), 'status-only SP admission', /canonical Job localization must contain expected complete record population/);
@@ -235,7 +247,7 @@ try {
 
   const clean = run(localizationValidator);
   expectSuccess(clean, 'clean Job localization validation', /Job localization: PASS/);
-  process.stdout.write('Job localization validator cases: PASS (legacy and expansion localization negatives, SP mapping/provenance, status-only admission, namespace evidence mismatch)\n');
+  process.stdout.write('Job localization validator cases: PASS (legacy, expansion, and batch 5 localization negatives; SP mapping/provenance and status-only admission)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

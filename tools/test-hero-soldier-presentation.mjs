@@ -11,8 +11,8 @@ const [heroPresentation, relationOwner, soldierIdentities, generatedText] = awai
   readFile(resolve('generated/hero-soldier-relations.v1.json'), 'utf8'),
 ]);
 const result = validateHeroSoldierPresentation(heroPresentation, relationOwner, soldierIdentities, generatedText);
-assert.equal(result.rows, 277);
-assert.equal(result.distinctSoldiers, 99);
+assert.equal(result.rows, 379);
+assert.equal(result.distinctSoldiers, 112);
 
 const source = JSON.parse(generatedText);
 const encode = (relations) => JSON.stringify({ schemaVersion: 1, relations }, null, 2) + '\n';
@@ -23,9 +23,11 @@ assert.throws(() => validateHeroSoldierPresentation(
   heroPresentation, relationOwner, soldierIdentities, encode([...source.relations, source.relations[0]]),
 ), 'duplicate generated pair must fail');
 
-const presentedHeroIds = new Set(heroPresentation.records.map(({ id }) => id));
-const outOfScope = relationOwner.records.find(({ heroId }) => !presentedHeroIds.has(heroId));
-assert.ok(outOfScope, 'current relation owner should contain a relation outside the current Hero presentation slice');
+assert.throws(() => validateHeroSoldierPresentation(
+  heroPresentation, relationOwner, soldierIdentities,
+  encode([...source.relations, { heroId: 999999, soldierId: source.relations[0].soldierId }]),
+), 'unknown-Hero generated relation must fail');
+
 assert.throws(() => validateHeroSoldierPresentation(
   heroPresentation, relationOwner, soldierIdentities,
   encode([...source.relations, { heroId: outOfScope.heroId, soldierId: outOfScope.soldierId }]),
@@ -36,4 +38,4 @@ assert.throws(() => validateHeroSoldierPresentation(
   encode(source.relations.map((relation, index) => index === 0 ? { ...relation, soldierId: -1 } : relation)),
 ), 'invalid Soldier endpoint must fail');
 
-console.log('Hero-Soldier generated presentation regressions PASS (missing, duplicate, out-of-slice and invalid-endpoint cases)');
+console.log('Hero-Soldier generated presentation regressions PASS (missing, duplicate, unknown-Hero and invalid-endpoint cases)');

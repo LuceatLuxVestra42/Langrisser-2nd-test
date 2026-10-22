@@ -676,6 +676,82 @@
       ]
     },
     {
+      "id": 9,
+      "nameEng": "Bozel",
+      "nameKo": "보젤",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 5,
+          "nameCn": "黑暗轮回",
+          "nameKo": "어둠의 윤회",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 11,
+          "nameCn": "超凡领域",
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 4,
+          "nameCn": "梦幻模拟战I",
+          "nameKo": "랑그릿사I",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-9.png",
+      "exclusiveEquipment": {
+        "equipmentId": 446,
+        "equipmentNameKo": "카오스의 축복",
+        "effectDescriptionKo": "마방 +10%\n공격하여 적에게 피해를 입힌 후, 무작위 디버프 1개 부여"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 90,
+          "jobId": 701,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "메이지"
+        },
+        {
+          "connectionId": 91,
+          "jobId": 902,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "다크 메이지"
+        },
+        {
+          "connectionId": 92,
+          "jobId": 1002,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "데스"
+        },
+        {
+          "connectionId": 93,
+          "jobId": 703,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "서모너"
+        },
+        {
+          "connectionId": 94,
+          "jobId": 903,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "다크 프린스"
+        },
+        {
+          "connectionId": 95,
+          "jobId": 1003,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "데스 로드"
+        }
+      ]
+    },
+    {
       "id": 10,
       "nameEng": "Ledyn",
       "nameKo": "레딘",
@@ -1412,6 +1488,88 @@
       ]
     },
     {
+      "id": 29,
+      "nameEng": "Tialice",
+      "nameKo": "티아리스",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 1,
+          "nameCn": "主角光环",
+          "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 3,
+          "nameCn": "光之起源",
+          "nameKo": "빛의 기원",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-29.png",
+      "exclusiveEquipment": {
+        "equipmentId": 522,
+        "equipmentNameKo": "소녀의 희망",
+        "effectDescriptionKo": "생명 +10%\n아군에게 단일 대상 스킬 사용 시, [진격의 가호] 부여, 지속 1행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 290,
+          "jobId": 802,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "시스터"
+        },
+        {
+          "connectionId": 291,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "주교"
+        },
+        {
+          "connectionId": 292,
+          "jobId": 815,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "홀리 나이트"
+        },
+        {
+          "connectionId": 293,
+          "jobId": 351,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "유니콘 나이트"
+        },
+        {
+          "connectionId": 294,
+          "jobId": 814,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "세인트 나이트"
+        },
+        {
+          "connectionId": 295,
+          "jobId": 352,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "유니콘 마스터"
+        }
+      ]
+    },
+    {
       "id": 32,
       "nameEng": "EmmaLink",
       "nameKo": "에마링크",
@@ -1484,6 +1642,234 @@
           "jobId": 104,
           "sourceField": "UseableJobConnections_ID",
           "jobNameKo": "마샬"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "nameEng": "Freya",
+      "nameKo": "프레아",
+      "rarity": {
+        "rankId": 3,
+        "label": "SR"
+      },
+      "factions": [
+        {
+          "factionId": 3,
+          "nameCn": "光之起源",
+          "nameKo": "빛의 기원",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-33.png",
+      "exclusiveEquipment": {
+        "equipmentId": 403,
+        "equipmentNameKo": "가시 왕관",
+        "effectDescriptionKo": "마방 +10%\n공격을 받아 전투 진입 전 적에게 고정피해를 입힘. 피해량은 영웅 마방의 2배"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 330,
+          "jobId": 101,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "서전트"
+        },
+        {
+          "connectionId": 331,
+          "jobId": 807,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "세인트"
+        },
+        {
+          "connectionId": 332,
+          "jobId": 103,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "가디언"
+        },
+        {
+          "connectionId": 333,
+          "jobId": 351,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "유니콘 나이트"
+        },
+        {
+          "connectionId": 334,
+          "jobId": 105,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "로열 가디언"
+        },
+        {
+          "connectionId": 335,
+          "jobId": 812,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "발키리"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "nameEng": "Zillagod",
+      "nameKo": "쥬그라",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 3,
+          "nameCn": "光之起源",
+          "nameKo": "빛의 기원",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 8,
+          "nameCn": "流星直击",
+          "nameKo": "메테오 스트라이크",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 11,
+          "nameCn": "超凡领域",
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-37.png",
+      "exclusiveEquipment": {
+        "equipmentId": 280,
+        "equipmentNameKo": "쥬그미의 선물",
+        "effectDescriptionKo": "생명 +5%\n전투 후 생명 10% 회복\n스킬 Cost 제한 무시"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 370,
+          "jobId": 1201,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "홀리 비스트"
+        },
+        {
+          "connectionId": 371,
+          "jobId": 1202,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "켈베로스"
+        },
+        {
+          "connectionId": 372,
+          "jobId": 1203,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "스킬라"
+        },
+        {
+          "connectionId": 373,
+          "jobId": 1204,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "티아매트"
+        },
+        {
+          "connectionId": 374,
+          "jobId": 1205,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "베히모스"
+        },
+        {
+          "connectionId": 375,
+          "jobId": 1206,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "히드라"
+        },
+        {
+          "connectionId": 376,
+          "jobId": 1207,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "바하무트"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "nameEng": "Rune",
+      "nameKo": "루인",
+      "rarity": {
+        "rankId": 2,
+        "label": "R"
+      },
+      "factions": [
+        {
+          "factionId": 3,
+          "nameCn": "光之起源",
+          "nameKo": "빛의 기원",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 6,
+          "nameCn": "梦幻模拟战III",
+          "nameKo": "랑그릿사III",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-40.png",
+      "exclusiveEquipment": {
+        "equipmentId": 488,
+        "equipmentNameKo": "고대 성왕의 왕관",
+        "effectDescriptionKo": "방어 +10%\n주위 2칸 내 아군이 있을 경우 영웅 피해 +10%\n빛의 군단 초절을 받을 수 있음"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 400,
+          "jobId": 201,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "파이터"
+        },
+        {
+          "connectionId": 401,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "제네럴"
+        },
+        {
+          "connectionId": 402,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드맨"
+        },
+        {
+          "connectionId": 403,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "하이랜더"
+        },
+        {
+          "connectionId": 404,
+          "jobId": 204,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "소드 마스터"
         }
       ]
     },
@@ -1731,6 +2117,82 @@
       ]
     },
     {
+      "id": 56,
+      "nameEng": "Rachel",
+      "nameKo": "레이첼",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 1,
+          "nameCn": "主角光环",
+          "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 9,
+          "nameCn": "传说彼端",
+          "nameKo": "전설의 저편",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 7,
+          "nameCn": "梦幻模拟战IV",
+          "nameKo": "랑그릿사IV",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-56.png",
+      "exclusiveEquipment": {
+        "equipmentId": 279,
+        "equipmentNameKo": "마도 방어복",
+        "effectDescriptionKo": "생명 +5%\n근접 공격을 받아 전투 진입 전, 적에게 고정피해를 입힘. 피해량은 영웅 지력의 1배"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 560,
+          "jobId": 802,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "시스터"
+        },
+        {
+          "connectionId": 561,
+          "jobId": 711,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "매직 소울"
+        },
+        {
+          "connectionId": 562,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "주교"
+        },
+        {
+          "connectionId": 563,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "마터"
+        },
+        {
+          "connectionId": 564,
+          "jobId": 712,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "매직 코어"
+        },
+        {
+          "connectionId": 565,
+          "jobId": 808,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "오라클"
+        }
+      ]
+    },
+    {
       "id": 60,
       "nameEng": "Sigma",
       "nameKo": "시그마",
@@ -1885,6 +2347,82 @@
           "jobId": 1105,
           "sourceField": "UseableJobConnections_ID",
           "jobNameKo": "하이 마스터"
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "nameEng": "Yulia",
+      "nameKo": "유리아",
+      "rarity": {
+        "rankId": 4,
+        "label": "SSR"
+      },
+      "factions": [
+        {
+          "factionId": 2,
+          "nameCn": "光辉军团",
+          "nameKo": "빛의 군단",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 6,
+          "nameCn": "公主联盟",
+          "nameKo": "공주 연맹",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 11,
+          "nameCn": "超凡领域",
+          "nameKo": "초월 영역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "origins": [
+        {
+          "productionId": 3,
+          "nameCn": "梦幻模拟战手游I",
+          "nameKo": "랑그릿사 모바일 Ch.1",
+          "localizationStatus": "PROJECT_REVIEWED"
+        }
+      ],
+      "portrait": "assets/portraits/hero-89.png",
+      "exclusiveEquipment": {
+        "equipmentId": 474,
+        "equipmentNameKo": "여신의 순결한 옷",
+        "effectDescriptionKo": "생명 +10%\n고유기로 치명 피해를 받아 부활한 경우,\n'전투 전 적에게 지력의 2배만큼 고정피해를 입히고, 지력의 2배만큼 회복' 획득, 지속 1행동"
+      },
+      "spJobConnections": [],
+      "jobConnections": [
+        {
+          "connectionId": 890,
+          "jobId": 219,
+          "sourceField": "JobConnection_ID",
+          "jobNameKo": "성검사"
+        },
+        {
+          "connectionId": 891,
+          "jobId": 220,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "성스러운 빛의 검"
+        },
+        {
+          "connectionId": 892,
+          "jobId": 829,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "성검의 정령"
+        },
+        {
+          "connectionId": 893,
+          "jobId": 221,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "여신의 검"
+        },
+        {
+          "connectionId": 894,
+          "jobId": 830,
+          "sourceField": "UseableJobConnections_ID",
+          "jobNameKo": "성검의 공주"
         }
       ]
     }

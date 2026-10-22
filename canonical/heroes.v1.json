@@ -344,6 +344,49 @@
       }
     },
     {
+      "id": 9,
+      "nameEng": "Bozel",
+      "portrait": "assets/portraits/hero-9.png",
+      "jobConnections": [
+        {
+          "connectionId": 90,
+          "jobId": 701,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 91,
+          "jobId": 902,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 92,
+          "jobId": 1002,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 93,
+          "jobId": 703,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 94,
+          "jobId": 903,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 95,
+          "jobId": 1003,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=9",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=9]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=9",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=9"
+      }
+    },
+    {
       "id": 10,
       "nameEng": "Ledyn",
       "portrait": "assets/portraits/hero-10.png",
@@ -726,6 +769,49 @@
       }
     },
     {
+      "id": 29,
+      "nameEng": "Tialice",
+      "portrait": "assets/portraits/hero-29.png",
+      "jobConnections": [
+        {
+          "connectionId": 290,
+          "jobId": 802,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 291,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 292,
+          "jobId": 815,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 293,
+          "jobId": 351,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 294,
+          "jobId": 814,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 295,
+          "jobId": 352,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=29",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=29]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=29",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=29"
+      }
+    },
+    {
       "id": 32,
       "nameEng": "EmmaLink",
       "portrait": "assets/portraits/hero-32.png",
@@ -766,6 +852,135 @@
         "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=32/Name_Eng",
         "portrait": "evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=32",
         "jobConnections": "evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=32"
+      }
+    },
+    {
+      "id": 33,
+      "nameEng": "Freya",
+      "portrait": "assets/portraits/hero-33.png",
+      "jobConnections": [
+        {
+          "connectionId": 330,
+          "jobId": 101,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 331,
+          "jobId": 807,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 332,
+          "jobId": 103,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 333,
+          "jobId": 351,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 334,
+          "jobId": 105,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 335,
+          "jobId": 812,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=33",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=33]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=33",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=33"
+      }
+    },
+    {
+      "id": 37,
+      "nameEng": "Zillagod",
+      "portrait": "assets/portraits/hero-37.png",
+      "jobConnections": [
+        {
+          "connectionId": 370,
+          "jobId": 1201,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 371,
+          "jobId": 1202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 372,
+          "jobId": 1203,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 373,
+          "jobId": 1204,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 374,
+          "jobId": 1205,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 375,
+          "jobId": 1206,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 376,
+          "jobId": 1207,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=37",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=37]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=37",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=37"
+      }
+    },
+    {
+      "id": 40,
+      "nameEng": "Rune",
+      "portrait": "assets/portraits/hero-40.png",
+      "jobConnections": [
+        {
+          "connectionId": 400,
+          "jobId": 201,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 401,
+          "jobId": 102,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 402,
+          "jobId": 202,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 403,
+          "jobId": 302,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 404,
+          "jobId": 204,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=40",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=40]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=40",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=40"
       }
     },
     {
@@ -903,6 +1118,49 @@
       }
     },
     {
+      "id": 56,
+      "nameEng": "Rachel",
+      "portrait": "assets/portraits/hero-56.png",
+      "jobConnections": [
+        {
+          "connectionId": 560,
+          "jobId": 802,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 561,
+          "jobId": 711,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 562,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 563,
+          "jobId": 805,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 564,
+          "jobId": 712,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 565,
+          "jobId": 808,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=56",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=56]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=56",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=56"
+      }
+    },
+    {
       "id": 60,
       "nameEng": "Sigma",
       "portrait": "assets/portraits/hero-60.png",
@@ -986,6 +1244,44 @@
         "nameEng": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#inspectedSourceRows.heroInfo[ID=67]/Name_Eng",
         "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=67",
         "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json#heroId=67"
+      }
+    },
+    {
+      "id": 89,
+      "nameEng": "Yulia",
+      "portrait": "assets/portraits/hero-89.png",
+      "jobConnections": [
+        {
+          "connectionId": 890,
+          "jobId": 219,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 891,
+          "jobId": 220,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 892,
+          "jobId": 829,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 893,
+          "jobId": 221,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 894,
+          "jobId": 830,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=89",
+        "nameEng": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#inspectedSourceRows.heroInfo[ID=89]/Name_Eng",
+        "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=89",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=89"
       }
     }
   ]
