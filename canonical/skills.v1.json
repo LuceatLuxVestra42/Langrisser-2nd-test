@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "scope": "Source-native Skill ID with its ConfigDataSkillInfo Name and opaque Desc strings only; not a combat-rule or acquisition model.",
+  "records": [
+    {
+      "skillId": 3067,
+      "nameCn": "传说的骑士",
+      "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>1%</color>，防御提升<color=#DC143C>5%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3067",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3067/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3067/Desc"
+      }
+    },
+    {
+      "skillId": 3072,
+      "nameCn": "传说的骑士",
+      "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>2%</color>，防御提升<color=#DC143C>10%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3072",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3072/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3072/Desc"
+      }
+    },
+    {
+      "skillId": 3077,
+      "nameCn": "传说的骑士",
+      "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>3%</color>，防御提升<color=#DC143C>15%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3077",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3077/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3077/Desc"
+      }
+    },
+    {
+      "skillId": 3082,
+      "nameCn": "传说的骑士",
+      "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>4%</color>，防御提升<color=#DC143C>20%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3082",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3082/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3082/Desc"
+      }
+    },
+    {
+      "skillId": 3196,
+      "nameCn": "秘法延伸",
+      "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>10%</color>，使用技能时射程提升<color=#DC143C>1</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3196",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3196/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3196/Desc"
+      }
+    },
+    {
+      "skillId": 3197,
+      "nameCn": "秘法延伸",
+      "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>15%</color>，使用技能时射程提升<color=#DC143C>1</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3197",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3197/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3197/Desc"
+      }
+    },
+    {
+      "skillId": 3198,
+      "nameCn": "秘法延伸",
+      "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>20%</color>，使用技能时射程提升<color=#DC143C>1</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3198",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3198/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3198/Desc"
+      }
+    },
+    {
+      "skillId": 3199,
+      "nameCn": "秘法延伸",
+      "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>30%</color>，使用技能时射程提升<color=#DC143C>1</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3199",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3199/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3199/Desc"
+      }
+    }
+  ]
+}

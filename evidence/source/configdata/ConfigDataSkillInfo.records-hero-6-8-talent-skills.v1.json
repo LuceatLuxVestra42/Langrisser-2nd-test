@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "scope": {
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "skillIds": [
+      3067,
+      3072,
+      3077,
+      3082,
+      3196,
+      3197,
+      3198,
+      3199
+    ],
+    "claim": "The pinned ConfigData SkillInfo source has these native Skill IDs, Chinese Name strings, and Chinese Desc strings.",
+    "outOfScope": [
+      "Korean Skill localization",
+      "structured combat/effect rules",
+      "PassiveBuffs_ID endpoint semantics",
+      "Skill acquisition",
+      "Hero or Job ownership",
+      "icon asset existence or meaning"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "containerPath": "$",
+    "primaryKey": "ID",
+    "sourceIndex": {
+      "path": "data/index/skill.v1.json",
+      "gitBlobSha1": "7bc7ce0f2ac59224763faf1a70e19e199eecc900",
+      "sourceSha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+      "recordCount": 27198,
+      "recordIndices": {
+        "3067": 240,
+        "3072": 241,
+        "3077": 242,
+        "3082": 243,
+        "3196": 291,
+        "3197": 292,
+        "3198": 293,
+        "3199": 294
+      }
+    },
+    "releaseArchive": {
+      "assetId": 540460413,
+      "name": "configdata-source-v1-6475e63e.tar",
+      "sha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+      "archiveBytesVerifiedHere": false
+    }
+  },
+  "extraction": {
+    "selection": "Select top-level array records only when numeric source-native ID equals one of the declared skillIds; preserve only the exact raw ID, Name, and Desc fields used by admitted claims. Other source fields are intentionally excluded.",
+    "rawSourceDownloadedAtPinnedCommit": true,
+    "blobAndSha256Verified": true,
+    "sourceIndexIdToRecordIndexVerified": true
+  },
+  "records": [
+    {
+      "sourceRecordIndex": 240,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3067",
+      "rawRecord": {
+        "ID": 3067,
+        "Name": "传说的骑士",
+        "Desc": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>1%</color>，防御提升<color=#DC143C>5%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
+      }
+    },
+    {
+      "sourceRecordIndex": 241,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3072",
+      "rawRecord": {
+        "ID": 3072,
+        "Name": "传说的骑士",
+        "Desc": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>2%</color>，防御提升<color=#DC143C>10%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
+      }
+    },
+    {
+      "sourceRecordIndex": 242,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3077",
+      "rawRecord": {
+        "ID": 3077,
+        "Name": "传说的骑士",
+        "Desc": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>3%</color>，防御提升<color=#DC143C>15%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
+      }
+    },
+    {
+      "sourceRecordIndex": 243,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3082",
+      "rawRecord": {
+        "ID": 3082,
+        "Name": "传说的骑士",
+        "Desc": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>4%</color>，防御提升<color=#DC143C>20%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
+      }
+    },
+    {
+      "sourceRecordIndex": 291,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3196",
+      "rawRecord": {
+        "ID": 3196,
+        "Name": "秘法延伸",
+        "Desc": "进入战斗时，魔法伤害提升<color=#DC143C>10%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
+      }
+    },
+    {
+      "sourceRecordIndex": 292,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3197",
+      "rawRecord": {
+        "ID": 3197,
+        "Name": "秘法延伸",
+        "Desc": "进入战斗时，魔法伤害提升<color=#DC143C>15%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
+      }
+    },
+    {
+      "sourceRecordIndex": 293,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3198",
+      "rawRecord": {
+        "ID": 3198,
+        "Name": "秘法延伸",
+        "Desc": "进入战斗时，魔法伤害提升<color=#DC143C>20%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
+      }
+    },
+    {
+      "sourceRecordIndex": 294,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=3199",
+      "rawRecord": {
+        "ID": 3199,
+        "Name": "秘法延伸",
+        "Desc": "进入战斗时，魔法伤害提升<color=#DC143C>30%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
+      }
+    }
+  ],
+  "interpretation": {
+    "name": "ConfigDataSkillInfo.Name is preserved as the source Chinese name string; no Korean translation or alias is asserted.",
+    "description": "ConfigDataSkillInfo.Desc is preserved as an opaque source Chinese description string, including markup; no structured formula or independent mechanic claim is derived from its text."
+  },
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "fieldMeaningContract": {
+    "evidenceClass": "B",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/hero-skill-acquisition-stage4-4.v1.json",
+    "gitBlobSha1": "afdabed9f82a401f50ed344e5ee4877bbc024f9c",
+    "status": "validated-review",
+    "skillInfoFieldNumbers": {
+      "ID": 2,
+      "Name": 3,
+      "Desc": 5
+    },
+    "supportedMeaning": "SkillInfo IDs are resolved to display metadata only after the explicit acquisition/reference edge has been established.",
+    "limitation": "This predecessor contract is review-scoped, does not establish combat mechanics, and its other candidate field numbers are not admitted here."
+  },
+  "claimEvidence": {
+    "sourceIdNameAndDescValues": "A",
+    "fieldDisplayMeaning": "B"
+  }
+}
