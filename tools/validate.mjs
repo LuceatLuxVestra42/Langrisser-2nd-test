@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { renderGenerated, renderGeneralSsrEquipment } from './generate.mjs';
 import { validateHeroPortraitSelection } from './validate-hero-portrait-selection.mjs';
+import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-raw-stats.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -668,4 +669,5 @@ for (const record of equipmentGenerated.equipment) {
 }
 
 await validateHeroPortraitSelection(root);
-process.stdout.write('Hero slice and General SSR Equipment validators: PASS (Hero relation/source locators, portrait asset integrity, generated freshness and presentation shape; unrelated semantic domains excluded)\n');
+await loadAndValidateHeroJobLevelRawStats(root);
+process.stdout.write('Hero slice, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators and scoped raw JobLevel stats; no derived combat stats admitted)\n');
