@@ -31,6 +31,9 @@ jobs:
       - name: Validate Hero presentation slice
         run: node tools/validate.mjs
 
+      - name: Test Hero JobLevel raw stats
+        run: node tools/test-hero-job-level-raw-stats.mjs
+
       - name: Validate Faction identity owner
         run: node tools/validate-faction-identities.mjs
 

@@ -1,0 +1,1356 @@
+{
+  "schemaVersion": 1,
+  "scope": "Raw ConfigDataJobLevel stat fields for every JobLevel_ID explicitly referenced by the 12 normal JobConnections of Hero 6 and 8. Values remain Job/JobLevel source facts; no Hero-level, Star, Hero-rank modifier, formula, mastery, bond effect, derived stat, or final combat stat is asserted. The selected 50 records contain DEX_INI but no DEX_UP field; no Dexterity growth value is inferred.",
+  "records": [
+    {
+      "heroId": 6,
+      "jobConnectionId": 60,
+      "jobId": 301,
+      "jobRank": 2,
+      "jobLevelId": 601,
+      "jobLevelUpHeroLevel": 12,
+      "rankCode": 5,
+      "rawStats": {
+        "HP_INI": 228,
+        "HP_UP": 100,
+        "AT_INI": 35,
+        "AT_UP": 16,
+        "Magic_INI": 20,
+        "Magic_UP": 9,
+        "DF_INI": 19,
+        "DF_UP": 8,
+        "MagicDF_INI": 16,
+        "MagicDF_UP": 7,
+        "DEX_INI": 20
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=601",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=301"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 60,
+      "jobId": 301,
+      "jobRank": 2,
+      "jobLevelId": 602,
+      "jobLevelUpHeroLevel": 20,
+      "rankCode": 6,
+      "rawStats": {
+        "HP_INI": 245,
+        "HP_UP": 100,
+        "AT_INI": 38,
+        "AT_UP": 16,
+        "Magic_INI": 22,
+        "Magic_UP": 9,
+        "DF_INI": 20,
+        "DF_UP": 8,
+        "MagicDF_INI": 17,
+        "MagicDF_UP": 7,
+        "DEX_INI": 22
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=602",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=301"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 60,
+      "jobId": 301,
+      "jobRank": 2,
+      "jobLevelId": 603,
+      "jobLevelUpHeroLevel": 20,
+      "rankCode": 7,
+      "rawStats": {
+        "HP_INI": 264,
+        "HP_UP": 100,
+        "AT_INI": 41,
+        "AT_UP": 16,
+        "Magic_INI": 24,
+        "Magic_UP": 9,
+        "DF_INI": 22,
+        "DF_UP": 8,
+        "MagicDF_INI": 19,
+        "MagicDF_UP": 7,
+        "DEX_INI": 24
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=603",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=60",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=301"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 61,
+      "jobId": 303,
+      "jobRank": 3,
+      "jobLevelId": 611,
+      "jobLevelUpHeroLevel": 25,
+      "rankCode": 8,
+      "rawStats": {
+        "HP_INI": 283,
+        "HP_UP": 100,
+        "AT_INI": 46,
+        "AT_UP": 17,
+        "Magic_INI": 26,
+        "Magic_UP": 9,
+        "DF_INI": 21,
+        "DF_UP": 8,
+        "MagicDF_INI": 19,
+        "MagicDF_UP": 7,
+        "DEX_INI": 26
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=611",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=303"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 61,
+      "jobId": 303,
+      "jobRank": 3,
+      "jobLevelId": 612,
+      "jobLevelUpHeroLevel": 30,
+      "rankCode": 9,
+      "rawStats": {
+        "HP_INI": 305,
+        "HP_UP": 100,
+        "AT_INI": 50,
+        "AT_UP": 17,
+        "Magic_INI": 28,
+        "Magic_UP": 9,
+        "DF_INI": 23,
+        "DF_UP": 8,
+        "MagicDF_INI": 20,
+        "MagicDF_UP": 7,
+        "DEX_INI": 28
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=612",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=303"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 61,
+      "jobId": 303,
+      "jobRank": 3,
+      "jobLevelId": 613,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 10,
+      "rawStats": {
+        "HP_INI": 329,
+        "HP_UP": 100,
+        "AT_INI": 54,
+        "AT_UP": 17,
+        "Magic_INI": 30,
+        "Magic_UP": 9,
+        "DF_INI": 25,
+        "DF_UP": 8,
+        "MagicDF_INI": 22,
+        "MagicDF_UP": 7,
+        "DEX_INI": 30
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=613",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=303"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 61,
+      "jobId": 303,
+      "jobRank": 3,
+      "jobLevelId": 614,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 11,
+      "rawStats": {
+        "HP_INI": 356,
+        "HP_UP": 100,
+        "AT_INI": 58,
+        "AT_UP": 17,
+        "Magic_INI": 32,
+        "Magic_UP": 9,
+        "DF_INI": 26,
+        "DF_UP": 8,
+        "MagicDF_INI": 23,
+        "MagicDF_UP": 7,
+        "DEX_INI": 32
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=614",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=61",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=303"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 62,
+      "jobId": 302,
+      "jobRank": 3,
+      "jobLevelId": 621,
+      "jobLevelUpHeroLevel": 25,
+      "rankCode": 8,
+      "rawStats": {
+        "HP_INI": 283,
+        "HP_UP": 100,
+        "AT_INI": 44,
+        "AT_UP": 16,
+        "Magic_INI": 26,
+        "Magic_UP": 9,
+        "DF_INI": 23,
+        "DF_UP": 8,
+        "MagicDF_INI": 20,
+        "MagicDF_UP": 7,
+        "DEX_INI": 26
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=621",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=302"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 62,
+      "jobId": 302,
+      "jobRank": 3,
+      "jobLevelId": 622,
+      "jobLevelUpHeroLevel": 30,
+      "rankCode": 9,
+      "rawStats": {
+        "HP_INI": 305,
+        "HP_UP": 100,
+        "AT_INI": 47,
+        "AT_UP": 16,
+        "Magic_INI": 28,
+        "Magic_UP": 9,
+        "DF_INI": 25,
+        "DF_UP": 8,
+        "MagicDF_INI": 22,
+        "MagicDF_UP": 7,
+        "DEX_INI": 28
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=622",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=302"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 62,
+      "jobId": 302,
+      "jobRank": 3,
+      "jobLevelId": 623,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 10,
+      "rawStats": {
+        "HP_INI": 329,
+        "HP_UP": 100,
+        "AT_INI": 51,
+        "AT_UP": 16,
+        "Magic_INI": 30,
+        "Magic_UP": 9,
+        "DF_INI": 27,
+        "DF_UP": 8,
+        "MagicDF_INI": 23,
+        "MagicDF_UP": 7,
+        "DEX_INI": 30
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=623",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=302"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 62,
+      "jobId": 302,
+      "jobRank": 3,
+      "jobLevelId": 624,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 11,
+      "rawStats": {
+        "HP_INI": 356,
+        "HP_UP": 100,
+        "AT_INI": 55,
+        "AT_UP": 16,
+        "Magic_INI": 32,
+        "Magic_UP": 9,
+        "DF_INI": 29,
+        "DF_UP": 8,
+        "MagicDF_INI": 25,
+        "MagicDF_UP": 7,
+        "DEX_INI": 32
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=624",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=62",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=302"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 63,
+      "jobId": 202,
+      "jobRank": 3,
+      "jobLevelId": 631,
+      "jobLevelUpHeroLevel": 25,
+      "rankCode": 8,
+      "rawStats": {
+        "HP_INI": 313,
+        "HP_UP": 110,
+        "AT_INI": 44,
+        "AT_UP": 16,
+        "Magic_INI": 27,
+        "Magic_UP": 10,
+        "DF_INI": 25,
+        "DF_UP": 9,
+        "MagicDF_INI": 21,
+        "MagicDF_UP": 8,
+        "DEX_INI": 31
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=631",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=202"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 63,
+      "jobId": 202,
+      "jobRank": 3,
+      "jobLevelId": 632,
+      "jobLevelUpHeroLevel": 30,
+      "rankCode": 9,
+      "rawStats": {
+        "HP_INI": 337,
+        "HP_UP": 110,
+        "AT_INI": 47,
+        "AT_UP": 16,
+        "Magic_INI": 29,
+        "Magic_UP": 10,
+        "DF_INI": 26,
+        "DF_UP": 9,
+        "MagicDF_INI": 23,
+        "MagicDF_UP": 8,
+        "DEX_INI": 33
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=632",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=202"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 63,
+      "jobId": 202,
+      "jobRank": 3,
+      "jobLevelId": 633,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 10,
+      "rawStats": {
+        "HP_INI": 364,
+        "HP_UP": 110,
+        "AT_INI": 51,
+        "AT_UP": 16,
+        "Magic_INI": 31,
+        "Magic_UP": 10,
+        "DF_INI": 29,
+        "DF_UP": 9,
+        "MagicDF_INI": 25,
+        "MagicDF_UP": 8,
+        "DEX_INI": 36
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=633",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=202"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 63,
+      "jobId": 202,
+      "jobRank": 3,
+      "jobLevelId": 634,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 11,
+      "rawStats": {
+        "HP_INI": 394,
+        "HP_UP": 110,
+        "AT_INI": 55,
+        "AT_UP": 16,
+        "Magic_INI": 34,
+        "Magic_UP": 10,
+        "DF_INI": 31,
+        "DF_UP": 9,
+        "MagicDF_INI": 26,
+        "MagicDF_UP": 8,
+        "DEX_INI": 39
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=634",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=63",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=202"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 64,
+      "jobId": 307,
+      "jobRank": 4,
+      "jobLevelId": 641,
+      "jobLevelUpHeroLevel": 40,
+      "rankCode": 12,
+      "rawStats": {
+        "HP_INI": 383,
+        "HP_UP": 100,
+        "AT_INI": 62,
+        "AT_UP": 17,
+        "Magic_INI": 34,
+        "Magic_UP": 9,
+        "DF_INI": 28,
+        "DF_UP": 8,
+        "MagicDF_INI": 25,
+        "MagicDF_UP": 7,
+        "DEX_INI": 34
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=641",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=307"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 64,
+      "jobId": 307,
+      "jobRank": 4,
+      "jobLevelId": 642,
+      "jobLevelUpHeroLevel": 45,
+      "rankCode": 13,
+      "rawStats": {
+        "HP_INI": 442,
+        "HP_UP": 100,
+        "AT_INI": 72,
+        "AT_UP": 17,
+        "Magic_INI": 39,
+        "Magic_UP": 9,
+        "DF_INI": 32,
+        "DF_UP": 8,
+        "MagicDF_INI": 29,
+        "MagicDF_UP": 7,
+        "DEX_INI": 37
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=642",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=307"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 64,
+      "jobId": 307,
+      "jobRank": 4,
+      "jobLevelId": 643,
+      "jobLevelUpHeroLevel": 50,
+      "rankCode": 14,
+      "rawStats": {
+        "HP_INI": 506,
+        "HP_UP": 100,
+        "AT_INI": 83,
+        "AT_UP": 17,
+        "Magic_INI": 45,
+        "Magic_UP": 9,
+        "DF_INI": 37,
+        "DF_UP": 8,
+        "MagicDF_INI": 33,
+        "MagicDF_UP": 7,
+        "DEX_INI": 43
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=643",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=307"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 64,
+      "jobId": 307,
+      "jobRank": 4,
+      "jobLevelId": 644,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 15,
+      "rawStats": {
+        "HP_INI": 575,
+        "HP_UP": 100,
+        "AT_INI": 94,
+        "AT_UP": 17,
+        "Magic_INI": 51,
+        "Magic_UP": 9,
+        "DF_INI": 43,
+        "DF_UP": 8,
+        "MagicDF_INI": 37,
+        "MagicDF_UP": 7,
+        "DEX_INI": 49
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=644",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=307"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 64,
+      "jobId": 307,
+      "jobRank": 4,
+      "jobLevelId": 645,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 16,
+      "rawStats": {
+        "HP_INI": 649,
+        "HP_UP": 100,
+        "AT_INI": 106,
+        "AT_UP": 17,
+        "Magic_INI": 58,
+        "Magic_UP": 9,
+        "DF_INI": 48,
+        "DF_UP": 8,
+        "MagicDF_INI": 42,
+        "MagicDF_UP": 7,
+        "DEX_INI": 56
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=645",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=64",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=307"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 65,
+      "jobId": 306,
+      "jobRank": 4,
+      "jobLevelId": 651,
+      "jobLevelUpHeroLevel": 40,
+      "rankCode": 12,
+      "rawStats": {
+        "HP_INI": 424,
+        "HP_UP": 110,
+        "AT_INI": 59,
+        "AT_UP": 16,
+        "Magic_INI": 34,
+        "Magic_UP": 9,
+        "DF_INI": 32,
+        "DF_UP": 8,
+        "MagicDF_INI": 28,
+        "MagicDF_UP": 8,
+        "DEX_INI": 34
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=651",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=306"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 65,
+      "jobId": 306,
+      "jobRank": 4,
+      "jobLevelId": 652,
+      "jobLevelUpHeroLevel": 45,
+      "rankCode": 13,
+      "rawStats": {
+        "HP_INI": 489,
+        "HP_UP": 110,
+        "AT_INI": 68,
+        "AT_UP": 16,
+        "Magic_INI": 39,
+        "Magic_UP": 9,
+        "DF_INI": 37,
+        "DF_UP": 8,
+        "MagicDF_INI": 32,
+        "MagicDF_UP": 8,
+        "DEX_INI": 37
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=652",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=306"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 65,
+      "jobId": 306,
+      "jobRank": 4,
+      "jobLevelId": 653,
+      "jobLevelUpHeroLevel": 50,
+      "rankCode": 14,
+      "rawStats": {
+        "HP_INI": 559,
+        "HP_UP": 110,
+        "AT_INI": 78,
+        "AT_UP": 16,
+        "Magic_INI": 45,
+        "Magic_UP": 9,
+        "DF_INI": 42,
+        "DF_UP": 8,
+        "MagicDF_INI": 37,
+        "MagicDF_UP": 8,
+        "DEX_INI": 43
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=653",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=306"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 65,
+      "jobId": 306,
+      "jobRank": 4,
+      "jobLevelId": 654,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 15,
+      "rawStats": {
+        "HP_INI": 635,
+        "HP_UP": 110,
+        "AT_INI": 89,
+        "AT_UP": 16,
+        "Magic_INI": 51,
+        "Magic_UP": 9,
+        "DF_INI": 47,
+        "DF_UP": 8,
+        "MagicDF_INI": 43,
+        "MagicDF_UP": 8,
+        "DEX_INI": 49
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=654",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=306"
+      }
+    },
+    {
+      "heroId": 6,
+      "jobConnectionId": 65,
+      "jobId": 306,
+      "jobRank": 4,
+      "jobLevelId": 655,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 16,
+      "rawStats": {
+        "HP_INI": 716,
+        "HP_UP": 110,
+        "AT_INI": 100,
+        "AT_UP": 16,
+        "Magic_INI": 58,
+        "Magic_UP": 9,
+        "DF_INI": 53,
+        "DF_UP": 8,
+        "MagicDF_INI": 48,
+        "MagicDF_UP": 8,
+        "DEX_INI": 56
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=655",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=65",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=306"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 80,
+      "jobId": 701,
+      "jobRank": 2,
+      "jobLevelId": 801,
+      "jobLevelUpHeroLevel": 12,
+      "rankCode": 5,
+      "rawStats": {
+        "HP_INI": 194,
+        "HP_UP": 85,
+        "AT_INI": 21,
+        "AT_UP": 10,
+        "Magic_INI": 33,
+        "Magic_UP": 15,
+        "DF_INI": 16,
+        "DF_UP": 7,
+        "MagicDF_INI": 21,
+        "MagicDF_UP": 10,
+        "DEX_INI": 16
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=801",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=701"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 80,
+      "jobId": 701,
+      "jobRank": 2,
+      "jobLevelId": 802,
+      "jobLevelUpHeroLevel": 20,
+      "rankCode": 6,
+      "rawStats": {
+        "HP_INI": 208,
+        "HP_UP": 85,
+        "AT_INI": 23,
+        "AT_UP": 10,
+        "Magic_INI": 35,
+        "Magic_UP": 15,
+        "DF_INI": 17,
+        "DF_UP": 7,
+        "MagicDF_INI": 23,
+        "MagicDF_UP": 10,
+        "DEX_INI": 17
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=802",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=701"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 80,
+      "jobId": 701,
+      "jobRank": 2,
+      "jobLevelId": 803,
+      "jobLevelUpHeroLevel": 20,
+      "rankCode": 7,
+      "rawStats": {
+        "HP_INI": 224,
+        "HP_UP": 85,
+        "AT_INI": 25,
+        "AT_UP": 10,
+        "Magic_INI": 38,
+        "Magic_UP": 15,
+        "DF_INI": 19,
+        "DF_UP": 7,
+        "MagicDF_INI": 25,
+        "MagicDF_UP": 10,
+        "DEX_INI": 18
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=803",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=80",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=701"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 81,
+      "jobId": 805,
+      "jobRank": 3,
+      "jobLevelId": 811,
+      "jobLevelUpHeroLevel": 25,
+      "rankCode": 8,
+      "rawStats": {
+        "HP_INI": 257,
+        "HP_UP": 90,
+        "AT_INI": 33,
+        "AT_UP": 12,
+        "Magic_INI": 39,
+        "Magic_UP": 14,
+        "DF_INI": 21,
+        "DF_UP": 8,
+        "MagicDF_INI": 26,
+        "MagicDF_UP": 10,
+        "DEX_INI": 19
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=811",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=805"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 81,
+      "jobId": 805,
+      "jobRank": 3,
+      "jobLevelId": 812,
+      "jobLevelUpHeroLevel": 30,
+      "rankCode": 9,
+      "rawStats": {
+        "HP_INI": 277,
+        "HP_UP": 90,
+        "AT_INI": 36,
+        "AT_UP": 12,
+        "Magic_INI": 42,
+        "Magic_UP": 14,
+        "DF_INI": 23,
+        "DF_UP": 8,
+        "MagicDF_INI": 28,
+        "MagicDF_UP": 10,
+        "DEX_INI": 21
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=812",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=805"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 81,
+      "jobId": 805,
+      "jobRank": 3,
+      "jobLevelId": 813,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 10,
+      "rawStats": {
+        "HP_INI": 299,
+        "HP_UP": 90,
+        "AT_INI": 39,
+        "AT_UP": 12,
+        "Magic_INI": 45,
+        "Magic_UP": 14,
+        "DF_INI": 25,
+        "DF_UP": 8,
+        "MagicDF_INI": 31,
+        "MagicDF_UP": 10,
+        "DEX_INI": 23
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=813",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=805"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 81,
+      "jobId": 805,
+      "jobRank": 3,
+      "jobLevelId": 814,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 11,
+      "rawStats": {
+        "HP_INI": 323,
+        "HP_UP": 90,
+        "AT_INI": 42,
+        "AT_UP": 12,
+        "Magic_INI": 49,
+        "Magic_UP": 14,
+        "DF_INI": 26,
+        "DF_UP": 8,
+        "MagicDF_INI": 33,
+        "MagicDF_UP": 10,
+        "DEX_INI": 25
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=814",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=81",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=805"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 82,
+      "jobId": 702,
+      "jobRank": 3,
+      "jobLevelId": 821,
+      "jobLevelUpHeroLevel": 25,
+      "rankCode": 8,
+      "rawStats": {
+        "HP_INI": 240,
+        "HP_UP": 85,
+        "AT_INI": 27,
+        "AT_UP": 10,
+        "Magic_INI": 41,
+        "Magic_UP": 15,
+        "DF_INI": 20,
+        "DF_UP": 7,
+        "MagicDF_INI": 26,
+        "MagicDF_UP": 10,
+        "DEX_INI": 19
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=821",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=702"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 82,
+      "jobId": 702,
+      "jobRank": 3,
+      "jobLevelId": 822,
+      "jobLevelUpHeroLevel": 30,
+      "rankCode": 9,
+      "rawStats": {
+        "HP_INI": 259,
+        "HP_UP": 85,
+        "AT_INI": 29,
+        "AT_UP": 10,
+        "Magic_INI": 44,
+        "Magic_UP": 15,
+        "DF_INI": 22,
+        "DF_UP": 7,
+        "MagicDF_INI": 28,
+        "MagicDF_UP": 10,
+        "DEX_INI": 21
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=822",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=702"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 82,
+      "jobId": 702,
+      "jobRank": 3,
+      "jobLevelId": 823,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 10,
+      "rawStats": {
+        "HP_INI": 280,
+        "HP_UP": 85,
+        "AT_INI": 31,
+        "AT_UP": 10,
+        "Magic_INI": 48,
+        "Magic_UP": 15,
+        "DF_INI": 23,
+        "DF_UP": 7,
+        "MagicDF_INI": 31,
+        "MagicDF_UP": 10,
+        "DEX_INI": 23
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=823",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=702"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 82,
+      "jobId": 702,
+      "jobRank": 3,
+      "jobLevelId": 824,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 11,
+      "rawStats": {
+        "HP_INI": 303,
+        "HP_UP": 85,
+        "AT_INI": 34,
+        "AT_UP": 10,
+        "Magic_INI": 52,
+        "Magic_UP": 15,
+        "DF_INI": 25,
+        "DF_UP": 7,
+        "MagicDF_INI": 33,
+        "MagicDF_UP": 10,
+        "DEX_INI": 25
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=824",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=82",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=702"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 83,
+      "jobId": 703,
+      "jobRank": 3,
+      "jobLevelId": 831,
+      "jobLevelUpHeroLevel": 25,
+      "rankCode": 8,
+      "rawStats": {
+        "HP_INI": 257,
+        "HP_UP": 90,
+        "AT_INI": 31,
+        "AT_UP": 11,
+        "Magic_INI": 39,
+        "Magic_UP": 14,
+        "DF_INI": 20,
+        "DF_UP": 7,
+        "MagicDF_INI": 25,
+        "MagicDF_UP": 9,
+        "DEX_INI": 23
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=831",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=703"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 83,
+      "jobId": 703,
+      "jobRank": 3,
+      "jobLevelId": 832,
+      "jobLevelUpHeroLevel": 30,
+      "rankCode": 9,
+      "rawStats": {
+        "HP_INI": 277,
+        "HP_UP": 90,
+        "AT_INI": 33,
+        "AT_UP": 11,
+        "Magic_INI": 42,
+        "Magic_UP": 14,
+        "DF_INI": 22,
+        "DF_UP": 7,
+        "MagicDF_INI": 26,
+        "MagicDF_UP": 9,
+        "DEX_INI": 25
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=832",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=703"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 83,
+      "jobId": 703,
+      "jobRank": 3,
+      "jobLevelId": 833,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 10,
+      "rawStats": {
+        "HP_INI": 299,
+        "HP_UP": 90,
+        "AT_INI": 36,
+        "AT_UP": 11,
+        "Magic_INI": 45,
+        "Magic_UP": 14,
+        "DF_INI": 23,
+        "DF_UP": 7,
+        "MagicDF_INI": 29,
+        "MagicDF_UP": 9,
+        "DEX_INI": 27
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=833",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=703"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 83,
+      "jobId": 703,
+      "jobRank": 3,
+      "jobLevelId": 834,
+      "jobLevelUpHeroLevel": 35,
+      "rankCode": 11,
+      "rawStats": {
+        "HP_INI": 323,
+        "HP_UP": 90,
+        "AT_INI": 39,
+        "AT_UP": 11,
+        "Magic_INI": 49,
+        "Magic_UP": 14,
+        "DF_INI": 25,
+        "DF_UP": 7,
+        "MagicDF_INI": 31,
+        "MagicDF_UP": 9,
+        "DEX_INI": 29
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=834",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=83",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=703"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 84,
+      "jobId": 810,
+      "jobRank": 4,
+      "jobLevelId": 841,
+      "jobLevelUpHeroLevel": 40,
+      "rankCode": 12,
+      "rawStats": {
+        "HP_INI": 347,
+        "HP_UP": 90,
+        "AT_INI": 45,
+        "AT_UP": 12,
+        "Magic_INI": 53,
+        "Magic_UP": 14,
+        "DF_INI": 28,
+        "DF_UP": 8,
+        "MagicDF_INI": 35,
+        "MagicDF_UP": 10,
+        "DEX_INI": 27
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=841",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=810"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 84,
+      "jobId": 810,
+      "jobRank": 4,
+      "jobLevelId": 842,
+      "jobLevelUpHeroLevel": 45,
+      "rankCode": 13,
+      "rawStats": {
+        "HP_INI": 400,
+        "HP_UP": 90,
+        "AT_INI": 52,
+        "AT_UP": 12,
+        "Magic_INI": 61,
+        "Magic_UP": 14,
+        "DF_INI": 32,
+        "DF_UP": 8,
+        "MagicDF_INI": 41,
+        "MagicDF_UP": 10,
+        "DEX_INI": 29
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=842",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=810"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 84,
+      "jobId": 810,
+      "jobRank": 4,
+      "jobLevelId": 843,
+      "jobLevelUpHeroLevel": 50,
+      "rankCode": 14,
+      "rawStats": {
+        "HP_INI": 458,
+        "HP_UP": 90,
+        "AT_INI": 59,
+        "AT_UP": 12,
+        "Magic_INI": 70,
+        "Magic_UP": 14,
+        "DF_INI": 37,
+        "DF_UP": 8,
+        "MagicDF_INI": 47,
+        "MagicDF_UP": 10,
+        "DEX_INI": 33
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=843",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=810"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 84,
+      "jobId": 810,
+      "jobRank": 4,
+      "jobLevelId": 844,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 15,
+      "rawStats": {
+        "HP_INI": 520,
+        "HP_UP": 90,
+        "AT_INI": 67,
+        "AT_UP": 12,
+        "Magic_INI": 79,
+        "Magic_UP": 14,
+        "DF_INI": 43,
+        "DF_UP": 8,
+        "MagicDF_INI": 53,
+        "MagicDF_UP": 10,
+        "DEX_INI": 38
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=844",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=810"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 84,
+      "jobId": 810,
+      "jobRank": 4,
+      "jobLevelId": 845,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 16,
+      "rawStats": {
+        "HP_INI": 587,
+        "HP_UP": 90,
+        "AT_INI": 76,
+        "AT_UP": 12,
+        "Magic_INI": 89,
+        "Magic_UP": 14,
+        "DF_INI": 48,
+        "DF_UP": 8,
+        "MagicDF_INI": 60,
+        "MagicDF_UP": 10,
+        "DEX_INI": 43
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=845",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=84",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=810"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 85,
+      "jobId": 706,
+      "jobRank": 4,
+      "jobLevelId": 851,
+      "jobLevelUpHeroLevel": 40,
+      "rankCode": 12,
+      "rawStats": {
+        "HP_INI": 326,
+        "HP_UP": 85,
+        "AT_INI": 37,
+        "AT_UP": 10,
+        "Magic_INI": 56,
+        "Magic_UP": 15,
+        "DF_INI": 27,
+        "DF_UP": 7,
+        "MagicDF_INI": 35,
+        "MagicDF_UP": 10,
+        "DEX_INI": 27
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=851",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=706"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 85,
+      "jobId": 706,
+      "jobRank": 4,
+      "jobLevelId": 852,
+      "jobLevelUpHeroLevel": 45,
+      "rankCode": 13,
+      "rawStats": {
+        "HP_INI": 376,
+        "HP_UP": 85,
+        "AT_INI": 43,
+        "AT_UP": 10,
+        "Magic_INI": 65,
+        "Magic_UP": 15,
+        "DF_INI": 31,
+        "DF_UP": 7,
+        "MagicDF_INI": 41,
+        "MagicDF_UP": 10,
+        "DEX_INI": 29
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=852",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=706"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 85,
+      "jobId": 706,
+      "jobRank": 4,
+      "jobLevelId": 853,
+      "jobLevelUpHeroLevel": 50,
+      "rankCode": 14,
+      "rawStats": {
+        "HP_INI": 430,
+        "HP_UP": 85,
+        "AT_INI": 49,
+        "AT_UP": 10,
+        "Magic_INI": 74,
+        "Magic_UP": 15,
+        "DF_INI": 35,
+        "DF_UP": 7,
+        "MagicDF_INI": 47,
+        "MagicDF_UP": 10,
+        "DEX_INI": 33
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=853",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=706"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 85,
+      "jobId": 706,
+      "jobRank": 4,
+      "jobLevelId": 854,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 15,
+      "rawStats": {
+        "HP_INI": 488,
+        "HP_UP": 85,
+        "AT_INI": 56,
+        "AT_UP": 10,
+        "Magic_INI": 84,
+        "Magic_UP": 15,
+        "DF_INI": 40,
+        "DF_UP": 7,
+        "MagicDF_INI": 53,
+        "MagicDF_UP": 10,
+        "DEX_INI": 38
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=854",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=706"
+      }
+    },
+    {
+      "heroId": 8,
+      "jobConnectionId": 85,
+      "jobId": 706,
+      "jobRank": 4,
+      "jobLevelId": 855,
+      "jobLevelUpHeroLevel": 55,
+      "rankCode": 16,
+      "rawStats": {
+        "HP_INI": 551,
+        "HP_UP": 85,
+        "AT_INI": 63,
+        "AT_UP": 10,
+        "Magic_INI": 95,
+        "Magic_UP": 15,
+        "DF_INI": 46,
+        "DF_UP": 7,
+        "MagicDF_INI": 60,
+        "MagicDF_UP": 10,
+        "DEX_INI": 43
+      },
+      "provenance": {
+        "jobLevel": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-6-8-raw-stats.v1.json#ID=855",
+        "jobConnection": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json#ID=85",
+        "job": "evidence/source/configdata/ConfigDataJobInfo.records-hero-5-6-8.json#ID=706"
+      }
+    }
+  ]
+}
