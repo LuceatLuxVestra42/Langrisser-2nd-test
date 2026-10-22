@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Faction identities referenced by the admitted seven-Hero relation slice; source-backed CN names only.",
+  "scope": "Faction identities referenced by the admitted Hero–Faction relation scope; source-backed CN names only.",
   "sourceEvidence": "evidence/source/hero-faction.v1.json",
   "records": [
     {
@@ -12,6 +12,11 @@
       "factionId": 2,
       "nameCn": "光辉军团",
       "provenance": "evidence/source/hero-faction.v1.json#ID=2/Name"
+    },
+    {
+      "factionId": 3,
+      "nameCn": "光之起源",
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/Name"
     },
     {
       "factionId": 4,

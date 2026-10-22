@@ -8,8 +8,10 @@ const relationPath = 'canonical/hero-faction-relations.v1.json';
 const heroIdentityPath = 'canonical/hero-identities.v1.json';
 const factionIdentityPath = 'canonical/faction-identities.v1.json';
 const expectedByHero = new Map([
-  [5, [1, 2, 6]], [6, [4, 7]], [8, [5, 6]], [28, [5, 8, 11]],
-  [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]],
+  [1, [1, 2]], [3, [2]], [4, [1, 2, 11]], [5, [1, 2, 6]], [6, [4, 7]], [7, [4, 5, 11]],
+  [8, [5, 6]], [10, [1, 2]], [11, [2, 6, 8]], [12, [1, 2, 4]], [13, [2, 4]], [14, [2, 6, 8]],
+  [25, [4, 5, 7]], [26, [3, 6, 7]], [27, [1, 3, 8]], [28, [5, 8, 11]],
+  [32, [4, 7]], [52, [6, 8, 9]], [53, [7, 9]], [55, [1, 9]], [60, [1, 8, 9]], [67, [5, 8]],
 ]);
 const expectedEvidenceByHero = new Map([
   [1, [1, 2]],
@@ -26,13 +28,14 @@ const expectedEvidenceByHero = new Map([
   [13, [2, 4]],
   [14, [2, 6, 8]],
   [25, [4, 5, 7]],
-  [26, [6, 7]],
-  [27, [1, 8]],
+  [26, [3, 6, 7]],
+  [27, [1, 3, 8]],
   [28, [5, 8, 11]],
-  [29, [1, 6]],
+  [29, [1, 3, 6]],
   [32, [4, 7]],
-  [33, [6]],
-  [37, [8, 11]],
+  [33, [3, 6]],
+  [37, [3, 8, 11]],
+  [40, [3]],
   [52, [6, 8, 9]],
   [53, [7, 9]],
   [55, [1, 9]],
@@ -41,6 +44,7 @@ const expectedEvidenceByHero = new Map([
   [67, [5, 8]],
   [89, [2, 6, 11]],
 ]);
+const EXPECTED_FACTION_3_MEMBERSHIP = [29, 26, 27, 30, 31, 33, 34, 36, 22, 40, 41, 42, 37, 38, 72, 88, 83, 92, 94, 77, 75, 113, 112, 99161, 99174, 99175, 99178, 99179, 99180, 99189, 99192, 99198, 99205, 99219, 99237, 99238, 99239, 99240, 99248, 99249, 99250, 99261, 99263, 99265, 99271, 99274, 99275];
 const pairKey = (heroId, factionId) => `${heroId}:${factionId}`;
 const fail = (message) => { throw new Error(`Hero–Faction relation validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
@@ -59,7 +63,7 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
     && evidence.semantics?.excludedField?.name === 'SuperHero_ID', 'membership source must be RelatedHeros_ID; SuperHero_ID is excluded');
   exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'membershipField', 'records'], 'relation canonical');
   check(canonical.schemaVersion === 1
-    && canonical.scope === 'Explicit CN ConfigData Hero-to-Faction memberships for the 28 Heroes covered by the cited source evidence; not a completeness claim beyond that evidence scope and not an admission to the seven-Hero presentation slice.'
+    && canonical.scope === 'Explicit CN ConfigData Hero-to-Faction memberships for the 29 Heroes covered by the cited source evidence; Canonical admission is limited to the exact evidence-backed relation set and does not imply Presentation eligibility.'
     && canonical.sourceEvidence === evidencePath
     && canonical.membershipField === 'RelatedHeros_ID', 'canonical scope or provenance pointer drift');
   exactKeys(heroes, ['schemaVersion', 'scope', 'records'], 'Hero identity owner');
@@ -77,8 +81,10 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
 
   const sourceByFaction = new Map(evidence.records.map((record) => [record.ID, record]));
   check(sourceByFaction.size === evidence.records.length, 'duplicate source Faction ID');
+  check(isDeepStrictEqual(sourceByFaction.get(3)?.RelatedHeros_ID, EXPECTED_FACTION_3_MEMBERSHIP), 'Faction 3 source membership differs from the pinned source record');
   const sourcePairs = new Set();
   for (const [factionId, row] of sourceByFaction) {
+    exactKeys(row, ['ID', 'Name', 'RelatedHeros_ID'], `source Faction ${factionId}`);
     check(Array.isArray(row.RelatedHeros_ID), `missing source membership list for faction ${factionId}`);
     for (const heroId of row.RelatedHeros_ID) {
       if (expectedEvidenceByHero.has(heroId)) sourcePairs.add(pairKey(heroId, factionId));
@@ -88,7 +94,7 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
   check(isDeepStrictEqual(sourcePairs, expectedEvidencePairs), 'source RelatedHeros_ID target projection differs from the exact evidence-scoped relation set');
   const expectedPairs = new Set([...expectedByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId))));
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expectedEvidencePairs.size, 'relation count must be exactly 65 for the current evidence-backed Canonical scope');
+  check(Array.isArray(canonical.records) && canonical.records.length === expectedEvidencePairs.size, 'relation count must be exactly 71 for the current evidence-backed Canonical scope');
   const canonicalPairs = new Set();
   for (const record of canonical.records) {
     exactKeys(record, ['heroId', 'factionId', 'provenance'], `relation ${record.heroId}:${record.factionId}`);
@@ -106,7 +112,7 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
   for (const [heroId, factionIdsForHero] of expectedByHero) {
     for (const factionId of factionIdsForHero) check(canonicalPairs.has(pairKey(heroId, factionId)), `visible Hero ${heroId} presentation relation ${factionId} is missing`);
   }
-  process.stdout.write('Hero–Faction relation owner: PASS (28 Canonical Heroes, 65 admitted edges; relation evidence unchanged)\n');
+  process.stdout.write('Hero–Faction relation owner: PASS (29 Canonical Heroes, 71 admitted edges; 22 presentation Heroes)\n');
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';

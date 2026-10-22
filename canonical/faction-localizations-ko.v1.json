@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "Project-reviewed Korean Faction display localization only; not Faction identity, population, relation, release status, or official Korean-server authority.",
-  "sourceScope": "Exact FactionID mapping for the nine explicitly supplied project-reviewed Korean labels that exist in the current Canonical identity owner. Faction 3 is outside the current Canonical population and this localization scope.",
+  "sourceScope": "Exact FactionID mapping for the ten explicitly supplied project-reviewed Korean labels that exist in the current Canonical identity owner.",
   "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
   "officialKrProvenanceStatus": "unverified",
   "evidence": "evidence/localization/faction-names-ko.v1.json",
@@ -18,6 +18,12 @@
       "nameKo": "빛의 군단",
       "evidenceClass": "A",
       "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=2"
+    },
+    {
+      "factionId": 3,
+      "nameKo": "빛의 기원",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/faction-names-ko.v1.json#FactionID=3"
     },
     {
       "factionId": 4,

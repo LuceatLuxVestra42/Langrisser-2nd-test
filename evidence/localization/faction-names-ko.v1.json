@@ -4,13 +4,14 @@
   "generated": false,
   "productionRuntimeDependency": false,
   "inputClassification": "PROJECT_REVIEWED_LOCALIZATION",
-  "sourceDescription": "Korean display-name mapping explicitly supplied in the user instruction for this task.",
+  "sourceDescription": "Korean display-name mapping supplied for this work and cross-identified by exact FactionID in the attached project localization reference.",
   "officialKrProvenanceStatus": "unverified",
   "scope": {
     "claim": "Project-reviewed Korean Faction display label by exact existing Canonical FactionID.",
     "factionIds": [
       1,
       2,
+      3,
       4,
       5,
       6,
@@ -35,6 +36,13 @@
       "locator": "user-instruction#FactionID=2",
       "reviewStatus": "PROJECT_REVIEWED",
       "nameCn": "光辉军团"
+    },
+    {
+      "factionId": 3,
+      "nameKo": "빛의 기원",
+      "locator": "user-instruction#FactionID=3",
+      "reviewStatus": "PROJECT_REVIEWED",
+      "nameCn": "光之起源"
     },
     {
       "factionId": 4,
@@ -88,16 +96,7 @@
   ],
   "limitations": [
     "Official Korean-server terminology and release status are unverified.",
-    "Faction 3 is outside the current Canonical population and this localization scope; its supplied label is not admitted.",
     "This input supports display localization only; it does not establish identity, population, relation, release status, or mechanics."
   ],
-  "outOfScope": [
-    {
-      "factionId": 3,
-      "nameCn": "光之起源",
-      "nameKo": "빛의 기원",
-      "status": "OUT_OF_SCOPE",
-      "reason": "Faction 3 is outside the current Canonical population scoped to the admitted seven-Hero relation slice; no Identity, Relation, or Canonical localization is admitted."
-    }
-  ]
+  "outOfScope": []
 }

@@ -3,10 +3,10 @@ import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 
 const EXPECTED_NAMES = new Map([
-  [1, '시대의 주역'], [2, '빛의 군단'], [4, '제국의 빛'], [5, '어둠의 윤회'],
+  [1, '시대의 주역'], [2, '빛의 군단'], [3, '빛의 기원'], [4, '제국의 빛'], [5, '어둠의 윤회'],
   [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역'],
 ]);
-const EXPECTED_FACTION_IDS = [1, 2, 4, 5, 6, 7, 8, 9, 11];
+const EXPECTED_FACTION_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11];
 const PRESENTATION_HERO_IDS = new Set([1, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 25, 26, 27, 28, 32, 52, 53, 55, 60, 67]);
 const EVIDENCE_PATH = 'evidence/localization/faction-names-ko.v1.json';
 const CANONICAL_PATH = 'canonical/faction-localizations-ko.v1.json';
@@ -22,7 +22,7 @@ export function validateFactionKoLocalization({ identities, relations, evidence,
   check(isDeepStrictEqual(identityIds, EXPECTED_FACTION_IDS), 'current Faction identity set/order changed; reassess this task scope');
   check(relations.schemaVersion === 1 && Array.isArray(relations.records), 'Hero–Faction relation owner schema mismatch');
   const presentationRelations = relations.records.filter((relation) => PRESENTATION_HERO_IDS.has(relation.heroId));
-  check(presentationRelations.length === 53,
+  check(presentationRelations.length === 55,
     'current presentation relation projection changed; reassess this task scope');
   check(evidence.schemaVersion === 1 && evidence.canonical === false && evidence.generated === false
     && evidence.productionRuntimeDependency === false, 'evidence authority boundary changed');
@@ -34,7 +34,6 @@ export function validateFactionKoLocalization({ identities, relations, evidence,
     && evidence.scope?.consumer === 'Current Hero Presentation slice only.', 'evidence target/consumer scope drift');
   check(isDeepStrictEqual(evidence.limitations, [
     'Official Korean-server terminology and release status are unverified.',
-    'Faction 3 is outside the current Canonical population and this localization scope; its supplied label is not admitted.',
     'This input supports display localization only; it does not establish identity, population, relation, release status, or mechanics.',
   ]), 'evidence limitations drift');
   check(Array.isArray(evidence.records) && evidence.records.length === EXPECTED_NAMES.size, 'evidence record count mismatch');
@@ -49,15 +48,13 @@ export function validateFactionKoLocalization({ identities, relations, evidence,
     evidenceById.set(row.factionId, row);
   }
   check(isDeepStrictEqual([...evidenceById.keys()], [...EXPECTED_NAMES.keys()]), 'evidence ID set/order mismatch');
-  check(isDeepStrictEqual(evidence.outOfScope, [{
-    factionId: 3, nameCn: '光之起源', nameKo: '빛의 기원', status: 'OUT_OF_SCOPE',
-    reason: 'Faction 3 is outside the current Canonical population scoped to the admitted seven-Hero relation slice; no Identity, Relation, or Canonical localization is admitted.',
-  }]), 'Faction 3 out-of-scope boundary drift');
+  check(isDeepStrictEqual(evidence.outOfScope, []), 'no Faction localization remains out of scope after this admission');
 
   exactKeys(localization, ['schemaVersion', 'purpose', 'sourceScope', 'inputClassification',
     'officialKrProvenanceStatus', 'evidence', 'untranslatedFactionIds', 'records'], 'canonical localization owner');
   check(localization.schemaVersion === 1 && localization.inputClassification === evidence.inputClassification
     && localization.officialKrProvenanceStatus === 'unverified'
+    && localization.sourceScope === 'Exact FactionID mapping for the ten explicitly supplied project-reviewed Korean labels that exist in the current Canonical identity owner.'
     && localization.evidence === EVIDENCE_PATH, 'canonical localization metadata/provenance drift');
   check(isDeepStrictEqual(localization.untranslatedFactionIds, []), 'all supplied current Canonical Faction IDs must be localized');
   check(Array.isArray(localization.records) && localization.records.length === EXPECTED_NAMES.size, 'canonical localization count mismatch');
@@ -72,9 +69,9 @@ export function validateFactionKoLocalization({ identities, relations, evidence,
     canonicalById.set(row.factionId, row);
   }
   check(isDeepStrictEqual([...canonicalById.keys()], [...EXPECTED_NAMES.keys()]), 'canonical localization ID set/order mismatch');
-  check(!canonicalById.has(3) && canonicalById.has(11), 'Faction 3 exclusion or Faction 11 admission boundary drift');
+  check(canonicalById.has(3) && canonicalById.has(11), 'Faction 3 and Faction 11 localization admission boundary drift');
   check([...EXPECTED_NAMES.keys()].every((id) => identityIds.includes(id)), 'localization target missing from current Canonical identity owner');
-  return { localizedIds: [...canonicalById.keys()], untranslatedIds: localization.untranslatedFactionIds, outOfScopeIds: [3], relationCount: presentationRelations.length };
+  return { localizedIds: [...canonicalById.keys()], untranslatedIds: localization.untranslatedFactionIds, outOfScopeIds: [], relationCount: presentationRelations.length };
 }
 
 export async function loadFactionKoLocalizationInputs(root = process.cwd()) {
@@ -94,5 +91,5 @@ export async function validateFactionKoLocalizationFromDisk(root = process.cwd()
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-faction-ko-localization.mjs')) {
   const result = await validateFactionKoLocalizationFromDisk();
-  process.stdout.write(`Faction Korean localization: PASS (${result.localizedIds.length} localized IDs; Faction 3 OUT_OF_SCOPE; 53 presentation relations)\n`);
+  process.stdout.write(`Faction Korean localization: PASS (${result.localizedIds.length} localized IDs; Faction 3 admitted; 55 presentation relations)\n`);
 }
