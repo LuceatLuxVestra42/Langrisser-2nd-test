@@ -494,6 +494,150 @@
       "nameKo": "오라클",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.hero-4.v1.json#jobId=808"
+    },
+    {
+      "jobId": 103,
+      "nameKo": "가디언",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=103"
+    },
+    {
+      "jobId": 105,
+      "nameKo": "로열 가디언",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=105"
+    },
+    {
+      "jobId": 204,
+      "nameKo": "소드 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=204"
+    },
+    {
+      "jobId": 219,
+      "nameKo": "성검사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=219"
+    },
+    {
+      "jobId": 220,
+      "nameKo": "성스러운 빛의 검",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=220"
+    },
+    {
+      "jobId": 221,
+      "nameKo": "여신의 검",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=221"
+    },
+    {
+      "jobId": 352,
+      "nameKo": "유니콘 마스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=352"
+    },
+    {
+      "jobId": 711,
+      "nameKo": "매직 소울",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=711"
+    },
+    {
+      "jobId": 712,
+      "nameKo": "매직 코어",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=712"
+    },
+    {
+      "jobId": 814,
+      "nameKo": "세인트 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=814"
+    },
+    {
+      "jobId": 815,
+      "nameKo": "홀리 나이트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=815"
+    },
+    {
+      "jobId": 829,
+      "nameKo": "성검의 정령",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=829"
+    },
+    {
+      "jobId": 830,
+      "nameKo": "성검의 공주",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=830"
+    },
+    {
+      "jobId": 902,
+      "nameKo": "다크 메이지",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=902"
+    },
+    {
+      "jobId": 903,
+      "nameKo": "다크 프린스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=903"
+    },
+    {
+      "jobId": 1002,
+      "nameKo": "데스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1002"
+    },
+    {
+      "jobId": 1003,
+      "nameKo": "데스 로드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1003"
+    },
+    {
+      "jobId": 1201,
+      "nameKo": "홀리 비스트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1201"
+    },
+    {
+      "jobId": 1202,
+      "nameKo": "켈베로스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1202"
+    },
+    {
+      "jobId": 1203,
+      "nameKo": "스킬라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1203"
+    },
+    {
+      "jobId": 1204,
+      "nameKo": "티아매트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1204"
+    },
+    {
+      "jobId": 1205,
+      "nameKo": "베히모스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1205"
+    },
+    {
+      "jobId": 1206,
+      "nameKo": "히드라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1206"
+    },
+    {
+      "jobId": 1207,
+      "nameKo": "바하무트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1207"
     }
   ]
 }

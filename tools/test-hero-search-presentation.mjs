@@ -139,7 +139,7 @@ assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions
 assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
 assert.match(frontend, /heading\.textContent = '출전작 · 프로젝트 검수 한국어명'/);
-const expectedFactionIds = new Map([[1,[1,2]],[3,[2]],[4,[1,2,11]],[5,[1,2,6]],[6,[4,7]],[7,[4,5,11]],[8,[5,6]],[10,[1,2]],[11,[2,6,8]],[12,[1,2,4]],[13,[2,4]],[14,[2,6,8]],[25,[4,5,7]],[26,[3,6,7]],[27,[1,3,8]],[28,[5,8,11]],[32,[4,7]],[52,[6,8,9]],[53,[7,9]],[55,[1,9]],[60,[1,8,9]],[67,[5,8]]]);
+const expectedFactionIds = new Map([[1,[1,2]],[3,[2]],[4,[1,2,11]],[5,[1,2,6]],[6,[4,7]],[7,[4,5,11]],[8,[5,6]],[9,[5,11]],[10,[1,2]],[11,[2,6,8]],[12,[1,2,4]],[13,[2,4]],[14,[2,6,8]],[25,[4,5,7]],[26,[3,6,7]],[27,[1,3,8]],[28,[5,8,11]],[29,[1,3,6]],[32,[4,7]],[33,[3,6]],[37,[3,8,11]],[40,[3]],[52,[6,8,9]],[53,[7,9]],[55,[1,9]],[56,[1,9]],[60,[1,8,9]],[67,[5,8]],[89,[2,6,11]]]);
 const expectedFactionNames = new Map([[1, '시대의 주역'], [2, '빛의 군단'], [3, '빛의 기원'], [4, '제국의 빛'], [5, '어둠의 윤회'], [6, '공주 연맹'], [7, '전략의 대가'], [8, '메테오 스트라이크'], [9, '전설의 저편'], [11, '초월 영역']]);
 assert.deepEqual(heroData.heroes.map(({ id }) => id), [...expectedFactionIds.keys()]);
 for (const hero of heroData.heroes) {
@@ -214,6 +214,13 @@ assert.match(frontend, /article\.append\(spJobPresentation\)/);
 const expectedOrigins = new Map([
   [1, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
   [3, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [9, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [29, [{ productionId: 6, nameCn: '梦幻模拟战III', nameKo: '랑그릿사III', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [33, [{ productionId: 6, nameCn: '梦幻模拟战III', nameKo: '랑그릿사III', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [37, [{ productionId: 6, nameCn: '梦幻模拟战III', nameKo: '랑그릿사III', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [40, [{ productionId: 6, nameCn: '梦幻模拟战III', nameKo: '랑그릿사III', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [56, [{ productionId: 7, nameCn: '梦幻模拟战IV', nameKo: '랑그릿사IV', localizationStatus: 'PROJECT_REVIEWED' }]],
+  [89, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
   [4, [{ productionId: 3, nameCn: '梦幻模拟战手游I', nameKo: '랑그릿사 모바일 Ch.1', localizationStatus: 'PROJECT_REVIEWED' }]],
   [10, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],
   [11, [{ productionId: 4, nameCn: '梦幻模拟战I', nameKo: '랑그릿사I', localizationStatus: 'PROJECT_REVIEWED' }]],

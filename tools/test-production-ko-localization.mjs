@@ -6,11 +6,11 @@ const result = validateProductionKoLocalization(input);
 assert.deepEqual(result.localizedIds, [3, 4, 5, 6, 7, 8]);
 assert.equal(result.identityCount, 6);
 assert.equal(result.relationCount, 29);
-assert.equal(result.presentationRelationCount, 22);
+assert.equal(result.presentationRelationCount, 29);
 
-const withoutHiddenRelation = structuredClone(input);
-withoutHiddenRelation.relations.records = withoutHiddenRelation.relations.records.filter((row) => row.heroId !== 9);
-assert.doesNotThrow(() => validateProductionKoLocalization(withoutHiddenRelation), 'hidden Hero relations belong to the Canonical relation owner, not the presentation localization check');
+const missingAdmittedHeroRelation = structuredClone(input);
+missingAdmittedHeroRelation.relations.records = missingAdmittedHeroRelation.relations.records.filter((row) => row.heroId !== 9);
+assert.throws(() => validateProductionKoLocalization(missingAdmittedHeroRelation), /presentation Hero 9 must have exactly one Production relation/);
 
 for (const [label, mutate] of [
   ['duplicate localization', (x) => x.localization.records.push(structuredClone(x.localization.records[0]))],

@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "ID-keyed project Korean display names; source version unknown and official Korean server provenance unverified. CN is used only for numeric-ID consistency.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "selectedForHeroIds": [
+    9,
+    29,
+    33,
+    37,
+    40,
+    56,
+    89
+  ],
+  "records": [
+    {
+      "jobId": 103,
+      "nameCn": "禁卫",
+      "nameKo": "가디언",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=103",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 105,
+      "nameCn": "皇家卫士",
+      "nameKo": "로열 가디언",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=105",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 204,
+      "nameCn": "剑士统帅",
+      "nameKo": "소드 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=204",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 219,
+      "nameCn": "圣剑士",
+      "nameKo": "성검사",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=219",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 220,
+      "nameCn": "圣光之刃",
+      "nameKo": "성스러운 빛의 검",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=220",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 221,
+      "nameCn": "女神之刃",
+      "nameKo": "여신의 검",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=221",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 352,
+      "nameCn": "独角兽统帅",
+      "nameKo": "유니콘 마스터",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=352",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 711,
+      "nameCn": "魔法容器",
+      "nameKo": "매직 소울",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=711",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 712,
+      "nameCn": "魔能核心",
+      "nameKo": "매직 코어",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=712",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 814,
+      "nameCn": "圣女骑士",
+      "nameKo": "세인트 나이트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=814",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 815,
+      "nameCn": "神官骑士",
+      "nameKo": "홀리 나이트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=815",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 829,
+      "nameCn": "圣剑精灵",
+      "nameKo": "성검의 정령",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=829",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 830,
+      "nameCn": "圣剑公主",
+      "nameKo": "성검의 공주",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=830",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 902,
+      "nameCn": "黑暗法师",
+      "nameKo": "다크 메이지",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=902",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 903,
+      "nameCn": "黑暗王子",
+      "nameKo": "다크 프린스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=903",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1002,
+      "nameCn": "死神",
+      "nameKo": "데스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1002",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1003,
+      "nameCn": "死神领主",
+      "nameKo": "데스 로드",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1003",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1201,
+      "nameCn": "圣兽",
+      "nameKo": "홀리 비스트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1201",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1202,
+      "nameCn": "刻耳柏洛斯",
+      "nameKo": "켈베로스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1202",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1203,
+      "nameCn": "斯库拉",
+      "nameKo": "스킬라",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1203",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1204,
+      "nameCn": "提亚马特",
+      "nameKo": "티아매트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1204",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1205,
+      "nameCn": "贝希摩斯",
+      "nameKo": "베히모스",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1205",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1206,
+      "nameCn": "海德拉",
+      "nameKo": "히드라",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1206",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 1207,
+      "nameCn": "巴哈姆特",
+      "nameKo": "바하무트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=1207",
+      "evidenceClass": "A"
+    }
+  ]
+}

@@ -41,7 +41,7 @@ const canonicalPath = 'canonical/hero-faction-relations.v1.json';
 const evidencePath = 'evidence/source/hero-faction.v1.json';
 const relationValidator = 'tools/validate-hero-faction-relations.mjs';
 try {
-  expectSuccess(run(relationValidator), 'Faction relation baseline', /29 Canonical Heroes, 71 admitted edges; 22 presentation Heroes/);
+  expectSuccess(run(relationValidator), 'Faction relation baseline', /29 Canonical Heroes, 71 admitted edges; 29 presentation Heroes/);
 
   const generatedPath = join(repo, 'generated/hero-slice.v1.json');
   const generatedBefore = await readFile(generatedPath, 'utf8');
@@ -49,10 +49,10 @@ try {
   const generatedAfter = await readFile(generatedPath, 'utf8');
   assert.equal(generatedAfter, generatedBefore, 'deterministic generation changed bytes on its second run');
   const generated = JSON.parse(generatedAfter);
-  assert.deepEqual(generated.heroes.map((hero) => hero.id), [1, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 25, 26, 27, 28, 32, 52, 53, 55, 60, 67]);
+  assert.deepEqual(generated.heroes.map((hero) => hero.id), [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 40, 52, 53, 55, 56, 60, 67, 89]);
   assert.deepEqual(generated.heroes.find((hero) => hero.id === 26).factions.map((x) => x.factionId), [3, 6, 7]);
   assert.deepEqual(generated.heroes.find((hero) => hero.id === 27).factions.map((x) => x.factionId), [1, 3, 8]);
-  for (const id of [29, 33, 37, 40]) assert.equal(generated.heroes.some((hero) => hero.id === id), false, `Hero ${id} must remain outside Presentation`);
+  for (const id of [9, 29, 33, 37, 40, 56, 89]) assert.equal(generated.heroes.some((hero) => hero.id === id), true, `admitted Hero ${id} must appear in Presentation`);
 
   await mutateAndRun(canonicalPath, (doc) => { doc.records[0].heroId = 999999; }, 'tools/generate.mjs',
     'Generator rejects Hero endpoint absent from Identity owner', /unknown Hero identity 999999/);
