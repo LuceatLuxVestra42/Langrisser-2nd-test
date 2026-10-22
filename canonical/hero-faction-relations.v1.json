@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Explicit CN ConfigData Hero-to-Faction memberships for the 28 Heroes covered by the cited source evidence; not a completeness claim beyond that evidence scope and not an admission to the seven-Hero presentation slice.",
+  "scope": "Explicit CN ConfigData Hero-to-Faction memberships for the 29 Heroes covered by the cited source evidence; Canonical admission is limited to the exact evidence-backed relation set and does not imply Presentation eligibility.",
   "sourceEvidence": "evidence/source/hero-faction.v1.json",
   "membershipField": "RelatedHeros_ID",
   "records": [
@@ -328,6 +328,36 @@
       "heroId": 89,
       "factionId": 11,
       "provenance": "evidence/source/hero-faction.v1.json#ID=11/RelatedHeros_ID&contains=89"
+    },
+    {
+      "heroId": 26,
+      "factionId": 3,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=26"
+    },
+    {
+      "heroId": 27,
+      "factionId": 3,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=27"
+    },
+    {
+      "heroId": 29,
+      "factionId": 3,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=29"
+    },
+    {
+      "heroId": 33,
+      "factionId": 3,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=33"
+    },
+    {
+      "heroId": 37,
+      "factionId": 3,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=37"
+    },
+    {
+      "heroId": 40,
+      "factionId": 3,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=40"
     }
   ]
 }

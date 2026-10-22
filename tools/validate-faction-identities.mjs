@@ -5,7 +5,7 @@ import { isDeepStrictEqual } from 'node:util';
 const evidencePath = 'evidence/source/hero-faction.v1.json';
 const canonicalPath = 'canonical/faction-identities.v1.json';
 const expected = new Map([
-  [1, '主角光环'], [2, '光辉军团'], [4, '帝国之辉'], [5, '黑暗轮回'], [6, '公主联盟'],
+  [1, '主角光环'], [2, '光辉军团'], [3, '光之起源'], [4, '帝国之辉'], [5, '黑暗轮回'], [6, '公主联盟'],
   [7, '战略大师'], [8, '流星直击'], [9, '传说彼端'], [11, '超凡领域'],
 ]);
 const fail = (message) => { throw new Error(`Faction identity validation failed: ${message}`); };
@@ -26,7 +26,7 @@ export async function validateFactionIdentities(root = process.cwd()) {
   exactKeys(evidence.semantics.excludedField, ['name', 'meaning'], 'excluded source field');
   check(evidence.schemaVersion === 1 && evidence.evidenceClass === 'A' && evidence.projection === true, 'evidence classification or projection flag drift');
   check(isDeepStrictEqual(evidence.scope.factionIds, [...expected.keys()]), 'evidence faction scope drift');
-  check(isDeepStrictEqual(evidence.scope.heroIds, [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 52, 53, 55, 56, 60, 67, 89]), 'evidence Hero source-coverage scope drift');
+  check(isDeepStrictEqual(evidence.scope.heroIds, [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 40, 52, 53, 55, 56, 60, 67, 89]), 'evidence Hero source-coverage scope drift');
   check(evidence.source.repository === 'LuceatLuxVestra42/langrisser-future-guide'
     && evidence.source.predecessorHead === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
     && evidence.source.snapshotDate === '2026-09-02'
@@ -62,7 +62,7 @@ export async function validateFactionIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'records'], 'canonical owner');
   check(canonical.schemaVersion === 1
-    && canonical.scope === 'Faction identities referenced by the admitted seven-Hero relation slice; source-backed CN names only.'
+    && canonical.scope === 'Faction identities referenced by the admitted Hero–Faction relation scope; source-backed CN names only.'
     && canonical.sourceEvidence === evidencePath, 'canonical scope or evidence pointer drift');
   check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'canonical record count drift');
   check(isDeepStrictEqual(canonical.records.map((record) => record.factionId), [...expected.keys()]), 'canonical identity order drift');
@@ -76,7 +76,7 @@ export async function validateFactionIdentities(root = process.cwd()) {
     canonicalIds.add(record.factionId);
   }
   check(isDeepStrictEqual([...canonicalIds].sort((a, b) => a - b), [...expected.keys()]), 'canonical IDs are not the exact admitted set');
-  process.stdout.write('Faction identity owner: PASS (9 exact IDs and source-backed names)\n');
+  process.stdout.write('Faction identity owner: PASS (10 exact IDs and source-backed names)\n');
 }
 
 await validateFactionIdentities();

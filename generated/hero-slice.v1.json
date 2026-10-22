@@ -1181,6 +1181,12 @@
       },
       "factions": [
         {
+          "factionId": 3,
+          "nameCn": "光之起源",
+          "nameKo": "빛의 기원",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
           "factionId": 6,
           "nameCn": "公主联盟",
           "nameKo": "공주 연맹",
@@ -1260,6 +1266,12 @@
           "factionId": 1,
           "nameCn": "主角光环",
           "nameKo": "시대의 주역",
+          "localizationStatus": "PROJECT_REVIEWED"
+        },
+        {
+          "factionId": 3,
+          "nameCn": "光之起源",
+          "nameKo": "빛의 기원",
           "localizationStatus": "PROJECT_REVIEWED"
         },
         {
