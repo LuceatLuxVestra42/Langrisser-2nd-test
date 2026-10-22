@@ -147,7 +147,7 @@
       "limitation": "Documents ordered descriptions on the primary TrainingTech path; does not establish actual SP slot or game application."
     },
     "validation": {
-      "path": "data/validation/soldier-detail-stage5-3-validation.v1.json",
+      "path": "data/validation/soldier-stage5-3-ability.v1.json",
       "gitBlobSha1": "34c50188a36f870146d75b1754ae31a04e11591d",
       "result": "PASS",
       "limitation": "Source description and relation coverage only; does not validate actual SP rank application."
