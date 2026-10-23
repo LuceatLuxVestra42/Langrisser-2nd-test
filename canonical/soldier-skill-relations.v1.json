@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-skill-relations",
+  "scope": {
+    "claim": "Admit only the source-direct Soldier-to-Skill references selected from SoldierInfo Skills_ID for Soldier 115 and 5115.",
+    "sourceScope": "CN ConfigData and verified Legacy Stage 2 contract at 6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceSoldierIds": [
+      115,
+      5115
+    ],
+    "edgeCount": 20,
+    "excluded": [
+      "Other Soldier references",
+      "TrainingTech SoldierSkillID references",
+      "Skill effects or mechanics",
+      "Game Skill levels or application order",
+      "NORMAL/SP Skill correspondence",
+      "Array index as semantic ordering"
+    ]
+  },
+  "relationType": "RAW_DIRECT_REFERENCE",
+  "cardinality": "MANY",
+  "contractEvidence": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#contract=name:soldier.skills",
+  "records": [
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60666,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60666"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60667,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60667"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60668,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60668"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60669,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60669"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60670,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60670"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60671,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60671"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60672,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60672"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60673,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60673"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60674,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60674"
+      }
+    },
+    {
+      "sourceSoldierId": 115,
+      "targetSkillId": 60675,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=115&targetId=60675"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66957,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66957"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66958,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66958"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66959,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66959"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66960,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66960"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66961,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66961"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66962,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66962"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66963,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66963"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66964,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66964"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66965,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66965"
+      }
+    },
+    {
+      "sourceSoldierId": 5115,
+      "targetSkillId": 66966,
+      "sourceField": "Skills_ID",
+      "provenance": {
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID",
+        "contract": "evidence/source/configdata/ConfigDataSoldierInfo.skill-direct-reference-contract-115-5115.v1.json#selectedEdges&sourceId=5115&targetId=66966"
+      }
+    }
+  ]
+}

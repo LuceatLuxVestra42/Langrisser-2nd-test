@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-skill-direct-reference-contract-evidence",
+  "scope": {
+    "claim": "The pinned SoldierInfo Skills_ID fields for Soldier 115 and 5115 directly reference the listed Skill targets.",
+    "sourceSoldierIds": [
+      115,
+      5115
+    ],
+    "edgeCount": 20,
+    "excluded": [
+      "Other Soldier references",
+      "TrainingTech SoldierSkillID references",
+      "Skill effects or mechanics",
+      "Game Skill levels or application order",
+      "NORMAL/SP Skill correspondence",
+      "Array index as semantic ordering"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "contract": {
+      "path": "data/contracts/configdata-lookup-stage2-forward-join-contract.v1.json",
+      "gitBlobSha1": "c4e54bb1d14c0f568fe6200d47366bcb2dfa6e7a",
+      "key": "soldier.skills"
+    },
+    "forwardIndex": {
+      "path": "data/index/forward/soldier.v1.json",
+      "gitBlobSha1": "9fbaf842b5b1afa11fa2d4c9aa86d3502e6c5e2b",
+      "relationLocator": "relations[name=soldier.skills]"
+    },
+    "validationSummary": {
+      "path": "data/validation/configdata-lookup-stage2-summary.v1.json",
+      "gitBlobSha1": "02bcc746ff17db29491bb7289985f7bb67dec3a7",
+      "status": "PASS_CONFIGDATA_LOOKUP_STAGE2_FORWARD_JOINS"
+    },
+    "sourceSnapshots": {
+      "soldierInfo": {
+        "path": "data/configdata/ConfigDataSoldierInfo.json",
+        "sha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+        "recordCount": 777
+      },
+      "skillInfo": {
+        "path": "data/configdata/ConfigDataSkillInfo.json",
+        "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+        "recordCount": 27198
+      }
+    }
+  },
+  "contract": {
+    "name": "soldier.skills",
+    "domain": "Soldier",
+    "sourceType": "Soldier",
+    "sourcePrimaryKey": "ID",
+    "sourceField": "Skills_ID",
+    "cardinality": "MANY",
+    "targetType": "Skill",
+    "semanticStatus": "RAW_DIRECT_REFERENCE",
+    "missingPositiveTarget": "FAIL",
+    "wrongFieldShape": "FAIL"
+  },
+  "extraction": {
+    "method": "Filter the committed Stage 2 Soldier forward index relation by source IDs 115 and 5115; retain explicit sourceId-targetId pairs.",
+    "legacyPopulationContext": {
+      "sourceSoldierRecords": 777,
+      "sourceRecordsWithEdges": 647,
+      "totalEdges": 2465
+    },
+    "edgeCount": 20,
+    "outputIdEncoding": "The Stage 2 index represents normalized positive integer IDs as decimal strings, per the pinned Stage 2 relationPolicy.referenceEncoding.",
+    "sourceOrderMeaning": "Not represented in this relation evidence; the source array order remains owned by the raw Skills_ID Canonical."
+  },
+  "selectedEdges": [
+    {
+      "sourceId": "115",
+      "targetId": "60666",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60666"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60667",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60667"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60668",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60668"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60669",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60669"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60670",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60670"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60671",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60671"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60672",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60672"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60673",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60673"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60674",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60674"
+    },
+    {
+      "sourceId": "115",
+      "targetId": "60675",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=115&targetId=60675"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66957",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66957"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66958",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66958"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66959",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66959"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66960",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66960"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66961",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66961"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66962",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66962"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66963",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66963"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66964",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66964"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66965",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66965"
+    },
+    {
+      "sourceId": "5115",
+      "targetId": "66966",
+      "legacyLocator": "data/index/forward/soldier.v1.json#relations[name=soldier.skills]&sourceId=5115&targetId=66966"
+    }
+  ]
+}
