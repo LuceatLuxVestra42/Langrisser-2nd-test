@@ -23,6 +23,7 @@ const EXPECTED = [
   { id: 115, variant: 'NORMAL', ids: [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675] },
   { id: 5115, variant: 'SP', ids: [66957,66958,66959,66960,66961,66962,66963,66964,66965,66966] },
 ];
+const REQUIRED_SKILL_IDENTITY_IDS = [3067,3072,3077,3082,3196,3197,3198,3199];
 const EXPECTED_SCOPE = {
   claim: "Preserve the ordered raw integer values of Skills_ID from each named Soldier's own ConfigDataSoldierInfo record.",
   sourceScope: 'Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c',
@@ -134,7 +135,12 @@ export function validateSoldierRawSkillReferences({
   check(heroSoldierRelations?.records?.length === 379, 'existing Hero-Soldier relation population changed');
   check(trainingDescriptions?.records?.length === 20, 'existing TrainingTech description population changed');
   check(trainingCosts?.records?.length === 10, 'existing TrainingTech cost population changed');
-  check(skills?.records?.length === 8, 'existing Skill Identity population changed');
+  check(Array.isArray(skills?.records), 'Skill Identity canonical records are missing');
+  const skillIds = skills.records.map(record => record?.skillId);
+  check(new Set(skillIds).size === skillIds.length, 'Skill Identity canonical contains duplicate IDs');
+  for (const id of REQUIRED_SKILL_IDENTITY_IDS) {
+    check(skillIds.filter(skillId => skillId === id).length === 1, `existing Hero Talent Skill Identity endpoint missing or duplicated at ${id}`);
+  }
   check(rawGrowthStats?.schemaVersion === 1 && rawGrowthStats.records?.length === 2
     && same(rawGrowthStats.records.map(r => [r.id, r.variant]), [[115,'NORMAL'],[5115,'SP']]),
   'existing Soldier raw growth stats scope/population changed');
