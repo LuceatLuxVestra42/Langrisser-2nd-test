@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-raw-growth-stats",
+  "scope": {
+    "claim": "Preserve the four raw _UP numeric fields from each named Soldier's own ConfigDataSoldierInfo record.",
+    "sourceScope": "Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "excluded": [
+      "Growth application formula",
+      "Per-level increase interpretation",
+      "Final Soldier stats",
+      "Rank or level modifiers",
+      "TrainingTech effects",
+      "NORMAL/SP difference calculations",
+      "Other Soldier records"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourcePath": "data/configdata/ConfigDataSoldierInfo.json",
+    "gitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+    "sha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+    "sourceVersionStatus": "unknown"
+  },
+  "records": [
+    {
+      "entity": "Soldier",
+      "id": 115,
+      "variant": "NORMAL",
+      "rawFields": {
+        "HP_UP": 43,
+        "AT_UP": 40,
+        "DF_UP": 23,
+        "MagicDF_UP": 17
+      },
+      "provenance": {
+        "sourceRecord": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115",
+        "fields": {
+          "HP_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/HP_UP",
+          "AT_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/AT_UP",
+          "DF_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/DF_UP",
+          "MagicDF_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/MagicDF_UP"
+        }
+      }
+    },
+    {
+      "entity": "Soldier",
+      "id": 5115,
+      "variant": "SP",
+      "rawFields": {
+        "HP_UP": 46,
+        "AT_UP": 40,
+        "DF_UP": 23,
+        "MagicDF_UP": 20
+      },
+      "provenance": {
+        "sourceRecord": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115",
+        "fields": {
+          "HP_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/HP_UP",
+          "AT_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/AT_UP",
+          "DF_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/DF_UP",
+          "MagicDF_UP": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/MagicDF_UP"
+        }
+      }
+    }
+  ]
+}

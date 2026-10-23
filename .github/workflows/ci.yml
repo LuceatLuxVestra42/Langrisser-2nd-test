@@ -198,6 +198,12 @@ jobs:
       - name: Test Soldier provenance integrity
         run: node tools/test-soldier-provenance.mjs
 
+      - name: Validate Soldier raw growth stats
+        run: node tools/validate-soldier-raw-growth-stats.mjs
+
+      - name: Test Soldier raw growth stats admission
+        run: node tools/test-soldier-raw-growth-stats.mjs
+
       - name: Validate Soldier TrainingTech description claims
         run: node tools/validate-soldier-training-tech-descriptions.mjs
 
