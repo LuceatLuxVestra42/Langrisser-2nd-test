@@ -210,6 +210,12 @@ jobs:
       - name: Test Soldier raw Skills_ID reference admission
         run: node tools/test-soldier-raw-skill-references.mjs
 
+      - name: Validate Soldier-to-Skill direct relations
+        run: node tools/validate-soldier-skill-relations.mjs
+
+      - name: Test Soldier-to-Skill direct relation admission
+        run: node tools/test-soldier-skill-relations.mjs
+
       - name: Validate Soldier Skill Target source evidence
         run: node tools/validate-soldier-skill-target-source-evidence.mjs
 
