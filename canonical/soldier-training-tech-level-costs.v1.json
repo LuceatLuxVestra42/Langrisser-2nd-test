@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-training-tech-level-costs",
+  "scope": {
+    "sourceScope": "Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "claim": "Preserve the two raw cost fields for the ten LevelInfo IDs explicitly referenced by TrainingTech 223.",
+    "excluded": [
+      "Actual game level mapping",
+      "NORMAL/SP application costs",
+      "SP slot/application stage",
+      "Prerequisite or unlock interpretation",
+      "Skill reference semantics",
+      "Material item identity",
+      "Cumulative costs",
+      "Other TrainingTech records"
+    ]
+  },
+  "records": [
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2230,
+      "levelupGoldCost": 8000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 3
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 3
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2230/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2230"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2231,
+      "levelupGoldCost": 12000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 5
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 4
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2231/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2231"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2232,
+      "levelupGoldCost": 18000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 8
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 6
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6036,
+          "Count": 2
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2232/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2232"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2233,
+      "levelupGoldCost": 27000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 12
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 8
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6036,
+          "Count": 4
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2233/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2233"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2234,
+      "levelupGoldCost": 41000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 15
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 10
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6036,
+          "Count": 6
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2234/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2234"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2235,
+      "levelupGoldCost": 62000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 5
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 2
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 2
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2235/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2235"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2236,
+      "levelupGoldCost": 93000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 10
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 3
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 3
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2236/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2236"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2237,
+      "levelupGoldCost": 140000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 20
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 5
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 5
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2237/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2237"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2238,
+      "levelupGoldCost": 210000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 30
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 7
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 7
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2238/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2238"
+      }
+    },
+    {
+      "trainingTechId": 223,
+      "levelInfoId": 2239,
+      "levelupGoldCost": 320000,
+      "levelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 40
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 9
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 9
+        }
+      ],
+      "provenance": {
+        "sourceCostRecord": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#LevelInfoID=2239/LevelupGoldCost&LevelupMaterialsCost",
+        "trainingTechLink": "evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json#TrainingTechID=223/TechLevelupInfoList&contains=2239"
+      }
+    }
+  ]
+}

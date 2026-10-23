@@ -1,0 +1,807 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-training-tech-level-cost-source-slice",
+  "scope": {
+    "claim": "Preserve the raw LevelupGoldCost and LevelupMaterialsCost fields on the ten LevelInfo records explicitly listed by source TrainingTech 223.",
+    "admitted": [
+      "TrainingTech 223 source ID and explicit SoldierIDRelated and TechLevelupInfoList fields as selection support",
+      "LevelInfo source IDs and raw cost field values, JSON types, field presence, material array order and duplicates"
+    ],
+    "excluded": [
+      "Actual game level mapping",
+      "NORMAL/SP cost application",
+      "SP slot or application stage",
+      "Unlock or prerequisite semantics",
+      "SoldierSkillID or SoldierSkillLevelup meaning",
+      "Skill effects",
+      "Material item identity, names or icons",
+      "Cumulative cost calculations",
+      "Other TrainingTech records"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceVersionStatus": "unknown",
+    "authority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT"
+  },
+  "sources": {
+    "trainingTech": {
+      "path": "data/configdata/ConfigDataTrainingTechInfo.json",
+      "gitBlobSha1": "ad8b290f0e34de24b6eab9538894068a06e086d4",
+      "locator": "ID=223",
+      "sourceBytes": 109874,
+      "sourceTopLevelRecordCount": 287
+    },
+    "levelInfo": {
+      "path": "data/configdata/ConfigDataTrainingTechLevelInfo.json",
+      "gitBlobSha1": "30789c3e4fb0d79b56514e720bb71a053df78c72",
+      "sha256": "4d4afb874c0540bf4999cd5aa7c2f8a6ce5d3fa5838a7522c343365e165e8905",
+      "sourceBytes": 1862920,
+      "sourceTopLevelRecordCount": 2945
+    }
+  },
+  "selection": {
+    "trainingTechId": 223,
+    "trainingTechRecord": {
+      "ID": 223,
+      "SoldierIDRelated": [
+        115,
+        5115
+      ],
+      "TechLevelupInfoList": [
+        2230,
+        2231,
+        2232,
+        2233,
+        2234,
+        2235,
+        2236,
+        2237,
+        2238,
+        2239
+      ]
+    },
+    "levelInfoIds": [
+      2230,
+      2231,
+      2232,
+      2233,
+      2234,
+      2235,
+      2236,
+      2237,
+      2238,
+      2239
+    ],
+    "extractionRule": "Select source-native LevelInfo records whose ID is explicitly present in TrainingTechInfo#ID=223.TechLevelupInfoList; preserve ID, the two raw cost values and observed presence/type state. Do not infer game levels or apply costs to Soldier endpoints."
+  },
+  "rawLevelInfoCostRecords": [
+    {
+      "ID": 2230,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 8000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 3
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 3
+        }
+      ]
+    },
+    {
+      "ID": 2231,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 12000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 5
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 4
+        }
+      ]
+    },
+    {
+      "ID": 2232,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 18000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 8
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 6
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6036,
+          "Count": 2
+        }
+      ]
+    },
+    {
+      "ID": 2233,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 27000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 12
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 8
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6036,
+          "Count": 4
+        }
+      ]
+    },
+    {
+      "ID": 2234,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 41000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6006,
+          "Count": 15
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6031,
+          "Count": 10
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6036,
+          "Count": 6
+        }
+      ]
+    },
+    {
+      "ID": 2235,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 62000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 5
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 2
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 2
+        }
+      ]
+    },
+    {
+      "ID": 2236,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 93000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 10
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 3
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 3
+        }
+      ]
+    },
+    {
+      "ID": 2237,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 140000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 20
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 5
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 5
+        }
+      ]
+    },
+    {
+      "ID": 2238,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 210000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 30
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 7
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 7
+        }
+      ]
+    },
+    {
+      "ID": 2239,
+      "sourceFieldStates": {
+        "LevelupGoldCost": {
+          "present": true,
+          "jsonType": "number"
+        },
+        "LevelupMaterialsCost": {
+          "present": true,
+          "jsonType": "array",
+          "items": [
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            },
+            {
+              "GoodsType": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Id": {
+                "present": true,
+                "jsonType": "number"
+              },
+              "Count": {
+                "present": true,
+                "jsonType": "number"
+              }
+            }
+          ]
+        }
+      },
+      "LevelupGoldCost": 320000,
+      "LevelupMaterialsCost": [
+        {
+          "GoodsType": 6,
+          "Id": 6044,
+          "Count": 40
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6037,
+          "Count": 9
+        },
+        {
+          "GoodsType": 6,
+          "Id": 6042,
+          "Count": 9
+        }
+      ]
+    }
+  ],
+  "interpretation": {
+    "goldCost": {
+      "sourceField": "LevelupGoldCost",
+      "meaning": "Opaque source numeric cost field on the named LevelInfo record only."
+    },
+    "materialsCost": {
+      "sourceField": "LevelupMaterialsCost",
+      "meaning": "Opaque source ordered array of raw GoodsType, Id and Count fields. No item identity semantics asserted."
+    },
+    "limitations": [
+      "Source Version remains unknown.",
+      "Selected raw values are stored as JSON values, so lexical JSON token formatting is not byte-preserved; runtime JSON value and type parity is checked."
+    ]
+  }
+}
