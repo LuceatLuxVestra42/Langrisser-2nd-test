@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "soldier-raw-skill-references",
+  "scope": {
+    "claim": "Preserve the ordered raw integer values of Skills_ID from each named Soldier's own ConfigDataSoldierInfo record.",
+    "sourceScope": "Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "excluded": [
+      "Skill target identity or target record existence",
+      "Soldier-to-Skill relation semantics",
+      "Skill names, descriptions, effects, or levels",
+      "Mapping array positions to game levels",
+      "NORMAL/SP Skill correspondence",
+      "TrainingTech SoldierSkillID joins",
+      "Battle mechanics and Korean localization",
+      "Other Soldier records"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourcePath": "data/configdata/ConfigDataSoldierInfo.json",
+    "gitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+    "sha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+    "sourceVersionStatus": "unknown"
+  },
+  "records": [
+    {
+      "entity": "Soldier",
+      "id": 115,
+      "variant": "NORMAL",
+      "sourceField": "Skills_ID",
+      "rawReferenceIds": [
+        60666,
+        60667,
+        60668,
+        60669,
+        60670,
+        60671,
+        60672,
+        60673,
+        60674,
+        60675
+      ],
+      "provenance": {
+        "sourceRecord": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115",
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=115/Skills_ID"
+      }
+    },
+    {
+      "entity": "Soldier",
+      "id": 5115,
+      "variant": "SP",
+      "sourceField": "Skills_ID",
+      "rawReferenceIds": [
+        66957,
+        66958,
+        66959,
+        66960,
+        66961,
+        66962,
+        66963,
+        66964,
+        66965,
+        66966
+      ],
+      "provenance": {
+        "sourceRecord": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115",
+        "sourceField": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=5115/Skills_ID"
+      }
+    }
+  ]
+}
