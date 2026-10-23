@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Source-native Skill ID with its ConfigDataSkillInfo Name and opaque Desc strings only; not a combat-rule or acquisition model.",
+  "scope": "Selected source-native Skill identity subset: pinned Hero Talent identities and 30 explicitly selected SkillInfo records; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
   "records": [
     {
       "skillId": 3067,
@@ -81,6 +81,306 @@
         "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3199",
         "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3199/Name",
         "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json#ID=3199/Desc"
+      }
+    },
+    {
+      "skillId": 60666,
+      "nameCn": "近卫枪兵Lv1",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>15%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60666",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60666/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60666/Desc"
+      }
+    },
+    {
+      "skillId": 60667,
+      "nameCn": "近卫枪兵Lv2",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>18%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60667",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60667/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60667/Desc"
+      }
+    },
+    {
+      "skillId": 60668,
+      "nameCn": "近卫枪兵Lv3",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>21%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60668",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60668/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60668/Desc"
+      }
+    },
+    {
+      "skillId": 60669,
+      "nameCn": "近卫枪兵Lv4",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>24%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60669",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60669/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60669/Desc"
+      }
+    },
+    {
+      "skillId": 60670,
+      "nameCn": "近卫枪兵Lv5",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>27%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60670",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60670/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60670/Desc"
+      }
+    },
+    {
+      "skillId": 60671,
+      "nameCn": "近卫枪兵Lv6",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>30%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60671",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60671/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60671/Desc"
+      }
+    },
+    {
+      "skillId": 60672,
+      "nameCn": "近卫枪兵Lv7",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>33%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60672",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60672/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60672/Desc"
+      }
+    },
+    {
+      "skillId": 60673,
+      "nameCn": "近卫枪兵Lv8",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>36%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60673",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60673/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60673/Desc"
+      }
+    },
+    {
+      "skillId": 60674,
+      "nameCn": "近卫枪兵Lv9",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>40%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60674",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60674/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60674/Desc"
+      }
+    },
+    {
+      "skillId": 60675,
+      "nameCn": "近卫枪兵Lv10",
+      "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>45%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60675",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60675/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=60675/Desc"
+      }
+    },
+    {
+      "skillId": 66957,
+      "nameCn": "近卫枪兵SPLv1",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>15%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>70%</color>），且战后恢复已损失生命的<color=#DC143C>10%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66957",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66957/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66957/Desc"
+      }
+    },
+    {
+      "skillId": 66958,
+      "nameCn": "近卫枪兵SPLv2",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>18%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>8%</color>），且战后恢复已损失生命的<color=#DC143C>12%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66958",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66958/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66958/Desc"
+      }
+    },
+    {
+      "skillId": 66959,
+      "nameCn": "近卫枪兵SPLv3",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>21%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>9%</color>），且战后恢复已损失生命的<color=#DC143C>14%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66959",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66959/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66959/Desc"
+      }
+    },
+    {
+      "skillId": 66960,
+      "nameCn": "近卫枪兵SPLv4",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>24%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>10%</color>），且战后恢复已损失生命的<color=#DC143C>16%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66960",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66960/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66960/Desc"
+      }
+    },
+    {
+      "skillId": 66961,
+      "nameCn": "近卫枪兵SPLv5",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>27%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>11%</color>），且战后恢复已损失生命的<color=#DC143C>18%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66961",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66961/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66961/Desc"
+      }
+    },
+    {
+      "skillId": 66962,
+      "nameCn": "近卫枪兵SPLv6",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>30%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>12%</color>），且战后恢复已损失生命的<color=#DC143C>20%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66962",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66962/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66962/Desc"
+      }
+    },
+    {
+      "skillId": 66963,
+      "nameCn": "近卫枪兵SPLv7",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>33%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>14%</color>），且战后恢复已损失生命的<color=#DC143C>22%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66963",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66963/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66963/Desc"
+      }
+    },
+    {
+      "skillId": 66964,
+      "nameCn": "近卫枪兵SPLv8",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>36%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>16%</color>），且战后恢复已损失生命的<color=#DC143C>24%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66964",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66964/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66964/Desc"
+      }
+    },
+    {
+      "skillId": 66965,
+      "nameCn": "近卫枪兵SPLv9",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>40%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>18%</color>），且战后恢复已损失生命的<color=#DC143C>27%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66965",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66965/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66965/Desc"
+      }
+    },
+    {
+      "skillId": 66966,
+      "nameCn": "近卫枪兵SPLv10",
+      "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>45%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>20%</color>），且战后恢复已损失生命的<color=#DC143C>30%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66966",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66966/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=66966/Desc"
+      }
+    },
+    {
+      "skillId": 65110,
+      "nameCn": "3级兵属性强化Lv1",
+      "descriptionCn": "全属性<color=#DC143C>+2%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65110",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65110/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65110/Desc"
+      }
+    },
+    {
+      "skillId": 65111,
+      "nameCn": "3级兵属性强化Lv2",
+      "descriptionCn": "全属性<color=#DC143C>+4%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65111",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65111/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65111/Desc"
+      }
+    },
+    {
+      "skillId": 65112,
+      "nameCn": "3级兵属性强化Lv3",
+      "descriptionCn": "全属性<color=#DC143C>+6%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65112",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65112/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65112/Desc"
+      }
+    },
+    {
+      "skillId": 65113,
+      "nameCn": "3级兵属性强化Lv4",
+      "descriptionCn": "全属性<color=#DC143C>+9%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65113",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65113/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65113/Desc"
+      }
+    },
+    {
+      "skillId": 65114,
+      "nameCn": "3级兵属性强化Lv5",
+      "descriptionCn": "全属性<color=#DC143C>+12%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65114",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65114/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65114/Desc"
+      }
+    },
+    {
+      "skillId": 65115,
+      "nameCn": "3级兵属性强化Lv6",
+      "descriptionCn": "全属性<color=#DC143C>+15%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65115",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65115/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65115/Desc"
+      }
+    },
+    {
+      "skillId": 65116,
+      "nameCn": "3级兵属性强化Lv7",
+      "descriptionCn": "全属性<color=#DC143C>+18%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65116",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65116/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65116/Desc"
+      }
+    },
+    {
+      "skillId": 65117,
+      "nameCn": "3级兵属性强化Lv8",
+      "descriptionCn": "全属性<color=#DC143C>+22%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65117",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65117/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65117/Desc"
+      }
+    },
+    {
+      "skillId": 65118,
+      "nameCn": "3级兵属性强化Lv9",
+      "descriptionCn": "全属性<color=#DC143C>+26%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65118",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65118/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65118/Desc"
+      }
+    },
+    {
+      "skillId": 65119,
+      "nameCn": "3级兵属性强化Lv10",
+      "descriptionCn": "全属性<color=#DC143C>+30%</color>",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65119",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65119/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65119/Desc"
       }
     }
   ]

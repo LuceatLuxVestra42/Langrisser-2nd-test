@@ -68,5 +68,6 @@ rejects('base stats population changed', x => { x.normalStats.records.pop(); });
 rejects('raw growth stats scope changed', x => { x.rawGrowthStats.records.pop(); });
 rejects('TrainingTech descriptions changed', x => { x.trainingDescriptions.records.pop(); });
 rejects('TrainingTech costs changed', x => { x.trainingCosts.records.pop(); });
-rejects('existing Skill Identity population changed', x => { x.skills.records.pop(); });
+rejects('existing Hero Talent Skill Identity endpoint removed', x => { x.skills.records = x.skills.records.filter(r => r.skillId !== 3067); });
+rejects('duplicate Skill Identity ID', x => { x.skills.records.push(clone(x.skills.records[0])); });
 process.stdout.write(`Soldier raw Skills_ID negative tests: PASS (${checks} checks)\n`);
