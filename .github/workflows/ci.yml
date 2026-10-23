@@ -234,6 +234,12 @@ jobs:
       - name: Test Soldier TrainingTech 223 raw cost admission
         run: node tools/test-soldier-training-tech-level-costs.mjs
 
+      - name: Validate TrainingTech raw SoldierSkill fields
+        run: node tools/validate-training-tech-raw-soldier-skill-fields.mjs
+
+      - name: Test TrainingTech raw SoldierSkill field admission
+        run: node tools/test-training-tech-raw-soldier-skill-fields.mjs
+
       - name: Validate General SSR Equipment identity
         run: node tools/validate-general-ssr-equipment-identity.mjs
 
