@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "training-tech-level-raw-soldier-skill-fields",
+  "scope": {
+    "claim": "Preserve the source-native SoldierSkillID and SoldierSkillLevelup values on exactly LevelInfo records 2230 through 2239.",
+    "sourceScope": "Pinned CN ConfigData snapshot at 6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "recordIds": [2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239],
+    "fields": ["SoldierSkillID", "SoldierSkillLevelup"],
+    "excluded": [
+      "SkillInfo target table or relation contract",
+      "Relation cardinality or kind",
+      "Game Skill Level meaning",
+      "Skill effects or combat mechanics",
+      "NORMAL/SP Skill correspondence",
+      "Localization",
+      "Other TrainingTechLevelInfo records",
+      "Generated or frontend presentation"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataTrainingTechLevelInfo.json",
+    "gitBlobSha1": "30789c3e4fb0d79b56514e720bb71a053df78c72",
+    "sha256": "4d4afb874c0540bf4999cd5aa7c2f8a6ce5d3fa5838a7522c343365e165e8905",
+    "sizeBytes": 1862920,
+    "recordCount": 2945,
+    "topLevelType": "array",
+    "sourceVersionStatus": "unknown",
+    "authority": "PINNED_UNITYDATATOOL_PARSED_CONFIGDATA_SNAPSHOT"
+  },
+  "extraction": {
+    "method": "Download the complete raw file from the immutable source commit; verify byte size, SHA-256, and Git blob SHA-1 before parsing; select records by explicit numeric ID and retain only ID plus the two scoped raw fields.",
+    "sourceLocatorTemplate": "data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=<ID>",
+    "projection": {
+      "fields": ["ID", "SoldierSkillID", "SoldierSkillLevelup"],
+      "recordOrder": "ascending explicit ID order 2230 through 2239",
+      "fieldOrder": ["ID", "SoldierSkillID", "SoldierSkillLevelup"],
+      "serialization": "UTF-8 compact JSON with no whitespace, equivalent to JSON.stringify over ordered records and ordered fields",
+      "sha256": "c181bc90dd1f6f6ad5df747b70b29004fd8d460b491427180d885ce1004ec89c"
+    },
+    "limitations": [
+      "Projection SHA-256 covers only the ordered ID and two raw fields; it is not the whole source file hash.",
+      "JSON numeric values and types are preserved; original lexical number token formatting is not preserved.",
+      "The source snapshot version label is unknown."
+    ]
+  },
+  "records": [
+    {"ID":2230,"SoldierSkillID":65110,"SoldierSkillLevelup":1,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2230","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2230/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2230/SoldierSkillLevelup"}},
+    {"ID":2231,"SoldierSkillID":65111,"SoldierSkillLevelup":2,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2231","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2231/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2231/SoldierSkillLevelup"}},
+    {"ID":2232,"SoldierSkillID":65112,"SoldierSkillLevelup":3,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2232","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2232/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2232/SoldierSkillLevelup"}},
+    {"ID":2233,"SoldierSkillID":65113,"SoldierSkillLevelup":4,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2233","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2233/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2233/SoldierSkillLevelup"}},
+    {"ID":2234,"SoldierSkillID":65114,"SoldierSkillLevelup":5,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2234","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2234/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2234/SoldierSkillLevelup"}},
+    {"ID":2235,"SoldierSkillID":65115,"SoldierSkillLevelup":6,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2235","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2235/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2235/SoldierSkillLevelup"}},
+    {"ID":2236,"SoldierSkillID":65116,"SoldierSkillLevelup":7,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2236","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2236/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2236/SoldierSkillLevelup"}},
+    {"ID":2237,"SoldierSkillID":65117,"SoldierSkillLevelup":8,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2237","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2237/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2237/SoldierSkillLevelup"}},
+    {"ID":2238,"SoldierSkillID":65118,"SoldierSkillLevelup":9,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2238","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2238/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2238/SoldierSkillLevelup"}},
+    {"ID":2239,"SoldierSkillID":65119,"SoldierSkillLevelup":10,"sourceFieldStates":{"SoldierSkillID":{"present":true,"jsonType":"number","integer":true},"SoldierSkillLevelup":{"present":true,"jsonType":"number","integer":true}},"provenance":{"record":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2239","SoldierSkillID":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2239/SoldierSkillID","SoldierSkillLevelup":"data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=2239/SoldierSkillLevelup"}}
+  ]
+}
