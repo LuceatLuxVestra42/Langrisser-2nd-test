@@ -204,6 +204,12 @@ jobs:
       - name: Test Soldier raw growth stats admission
         run: node tools/test-soldier-raw-growth-stats.mjs
 
+      - name: Validate Soldier raw Skills_ID references
+        run: node tools/validate-soldier-raw-skill-references.mjs
+
+      - name: Test Soldier raw Skills_ID reference admission
+        run: node tools/test-soldier-raw-skill-references.mjs
+
       - name: Validate Soldier TrainingTech description claims
         run: node tools/validate-soldier-training-tech-descriptions.mjs
 
