@@ -1,0 +1,672 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-target-source-evidence",
+  "scope": {
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "claim": "The pinned ConfigData SkillInfo source contains the following exact raw SkillInfo records selected by explicit source-native ID.",
+    "recordIds": [
+      60666,
+      60667,
+      60668,
+      60669,
+      60670,
+      60671,
+      60672,
+      60673,
+      60674,
+      60675,
+      66957,
+      66958,
+      66959,
+      66960,
+      66961,
+      66962,
+      66963,
+      66964,
+      66965,
+      66966,
+      65110,
+      65111,
+      65112,
+      65113,
+      65114,
+      65115,
+      65116,
+      65117,
+      65118,
+      65119
+    ],
+    "outOfScope": [
+      "canonical Skill identity admission",
+      "Soldier-to-Skill relation admission",
+      "TrainingTech SoldierSkillID reference contract",
+      "Skill names as canonical game identities",
+      "combat/effect rules",
+      "level semantics",
+      "NORMAL/SP correspondence",
+      "PassiveBuffs_ID target identity",
+      "Korean localization",
+      "generated or frontend consumers"
+    ],
+    "selectionContexts": [
+      {
+        "name": "soldier-115-normal",
+        "sourceLocator": "ConfigDataSoldierInfo#ID=115/Skills_ID",
+        "status": "existing source-only reference values used as selection context",
+        "ids": [
+          60666,
+          60667,
+          60668,
+          60669,
+          60670,
+          60671,
+          60672,
+          60673,
+          60674,
+          60675
+        ]
+      },
+      {
+        "name": "soldier-5115-sp",
+        "sourceLocator": "ConfigDataSoldierInfo#ID=5115/Skills_ID",
+        "status": "existing source-only reference values used as selection context",
+        "ids": [
+          66957,
+          66958,
+          66959,
+          66960,
+          66961,
+          66962,
+          66963,
+          66964,
+          66965,
+          66966
+        ]
+      },
+      {
+        "name": "training-tech-223-level-info-candidate",
+        "sourceLocator": "ConfigDataTrainingTechLevelInfo#ID=2230-2239/SoldierSkillID",
+        "status": "selection context only; SkillInfo Target Table contract remains unverified",
+        "ids": [
+          65110,
+          65111,
+          65112,
+          65113,
+          65114,
+          65115,
+          65116,
+          65117,
+          65118,
+          65119
+        ]
+      }
+    ],
+    "selectionContextLimit": "Selection contexts document why these source IDs were selected. They do not admit Skill identities or Soldier-to-Skill relations, and the TrainingTechLevelInfo.SoldierSkillID-to-SkillInfo contract remains unverified."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "recordCount": 27198,
+    "containerPath": "$",
+    "primaryKey": "ID",
+    "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+    "archiveBytesVerifiedHere": false
+  },
+  "extraction": {
+    "method": "Download pinned raw file from raw.githubusercontent.com; verify byte length, SHA-256 and Git blob SHA-1; JSON.parse top-level array; select each record by explicit ID equality; verify each requested ID appears exactly once.",
+    "selectedBy": "rawRecord.ID",
+    "fullSourceBytesVerified": true,
+    "recordSelectionVerifiedByExplicitId": true,
+    "recordFieldOrderAndValuesPreservedByJSONParser": true,
+    "limitation": "JSON parsing and reserialization preserve JSON values, types, object key insertion order, and array order but not original lexical whitespace or number token spelling. Whole Source Pack archive digest was not verified."
+  },
+  "records": [
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60666",
+      "rawRecord": {
+        "ID": 60666,
+        "Name": "近卫枪兵Lv1",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>15%</color>。",
+        "PassiveBuffs_ID": [
+          60666
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 100
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60667",
+      "rawRecord": {
+        "ID": 60667,
+        "Name": "近卫枪兵Lv2",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>18%</color>。",
+        "PassiveBuffs_ID": [
+          60667
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 200
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60668",
+      "rawRecord": {
+        "ID": 60668,
+        "Name": "近卫枪兵Lv3",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>21%</color>。",
+        "PassiveBuffs_ID": [
+          60668
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 300
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60669",
+      "rawRecord": {
+        "ID": 60669,
+        "Name": "近卫枪兵Lv4",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>24%</color>。",
+        "PassiveBuffs_ID": [
+          60669
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 400
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60670",
+      "rawRecord": {
+        "ID": 60670,
+        "Name": "近卫枪兵Lv5",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>27%</color>。",
+        "PassiveBuffs_ID": [
+          60670
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 500
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60671",
+      "rawRecord": {
+        "ID": 60671,
+        "Name": "近卫枪兵Lv6",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>30%</color>。",
+        "PassiveBuffs_ID": [
+          60671
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 600
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60672",
+      "rawRecord": {
+        "ID": 60672,
+        "Name": "近卫枪兵Lv7",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>33%</color>。",
+        "PassiveBuffs_ID": [
+          60672
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 700
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60673",
+      "rawRecord": {
+        "ID": 60673,
+        "Name": "近卫枪兵Lv8",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>36%</color>。",
+        "PassiveBuffs_ID": [
+          60673
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 800
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60674",
+      "rawRecord": {
+        "ID": 60674,
+        "Name": "近卫枪兵Lv9",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>40%</color>。",
+        "PassiveBuffs_ID": [
+          60674
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 900
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=60675",
+      "rawRecord": {
+        "ID": 60675,
+        "Name": "近卫枪兵Lv10",
+        "Desc": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>45%</color>。",
+        "PassiveBuffs_ID": [
+          60675
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "BattlePower": 1000
+      },
+      "selectionContexts": [
+        "soldier-115-normal"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66957",
+      "rawRecord": {
+        "ID": 66957,
+        "Name": "近卫枪兵SPLv1",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>15%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>70%</color>），且战后恢复已损失生命的<color=#DC143C>10%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          66957,
+          66958,
+          66960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 150
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66958",
+      "rawRecord": {
+        "ID": 66958,
+        "Name": "近卫枪兵SPLv2",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>18%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>8%</color>），且战后恢复已损失生命的<color=#DC143C>12%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9966957,
+          9966958,
+          9966960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 300
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66959",
+      "rawRecord": {
+        "ID": 66959,
+        "Name": "近卫枪兵SPLv3",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>21%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>9%</color>），且战后恢复已损失生命的<color=#DC143C>14%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9866957,
+          9866958,
+          9866960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 450
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66960",
+      "rawRecord": {
+        "ID": 66960,
+        "Name": "近卫枪兵SPLv4",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>24%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>10%</color>），且战后恢复已损失生命的<color=#DC143C>16%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9766957,
+          9766958,
+          9766960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 600
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66961",
+      "rawRecord": {
+        "ID": 66961,
+        "Name": "近卫枪兵SPLv5",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>27%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>11%</color>），且战后恢复已损失生命的<color=#DC143C>18%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9666957,
+          9666958,
+          9666960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 750
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66962",
+      "rawRecord": {
+        "ID": 66962,
+        "Name": "近卫枪兵SPLv6",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>30%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>12%</color>），且战后恢复已损失生命的<color=#DC143C>20%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9566957,
+          9566958,
+          9566960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 900
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66963",
+      "rawRecord": {
+        "ID": 66963,
+        "Name": "近卫枪兵SPLv7",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>33%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>14%</color>），且战后恢复已损失生命的<color=#DC143C>22%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9466957,
+          9466958,
+          9466960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 1050
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66964",
+      "rawRecord": {
+        "ID": 66964,
+        "Name": "近卫枪兵SPLv8",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>36%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>16%</color>），且战后恢复已损失生命的<color=#DC143C>24%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9366957,
+          9366958,
+          9366960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 1200
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66965",
+      "rawRecord": {
+        "ID": 66965,
+        "Name": "近卫枪兵SPLv9",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>40%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>18%</color>），且战后恢复已损失生命的<color=#DC143C>27%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9266957,
+          9266958,
+          9266960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 1350
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=66966",
+      "rawRecord": {
+        "ID": 66966,
+        "Name": "近卫枪兵SPLv10",
+        "Desc": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>45%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>20%</color>），且战后恢复已损失生命的<color=#DC143C>30%</color>。",
+        "PassiveBuffs_ID": [
+          9066959,
+          9166957,
+          9166958,
+          9166960
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11,
+        "Icon": "UI/Icon/Skill2_ABS/Skill_EmpirePikeman_SP.png",
+        "BattlePower": 1500
+      },
+      "selectionContexts": [
+        "soldier-5115-sp"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65110",
+      "rawRecord": {
+        "ID": 65110,
+        "Name": "3级兵属性强化Lv1",
+        "Desc": "全属性<color=#DC143C>+2%</color>",
+        "PassiveBuffs_ID": [
+          65110
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65111",
+      "rawRecord": {
+        "ID": 65111,
+        "Name": "3级兵属性强化Lv2",
+        "Desc": "全属性<color=#DC143C>+4%</color>",
+        "PassiveBuffs_ID": [
+          65111
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65112",
+      "rawRecord": {
+        "ID": 65112,
+        "Name": "3级兵属性强化Lv3",
+        "Desc": "全属性<color=#DC143C>+6%</color>",
+        "PassiveBuffs_ID": [
+          65112
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65113",
+      "rawRecord": {
+        "ID": 65113,
+        "Name": "3级兵属性强化Lv4",
+        "Desc": "全属性<color=#DC143C>+9%</color>",
+        "PassiveBuffs_ID": [
+          65113
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65114",
+      "rawRecord": {
+        "ID": 65114,
+        "Name": "3级兵属性强化Lv5",
+        "Desc": "全属性<color=#DC143C>+12%</color>",
+        "PassiveBuffs_ID": [
+          65114
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65115",
+      "rawRecord": {
+        "ID": 65115,
+        "Name": "3级兵属性强化Lv6",
+        "Desc": "全属性<color=#DC143C>+15%</color>",
+        "PassiveBuffs_ID": [
+          65115
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65116",
+      "rawRecord": {
+        "ID": 65116,
+        "Name": "3级兵属性强化Lv7",
+        "Desc": "全属性<color=#DC143C>+18%</color>",
+        "PassiveBuffs_ID": [
+          65116
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65117",
+      "rawRecord": {
+        "ID": 65117,
+        "Name": "3级兵属性强化Lv8",
+        "Desc": "全属性<color=#DC143C>+22%</color>",
+        "PassiveBuffs_ID": [
+          65117
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65118",
+      "rawRecord": {
+        "ID": 65118,
+        "Name": "3级兵属性强化Lv9",
+        "Desc": "全属性<color=#DC143C>+26%</color>",
+        "PassiveBuffs_ID": [
+          65118
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    },
+    {
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=65119",
+      "rawRecord": {
+        "ID": 65119,
+        "Name": "3级兵属性强化Lv10",
+        "Desc": "全属性<color=#DC143C>+30%</color>",
+        "PassiveBuffs_ID": [
+          65119
+        ],
+        "SkillAIType": 1,
+        "SkillType": 11
+      },
+      "selectionContexts": [
+        "training-tech-223-level-info-candidate"
+      ]
+    }
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}
