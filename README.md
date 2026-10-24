@@ -1,6 +1,6 @@
 # Langrisser data slices
 
-This static site renders the current admitted Hero presentation slice for IDs 1, 3, 5, 6, 7, 8, 10, 11, 12, 13, 14, 25, 26, 27, 28, 32, 52, 53, 55, 60, and 67, SP Soldiers, a Korean Job glossary, and 206 General SSR Equipment records.
+This static site renders the current admitted Hero presentation slice for IDs 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 40, 52, 53, 55, 56, 60, 67, and 89, SP Soldiers, a Korean Job glossary, and 206 General SSR Equipment records.
 
 The General SSR Equipment population owner is `canonical/general-ssr-equipment.v1.json`; its separate Korean display/effect owner is `canonical/general-ssr-equipment-localizations-ko.v1.json`. The generated presentation consumer joins these owners by exact Equipment ID and contains only the ID, project-qualified Korean name, and admitted Korean effect description. This does not assert official Korean-server provenance. IDs 265, 266, 267, 268, 288, 289, 290, and 291 are shown as separate records; their possible alias/replacement meaning remains unresolved and is not represented in the presentation.
 
