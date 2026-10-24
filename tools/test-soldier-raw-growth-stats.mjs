@@ -31,6 +31,12 @@ function rejects(label, mutate) {
   assert.throws(() => validateSoldierRawGrowthStats(input), undefined, label);
   checks++;
 }
+function accepts(label, mutate) {
+  const input = clone(fixture);
+  mutate(input);
+  assert.deepEqual(validateSoldierRawGrowthStats(input), { soldierRecordCount: 2, rawFieldCount: 8, sourceEvidenceCount: 112 }, label);
+  checks++;
+}
 assert.deepEqual(validateSoldierRawGrowthStats(fixture), { soldierRecordCount: 2, rawFieldCount: 8, sourceEvidenceCount: 112 });
 checks++;
 rejects('wrong Soldier ID', x => { x.canonical.records[0].id = 116; });
@@ -52,6 +58,17 @@ rejects('field provenance changed', x => { x.canonical.records[0].provenance.fie
 rejects('source record evidence digest changed', x => { x.sourceEvidenceSha256 = '0'.repeat(64); });
 rejects('pinned source anchor changed', x => { x.sourceManifest.artifacts.soldierInfoEndpoints.sha256 = '0'.repeat(64); });
 rejects('growth formula leaked into canonical', x => { x.canonical.records[0].growthPerLevel = 1; });
-rejects('existing base stats changed', x => { x.normalStats.records.find(r => r.id === 115).baseStats.hp++; });
 rejects('existing Soldier identity changed', x => { x.soldiers.records = x.soldiers.records.filter(r => r.id !== 5115); });
+rejects('referenced Soldier duplicated', x => { x.soldiers.records.push(clone(x.soldiers.records.find(r => r.id === 115))); });
+rejects('referenced Soldier variant changed', x => { x.soldiers.records.find(r => r.id === 5115).variant = 'NORMAL'; });
+rejects('conflicting SP correspondence added', x => { x.relations.records.push({ spSoldierId: 5115, normalSoldierId: 118 }); });
+accepts('independent owners not required', x => {
+  for (const key of ['normalStats', 'spStats', 'bfMovePoints', 'heroSoldierRelations', 'trainingDescriptions', 'trainingCosts']) delete x[key];
+});
+// Memory-only probes; each independent owner still validates its own actual records in CI.
+accepts('independent owner populations expanded', x => {
+  for (const key of ['normalStats', 'spStats', 'bfMovePoints', 'heroSoldierRelations', 'trainingDescriptions', 'trainingCosts']) x[key].records.push(clone(x[key].records[0]));
+});
+accepts('unrelated Soldier identity added', x => { x.soldiers.records.push({ entity: 'Soldier', id: 999999, variant: 'NORMAL' }); });
+accepts('unrelated SP correspondence added', x => { x.relations.records.push({ spSoldierId: 999999, normalSoldierId: 999998 }); });
 process.stdout.write(`Soldier raw growth stats negative tests: PASS (${checks} checks)\n`);

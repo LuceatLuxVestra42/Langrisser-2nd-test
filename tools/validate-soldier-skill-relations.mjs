@@ -87,11 +87,10 @@ export function validateSoldierSkillRelations({ relationCanonical, contractEvide
   exactKeys(rawReferences, ['schemaVersion', 'responsibility', 'scope', 'source', 'records'], 'raw Soldier Skill references');
   check(rawReferences.schemaVersion === 1 && rawReferences.responsibility === 'soldier-raw-skill-references'
     && rawReferences.source?.commit === PINNED_SOURCE.commit, 'raw Soldier reference owner/source drift');
-  check(Array.isArray(rawReferences.records) && rawReferences.records.length === 2, 'raw Soldier reference scope must remain exactly two Soldiers');
+  check(Array.isArray(rawReferences.records), 'raw Soldier reference records missing');
   const rawById = new Map();
-  for (const row of rawReferences.records) {
+  for (const row of rawReferences.records.filter(row => SOURCE_IDS.includes(row?.id))) {
     check(row && row.entity === 'Soldier' && Number.isSafeInteger(row.id) && !rawById.has(row.id), 'duplicate or malformed raw Soldier reference record');
-    check(SOURCE_IDS.includes(row.id), `out-of-scope raw Soldier ${row.id}`);
     check(row.variant === EXPECTED_VARIANTS.get(row.id) && row.sourceField === 'Skills_ID', `raw Soldier variant/field mismatch at ${row.id}`);
     check(Array.isArray(row.rawReferenceIds) && row.rawReferenceIds.length === 10 && row.rawReferenceIds.every(Number.isSafeInteger), `raw Skills_ID must have ten integer references at ${row.id}`);
     check(new Set(row.rawReferenceIds).size === row.rawReferenceIds.length, `duplicate raw Skill reference at ${row.id}`);
@@ -128,13 +127,15 @@ export function validateSoldierSkillRelations({ relationCanonical, contractEvide
     check(endpoint.length === 1 && endpoint[0].variant === EXPECTED_VARIANTS.get(id), `Soldier identity endpoint missing/ambiguous at ${id}`);
   }
   check(spNormalRelations?.schemaVersion === 1 && Array.isArray(spNormalRelations.records)
-    && spNormalRelations.records.filter(row => row.spSoldierId === 5115 && row.normalSoldierId === 115).length === 1,
+    && spNormalRelations.records.filter(row => row.spSoldierId === 5115).length === 1
+    && spNormalRelations.records.find(row => row.spSoldierId === 5115).normalSoldierId === 115,
   'existing SP 5115 -> NORMAL 115 relation is missing or ambiguous');
-  check(skills?.schemaVersion === 1 && Array.isArray(skills.records) && skills.records.length === 38, 'Skill Identity population must remain 38');
-  const skillIds = skills.records.map(row => row.skillId);
-  check(skillIds.every(Number.isSafeInteger) && new Set(skillIds).size === skillIds.length, 'Skill Identity IDs are malformed or duplicated');
-  const skillIdSet = new Set(skillIds);
-  for (const edge of contractEvidence.selectedEdges) check(skillIdSet.has(Number(edge.targetId)), `Skill Identity endpoint missing ${edge.targetId}`);
+  check(skills?.schemaVersion === 1 && Array.isArray(skills.records), 'Skill Identity owner/schema missing');
+  // The Skill owner admits its population; this relation needs only its selected endpoints.
+  for (const edge of contractEvidence.selectedEdges) {
+    check(skills.records.filter(row => row.skillId === Number(edge.targetId)).length === 1,
+      `Skill Identity endpoint missing/ambiguous ${edge.targetId}`);
+  }
 
   exactKeys(relationCanonical, ['schemaVersion', 'responsibility', 'scope', 'relationType', 'cardinality', 'contractEvidence', 'records'], 'Soldier Skill Relation Canonical');
   check(relationCanonical.schemaVersion === 1 && relationCanonical.responsibility === 'soldier-skill-relations'
@@ -162,7 +163,7 @@ export function validateSoldierSkillRelations({ relationCanonical, contractEvide
   }
   const expectedEdges = contractEvidence.selectedEdges.map(edge => ({ sourceSoldierId: Number(edge.sourceId), targetSkillId: Number(edge.targetId) })).sort(compareEdges);
   check(same(actualEdges, expectedEdges), 'relation Edge Set/order differs from the Legacy contract evidence');
-  return { sourceSoldierCount: 2, edgeCount: 20, targetSkillCount: 20, skillIdentityCount: 38 };
+  return { sourceSoldierCount: 2, edgeCount: 20, targetSkillCount: 20, skillIdentityCount: skills.records.length };
 }
 
 async function readJson(root, relative) { return JSON.parse(await fs.readFile(path.resolve(root, relative), 'utf8')); }

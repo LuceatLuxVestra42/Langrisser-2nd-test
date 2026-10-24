@@ -4,7 +4,6 @@ import crypto from 'node:crypto';
 
 export const COST_EVIDENCE_PATH = 'evidence/source/configdata/soldier-training-tech-223-level-costs.v1.json';
 export const COST_CANONICAL_PATH = 'canonical/soldier-training-tech-level-costs.v1.json';
-export const DESCRIPTION_PATH = 'canonical/soldier-training-tech-descriptions.v1.json';
 
 const EXPECTED_IDS = [2230,2231,2232,2233,2234,2235,2236,2237,2238,2239];
 const EXPECTED_SOURCE = {
@@ -20,7 +19,6 @@ const EXPECTED_SOURCE = {
 };
 const TECH_PROJECTION_SHA256 = 'cc42dd3ef0d3867ca3ece5fbcf54e3e600db94b9e241735b354a242668cbb28e';
 const COST_PROJECTION_SHA256 = 'f60a7d5150db2e0714f8e0ed704e8f850564af0f059d955c67a12d71fa36d125';
-const DESCRIPTION_CANONICAL_SHA256 = 'cdc9f04ea5ac454e91f55c06afa6a7251228c3aa22947669c199fa6971943bfa';
 const EXPECTED_SCOPE = {
   sourceScope: 'Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c',
   claim: 'Preserve the two raw cost fields for the ten LevelInfo IDs explicitly referenced by TrainingTech 223.',
@@ -58,7 +56,7 @@ function provenance(id) {
   };
 }
 
-export function validateSoldierTrainingTechLevelCosts({ evidence, canonical, soldiers, spRelations, descriptions }) {
+export function validateSoldierTrainingTechLevelCosts({ evidence, canonical, soldiers, spRelations }) {
   exactKeys(evidence, ['schemaVersion','responsibility','scope','source','sources','selection','rawLevelInfoCostRecords','interpretation'], 'cost source evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'soldier-training-tech-level-cost-source-slice', 'evidence owner/schema mismatch');
   check(same(evidence.scope, EXPECTED_EVIDENCE_SCOPE), 'evidence scope or admission boundary changed');
@@ -133,14 +131,16 @@ export function validateSoldierTrainingTechLevelCosts({ evidence, canonical, sol
     check(same(row.provenance, provenance(id)), 'canonical provenance mismatch at ' + id);
   }
 
-  check(descriptions?.schemaVersion === 1 && Array.isArray(descriptions.records) && descriptions.records.length === 20,
-    'existing TrainingTech description canonical scope changed');
-  check(hashJson(descriptions) === DESCRIPTION_CANONICAL_SHA256, 'existing TrainingTech description canonical changed');
+  // Description integrity belongs to the description owner, not the raw cost claim.
   check(soldiers?.schemaVersion === 1 && Array.isArray(soldiers.records), 'Soldier identity owner missing');
-  const identity = new Set(soldiers.records.filter(r => r.entity === 'Soldier').map(r => r.variant + ':' + r.id));
-  check(identity.has('NORMAL:115') && identity.has('SP:5115'), 'source endpoint identity context is missing');
+  for (const [id, variant] of [[115, 'NORMAL'], [5115, 'SP']]) {
+    const endpoints = soldiers.records.filter(row => row.entity === 'Soldier' && row.id === id);
+    check(endpoints.length === 1 && endpoints[0].variant === variant, 'source endpoint identity context is missing/ambiguous at ' + id);
+  }
   check(spRelations?.schemaVersion === 1 && Array.isArray(spRelations.records)
-    && spRelations.records.some(r => r.spSoldierId === 5115 && r.normalSoldierId === 115), 'existing explicit SP-to-NORMAL endpoint context is missing');
+    && spRelations.records.filter(row => row.spSoldierId === 5115).length === 1
+    && spRelations.records.find(row => row.spSoldierId === 5115).normalSoldierId === 115,
+    'existing explicit SP-to-NORMAL endpoint context is missing/ambiguous');
   return {recordCount:canonical.records.length,levelInfoIds:EXPECTED_IDS,materialRowCount:raw.reduce((sum,row)=>sum+row.LevelupMaterialsCost.length,0)};
 }
 
@@ -151,7 +151,6 @@ export function loadAndValidateSoldierTrainingTechLevelCosts(root = process.cwd(
     canonical:read(COST_CANONICAL_PATH),
     soldiers:read('canonical/soldiers.v1.json'),
     spRelations:read('canonical/sp-soldier-normal-relations.v1.json'),
-    descriptions:read(DESCRIPTION_PATH),
   });
 }
 
