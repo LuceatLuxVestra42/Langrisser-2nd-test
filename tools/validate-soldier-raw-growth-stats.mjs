@@ -23,10 +23,6 @@ const PINNED = {
 };
 const SOURCE_PROJECTION_SHA256 = 'acf1ddc7e8add32530f4f44bf5c686eabfc54a0e930b1ea3f509d2383b0865fb';
 const EXPECTED_VARIANTS = { 115: 'NORMAL', 5115: 'SP' };
-const EXPECTED_STATS = {
-  115: { hp: 43, attack: 40, defense: 23, magicDefense: 17 },
-  5115: { hp: 46, attack: 40, defense: 23, magicDefense: 20 },
-};
 const fail = message => { throw new Error(`Soldier raw growth stats validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -49,7 +45,6 @@ function recordLocator(id) {
 
 export function validateSoldierRawGrowthStats({
   canonical, sourceEvidence, sourceEvidenceSha256, sourceManifest, soldiers, relations,
-  normalStats, spStats, bfMovePoints, heroSoldierRelations, trainingDescriptions, trainingCosts,
 }) {
   check(sourceEvidenceSha256 === PINNED.endpointSha256, 'preserved SoldierInfo endpoint evidence SHA-256 mismatch');
   check(sourceManifest.schemaVersion === 1
@@ -126,26 +121,17 @@ export function validateSoldierRawGrowthStats({
     }
   }
 
-  check(soldiers?.schemaVersion === 1 && soldiers.records.length === 112, 'existing Soldier identity population changed');
+  // Other owners validate their populations; only these identity/relation endpoints are consumed here.
+  check(soldiers?.schemaVersion === 1 && Array.isArray(soldiers.records), 'Soldier identity owner/schema missing');
   for (const id of EXPECTED_IDS) {
-    check(soldiers.records.filter(r => r.entity === 'Soldier' && r.id === id && r.variant === EXPECTED_VARIANTS[id]).length === 1,
+    const endpoints = soldiers.records.filter(r => r.entity === 'Soldier' && r.id === id);
+    check(endpoints.length === 1 && endpoints[0].variant === EXPECTED_VARIANTS[id],
       `existing Soldier identity/variant endpoint mismatch at ${id}`);
   }
-  check(relations?.schemaVersion === 1 && relations.records.length === 56
-    && relations.records.filter(r => r.spSoldierId === 5115 && r.normalSoldierId === 115).length === 1,
+  check(relations?.schemaVersion === 1 && Array.isArray(relations.records)
+    && relations.records.filter(r => r.spSoldierId === 5115).length === 1
+    && relations.records.find(r => r.spSoldierId === 5115).normalSoldierId === 115,
   'existing explicit SP 5115 to NORMAL 115 relation changed');
-
-  check(normalStats?.records?.length === 56 && spStats?.records?.length === 56,
-    'existing NORMAL/SP base stats population changed');
-  for (const [id, stats] of Object.entries(EXPECTED_STATS)) {
-    const owner = Number(id) === 115 ? normalStats : spStats;
-    const record = owner.records.find(r => r.id === Number(id) && r.variant === EXPECTED_VARIANTS[id]);
-    check(record && same(record.baseStats, stats), `existing base stats endpoint changed at Soldier ${id}`);
-  }
-  check(bfMovePoints?.records?.length === 112, 'existing Soldier BF_MovePoint population changed');
-  check(heroSoldierRelations?.records?.length === 379, 'existing Hero-Soldier relation population changed');
-  check(trainingDescriptions?.records?.length === 20, 'existing TrainingTech description population changed');
-  check(trainingCosts?.records?.length === 10, 'existing TrainingTech cost population changed');
   return { soldierRecordCount: canonical.records.length, rawFieldCount: EXPECTED_IDS.length * FIELDS.length, sourceEvidenceCount: sourceEvidence.records.length };
 }
 
@@ -160,12 +146,6 @@ export async function loadAndValidateSoldierRawGrowthStats(root = process.cwd())
     sourceManifest: read(SOURCE_MANIFEST_PATH),
     soldiers: read('canonical/soldiers.v1.json'),
     relations: read('canonical/sp-soldier-normal-relations.v1.json'),
-    normalStats: read('canonical/normal-soldier-base-stats.v1.json'),
-    spStats: read('canonical/sp-soldier-base-stats.v1.json'),
-    bfMovePoints: read('canonical/soldier-bf-move-points.v1.json'),
-    heroSoldierRelations: read('canonical/hero-soldier-relations.v1.json'),
-    trainingDescriptions: read('canonical/soldier-training-tech-descriptions.v1.json'),
-    trainingCosts: read('canonical/soldier-training-tech-level-costs.v1.json'),
   });
 }
 

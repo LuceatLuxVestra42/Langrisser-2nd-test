@@ -23,7 +23,6 @@ const EXPECTED = [
   { id: 115, variant: 'NORMAL', ids: [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675] },
   { id: 5115, variant: 'SP', ids: [66957,66958,66959,66960,66961,66962,66963,66964,66965,66966] },
 ];
-const REQUIRED_SKILL_IDENTITY_IDS = [3067,3072,3077,3082,3196,3197,3198,3199];
 const EXPECTED_SCOPE = {
   claim: "Preserve the ordered raw integer values of Skills_ID from each named Soldier's own ConfigDataSoldierInfo record.",
   sourceScope: 'Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c',
@@ -51,8 +50,7 @@ function fieldLocator(id) { return `${sourceLocator(id)}/Skills_ID`; }
 
 export function validateSoldierRawSkillReferences({
   canonical, sourceEvidence, sourceEvidenceSha256, sourceManifest,
-  soldiers, relations, normalStats, spStats, bfMovePoints,
-  heroSoldierRelations, trainingDescriptions, trainingCosts, skills, rawGrowthStats,
+  soldiers, relations,
 }) {
   check(sourceEvidenceSha256 === PINNED.endpointSha256, 'preserved SoldierInfo endpoint evidence SHA-256 mismatch');
   check(sourceManifest.schemaVersion === 1
@@ -120,30 +118,18 @@ export function validateSoldierRawSkillReferences({
     `canonical Source Record/Field locator mismatch at ${item.id}`);
   }
 
-  check(soldiers?.schemaVersion === 1 && soldiers.records?.length === 112,
-    'existing Soldier identity population changed');
+  // Raw references do not consume Skill identity, growth, or other independent owners.
+  check(soldiers?.schemaVersion === 1 && Array.isArray(soldiers.records),
+    'Soldier identity owner/schema missing');
   for (const item of EXPECTED) {
-    check(soldiers.records.filter(r => r.entity === 'Soldier' && r.id === item.id && r.variant === item.variant).length === 1,
+    const endpoints = soldiers.records.filter(r => r.entity === 'Soldier' && r.id === item.id);
+    check(endpoints.length === 1 && endpoints[0].variant === item.variant,
       `existing Soldier identity/variant endpoint mismatch at ${item.id}`);
   }
-  check(relations?.schemaVersion === 1 && relations.records?.length === 56
-    && relations.records.filter(r => r.spSoldierId === 5115 && r.normalSoldierId === 115).length === 1,
+  check(relations?.schemaVersion === 1 && Array.isArray(relations.records)
+    && relations.records.filter(r => r.spSoldierId === 5115).length === 1
+    && relations.records.find(r => r.spSoldierId === 5115).normalSoldierId === 115,
   'existing explicit SP 5115 to NORMAL 115 relation changed');
-  check(normalStats?.records?.length === 56 && spStats?.records?.length === 56,
-    'existing NORMAL/SP base stats populations changed');
-  check(bfMovePoints?.records?.length === 112, 'existing Soldier BF_MovePoint population changed');
-  check(heroSoldierRelations?.records?.length === 379, 'existing Hero-Soldier relation population changed');
-  check(trainingDescriptions?.records?.length === 20, 'existing TrainingTech description population changed');
-  check(trainingCosts?.records?.length === 10, 'existing TrainingTech cost population changed');
-  check(Array.isArray(skills?.records), 'Skill Identity canonical records are missing');
-  const skillIds = skills.records.map(record => record?.skillId);
-  check(new Set(skillIds).size === skillIds.length, 'Skill Identity canonical contains duplicate IDs');
-  for (const id of REQUIRED_SKILL_IDENTITY_IDS) {
-    check(skillIds.filter(skillId => skillId === id).length === 1, `existing Hero Talent Skill Identity endpoint missing or duplicated at ${id}`);
-  }
-  check(rawGrowthStats?.schemaVersion === 1 && rawGrowthStats.records?.length === 2
-    && same(rawGrowthStats.records.map(r => [r.id, r.variant]), [[115,'NORMAL'],[5115,'SP']]),
-  'existing Soldier raw growth stats scope/population changed');
   return { soldierRecordCount: canonical.records.length, referenceIdCount: canonical.records.reduce((n,r)=>n+r.rawReferenceIds.length,0), sourceEvidenceCount: sourceEvidence.records.length };
 }
 
@@ -158,14 +144,6 @@ export function loadAndValidateSoldierRawSkillReferences(root = process.cwd()) {
     sourceManifest: read(SOURCE_MANIFEST_PATH),
     soldiers: read('canonical/soldiers.v1.json'),
     relations: read('canonical/sp-soldier-normal-relations.v1.json'),
-    normalStats: read('canonical/normal-soldier-base-stats.v1.json'),
-    spStats: read('canonical/sp-soldier-base-stats.v1.json'),
-    bfMovePoints: read('canonical/soldier-bf-move-points.v1.json'),
-    heroSoldierRelations: read('canonical/hero-soldier-relations.v1.json'),
-    trainingDescriptions: read('canonical/soldier-training-tech-descriptions.v1.json'),
-    trainingCosts: read('canonical/soldier-training-tech-level-costs.v1.json'),
-    skills: read('canonical/skills.v1.json'),
-    rawGrowthStats: read('canonical/soldier-raw-growth-stats.v1.json'),
   });
 }
 

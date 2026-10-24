@@ -36,6 +36,14 @@ function rejects(label, mutate) {
   assert.throws(() => validateSoldierRawSkillReferences(input), undefined, label);
   checks++;
 }
+function accepts(label, mutate) {
+  const input = clone(fixture);
+  mutate(input);
+  assert.deepEqual(validateSoldierRawSkillReferences(input), {
+    soldierRecordCount: 2, referenceIdCount: 20, sourceEvidenceCount: 112,
+  }, label);
+  checks++;
+}
 assert.deepEqual(validateSoldierRawSkillReferences(fixture), {
   soldierRecordCount: 2, referenceIdCount: 20, sourceEvidenceCount: 112,
 });
@@ -64,10 +72,17 @@ rejects('game level interpretation rejected', x => { x.canonical.records[0].game
 rejects('TrainingTech Skill JOIN rejected', x => { x.canonical.records[0].trainingTechSkillIds = [65110]; });
 rejects('Soldier identity endpoint removed', x => { x.soldiers.records = x.soldiers.records.filter(r => r.id !== 115); });
 rejects('SP-to-NORMAL relation changed', x => { x.relations.records.find(r => r.spSoldierId === 5115).normalSoldierId = 118; });
-rejects('base stats population changed', x => { x.normalStats.records.pop(); });
-rejects('raw growth stats scope changed', x => { x.rawGrowthStats.records.pop(); });
-rejects('TrainingTech descriptions changed', x => { x.trainingDescriptions.records.pop(); });
-rejects('TrainingTech costs changed', x => { x.trainingCosts.records.pop(); });
-rejects('existing Hero Talent Skill Identity endpoint removed', x => { x.skills.records = x.skills.records.filter(r => r.skillId !== 3067); });
-rejects('duplicate Skill Identity ID', x => { x.skills.records.push(clone(x.skills.records[0])); });
+rejects('referenced Soldier duplicated', x => { x.soldiers.records.push(clone(x.soldiers.records.find(r => r.id === 115))); });
+rejects('referenced Soldier variant changed', x => { x.soldiers.records.find(r => r.id === 5115).variant = 'NORMAL'; });
+rejects('conflicting SP correspondence added', x => { x.relations.records.push({ spSoldierId: 5115, normalSoldierId: 118 }); });
+accepts('independent owners not required', x => {
+  for (const key of ['normalStats', 'spStats', 'bfMovePoints', 'heroSoldierRelations', 'trainingDescriptions', 'trainingCosts', 'skills', 'rawGrowthStats']) delete x[key];
+});
+// Synthetic extensions check consumer boundaries, not validity of external admissions.
+accepts('independent owner populations expanded', x => {
+  for (const key of ['normalStats', 'spStats', 'bfMovePoints', 'heroSoldierRelations', 'trainingDescriptions', 'trainingCosts', 'rawGrowthStats']) x[key].records.push(clone(x[key].records[0]));
+  x.skills.records.push({ ...clone(x.skills.records[0]), skillId: 999999 });
+});
+accepts('unrelated Soldier identity added', x => { x.soldiers.records.push({ entity: 'Soldier', id: 999999, variant: 'NORMAL' }); });
+accepts('unrelated SP correspondence added', x => { x.relations.records.push({ spSoldierId: 999999, normalSoldierId: 999998 }); });
 process.stdout.write(`Soldier raw Skills_ID negative tests: PASS (${checks} checks)\n`);

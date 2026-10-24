@@ -21,14 +21,22 @@ const fixture = {
 };
 const clone = value => structuredClone(value);
 let checks = 0;
-function rejects(label, mutate) {
+function rejects(label, mutate, pattern) {
   const input = clone(fixture);
   mutate(input);
-  assert.throws(() => validateSoldierSkillRelations(input), undefined, label);
+  assert.throws(() => validateSoldierSkillRelations(input), pattern, label);
+  checks++;
+}
+function accepts(label, mutate) {
+  const input = clone(fixture);
+  mutate(input);
+  assert.deepEqual(validateSoldierSkillRelations(input), {
+    sourceSoldierCount: 2, edgeCount: 20, targetSkillCount: 20, skillIdentityCount: input.skills.records.length,
+  }, label);
   checks++;
 }
 assert.deepEqual(validateSoldierSkillRelations(fixture), {
-  sourceSoldierCount: 2, edgeCount: 20, targetSkillCount: 20, skillIdentityCount: 38,
+  sourceSoldierCount: 2, edgeCount: 20, targetSkillCount: 20, skillIdentityCount: fixture.skills.records.length,
 });
 checks++;
 rejects('one relation edge removed', x => { x.relationCanonical.records.pop(); });
@@ -49,18 +57,26 @@ rejects('NORMAL/SP mapping semantic field inserted', x => { x.relationCanonical.
 rejects('relation edge target type changed', x => { x.relationCanonical.records[0].targetSkillId = String(x.relationCanonical.records[0].targetSkillId); });
 rejects('raw source reference changed', x => { x.rawReferences.records.find(r => r.id === 115).rawReferenceIds[0]++; });
 rejects('raw source Soldier removed', x => { x.rawReferences.records = x.rawReferences.records.filter(r => r.id !== 115); });
-rejects('raw source Soldier added', x => { x.rawReferences.records.push({ ...clone(x.rawReferences.records[0]), id: 118 }); });
+rejects('referenced raw Soldier duplicated', x => { x.rawReferences.records.push(clone(x.rawReferences.records[0])); });
 rejects('Soldier identity endpoint removed', x => { x.soldiers.records = x.soldiers.records.filter(r => r.id !== 115); });
 rejects('Soldier variant changed', x => { x.soldiers.records.find(r => r.id === 5115).variant = 'NORMAL'; });
 rejects('SP to NORMAL relation changed', x => { x.spNormalRelations.records.find(r => r.spSoldierId === 5115).normalSoldierId = 118; });
 rejects('Skill identity endpoint removed', x => { x.skills.records = x.skills.records.filter(r => r.skillId !== 60666); });
-rejects('Skill identity duplicate inserted', x => { x.skills.records.push(clone(x.skills.records[0])); });
+rejects('referenced Skill identity duplicate inserted', x => { x.skills.records.push(clone(x.skills.records.find(r => r.skillId === 60666))); });
 rejects('Legacy source Commit changed', x => { x.contractEvidence.source.commit = '0'.repeat(40); });
 rejects('Legacy contract key changed', x => { x.contractEvidence.source.contract.key = 'soldier.other'; });
 rejects('Legacy source Field changed', x => { x.contractEvidence.contract.sourceField = 'OtherField'; });
 rejects('Legacy target Table changed', x => { x.contractEvidence.contract.targetType = 'Other'; });
 rejects('Legacy contract evidence edge removed', x => { x.contractEvidence.selectedEdges.pop(); });
-rejects('Legacy contract evidence edge modified', x => { x.contractEvidence.selectedEdges[0].targetSkillId++; });
+rejects('Legacy contract evidence targetId modified', x => { x.contractEvidence.selectedEdges[0].targetId = '60667'; }, /Legacy forward edge locator mismatch/);
 rejects('Legacy contract evidence digest changed', x => { x.contractEvidenceSha256 = '0'.repeat(64); });
 rejects('contract evidence scope widened', x => { x.contractEvidence.scope.sourceSoldierIds.push(118); });
+rejects('referenced Soldier duplicated', x => { x.soldiers.records.push(clone(x.soldiers.records.find(r => r.id === 115))); });
+rejects('conflicting SP correspondence added', x => { x.spNormalRelations.records.push({ spSoldierId: 5115, normalSoldierId: 118 }); });
+// Synthetic records exercise consumer independence; they are never canonical admissions.
+accepts('unrelated Skill identity added', x => { x.skills.records.push({ ...clone(x.skills.records[0]), skillId: 999999 }); });
+accepts('unreferenced Skill identity removed', x => { x.skills.records = x.skills.records.filter(r => r.skillId !== 65110); });
+accepts('unrelated Soldier identity added', x => { x.soldiers.records.push({ entity: 'Soldier', id: 999999, variant: 'NORMAL' }); });
+accepts('unrelated SP correspondence added', x => { x.spNormalRelations.records.push({ spSoldierId: 999999, normalSoldierId: 999998 }); });
+accepts('unrelated raw reference record added', x => { x.rawReferences.records.push({ ...clone(x.rawReferences.records[0]), id: 999999 }); });
 process.stdout.write(`Soldier-to-Skill relation negative tests: PASS (${checks} checks)\n`);
