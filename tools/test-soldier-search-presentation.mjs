@@ -71,6 +71,7 @@ const runtime = [
   extractFunction(frontend, 'makeTalentPresentation'),
   extractFunction(frontend, 'makeSpJobPresentation'),
   extractFunction(frontend, 'makeJobConnectionLabel'),
+  extractFunction(frontend, 'makeJobLevelSourceStatsPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'appendSkillDescription'),
   extractFunction(frontend, 'makeSoldierSkillReferences'),
