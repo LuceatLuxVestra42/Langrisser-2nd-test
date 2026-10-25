@@ -67,6 +67,12 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .soldier-hero-links h4 { margin: 0 0 6px; color: #aab9cc; font-size: .76rem; }
 .soldier-hero-links ul { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 0; padding: 0; list-style: none; }
 .soldier-hero-links a { color: #a9ceff; font-size: .82rem; text-underline-offset: 3px; }
+.soldier-skill-references { margin-top: 14px; padding-top: 11px; border-top: 1px solid #344050; color: #d2dae5; }
+.soldier-skill-references summary { color: #aab9cc; font-size: .82rem; cursor: pointer; }
+.soldier-skill-references ul { display: grid; gap: 10px; margin: 10px 0 0; padding-left: 20px; }
+.soldier-skill-label { margin: 0 0 3px; color: #e1e8f0; font-size: .82rem; font-weight: 650; }
+.soldier-skill-description { margin: 0; color: #c3ccd8; font-size: .8rem; line-height: 1.55; }
+.skill-description-emphasis { color: #ff646c; font-weight: 650; }
 .job-glossary-section { margin-top: 64px; }
 .job-glossary-table-wrap { overflow-x: auto; border: 1px solid #344050; border-radius: 12px; background: #1a202a; }
 .job-glossary-table { width: 100%; border-collapse: collapse; text-align: left; }
