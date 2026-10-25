@@ -31,9 +31,10 @@ const heroProductionRelations = await readJson('canonical/hero-production-relati
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const skills = await readJson('canonical/skills.v1.json');
+const heroJobLevelRawStats = await readJson('canonical/hero-job-level-raw-stats.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills);
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -172,6 +173,7 @@ const expectedSpJobsByHeroId = new Map([
 for (const hero of generated.heroes) {
   const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'spJobConnections', 'exclusiveEquipment', 'factions', 'origins'];
   if (talentRelations.records.some((row) => row.heroId === hero.id)) heroKeys.push('talent');
+  if ([6, 8].includes(hero.id)) heroKeys.push('jobLevelSourceStats');
   exactKeys(hero, heroKeys, `generated Hero ${hero.id}`);
   if (!Number.isInteger(hero.id) || typeof hero.nameEng !== 'string' || !hero.nameEng || typeof hero.nameKo !== 'string' || !hero.nameKo || !Array.isArray(hero.jobConnections)) {
     throw new Error(`malformed generated Hero ${String(hero.id)}`);
@@ -215,6 +217,23 @@ for (const hero of generated.heroes) {
         || relation.localizationClassification !== 'PROJECT_REVIEWED_LOCALIZATION'
         || relation.officialKrProvenanceStatus !== 'UNVERIFIED'))) {
       throw new Error(`malformed generated Job relation for Hero ${hero.id}`);
+    }
+  }
+  if ([6, 8].includes(hero.id)) {
+    if (!Array.isArray(hero.jobLevelSourceStats) || hero.jobLevelSourceStats.length !== 25) throw new Error(`Hero ${hero.id} generated raw JobLevel record count mismatch`);
+    const levelIds = new Set();
+    for (const row of hero.jobLevelSourceStats) {
+      exactKeys(row, ['jobConnectionId', 'jobId', 'jobRank', 'jobLevelId', 'jobLevelUpHeroLevel', 'rankCode', 'rawStats'], `Hero ${hero.id} raw JobLevel row`);
+      exactKeys(row.rawStats, ['HP_INI', 'HP_UP', 'AT_INI', 'AT_UP', 'Magic_INI', 'Magic_UP', 'DF_INI', 'DF_UP', 'MagicDF_INI', 'MagicDF_UP', 'DEX_INI'], `Hero ${hero.id} raw JobLevel fields`);
+      if (!Number.isSafeInteger(row.jobConnectionId) || !Number.isSafeInteger(row.jobId)
+        || !Number.isSafeInteger(row.jobRank) || !Number.isSafeInteger(row.jobLevelId)
+        || !Number.isSafeInteger(row.jobLevelUpHeroLevel) || !Number.isSafeInteger(row.rankCode)
+        || !hero.jobConnections.some((relation) => relation.connectionId === row.jobConnectionId && relation.jobId === row.jobId)
+        || levelIds.has(row.jobLevelId)
+        || Object.values(row.rawStats).some((value) => !Number.isSafeInteger(value))) {
+        throw new Error(`Hero ${hero.id} generated raw JobLevel record is malformed, duplicated, or mislinked`);
+      }
+      levelIds.add(row.jobLevelId);
     }
   }
   exactKeys(hero.exclusiveEquipment, ['equipmentId', 'equipmentNameKo', 'effectDescriptionKo'], `generated Hero ${hero.id} Exclusive Equipment`);
