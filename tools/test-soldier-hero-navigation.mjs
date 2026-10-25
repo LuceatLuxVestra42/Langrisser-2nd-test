@@ -44,7 +44,6 @@ const sandbox = {
   spSoldiersByNormalId: new Map(),
   document: {
     createElement: makeElement,
-    createTextNode: (text) => Object.assign(makeElement(), { textContent: text, nodeType: 3 }),
     getElementById: (id) => elementsById.get(id) ?? null,
     querySelector: (selector) => selectors.get(selector) ?? null,
   },
@@ -58,8 +57,6 @@ for (const soldier of spData.soldiers) {
 }
 const runtime = [
   extractFunction(frontend, 'makeAnchor'),
-  extractFunction(frontend, 'appendSkillDescription'),
-  extractFunction(frontend, 'makeSoldierSkillReferences'),
   extractFunction(frontend, 'addNormalSoldier'),
   extractFunction(frontend, 'addSpSoldier'),
   extractFunction(frontend, 'revealInitialHeroFragment'),

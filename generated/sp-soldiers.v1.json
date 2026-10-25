@@ -18,59 +18,7 @@
         "attack": 40,
         "defense": 23,
         "magicDefense": 17
-      },
-      "skillReferences": [
-        {
-          "skillId": 66957,
-          "nameCn": "近卫枪兵SPLv1",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>15%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>70%</color>），且战后恢复已损失生命的<color=#DC143C>10%</color>。"
-        },
-        {
-          "skillId": 66958,
-          "nameCn": "近卫枪兵SPLv2",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>18%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>8%</color>），且战后恢复已损失生命的<color=#DC143C>12%</color>。"
-        },
-        {
-          "skillId": 66959,
-          "nameCn": "近卫枪兵SPLv3",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>21%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>9%</color>），且战后恢复已损失生命的<color=#DC143C>14%</color>。"
-        },
-        {
-          "skillId": 66960,
-          "nameCn": "近卫枪兵SPLv4",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>24%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>10%</color>），且战后恢复已损失生命的<color=#DC143C>16%</color>。"
-        },
-        {
-          "skillId": 66961,
-          "nameCn": "近卫枪兵SPLv5",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>27%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>11%</color>），且战后恢复已损失生命的<color=#DC143C>18%</color>。"
-        },
-        {
-          "skillId": 66962,
-          "nameCn": "近卫枪兵SPLv6",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>30%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>12%</color>），且战后恢复已损失生命的<color=#DC143C>20%</color>。"
-        },
-        {
-          "skillId": 66963,
-          "nameCn": "近卫枪兵SPLv7",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>33%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>14%</color>），且战后恢复已损失生命的<color=#DC143C>22%</color>。"
-        },
-        {
-          "skillId": 66964,
-          "nameCn": "近卫枪兵SPLv8",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>36%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>16%</color>），且战后恢复已损失生命的<color=#DC143C>24%</color>。"
-        },
-        {
-          "skillId": 66965,
-          "nameCn": "近卫枪兵SPLv9",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>40%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>18%</color>），且战后恢复已损失生命的<color=#DC143C>27%</color>。"
-        },
-        {
-          "skillId": 66966,
-          "nameCn": "近卫枪兵SPLv10",
-          "descriptionCn": "士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>45%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>20%</color>），且战后恢复已损失生命的<color=#DC143C>30%</color>。"
-        }
-      ]
+      }
     },
     {
       "spSoldierId": 5118,
