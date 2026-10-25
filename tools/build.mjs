@@ -1,7 +1,7 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
@@ -123,6 +123,17 @@ for (const soldier of normalSoldierGenerated.soldiers) {
   }
   exactKeys(soldier.baseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${soldier.normalSoldierId} base stats`);
   if (!Object.values(soldier.baseStats).every(Number.isFinite)) throw new Error(`malformed NORMAL Soldier base stats for ${soldier.normalSoldierId}`);
+}
+const trainingTechCanonical = await readJson('canonical/soldier-training-tech-descriptions.v1.json');
+const trainingTechGeneratedPath = resolve('generated/soldier-training-tech-descriptions.v1.json');
+const trainingTechGeneratedText = await readFile(trainingTechGeneratedPath, 'utf8');
+if (trainingTechGeneratedText !== renderSoldierTrainingTechDescriptions(trainingTechCanonical)) {
+  throw new Error('generated Soldier TrainingTech descriptions are stale or non-deterministic');
+}
+const trainingTechGenerated = JSON.parse(trainingTechGeneratedText);
+if (trainingTechGenerated.contract?.status !== 'PROPOSED' || trainingTechGenerated.contract.approved !== false
+  || trainingTechGenerated.records.length !== 20) {
+  throw new Error('built Soldier TrainingTech proposal must remain unapproved with exactly 20 records');
 }
 
 const heroSoldierRelationPath = resolve('generated/hero-soldier-relations.v1.json');
@@ -263,6 +274,7 @@ try {
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
+  await cp(trainingTechGeneratedPath, join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'));
   await cp(heroSoldierRelationPath, join(output, 'generated', 'hero-soldier-relations.v1.json'));
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
   await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
@@ -292,6 +304,10 @@ try {
   }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
+  if (!app.includes("fetch('./generated/soldier-training-tech-descriptions.v1.json')")) throw new Error('built app does not resolve the scoped TrainingTech proposal consumer');
+  if (!app.includes("data.contract.status === 'PROPOSED' && data.contract.approved === false")) throw new Error('built app must hide non-effective TrainingTech proposals');
+  const packagedTrainingTechText = await readFile(join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'), 'utf8');
+  if (packagedTrainingTechText !== trainingTechGeneratedText) throw new Error('packaged TrainingTech proposal differs from validated Generated artifact');
   if (!app.includes("fetch('./generated/hero-soldier-relations.v1.json')")) throw new Error('built app does not resolve the generated Hero–Soldier relation entry');
   const packagedRelationsText = await readFile(join(output, 'generated', 'hero-soldier-relations.v1.json'), 'utf8');
   if (packagedRelationsText !== heroSoldierRelationText) throw new Error('packaged Hero–Soldier relations differ from tracked generated artifact');

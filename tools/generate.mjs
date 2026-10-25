@@ -6,6 +6,95 @@ const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
 const JOB_LEVEL_STATS_HERO_IDS = new Set([6, 8]);
 const JOB_LEVEL_RAW_STAT_FIELDS = ['HP_INI', 'HP_UP', 'AT_INI', 'AT_UP', 'Magic_INI', 'Magic_UP', 'DF_INI', 'DF_UP', 'MagicDF_INI', 'MagicDF_UP', 'DEX_INI'];
+const TRAINING_TECH_DESCRIPTION_SOURCE = {
+  repository: 'LuceatLuxVestra42/langrisser-future-guide',
+  commit: '6475e63ee23d18adf733756c26a14fa9e3ed662c',
+  trainingTechPath: 'data/configdata/ConfigDataTrainingTechInfo.json',
+  levelInfoPath: 'data/configdata/ConfigDataTrainingTechLevelInfo.json',
+};
+const TRAINING_TECH_LEVEL_INFO_IDS = [2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239];
+
+function validateTrainingTechDescriptionMarkup(value, label) {
+  if (typeof value !== 'string' || !value.trim()) throw new Error(`${label} is empty or malformed`);
+  const openTag = '<color=#DC143C>';
+  const closeTag = '</color>';
+  let cursor = 0;
+  while (cursor < value.length) {
+    const nextTag = value.indexOf('<', cursor);
+    if (nextTag < 0) break;
+    if (value.startsWith(openTag, nextTag)) {
+      const close = value.indexOf(closeTag, nextTag + openTag.length);
+      if (close < 0) throw new Error(`${label} contains an unclosed source color marker`);
+      const content = value.slice(nextTag + openTag.length, close);
+      if (!content || content.includes('<') || value.indexOf(openTag, nextTag + openTag.length) >= 0
+        && value.indexOf(openTag, nextTag + openTag.length) < close) {
+        throw new Error(`${label} contains nested or empty source color markup`);
+      }
+      cursor = close + closeTag.length;
+      continue;
+    }
+    if (value.startsWith(closeTag, nextTag)) throw new Error(`${label} contains an unmatched source color close marker`);
+    throw new Error(`${label} contains unsupported source markup`);
+  }
+}
+
+export function renderSoldierTrainingTechDescriptions(canonical) {
+  if (canonical?.schemaVersion !== 1 || canonical?.responsibility !== 'soldier-training-tech-description-text'
+    || !Array.isArray(canonical.records)
+    || canonical.scope?.sourceScope !== 'Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    || canonical.scope?.claim !== 'Preserve opaque TrainingTech NORMAL/SP description text for Soldier 115 and related SP Soldier 5115, keyed by source LevelInfo ID.'
+    || JSON.stringify(canonical.scope?.excluded) !== JSON.stringify([
+      'Game level or slot assignment', 'SP level application', 'Training unlock semantics',
+      'Soldier skill relations', 'Combat mechanics interpretation', 'Korean localization', 'Frontend display',
+    ])) throw new Error('Unsupported Soldier TrainingTech description Canonical owner or scope');
+  if (canonical.records.length !== 20) throw new Error('TrainingTech description projection must contain exactly 20 admitted Canonical claims');
+
+  const expectedSoldierByVariant = new Map([['NORMAL', 115], ['SP', 5115]]);
+  const seen = new Set();
+  const records = canonical.records.map((row, index) => {
+    const sourceField = row.variant === 'NORMAL' ? 'Description'
+      : row.variant === 'SP' ? 'SpSoidlierDescription' : null;
+    const expectedSoldierId = expectedSoldierByVariant.get(row.variant);
+    if (!sourceField || row.soldierId !== expectedSoldierId || row.trainingTechId !== 223
+      || !TRAINING_TECH_LEVEL_INFO_IDS.includes(row.levelInfoId)
+      || !row.provenance || typeof row.provenance.description !== 'string'
+      || row.provenance.description !== `evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=${row.levelInfoId}/${sourceField}`
+      || row.provenance.soldierRelation !== `evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=${expectedSoldierId}`
+      || row.provenance.levelInfoLink !== `evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=${row.levelInfoId}`) {
+      throw new Error(`Malformed or out-of-scope TrainingTech description claim at Canonical row ${index}`);
+    }
+    const key = `${row.variant}:${row.soldierId}:${row.trainingTechId}:${row.levelInfoId}:${sourceField}`;
+    if (seen.has(key)) throw new Error(`Duplicate TrainingTech description claim ${key}`);
+    seen.add(key);
+    validateTrainingTechDescriptionMarkup(row.descriptionCn, `TrainingTech description ${key}`);
+    return {
+      variant: row.variant,
+      soldierId: row.soldierId,
+      trainingTechId: row.trainingTechId,
+      levelInfoId: row.levelInfoId,
+      sourceField,
+      descriptionCn: row.descriptionCn,
+      provenance: { ...row.provenance },
+    };
+  });
+  for (const [variant, soldierId] of expectedSoldierByVariant) {
+    const selected = records.filter((row) => row.variant === variant && row.soldierId === soldierId);
+    if (selected.length !== TRAINING_TECH_LEVEL_INFO_IDS.length
+      || TRAINING_TECH_LEVEL_INFO_IDS.some((id) => !selected.some((row) => row.levelInfoId === id))) {
+      throw new Error(`${variant} TrainingTech description claims must cover only the ten admitted LevelInfo IDs`);
+    }
+  }
+  return `${JSON.stringify({
+    schemaVersion: 1,
+    contract: {
+      id: 'soldier-training-tech-description-presentation.v1',
+      status: 'PROPOSED',
+      approved: false,
+    },
+    source: { ...TRAINING_TECH_DESCRIPTION_SOURCE },
+    records,
+  }, null, 2)}\n`;
+}
 
 export function projectHeroJobLevelSourceStats(heroes, jobLevelStats) {
   if (heroes?.schemaVersion !== 1 || !Array.isArray(heroes.records)
@@ -772,6 +861,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]);
   const normalSoldierOutputPath = resolve('generated/normal-soldiers.v1.json');
   await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats), JSON.parse(normalSoldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
+  const trainingTechDescriptions = JSON.parse(await readFile(resolve('canonical/soldier-training-tech-descriptions.v1.json'), 'utf8'));
+  const trainingTechDescriptionsOutputPath = resolve('generated/soldier-training-tech-descriptions.v1.json');
+  await writeFile(trainingTechDescriptionsOutputPath, renderSoldierTrainingTechDescriptions(trainingTechDescriptions), 'utf8');
   const heroSoldierRelationOwner = JSON.parse(await readFile(resolve('canonical/hero-soldier-relations.v1.json'), 'utf8'));
   const heroSoldierOutputPath = resolve('generated/hero-soldier-relations.v1.json');
   await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(canonical, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');
@@ -783,5 +875,5 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');
   await writeFile(exclusiveEquipmentOutputPath, renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', and ' + heroSoldierOutputPath + '\n');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', and ' + heroSoldierOutputPath + '\n');
 }

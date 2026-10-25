@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "contract": {
+    "id": "soldier-training-tech-description-presentation.v1",
+    "status": "PROPOSED",
+    "approved": false
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "trainingTechPath": "data/configdata/ConfigDataTrainingTechInfo.json",
+    "levelInfoPath": "data/configdata/ConfigDataTrainingTechLevelInfo.json"
+  },
+  "records": [
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2230,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+2%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>15%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2230/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2230"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2230,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+2%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>15%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>70%</color>），且战后恢复已损失生命的<color=#DC143C>10%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2230/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2230"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2231,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+4%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>18%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2231/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2231"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2231,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+4%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>18%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>8%</color>），且战后恢复已损失生命的<color=#DC143C>12%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2231/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2231"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2232,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+6%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>21%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2232/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2232"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2232,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+6%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>21%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>9%</color>），且战后恢复已损失生命的<color=#DC143C>14%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2232/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2232"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2233,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+9%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>24%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2233/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2233"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2233,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+9%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>24%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>10%</color>），且战后恢复已损失生命的<color=#DC143C>16%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2233/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2233"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2234,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+12%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>27%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2234/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2234"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2234,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+12%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>27%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>11%</color>），且战后恢复已损失生命的<color=#DC143C>18%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2234/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2234"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2235,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+15%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>30%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2235/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2235"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2235,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+15%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>30%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>12%</color>），且战后恢复已损失生命的<color=#DC143C>20%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2235/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2235"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2236,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+18%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>33%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2236/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2236"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2236,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+18%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>33%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>14%</color>），且战后恢复已损失生命的<color=#DC143C>22%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2236/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2236"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2237,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+22%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>36%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2237/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2237"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2237,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+22%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>36%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>16%</color>），且战后恢复已损失生命的<color=#DC143C>24%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2237/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2237"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2238,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+26%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>40%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2238/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2238"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2238,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+26%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>40%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>18%</color>），且战后恢复已损失生命的<color=#DC143C>27%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2238/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2238"
+      }
+    },
+    {
+      "variant": "NORMAL",
+      "soldierId": 115,
+      "trainingTechId": 223,
+      "levelInfoId": 2239,
+      "sourceField": "Description",
+      "descriptionCn": "全属性<color=#DC143C>+30%</color>\n士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>45%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2239/Description",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2239"
+      }
+    },
+    {
+      "variant": "SP",
+      "soldierId": 5115,
+      "trainingTechId": 223,
+      "levelInfoId": 2239,
+      "sourceField": "SpSoidlierDescription",
+      "descriptionCn": "全属性<color=#DC143C>+30%</color>\n士兵生命低于<color=#DC143C>80%</color>时，攻击、防御提升<color=#DC143C>45%</color>。进入战斗时，若我方部队人数低于敌军，部队无视敌军[护盾]（若目标没有[护盾]，则士兵造成伤害提升<color=#DC143C>20%</color>），且战后恢复已损失生命的<color=#DC143C>30%</color>。",
+      "provenance": {
+        "description": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=2239/SpSoidlierDescription",
+        "soldierRelation": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/SoldierIDRelated&contains=5115",
+        "levelInfoLink": "evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json#ID=223/TechLevelupInfoList&contains=2239"
+      }
+    }
+  ]
+}

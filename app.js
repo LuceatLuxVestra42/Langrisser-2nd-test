@@ -27,6 +27,7 @@ let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
 let spSoldierNavigation = null;
 let normalSoldierNavigation = null;
+let soldierTrainingTechDescriptions = new Map();
 
 function indexSpSoldiersByNormalId(soldiers) {
   const byNormalId = new Map();
@@ -749,6 +750,102 @@ function appendSkillDescription(target, sourceText) {
   }
 }
 
+function indexSoldierTrainingTechDescriptions(data) {
+  if (data?.schemaVersion !== 1 || !Array.isArray(data.records)
+    || data.contract?.id !== 'soldier-training-tech-description-presentation.v1'
+    || !['PROPOSED', 'APPROVED'].includes(data.contract.status)
+    || typeof data.contract.approved !== 'boolean'
+    || data.source?.repository !== 'LuceatLuxVestra42/langrisser-future-guide'
+    || data.source?.commit !== '6475e63ee23d18adf733756c26a14fa9e3ed662c') {
+    throw new Error('Unsupported Soldier TrainingTech description consumer');
+  }
+  if (data.contract.status === 'PROPOSED' && data.contract.approved === false) return new Map();
+  if (data.contract.status !== 'APPROVED' || data.contract.approved !== true || data.records.length !== 20) {
+    throw new Error('Soldier TrainingTech descriptions are not covered by an effective publication approval');
+  }
+  const expected = new Map([
+    ['NORMAL', { soldierId: 115, sourceField: 'Description' }],
+    ['SP', { soldierId: 5115, sourceField: 'SpSoidlierDescription' }],
+  ]);
+  const levelInfoIds = new Set([2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239]);
+  const bySoldier = new Map();
+  for (const row of data.records) {
+    const target = expected.get(row.variant);
+    if (!target || row.soldierId !== target.soldierId || row.trainingTechId !== 223
+      || !levelInfoIds.has(row.levelInfoId) || row.sourceField !== target.sourceField
+      || typeof row.descriptionCn !== 'string' || !row.descriptionCn.trim()
+      || !row.provenance || typeof row.provenance.description !== 'string') {
+      throw new Error('Malformed or out-of-scope Soldier TrainingTech description');
+    }
+    const key = `${row.variant}:${row.soldierId}`;
+    const records = bySoldier.get(key) ?? [];
+    if (records.some((existing) => existing.levelInfoId === row.levelInfoId)) {
+      throw new Error(`Duplicate TrainingTech LevelInfo source ID ${row.levelInfoId}`);
+    }
+    records.push(row);
+    bySoldier.set(key, records);
+  }
+  for (const [variant, target] of expected) {
+    const rows = bySoldier.get(`${variant}:${target.soldierId}`) ?? [];
+    if (rows.length !== 10 || [...levelInfoIds].some((id) => !rows.some((row) => row.levelInfoId === id))) {
+      throw new Error(`${variant} TrainingTech description set is incomplete`);
+    }
+  }
+  return bySoldier;
+}
+
+function makeSoldierTrainingTechPresentation(soldier, variant, bySoldier) {
+  const target = variant === 'NORMAL' ? { soldierId: soldier.normalSoldierId, field: 'Description' }
+    : variant === 'SP' ? { soldierId: soldier.spSoldierId, field: 'SpSoidlierDescription' } : null;
+  if (!target || ![115, 5115].includes(target.soldierId)) return null;
+  const records = bySoldier.get(`${variant}:${target.soldierId}`);
+  if (!records) return null;
+  if (records.length !== 10 || records.some((row) => row.trainingTechId !== 223 || row.sourceField !== target.field)) {
+    throw new Error(`Malformed TrainingTech description presentation for ${variant} Soldier ${target.soldierId}`);
+  }
+  const details = document.createElement('details');
+  details.className = 'soldier-training-tech-descriptions';
+  const summary = document.createElement('summary');
+  summary.textContent = 'CN ConfigData 원문 설명 · 한국어 공식 번역 아님';
+  const notice = document.createElement('p');
+  notice.className = 'soldier-training-tech-notice';
+  notice.textContent = 'LevelInfo ID는 원본 레코드 식별자이며 게임 레벨이나 진행 순서를 뜻하지 않습니다. 원문은 검증된 실제 전투 효과로 해석하지 않습니다.';
+  const list = document.createElement('ul');
+  list.className = 'soldier-training-tech-list';
+  const spNotice = document.createElement('p');
+  spNotice.className = 'soldier-training-tech-notice';
+  if (variant === 'SP') spNotice.textContent = 'SP 설명의 슬롯·시점·게임 내 적용 의미는 확인되지 않았습니다.';
+  const source = document.createElement('p');
+  source.className = 'soldier-training-tech-source';
+  source.textContent = 'Source: LuceatLuxVestra42/langrisser-future-guide · Commit 6475e63ee23d18adf733756c26a14fa9e3ed662c · TrainingTech ID 223';
+  for (const row of records) {
+    const item = document.createElement('li');
+    const label = document.createElement('p');
+    label.className = 'soldier-training-tech-label';
+    label.textContent = `LevelInfo Source ID ${row.levelInfoId} · Source Field ${row.sourceField}`;
+    const description = document.createElement('p');
+    description.className = 'soldier-training-tech-description';
+    appendSkillDescription(description, row.descriptionCn);
+    item.append(label, description);
+    list.append(item);
+  }
+  details.append(summary, notice);
+  if (variant === 'SP') details.append(spNotice);
+  details.append(source, list);
+  return details;
+}
+
+const soldierTrainingTechDescriptionsPromise = fetch('./generated/soldier-training-tech-descriptions.v1.json')
+  .then((response) => {
+    if (!response.ok) throw new Error(`Generated Soldier TrainingTech request failed (${response.status})`);
+    return response.json();
+  })
+  .then(indexSoldierTrainingTechDescriptions)
+  .catch((error) => {
+    console.error(error);
+    return new Map();
+  });
+
 function makeSoldierSkillReferences(soldier) {
   if (!Array.isArray(soldier.skillReferences) || soldier.skillReferences.length === 0) return null;
   const details = document.createElement('details');
@@ -824,7 +921,9 @@ function addSpSoldier(soldier) {
   const normalStats = makeStats('일반 기본 능력치', soldier.normalSoldierBaseStats, 'normal-stat-group');
   const heroLinks = makeSoldierHeroLinks(soldier.spSoldierId);
   const skillReferences = makeSoldierSkillReferences(soldier);
+  const trainingTechDescriptions = makeSoldierTrainingTechPresentation(soldier, 'SP', soldierTrainingTechDescriptions);
   article.append(heading, normal, bfMovePoint, spStats, normalStats);
+  if (trainingTechDescriptions) article.append(trainingTechDescriptions);
   if (skillReferences) article.append(skillReferences);
   if (heroLinks) article.append(heroLinks);
   spSoldierContainer.append(article);
@@ -836,6 +935,7 @@ try {
   const data = await response.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)
     || !data.soldiers.every((soldier) => Number.isFinite(soldier.bfMovePoint))) throw new Error('Unsupported SP Soldier data');
+  soldierTrainingTechDescriptions = await soldierTrainingTechDescriptionsPromise;
   spSoldiersByNormalId = indexSpSoldiersByNormalId(data.soldiers);
   spSoldierNavigation = renderSoldierSearch({
     soldiers: data.soldiers, idField: 'spSoldierId', input: spSoldierSearch,
@@ -883,6 +983,7 @@ function addNormalSoldier(soldier) {
   }
   const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId);
   const skillReferences = makeSoldierSkillReferences(soldier);
+  const trainingTechDescriptions = makeSoldierTrainingTechPresentation(soldier, 'NORMAL', soldierTrainingTechDescriptions);
   const spLinks = spSoldiersByNormalId.get(soldier.normalSoldierId);
   let linkedSpSection = null;
   if (spLinks?.length) {
@@ -905,6 +1006,7 @@ function addNormalSoldier(soldier) {
     linkedSpSection.append(linkedSpHeading, linkedSpList);
   }
   article.append(heading, bfMovePoint, stats);
+  if (trainingTechDescriptions) article.append(trainingTechDescriptions);
   if (skillReferences) article.append(skillReferences);
   if (heroLinks) article.append(heroLinks);
   if (linkedSpSection) article.append(linkedSpSection);
@@ -946,6 +1048,7 @@ try {
   const data = await response.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.soldiers)
     || !data.soldiers.every((soldier) => Number.isFinite(soldier.bfMovePoint))) throw new Error('Unsupported NORMAL Soldier data');
+  soldierTrainingTechDescriptions = await soldierTrainingTechDescriptionsPromise;
   normalSoldierNavigation = renderSoldierSearch({
     soldiers: data.soldiers, idField: 'normalSoldierId', input: normalSoldierSearch,
     clearButton: normalSoldierClear, count: normalSoldierCount, container: normalSoldierContainer,

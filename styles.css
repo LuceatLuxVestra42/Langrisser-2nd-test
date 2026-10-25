@@ -84,6 +84,13 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .soldier-skill-references summary { color: #aab9cc; font-size: .82rem; cursor: pointer; }
 .soldier-skill-references ul { display: grid; gap: 10px; margin: 10px 0 0; padding-left: 20px; }
 .soldier-skill-label { margin: 0 0 3px; color: #e1e8f0; font-size: .82rem; font-weight: 650; }
+.soldier-training-tech-descriptions { min-width: 0; margin-top: 14px; padding-top: 11px; border-top: 1px solid #344050; color: #d2dae5; }
+.soldier-training-tech-descriptions summary { color: #aab9cc; font-size: .82rem; cursor: pointer; }
+.soldier-training-tech-list { display: grid; gap: 10px; margin: 10px 0 0; padding-left: 20px; }
+.soldier-training-tech-label { margin: 0 0 3px; color: #e1e8f0; font-size: .82rem; font-weight: 650; overflow-wrap: anywhere; }
+.soldier-training-tech-description { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.55; }
+.soldier-training-tech-source, .soldier-training-tech-notice { margin: 8px 0; color: #aab9cc; font-size: .78rem; line-height: 1.5; overflow-wrap: anywhere; }
+.training-tech-source-emphasis { color: #dc143c; }
 .soldier-skill-description { margin: 0; color: #c3ccd8; font-size: .8rem; line-height: 1.55; }
 .skill-description-emphasis { color: #ff646c; font-weight: 650; }
 .job-glossary-section { margin-top: 64px; }
