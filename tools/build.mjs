@@ -30,9 +30,10 @@ const productionIdentities = await readJson('canonical/production-identities.v1.
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
+const skills = await readJson('canonical/skills.v1.json');
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities);
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -86,7 +87,6 @@ const [soldierIdentities, soldierLocalizations, normalSoldierLocalizations, sold
 ]);
 const soldierBfMovePoints = await readJson('canonical/soldier-bf-move-points.v1.json');
 const soldierSkillRelations = await readJson('canonical/soldier-skill-relations.v1.json');
-const skills = await readJson('canonical/skills.v1.json');
 const spGeneratedPath = resolve('generated/sp-soldiers.v1.json');
 const spGeneratedText = await readFile(spGeneratedPath, 'utf8');
 const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats, soldierBfMovePoints, soldierSkillRelations, skills);
@@ -227,8 +227,11 @@ for (const hero of generated.heroes) {
     if (typeof hero.talent.nameKo !== 'string' || !hero.talent.nameKo.trim() || !Array.isArray(hero.talent.starDescriptions)
       || JSON.stringify(hero.talent.starDescriptions.map((row) => row.star)) !== '[3,4,5,6]') throw new Error(`malformed generated Talent for Hero ${hero.id}`);
     for (const row of hero.talent.starDescriptions) {
-      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw'], `generated Hero ${hero.id} Talent star`);
-      if (!Number.isSafeInteger(row.star) || !Number.isSafeInteger(row.skillId) || typeof row.descriptionKoRaw !== 'string' || !row.descriptionKoRaw.trim()) throw new Error(`malformed generated Talent star for Hero ${hero.id}`);
+      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw', 'nameCn', 'descriptionCn'], `generated Hero ${hero.id} Talent star`);
+      if (!Number.isSafeInteger(row.star) || !Number.isSafeInteger(row.skillId) || typeof row.descriptionKoRaw !== 'string' || !row.descriptionKoRaw.trim()
+        || typeof row.nameCn !== 'string' || !row.nameCn.trim() || typeof row.descriptionCn !== 'string' || !row.descriptionCn.trim()) {
+        throw new Error(`malformed generated Talent star for Hero ${hero.id}`);
+      }
     }
   }
 }

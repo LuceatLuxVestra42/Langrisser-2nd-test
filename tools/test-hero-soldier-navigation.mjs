@@ -58,6 +58,7 @@ const runtime = [
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
+  extractFunction(frontend, 'appendSkillDescription'),
   extractFunction(frontend, 'makeTalentDescription'),
   extractFunction(frontend, 'makeTalentPresentation'),
   extractFunction(frontend, 'makeSpJobPresentation'),

@@ -29,7 +29,46 @@ function validateTalentDescriptionMarkup(value, label) {
   }
 }
 
-export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities) {
+export function resolveTalentSkillText(talentRelations, skills) {
+  if (talentRelations?.schemaVersion !== 1 || !Array.isArray(talentRelations.records)
+    || skills?.schemaVersion !== 1 || !Array.isArray(skills.records)) {
+    throw new Error('Unsupported Hero Talent relation or Skill identity owner');
+  }
+  const targets = new Map();
+  for (const relation of talentRelations.records) {
+    if (!Number.isSafeInteger(relation.heroId) || ![6, 8].includes(relation.heroId)
+      || ![3, 4, 5, 6].includes(relation.star) || !Number.isSafeInteger(relation.skillId)) {
+      throw new Error('Malformed or out-of-scope Hero Talent Skill endpoint');
+    }
+    const key = `${relation.heroId}:${relation.star}`;
+    if (targets.has(key)) throw new Error(`Duplicate Hero Talent Skill endpoint ${key}`);
+    targets.set(key, relation.skillId);
+  }
+  const expectedKeys = ['6:3', '6:4', '6:5', '6:6', '8:3', '8:4', '8:5', '8:6'];
+  if (targets.size !== expectedKeys.length || expectedKeys.some((key) => !targets.has(key))) {
+    throw new Error('Hero Talent Skill endpoints must exactly cover Heroes 6 and 8 at stars 3 through 6');
+  }
+  const targetIds = new Set(targets.values());
+  const skillsById = new Map();
+  for (const skill of skills.records) {
+    if (!targetIds.has(skill.skillId)) continue;
+    if (!Number.isSafeInteger(skill.skillId) || typeof skill.nameCn !== 'string' || !skill.nameCn.trim()
+      || typeof skill.descriptionCn !== 'string' || !skill.descriptionCn.trim()) {
+      throw new Error(`Malformed Canonical Skill source text ${skill.skillId}`);
+    }
+    if (skillsById.has(skill.skillId)) throw new Error(`Duplicate Canonical Skill endpoint ${skill.skillId}`);
+    skillsById.set(skill.skillId, { skillId: skill.skillId, nameCn: skill.nameCn, descriptionCn: skill.descriptionCn });
+  }
+  const result = new Map();
+  for (const [key, skillId] of targets) {
+    const skill = skillsById.get(skillId);
+    if (!skill) throw new Error(`Unresolved Canonical Skill endpoint ${skillId} for Hero Talent ${key}`);
+    result.set(key, skill);
+  }
+  return result;
+}
+
+export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills) {
   if (heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)) throw new Error('Unsupported Hero identity owner');
   const heroIdentityIds = new Set();
   for (const identity of heroIdentities.records) {
@@ -51,6 +90,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   if (talentRelations?.schemaVersion !== 1 || !Array.isArray(talentRelations.records)) throw new Error('Unsupported Hero Talent star-skill relation owner');
   if (talentLocalizations?.schemaVersion !== 1 || !Array.isArray(talentLocalizations.nameRecords)
     || !Array.isArray(talentLocalizations.descriptionRecords)) throw new Error('Unsupported Hero Talent Korean localization owner');
+  if (skills?.schemaVersion !== 1 || !Array.isArray(skills.records)) throw new Error('Unsupported Skill identity owner');
   const heroIds = new Set(canonical.records.map(({ id }) => id));
   if (talentLocalizations.officialKrProvenanceStatus !== 'unverified') throw new Error('Hero Talent localization official Korean status must remain unverified');
   const talentRelationByKey = new Map();
@@ -63,6 +103,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     if (talentRelationByKey.has(key)) throw new Error(`Duplicate Hero Talent relation ${key}`);
     talentRelationByKey.set(key, relation.skillId);
   }
+  const talentSkillTextByKey = resolveTalentSkillText(talentRelations, skills);
   const talentNameByHeroId = new Map();
   for (const name of talentLocalizations.nameRecords) {
     if (!Number.isSafeInteger(name.heroId) || !TALENT_HERO_IDS.has(name.heroId) || !heroIds.has(name.heroId)
@@ -307,7 +348,8 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
           const key = `${id}:${star}:${skillId}`;
           const descriptionKoRaw = talentDescriptionByKey.get(key);
           if (typeof descriptionKoRaw !== 'string') throw new Error(`Missing reviewed Hero Talent description ${key}`);
-          return { star, skillId, descriptionKoRaw };
+          const skill = talentSkillTextByKey.get(`${id}:${star}`);
+          return { star, skillId, descriptionKoRaw, nameCn: skill.nameCn, descriptionCn: skill.descriptionCn };
         }),
       } : undefined;
       return ({
@@ -618,6 +660,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const heroProductionRelationsPath = resolve('canonical/hero-production-relations.v1.json');
   const talentRelationsPath = resolve('canonical/hero-talent-star-skills.v1.json');
   const talentLocalizationsPath = resolve('canonical/hero-talent-localizations-ko.v1.json');
+  const skillsPath = resolve('canonical/skills.v1.json');
   const factionLocalizationsPath = resolve('canonical/faction-localizations-ko.v1.json');
   const productionLocalizationsPath = resolve('canonical/production-localizations-ko.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
@@ -638,13 +681,14 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const [talentRelations, talentLocalizations] = await Promise.all([
     readFile(talentRelationsPath, 'utf8'), readFile(talentLocalizationsPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
+  const canonicalSkills = JSON.parse(await readFile(skillsPath, 'utf8'));
   const factionLocalizations = JSON.parse(await readFile(factionLocalizationsPath, 'utf8'));
   const productionLocalizations = JSON.parse(await readFile(productionLocalizationsPath, 'utf8'));
   const [heroJobRelations, spJobIdentities] = await Promise.all([
     readFile(resolve('canonical/hero-job-relations.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-job-identities.v1.json'), 'utf8'),
   ]).then(([relations, identities]) => [JSON.parse(relations), JSON.parse(identities)]);
-  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities), 'utf8');
+  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, canonicalSkills), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

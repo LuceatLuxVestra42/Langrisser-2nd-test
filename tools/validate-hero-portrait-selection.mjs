@@ -735,7 +735,15 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
     && JSON.stringify(generated.heroes.map((r) => r.id)) === JSON.stringify(presentationIds), 'Hero Presentation population changed');
   for (const [heroId, expectedSha256] of priorPresentationRecordSha256) {
     const row = generated.heroes.find((hero) => hero.id === heroId);
-    check(row && createHash('sha256').update(JSON.stringify(row)).digest('hex') === expectedSha256, `Prior Hero ${heroId} generated record parity mismatch`);
+    const priorShape = row ? structuredClone(row) : null;
+    if ([6, 8].includes(heroId)) {
+      for (const talentRow of priorShape?.talent?.starDescriptions ?? []) {
+        delete talentRow.nameCn;
+        delete talentRow.descriptionCn;
+      }
+    }
+    check(priorShape && createHash('sha256').update(JSON.stringify(priorShape)).digest('hex') === expectedSha256,
+      `Prior Hero ${heroId} generated record parity mismatch`);
   }
 
   check(evidence.predecessor.packageIdentity.fullPackageCryptographicHash === 'not recorded'
