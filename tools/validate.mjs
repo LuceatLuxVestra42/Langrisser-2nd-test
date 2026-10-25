@@ -31,6 +31,7 @@ const productionIdentities = await readJson('canonical/production-identities.v1.
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
 const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.json');
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
+const skills = await readJson('canonical/skills.v1.json');
 const heroRarityEvidence = await readJson('evidence/source/hero-rarity.v1.json');
 const heroInfoRarityRecords = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-rarity.v1.json');
 const rankInfo = await readJson('evidence/source/configdata/ConfigDataRankInfo.json');
@@ -547,7 +548,7 @@ check(JSON.stringify(hero60JobInfoRows.map((row) => row.ID)) === '[213,214]'
   && hero60JobInfoRows.find((row) => row.ID === 214)?.Name === '剑斗统帅', 'Hero 60 pinned JobInfo ID/name set drift');
 check(talentRelations.records.every((row) => [6,8].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6 and 8');
 
-const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities);
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities, skills);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const generatedJson = JSON.parse(generated);
@@ -596,8 +597,12 @@ for (const hero of generatedJson.heroes) {
     check(typeof hero.talent.nameKo === 'string' && hero.talent.nameKo.trim() && Array.isArray(hero.talent.starDescriptions), `Hero ${hero.id} generated Talent is malformed`);
     check(JSON.stringify(hero.talent.starDescriptions.map((row) => row.star)) === '[3,4,5,6]', `Hero ${hero.id} generated Talent star list is incomplete`);
     for (const row of hero.talent.starDescriptions) {
-      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw'], `Hero ${hero.id} Talent star ${row.star}`);
-      check(Number.isSafeInteger(row.star) && Number.isSafeInteger(row.skillId) && typeof row.descriptionKoRaw === 'string' && row.descriptionKoRaw.trim(), `Hero ${hero.id} Talent star description is malformed`);
+      exactKeys(row, ['star', 'skillId', 'descriptionKoRaw', 'nameCn', 'descriptionCn'], `Hero ${hero.id} Talent star ${row.star}`);
+      check(Number.isSafeInteger(row.star) && Number.isSafeInteger(row.skillId)
+        && typeof row.descriptionKoRaw === 'string' && row.descriptionKoRaw.trim()
+        && typeof row.nameCn === 'string' && row.nameCn.trim()
+        && typeof row.descriptionCn === 'string' && row.descriptionCn.trim(),
+      `Hero ${hero.id} Talent star source or localization text is malformed`);
     }
   }
   check(Array.isArray(hero.factions) && hero.factions.length > 0, `Hero ${hero.id} generated Faction list is missing`);

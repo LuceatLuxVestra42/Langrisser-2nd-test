@@ -411,22 +411,30 @@
           {
             "star": 3,
             "skillId": 3067,
-            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+1%</font> 방어 <font color=\"red\">+5%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능."
+            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+1%</font> 방어 <font color=\"red\">+5%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+            "nameCn": "传说的骑士",
+            "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>1%</color>，防御提升<color=#DC143C>5%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
           },
           {
             "star": 4,
             "skillId": 3072,
-            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+2%</font> 방어 <font color=\"red\">+10%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능."
+            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+2%</font> 방어 <font color=\"red\">+10%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+            "nameCn": "传说的骑士",
+            "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>2%</color>，防御提升<color=#DC143C>10%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
           },
           {
             "star": 5,
             "skillId": 3077,
-            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+3%</font> 방어 <font color=\"red\">+15%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능."
+            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+3%</font> 방어 <font color=\"red\">+15%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+            "nameCn": "传说的骑士",
+            "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>3%</color>，防御提升<color=#DC143C>15%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
           },
           {
             "star": 6,
             "skillId": 3082,
-            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+4%</font> 방어 <font color=\"red\">+20%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능."
+            "descriptionKoRaw": "<font color=\"red\">1칸</font> 이동할 때마다 피해 <font color=\"red\">+4%</font> 방어 <font color=\"red\">+20%</font> 공격 후 <font color=\"red\">3칸</font> 재이동 가능.",
+            "nameCn": "传说的骑士",
+            "descriptionCn": "每移动<color=#DC143C>1</color>格，伤害提升<color=#DC143C>4%</color>，防御提升<color=#DC143C>20%</color>。攻击后，可以再次移动<color=#DC143C>3</color>格。"
           }
         ]
       },
@@ -602,22 +610,30 @@
           {
             "star": 3,
             "skillId": 3196,
-            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+10%</font> 스킬 사거리 <font color=\"red\">+1</font>."
+            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+10%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+            "nameCn": "秘法延伸",
+            "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>10%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
           },
           {
             "star": 4,
             "skillId": 3197,
-            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+15%</font> 스킬 사거리 <font color=\"red\">+1</font>."
+            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+15%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+            "nameCn": "秘法延伸",
+            "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>15%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
           },
           {
             "star": 5,
             "skillId": 3198,
-            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+20%</font> 스킬 사거리 <font color=\"red\">+1</font>."
+            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+20%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+            "nameCn": "秘法延伸",
+            "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>20%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
           },
           {
             "star": 6,
             "skillId": 3199,
-            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+30%</font> 스킬 사거리 <font color=\"red\">+1</font>."
+            "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+30%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
+            "nameCn": "秘法延伸",
+            "descriptionCn": "进入战斗时，魔法伤害提升<color=#DC143C>30%</color>，使用技能时射程提升<color=#DC143C>1</color>。"
           }
         ]
       },

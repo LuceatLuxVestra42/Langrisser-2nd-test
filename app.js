@@ -225,15 +225,35 @@ function makeTalentPresentation(heroId, talent) {
   name.textContent = talent.nameKo;
   const list = document.createElement('ul');
   list.className = 'talent-star-list';
+  const sourceDetails = document.createElement('details');
+  sourceDetails.className = 'talent-source-original';
+  const sourceSummary = document.createElement('summary');
+  sourceSummary.textContent = '연결된 Talent Skill 중국어 원문 · ID 기준';
+  const sourceList = document.createElement('ul');
+  sourceList.className = 'talent-source-list';
   for (const row of talent.starDescriptions) {
-    if (!Number.isSafeInteger(row.skillId)) throw new Error('Generated Hero Talent Skill ID is malformed');
+    if (!Number.isSafeInteger(row.skillId) || typeof row.nameCn !== 'string' || !row.nameCn.trim()
+      || typeof row.descriptionCn !== 'string' || !row.descriptionCn.trim()) {
+      throw new Error('Generated Hero Talent Skill source text is malformed');
+    }
     const item = document.createElement('li');
     const star = document.createElement('h4');
     star.textContent = `${row.star}성`;
     item.append(star, makeTalentDescription(row.descriptionKoRaw, row.star));
     list.append(item);
+
+    const sourceItem = document.createElement('li');
+    const sourceLabel = document.createElement('p');
+    sourceLabel.className = 'talent-source-label';
+    sourceLabel.textContent = `${row.star}성 · Skill ID ${row.skillId} · ${row.nameCn}`;
+    const sourceDescription = document.createElement('p');
+    sourceDescription.className = 'talent-source-description';
+    appendSkillDescription(sourceDescription, row.descriptionCn);
+    sourceItem.append(sourceLabel, sourceDescription);
+    sourceList.append(sourceItem);
   }
-  section.append(heading, name, list);
+  sourceDetails.append(sourceSummary, sourceList);
+  section.append(heading, name, list, sourceDetails);
   return section;
 }
 
