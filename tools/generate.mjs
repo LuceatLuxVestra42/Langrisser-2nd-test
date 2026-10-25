@@ -377,7 +377,53 @@ const assertSameIds = (expected, actual, label) => {
   }
 };
 
-export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints) {
+const SOLDIER_SKILL_SCOPE = new Map([[115, 'NORMAL'], [5115, 'SP']]);
+const SOLDIER_SKILL_COUNTS = new Map([[115, 10], [5115, 10]]);
+
+function projectSoldierSkillReferences(soldierId, relationOwner, skillOwner) {
+  if (!SOLDIER_SKILL_SCOPE.has(soldierId)) return undefined;
+  if (relationOwner?.schemaVersion !== 1 || relationOwner.responsibility !== 'soldier-skill-relations'
+    || relationOwner.relationType !== 'RAW_DIRECT_REFERENCE' || relationOwner.cardinality !== 'MANY'
+    || !Array.isArray(relationOwner.records)) throw new Error('Unsupported Soldier-to-Skill relation owner');
+  if (skillOwner?.schemaVersion !== 1 || !Array.isArray(skillOwner.records)) throw new Error('Unsupported Skill identity owner');
+
+  const sourceIds = new Set(relationOwner.records.map((edge) => edge.sourceSoldierId));
+  if (sourceIds.size !== 2 || [...sourceIds].some((id) => !SOLDIER_SKILL_SCOPE.has(id))) {
+    throw new Error('Soldier-to-Skill relation contains an out-of-scope Soldier endpoint');
+  }
+  for (const sourceId of SOLDIER_SKILL_SCOPE.keys()) {
+    if (relationOwner.records.filter((edge) => edge.sourceSoldierId === sourceId).length !== SOLDIER_SKILL_COUNTS.get(sourceId)) {
+      throw new Error(`Soldier-to-Skill relation count differs from admitted scope for Soldier ${sourceId}`);
+    }
+  }
+  const sourceRecords = relationOwner.records.filter((edge) => edge.sourceSoldierId === soldierId);
+  if (sourceRecords.length !== SOLDIER_SKILL_COUNTS.get(soldierId)) {
+    throw new Error(`Soldier-to-Skill relation count differs from admitted scope for Soldier ${soldierId}`);
+  }
+  const skillsById = new Map();
+  for (const skill of skillOwner.records) {
+    if (!Number.isSafeInteger(skill.skillId) || skillsById.has(skill.skillId)) {
+      throw new Error('Skill identity owner contains a malformed or duplicate Skill ID');
+    }
+    skillsById.set(skill.skillId, skill);
+  }
+  const seen = new Set();
+  return sourceRecords.map((edge) => {
+    if (edge.sourceField !== 'Skills_ID' || !Number.isSafeInteger(edge.targetSkillId) || seen.has(edge.targetSkillId)) {
+      throw new Error(`Malformed or duplicate Soldier-to-Skill relation for Soldier ${soldierId}`);
+    }
+    seen.add(edge.targetSkillId);
+    const skill = skillsById.get(edge.targetSkillId);
+    if (!skill) throw new Error(`Missing exact Skill identity endpoint ${edge.targetSkillId}`);
+    if (typeof skill.nameCn !== 'string' || !skill.nameCn.trim()
+      || typeof skill.descriptionCn !== 'string' || !skill.descriptionCn.trim()) {
+      throw new Error(`Missing source Skill presentation fields for Skill ${edge.targetSkillId}`);
+    }
+    return { skillId: edge.targetSkillId, nameCn: skill.nameCn, descriptionCn: skill.descriptionCn };
+  });
+}
+
+export function renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, soldierSkillRelations, skills) {
   const spRecords = identities.records.filter((record) => record.variant === 'SP');
   const normalRecords = identities.records.filter((record) => record.variant === 'NORMAL');
   const identityIds = idSet(spRecords, (record) => record.id, 'identity');
@@ -445,12 +491,14 @@ export function renderSpSoldiers(identities, localizations, normalLocalizations,
           defense: normalSoldierBaseStats.defense,
           magicDefense: normalSoldierBaseStats.magicDefense,
         },
+        ...(projectSoldierSkillReferences(id, soldierSkillRelations, skills)
+          ? { skillReferences: projectSoldierSkillReferences(id, soldierSkillRelations, skills) } : {}),
       };
     });
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
 
-export function renderNormalSoldiers(identities, localizations, baseStats, movePoints) {
+export function renderNormalSoldiers(identities, localizations, baseStats, movePoints, soldierSkillRelations, skills) {
   const normalRecords = identities.records.filter((record) => record.entity === 'Soldier' && record.variant === 'NORMAL');
   const identityIds = idSet(normalRecords, (record) => record.id, 'NORMAL identity');
   const localizationIds = idSet(localizations.records, (record) => record.soldierId, 'NORMAL localization');
@@ -473,7 +521,12 @@ export function renderNormalSoldiers(identities, localizations, baseStats, moveP
     if (!values || !['hp', 'attack', 'defense', 'magicDefense'].every((key) => Number.isFinite(values[key]))) {
       throw new Error(`Missing base stats for NORMAL Soldier ${id}`);
     }
-    return { normalSoldierId: id, nameKo, bfMovePoint, baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense } };
+    return {
+      normalSoldierId: id, nameKo, bfMovePoint,
+      baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense },
+      ...(projectSoldierSkillReferences(id, soldierSkillRelations, skills)
+        ? { skillReferences: projectSoldierSkillReferences(id, soldierSkillRelations, skills) } : {}),
+    };
   });
   return `${JSON.stringify({ schemaVersion: 1, soldiers }, null, 2)}\n`;
 }
@@ -605,7 +658,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/normal-soldier-base-stats.v1.json'), 'utf8'),
     readFile(soldierBfMovePointsPath, 'utf8'),
   ]);
-  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations), JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints)), 'utf8');
+  const soldierSkillRelations = JSON.parse(await readFile(resolve('canonical/soldier-skill-relations.v1.json'), 'utf8'));
+  const skills = JSON.parse(await readFile(resolve('canonical/skills.v1.json'), 'utf8'));
+  await writeFile(spOutputPath, renderSpSoldiers(JSON.parse(soldiers), JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), JSON.parse(spRelations), JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
   const [normalSoldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats, normalSoldierBfMovePoints] = await Promise.all([
     readFile(resolve('canonical/soldiers.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-localizations-ko.v1.json'), 'utf8'),
@@ -613,7 +668,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(soldierBfMovePointsPath, 'utf8'),
   ]);
   const normalSoldierOutputPath = resolve('generated/normal-soldiers.v1.json');
-  await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats), JSON.parse(normalSoldierBfMovePoints)), 'utf8');
+  await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats), JSON.parse(normalSoldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
   const heroSoldierRelationOwner = JSON.parse(await readFile(resolve('canonical/hero-soldier-relations.v1.json'), 'utf8'));
   const heroSoldierOutputPath = resolve('generated/hero-soldier-relations.v1.json');
   await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(canonical, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');

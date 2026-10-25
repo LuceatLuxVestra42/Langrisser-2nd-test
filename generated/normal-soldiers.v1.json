@@ -10,7 +10,59 @@
         "attack": 40,
         "defense": 23,
         "magicDefense": 17
-      }
+      },
+      "skillReferences": [
+        {
+          "skillId": 60666,
+          "nameCn": "近卫枪兵Lv1",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>15%</color>。"
+        },
+        {
+          "skillId": 60667,
+          "nameCn": "近卫枪兵Lv2",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>18%</color>。"
+        },
+        {
+          "skillId": 60668,
+          "nameCn": "近卫枪兵Lv3",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>21%</color>。"
+        },
+        {
+          "skillId": 60669,
+          "nameCn": "近卫枪兵Lv4",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>24%</color>。"
+        },
+        {
+          "skillId": 60670,
+          "nameCn": "近卫枪兵Lv5",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>27%</color>。"
+        },
+        {
+          "skillId": 60671,
+          "nameCn": "近卫枪兵Lv6",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>30%</color>。"
+        },
+        {
+          "skillId": 60672,
+          "nameCn": "近卫枪兵Lv7",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>33%</color>。"
+        },
+        {
+          "skillId": 60673,
+          "nameCn": "近卫枪兵Lv8",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>36%</color>。"
+        },
+        {
+          "skillId": 60674,
+          "nameCn": "近卫枪兵Lv9",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>40%</color>。"
+        },
+        {
+          "skillId": 60675,
+          "nameCn": "近卫枪兵Lv10",
+          "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>45%</color>。"
+        }
+      ]
     },
     {
       "normalSoldierId": 118,
