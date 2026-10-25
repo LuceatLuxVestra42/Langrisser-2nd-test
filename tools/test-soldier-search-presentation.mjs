@@ -72,6 +72,8 @@ const runtime = [
   extractFunction(frontend, 'makeSpJobPresentation'),
   extractFunction(frontend, 'makeJobConnectionLabel'),
   extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'appendSkillDescription'),
+  extractFunction(frontend, 'makeSoldierSkillReferences'),
   extractFunction(frontend, 'addHero'),
   extractFunction(frontend, 'filterSoldiers'),
   extractFunction(frontend, 'renderSoldierSearch'),
@@ -97,7 +99,7 @@ const functions = runInNewContext(`(() => {
     });
     return spSoldierNavigation;
   }
-  return { addHero, addNormalSoldier, addSpSoldier, startNormalSearch, startSpSearch,
+  return { addHero, addNormalSoldier, addSpSoldier, makeSoldierSkillReferences, appendSkillDescription, startNormalSearch, startSpSearch,
     setSoldierRelations(map) { spSoldiersByNormalId = map; },
     setHeroRelations(map) { heroBySoldierId = map; } };
 })()`, {
@@ -173,6 +175,27 @@ verifySearch({ records: spData.soldiers, idField: 'spSoldierId', prefix: 'sp-sol
   clear: spClear, count: spCount, container: spSoldierContainer, label: 'SP' });
 for (const soldier of normalData.soldiers) { const card = findById(`normal-soldier-${soldier.normalSoldierId}`, normalSoldierContainer); assert.equal(findByClass('soldier-bf-move-point', card)?.textContent, `BF_MovePoint (원본 값): ${soldier.bfMovePoint}`); }
 for (const soldier of spData.soldiers) { const card = findById(`sp-soldier-${soldier.spSoldierId}`, spSoldierContainer); assert.equal(findByClass('soldier-bf-move-point', card)?.textContent, `BF_MovePoint (원본 값): ${soldier.bfMovePoint}`); }
+for (const [records, idField, prefix, container, targetId] of [
+  [normalData.soldiers, 'normalSoldierId', 'normal-soldier', normalSoldierContainer, 115],
+  [spData.soldiers, 'spSoldierId', 'sp-soldier', spSoldierContainer, 5115],
+]) {
+  for (const soldier of records) {
+    const card = findById(`${prefix}-${soldier[idField]}`, container);
+    const details = card.children.find((child) => child.className === 'soldier-skill-references');
+    assert.equal(Boolean(details), soldier[idField] === targetId, `${prefix} ${soldier[idField]} Skill disclosure scope`);
+    if (soldier[idField] !== targetId) continue;
+    assert.equal(details.tagName, 'details');
+    assert.match(details.children[0].textContent, /게임 레벨 의미 미확정/);
+    const list = details.children[1];
+    assert.equal(list.children.length, 10);
+    assert.equal(list.children[0].children[0].textContent, `Skill ID ${soldier.skillReferences[0].skillId} · ${soldier.skillReferences[0].nameCn}`);
+    assert.ok(list.children[0].children[1].children.some((node) => node.className === 'skill-description-emphasis'));
+  }
+}
+const unsafe = functions.makeSoldierSkillReferences({ skillReferences: [{ skillId: 1, nameCn: 'name', descriptionCn: '<img src=x onerror=alert(1)>' }] });
+const unsafeDescription = unsafe.children[1].children[0].children[1];
+assert.equal(unsafeDescription.textContent, '<img src=x onerror=alert(1)>', 'unsupported markup stays literal text');
+assert.equal(unsafeDescription.children.length, 0, 'unsupported markup creates no executable DOM nodes');
 
 input(normalInput, String(normalData.soldiers[0].normalSoldierId));
 const normalState = { query: normalInput.value, count: normalCount.textContent, ids: idsIn(normalSoldierContainer, 'normal-soldier-') };

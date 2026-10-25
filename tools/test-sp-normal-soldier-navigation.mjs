@@ -52,6 +52,7 @@ const pendingFrames = [];
 const sandbox = {
   document: {
     createElement: makeElement,
+    createTextNode: (text) => Object.assign(makeElement(), { textContent: text, nodeType: 3 }),
     getElementById: (id) => elementsById.get(id) ?? null,
     querySelector: () => null,
   },
@@ -69,6 +70,8 @@ const sandbox = {
 const runtime = [
   extractFunction(frontend, 'indexSpSoldiersByNormalId'),
   extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'appendSkillDescription'),
+  extractFunction(frontend, 'makeSoldierSkillReferences'),
   extractFunction(frontend, 'makeSoldierHeroLinks'),
   extractFunction(frontend, 'addSpSoldier'),
   extractFunction(frontend, 'addNormalSoldier'),
