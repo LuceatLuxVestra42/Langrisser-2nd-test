@@ -4,6 +4,61 @@ import { resolve } from 'node:path';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
+const JOB_LEVEL_STATS_HERO_IDS = new Set([6, 8]);
+const JOB_LEVEL_RAW_STAT_FIELDS = ['HP_INI', 'HP_UP', 'AT_INI', 'AT_UP', 'Magic_INI', 'Magic_UP', 'DF_INI', 'DF_UP', 'MagicDF_INI', 'MagicDF_UP', 'DEX_INI'];
+
+export function projectHeroJobLevelSourceStats(heroes, jobLevelStats) {
+  if (heroes?.schemaVersion !== 1 || !Array.isArray(heroes.records)
+    || jobLevelStats?.schemaVersion !== 1 || !Array.isArray(jobLevelStats.records)) {
+    throw new Error('Unsupported Hero or raw JobLevel stats owner');
+  }
+  const selectedHeroes = heroes.records.filter(({ id }) => JOB_LEVEL_STATS_HERO_IDS.has(id));
+  if (selectedHeroes.length !== JOB_LEVEL_STATS_HERO_IDS.size) throw new Error('Raw JobLevel stats must resolve the selected Hero endpoints exactly');
+  const connectionsByKey = new Map();
+  for (const hero of selectedHeroes) {
+    if (!Array.isArray(hero.jobConnections)) throw new Error(`Hero ${hero.id} has no canonical Job connections`);
+    for (const relation of hero.jobConnections) {
+      if (!Number.isSafeInteger(relation.connectionId) || !Number.isSafeInteger(relation.jobId)) {
+        throw new Error(`Hero ${hero.id} has a malformed canonical Job connection`);
+      }
+      const key = `${hero.id}:${relation.connectionId}`;
+      if (connectionsByKey.has(key)) throw new Error(`Duplicate canonical Job connection ${key}`);
+      connectionsByKey.set(key, relation.jobId);
+    }
+  }
+  if (connectionsByKey.size !== 12) throw new Error('Raw JobLevel stats must cover the 12 admitted normal Job connections of Heroes 6 and 8');
+  if (jobLevelStats.records.length !== 50) throw new Error('Raw JobLevel stats must contain the 50 admitted source records');
+  const seenLevels = new Set();
+  const seenConnections = new Set();
+  const rowsByHero = new Map([...JOB_LEVEL_STATS_HERO_IDS].map((id) => [id, []]));
+  for (const row of jobLevelStats.records) {
+    const connectionKey = `${row.heroId}:${row.jobConnectionId}`;
+    if (!JOB_LEVEL_STATS_HERO_IDS.has(row.heroId) || !connectionsByKey.has(connectionKey)
+      || connectionsByKey.get(connectionKey) !== row.jobId || !Number.isSafeInteger(row.jobLevelId)
+      || !Number.isSafeInteger(row.jobRank) || !Number.isSafeInteger(row.jobLevelUpHeroLevel)
+      || !Number.isSafeInteger(row.rankCode) || seenLevels.has(row.jobLevelId)
+      || !row.rawStats || Object.keys(row.rawStats).sort().join(',') !== [...JOB_LEVEL_RAW_STAT_FIELDS].sort().join(',')
+      || JOB_LEVEL_RAW_STAT_FIELDS.some((field) => !Number.isSafeInteger(row.rawStats[field]))) {
+      throw new Error(`Malformed, duplicate, or out-of-scope raw JobLevel record ${row.jobLevelId}`);
+    }
+    seenLevels.add(row.jobLevelId);
+    seenConnections.add(connectionKey);
+    rowsByHero.get(row.heroId).push({
+      jobConnectionId: row.jobConnectionId,
+      jobId: row.jobId,
+      jobRank: row.jobRank,
+      jobLevelId: row.jobLevelId,
+      jobLevelUpHeroLevel: row.jobLevelUpHeroLevel,
+      rankCode: row.rankCode,
+      rawStats: { ...row.rawStats },
+    });
+  }
+  if (seenConnections.size !== connectionsByKey.size) throw new Error('Raw JobLevel stats must resolve every admitted Job connection');
+  for (const [heroId, rows] of rowsByHero) {
+    if (rows.length !== 25) throw new Error(`Hero ${heroId} raw JobLevel record count must remain 25`);
+  }
+  return rowsByHero;
+}
 
 function validateTalentDescriptionMarkup(value, label) {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`${label} is empty or malformed`);
@@ -68,7 +123,7 @@ export function resolveTalentSkillText(talentRelations, skills) {
   return result;
 }
 
-export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills) {
+export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats) {
   if (heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)) throw new Error('Unsupported Hero identity owner');
   const heroIdentityIds = new Set();
   for (const identity of heroIdentities.records) {
@@ -91,6 +146,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   if (talentLocalizations?.schemaVersion !== 1 || !Array.isArray(talentLocalizations.nameRecords)
     || !Array.isArray(talentLocalizations.descriptionRecords)) throw new Error('Unsupported Hero Talent Korean localization owner');
   if (skills?.schemaVersion !== 1 || !Array.isArray(skills.records)) throw new Error('Unsupported Skill identity owner');
+  const jobLevelSourceStatsByHeroId = projectHeroJobLevelSourceStats(canonical, heroJobLevelRawStats);
   const heroIds = new Set(canonical.records.map(({ id }) => id));
   if (talentLocalizations.officialKrProvenanceStatus !== 'unverified') throw new Error('Hero Talent localization official Korean status must remain unverified');
   const talentRelationByKey = new Map();
@@ -360,6 +416,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
       factions,
       origins,
       ...(talent ? { talent } : {}),
+      ...(jobLevelSourceStatsByHeroId.has(id) ? { jobLevelSourceStats: jobLevelSourceStatsByHeroId.get(id) } : {}),
       portrait,
       exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
       spJobConnections: spJobPresentationByHeroId.get(id) ?? [],
@@ -661,6 +718,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const talentRelationsPath = resolve('canonical/hero-talent-star-skills.v1.json');
   const talentLocalizationsPath = resolve('canonical/hero-talent-localizations-ko.v1.json');
   const skillsPath = resolve('canonical/skills.v1.json');
+  const heroJobLevelRawStatsPath = resolve('canonical/hero-job-level-raw-stats.v1.json');
   const factionLocalizationsPath = resolve('canonical/faction-localizations-ko.v1.json');
   const productionLocalizationsPath = resolve('canonical/production-localizations-ko.v1.json');
   const outputPath = resolve('generated/hero-slice.v1.json');
@@ -682,13 +740,14 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(talentRelationsPath, 'utf8'), readFile(talentLocalizationsPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const canonicalSkills = JSON.parse(await readFile(skillsPath, 'utf8'));
+  const heroJobLevelRawStats = JSON.parse(await readFile(heroJobLevelRawStatsPath, 'utf8'));
   const factionLocalizations = JSON.parse(await readFile(factionLocalizationsPath, 'utf8'));
   const productionLocalizations = JSON.parse(await readFile(productionLocalizationsPath, 'utf8'));
   const [heroJobRelations, spJobIdentities] = await Promise.all([
     readFile(resolve('canonical/hero-job-relations.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-job-identities.v1.json'), 'utf8'),
   ]).then(([relations, identities]) => [JSON.parse(relations), JSON.parse(identities)]);
-  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, canonicalSkills), 'utf8');
+  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, canonicalSkills, heroJobLevelRawStats), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

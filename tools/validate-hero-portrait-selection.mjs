@@ -741,6 +741,7 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
         delete talentRow.nameCn;
         delete talentRow.descriptionCn;
       }
+      delete priorShape?.jobLevelSourceStats;
     }
     check(priorShape && createHash('sha256').update(JSON.stringify(priorShape)).digest('hex') === expectedSha256,
       `Prior Hero ${heroId} generated record parity mismatch`);

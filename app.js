@@ -287,6 +287,57 @@ function makeJobConnectionLabel(relation) {
   return `연결 ${relation.connectionId} → ${relation.jobNameKo} (전직 ID ${relation.jobId})`;
 }
 
+function makeJobLevelSourceStatsPresentation(hero) {
+  if (hero.jobLevelSourceStats === undefined) return null;
+  if (![6, 8].includes(hero.id) || !Array.isArray(hero.jobLevelSourceStats) || hero.jobLevelSourceStats.length !== 25) {
+    throw new Error(`Malformed generated raw JobLevel data for Hero ${hero.id}`);
+  }
+  const section = document.createElement('details');
+  section.className = 'job-level-source-stats';
+  const summary = document.createElement('summary');
+  summary.textContent = 'CN ConfigData 원본 JobLevel 필드 · 최종 전투 능력치 아님';
+  const note = document.createElement('p');
+  note.className = 'job-level-source-note';
+  note.textContent = '고정 CN ConfigData 스냅샷의 필드값을 그대로 표시합니다. 원본 버전 상태는 미확인이고, 전투 능력치 환산·성장 적용이나 나열 순서의 의미는 주장하지 않습니다.';
+  section.append(summary, note);
+
+  const rowsByConnection = new Map();
+  for (const row of hero.jobLevelSourceStats) {
+    const connection = hero.jobConnections.find((candidate) => candidate.connectionId === row.jobConnectionId
+      && candidate.jobId === row.jobId);
+    if (!connection || !Number.isSafeInteger(row.jobLevelId) || !row.rawStats || typeof row.rawStats !== 'object') {
+      throw new Error(`Unresolved generated raw JobLevel endpoint for Hero ${hero.id}`);
+    }
+    const group = rowsByConnection.get(row.jobConnectionId) ?? { connection, rows: [] };
+    group.rows.push(row);
+    rowsByConnection.set(row.jobConnectionId, group);
+  }
+  for (const [connectionId, group] of rowsByConnection) {
+    const jobDetails = document.createElement('details');
+    const jobSummary = document.createElement('summary');
+    jobSummary.textContent = `${group.connection.jobNameKo} · Job ID ${group.connection.jobId} · 연결 ID ${connectionId}`;
+    jobDetails.append(jobSummary);
+    for (const row of group.rows) {
+      const recordDetails = document.createElement('details');
+      const recordSummary = document.createElement('summary');
+      recordSummary.textContent = `JobLevel ID ${row.jobLevelId} · JobLevelUpHeroLevel=${row.jobLevelUpHeroLevel} · rank_code=${row.rankCode}`;
+      const fields = document.createElement('dl');
+      fields.className = 'job-level-source-fields';
+      for (const [field, value] of Object.entries(row.rawStats)) {
+        const term = document.createElement('dt');
+        term.textContent = field;
+        const description = document.createElement('dd');
+        description.textContent = String(value);
+        fields.append(term, description);
+      }
+      recordDetails.append(recordSummary, fields);
+      jobDetails.append(recordDetails);
+    }
+    section.append(jobDetails);
+  }
+  return section;
+}
+
 function addHero(hero, relationsByHero, soldiersById) {
   const article = document.createElement('article');
   article.className = 'hero-card';
@@ -318,11 +369,13 @@ function addHero(hero, relationsByHero, soldiersById) {
     item.textContent = makeJobConnectionLabel(relation);
     connections.append(item);
   }
+  const jobLevelSourceStats = makeJobLevelSourceStatsPresentation(hero);
   article.append(image, details);
   article.append(makeFactionPresentation(hero.factions));
   article.append(makeOriginPresentation(hero.origins));
   if (hero.talent) article.append(makeTalentPresentation(hero.id, hero.talent));
   article.append(connections);
+  if (jobLevelSourceStats) article.append(jobLevelSourceStats);
   const spJobPresentation = makeSpJobPresentation(hero.spJobConnections);
   if (spJobPresentation) article.append(spJobPresentation);
   const exclusive = document.createElement('section');
