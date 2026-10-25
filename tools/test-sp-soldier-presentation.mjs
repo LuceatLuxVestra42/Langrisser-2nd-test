@@ -3,7 +3,7 @@ import { renderSpSoldiers } from './generate.mjs';
 import { validateSpSoldierPresentation } from './validate-sp-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
+const [identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints] = await Promise.all([
   readJson('canonical/soldiers.v1.json'),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
   readJson('canonical/normal-soldier-localizations-ko.v1.json'),
@@ -11,18 +11,16 @@ const [identities, localizations, normalLocalizations, baseStats, relations, nor
   readJson('canonical/sp-soldier-normal-relations.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
   readJson('canonical/soldier-bf-move-points.v1.json'),
-  readJson('canonical/soldier-skill-relations.v1.json'),
-  readJson('canonical/skills.v1.json'),
 ]);
 const render = (names = localizations, normalNames = normalLocalizations, stats = baseStats, links = relations, soldiers = identities, normalStats = normalBaseStats, points = movePoints) =>
-  renderSpSoldiers(soldiers, names, normalNames, stats, links, normalStats, points, soldierSkillRelations, skills);
+  renderSpSoldiers(soldiers, names, normalNames, stats, links, normalStats, points);
 const generated = render();
 const mustFail = (label, action) => {
   let failed = false;
   try { action(); } catch { failed = true; }
   if (!failed) throw new Error(`regression did not fail: ${label}`);
 };
-const validate = (text, points = movePoints) => validateSpSoldierPresentation(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, text, points, soldierSkillRelations, skills);
+const validate = (text, points = movePoints) => validateSpSoldierPresentation(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, text, points);
 
 validate(generated);
 mustFail('missing SP localization', () => render({ ...localizations, records: localizations.records.slice(1) }));
@@ -38,12 +36,6 @@ mustFail('duplicate relation', () => render(localizations, normalLocalizations, 
 mustFail('missing BF_MovePoint', () => render(localizations, normalLocalizations, baseStats, relations, identities, normalBaseStats, { ...movePoints, records: movePoints.records.slice(1) }));
 mustFail('duplicate BF_MovePoint', () => render(localizations, normalLocalizations, baseStats, relations, identities, normalBaseStats, { ...movePoints, records: [...movePoints.records, movePoints.records[0]] }));
 mustFail('identity set mismatch', () => render(localizations, normalLocalizations, baseStats, relations, { ...identities, records: identities.records.filter((r) => r.id !== 5115) }));
-mustFail('missing Skill relation edge', () => renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, { ...soldierSkillRelations, records: soldierSkillRelations.records.slice(1) }, skills));
-mustFail('duplicate Skill relation edge', () => renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, { ...soldierSkillRelations, records: [...soldierSkillRelations.records, soldierSkillRelations.records[0]] }, skills));
-mustFail('wrong Skill target endpoint', () => renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, { ...soldierSkillRelations, records: soldierSkillRelations.records.map((edge, index) => index === 10 ? { ...edge, targetSkillId: 999999 } : edge) }, skills));
-mustFail('NORMAL/SP Skill relation contamination', () => renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, { ...soldierSkillRelations, records: soldierSkillRelations.records.map((edge) => edge.sourceSoldierId === 115 ? { ...edge, sourceSoldierId: 5115 } : edge) }, skills));
-mustFail('out-of-scope Soldier relation expansion', () => renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, { ...soldierSkillRelations, records: [...soldierSkillRelations.records, { ...soldierSkillRelations.records[0], sourceSoldierId: 118 }] }, skills));
-mustFail('duplicate exact Skill identity endpoint', () => renderSpSoldiers(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, soldierSkillRelations, { ...skills, records: [...skills.records, skills.records[0]] }));
 
 const missingMovePoint = JSON.parse(generated);
 delete missingMovePoint.soldiers[0].bfMovePoint;

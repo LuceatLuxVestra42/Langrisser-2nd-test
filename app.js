@@ -636,68 +636,6 @@ try {
   console.error(error);
 }
 
-function appendSkillDescription(target, sourceText) {
-  const original = String(sourceText ?? '');
-  const openTag = '<color=#DC143C>';
-  const closeTag = '</color>';
-  const parts = [];
-  let cursor = 0;
-  while (cursor < original.length) {
-    const nextTag = original.indexOf('<', cursor);
-    if (nextTag < 0) {
-      parts.push({ text: original.slice(cursor) });
-      cursor = original.length;
-      break;
-    }
-    if (nextTag > cursor) parts.push({ text: original.slice(cursor, nextTag) });
-    if (original.startsWith(openTag, nextTag)) {
-      const close = original.indexOf(closeTag, nextTag + openTag.length);
-      if (close < 0 || original.indexOf(openTag, nextTag + openTag.length) >= 0
-        && original.indexOf(openTag, nextTag + openTag.length) < close
-        || original.indexOf('<', nextTag + openTag.length) >= 0
-        && original.indexOf('<', nextTag + openTag.length) < close) {
-        target.textContent = original;
-        return;
-      }
-      parts.push({ emphasis: original.slice(nextTag + openTag.length, close) });
-      cursor = close + closeTag.length;
-      continue;
-    }
-    target.textContent = original;
-    return;
-  }
-  for (const part of parts) {
-    if (part.emphasis !== undefined) {
-      const span = document.createElement('span');
-      span.className = 'skill-description-emphasis';
-      span.textContent = part.emphasis;
-      target.append(span);
-    } else target.append(document.createTextNode(part.text));
-  }
-}
-
-function makeSoldierSkillReferences(soldier) {
-  if (!Array.isArray(soldier.skillReferences) || soldier.skillReferences.length === 0) return null;
-  const details = document.createElement('details');
-  details.className = 'soldier-skill-references';
-  const summary = document.createElement('summary');
-  summary.textContent = 'Skill 원문 · 목록 순서는 의미 없음 · 게임 레벨 의미 미확정';
-  const list = document.createElement('ul');
-  for (const skill of soldier.skillReferences) {
-    const item = document.createElement('li');
-    const label = document.createElement('p');
-    label.className = 'soldier-skill-label';
-    label.textContent = `Skill ID ${skill.skillId} · ${skill.nameCn}`;
-    const description = document.createElement('p');
-    description.className = 'soldier-skill-description';
-    appendSkillDescription(description, skill.descriptionCn);
-    item.append(label, description);
-    list.append(item);
-  }
-  details.append(summary, list);
-  return details;
-}
-
 function addSpSoldier(soldier) {
   const article = document.createElement('article');
   article.className = 'sp-soldier-card';
@@ -750,9 +688,7 @@ function addSpSoldier(soldier) {
   const spStats = makeStats('SP 기본 능력치', soldier.baseStats, 'sp-stat-group');
   const normalStats = makeStats('일반 기본 능력치', soldier.normalSoldierBaseStats, 'normal-stat-group');
   const heroLinks = makeSoldierHeroLinks(soldier.spSoldierId);
-  const skillReferences = makeSoldierSkillReferences(soldier);
   article.append(heading, normal, bfMovePoint, spStats, normalStats);
-  if (skillReferences) article.append(skillReferences);
   if (heroLinks) article.append(heroLinks);
   spSoldierContainer.append(article);
 }
@@ -809,7 +745,6 @@ function addNormalSoldier(soldier) {
     stats.append(pair);
   }
   const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId);
-  const skillReferences = makeSoldierSkillReferences(soldier);
   const spLinks = spSoldiersByNormalId.get(soldier.normalSoldierId);
   let linkedSpSection = null;
   if (spLinks?.length) {
@@ -832,7 +767,6 @@ function addNormalSoldier(soldier) {
     linkedSpSection.append(linkedSpHeading, linkedSpList);
   }
   article.append(heading, bfMovePoint, stats);
-  if (skillReferences) article.append(skillReferences);
   if (heroLinks) article.append(heroLinks);
   if (linkedSpSection) article.append(linkedSpSection);
   normalSoldierContainer.append(article);
