@@ -34,6 +34,26 @@ const [frontend, html, heroData, relationData, exclusiveData] = await Promise.al
   readFile('generated/exclusive-equipment.v1.json', 'utf8').then(JSON.parse),
 ]);
 
+const sectionShortcutTargets = [
+  ['영웅', 'heroes'],
+  ['일반 SSR 장비', 'general-ssr-equipment'],
+  ['전용 장비', 'exclusive-equipment'],
+  ['SP 용병', 'sp-soldiers'],
+  ['일반 용병', 'normal-soldiers'],
+  ['전직명 사전', 'job-glossary'],
+];
+const shortcutNav = /<nav\b(?=[^>]*\bclass="section-shortcuts")(?=[^>]*\baria-label="([^"]+)")[^>]*>([\s\S]*?)<\/nav>/.exec(html);
+assert.ok(shortcutNav, 'section shortcuts must use a named navigation landmark');
+assert.ok(shortcutNav[1].trim(), 'section shortcut navigation must have an accessible name');
+const shortcutLinks = [...shortcutNav[2].matchAll(/<a\b[^>]*href="#([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
+  .map(([, target, label]) => [label.replace(/<[^>]*>/g, '').trim(), target]);
+assert.deepEqual(shortcutLinks, sectionShortcutTargets, 'shortcut labels and hrefs must match the six existing sections in order');
+assert.equal(shortcutLinks.length, 6, 'section shortcut navigation must have exactly six links');
+assert.ok(!/<a\b(?![^>]*\bhref=)[^>]*>/i.test(shortcutNav[2]), 'section shortcut navigation must not contain placeholder links');
+for (const [, target] of sectionShortcutTargets) {
+  const idCount = [...html.matchAll(new RegExp('\\bid="' + target + '"', 'g'))].length;
+  assert.equal(idCount, 1, 'shortcut target #' + target + ' must exist exactly once');
+}
 assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
 assert.ok(heroData.heroes.every(({ id, nameKo }) => Number.isSafeInteger(id) && typeof nameKo === 'string' && nameKo.trim()));
