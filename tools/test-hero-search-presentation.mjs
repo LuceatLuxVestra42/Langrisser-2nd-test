@@ -42,17 +42,17 @@ const sectionShortcutTargets = [
   ['일반 용병', 'normal-soldiers'],
   ['전직명 사전', 'job-glossary'],
 ];
-const shortcutNav = /<nav\\b(?=[^>]*\\bclass="section-shortcuts")(?=[^>]*\\baria-label="([^"]+)")[^>]*>([\\s\\S]*?)<\\/nav>/.exec(html);
+const shortcutNav = /<nav\b(?=[^>]*\bclass="section-shortcuts")(?=[^>]*\baria-label="([^"]+)")[^>]*>([\s\S]*?)<\/nav>/.exec(html);
 assert.ok(shortcutNav, 'section shortcuts must use a named navigation landmark');
 assert.ok(shortcutNav[1].trim(), 'section shortcut navigation must have an accessible name');
-const shortcutLinks = [...shortcutNav[2].matchAll(/<a\\b[^>]*href="#([^"]+)"[^>]*>([\\s\\S]*?)<\\/a>/g)]
+const shortcutLinks = [...shortcutNav[2].matchAll(/<a\b[^>]*href="#([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
   .map(([, target, label]) => [label.replace(/<[^>]*>/g, '').trim(), target]);
 assert.deepEqual(shortcutLinks, sectionShortcutTargets, 'shortcut labels and hrefs must match the six existing sections in order');
 assert.equal(shortcutLinks.length, 6, 'section shortcut navigation must have exactly six links');
-assert.ok(!/<a\\b(?![^>]*\\bhref=)[^>]*>/i.test(shortcutNav[2]), 'section shortcut navigation must not contain placeholder links');
+assert.ok(!/<a\b(?![^>]*\bhref=)[^>]*>/i.test(shortcutNav[2]), 'section shortcut navigation must not contain placeholder links');
 for (const [, target] of sectionShortcutTargets) {
-  const idCount = [...html.matchAll(new RegExp('\\\\bid="' + target + '"', 'g'))].length;
-  assert.equal(idCount, 1, `shortcut target #${target} must exist exactly once`);
+  const idCount = [...html.matchAll(new RegExp('\\bid="' + target + '"', 'g'))].length;
+  assert.equal(idCount, 1, 'shortcut target #' + target + ' must exist exactly once');
 }
 assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
