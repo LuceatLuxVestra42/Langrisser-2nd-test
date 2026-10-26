@@ -54,14 +54,13 @@ assert.ok(!/<a\b(?![^>]*\bhref=)[^>]*>/i.test(shortcutNav[2]), 'section shortcut
 for (const [, target] of sectionShortcutTargets) {
   const idCount = [...html.matchAll(new RegExp('\\bid="' + target + '"', 'g'))].length;
   assert.equal(idCount, 1, 'shortcut target #' + target + ' must exist exactly once');
-
+}
 assert.match(styles, /@media\\s*\\(min-width:\\s*768px\\)\\s*\\{\\s*\\.section-shortcuts\\s*\\{[^}]*position:\\s*sticky;[^}]*top:\\s*0;/s,
   'section shortcuts must remain sticky on desktop');
 assert.equal([...styles.matchAll(/\\.section-shortcuts\\s*\\{/g)].length, 1,
   'mobile and tablet widths must retain the non-sticky document-flow fallback');
 assert.match(styles, /#heroes,\\s*#general-ssr-equipment,\\s*#exclusive-equipment,\\s*#sp-soldiers,\\s*#normal-soldiers,\\s*#job-glossary\\s*\\{\\s*scroll-margin-top:\\s*3\\.5rem;/s,
   'all six existing shortcut targets must clear the desktop sticky navigation');
-}
 assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
 assert.ok(heroData.heroes.every(({ id, nameKo }) => Number.isSafeInteger(id) && typeof nameKo === 'string' && nameKo.trim()));
