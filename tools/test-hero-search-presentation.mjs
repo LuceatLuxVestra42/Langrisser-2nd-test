@@ -26,9 +26,10 @@ assert.equal(new Function(`${extractedTarget}; return target(0);`)(), 42,
 
 import { runInNewContext } from 'node:vm';
 
-const [frontend, html, heroData, relationData, exclusiveData] = await Promise.all([
+const [frontend, html, styles, heroData, relationData, exclusiveData] = await Promise.all([
   readFile('app.js', 'utf8'),
   readFile('index.html', 'utf8'),
+  readFile('styles.css', 'utf8'),
   readFile('generated/hero-slice.v1.json', 'utf8').then(JSON.parse),
   readFile('generated/hero-soldier-relations.v1.json', 'utf8').then(JSON.parse),
   readFile('generated/exclusive-equipment.v1.json', 'utf8').then(JSON.parse),
@@ -53,6 +54,13 @@ assert.ok(!/<a\b(?![^>]*\bhref=)[^>]*>/i.test(shortcutNav[2]), 'section shortcut
 for (const [, target] of sectionShortcutTargets) {
   const idCount = [...html.matchAll(new RegExp('\\bid="' + target + '"', 'g'))].length;
   assert.equal(idCount, 1, 'shortcut target #' + target + ' must exist exactly once');
+
+assert.match(styles, /@media\\s*\\(min-width:\\s*768px\\)\\s*\\{\\s*\\.section-shortcuts\\s*\\{[^}]*position:\\s*sticky;[^}]*top:\\s*0;/s,
+  'section shortcuts must remain sticky on desktop');
+assert.equal([...styles.matchAll(/\\.section-shortcuts\\s*\\{/g)].length, 1,
+  'mobile and tablet widths must retain the non-sticky document-flow fallback');
+assert.match(styles, /#heroes,\\s*#general-ssr-equipment,\\s*#exclusive-equipment,\\s*#sp-soldiers,\\s*#normal-soldiers,\\s*#job-glossary\\s*\\{\\s*scroll-margin-top:\\s*3\\.5rem;/s,
+  'all six existing shortcut targets must clear the desktop sticky navigation');
 }
 assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
