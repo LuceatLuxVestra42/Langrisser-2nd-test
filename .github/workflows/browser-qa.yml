@@ -1,0 +1,150 @@
+name: Browser QA Smoke
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/browser-qa.yml'
+      - 'index.html'
+      - 'app.js'
+      - 'styles.css'
+      - 'assets/**'
+      - 'generated/**'
+      - 'tools/build.mjs'
+      - 'tools/generate.mjs'
+      - 'tools/test-browser-smoke.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR head as site source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: pr-head
+          persist-credentials: false
+
+      - name: Checkout exact PR base as infrastructure source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: pr-base
+          persist-credentials: false
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Resolve and verify infrastructure and site refs
+        shell: bash
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          WORKFLOW_EVENT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git -C pr-base rev-parse HEAD)" = "$PR_BASE_SHA"
+          test "$(git -C pr-head rev-parse HEAD)" = "$PR_HEAD_SHA"
+
+          qa_root="$GITHUB_WORKSPACE/pr-head"
+          qa_sha="$PR_HEAD_SHA"
+          site_root="$GITHUB_WORKSPACE/pr-head"
+          site_sha="$PR_HEAD_SHA"
+          if [[ -f pr-base/tools/test-browser-smoke.mjs && -f pr-base/.github/workflows/browser-qa.yml ]]; then
+            if [[ -f pr-head/tools/test-browser-smoke.mjs && -f pr-head/.github/workflows/browser-qa.yml ]] \
+              && { ! cmp -s pr-base/tools/test-browser-smoke.mjs pr-head/tools/test-browser-smoke.mjs \
+                || ! cmp -s pr-base/.github/workflows/browser-qa.yml pr-head/.github/workflows/browser-qa.yml; }; then
+              # An Infrastructure PR updates its own QA source and tests itself at its exact head.
+              qa_root="$GITHUB_WORKSPACE/pr-head"
+              qa_sha="$PR_HEAD_SHA"
+            else
+              # A feature PR, including an older branch such as #140, uses
+              # the reviewed infrastructure from its current base and its own exact site head.
+              qa_root="$GITHUB_WORKSPACE/pr-base"
+              qa_sha="$PR_BASE_SHA"
+            fi
+          fi
+
+          test -f "$qa_root/tools/test-browser-smoke.mjs"
+          test -f "$site_root/tools/build.mjs"
+          test -f "$site_root/index.html"
+          test -d "$site_root/generated"
+          {
+            echo "PR_BASE_SHA=$PR_BASE_SHA"
+            echo "PR_HEAD_SHA=$PR_HEAD_SHA"
+            echo "QA_INFRASTRUCTURE_ROOT=$qa_root"
+            echo "QA_INFRASTRUCTURE_SHA=$qa_sha"
+            echo "BROWSER_TEST_SOURCE_SHA=$qa_sha"
+            echo "SITE_SOURCE_ROOT=$site_root"
+            echo "SITE_SOURCE_SHA=$site_sha"
+            echo "WORKFLOW_EVENT_SHA=$WORKFLOW_EVENT_SHA"
+          } >> "$GITHUB_ENV"
+
+          echo "INFRA_BASE_SHA=$PR_BASE_SHA"
+          echo "INFRA_HEAD_SHA=$PR_HEAD_SHA"
+          echo "GITHUB_WORKFLOW_EVENT_SHA=$WORKFLOW_EVENT_SHA"
+          echo "GITHUB_CHECKOUT_SHA=$(git -C "$site_root" rev-parse HEAD)"
+          echo "BROWSER_TEST_SOURCE_SHA=$qa_sha"
+          echo "SITE_SOURCE_SHA=$site_sha"
+
+      - name: Create isolated Playwright runtime paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime_root="$RUNNER_TEMP/browser-qa-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          if [[ -e "$runtime_root" ]]; then
+            echo "Refusing to reuse existing runtime path: $runtime_root" >&2
+            exit 1
+          fi
+          mkdir -p "$runtime_root/node"
+          printf '{"private":true}\n' > "$runtime_root/node/package.json"
+          {
+            echo "BROWSER_QA_RUNTIME_ROOT=$runtime_root"
+            echo "PLAYWRIGHT_PACKAGE_ROOT=$runtime_root/node"
+            echo "PLAYWRIGHT_BROWSERS_PATH=$runtime_root/browsers"
+          } >> "$GITHUB_ENV"
+
+      - name: Install pinned Playwright and Chromium on the ephemeral runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm_config_cache="$BROWSER_QA_RUNTIME_ROOT/npm-cache" \
+            npm install --prefix "$PLAYWRIGHT_PACKAGE_ROOT" --no-save --package-lock=false playwright@1.62.1
+          PLAYWRIGHT_BROWSERS_PATH="$PLAYWRIGHT_BROWSERS_PATH" \
+            "$PLAYWRIGHT_PACKAGE_ROOT/node_modules/.bin/playwright" install --with-deps chromium
+
+      - name: Validate exact site source Build
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$SITE_SOURCE_ROOT"
+          test "$(git rev-parse HEAD)" = "$SITE_SOURCE_SHA"
+          node tools/build.mjs
+          echo "BUILD_VALIDATION_SHA=$SITE_SOURCE_SHA" >> "$GITHUB_ENV"
+          echo "BUILD_VALIDATED=$SITE_SOURCE_SHA"
+          echo "SERVER_ROOT_KIND=SOURCE_STATIC_ROOT_SERVED"
+
+      - name: Run Chromium smoke at Desktop and Mobile viewports
+        shell: bash
+        run: node "$QA_INFRASTRUCTURE_ROOT/tools/test-browser-smoke.mjs"
+
+      - name: Remove only this run's temporary Browser runtime
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "${BROWSER_QA_RUNTIME_ROOT:-}" && "$BROWSER_QA_RUNTIME_ROOT" == "$RUNNER_TEMP"/browser-qa-* ]]; then
+            rm -rf -- "$BROWSER_QA_RUNTIME_ROOT"
+            echo "Removed temporary runtime: $BROWSER_QA_RUNTIME_ROOT"
+          else
+            echo "No owned temporary runtime path to remove"
+          fi
