@@ -69,6 +69,7 @@ let browser;
 let page;
 let origin;
 let fatalError;
+let browserClosed = false;
 
 function record(id, mode, status, expected, observed = {}, error = null, category = null) {
   results.push({
@@ -243,17 +244,25 @@ try {
   fatalError = error;
   record('RUNNER-EXECUTION',runnerValidation?'runner-validation':'detailed','RUNNER_RUNTIME_FAILURE','Harness completes without runtime error',{},error?.stack??String(error),'RUNNER_RUNTIME_FAILURE');
 } finally {
-  await browser?.close().catch(() => {});
+  if (browser) { await browser.close().then(() => { browserClosed = true; }).catch(() => {}); }
   await new Promise((resolveClose) => server.close(() => resolveClose())).catch(() => {});
+  const expectedIds = runnerValidation
+    ? ['HARNESS-SCRIPT-PARSE','HARNESS-CHROMIUM-LAUNCH','HARNESS-SITE-CONNECTION','HARNESS-DOM-QUERY','HARNESS-COMPUTED-CSS','HARNESS-BOUNDING-BOX','HARNESS-SCROLL','HARNESS-KEYBOARD','HARNESS-HISTORY','HARNESS-JSON-RESULT']
+    : ['UX03A-DESKTOP-STICKY','UX03A-ANCHOR-SCROLL','UX03A-HEADING-VISIBILITY','UX03A-MOBILE-FALLBACK','UX03A-KEYBOARD-FOCUS','UX03A-HISTORY-RELOAD','UX03A-SEARCH-REGRESSION','UX03A-RELATION-REGRESSION'];
+  for (const id of expectedIds) {
+    if (!results.some((result) => result.testId === id)) record(id,runnerValidation?'runner-validation':'detailed','NOT_EXECUTED','Test is executed when the Browser harness is available',{},fatalError?.message??'Earlier required setup failed','NOT_EXECUTED');
+  }
   const required = runnerValidation ? results.filter(({testId})=>testId.startsWith('HARNESS-')||testId==='BROWSER-RUNTIME-HEALTH') : results.filter(({testId})=>testId.startsWith('UX03A-')||testId==='BROWSER-RUNTIME-HEALTH');
   const failed = required.some(({resultStatus})=>resultStatus!=='PASS');
   const hasAssertionFailure=required.some(({resultStatus})=>resultStatus==='FAIL');
   const hasReview=required.some(({resultStatus})=>resultStatus!=='PASS');
   const overall = runnerValidation ? (fatalError||failed?'RUNNER_VALIDATION_FAIL':'RUNNER_VALIDATION_PASS') : (fatalError||hasAssertionFailure?'UX03A_DETAILED_BROWSER_QA_FAIL':hasReview?'UX03A_DETAILED_BROWSER_QA_REVIEW':'UX03A_DETAILED_BROWSER_QA_PASS');
-  const output={schemaVersion:1,overallStatus:overall,qaMode:runnerValidation?'runner-validation':'detailed',startedAt,completedAt:new Date().toISOString(),repository:process.env.GITHUB_REPOSITORY??null,prNumber:process.env.PR_NUMBER??null,expectedPrHeadSha:process.env.EXPECTED_PR_HEAD_SHA??null,currentPrHeadSha:process.env.CURRENT_PR_HEAD_SHA??null,workflowEvent:process.env.GITHUB_EVENT_NAME??null,workflowRef:process.env.GITHUB_WORKFLOW_REF??null,workflowDefinitionSha:process.env.GITHUB_WORKFLOW_SHA??null,qaInfrastructureSha:actualQaSha,siteSourceSha:actualSiteSha,qaScriptPath:scriptPath,qaScriptSha256:scriptSha256,browserVersion:browser?.version?.()??null,origin,tests:results};
+  const output={schemaVersion:1,overallStatus:overall,qaMode:runnerValidation?'runner-validation':'detailed',command:['node',scriptPath,...(runnerValidation?['--runner-validation']:[])],startedAt,completedAt:new Date().toISOString(),repository:process.env.GITHUB_REPOSITORY??null,prNumber:process.env.PR_NUMBER??null,expectedPrHeadSha:process.env.EXPECTED_PR_HEAD_SHA??null,currentPrHeadSha:process.env.CURRENT_PR_HEAD_SHA??null,workflowEvent:process.env.GITHUB_EVENT_NAME??null,workflowRef:process.env.GITHUB_WORKFLOW_REF??null,workflowDefinitionSha:process.env.GITHUB_WORKFLOW_SHA??null,qaInfrastructureSha:actualQaSha,siteSourceSha:actualSiteSha,qaScriptPath:scriptPath,qaScriptSha256:scriptSha256,browserVersion:browser?.version?.()??null,origin,cleanup:{browserClosed,serverClosed:!server.listening},tests:results};
   await mkdir(resolve(resultPath,'..'),{recursive:true});
   await writeFile(resultPath,`${JSON.stringify(output,null,2)}\n`);
-  const lines=[`## ${overall}`,``, `- Mode: ${output.qaMode}`,`- Site SHA: \`${actualSiteSha}\``,`- QA Infrastructure SHA: \`${actualQaSha}\``,`- Script SHA-256: \`${scriptSha256}\``,`- Browser: ${output.browserVersion??'unavailable'}`,`- Result JSON: \`${resultPath}\``,``,'| Test ID | Result | Error |','|---|---|---|',...results.map(r=>`| ${r.testId} | ${r.resultStatus} | ${(r.errorCategory??'').replaceAll('|','/')} |`)];
+  const persisted=JSON.parse(await readFile(resultPath,'utf8'));
+  assert.equal(persisted.overallStatus,overall,'persisted JSON must contain the final QA conclusion');
+  const lines=[`## ${overall}`,``, `- Mode: ${output.qaMode}`,`- Command: \`${output.command.join(' ')}\``,`- Site SHA: \`${actualSiteSha}\``,`- QA Infrastructure SHA: \`${actualQaSha}\``,`- Script SHA-256: \`${scriptSha256}\``,`- Browser: ${output.browserVersion??'unavailable'}`,`- Cleanup: browser=${browserClosed}, server=${!server.listening}`,`- Result JSON: \`${resultPath}\``,``,'| Test ID | Result | Error |','|---|---|---|',...results.map(r=>`| ${r.testId} | ${r.resultStatus} | ${(r.errorCategory??'').replaceAll('|','/')} |`)];
   if(summaryPath) await writeFile(summaryPath,`${lines.join('\n')}\n`,{flag:'a'});
   console.log(JSON.stringify(output,null,2));
   console.log(`QA_RESULT_JSON=${resultPath}`);
