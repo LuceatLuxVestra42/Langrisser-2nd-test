@@ -14,16 +14,29 @@ on:
       - 'tools/build.mjs'
       - 'tools/generate.mjs'
       - 'tools/test-browser-smoke.mjs'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to validate (this workflow is restricted to PR #140)"
+        required: true
+        type: string
+      expected_pr_head_sha:
+        description: "Expected full 40-character PR #140 head SHA"
+        required: true
+        type: string
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   browser-smoke:
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Checkout exact PR head as site source
+        if: github.event_name == 'pull_request'
         uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -32,6 +45,7 @@ jobs:
           persist-credentials: false
 
       - name: Checkout exact PR base as infrastructure source
+        if: github.event_name == 'pull_request'
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
@@ -39,12 +53,78 @@ jobs:
           path: pr-base
           persist-credentials: false
 
+      - name: Checkout trusted workflow commit as manual QA infrastructure
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.workflow_sha }}
+          path: qa-main
+          persist-credentials: false
+
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
+      - name: Validate manual dispatch ref and PR #140 head
+        id: validate-dispatch
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          EVENT_REF: ${{ github.ref }}
+          WORKFLOW_DEFINITION_SHA: ${{ github.workflow_sha }}
+          EXPECTED_PR_NUMBER: ${{ inputs.pr_number }}
+          EXPECTED_PR_HEAD_SHA: ${{ inputs.expected_pr_head_sha }}
+        run: |
+          set -euo pipefail
+          test "$EVENT_REF" = "refs/heads/main"
+          test "$(git -C qa-main rev-parse HEAD)" = "$WORKFLOW_DEFINITION_SHA"
+          [[ "$EXPECTED_PR_NUMBER" = "140" ]]
+          [[ "$EXPECTED_PR_HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+
+          pr_json="$(curl --fail --silent --show-error \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "$GITHUB_API_URL/repos/$GH_REPOSITORY/pulls/140")"
+          current_state="$(jq -r '.state // ""' <<< "$pr_json")"
+          current_base_ref="$(jq -r '.base.ref // ""' <<< "$pr_json")"
+          current_base_sha="$(jq -r '.base.sha // ""' <<< "$pr_json")"
+          current_head_sha="$(jq -r '.head.sha // ""' <<< "$pr_json")"
+          current_head_ref="$(jq -r '.head.ref // ""' <<< "$pr_json")"
+          current_head_repo="$(jq -r '.head.repo.full_name // ""' <<< "$pr_json")"
+          [[ "$current_state" = "open" ]]
+          [[ "$current_base_ref" = "main" ]]
+          [[ "$current_head_repo" = "$GH_REPOSITORY" ]]
+          [[ "$current_head_sha" = "$EXPECTED_PR_HEAD_SHA" ]]
+
+          {
+            echo "expected_pr_head_sha=$EXPECTED_PR_HEAD_SHA"
+            echo "current_pr_base_sha=$current_base_sha"
+            echo "current_pr_head_ref=$current_head_ref"
+          } >> "$GITHUB_OUTPUT"
+          echo "PR_NUMBER=140"
+          echo "PR_BASE_SHA=$current_base_sha"
+          echo "CURRENT_PR_HEAD_SHA=$current_head_sha"
+          echo "EXPECTED_PR_HEAD_SHA=$EXPECTED_PR_HEAD_SHA"
+          echo "PR_HEAD_REF=$current_head_ref"
+          echo "WORKFLOW_DEFINITION_REF=$GITHUB_WORKFLOW_REF"
+          echo "WORKFLOW_DEFINITION_SHA=$WORKFLOW_DEFINITION_SHA"
+
+      - name: Checkout validated PR #140 head as site source
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ steps.validate-dispatch.outputs.expected_pr_head_sha }}
+          path: pr-head
+          persist-credentials: false
+
       - name: Resolve and verify infrastructure and site refs
+        if: github.event_name == 'pull_request'
         shell: bash
         env:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -95,6 +175,42 @@ jobs:
           echo "GITHUB_CHECKOUT_SHA=$(git -C "$site_root" rev-parse HEAD)"
           echo "BROWSER_TEST_SOURCE_SHA=$qa_sha"
           echo "SITE_SOURCE_SHA=$site_sha"
+
+      - name: Resolve manual infrastructure and site refs
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          PR_BASE_SHA: ${{ steps.validate-dispatch.outputs.current_pr_base_sha }}
+          PR_HEAD_SHA: ${{ steps.validate-dispatch.outputs.expected_pr_head_sha }}
+          WORKFLOW_EVENT_SHA: ${{ github.sha }}
+          WORKFLOW_DEFINITION_SHA: ${{ github.workflow_sha }}
+        run: |
+          set -euo pipefail
+          qa_root="$GITHUB_WORKSPACE/qa-main"
+          site_root="$GITHUB_WORKSPACE/pr-head"
+          qa_sha="$WORKFLOW_DEFINITION_SHA"
+          site_sha="$PR_HEAD_SHA"
+          test "$(git -C "$qa_root" rev-parse HEAD)" = "$qa_sha"
+          test "$(git -C "$site_root" rev-parse HEAD)" = "$site_sha"
+          test -f "$qa_root/tools/test-browser-smoke.mjs"
+          test -f "$site_root/tools/build.mjs"
+          test -f "$site_root/index.html"
+          test -d "$site_root/generated"
+          {
+            echo "PR_BASE_SHA=$PR_BASE_SHA"
+            echo "PR_HEAD_SHA=$PR_HEAD_SHA"
+            echo "QA_INFRASTRUCTURE_ROOT=$qa_root"
+            echo "QA_INFRASTRUCTURE_SHA=$qa_sha"
+            echo "BROWSER_TEST_SOURCE_SHA=$qa_sha"
+            echo "SITE_SOURCE_ROOT=$site_root"
+            echo "SITE_SOURCE_SHA=$site_sha"
+            echo "WORKFLOW_EVENT_SHA=$WORKFLOW_EVENT_SHA"
+          } >> "$GITHUB_ENV"
+          echo "QA_INFRASTRUCTURE_SHA=$qa_sha"
+          echo "BROWSER_TEST_SOURCE_SHA=$qa_sha"
+          echo "SITE_SOURCE_SHA=$site_sha"
+          echo "ACTUAL_SITE_CHECKOUT_SHA=$(git -C "$site_root" rev-parse HEAD)"
+          echo "WORKFLOW_EVENT_SHA=$WORKFLOW_EVENT_SHA"
 
       - name: Create isolated Playwright runtime paths
         shell: bash
