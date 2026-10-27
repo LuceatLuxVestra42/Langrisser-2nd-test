@@ -168,11 +168,12 @@ try {
       const checks=[];
       for (const id of anchorIds) {
         await page.locator(`${navSelector} a[href="#${id}"]`).click(); await stableScroll();
-        const title = await page.locator(`#${id}`).evaluate((target) => {
+        const title = await page.locator(`#${id}`).evaluateHandle((target) => {
+          if (target.id === 'heroes') return target.querySelector('.hero-card h2');
           const section = target.closest('.general-equipment-section,.sp-soldier-section,.normal-soldier-section,.job-glossary-section');
           return section?.querySelector('.section-heading h2') ?? document.querySelector('main .page-heading h1');
         });
-        assert.ok(title, `heading for ${id}`);
+        assert.ok(await title.evaluate((el) => Boolean(el)), `heading for ${id}`);
         const state = await title.evaluate((el) => ({ text: el.textContent.trim(), box: (()=>{const r=el.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right}})(), navBottom: document.querySelector('nav.section-shortcuts').getBoundingClientRect().bottom, viewport: innerHeight }));
         assert.ok(state.box.bottom > state.navBottom, `${id} heading must not be fully obscured by nav`);
         assert.ok(state.box.top < state.viewport, `${id} heading must remain in viewport`); checks.push({ id, ...state });
