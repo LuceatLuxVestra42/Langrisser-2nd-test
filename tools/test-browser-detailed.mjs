@@ -106,8 +106,8 @@ function attachObservedGeometry(error, geometry) {
   return error;
 }
 
-function processMustFail(requiredResults, error) {
-  return Boolean(error || requiredResults.some(({ resultStatus }) => resultStatus !== 'PASS'));
+function processExitCode(requiredResults, error) {
+  return error || requiredResults.some(({ resultStatus }) => resultStatus !== 'PASS') ? 1 : 0;
 }
 
 function validateFailureSerializationFixture() {
@@ -143,14 +143,14 @@ function validateFailureSerializationFixture() {
   assert.deepEqual(restored.observed, fixtureGeometry, 'serialized failure must preserve anchor geometry');
   assert.equal(restored.observed.anchorId, 'general-ssr-equipment', 'failure must identify its anchor');
   assert.equal(restored.observed.urlHash, '#general-ssr-equipment', 'failure must preserve URL hash');
-  assert.equal(processMustFail([restored], null), true, 'detailed assertion failure must propagate to a non-zero exit');
+  assert.equal(processExitCode([restored], null), 1, 'detailed assertion failure must propagate to a non-zero exit');
   return {
     fixtureOutcome: 'EXPECTED_ASSERTION_FAILURE',
     resultStatus: restored.resultStatus,
     errorCategory: restored.errorCategory,
     anchorId: restored.observed.anchorId,
     geometrySerialized: true,
-    detailedProcessMustFail: processMustFail([restored], null),
+    detailedExitCode: processExitCode([restored], null),
   };
 }
 
@@ -267,6 +267,22 @@ try {
               scrollMarginTop: style.scrollMarginTop,
             };
           };
+          const ancestorStyles = (element) => {
+            const ancestors = [];
+            for (let parent = element?.parentElement; parent; parent = parent.parentElement) {
+              const style = getComputedStyle(parent);
+              const clips = [style.overflow, style.overflowX, style.overflowY].some((value) => value !== 'visible');
+              const createsStackingContext = style.position !== 'static' && style.zIndex !== 'auto';
+              if (clips || createsStackingContext || style.transform !== 'none' || Number(style.opacity) < 1) {
+                ancestors.push({
+                  selector: `${parent.tagName.toLowerCase()}${parent.id ? `#${parent.id}` : ''}${parent.classList.length ? `.${[...parent.classList].join('.')}` : ''}`,
+                  overflow: style.overflow, overflowX: style.overflowX, overflowY: style.overflowY,
+                  position: style.position, zIndex: style.zIndex, opacity: style.opacity, transform: style.transform,
+                });
+              }
+            }
+            return ancestors;
+          };
           const navigationRect = rect(navigation);
           const headingRect = rect(heading);
           const targetRect = rect(target);
@@ -276,11 +292,19 @@ try {
             headingExists: Boolean(heading), viewport: { width: innerWidth, height: innerHeight, devicePixelRatio },
             navigationRect, headingRect, targetRect, boundingBox: { navigation: navigationRect, heading: headingRect, target: targetRect },
             scroll, scrollPosition: scroll, urlHash: location.hash,
+            derived: {
+              headingAboveViewport: headingRect ? headingRect.bottom <= 0 : null,
+              headingIntersectsNavigationRects: headingRect && navigationRect
+                ? headingRect.left < navigationRect.right && headingRect.right > navigationRect.left
+                  && headingRect.top < navigationRect.bottom && headingRect.bottom > navigationRect.top
+                : null,
+            },
             computedCss: {
               navigation: css(navigation), heading: css(heading), target: css(target),
               scrollMarginTop: target ? getComputedStyle(target).scrollMarginTop : null,
               navigationPosition: navigation ? getComputedStyle(navigation).position : null,
               navigationTop: navigation ? getComputedStyle(navigation).top : null,
+              navigationAncestors: ancestorStyles(navigation), headingAncestors: ancestorStyles(heading), targetAncestors: ancestorStyles(target),
             },
             measuredAt: new Date().toISOString(), scrollStable: true,
           };
@@ -373,7 +397,7 @@ try {
   const hasAssertionFailure=required.some(({resultStatus})=>resultStatus==='FAIL');
   const hasReview=required.some(({resultStatus})=>resultStatus!=='PASS');
   const overall = runnerValidation ? (fatalError||failed?'RUNNER_VALIDATION_FAIL':'RUNNER_VALIDATION_PASS') : (fatalError||hasAssertionFailure?'UX03A_DETAILED_BROWSER_QA_FAIL':hasReview?'UX03A_DETAILED_BROWSER_QA_REVIEW':'UX03A_DETAILED_BROWSER_QA_PASS');
-  const shouldFailProcess = processMustFail(required, fatalError);
+  const exitCode = processExitCode(required, fatalError);
   const output={schemaVersion:1,overallStatus:overall,qaMode:runnerValidation?'runner-validation':'detailed',command:['node',scriptPath,...(runnerValidation?['--runner-validation']:[])],startedAt,completedAt:new Date().toISOString(),repository:process.env.GITHUB_REPOSITORY??null,prNumber:process.env.PR_NUMBER??null,expectedPrHeadSha:process.env.EXPECTED_PR_HEAD_SHA??null,currentPrHeadSha:process.env.CURRENT_PR_HEAD_SHA??null,workflowEvent:process.env.GITHUB_EVENT_NAME??null,workflowRef:process.env.GITHUB_WORKFLOW_REF??null,workflowDefinitionSha:process.env.GITHUB_WORKFLOW_SHA??null,qaInfrastructureSha:actualQaSha,siteSourceSha:actualSiteSha,qaScriptPath:scriptPath,qaScriptSha256:scriptSha256,browserVersion:browser?.version?.()??null,origin,cleanup:{browserClosed,serverClosed:!server.listening},tests:results};
   await mkdir(resolve(resultPath,'..'),{recursive:true});
   await writeFile(resultPath,`${JSON.stringify(output,null,2)}\n`);
@@ -384,5 +408,5 @@ try {
   console.log(JSON.stringify(output,null,2));
   console.log(`QA_RESULT_JSON=${resultPath}`);
   console.log(`QA_OVERALL_STATUS=${overall}`);
-  if(shouldFailProcess) process.exitCode=1;
+  if(exitCode !== 0) process.exitCode=exitCode;
 }
