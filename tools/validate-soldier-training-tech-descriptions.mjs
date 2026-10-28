@@ -39,7 +39,7 @@ export function validate(evidence, canonical, soldiers, spRelations) {
     'SoldierSkillID or SoldierSkillLevelup relations',
     'Combat formula interpretation',
     'Korean localization',
-    'Generated or frontend presentation',
+    'Generated or frontend publication authorization (governed by the effective scoped Presentation Contract)',
   ])) fail('Evidence exclusion boundary changed');
   if (evidence.interpretation?.normalTextField?.sourceField !== 'Description' || evidence.interpretation.normalTextField.evidenceClass !== 'A') fail('NORMAL text field meaning changed');
   if (evidence.interpretation?.spTextField?.sourceField !== 'SpSoidlierDescription' || evidence.interpretation.spTextField.evidenceClass !== 'B' || !evidence.interpretation.spTextField.meaning.includes('SP slot/application is not established')) fail('SP text field support/limitation changed');
@@ -51,7 +51,7 @@ export function validate(evidence, canonical, soldiers, spRelations) {
     'Soldier skill relations',
     'Combat mechanics interpretation',
     'Korean localization',
-    'Frontend display',
+    'Downstream presentation eligibility (governed by the effective scoped Presentation Contract)',
   ])) fail('Canonical semantic boundary changed');
   if (!Array.isArray(evidence.rawLevelInfoRecords) || evidence.rawLevelInfoRecords.length !== 10) fail('Evidence must contain exactly ten selected LevelInfo rows');
   if (digest(evidence.rawTrainingTechRecord) !== TRAINING_TECH_RECORD_SHA256) fail('TrainingTech source slice differs from the reviewed source record');

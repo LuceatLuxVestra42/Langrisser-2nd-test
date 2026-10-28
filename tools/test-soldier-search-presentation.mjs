@@ -61,6 +61,7 @@ const sandbox = {
   exclusiveEquipmentNavigation: { showAll() {} },
   heroBySoldierId: new Map(),
   spSoldiersByNormalId: new Map(),
+  soldierTrainingTechDescriptions: new Map(),
 };
 
 const runtime = [
@@ -74,6 +75,7 @@ const runtime = [
   extractFunction(frontend, 'makeJobLevelSourceStatsPresentation'),
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'appendSkillDescription'),
+  extractFunction(frontend, 'makeSoldierTrainingTechPresentation'),
   extractFunction(frontend, 'makeSoldierSkillReferences'),
   extractFunction(frontend, 'addHero'),
   extractFunction(frontend, 'filterSoldiers'),

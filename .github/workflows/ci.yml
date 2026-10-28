@@ -109,6 +109,12 @@ jobs:
       - name: Test NORMAL Soldier presentation regressions
         run: node tools/test-normal-soldier-presentation.mjs
 
+      - name: Validate Soldier TrainingTech presentation proposal
+        run: node tools/validate-soldier-training-tech-presentation.mjs
+
+      - name: Test Soldier TrainingTech presentation scope and runtime gate
+        run: node tools/test-soldier-training-tech-presentation.mjs
+
       - name: Test Hero and Job relations
         run: node tools/test-job-validation.mjs
 

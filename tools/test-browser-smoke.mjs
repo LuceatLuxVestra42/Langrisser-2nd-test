@@ -143,6 +143,7 @@ try {
     '/generated/job-glossary.v1.json',
     '/generated/general-ssr-equipment.v1.json',
     '/generated/exclusive-equipment.v1.json',
+    '/generated/soldier-training-tech-descriptions.v1.json',
   ];
   const anchors = [
     ['영웅', 'heroes'],
@@ -159,6 +160,8 @@ try {
     '#sp-soldiers .sp-soldier-card',
     '#normal-soldiers .sp-soldier-card',
     '#job-glossary tr',
+    '#normal-soldier-115 .soldier-training-tech-descriptions',
+    '#sp-soldier-5115 .soldier-training-tech-descriptions',
   ];
 
   for (const [label, id] of anchors) {
@@ -195,12 +198,44 @@ try {
         normalSoldiers: document.querySelectorAll('#normal-soldiers .sp-soldier-card').length,
         jobRows: document.querySelectorAll('#job-glossary tr').length,
       },
+      trainingTech: (() => {
+        const normal = document.querySelector('#normal-soldier-115 .soldier-training-tech-descriptions');
+        const sp = document.querySelector('#sp-soldier-5115 .soldier-training-tech-descriptions');
+        return {
+          normalVisible: Boolean(normal?.getClientRects().length),
+          spVisible: Boolean(sp?.getClientRects().length),
+          normalCollapsed: normal?.open === false,
+          spCollapsed: sp?.open === false,
+          normalSourceIds: normal ? [...normal.querySelectorAll('.soldier-training-tech-label')].map((label) => label.textContent) : [],
+          spSourceIds: sp ? [...sp.querySelectorAll('.soldier-training-tech-label')].map((label) => label.textContent) : [],
+          normalProvenance: normal ? [...normal.querySelectorAll('.soldier-training-tech-list .soldier-training-tech-source')].map((node) => node.textContent) : [],
+          spProvenance: sp ? [...sp.querySelectorAll('.soldier-training-tech-list .soldier-training-tech-source')].map((node) => node.textContent) : [],
+          normalDisclosure: normal?.querySelector('summary')?.textContent ?? '',
+          normalNotice: normal?.querySelector('.soldier-training-tech-notice')?.textContent ?? '',
+          spNotice: sp?.querySelectorAll('.soldier-training-tech-notice')?.[1]?.textContent ?? '',
+        };
+      })(),
     }));
     assert.equal(layout.viewportWidth, viewport.width);
     assert.ok(layout.navigationVisible, `${viewport.name}: section navigation must be visible`);
     assert.equal(layout.links.length, 6, `${viewport.name}: expected six shortcut links`);
     assert.ok(layout.links.every((link) => link.visible), `${viewport.name}: every shortcut must be visible`);
     assert.ok(Object.values(layout.rendered).every((count) => count > 0), `${viewport.name}: site content must render`);
+    assert.equal(layout.trainingTech.normalVisible, true, `${viewport.name}: NORMAL 115 presentation must render`);
+    assert.equal(layout.trainingTech.spVisible, true, `${viewport.name}: SP 5115 presentation must render`);
+    assert.equal(layout.trainingTech.normalCollapsed, true, `${viewport.name}: NORMAL disclosure must start collapsed`);
+    assert.equal(layout.trainingTech.spCollapsed, true, `${viewport.name}: SP disclosure must start collapsed`);
+    assert.equal(layout.trainingTech.normalSourceIds.length, 10, `${viewport.name}: NORMAL must show ten exact claims`);
+    assert.equal(layout.trainingTech.spSourceIds.length, 10, `${viewport.name}: SP must show ten exact claims`);
+    assert.equal(layout.trainingTech.normalProvenance.length, 10, `${viewport.name}: NORMAL source provenance must be displayed for all ten claims`);
+    assert.equal(layout.trainingTech.spProvenance.length, 10, `${viewport.name}: SP source provenance must be displayed for all ten claims`);
+    assert.ok(layout.trainingTech.normalProvenance.every((text) => text.includes('Relation: evidence/source/configdata/')));
+    assert.ok(layout.trainingTech.spProvenance.every((text) => text.includes('LevelInfo link: evidence/source/configdata/')));
+    assert.ok(layout.trainingTech.normalSourceIds.every((label) => label.includes('Source Field Description')));
+    assert.ok(layout.trainingTech.spSourceIds.every((label) => label.includes('Source Field SpSoidlierDescription')));
+    assert.match(layout.trainingTech.normalDisclosure, /한국어 공식 번역 아님/u);
+    assert.match(layout.trainingTech.normalNotice, /LevelInfo ID는 원본 레코드 식별자/u);
+    assert.match(layout.trainingTech.spNotice, /슬롯·시점·게임 내 적용 의미는 확인되지 않았습니다/u);
     assert.ok(layout.documentWidth <= viewport.width, `${viewport.name}: horizontal overflow detected (${layout.documentWidth}px)`);
 
     for (const [, id] of anchors) {
@@ -217,6 +252,17 @@ try {
   for (const path of expectedGenerated) {
     assert.ok(loadedSameOriginPaths.has(path), `Browser did not load required generated resource ${path}`);
   }
+  const trainingTechPayload = await page.evaluate(async () => {
+    const response = await fetch('./generated/soldier-training-tech-descriptions.v1.json');
+    return { status: response.status, data: await response.json() };
+  });
+  assert.equal(trainingTechPayload.status, 200, 'Direct Generated JSON must be reachable under Decision B');
+  assert.equal(trainingTechPayload.data.contract.status, 'EFFECTIVE');
+  assert.equal(trainingTechPayload.data.contract.approved, true);
+  assert.equal(trainingTechPayload.data.contract.effective, true);
+  assert.equal(trainingTechPayload.data.records.length, 20, 'Direct JSON must contain exactly the approved 20 claims');
+  assert.equal(trainingTechPayload.data.records.filter((row) => row.variant === 'NORMAL' && row.soldierId === 115 && row.sourceField === 'Description').length, 10);
+  assert.equal(trainingTechPayload.data.records.filter((row) => row.variant === 'SP' && row.soldierId === 5115 && row.sourceField === 'SpSoidlierDescription').length, 10);
   assert.ok([...loadedSameOriginPaths].some((path) => path === '/styles.css'), 'Browser did not load styles.css');
   assert.ok([...loadedSameOriginPaths].some((path) => path === '/app.js'), 'Browser did not load app.js');
   assert.deepEqual(resourceFailures, [], `same-origin resource failures: ${resourceFailures.join('; ')}`);

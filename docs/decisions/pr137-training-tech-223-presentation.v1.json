@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "decisionRecordId": "PR137-TT223-PRESENTATION-DECISIONS-v1",
+  "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+  "contract": {
+    "id": "soldier-training-tech-description-presentation.v1",
+    "version": 1,
+    "approvalStatus": "APPROVED",
+    "effectivenessStatus": "EFFECTIVE"
+  },
+  "decisionMaker": {
+    "role": "Project Principal Decision-Maker",
+    "identity": "UNRESOLVED",
+    "authorityBasis": "The user explicitly identifies themself as the project's highest decision-maker and authorizes the Decision A and B policy in the conversation. No account name or legal name is inferred.",
+    "decisionDate": "UNRESOLVED",
+    "recordedDate": "2026-10-28"
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c"
+  },
+  "claimScope": {
+    "trainingTechId": 223,
+    "levelInfoIds": [2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239],
+    "variants": [
+      { "variant": "NORMAL", "soldierId": 115, "sourceField": "Description", "count": 10 },
+      { "variant": "SP", "soldierId": 5115, "sourceField": "SpSoidlierDescription", "count": 10 }
+    ],
+    "totalRecords": 20
+  },
+  "decisionA": {
+    "id": "PR137-TT223-DECISION-A-v1",
+    "status": "APPROVED",
+    "resolution": "A2_WITH_MINIMAL_A1_RECONCILIATION",
+    "canonicalExclusionBefore": "Frontend display",
+    "evidenceExclusionBefore": "Generated or frontend presentation",
+    "canonicalReconciliation": "Canonical does not grant presentation eligibility; an effective scoped Presentation Contract controls that downstream permission.",
+    "evidenceReconciliation": "Evidence does not itself authorize Generated or frontend publication; the effective scoped Presentation Contract controls that downstream permission.",
+    "semanticInvariant": "Preserve all existing IDs, explicit relations, source fields, Chinese source strings, source commit, and provenance byte-for-byte."
+  },
+  "decisionB": {
+    "id": "PR137-TT223-DECISION-B-v1",
+    "status": "APPROVED",
+    "publicSurfaces": [
+      "soldier_card_ui",
+      "build_generated_json",
+      "hosted_direct_json",
+      "public_github_source"
+    ],
+    "requiredDisclosures": [
+      "중국어 ConfigData 원문 설명이며 공식 한국어 번역이 아닙니다.",
+      "LevelInfo ID는 원본 레코드 식별자이며 게임 레벨이나 진행 순서를 뜻하지 않습니다.",
+      "SP 설명의 슬롯·시점·게임 내 적용 의미는 확인되지 않았습니다."
+    ],
+    "rendering": "Treat source strings as text; only the validated exact color token pair may become fixed DOM spans. Never execute arbitrary markup.",
+    "scopeExpansion": "No records outside the exact 20 claims, IDs, fields, and pinned source commit are authorized."
+  },
+  "revocation": {
+    "status": "NOT_REVOKED",
+    "revokedAt": null,
+    "reason": null,
+    "reviewConditions": [
+      "Any change to source commit, IDs, fields, records, disclosures, consumer surfaces, or rendering semantics requires a new review.",
+      "On revocation, future UI use and new Build publication must be disabled; previously published static files, GitHub history, caches, and external copies are not represented as erased."
+    ]
+  },
+  "owningValidators": [
+    "tools/validate-soldier-training-tech-descriptions.mjs",
+    "tools/validate-soldier-training-tech-presentation.mjs",
+    "tools/build.mjs",
+    "tools/test-soldier-training-tech-presentation.mjs"
+  ],
+  "recordLocation": "docs/decisions/pr137-training-tech-223-presentation.v1.json"
+}

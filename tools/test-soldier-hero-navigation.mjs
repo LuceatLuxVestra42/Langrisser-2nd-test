@@ -50,6 +50,7 @@ const sandbox = {
   },
   window: { location: { hash: '' }, requestAnimationFrame(callback) { callback(); } },
   makeAnchor: null,
+  soldierTrainingTechDescriptions: new Map(),
 };
 for (const soldier of spData.soldiers) {
   const linked = sandbox.spSoldiersByNormalId.get(soldier.normalSoldierId) ?? [];
@@ -59,6 +60,7 @@ for (const soldier of spData.soldiers) {
 const runtime = [
   extractFunction(frontend, 'makeAnchor'),
   extractFunction(frontend, 'appendSkillDescription'),
+  extractFunction(frontend, 'makeSoldierTrainingTechPresentation'),
   extractFunction(frontend, 'makeSoldierSkillReferences'),
   extractFunction(frontend, 'addNormalSoldier'),
   extractFunction(frontend, 'addSpSoldier'),

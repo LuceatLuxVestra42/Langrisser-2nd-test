@@ -1,8 +1,9 @@
 import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
-import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment } from './generate.mjs';
+import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
+import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -123,6 +124,19 @@ for (const soldier of normalSoldierGenerated.soldiers) {
   }
   exactKeys(soldier.baseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${soldier.normalSoldierId} base stats`);
   if (!Object.values(soldier.baseStats).every(Number.isFinite)) throw new Error(`malformed NORMAL Soldier base stats for ${soldier.normalSoldierId}`);
+}
+const trainingTechCanonical = await readJson('canonical/soldier-training-tech-descriptions.v1.json');
+const trainingTechDecisionRecord = await readJson(TRAINING_TECH_DECISION_RECORD_PATH);
+const trainingTechDecisionState = validateTrainingTechDecisionRecord(trainingTechDecisionRecord);
+const includeTrainingTechDirectJson = shouldPublishTrainingTechDirectJson(trainingTechDecisionRecord);
+const trainingTechGeneratedPath = resolve('generated/soldier-training-tech-descriptions.v1.json');
+const trainingTechGeneratedText = await readFile(trainingTechGeneratedPath, 'utf8');
+if (trainingTechGeneratedText !== renderSoldierTrainingTechDescriptions(trainingTechCanonical, trainingTechDecisionRecord)) {
+  throw new Error('generated Soldier TrainingTech descriptions are stale or non-deterministic');
+}
+const trainingTechGenerated = JSON.parse(trainingTechGeneratedText);
+if (trainingTechGenerated.records.length !== 20 || trainingTechGenerated.contract?.effective !== trainingTechDecisionState.effective) {
+  throw new Error('built Soldier TrainingTech projection must match the approved contract state and contain exactly 20 records');
 }
 
 const heroSoldierRelationPath = resolve('generated/hero-soldier-relations.v1.json');
@@ -263,6 +277,9 @@ try {
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
+  if (includeTrainingTechDirectJson) {
+    await cp(trainingTechGeneratedPath, join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'));
+  }
   await cp(heroSoldierRelationPath, join(output, 'generated', 'hero-soldier-relations.v1.json'));
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
   await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
@@ -292,6 +309,21 @@ try {
   }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
+  if (!app.includes("fetch('./generated/soldier-training-tech-descriptions.v1.json')")) throw new Error('built app does not resolve the scoped TrainingTech proposal consumer');
+  if (!app.includes("data.contract.status !== 'EFFECTIVE' || data.contract.approved !== true || data.contract.effective !== true")) {
+    throw new Error('built app must require an approved, effective TrainingTech contract');
+  }
+  if (includeTrainingTechDirectJson) {
+    const packagedTrainingTechText = await readFile(join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'), 'utf8');
+    if (packagedTrainingTechText !== trainingTechGeneratedText) throw new Error('packaged TrainingTech projection differs from validated Generated artifact');
+  } else {
+    try {
+      await readFile(join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'), 'utf8');
+      throw new Error('revoked or non-effective TrainingTech JSON must not be included in the Build output');
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
   if (!app.includes("fetch('./generated/hero-soldier-relations.v1.json')")) throw new Error('built app does not resolve the generated Hero–Soldier relation entry');
   const packagedRelationsText = await readFile(join(output, 'generated', 'hero-soldier-relations.v1.json'), 'utf8');
   if (packagedRelationsText !== heroSoldierRelationText) throw new Error('packaged Hero–Soldier relations differ from tracked generated artifact');
