@@ -110,6 +110,52 @@ function processExitCode(requiredResults, error) {
   return error || requiredResults.some(({ resultStatus }) => resultStatus !== 'PASS') ? 1 : 0;
 }
 
+function assessAnchorTargetGeometry(geometry, tolerance = 1) {
+  const targetRect = geometry.targetRect;
+  const effectiveContentRect = geometry.effectiveContentRect ?? targetRect;
+  const navigationRect = geometry.navigationRect;
+  const scrollY = geometry.scroll?.y;
+  const maxScrollY = geometry.scroll?.maxY;
+  const scrollMarginTop = geometry.computedCss?.target?.scrollMarginTopPx;
+  const atDocumentTop = Number.isFinite(scrollY) && scrollY <= tolerance;
+  const atDocumentEnd = Number.isFinite(scrollY) && Number.isFinite(maxScrollY)
+    && maxScrollY - scrollY <= tolerance;
+  const targetVisible = Boolean(geometry.targetExists && targetRect && targetRect.height > 0
+    && effectiveContentRect && effectiveContentRect.height > 0
+    && effectiveContentRect.bottom > 0 && effectiveContentRect.top < geometry.viewport?.height);
+  const navigationVisible = Boolean(navigationRect && geometry.computedCss?.navigation?.display !== 'none'
+    && geometry.computedCss?.navigation?.visibility !== 'hidden'
+    && Number(geometry.computedCss?.navigation?.opacity ?? 1) > 0
+    && navigationRect.height > 0);
+  const targetStartsBelowNavigation = Boolean(effectiveContentRect && navigationRect
+    && effectiveContentRect.top >= navigationRect.bottom - 1);
+  const offsetMatches = Number.isFinite(scrollMarginTop) && targetRect
+    && Math.abs(targetRect.top - scrollMarginTop) <= tolerance;
+  const offsetValid = atDocumentTop || atDocumentEnd || Boolean(offsetMatches);
+  const hashMatches = geometry.urlHash === `#${geometry.anchorId}`;
+  const passed = Boolean(geometry.targetExists && geometry.effectiveContentExists && hashMatches
+    && targetVisible && navigationVisible && targetStartsBelowNavigation && offsetValid);
+  let message = 'anchor target must exist, match its hash, and remain accessible below sticky navigation';
+  if (!geometry.targetExists) message = `anchor target #${geometry.anchorId} must exist`;
+  else if (!geometry.effectiveContentExists) message = `anchor target #${geometry.anchorId} must contain measurable content`;
+  else if (!hashMatches) message = `anchor #${geometry.anchorId} hash must resolve to its target`;
+  else if (!targetVisible) message = `anchor target #${geometry.anchorId} must remain in the viewport`;
+  else if (!navigationVisible) message = 'sticky navigation must be visibly rendered for target clearance checks';
+  else if (!targetStartsBelowNavigation) message = `anchor target #${geometry.anchorId} content must start below sticky navigation`;
+  else if (!offsetValid) message = `anchor target #${geometry.anchorId} must honor its scroll margin within ${tolerance}px`;
+  return {
+    passed, message, atDocumentTop, atDocumentEnd, hashMatches,
+    targetVisible, navigationVisible, targetStartsBelowNavigation,
+    offsetMatches: Boolean(offsetMatches), offsetValid,
+  };
+}
+
+function assertAnchorTargetGeometry(geometry) {
+  const assessment = assessAnchorTargetGeometry(geometry);
+  assert.ok(assessment.passed, assessment.message);
+  return assessment;
+}
+
 function validateFailureSerializationFixture() {
   const fixtureGeometry = {
     anchorId: 'general-ssr-equipment',
@@ -118,18 +164,23 @@ function validateFailureSerializationFixture() {
     viewport: { width: 1440, height: 1000, devicePixelRatio: 1 },
     navigationRect: { left: 0, right: 1440, top: 0, bottom: 54, width: 1440, height: 54 },
     headingRect: { left: 120, right: 700, top: 88, bottom: 120, width: 580, height: 32 },
-    targetRect: { left: 120, right: 1320, top: 56, bottom: 1200, width: 1200, height: 1144 },
-    scroll: { x: 0, y: 640 },
+    targetRect: { left: 120, right: 1320, top: 20, bottom: 1200, width: 1200, height: 1180 },
+    effectiveContentRect: { left: 120, right: 1320, top: 20, bottom: 80, width: 1200, height: 60 },
+    targetExists: true, effectiveContentExists: true, targetType: 'grid',
+    scroll: { x: 0, y: 640, maxY: 9000 },
     scrollPosition: { x: 0, y: 640 },
     urlHash: '#general-ssr-equipment',
-    computedCss: { scrollMarginTop: '56px', navigationPosition: 'sticky', navigationTop: '0px' },
+    computedCss: {
+      target: { scrollMarginTop: '56px', scrollMarginTopPx: 56 },
+      navigation: { display: 'block', visibility: 'visible', opacity: '1', position: 'sticky', top: '0px' },
+      navigationPosition: 'sticky', navigationTop: '0px',
+    },
     measuredAt: 'fixture',
     scrollStable: true,
   };
-  const message = 'diagnostic fixture preserves the original heading assertion failure';
   let assertionError;
   try {
-    assert.ok(false, message);
+    assertAnchorTargetGeometry(fixtureGeometry);
   } catch (error) {
     assertionError = attachObservedGeometry(error, fixtureGeometry);
   }
@@ -139,11 +190,42 @@ function validateFailureSerializationFixture() {
   const restored = JSON.parse(serialized);
   assert.equal(restored.resultStatus, 'FAIL', 'expected assertion failure must remain FAIL');
   assert.equal(restored.errorCategory, 'ASSERTION_FAILURE', 'fixture must preserve assertion category');
-  assert.ok(restored.error.includes(message), 'fixture must preserve the assertion message');
+  assert.ok(restored.error.includes('anchor target #general-ssr-equipment content must start below sticky navigation'), 'fixture must preserve the assertion message');
   assert.deepEqual(restored.observed, fixtureGeometry, 'serialized failure must preserve anchor geometry');
   assert.equal(restored.observed.anchorId, 'general-ssr-equipment', 'failure must identify its anchor');
   assert.equal(restored.observed.urlHash, '#general-ssr-equipment', 'failure must preserve URL hash');
   assert.equal(processExitCode([restored], null), 1, 'detailed assertion failure must propagate to a non-zero exit');
+  const normalFixture = {
+    ...fixtureGeometry,
+    targetRect: { ...fixtureGeometry.targetRect, top: 56 },
+    effectiveContentRect: { ...fixtureGeometry.effectiveContentRect, top: 56 },
+    scroll: { x: 0, y: 640, maxY: 9000 },
+    computedCss: { ...fixtureGeometry.computedCss, target: { scrollMarginTop: '56px', scrollMarginTopPx: 56 } },
+  };
+  assert.equal(assertAnchorTargetGeometry(normalFixture).passed, true, 'normal target alignment must pass');
+  const alternateLayout = {
+    ...normalFixture,
+    navigationRect: { ...normalFixture.navigationRect, bottom: 60, height: 60 },
+    effectiveContentRect: { ...normalFixture.effectiveContentRect, top: 72 },
+    targetRect: { ...normalFixture.targetRect, top: 72 },
+    computedCss: { ...normalFixture.computedCss, target: { scrollMarginTop: '4.5rem', scrollMarginTopPx: 72 } },
+  };
+  assert.equal(assertAnchorTargetGeometry(alternateLayout).passed, true, 'different navigation and root sizing must pass when the computed offset is honored');
+  const endLimited = {
+    ...alternateLayout,
+    scroll: { x: 0, y: 500, maxY: 500 },
+    effectiveContentRect: { ...alternateLayout.effectiveContentRect, top: 90 },
+    targetRect: { ...alternateLayout.targetRect, top: 90 },
+  };
+  assert.equal(assertAnchorTargetGeometry(endLimited).passed, true, 'a confirmed document-end limit may constrain offset while content remains accessible');
+  const aboveViewport = { ...normalFixture, effectiveContentRect: { ...normalFixture.effectiveContentRect, top: -20, bottom: 40 }, targetRect: { ...normalFixture.targetRect, top: -20, bottom: 40 } };
+  assert.equal(assessAnchorTargetGeometry(aboveViewport).passed, false, 'above-viewport content must fail');
+  const offsetViolation = { ...normalFixture, effectiveContentRect: { ...normalFixture.effectiveContentRect, top: 90 }, targetRect: { ...normalFixture.targetRect, top: 90 } };
+  assert.equal(assessAnchorTargetGeometry(offsetViolation).passed, false, 'an unbounded offset violation must fail');
+  const missingTarget = { ...normalFixture, targetExists: false, effectiveContentExists: false };
+  assert.equal(assessAnchorTargetGeometry(missingTarget).passed, false, 'a missing target must fail');
+  const hashMismatch = { ...normalFixture, urlHash: '#heroes' };
+  assert.equal(assessAnchorTargetGeometry(hashMismatch).passed, false, 'a mismatched hash must fail');
   return {
     fixtureOutcome: 'EXPECTED_ASSERTION_FAILURE',
     resultStatus: restored.resultStatus,
@@ -151,6 +233,11 @@ function validateFailureSerializationFixture() {
     anchorId: restored.observed.anchorId,
     geometrySerialized: true,
     detailedExitCode: processExitCode([restored], null),
+    targetAssertionFixtures: {
+      normalAlignment: true, alternateLayout: true, endLimitedAccessible: true,
+      navigationOcclusion: true, aboveViewport: true, offsetViolation: true,
+      missingTarget: true, hashMismatch: true,
+    },
   };
 }
 
@@ -235,13 +322,15 @@ try {
       return { anchors: evidence, urlHash: await page.evaluate(() => location.hash), scrollPosition: await page.evaluate(() => scrollY) };
     });
 
-    await test('UX03A-HEADING-VISIBILITY', 'Section title remains visible below sticky navigation', async () => {
+    await test('UX03A-HEADING-VISIBILITY', 'Anchor target content is accessible below sticky navigation and honors its scroll offset', async () => {
       const checks=[];
       for (const id of anchorIds) {
         await page.locator(`${navSelector} a[href="#${id}"]`).click(); await stableScroll();
         const geometry = await page.evaluate(({ anchorId, navigationSelector }) => {
           const target = document.getElementById(anchorId);
           const navigation = document.querySelector(navigationSelector);
+          const targetType = target?.tagName.toLowerCase() === 'tbody' ? 'tbody' : 'grid';
+          const effectiveContent = targetType === 'tbody' ? target?.querySelector('tr') : target;
           let heading = null;
           let headingSelector = null;
           if (target?.id === 'heroes') {
@@ -286,38 +375,57 @@ try {
           const navigationRect = rect(navigation);
           const headingRect = rect(heading);
           const targetRect = rect(target);
+          const effectiveContentRect = rect(effectiveContent);
+          const scrollingElement = document.scrollingElement;
+          const targetStyle = target ? getComputedStyle(target) : null;
+          const navigationStyle = navigation ? getComputedStyle(navigation) : null;
+          const pixelValue = (value) => {
+            const match = /^(-?(?:\d+|\d*\.\d+))px$/.exec(value ?? '');
+            return match ? Number(match[1]) : null;
+          };
           const scroll = { x: scrollX, y: scrollY };
           return {
             anchorId, headingSelector, targetSelector: `#${anchorId}`, headingText: heading?.textContent?.trim() ?? null,
+            targetType, targetExists: Boolean(target), effectiveContentExists: Boolean(effectiveContent),
+            effectiveContentSelector: targetType === 'tbody' ? `#${anchorId} tr:first-child` : `#${anchorId}`,
             headingExists: Boolean(heading), viewport: { width: innerWidth, height: innerHeight, devicePixelRatio },
-            navigationRect, headingRect, targetRect, boundingBox: { navigation: navigationRect, heading: headingRect, target: targetRect },
-            scroll, scrollPosition: scroll, urlHash: location.hash,
+            navigationRect, headingRect, targetRect, effectiveContentRect,
+            boundingBox: { navigation: navigationRect, heading: headingRect, target: targetRect, effectiveContent: effectiveContentRect },
+            scroll: { ...scroll, maxY: Math.max(0, (scrollingElement?.scrollHeight ?? 0) - innerHeight), scrollHeight: scrollingElement?.scrollHeight ?? null },
+            scrollPosition: scroll, urlHash: location.hash,
             derived: {
               headingAboveViewport: headingRect ? headingRect.bottom <= 0 : null,
               headingIntersectsNavigationRects: headingRect && navigationRect
                 ? headingRect.left < navigationRect.right && headingRect.right > navigationRect.left
                   && headingRect.top < navigationRect.bottom && headingRect.bottom > navigationRect.top
                 : null,
+              targetIntersectsNavigationRects: effectiveContentRect && navigationRect
+                ? effectiveContentRect.left < navigationRect.right && effectiveContentRect.right > navigationRect.left
+                  && effectiveContentRect.top < navigationRect.bottom && effectiveContentRect.bottom > navigationRect.top
+                : null,
+              effectiveContentAboveViewport: effectiveContentRect ? effectiveContentRect.bottom <= 0 : null,
             },
             computedCss: {
-              navigation: css(navigation), heading: css(heading), target: css(target),
-              scrollMarginTop: target ? getComputedStyle(target).scrollMarginTop : null,
-              navigationPosition: navigation ? getComputedStyle(navigation).position : null,
-              navigationTop: navigation ? getComputedStyle(navigation).top : null,
+              navigation: css(navigation), heading: css(heading),
+              scrollMarginTop: targetStyle?.scrollMarginTop ?? null,
+              target: targetStyle ? { ...css(target), scrollMarginTopPx: pixelValue(targetStyle.scrollMarginTop) } : null,
+              navigationPosition: navigationStyle?.position ?? null,
+              navigationTop: navigationStyle?.top ?? null,
               navigationAncestors: ancestorStyles(navigation), headingAncestors: ancestorStyles(heading), targetAncestors: ancestorStyles(target),
             },
             measuredAt: new Date().toISOString(), scrollStable: true,
           };
         }, { anchorId: id, navigationSelector: navSelector });
-        const state = { text: geometry.headingText, box: geometry.headingRect, navBottom: geometry.navigationRect?.bottom, viewport: geometry.viewport.height };
         try {
-          assert.ok(geometry.headingExists, `heading for ${id}`);
-          assert.ok(state.box.bottom > state.navBottom, `${id} heading must not be fully obscured by nav`);
-          assert.ok(state.box.top < state.viewport, `${id} heading must remain in viewport`);
+          const assessment = assertAnchorTargetGeometry(geometry);
+          checks.push({
+            id, text: geometry.headingText, box: geometry.headingRect,
+            navBottom: geometry.navigationRect?.bottom, viewport: geometry.viewport?.height,
+            targetType: geometry.targetType, geometry, assessment,
+          });
         } catch (error) {
           throw attachObservedGeometry(error, geometry);
         }
-        checks.push({ id, ...state, geometry });
       }
       return { headings: checks };
     });
@@ -410,3 +518,4 @@ try {
   console.log(`QA_OVERALL_STATUS=${overall}`);
   if(exitCode !== 0) process.exitCode=exitCode;
 }
+
