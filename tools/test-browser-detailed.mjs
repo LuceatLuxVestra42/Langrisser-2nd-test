@@ -71,24 +71,93 @@ let origin;
 let fatalError;
 let browserClosed = false;
 
-function record(id, mode, status, expected, observed = {}, error = null, category = null) {
-  results.push({
+function buildResult(id, mode, status, expected, observed = {}, error = null, category = null) {
+  return {
     testId: id, qaMode: mode, siteSourceSha: actualSiteSha, qaInfrastructureSha: actualQaSha,
     qaScriptPath: scriptPath, qaScriptSha256: scriptSha256, browserVersion: browser?.version() ?? null,
     viewport: page ? page.viewportSize() : null, expected, observed, computedCss: observed.computedCss ?? null,
     boundingBox: observed.boundingBox ?? null, scrollPosition: observed.scrollPosition ?? null,
     urlHash: observed.urlHash ?? null, focusedElement: observed.focusedElement ?? null,
     resultStatus: status, errorCategory: category, error, timestamp: new Date().toISOString(),
-  });
+  };
+}
+
+function record(id, mode, status, expected, observed = {}, error = null, category = null) {
+  const result = buildResult(id, mode, status, expected, observed, error, category);
+  results.push(result);
+  return result;
+}
+
+function classifyFailure(error) {
+  const timeout = /Timeout|timeout/i.test(error?.name ?? '') || /Timeout/i.test(error?.message ?? '');
+  return {
+    status: error?.contractGap ? 'TEST_CONTRACT_GAP' : timeout ? 'REVIEW' : 'FAIL',
+    category: error?.contractGap ? 'TEST_CONTRACT_GAP' : timeout ? 'TIMEOUT' : error?.runnerFailure ? 'RUNNER_RUNTIME_FAILURE' : 'ASSERTION_FAILURE',
+  };
+}
+
+function failureResult(id, mode, expected, error) {
+  const { status, category } = classifyFailure(error);
+  return buildResult(id, mode, status, expected, error?.observed ?? {}, error?.stack ?? String(error), category);
+}
+
+function attachObservedGeometry(error, geometry) {
+  error.observed = geometry;
+  return error;
+}
+
+function processMustFail(requiredResults, error) {
+  return Boolean(error || requiredResults.some(({ resultStatus }) => resultStatus !== 'PASS'));
+}
+
+function validateFailureSerializationFixture() {
+  const fixtureGeometry = {
+    anchorId: 'general-ssr-equipment',
+    headingSelector: '#general-equipment-title',
+    targetSelector: '#general-ssr-equipment',
+    viewport: { width: 1440, height: 1000, devicePixelRatio: 1 },
+    navigationRect: { left: 0, right: 1440, top: 0, bottom: 54, width: 1440, height: 54 },
+    headingRect: { left: 120, right: 700, top: 88, bottom: 120, width: 580, height: 32 },
+    targetRect: { left: 120, right: 1320, top: 56, bottom: 1200, width: 1200, height: 1144 },
+    scroll: { x: 0, y: 640 },
+    scrollPosition: { x: 0, y: 640 },
+    urlHash: '#general-ssr-equipment',
+    computedCss: { scrollMarginTop: '56px', navigationPosition: 'sticky', navigationTop: '0px' },
+    measuredAt: 'fixture',
+    scrollStable: true,
+  };
+  const message = 'diagnostic fixture preserves the original heading assertion failure';
+  let assertionError;
+  try {
+    assert.ok(false, message);
+  } catch (error) {
+    assertionError = attachObservedGeometry(error, fixtureGeometry);
+  }
+
+  assert.ok(assertionError, 'fixture must produce the expected assertion failure');
+  const serialized = JSON.stringify(failureResult('UX03A-HEADING-VISIBILITY', 'detailed', 'fixture assertion fails', assertionError));
+  const restored = JSON.parse(serialized);
+  assert.equal(restored.resultStatus, 'FAIL', 'expected assertion failure must remain FAIL');
+  assert.equal(restored.errorCategory, 'ASSERTION_FAILURE', 'fixture must preserve assertion category');
+  assert.ok(restored.error.includes(message), 'fixture must preserve the assertion message');
+  assert.deepEqual(restored.observed, fixtureGeometry, 'serialized failure must preserve anchor geometry');
+  assert.equal(restored.observed.anchorId, 'general-ssr-equipment', 'failure must identify its anchor');
+  assert.equal(restored.observed.urlHash, '#general-ssr-equipment', 'failure must preserve URL hash');
+  assert.equal(processMustFail([restored], null), true, 'detailed assertion failure must propagate to a non-zero exit');
+  return {
+    fixtureOutcome: 'EXPECTED_ASSERTION_FAILURE',
+    resultStatus: restored.resultStatus,
+    errorCategory: restored.errorCategory,
+    anchorId: restored.observed.anchorId,
+    geometrySerialized: true,
+    detailedProcessMustFail: processMustFail([restored], null),
+  };
 }
 
 async function test(id, expected, body) {
   try { record(id, runnerValidation ? 'runner-validation' : 'detailed', 'PASS', expected, await body()); }
   catch (error) {
-    const timeout = /Timeout|timeout/i.test(error?.name ?? '') || /Timeout/i.test(error?.message ?? '');
-    const status = error?.contractGap ? 'TEST_CONTRACT_GAP' : timeout ? 'REVIEW' : 'FAIL';
-    const category = error?.contractGap ? 'TEST_CONTRACT_GAP' : timeout ? 'TIMEOUT' : error?.runnerFailure ? 'RUNNER_RUNTIME_FAILURE' : 'ASSERTION_FAILURE';
-    record(id, runnerValidation ? 'runner-validation' : 'detailed', status, expected, error?.observed ?? {}, error?.stack ?? String(error), category);
+    results.push(failureResult(id, runnerValidation ? 'runner-validation' : 'detailed', expected, error));
   }
 }
 
@@ -135,6 +204,7 @@ try {
       ['HARNESS-KEYBOARD', async () => { await page.evaluate(()=>{document.activeElement?.blur();document.body.focus();}); await page.keyboard.press('Tab'); const focusedElement=await page.evaluate(() => `${document.activeElement?.tagName.toLowerCase()}#${document.activeElement?.id}`); assert.ok(focusedElement.startsWith('a#')); return { focusedElement }; }],
       ['HARNESS-HISTORY', async () => { await page.evaluate(() => { history.pushState({qa:1}, '', '#heroes'); history.pushState({qa:2}, '', '#general-ssr-equipment'); }); await page.goBack(); await page.waitForFunction(()=>location.hash==='#heroes'); const back = await page.evaluate(() => location.hash); await page.goForward(); await page.waitForFunction(()=>location.hash==='#general-ssr-equipment'); const forward=await page.evaluate(() => location.hash); assert.equal(back,'#heroes'); assert.equal(forward,'#general-ssr-equipment'); return { back, forward }; }],
       ['HARNESS-JSON-RESULT', async () => ({ resultPath, sha256: scriptSha256 })],
+      ['HARNESS-FAILURE-GEOMETRY-SERIALIZATION', async () => validateFailureSerializationFixture()],
     ];
     for (const [id, fn] of harness) await test(id, 'browser automation capability succeeds', fn);
   } else {
@@ -169,15 +239,61 @@ try {
       const checks=[];
       for (const id of anchorIds) {
         await page.locator(`${navSelector} a[href="#${id}"]`).click(); await stableScroll();
-        const title = await page.locator(`#${id}`).evaluateHandle((target) => {
-          if (target.id === 'heroes') return target.querySelector('.hero-card h2');
-          const section = target.closest('.general-equipment-section,.sp-soldier-section,.normal-soldier-section,.job-glossary-section');
-          return section?.querySelector('.section-heading h2') ?? document.querySelector('main .page-heading h1');
-        });
-        assert.ok(await title.evaluate((el) => Boolean(el)), `heading for ${id}`);
-        const state = await title.evaluate((el) => ({ text: el.textContent.trim(), box: (()=>{const r=el.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right}})(), navBottom: document.querySelector('nav.section-shortcuts').getBoundingClientRect().bottom, viewport: innerHeight }));
-        assert.ok(state.box.bottom > state.navBottom, `${id} heading must not be fully obscured by nav`);
-        assert.ok(state.box.top < state.viewport, `${id} heading must remain in viewport`); checks.push({ id, ...state });
+        const geometry = await page.evaluate(({ anchorId, navigationSelector }) => {
+          const target = document.getElementById(anchorId);
+          const navigation = document.querySelector(navigationSelector);
+          let heading = null;
+          let headingSelector = null;
+          if (target?.id === 'heroes') {
+            headingSelector = `#${anchorId} .hero-card h2`;
+            heading = target.querySelector('.hero-card h2');
+          } else {
+            const section = target?.closest('.general-equipment-section,.sp-soldier-section,.normal-soldier-section,.job-glossary-section');
+            heading = section?.querySelector('.section-heading h2') ?? document.querySelector('main .page-heading h1');
+            headingSelector = section?.querySelector('.section-heading h2') ? '.section-heading h2' : 'main .page-heading h1';
+          }
+          const rect = (element) => {
+            if (!element) return null;
+            const box = element.getBoundingClientRect();
+            return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, width: box.width, height: box.height };
+          };
+          const css = (element) => {
+            if (!element) return null;
+            const style = getComputedStyle(element);
+            return {
+              display: style.display, visibility: style.visibility, opacity: style.opacity,
+              position: style.position, top: style.top, zIndex: style.zIndex,
+              backgroundColor: style.backgroundColor, overflow: style.overflow,
+              scrollMarginTop: style.scrollMarginTop,
+            };
+          };
+          const navigationRect = rect(navigation);
+          const headingRect = rect(heading);
+          const targetRect = rect(target);
+          const scroll = { x: scrollX, y: scrollY };
+          return {
+            anchorId, headingSelector, targetSelector: `#${anchorId}`, headingText: heading?.textContent?.trim() ?? null,
+            headingExists: Boolean(heading), viewport: { width: innerWidth, height: innerHeight, devicePixelRatio },
+            navigationRect, headingRect, targetRect, boundingBox: { navigation: navigationRect, heading: headingRect, target: targetRect },
+            scroll, scrollPosition: scroll, urlHash: location.hash,
+            computedCss: {
+              navigation: css(navigation), heading: css(heading), target: css(target),
+              scrollMarginTop: target ? getComputedStyle(target).scrollMarginTop : null,
+              navigationPosition: navigation ? getComputedStyle(navigation).position : null,
+              navigationTop: navigation ? getComputedStyle(navigation).top : null,
+            },
+            measuredAt: new Date().toISOString(), scrollStable: true,
+          };
+        }, { anchorId: id, navigationSelector: navSelector });
+        const state = { text: geometry.headingText, box: geometry.headingRect, navBottom: geometry.navigationRect?.bottom, viewport: geometry.viewport.height };
+        try {
+          assert.ok(geometry.headingExists, `heading for ${id}`);
+          assert.ok(state.box.bottom > state.navBottom, `${id} heading must not be fully obscured by nav`);
+          assert.ok(state.box.top < state.viewport, `${id} heading must remain in viewport`);
+        } catch (error) {
+          throw attachObservedGeometry(error, geometry);
+        }
+        checks.push({ id, ...state, geometry });
       }
       return { headings: checks };
     });
@@ -247,7 +363,7 @@ try {
   if (browser) { await browser.close().then(() => { browserClosed = true; }).catch(() => {}); }
   await new Promise((resolveClose) => server.close(() => resolveClose())).catch(() => {});
   const expectedIds = runnerValidation
-    ? ['HARNESS-SCRIPT-PARSE','HARNESS-CHROMIUM-LAUNCH','HARNESS-SITE-CONNECTION','HARNESS-DOM-QUERY','HARNESS-COMPUTED-CSS','HARNESS-BOUNDING-BOX','HARNESS-SCROLL','HARNESS-KEYBOARD','HARNESS-HISTORY','HARNESS-JSON-RESULT']
+    ? ['HARNESS-SCRIPT-PARSE','HARNESS-CHROMIUM-LAUNCH','HARNESS-SITE-CONNECTION','HARNESS-DOM-QUERY','HARNESS-COMPUTED-CSS','HARNESS-BOUNDING-BOX','HARNESS-SCROLL','HARNESS-KEYBOARD','HARNESS-HISTORY','HARNESS-JSON-RESULT','HARNESS-FAILURE-GEOMETRY-SERIALIZATION']
     : ['UX03A-DESKTOP-STICKY','UX03A-ANCHOR-SCROLL','UX03A-HEADING-VISIBILITY','UX03A-MOBILE-FALLBACK','UX03A-KEYBOARD-FOCUS','UX03A-HISTORY-RELOAD','UX03A-SEARCH-REGRESSION','UX03A-RELATION-REGRESSION'];
   for (const id of expectedIds) {
     if (!results.some((result) => result.testId === id)) record(id,runnerValidation?'runner-validation':'detailed','NOT_EXECUTED','Test is executed when the Browser harness is available',{},fatalError?.message??'Earlier required setup failed','NOT_EXECUTED');
@@ -257,6 +373,7 @@ try {
   const hasAssertionFailure=required.some(({resultStatus})=>resultStatus==='FAIL');
   const hasReview=required.some(({resultStatus})=>resultStatus!=='PASS');
   const overall = runnerValidation ? (fatalError||failed?'RUNNER_VALIDATION_FAIL':'RUNNER_VALIDATION_PASS') : (fatalError||hasAssertionFailure?'UX03A_DETAILED_BROWSER_QA_FAIL':hasReview?'UX03A_DETAILED_BROWSER_QA_REVIEW':'UX03A_DETAILED_BROWSER_QA_PASS');
+  const shouldFailProcess = processMustFail(required, fatalError);
   const output={schemaVersion:1,overallStatus:overall,qaMode:runnerValidation?'runner-validation':'detailed',command:['node',scriptPath,...(runnerValidation?['--runner-validation']:[])],startedAt,completedAt:new Date().toISOString(),repository:process.env.GITHUB_REPOSITORY??null,prNumber:process.env.PR_NUMBER??null,expectedPrHeadSha:process.env.EXPECTED_PR_HEAD_SHA??null,currentPrHeadSha:process.env.CURRENT_PR_HEAD_SHA??null,workflowEvent:process.env.GITHUB_EVENT_NAME??null,workflowRef:process.env.GITHUB_WORKFLOW_REF??null,workflowDefinitionSha:process.env.GITHUB_WORKFLOW_SHA??null,qaInfrastructureSha:actualQaSha,siteSourceSha:actualSiteSha,qaScriptPath:scriptPath,qaScriptSha256:scriptSha256,browserVersion:browser?.version?.()??null,origin,cleanup:{browserClosed,serverClosed:!server.listening},tests:results};
   await mkdir(resolve(resultPath,'..'),{recursive:true});
   await writeFile(resultPath,`${JSON.stringify(output,null,2)}\n`);
@@ -267,5 +384,5 @@ try {
   console.log(JSON.stringify(output,null,2));
   console.log(`QA_RESULT_JSON=${resultPath}`);
   console.log(`QA_OVERALL_STATUS=${overall}`);
-  if(failed||fatalError) process.exitCode=1;
+  if(shouldFailProcess) process.exitCode=1;
 }
