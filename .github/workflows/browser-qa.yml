@@ -14,6 +14,7 @@ on:
       - 'tools/build.mjs'
       - 'tools/generate.mjs'
       - 'tools/test-browser-smoke.mjs'
+      - 'tools/test-browser-detailed.mjs'
   workflow_dispatch:
     inputs:
       pr_number:
@@ -24,6 +25,14 @@ on:
         description: "Expected full 40-character PR #140 head SHA"
         required: true
         type: string
+      qa_suite:
+        description: "Select the QA coverage to run"
+        required: true
+        type: choice
+        options:
+          - smoke
+          - detailed
+        default: smoke
 
 permissions:
   contents: read
@@ -78,12 +87,14 @@ jobs:
           WORKFLOW_DEFINITION_SHA: ${{ github.workflow_sha }}
           EXPECTED_PR_NUMBER: ${{ inputs.pr_number }}
           EXPECTED_PR_HEAD_SHA: ${{ inputs.expected_pr_head_sha }}
+          QA_SUITE: ${{ inputs.qa_suite }}
         run: |
           set -euo pipefail
           test "$EVENT_REF" = "refs/heads/main"
           test "$(git -C qa-main rev-parse HEAD)" = "$WORKFLOW_DEFINITION_SHA"
           [[ "$EXPECTED_PR_NUMBER" = "140" ]]
           [[ "$EXPECTED_PR_HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$QA_SUITE" = "smoke" || "$QA_SUITE" = "detailed" ]]
 
           pr_json="$(curl --fail --silent --show-error \
             -H "Accept: application/vnd.github+json" \
@@ -102,6 +113,9 @@ jobs:
           [[ "$current_head_sha" = "$EXPECTED_PR_HEAD_SHA" ]]
 
           {
+            echo "PR_NUMBER=$EXPECTED_PR_NUMBER"
+            echo "EXPECTED_PR_HEAD_SHA=$EXPECTED_PR_HEAD_SHA"
+            echo "CURRENT_PR_HEAD_SHA=$current_head_sha"
             echo "expected_pr_head_sha=$EXPECTED_PR_HEAD_SHA"
             echo "current_pr_base_sha=$current_base_sha"
             echo "current_pr_head_ref=$current_head_ref"
@@ -139,13 +153,16 @@ jobs:
           qa_sha="$PR_HEAD_SHA"
           site_root="$GITHUB_WORKSPACE/pr-head"
           site_sha="$PR_HEAD_SHA"
+          qa_source_is_head=false
           if [[ -f pr-base/tools/test-browser-smoke.mjs && -f pr-base/.github/workflows/browser-qa.yml ]]; then
             if [[ -f pr-head/tools/test-browser-smoke.mjs && -f pr-head/.github/workflows/browser-qa.yml ]] \
               && { ! cmp -s pr-base/tools/test-browser-smoke.mjs pr-head/tools/test-browser-smoke.mjs \
-                || ! cmp -s pr-base/.github/workflows/browser-qa.yml pr-head/.github/workflows/browser-qa.yml; }; then
+                || ! cmp -s pr-base/.github/workflows/browser-qa.yml pr-head/.github/workflows/browser-qa.yml \
+                || ! cmp -s pr-base/tools/test-browser-detailed.mjs pr-head/tools/test-browser-detailed.mjs; }; then
               # An Infrastructure PR updates its own QA source and tests itself at its exact head.
               qa_root="$GITHUB_WORKSPACE/pr-head"
               qa_sha="$PR_HEAD_SHA"
+              qa_source_is_head=true
             else
               # A feature PR, including an older branch such as #140, uses
               # the reviewed infrastructure from its current base and its own exact site head.
@@ -167,6 +184,11 @@ jobs:
             echo "SITE_SOURCE_ROOT=$site_root"
             echo "SITE_SOURCE_SHA=$site_sha"
             echo "WORKFLOW_EVENT_SHA=$WORKFLOW_EVENT_SHA"
+            echo "IS_INFRASTRUCTURE_PR=$qa_source_is_head"
+            echo "EXPECTED_INFRA_PR_HEAD_SHA=$PR_HEAD_SHA"
+            echo "EXPECTED_PR_HEAD_SHA=$PR_HEAD_SHA"
+            echo "CURRENT_PR_HEAD_SHA=$PR_HEAD_SHA"
+            echo "PR_NUMBER=${{ github.event.pull_request.number }}"
           } >> "$GITHUB_ENV"
 
           echo "INFRA_BASE_SHA=$PR_BASE_SHA"
@@ -250,8 +272,30 @@ jobs:
           echo "SERVER_ROOT_KIND=SOURCE_STATIC_ROOT_SERVED"
 
       - name: Run Chromium smoke at Desktop and Mobile viewports
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.qa_suite == 'smoke')
         shell: bash
         run: node "$QA_INFRASTRUCTURE_ROOT/tools/test-browser-smoke.mjs"
+
+      - name: Run detailed browser QA from the trusted Infrastructure source
+        if: github.event_name == 'workflow_dispatch' && inputs.qa_suite == 'detailed'
+        shell: bash
+        env:
+          PR_NUMBER: ${{ inputs.pr_number }}
+          EXPECTED_PR_HEAD_SHA: ${{ steps.validate-dispatch.outputs.expected_pr_head_sha }}
+          CURRENT_PR_HEAD_SHA: ${{ steps.validate-dispatch.outputs.expected_pr_head_sha }}
+          BROWSER_QA_RESULT_PATH: ${{ runner.temp }}/ux03a-detailed-${{ github.run_id }}-${{ github.run_attempt }}.json
+          GITHUB_WORKFLOW_SHA: ${{ github.workflow_sha }}
+        run: node "$QA_INFRASTRUCTURE_ROOT/tools/test-browser-detailed.mjs"
+
+      - name: Validate Browser QA runner harness from Infrastructure PR Head
+        if: github.event_name == 'pull_request' && env.IS_INFRASTRUCTURE_PR == 'true'
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXPECTED_INFRA_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BROWSER_QA_RESULT_PATH: ${{ runner.temp }}/ux03a-runner-validation-${{ github.run_id }}-${{ github.run_attempt }}.json
+          GITHUB_WORKFLOW_SHA: ${{ github.workflow_sha }}
+        run: node "$QA_INFRASTRUCTURE_ROOT/tools/test-browser-detailed.mjs" --runner-validation
 
       - name: Remove only this run's temporary Browser runtime
         if: always()
