@@ -16,6 +16,31 @@ body {
 
 .page { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 54px 0 72px; }
 .page-heading { margin: 0 0 28px; }
+
+@media (min-width: 768px) {
+  .section-shortcuts {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin: 0 0 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid #344050;
+    background: #11151d;
+  }
+
+  #heroes,
+  #general-ssr-equipment,
+  #exclusive-equipment,
+  #sp-soldiers,
+  #normal-soldiers,
+  #job-glossary {
+    scroll-margin-top: 3.5rem;
+  }
+}
+
 .eyebrow { margin: 0 0 8px; color: #aab9cc; font-size: .76rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .summary { margin: 10px 0 0; color: #b4bfce; line-height: 1.5; }

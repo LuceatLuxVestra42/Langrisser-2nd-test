@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope } from './soldier-training-tech-presentation-contract.mjs';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
@@ -38,14 +39,15 @@ function validateTrainingTechDescriptionMarkup(value, label) {
   }
 }
 
-export function renderSoldierTrainingTechDescriptions(canonical) {
+export function renderSoldierTrainingTechDescriptions(canonical, decisionRecord) {
   if (canonical?.schemaVersion !== 1 || canonical?.responsibility !== 'soldier-training-tech-description-text'
     || !Array.isArray(canonical.records)
     || canonical.scope?.sourceScope !== 'Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c'
     || canonical.scope?.claim !== 'Preserve opaque TrainingTech NORMAL/SP description text for Soldier 115 and related SP Soldier 5115, keyed by source LevelInfo ID.'
     || JSON.stringify(canonical.scope?.excluded) !== JSON.stringify([
       'Game level or slot assignment', 'SP level application', 'Training unlock semantics',
-      'Soldier skill relations', 'Combat mechanics interpretation', 'Korean localization', 'Frontend display',
+      'Soldier skill relations', 'Combat mechanics interpretation', 'Korean localization',
+      'Downstream presentation eligibility (governed by the effective scoped Presentation Contract)',
     ])) throw new Error('Unsupported Soldier TrainingTech description Canonical owner or scope');
   if (canonical.records.length !== 20) throw new Error('TrainingTech description projection must contain exactly 20 admitted Canonical claims');
 
@@ -86,11 +88,7 @@ export function renderSoldierTrainingTechDescriptions(canonical) {
   }
   return `${JSON.stringify({
     schemaVersion: 1,
-    contract: {
-      id: 'soldier-training-tech-description-presentation.v1',
-      status: 'PROPOSED',
-      approved: false,
-    },
+    contract: makeTrainingTechContractEnvelope(decisionRecord),
     source: { ...TRAINING_TECH_DESCRIPTION_SOURCE },
     records,
   }, null, 2)}\n`;
@@ -861,9 +859,12 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]);
   const normalSoldierOutputPath = resolve('generated/normal-soldiers.v1.json');
   await writeFile(normalSoldierOutputPath, renderNormalSoldiers(JSON.parse(normalSoldierIdentities), JSON.parse(normalSoldierLocalizations), JSON.parse(normalSoldierBaseStats), JSON.parse(normalSoldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
-  const trainingTechDescriptions = JSON.parse(await readFile(resolve('canonical/soldier-training-tech-descriptions.v1.json'), 'utf8'));
+  const [trainingTechDescriptions, trainingTechDecisionRecord] = await Promise.all([
+    readFile(resolve('canonical/soldier-training-tech-descriptions.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve(TRAINING_TECH_DECISION_RECORD_PATH), 'utf8').then(JSON.parse),
+  ]);
   const trainingTechDescriptionsOutputPath = resolve('generated/soldier-training-tech-descriptions.v1.json');
-  await writeFile(trainingTechDescriptionsOutputPath, renderSoldierTrainingTechDescriptions(trainingTechDescriptions), 'utf8');
+  await writeFile(trainingTechDescriptionsOutputPath, renderSoldierTrainingTechDescriptions(trainingTechDescriptions, trainingTechDecisionRecord), 'utf8');
   const heroSoldierRelationOwner = JSON.parse(await readFile(resolve('canonical/hero-soldier-relations.v1.json'), 'utf8'));
   const heroSoldierOutputPath = resolve('generated/hero-soldier-relations.v1.json');
   await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(canonical, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');

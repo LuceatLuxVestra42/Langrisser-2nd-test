@@ -2,8 +2,21 @@
   "schemaVersion": 1,
   "contract": {
     "id": "soldier-training-tech-description-presentation.v1",
-    "status": "PROPOSED",
-    "approved": false
+    "version": 1,
+    "status": "EFFECTIVE",
+    "approved": true,
+    "effective": true,
+    "decisionRecord": "docs/decisions/pr137-training-tech-223-presentation.v1.json",
+    "decisionIds": [
+      "PR137-TT223-DECISION-A-v1",
+      "PR137-TT223-DECISION-B-v1"
+    ],
+    "publicSurfaces": [
+      "soldier_card_ui",
+      "build_generated_json",
+      "hosted_direct_json",
+      "public_github_source"
+    ]
   },
   "source": {
     "repository": "LuceatLuxVestra42/langrisser-future-guide",

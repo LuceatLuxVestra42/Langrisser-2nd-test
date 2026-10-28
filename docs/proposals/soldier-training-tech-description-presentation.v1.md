@@ -1,13 +1,17 @@
 # Soldier TrainingTech 223 Description Presentation Contract
 
 **Contract ID:** `soldier-training-tech-description-presentation.v1`
-**Status:** `PROPOSED / NOT_APPROVED / NOT_EFFECTIVE`
+**Status:** `APPROVED`
+**Effectiveness:** `EFFECTIVE` after the owning validators and Required CI pass on this exact source state.
+**Decision Record:** `docs/decisions/pr137-training-tech-223-presentation.v1.json`
 **Repository Ref:** proposal branch based on `main` at `ef63ede9d866dc55f6c1af46646ab22840b6ce26`
-**Decision A — existing-scope reconciliation:** `UNRESOLVED`
-**Decision B — publication eligibility:** `UNRESOLVED`
-**Publication state:** `PUBLICATION_BLOCKED`
+**Decision A — existing-scope reconciliation:** `APPROVED` (`A2_WITH_MINIMAL_A1_RECONCILIATION`)
+**Decision B — publication eligibility:** `APPROVED` for the four exact public surfaces in the Decision Record.
+**Publication state:** `AUTHORIZED_FOR_EXACT_20_CLAIMS`; actual Pages deployment remains a separate gate.
 
-This proposal does not amend, override, or interpret the existing Canonical exclusion `Frontend display` or Evidence exclusion `Generated or frontend presentation`. It proposes a separate downstream consumer for review. The relationship between these exclusions and a future consumer remains unresolved until an authorized owner records Decision A. This proposal grants no publication permission and becomes effective only after Decisions A and B are separately approved and recorded by identified owners with documented authority.
+Decision A uses a separate downstream Presentation contract and the minimum reconciliation required by the existing exclusions. Canonical does not grant downstream presentation eligibility. Evidence does not itself authorize Generated or frontend publication. The reconciled scope statements in Canonical and Evidence refer downstream permission to this exact-scope Presentation Contract. The admitted claims, evidence, identities, relations, strings, fields, source pin, and provenance remain unchanged.
+
+Decision A and Decision B were authorized by the Project Principal Decision-Maker, as expressly identified by the user in the authorization conversation. The individual account/legal name and original decision date are not inferred and remain `UNRESOLVED`; the record date is in the Decision Record. GitHub permission alone is not the authority basis.
 
 ## 1. Purpose and responsibility boundary
 
@@ -33,9 +37,13 @@ Source records and locators:
 
 The TrainingTech record explicitly lists `SoldierIDRelated=[115,5115]` and `TechLevelupInfoList=[2230…2239]`. The consumer must use exact Canonical IDs and Provenance. It must not infer endpoints through names, arithmetic, ordering, or fallback.
 
-No additional Soldier, TrainingTech, LevelInfo ID, field, source version, or relation is authorized by this proposal.
+No additional Soldier, TrainingTech, LevelInfo ID, field, source version, or relation is authorized by this contract.
 
-## 3. Permitted presentation if Decisions A and B approve
+### 2.1 Authorized public surfaces
+
+Decision B authorizes only these exact 20 claims on Soldier card UI, Build Generated JSON, Hosted Direct JSON, and public GitHub Source. Direct JSON access and UI presentation are separate permissions; both are explicitly included. This authorization does not assert that a Hosted deployment has occurred or passed verification.
+
+## 3. Permitted presentation under Decisions A and B
 
 The consumer may display:
 
@@ -71,30 +79,30 @@ The owning validator must compare original Canonical strings byte-for-byte with 
 - **Semantic Claim Owner:** existing Canonical/Evidence responsibility; named human owner `UNRESOLVED`.
 - **Generated Projection Owner:** `UNRESOLVED`.
 - **Frontend Presentation Owner:** `UNRESOLVED`.
-- **Contract Reconciliation Owner for Decision A:** `UNRESOLVED`.
-- **Publication Eligibility Approver for Decision B:** `UNRESOLVED`.
+- **Contract Reconciliation Owner for Decision A:** the Project Principal Decision-Maker for policy; implementation owner identity remains `UNRESOLVED`.
+- **Publication Eligibility Approver for Decision B:** the Project Principal Decision-Maker for policy; implementation owner identity remains `UNRESOLVED`.
 
 GitHub write, admin, review, Required CI, or merge permission alone does not establish authority to resolve existing contract scope or approve publication. The approver's role and authority basis must be recorded.
 
-Decisions A and B require separate records. Each record must identify the decision, approver and authority, repository and Ref, this Contract ID/version, exact IDs and fields, outcome, date, record location, compatibility action, effective conditions, and review or revocation terms. Decision A does not approve publication. Decision B cannot expand this scope.
+Decisions A and B are recorded independently in the Decision Record with separate IDs and outcomes. The record identifies repository, Contract ID/version, source, IDs/fields, public surfaces, authority basis, reconciliation, validators, effectiveness conditions, and review/revocation terms. Decision A does not itself authorize publication; Decision B cannot expand this exact scope.
 
-## 6. Effectiveness and publication gate
+## 6. Contract approval and effectiveness
 
-This proposal remains non-effective until all of the following hold:
+Approval and effectiveness are independent states. The Decision Record approves both policy decisions. The contract is effective only when the following conditions hold together:
 
-1. An authorized owner records Decision A and resolves the relationship to both existing exclusions.
-2. An independently authorized publication owner records Decision B as approval for this exact scope.
-3. Both approval records and any required contract reconciliation are committed through the normal repository review path.
-4. Generated and Presentation owners are identified and the approved contract version is made effective.
-5. The generated consumer's approval state is changed only by a reviewed change that references those approval records.
+1. Separately identified Decision A and Decision B records match this Contract ID/version.
+2. Canonical and Evidence downstream responsibility wording is reconciled and their owning validator passes without changing admitted Semantic claims.
+3. Generated output is deterministic and matches all 20 Canonical rows, source fields, IDs, and provenance.
+4. Build, Frontend Guard, revocation negatives, and Required CI pass on the same source state.
+5. Generated approval/effectiveness metadata matches the Decision Record; `approved: true` alone never enables publication.
 
-Until then, the Generated consumer must say `PROPOSED` and `approved: false`, and the Frontend must render no TrainingTech disclosure. A proposed PR, test fixture, CI PASS, Review comment, or merge authority is not an approval record.
+While unapproved, approved-only, revoked, wrong-version, or out-of-scope, the Frontend renders no TrainingTech disclosure and Build omits the direct JSON artifact. The effective state permits only these exact 20 claims and four approved surfaces. A test fixture, CI PASS, Review comment, or merge permission alone is not an approval record.
 
-Any change to IDs, fields, source pin, disclosure, markup handling, or presentation meaning requires a new reviewed contract version. New source versions do not inherit this proposal's approval. An identified publication owner may suspend or revoke eligibility through a recorded reviewed revision. Revocation removes presentation eligibility but does not invalidate or delete Canonical claims.
+Any change to IDs, fields, source pin, disclosure, markup handling, public surfaces, or presentation meaning requires a new reviewed contract decision. New source versions do not inherit this approval. Revocation disables future UI use and causes new Build output to omit the JSON artifact. It does not erase previously published static files, GitHub history, caches, or external copies; replacing a deployed copy remains a separate deployment action.
 
-## 7. Required validation after approval
+## 7. Required validation for contract effectiveness
 
-Before a future PR can claim implementation readiness, independent checks must establish:
+Independent checks must establish:
 
 1. Exact parity across the 20 Canonical claims and Generated output.
 2. Exact Soldier, TrainingTech, LevelInfo, and Provenance linkage.
@@ -107,4 +115,4 @@ Before a future PR can claim implementation readiness, independent checks must e
 9. Cache-key checks, applicable regressions, Preflight, and static Build.
 10. Exact PR Head Required CI success.
 
-Even if these checks pass, publication remains blocked until Decisions A and B are effective. A separate approval and review are required before any Merge, Main CI, Pages, Hosted, or Browser delivery gate.
+Passing these checks establishes the contract's technical effectiveness for this exact source state. Draft release, Merge, Main CI, Pages deployment, and Hosted verification remain separate gates; this contract does not perform them.

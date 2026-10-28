@@ -753,28 +753,34 @@ function appendSkillDescription(target, sourceText) {
 function indexSoldierTrainingTechDescriptions(data) {
   if (data?.schemaVersion !== 1 || !Array.isArray(data.records)
     || data.contract?.id !== 'soldier-training-tech-description-presentation.v1'
-    || !['PROPOSED', 'APPROVED'].includes(data.contract.status)
-    || typeof data.contract.approved !== 'boolean'
+    || data.contract.version !== 1
+    || !['PROPOSED', 'APPROVED', 'EFFECTIVE', 'REVOKED'].includes(data.contract.status)
+    || typeof data.contract.approved !== 'boolean' || typeof data.contract.effective !== 'boolean'
+    || data.contract.decisionRecord !== 'docs/decisions/pr137-training-tech-223-presentation.v1.json'
+    || JSON.stringify(data.contract.decisionIds) !== JSON.stringify(['PR137-TT223-DECISION-A-v1', 'PR137-TT223-DECISION-B-v1'])
+    || JSON.stringify(data.contract.publicSurfaces) !== JSON.stringify(['soldier_card_ui', 'build_generated_json', 'hosted_direct_json', 'public_github_source'])
     || data.source?.repository !== 'LuceatLuxVestra42/langrisser-future-guide'
     || data.source?.commit !== '6475e63ee23d18adf733756c26a14fa9e3ed662c') {
     throw new Error('Unsupported Soldier TrainingTech description consumer');
   }
-  if (data.contract.status === 'PROPOSED' && data.contract.approved === false) return new Map();
-  if (data.contract.status !== 'APPROVED' || data.contract.approved !== true || data.records.length !== 20) {
-    throw new Error('Soldier TrainingTech descriptions are not covered by an effective publication approval');
-  }
+  if (data.contract.status !== 'EFFECTIVE' || data.contract.approved !== true || data.contract.effective !== true) return new Map();
+  if (data.records.length !== 20) throw new Error('Effective Soldier TrainingTech contract must contain exactly 20 records');
   const expected = new Map([
     ['NORMAL', { soldierId: 115, sourceField: 'Description' }],
     ['SP', { soldierId: 5115, sourceField: 'SpSoidlierDescription' }],
   ]);
   const levelInfoIds = new Set([2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239]);
+  const evidencePath = 'evidence/source/configdata/soldier-training-tech-223-descriptions.v1.json';
   const bySoldier = new Map();
   for (const row of data.records) {
     const target = expected.get(row.variant);
     if (!target || row.soldierId !== target.soldierId || row.trainingTechId !== 223
       || !levelInfoIds.has(row.levelInfoId) || row.sourceField !== target.sourceField
       || typeof row.descriptionCn !== 'string' || !row.descriptionCn.trim()
-      || !row.provenance || typeof row.provenance.description !== 'string') {
+      || !row.provenance
+      || row.provenance.description !== `${evidencePath}#ID=${row.levelInfoId}/${target.sourceField}`
+      || row.provenance.soldierRelation !== `${evidencePath}#ID=223/SoldierIDRelated&contains=${target.soldierId}`
+      || row.provenance.levelInfoLink !== `${evidencePath}#ID=223/TechLevelupInfoList&contains=${row.levelInfoId}`) {
       throw new Error('Malformed or out-of-scope Soldier TrainingTech description');
     }
     const key = `${row.variant}:${row.soldierId}`;
@@ -823,10 +829,13 @@ function makeSoldierTrainingTechPresentation(soldier, variant, bySoldier) {
     const label = document.createElement('p');
     label.className = 'soldier-training-tech-label';
     label.textContent = `LevelInfo Source ID ${row.levelInfoId} · Source Field ${row.sourceField}`;
+    const provenance = document.createElement('p');
+    provenance.className = 'soldier-training-tech-source';
+    provenance.textContent = `Source: data/configdata/ConfigDataTrainingTechLevelInfo.json#ID=${row.levelInfoId}/${row.sourceField} · Evidence: ${row.provenance.description} · Relation: ${row.provenance.soldierRelation} · LevelInfo link: ${row.provenance.levelInfoLink}`;
     const description = document.createElement('p');
     description.className = 'soldier-training-tech-description';
     appendSkillDescription(description, row.descriptionCn);
-    item.append(label, description);
+    item.append(label, provenance, description);
     list.append(item);
   }
   details.append(summary, notice);

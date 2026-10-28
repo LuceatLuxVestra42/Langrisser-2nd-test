@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { renderSoldierTrainingTechDescriptions } from './generate.mjs';
+import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 
 const EXPECTED = new Map([
   ['NORMAL', { soldierId: 115, sourceField: 'Description' }],
@@ -21,18 +22,25 @@ function exactKeys(value, keys, label) {
   if (JSON.stringify(actual) !== JSON.stringify(wanted)) fail(`${label} fields mismatch (${actual.join(',')})`);
 }
 
-export function validateSoldierTrainingTechPresentation({ canonical, generatedText, frontend }) {
+export function validateSoldierTrainingTechPresentation({ canonical, evidence, decisionRecord, generatedText, frontend }) {
   check(canonical?.schemaVersion === 1 && canonical.responsibility === 'soldier-training-tech-description-text', 'unsupported Canonical owner');
   check(canonical.scope?.sourceScope === `Pinned CN ConfigData at ${SOURCE_COMMIT}`, 'Canonical source scope mismatch');
+  check(canonical.scope?.excluded?.includes('Downstream presentation eligibility (governed by the effective scoped Presentation Contract)'), 'Canonical downstream eligibility boundary is not reconciled');
   check(canonical.records?.length === 20, 'Canonical claim population must remain 20');
-  check(generatedText === renderSoldierTrainingTechDescriptions(canonical), 'Generated consumer is stale or non-deterministic');
+  check(evidence?.responsibility === 'soldier-training-tech-description-source-slice'
+    && evidence.scope?.excluded?.includes('Generated or frontend publication authorization (governed by the effective scoped Presentation Contract)'),
+  'Evidence publication authorization boundary is not reconciled');
+  const decisionState = validateTrainingTechDecisionRecord(decisionRecord);
+  check(decisionState.effective && !decisionState.revoked, 'Contract is not effective or has been revoked');
+  check(generatedText === renderSoldierTrainingTechDescriptions(canonical, decisionRecord), 'Generated consumer is stale or non-deterministic');
   const generated = JSON.parse(generatedText);
   exactKeys(generated, ['schemaVersion', 'contract', 'source', 'records'], 'Generated envelope');
   check(generated.schemaVersion === 1 && Array.isArray(generated.records), 'Generated schema mismatch');
-  exactKeys(generated.contract, ['id', 'status', 'approved'], 'Generated proposal contract');
-  check(generated.contract.id === 'soldier-training-tech-description-presentation.v1'
-    && generated.contract.status === 'PROPOSED' && generated.contract.approved === false,
-  'Generated consumer must remain non-effective and unapproved');
+  exactKeys(generated.contract, ['id', 'version', 'status', 'approved', 'effective', 'decisionRecord', 'decisionIds', 'publicSurfaces'], 'Generated contract envelope');
+  check(JSON.stringify(generated.contract) === JSON.stringify(makeTrainingTechContractEnvelope(decisionRecord))
+    && generated.contract.status === 'EFFECTIVE' && generated.contract.approved === true && generated.contract.effective === true
+    && generated.contract.decisionRecord === TRAINING_TECH_DECISION_RECORD_PATH,
+  'Generated Contract envelope does not match the approved and effective Decision Record');
   exactKeys(generated.source, ['repository', 'commit', 'trainingTechPath', 'levelInfoPath'], 'Generated source pin');
   check(generated.source.repository === SOURCE_REPOSITORY && generated.source.commit === SOURCE_COMMIT
     && generated.source.trainingTechPath === 'data/configdata/ConfigDataTrainingTechInfo.json'
@@ -80,19 +88,24 @@ export function validateSoldierTrainingTechPresentation({ canonical, generatedTe
   check(typeof frontend === 'string'
     && frontend.includes("fetch('./generated/soldier-training-tech-descriptions.v1.json')")
     && frontend.includes("makeSoldierTrainingTechPresentation(soldier, 'NORMAL', soldierTrainingTechDescriptions)")
-    && frontend.includes("makeSoldierTrainingTechPresentation(soldier, 'SP', soldierTrainingTechDescriptions)"),
+    && frontend.includes("makeSoldierTrainingTechPresentation(soldier, 'SP', soldierTrainingTechDescriptions)")
+    && frontend.includes('row.provenance.description')
+    && frontend.includes('row.provenance.soldierRelation')
+    && frontend.includes('row.provenance.levelInfoLink'),
   'Frontend consumer path or exact NORMAL/SP card association is missing');
   check(!/\.innerHTML\s*=/.test(frontend), 'Frontend must not interpret source text as HTML');
-  return { claimCount: generated.records.length, soldierIds: [115, 5115], levelInfoIds: LEVEL_INFO_IDS, publicationApproved: false };
+  return { claimCount: generated.records.length, soldierIds: [115, 5115], levelInfoIds: LEVEL_INFO_IDS, publicationApproved: true, contractEffective: true };
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
-  const [canonical, generatedText, frontend] = await Promise.all([
+  const [canonical, evidence, decisionRecord, generatedText, frontend] = await Promise.all([
     readFile(resolve('canonical/soldier-training-tech-descriptions.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve(EVIDENCE_PATH), 'utf8').then(JSON.parse),
+    readFile(resolve(TRAINING_TECH_DECISION_RECORD_PATH), 'utf8').then(JSON.parse),
     readFile(resolve('generated/soldier-training-tech-descriptions.v1.json'), 'utf8'),
     readFile(resolve('app.js'), 'utf8'),
   ]);
-  const result = validateSoldierTrainingTechPresentation({ canonical, generatedText, frontend });
-  process.stdout.write(`Soldier TrainingTech presentation: PASS (${result.claimCount} exact claims; proposal remains unapproved and non-effective)\n`);
+  const result = validateSoldierTrainingTechPresentation({ canonical, evidence, decisionRecord, generatedText, frontend });
+  process.stdout.write(`Soldier TrainingTech presentation: PASS (${result.claimCount} exact claims; contract approved and effective)\n`);
 }
