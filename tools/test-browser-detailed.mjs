@@ -131,7 +131,14 @@ function assessAnchorTargetGeometry(geometry, tolerance = 1) {
     && effectiveContentRect.top >= navigationRect.bottom - 1);
   const offsetMatches = Number.isFinite(scrollMarginTop) && targetRect
     && Math.abs(targetRect.top - scrollMarginTop) <= tolerance;
-  const offsetValid = atDocumentTop || atDocumentEnd || Boolean(offsetMatches);
+  const desiredScrollY = Number.isFinite(scrollY) && Number.isFinite(scrollMarginTop) && targetRect
+    ? scrollY + targetRect.top - scrollMarginTop
+    : null;
+  const topLimitConstrainsOffset = atDocumentTop && Number.isFinite(desiredScrollY)
+    && desiredScrollY < -tolerance;
+  const endLimitConstrainsOffset = atDocumentEnd && Number.isFinite(desiredScrollY)
+    && desiredScrollY > maxScrollY + tolerance;
+  const offsetValid = Boolean(offsetMatches || topLimitConstrainsOffset || endLimitConstrainsOffset);
   const hashMatches = geometry.urlHash === `#${geometry.anchorId}`;
   const passed = Boolean(geometry.targetExists && geometry.effectiveContentExists && hashMatches
     && targetVisible && navigationVisible && targetStartsBelowNavigation && offsetValid);
@@ -146,6 +153,7 @@ function assessAnchorTargetGeometry(geometry, tolerance = 1) {
   return {
     passed, message, atDocumentTop, atDocumentEnd, hashMatches,
     targetVisible, navigationVisible, targetStartsBelowNavigation,
+    desiredScrollY, topLimitConstrainsOffset, endLimitConstrainsOffset,
     offsetMatches: Boolean(offsetMatches), offsetValid,
   };
 }
@@ -203,6 +211,14 @@ function validateFailureSerializationFixture() {
     computedCss: { ...fixtureGeometry.computedCss, target: { scrollMarginTop: '56px', scrollMarginTopPx: 56 } },
   };
   assert.equal(assertAnchorTargetGeometry(normalFixture).passed, true, 'normal target alignment must pass');
+  const topLimited = {
+    ...normalFixture,
+    navigationRect: { ...normalFixture.navigationRect, bottom: 30, height: 30 },
+    targetRect: { ...normalFixture.targetRect, top: 40 },
+    effectiveContentRect: { ...normalFixture.effectiveContentRect, top: 40 },
+    scroll: { x: 0, y: 0, maxY: 9000 },
+  };
+  assert.equal(assertAnchorTargetGeometry(topLimited).passed, true, 'a confirmed document-top limit may constrain offset while content remains accessible');
   const alternateLayout = {
     ...normalFixture,
     navigationRect: { ...normalFixture.navigationRect, bottom: 60, height: 60 },
@@ -218,6 +234,11 @@ function validateFailureSerializationFixture() {
     targetRect: { ...alternateLayout.targetRect, top: 90 },
   };
   assert.equal(assertAnchorTargetGeometry(endLimited).passed, true, 'a confirmed document-end limit may constrain offset while content remains accessible');
+  const notEndLimited = {
+    ...endLimited,
+    scroll: { x: 0, y: 500, maxY: 1000 },
+  };
+  assert.equal(assessAnchorTargetGeometry(notEndLimited).passed, false, 'being near a target at document end must not waive offset when scroll range remains');
   const aboveViewport = { ...normalFixture, effectiveContentRect: { ...normalFixture.effectiveContentRect, top: -20, bottom: 40 }, targetRect: { ...normalFixture.targetRect, top: -20, bottom: 40 } };
   assert.equal(assessAnchorTargetGeometry(aboveViewport).passed, false, 'above-viewport content must fail');
   const offsetViolation = { ...normalFixture, effectiveContentRect: { ...normalFixture.effectiveContentRect, top: 90 }, targetRect: { ...normalFixture.targetRect, top: 90 } };
@@ -235,6 +256,7 @@ function validateFailureSerializationFixture() {
     detailedExitCode: processExitCode([restored], null),
     targetAssertionFixtures: {
       normalAlignment: true, alternateLayout: true, endLimitedAccessible: true,
+      topLimitedAccessible: true, endNotActuallyLimited: true,
       navigationOcclusion: true, aboveViewport: true, offsetViolation: true,
       missingTarget: true, hashMismatch: true,
     },
