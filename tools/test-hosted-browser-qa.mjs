@@ -15,6 +15,8 @@ const JSON_PATH = 'generated/soldier-training-tech-descriptions.v1.json';
 // This reviewed Build copies the four compared files without transformation.
 // A Build contract change needs a new review before this runner can certify it.
 const REVIEWED_BUILD_BLOB = '24ebcb243a5d6810d5825d471b6b56698b7f7894';
+const PAGES_WORKFLOW_ID = 367575105;
+const PAGES_WORKFLOW_PATH = 'dynamic/pages/pages-build-deployment';
 const SCRIPT = fileURLToPath(import.meta.url);
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const gitBlob = bytes => createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
@@ -44,12 +46,35 @@ function validateHtml(text, contentType) {
 function successfulResponse(status) {
   assert.equal(status, 200, `Required resource HTTP ${status}`);
 }
+function sourceError(code, message, details = {}) {
+  return Object.assign(new Error(message), { code, details });
+}
+function sourceEqual(observed, expected, field) {
+  if (observed !== expected) throw sourceError('HOSTED_SOURCE_MISMATCH', `${field} mismatch`, { field, expected, observed });
+}
+function evidence(condition, message, details = {}) {
+  if (!condition) throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', message, details);
+}
 function validateDeployment(deployment, status, expectedSha, expectedId) {
-  assert.equal(String(deployment.id), String(expectedId), 'Deployment ID changed');
-  assert.equal(deployment.environment, 'github-pages', 'Unexpected deployment environment');
-  assert.equal(deployment.sha, expectedSha, 'Deployment SHA mismatch');
-  assert.equal(status?.state, 'success', 'Latest Deployment status is not success');
-  assert.equal(status.environment_url, HOSTED, 'Deployment URL mismatch');
+  evidence(deployment && status, 'Deployment or latest status evidence missing');
+  sourceEqual(String(deployment.id), String(expectedId), 'Deployment ID');
+  sourceEqual(deployment.environment, 'github-pages', 'Deployment environment');
+  sourceEqual(deployment.sha, expectedSha, 'Deployment SHA');
+  sourceEqual(status.state, 'success', 'Deployment status');
+  sourceEqual(status.environment_url, HOSTED, 'Deployment URL');
+}
+function selectPagesRun(runs, expectedSha) {
+  const run = runs.find(r => r.workflow_id === PAGES_WORKFLOW_ID && r.path === PAGES_WORKFLOW_PATH
+    && r.head_sha === expectedSha && r.head_branch === 'main' && r.status === 'completed' && r.conclusion === 'success');
+  evidence(run, 'Verified Pages workflow run evidence missing', { workflowId: PAGES_WORKFLOW_ID, path: PAGES_WORKFLOW_PATH, expectedSha });
+  return run;
+}
+function selectArtifact(artifacts, run) {
+  const artifact = artifacts.find(a => a.name === 'github-pages');
+  evidence(artifact && !artifact.expired, 'Pages artifact missing or expired', { runId: run.id, artifactId: artifact?.id, expired: artifact?.expired });
+  evidence(artifact.workflow_run?.id === run.id && artifact.workflow_run?.head_sha === run.head_sha,
+    'Artifact-to-Pages Source linkage unconfirmed', { runId: run.id, artifactId: artifact.id, observed: artifact.workflow_run });
+  return artifact;
 }
 function validateUpload(outcome) { assert.equal(outcome, 'success', 'Artifact upload failed'); }
 function finishStatus(result) {
@@ -64,13 +89,26 @@ async function persist(path, value, writer = writeFile) {
 }
 async function evaluateTest(entry, action) {
   try { entry.observed = await action(); entry.status = 'PASS'; }
-  catch (e) { entry.status = 'FAIL'; entry.error = errorText(e); throw e; }
+  catch (e) { entry.status = 'FAIL'; entry.error = errorText(e); entry.errorCategory = e.code || null; entry.errorEvidence = e.details || null; throw e; }
   finally { entry.completedAt = new Date().toISOString(); }
+}
+async function githubJson(path, token, fetcher = fetch) {
+  assert.ok(path.startsWith(`/repos/${REPOSITORY}/`), 'API path outside repository');
+  let response;
+  try { response = await fetcher(`https://api.github.com${path}`, {
+    redirect: 'error', signal: AbortSignal.timeout(20000),
+    headers: { Accept: 'application/vnd.github+json', Authorization: `Bearer ${token}`, 'X-GitHub-Api-Version': '2022-11-28' },
+  }); } catch (e) { throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', 'GitHub read API transport failure', { path, error: errorText(e) }); }
+  evidence(response.status === 200, 'GitHub read API unavailable', { path, httpStatus: response.status });
+  try { return await response.json(); }
+  catch (e) { throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', 'GitHub API response not JSON', { path, error: errorText(e) }); }
 }
 
 async function selfTest() {
   let count = 0;
-  const reject = (id, fn) => { assert.throws(fn, undefined, id); count++; };
+  const checks = [];
+  const pass = (id, layer = 'PURE_HELPER_TEST') => { count++; checks.push({ id, layer, status: 'PASS' }); };
+  const reject = (id, fn) => { assert.throws(fn, undefined, id); pass(id); };
   reject('URL_EXTERNAL', () => hostedUrl('https://example.com/'));
   reject('URL_BASE_PATH', () => hostedUrl('https://luceatluxvestra42.github.io/other/'));
   reject('URL_HTTP', () => hostedUrl(HOSTED.replace('https:', 'http:')));
@@ -80,7 +118,7 @@ async function selfTest() {
   const sha = 'a'.repeat(40);
   const d = { id: 123, sha, environment: 'github-pages' };
   const s = { state: 'success', environment_url: HOSTED };
-  validateDeployment(d, s, sha, '123'); count++;
+  validateDeployment(d, s, sha, '123'); pass('DEPLOYMENT_VALID');
   reject('DEPLOYMENT_SHA', () => validateDeployment({ ...d, sha: 'b'.repeat(40) }, s, sha, '123'));
   reject('DEPLOYMENT_PENDING', () => validateDeployment(d, { ...s, state: 'pending' }, sha, '123'));
   reject('DEPLOYMENT_REPLACED', () => validateDeployment({ ...d, id: 124 }, s, sha, '123'));
@@ -88,8 +126,8 @@ async function selfTest() {
   reject('REQUIRED_RESOURCE_FAIL', () => successfulResponse(404));
   reject('ARTIFACT_UPLOAD_FAIL', () => validateUpload('failure'));
   const result = { tests: [{ status: 'PASS' }], cleanup: { browserClosed: true, contextsClosed: true } };
-  assert.equal(finishStatus(result), 'PASS'); count++;
-  assert.equal(finishStatus({ ...result, cleanup: { browserClosed: false, contextsClosed: true } }), 'FAIL'); count++;
+  assert.equal(finishStatus(result), 'PASS'); pass('RESULT_SUCCESS');
+  assert.equal(finishStatus({ ...result, cleanup: { browserClosed: false, contextsClosed: true } }), 'FAIL'); pass('CLEANUP_AGGREGATE_FAIL');
   const dir = await mkdtemp(join(tmpdir(), 'hosted-qa-fixture-'));
   try {
     const path = join(dir, 'result.json');
@@ -105,9 +143,9 @@ async function selfTest() {
       const failure = { ...result, tests: [entry] };
       assert.equal(finishStatus(failure), 'FAIL');
       await persist(path, failure);
-      assert.equal(JSON.parse(await readFile(path, 'utf8')).tests[0].id, reason); count++;
+      assert.equal(JSON.parse(await readFile(path, 'utf8')).tests[0].id, reason); pass(reason);
     }
-    await assert.rejects(persist(path, result, async () => { throw new Error('disk full fixture'); })); count++;
+    await assert.rejects(persist(path, result, async () => { throw new Error('disk full fixture'); })); pass('RESULT_WRITE_FAIL');
     // Exercise the real top-level failure writer, without reaching any API or browser.
     assert.throws(() => execFileSync(process.execPath, [SCRIPT], {
       env: { ...process.env, GITHUB_REPOSITORY: 'fixture/wrong-repository', QA_RESULT_DIR: dir }, stdio: 'pipe',
@@ -115,15 +153,15 @@ async function selfTest() {
     const aborted = JSON.parse(await readFile(path, 'utf8'));
     assert.equal(aborted.overallStatus, 'FAIL');
     assert.equal(aborted.tests.find(t => t.id === 'M01').status, 'NOT_VERIFIED');
-    assert.equal(aborted.browserVersion, null); count++;
+    assert.equal(aborted.browserVersion, null); pass('TOP_LEVEL_ABORT_AND_SKIPPED_ASSERTIONS', 'SCRIPT_INTEGRATION_TEST');
     const runtime = join(dir, 'hosted-runtime-1-1'); await mkdir(runtime);
     assert.throws(() => execFileSync(process.execPath, [SCRIPT, '--finalize'], {
       env: { ...process.env, QA_RESULT_DIR: dir, RUNNER_TEMP: dir, GITHUB_RUN_ID: '1', GITHUB_RUN_ATTEMPT: '1', BROWSER_QA_RUNTIME_ROOT: runtime }, stdio: 'pipe',
     }));
-    assert.equal(JSON.parse(await readFile(path, 'utf8')).cleanup.runtimeRemoved, false); count++;
+    assert.equal(JSON.parse(await readFile(path, 'utf8')).cleanup.runtimeRemoved, false); pass('CLEANUP_FINALIZE_FAIL', 'SCRIPT_INTEGRATION_TEST');
     assert.throws(() => execFileSync(process.execPath, [SCRIPT, '--verify-upload'], {
       env: { ...process.env, ARTIFACT_OUTCOME: 'failure' }, stdio: 'pipe',
-    })); count++;
+    })); pass('UPLOAD_VERIFY_PROCESS_FAIL', 'SCRIPT_INTEGRATION_TEST');
   } finally { await rm(dir, { recursive: true, force: true }); }
   // Static Actions contracts are validated without dispatching the workflow.
   const workflow = await readFile(resolve(dirname(SCRIPT), '../.github/workflows/hosted-browser-qa.yml'), 'utf8');
@@ -132,7 +170,21 @@ async function selfTest() {
   assert.doesNotMatch(workflow, /secrets\./);
   assert.doesNotMatch(workflow, /(?:contents|actions|deployments|pages): write/);
   for (const required of ['if: always()', 'if-no-files-found: error', 'cancel-in-progress: false', 'github.workflow_sha', 'persist-credentials: false', 'ARTIFACT_OUTCOME', '--finalize', '--self-test']) assert.ok(workflow.includes(required), required);
-  count++;
+  pass('WORKFLOW_CONTRACT', 'WORKFLOW_STATIC_VALIDATION');
+  const run = { id: 40778088217, workflow_id: PAGES_WORKFLOW_ID, path: PAGES_WORKFLOW_PATH, head_sha: sha, head_branch: 'main', status: 'completed', conclusion: 'success' };
+  assert.equal(selectPagesRun([run], sha).id, run.id); pass('ACTUAL_PAGES_RUN_SHAPE');
+  const expectSourceError = (id, code, action) => { assert.throws(action, e => e.code === code); pass(id); };
+  expectSourceError('PAGES_RUN_MISSING', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectPagesRun([], sha));
+  expectSourceError('ARTIFACT_EXPIRED', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectArtifact([{ name: 'github-pages', expired: true }], run));
+  expectSourceError('ARTIFACT_LINK_MISSING', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectArtifact([{ name: 'github-pages', expired: false }], run));
+  expectSourceError('BYTE_MISMATCH_CATEGORY', 'HOSTED_SOURCE_MISMATCH', () => sourceEqual('observed', 'expected', 'Hosted bytes'));
+  expectSourceError('DEPLOYMENT_MISMATCH_CATEGORY', 'HOSTED_SOURCE_MISMATCH', () => validateDeployment({ ...d, sha: 'b'.repeat(40) }, s, sha, '123'));
+  await assert.rejects(githubJson(`/repos/${REPOSITORY}/actions/runs/1`, 'fixture-token', async () => ({ status: 403 })), e => e.code === 'HOSTED_SOURCE_EVIDENCE_GAP' && e.details.httpStatus === 403); pass('API_403_CATEGORY');
+  await assert.rejects(githubJson(`/repos/${REPOSITORY}/actions/runs/1`, 'fixture-token', async () => { throw new Error('fixture network'); }), e => e.code === 'HOSTED_SOURCE_EVIDENCE_GAP' && e.details.error === 'fixture network'); pass('API_TRANSPORT_CATEGORY');
+  const classified = { id: 'SOURCE_FIXTURE', status: 'NOT_VERIFIED' };
+  await assert.rejects(evaluateTest(classified, async () => { throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', 'fixture', { artifactId: 123, expired: true }); }));
+  assert.equal(classified.errorCategory, 'HOSTED_SOURCE_EVIDENCE_GAP'); assert.equal(classified.errorEvidence.expired, true); pass('CLASSIFIED_FAILURE_EVIDENCE');
+  console.log(JSON.stringify({ checks }));
   console.log(`HOSTED_RUNNER_SELF_TEST_PASS: ${count} checks; no Hosted access, browser launch or GitHub mutation`);
 }
 
@@ -145,7 +197,7 @@ async function runHosted() {
     repository: REPOSITORY, hostedUrl: HOSTED, workflowRunId: env.GITHUB_RUN_ID || null,
     runAttempt: env.GITHUB_RUN_ATTEMPT || null, jobName: env.GITHUB_JOB || null, jobId: null,
     workflowRef: env.GITHUB_WORKFLOW_REF || null, qaInfrastructureSha: env.QA_INFRASTRUCTURE_SHA || null,
-    expectedSiteSourceSha: env.EXPECTED_SITE_SHA || null, currentDeploymentSourceSha: null,
+    expectedSiteSourceSha: env.EXPECTED_SITE_SHA || null, currentDeploymentSourceSha: null, sourceStatus: 'NOT_VERIFIED',
     playwrightVersion: null, browserVersion: null, viewports: [], tests: [], probe: [],
     sourceParity: [], deployment: null, artifactUpload: 'NOT_VERIFIED: workflow upload step is separate evidence',
     cleanup: { browserClosed: false, contextsClosed: false, runtimeRemoved: false },
@@ -153,7 +205,16 @@ async function runHosted() {
   const test = async (id, expectation, action, viewport = null) => {
     const entry = { id, viewport, expectation, url: HOSTED, startedAt: new Date().toISOString(), status: 'NOT_VERIFIED' };
     result.tests.push(entry);
-    await evaluateTest(entry, action);
+    await evaluateTest(entry, async () => {
+      try { return await action(); }
+      catch (e) {
+        if (['DEPLOYMENT_SOURCE', 'DEPLOYMENT_STILL_CURRENT'].includes(id)
+          && !['HOSTED_SOURCE_MISMATCH', 'HOSTED_SOURCE_EVIDENCE_GAP'].includes(e.code)) {
+          throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', 'Deployment evidence could not be evaluated', { cause: errorText(e) });
+        }
+        throw e;
+      }
+    });
   };
   let browser;
   const contexts = [];
@@ -161,20 +222,16 @@ async function runHosted() {
   const token = env.GH_TOKEN;
   // Never send GitHub credentials to the Hosted browser or any redirected URL.
   async function api(path) {
-    assert.ok(path.startsWith(`/repos/${REPOSITORY}/`), 'API path outside repository');
-    const response = await fetch(`https://api.github.com${path}`, {
-      redirect: 'error', signal: AbortSignal.timeout(20000),
-      headers: { Accept: 'application/vnd.github+json', Authorization: `Bearer ${token}`, 'X-GitHub-Api-Version': '2022-11-28' },
-    });
-    assert.equal(response.status, 200, `GitHub read API ${path}: HTTP ${response.status}`);
-    return response.json();
+    return githubJson(path, token);
   }
   async function deploymentSnapshot() {
     const main = await api(`/repos/${REPOSITORY}/git/ref/heads/main`);
-    assert.equal(main.object.sha, env.EXPECTED_SITE_SHA, 'Current Main changed from approved Site SHA');
+    sourceEqual(main.object.sha, env.EXPECTED_SITE_SHA, 'Current Main SHA');
     const deployments = await api(`/repos/${REPOSITORY}/deployments?environment=github-pages&per_page=100`);
-    assert.ok(deployments.length, 'No github-pages deployment');
+    evidence(deployments.length, 'No github-pages deployment evidence');
     const deployment = deployments[0];
+    result.deploymentObserved = { id: deployment.id, sha: deployment.sha, environment: deployment.environment };
+    result.currentDeploymentSourceSha = deployment.sha;
     assert.match(String(deployment.id), /^\d+$/);
     const statuses = await api(`/repos/${REPOSITORY}/deployments/${deployment.id}/statuses?per_page=100`);
     validateDeployment(deployment, statuses[0], env.EXPECTED_SITE_SHA, env.EXPECTED_DEPLOYMENT_ID);
@@ -184,15 +241,23 @@ async function runHosted() {
     let current = hostedUrl(url).href;
     const redirects = [];
     for (let n = 0; n < 5; n++) {
-      const response = await fetch(current, { redirect: 'manual', signal: AbortSignal.timeout(15000), headers: { 'Cache-Control': 'no-cache' } });
+      let response;
+      try { response = await fetch(current, { redirect: 'manual', signal: AbortSignal.timeout(15000), headers: { 'Cache-Control': 'no-cache' } }); }
+      catch (e) {
+        const details = { url, finalUrl: current, redirects, error: errorText(e), at: new Date().toISOString() };
+        result.probe.push(details);
+        throw sourceError('HOSTED_PROBE_FAILURE', 'Hosted request failed before HTTP response', details);
+      }
       if ([301, 302, 303, 307, 308].includes(response.status)) {
         const next = hostedUrl(new URL(response.headers.get('location'), current).href).href;
         redirects.push({ from: current, to: next, status: response.status }); current = next; continue;
       }
+      const probe = { url, finalUrl: current, redirects, status: response.status, contentType: response.headers.get('content-type'), at: new Date().toISOString() };
+      result.probe.push(probe);
       successfulResponse(response.status);
       const bytes = Buffer.from(await response.arrayBuffer()); // fetch decodes Content-Encoding.
       assert.ok(bytes.length > 0 && bytes.length < 20 * 1024 * 1024, 'Invalid Hosted response size');
-      result.probe.push({ url, finalUrl: current, redirects, status: response.status, contentType: response.headers.get('content-type'), decodedSha256: sha256(bytes), at: new Date().toISOString() });
+      probe.decodedSha256 = sha256(bytes);
       return { bytes, contentType: response.headers.get('content-type'), url: current };
     }
     throw new Error('Too many Hosted redirects');
@@ -217,21 +282,19 @@ async function runHosted() {
     await test('DEPLOYMENT_SOURCE', 'Successful current Pages deployment and successful Pages Build/Deploy Run match approved SHA', async () => {
       result.deployment = await deploymentSnapshot();
       result.currentDeploymentSourceSha = result.deployment.sha;
-      const runs = await api(`/repos/${REPOSITORY}/actions/runs?head_sha=${env.EXPECTED_SITE_SHA}&per_page=100`);
-      const pages = runs.workflow_runs.find(r => r.head_sha === env.EXPECTED_SITE_SHA && r.conclusion === 'success' && /pages/i.test(r.path || '') && /pages/i.test(r.name || ''));
-      assert.ok(pages, 'No successful Pages workflow for approved SHA');
+      const runs = await api(`/repos/${REPOSITORY}/actions/workflows/${PAGES_WORKFLOW_ID}/runs?head_sha=${env.EXPECTED_SITE_SHA}&per_page=100`);
+      const pages = selectPagesRun(runs.workflow_runs, env.EXPECTED_SITE_SHA);
       const jobs = await api(`/repos/${REPOSITORY}/actions/runs/${pages.id}/jobs?per_page=100`);
-      for (const name of ['build', 'deploy']) assert.ok(jobs.jobs.some(j => j.name === name && j.conclusion === 'success'), `Successful Pages ${name} Job missing`);
+      for (const name of ['build', 'deploy']) evidence(jobs.jobs.some(j => j.name === name && j.conclusion === 'success'), `Successful Pages ${name} Job evidence missing`, { runId: pages.id });
       const artifacts = await api(`/repos/${REPOSITORY}/actions/runs/${pages.id}/artifacts?per_page=100`);
-      const artifact = artifacts.artifacts.find(a => a.name === 'github-pages' && !a.expired);
-      assert.ok(artifact, 'Pages build artifact metadata missing or expired');
+      const artifact = selectArtifact(artifacts.artifacts, pages);
       result.pagesRun = { id: pages.id, headSha: pages.head_sha, artifactId: artifact.id, jobs: jobs.jobs.map(j => ({ id: j.id, name: j.name, conclusion: j.conclusion })) };
       return { ...result.deployment, pagesRun: result.pagesRun };
     });
     let html;
     let payload;
     await test('HOSTED_PROBE_AND_BYTE_PARITY', 'Normal Hosted HTML and all four core files equal reviewed byte-copy Build source', async () => {
-      assert.equal(gitBlob(await readFile(resolve(env.SITE_SOURCE_ROOT, 'tools/build.mjs'))), REVIEWED_BUILD_BLOB, 'Build transformation contract changed; review required');
+      evidence(gitBlob(await readFile(resolve(env.SITE_SOURCE_ROOT, 'tools/build.mjs'))) === REVIEWED_BUILD_BLOB, 'Build transformation contract changed; review required');
       const home = await getHosted(HOSTED); html = home.bytes.toString('utf8'); validateHtml(html, home.contentType);
       const js = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)].map(m => m[1]);
       const css = [...html.matchAll(/<link\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]).filter(p => new URL(p, HOSTED).pathname.endsWith('.css'));
@@ -248,12 +311,13 @@ async function runHosted() {
         const expected = await readFile(resolve(env.SITE_SOURCE_ROOT, entry.path));
         const expectedType = entry.path.endsWith('.js') ? /(?:java|ecma)script/i : entry.path.endsWith('.css') ? /text\/css/i : entry.path.endsWith('.json') ? /application\/json/i : /text\/html/i;
         assert.match(entry.response.contentType || '', expectedType, `Incorrect resource Content-Type: ${entry.path}`);
-        assert.equal(sha256(entry.response.bytes), sha256(expected), `Hosted bytes differ: ${entry.path}`);
+        sourceEqual(sha256(entry.response.bytes), sha256(expected), `Hosted decoded bytes ${entry.path}`);
         result.sourceParity.push({ path: entry.path, decodedBodySha256: sha256(expected) });
         if (entry.path === JSON_PATH) payload = JSON.parse(entry.response.bytes.toString('utf8'));
       }
       return { files: result.sourceParity, probe: result.probe };
     });
+    result.sourceStatus = 'HOSTED_SOURCE_CONFIRMED';
     await test('HOSTED_JSON', 'v1 effective approved exact scoped Generated consumer, already source-matched', async () => {
       assert.equal(payload.contract.version, 1); assert.equal(payload.contract.status, 'EFFECTIVE');
       assert.equal(payload.contract.approved, true); assert.equal(payload.contract.effective, true);
@@ -383,7 +447,11 @@ async function runHosted() {
       await check('R10', 'Source-matched Generated consumer retains exact admitted 20 records', async () => { assert.equal(payload.records.length, 20); return { count: 20, sourceByteParity: 'PASS' }; });
       await check('R11', 'Actual search, card and link interactions completed without observed Runtime errors', async () => { assert.ok(result.tests.filter(t => t.viewport?.width === o.viewport.width).every(t => t.status === 'PASS')); assert.deepEqual([...o.consoleErrors, ...o.pageErrors, ...o.rejections, ...o.failed], []); return { interactionInterval: [o.startedAt, o.interactionsCompletedAt] }; });
     }
-  } catch (e) { result.failure = errorText(e); process.exitCode = 1; }
+  } catch (e) {
+    result.failure = errorText(e); result.failureDetails = { category: e.code || 'QA_FAILURE', evidence: e.details || null };
+    if (e.code === 'HOSTED_SOURCE_MISMATCH' || e.code === 'HOSTED_SOURCE_EVIDENCE_GAP') result.sourceStatus = e.code;
+    process.exitCode = 1;
+  }
   finally {
     result.runtimeObservations = observations;
     const closed = await Promise.allSettled(contexts.map(c => c.close()));
