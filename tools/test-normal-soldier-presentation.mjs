@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { renderNormalSoldiers } from './generate.mjs';
 import { validateNormalSoldierPresentation } from './validate-normal-soldier-presentation.mjs';
@@ -66,4 +67,32 @@ mustFail('unapproved game-level field', () => validate(`${JSON.stringify(unautho
 const nonTargetExpansion = JSON.parse(generated);
 nonTargetExpansion.soldiers.find((soldier) => soldier.normalSoldierId !== 115).skillReferences = [];
 mustFail('non-target Skill payload expansion', () => validate(`${JSON.stringify(nonTargetExpansion, null, 2)}\n`));
-process.stdout.write('NORMAL Soldier presentation regressions: PASS (owner parity, exact IDs, required fields and freshness)\n');
+// A numeric error at every exact endpoint must fail the independent owner comparison.
+for (const soldier of JSON.parse(generated).soldiers) {
+  for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
+    const changed = JSON.parse(generated);
+    changed.soldiers.find(row => row.normalSoldierId === soldier.normalSoldierId).baseStats[field] += 1;
+    assert.throws(() => validate(`${JSON.stringify(changed, null, 2)}\n`),
+      new RegExp(`Canonical NORMAL stat parity mismatch: Soldier ${soldier.normalSoldierId} ${field}`));
+  }
+}
+
+// Exercise an actual producer-code mutation in memory, retaining all other producer logic.
+// Strip only its CLI branch; no repository files or generated values are written.
+const producerSource = await readFile(new URL('./generate.mjs', import.meta.url), 'utf8');
+const producerLibrary = producerSource.slice(0, producerSource.indexOf('const invokedPath ='))
+  .replace("'./soldier-training-tech-presentation-contract.mjs'",
+    JSON.stringify(new URL('./soldier-training-tech-presentation-contract.mjs', import.meta.url).href));
+assert.ok(producerSource.indexOf('const invokedPath =') > 0, 'Producer library boundary must exist');
+for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
+  const original = `baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense }`;
+  assert.equal(producerLibrary.split(original).length, 2, 'NORMAL projection mutation must target exactly one production expression');
+  const mutated = producerLibrary.replace(original, original.replace(`${field}: values.${field}`, `${field}: values.${field} + 1`));
+  const producerUrl = `data:text/javascript;base64,${Buffer.from(mutated).toString('base64')}`;
+  const mutant = await import(producerUrl);
+  const wrongGenerated = mutant.renderNormalSoldiers(identities, localizations, baseStats, movePoints, soldierSkillRelations, skills);
+  // Prove shared-producer freshness would accept its own erroneous numeric result.
+  assert.equal(wrongGenerated, mutant.renderNormalSoldiers(identities, localizations, baseStats, movePoints, soldierSkillRelations, skills));
+  assert.throws(() => validate(wrongGenerated), new RegExp(`Canonical NORMAL stat parity mismatch: Soldier 115 ${field}`));
+}
+process.stdout.write('NORMAL Soldier presentation regressions: PASS (56 exact IDs; 224 independent field mutations; 4 producer-code mutants; existing scope, schema and freshness negatives)\n');
