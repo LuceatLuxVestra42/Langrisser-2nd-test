@@ -1,0 +1,115 @@
+name: Hosted Browser QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_site_sha:
+        description: 'Approved full SHA of the current Main and Pages deployment'
+        required: true
+        type: string
+      expected_deployment_id:
+        description: 'Approved github-pages Deployment API ID'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: read
+
+concurrency:
+  group: hosted-browser-qa
+  cancel-in-progress: false
+
+jobs:
+  hosted-qa:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.repository == 'LuceatLuxVestra42/Langrisser-2nd-test'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPECTED_SITE_SHA: ${{ inputs.expected_site_sha }}
+      EXPECTED_DEPLOYMENT_ID: ${{ inputs.expected_deployment_id }}
+      HOSTED_URL: https://luceatluxvestra42.github.io/Langrisser-2nd-test/
+      QA_INFRASTRUCTURE_SHA: ${{ github.workflow_sha }}
+      QA_RESULT_DIR: ${{ runner.temp }}/hosted-results-${{ github.run_id }}-${{ github.run_attempt }}
+      BROWSER_QA_RUNTIME_ROOT: ${{ runner.temp }}/hosted-runtime-${{ github.run_id }}-${{ github.run_attempt }}
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/hosted-runtime-${{ github.run_id }}-${{ github.run_attempt }}/browsers
+      PLAYWRIGHT_PACKAGE_ROOT: ${{ runner.temp }}/hosted-runtime-${{ github.run_id }}-${{ github.run_attempt }}/node
+    steps:
+      - name: Seed failure evidence and validate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e "$QA_RESULT_DIR"
+          mkdir -p "$QA_RESULT_DIR"
+          node -e 'require("fs").writeFileSync(process.env.QA_RESULT_DIR + "/result.json", JSON.stringify({overallStatus:"NOT_VERIFIED",runId:process.env.GITHUB_RUN_ID,jobName:process.env.GITHUB_JOB,reason:"Runner did not complete; inspect workflow steps"},null,2))'
+          [[ "$EXPECTED_SITE_SHA" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$EXPECTED_DEPLOYMENT_ID" =~ ^[0-9]+$ ]]
+
+      - name: Checkout exact trusted QA Infrastructure
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: qa-infrastructure
+          persist-credentials: false
+
+      - name: Checkout approved Site Source for byte comparison
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.expected_site_sha }}
+          path: site-source
+          persist-credentials: false
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate runner failure fixtures without Hosted access
+        run: node qa-infrastructure/tools/test-hosted-browser-qa.mjs --self-test
+
+      - name: Install isolated pinned Playwright and Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e "$BROWSER_QA_RUNTIME_ROOT"
+          mkdir -p "$PLAYWRIGHT_PACKAGE_ROOT"
+          printf '{"private":true}\n' > "$PLAYWRIGHT_PACKAGE_ROOT/package.json"
+          npm_config_cache="$BROWSER_QA_RUNTIME_ROOT/npm-cache" npm install --prefix "$PLAYWRIGHT_PACKAGE_ROOT" --no-save --package-lock=false playwright@1.62.1
+          "$PLAYWRIGHT_PACKAGE_ROOT/node_modules/.bin/playwright" install --with-deps chromium
+
+      - name: Verify Deployment, probe Hosted URL, then run Browser QA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          QA_INFRASTRUCTURE_ROOT: ${{ github.workspace }}/qa-infrastructure
+          SITE_SOURCE_ROOT: ${{ github.workspace }}/site-source
+        run: node qa-infrastructure/tools/test-hosted-browser-qa.mjs
+
+      - name: Clean only this run's temporary runtime
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$BROWSER_QA_RUNTIME_ROOT" = "$RUNNER_TEMP"/hosted-runtime-"$GITHUB_RUN_ID"-"$GITHUB_RUN_ATTEMPT" ]]
+          rm -rf -- "$BROWSER_QA_RUNTIME_ROOT"
+          test ! -e "$BROWSER_QA_RUNTIME_ROOT"
+          if [[ -d qa-infrastructure ]]; then
+            node qa-infrastructure/tools/test-hosted-browser-qa.mjs --finalize
+          fi
+
+      - name: Preserve success or failure evidence
+        if: always()
+        id: artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hosted-qa-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.QA_RESULT_DIR }}/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Require successful evidence upload
+        if: always()
+        env:
+          ARTIFACT_OUTCOME: ${{ steps.artifact.outcome }}
+        run: node qa-infrastructure/tools/test-hosted-browser-qa.mjs --verify-upload
