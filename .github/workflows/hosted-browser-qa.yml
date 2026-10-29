@@ -32,18 +32,24 @@ jobs:
       EXPECTED_DEPLOYMENT_ID: ${{ inputs.expected_deployment_id }}
       HOSTED_URL: https://luceatluxvestra42.github.io/Langrisser-2nd-test/
       QA_INFRASTRUCTURE_SHA: ${{ github.workflow_sha }}
-      QA_RESULT_DIR: ${{ runner.temp }}/hosted-results-${{ github.run_id }}-${{ github.run_attempt }}
-      BROWSER_QA_RUNTIME_ROOT: ${{ runner.temp }}/hosted-runtime-${{ github.run_id }}-${{ github.run_attempt }}
-      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/hosted-runtime-${{ github.run_id }}-${{ github.run_attempt }}/browsers
-      PLAYWRIGHT_PACKAGE_ROOT: ${{ runner.temp }}/hosted-runtime-${{ github.run_id }}-${{ github.run_attempt }}/node
     steps:
       - name: Seed failure evidence and validate inputs
+        id: initialize
         shell: bash
         run: |
           set -euo pipefail
+          [[ "${RUNNER_TEMP:-}" = /* && "$RUNNER_TEMP" != / ]]
+          [[ "${GITHUB_RUN_ID:-}" =~ ^[0-9]+$ && "${GITHUB_RUN_ATTEMPT:-}" =~ ^[0-9]+$ ]]
+          export QA_RESULT_DIR="$RUNNER_TEMP/hosted-results-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          export BROWSER_QA_RUNTIME_ROOT="$RUNNER_TEMP/hosted-runtime-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          export PLAYWRIGHT_BROWSERS_PATH="$BROWSER_QA_RUNTIME_ROOT/browsers"
+          export PLAYWRIGHT_PACKAGE_ROOT="$BROWSER_QA_RUNTIME_ROOT/node"
+          printf '%s\n' "QA_RESULT_DIR=$QA_RESULT_DIR" "BROWSER_QA_RUNTIME_ROOT=$BROWSER_QA_RUNTIME_ROOT" \
+            "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH" "PLAYWRIGHT_PACKAGE_ROOT=$PLAYWRIGHT_PACKAGE_ROOT" >> "$GITHUB_ENV"
           test ! -e "$QA_RESULT_DIR"
           mkdir -p "$QA_RESULT_DIR"
           node -e 'require("fs").writeFileSync(process.env.QA_RESULT_DIR + "/result.json", JSON.stringify({overallStatus:"NOT_VERIFIED",runId:process.env.GITHUB_RUN_ID,jobName:process.env.GITHUB_JOB,reason:"Runner did not complete; inspect workflow steps"},null,2))'
+          printf '%s\n' 'evidence_ready=true' >> "$GITHUB_OUTPUT"
           [[ "$EXPECTED_SITE_SHA" =~ ^[0-9a-f]{40}$ ]]
           [[ "$EXPECTED_DEPLOYMENT_ID" =~ ^[0-9]+$ ]]
 
@@ -91,15 +97,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          [[ "${RUNNER_TEMP:-}" = /* && "$RUNNER_TEMP" != / ]]
+          [[ "${GITHUB_RUN_ID:-}" =~ ^[0-9]+$ && "${GITHUB_RUN_ATTEMPT:-}" =~ ^[0-9]+$ ]]
+          if [[ -z "${BROWSER_QA_RUNTIME_ROOT:-}" || -z "${QA_RESULT_DIR:-}" ]]; then
+            echo '::error::Runtime paths were not initialized; no deletion performed'
+            exit 1
+          fi
           [[ "$BROWSER_QA_RUNTIME_ROOT" = "$RUNNER_TEMP"/hosted-runtime-"$GITHUB_RUN_ID"-"$GITHUB_RUN_ATTEMPT" ]]
+          [[ "$QA_RESULT_DIR" = "$RUNNER_TEMP"/hosted-results-"$GITHUB_RUN_ID"-"$GITHUB_RUN_ATTEMPT" ]]
           rm -rf -- "$BROWSER_QA_RUNTIME_ROOT"
           test ! -e "$BROWSER_QA_RUNTIME_ROOT"
+          if [[ ! -f "$QA_RESULT_DIR/result.json" ]]; then
+            echo '::error::Initial result was not created; artifact evidence is unavailable'
+            exit 1
+          fi
           if [[ -d qa-infrastructure ]]; then
             node qa-infrastructure/tools/test-hosted-browser-qa.mjs --finalize
           fi
 
       - name: Preserve success or failure evidence
-        if: always()
+        if: always() && steps.initialize.outputs.evidence_ready == 'true'
         id: artifact
         uses: actions/upload-artifact@v4
         with:
@@ -112,4 +129,13 @@ jobs:
         if: always()
         env:
           ARTIFACT_OUTCOME: ${{ steps.artifact.outcome }}
-        run: node qa-infrastructure/tools/test-hosted-browser-qa.mjs --verify-upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$ARTIFACT_OUTCOME" != success ]]; then
+            echo '::error::Evidence upload did not succeed; inspect initialization and artifact steps'
+            exit 1
+          fi
+          if [[ -f qa-infrastructure/tools/test-hosted-browser-qa.mjs ]]; then
+            node qa-infrastructure/tools/test-hosted-browser-qa.mjs --verify-upload
+          fi
