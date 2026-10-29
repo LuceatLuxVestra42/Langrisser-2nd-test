@@ -10,8 +10,6 @@ const exactKeys = (value, expected, label) => {
 };
 
 export function validateNormalSoldierPresentation(identities, localizations, baseStats, generatedText, movePoints, soldierSkillRelations, skills) {
-  const expectedText = renderNormalSoldiers(identities, localizations, baseStats, movePoints, soldierSkillRelations, skills);
-  if (generatedText !== expectedText) throw new Error('generated NORMAL Soldier presentation is stale or non-deterministic');
   const generated = JSON.parse(generatedText);
   exactKeys(generated, ['schemaVersion', 'soldiers'], 'generated NORMAL Soldier data');
   if (generated.schemaVersion !== 1 || !Array.isArray(generated.soldiers) || generated.soldiers.length !== 56) {
@@ -24,6 +22,15 @@ export function validateNormalSoldierPresentation(identities, localizations, bas
   const actualIds = generated.soldiers.map((record) => record.normalSoldierId);
   if (new Set(actualIds).size !== actualIds.length) throw new Error('NORMAL Soldier IDs are not unique');
   if (JSON.stringify(actualIds) !== JSON.stringify(expectedIds)) throw new Error('generated NORMAL Soldier IDs differ from current canonical identity set or ordering');
+  // Independent value oracle: never derive these expectations through the producer.
+  const canonicalStatsById = new Map();
+  for (const row of baseStats.records) {
+    if (!Number.isSafeInteger(row.id) || canonicalStatsById.has(row.id)) throw new Error('Duplicate or malformed NORMAL stat owner ID');
+    canonicalStatsById.set(row.id, row.baseStats);
+  }
+  if (canonicalStatsById.size !== expectedIds.length || expectedIds.some(id => !canonicalStatsById.has(id))) {
+    throw new Error('NORMAL stat owner ID set differs from the presentation identity owner');
+  }
   for (const record of generated.soldiers) {
     exactKeys(record, record.normalSoldierId === 115
       ? ['normalSoldierId', 'nameKo', 'bfMovePoint', 'baseStats', 'skillReferences']
@@ -33,6 +40,12 @@ export function validateNormalSoldierPresentation(identities, localizations, bas
     }
     exactKeys(record.baseStats, ['hp', 'attack', 'defense', 'magicDefense'], `NORMAL Soldier ${record.normalSoldierId} base stats`);
     if (!Object.values(record.baseStats).every(Number.isFinite)) throw new Error(`malformed base stats for NORMAL Soldier ${record.normalSoldierId}`);
+    const canonicalStats = canonicalStatsById.get(record.normalSoldierId);
+    for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
+      if (!Number.isFinite(canonicalStats?.[field]) || record.baseStats[field] !== canonicalStats[field]) {
+        throw new Error(`Canonical NORMAL stat parity mismatch: Soldier ${record.normalSoldierId} ${field}`);
+      }
+    }
     if (record.normalSoldierId === 115) {
       const expected = skillEdges.map((edge) => {
         const skill = skillById.get(edge.targetSkillId);
@@ -42,6 +55,8 @@ export function validateNormalSoldierPresentation(identities, localizations, bas
       if (JSON.stringify(record.skillReferences) !== JSON.stringify(expected)) throw new Error('NORMAL Soldier 115 Skill reference parity differs from Canonical exact Skill IDs and source text');
     }
   }
+  const expectedText = renderNormalSoldiers(identities, localizations, baseStats, movePoints, soldierSkillRelations, skills);
+  if (generatedText !== expectedText) throw new Error('generated NORMAL Soldier presentation is stale or non-deterministic');
   return generated;
 }
 
