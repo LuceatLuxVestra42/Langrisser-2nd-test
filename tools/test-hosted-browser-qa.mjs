@@ -81,6 +81,23 @@ function finishStatus(result) {
   return result.tests.length > 0 && result.tests.every(t => t.status === 'PASS')
     && result.cleanup.browserClosed && result.cleanup.contextsClosed ? 'PASS' : 'FAIL';
 }
+function validateInteractionRuntime(tests, observation) {
+  const { width, height } = observation.viewport;
+  assert.ok((width === 390 && height === 844) || (width === 1440 && height === 1000), 'Unsupported interaction viewport');
+  const prefix = width === 390 ? 'M' : 'D';
+  const expected = [
+    ...Array.from({ length: 14 }, (_, n) => `${prefix}${String(n + 1).padStart(2, '0')}`),
+    ...Array.from({ length: 10 }, (_, n) => `R${String(n + 1).padStart(2, '0')}-${width}`),
+  ];
+  // Only completed prerequisite IDs belong here: R11 itself and later gates do not.
+  const preceding = tests.filter(t => t.viewport?.width === width && t.viewport?.height === height
+    && (/^[MD]\d{2}$/.test(t.id) || /^R(?:0[1-9]|10)-/.test(t.id)));
+  assert.deepEqual(preceding.map(t => t.id).sort(), expected.sort(), 'Required preceding interaction/runtime test set mismatch');
+  assert.ok(preceding.every(t => t.status === 'PASS'), 'Required preceding interaction/runtime test did not PASS');
+  assert.deepEqual([...observation.consoleErrors, ...observation.pageErrors, ...observation.rejections, ...observation.failed], []);
+  assert.deepEqual(observation.responses.filter(r => r.status >= 400), []);
+  assert.deepEqual(observation.blocked, []);
+}
 async function persist(path, value, writer = writeFile) {
   await mkdir(dirname(path), { recursive: true });
   const temp = `${path}.tmp`;
@@ -128,6 +145,33 @@ async function selfTest() {
   const result = { tests: [{ status: 'PASS' }], cleanup: { browserClosed: true, contextsClosed: true } };
   assert.equal(finishStatus(result), 'PASS'); pass('RESULT_SUCCESS');
   assert.equal(finishStatus({ ...result, cleanup: { browserClosed: false, contextsClosed: true } }), 'FAIL'); pass('CLEANUP_AGGREGATE_FAIL');
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 1000 }]) {
+    const prefix = viewport.width === 390 ? 'M' : 'D';
+    const observation = { viewport, consoleErrors: [], pageErrors: [], rejections: [], failed: [], responses: [], blocked: [] };
+    const prerequisites = [
+      ...Array.from({ length: 14 }, (_, n) => ({ id: `${prefix}${String(n + 1).padStart(2, '0')}`, viewport, status: 'PASS' })),
+      ...Array.from({ length: 10 }, (_, n) => ({ id: `R${String(n + 1).padStart(2, '0')}-${viewport.width}`, viewport, status: 'PASS' })),
+    ];
+    const current = { id: `R11-${viewport.width}`, viewport, status: 'NOT_VERIFIED' };
+    const tests = [...prerequisites, current];
+    validateInteractionRuntime(tests, observation); pass(`R11_${prefix}_SELF_EXCLUDED`);
+    validateInteractionRuntime([...tests, { id: `R12-${viewport.width}`, viewport, status: 'NOT_VERIFIED' }], observation); pass(`R11_${prefix}_FUTURE_EXCLUDED`);
+    reject(`R11_${prefix}_UI_MISSING`, () => validateInteractionRuntime(tests.slice(1), observation));
+    reject(`R11_${prefix}_RUNTIME_MISSING`, () => validateInteractionRuntime(tests.filter(t => t.id !== `R10-${viewport.width}`), observation));
+    reject(`R11_${prefix}_DUPLICATE`, () => validateInteractionRuntime([...tests, prerequisites[0]], observation));
+    reject(`R11_${prefix}_UNEXPECTED_UI`, () => validateInteractionRuntime([...tests, { id: `${prefix}15`, viewport, status: 'PASS' }], observation));
+    for (const id of [`${prefix}01`, `R10-${viewport.width}`]) for (const status of ['FAIL', 'NOT_VERIFIED']) {
+      const changed = tests.map(t => t.id === id ? { ...t, status } : t);
+      reject(`R11_${prefix}_${id}_${status}`, () => validateInteractionRuntime(changed, observation));
+      assert.equal(finishStatus({ ...result, tests: changed }), 'FAIL'); pass(`R11_${prefix}_AGGREGATE_${id}_${status}`);
+    }
+    for (const key of ['consoleErrors', 'pageErrors', 'rejections', 'failed', 'blocked']) {
+      reject(`R11_${prefix}_${key}`, () => validateInteractionRuntime(tests, { ...observation, [key]: ['fixture error'] }));
+    }
+    reject(`R11_${prefix}_HTTP_FAILURE`, () => validateInteractionRuntime(tests, { ...observation, responses: [{ status: 500 }] }));
+    await evaluateTest(current, async () => { validateInteractionRuntime(tests, observation); });
+    assert.equal(current.status, 'PASS'); assert.equal(finishStatus({ ...result, tests }), 'PASS'); pass(`R11_${prefix}_EVALUATE_AND_AGGREGATE_PASS`);
+  }
   const dir = await mkdtemp(join(tmpdir(), 'hosted-qa-fixture-'));
   try {
     const path = join(dir, 'result.json');
@@ -445,7 +489,7 @@ async function runHosted() {
       await check('R08', 'Real application Generated JSON fetch succeeded', async () => { const matches = o.responses.filter(r => new URL(r.url).pathname.endsWith(`/${JSON_PATH}`) && ['fetch', 'xhr'].includes(r.type)); assert.ok(matches.length); assert.ok(matches.every(r => r.status === 200)); return matches; });
       await check('R09', 'Source-matched Generated contract version is 1', async () => { assert.equal(payload.contract.version, 1); return 1; });
       await check('R10', 'Source-matched Generated consumer retains exact admitted 20 records', async () => { assert.equal(payload.records.length, 20); return { count: 20, sourceByteParity: 'PASS' }; });
-      await check('R11', 'Actual search, card and link interactions completed without observed Runtime errors', async () => { assert.ok(result.tests.filter(t => t.viewport?.width === o.viewport.width).every(t => t.status === 'PASS')); assert.deepEqual([...o.consoleErrors, ...o.pageErrors, ...o.rejections, ...o.failed], []); return { interactionInterval: [o.startedAt, o.interactionsCompletedAt] }; });
+      await check('R11', 'Actual search, card and link interactions completed without observed Runtime errors', async () => { validateInteractionRuntime(result.tests, o); return { interactionInterval: [o.startedAt, o.interactionsCompletedAt] }; });
     }
   } catch (e) {
     result.failure = errorText(e); result.failureDetails = { category: e.code || 'QA_FAILURE', evidence: e.details || null };
