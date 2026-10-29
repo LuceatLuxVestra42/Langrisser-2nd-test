@@ -91,6 +91,9 @@ jobs:
       - name: Build static site
         run: node tools/build.mjs
 
+      - name: Test public artifact allowlist and publication gates
+        run: node tools/test-build.mjs
+
       - name: Validate Job glossary presentation
         run: node tools/validate-job-glossary.mjs
 

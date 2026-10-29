@@ -1,6 +1,9 @@
-import { cp, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, resolve, sep } from 'node:path';
 import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
@@ -14,6 +17,62 @@ const exactKeys = (value, expected, label) => {
   }
 };
 
+// Publication packaging only: this list does not admit semantic populations.
+export function publicSitePaths(heroPresentation, decisionRecord) {
+  const files = [
+    'index.html', 'app.js', 'styles.css',
+    'generated/hero-slice.v1.json', 'generated/job-glossary.v1.json',
+    'generated/general-ssr-equipment.v1.json', 'generated/exclusive-equipment.v1.json',
+    'generated/sp-soldiers.v1.json', 'generated/normal-soldiers.v1.json',
+    'generated/hero-soldier-relations.v1.json',
+  ];
+  if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
+  if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
+  for (const hero of heroPresentation.records) {
+    if (typeof hero.portrait !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(hero.portrait)) {
+      throw new Error('Unsupported public portrait path');
+    }
+    files.push(hero.portrait);
+  }
+  return [...new Set(files)].sort();
+}
+
+export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd()) {
+  const expected = publicSitePaths(heroPresentation, decisionRecord);
+  const allowedDirectories = new Set(expected.flatMap(file => {
+    const parts = file.split('/');
+    return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
+  }));
+  const actual = [];
+  async function walk(relative = '') {
+    for (const entry of await readdir(join(output, relative), { withFileTypes: true })) {
+      const path = relative ? `${relative}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        if (!allowedDirectories.has(path)) throw new Error(`Unexpected public directory: ${path}`);
+        await walk(path);
+      } else if (entry.isFile()) actual.push(path);
+      else throw new Error(`Non-regular public entry: ${path}`);
+    }
+  }
+  await walk();
+  if (JSON.stringify(actual.sort()) !== JSON.stringify(expected)) throw new Error('Public artifact file allowlist mismatch');
+  const files = [];
+  for (const path of expected) {
+    const [bytes, source] = await Promise.all([readFile(join(output, path)), readFile(join(sourceRoot, path))]);
+    if (!bytes.equals(source)) throw new Error(`Public artifact bytes differ from approved Source: ${path}`);
+    files.push({ path, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
+  }
+  return files;
+}
+
+export async function buildSite({ outputDir, verifyDir, manifestPath } = {}) {
+  if (outputDir && verifyDir) throw new Error('Choose output-dir or verify-dir');
+  if (outputDir && (resolve(outputDir) === process.cwd() || resolve(outputDir).startsWith(`${process.cwd()}${sep}`))) {
+    throw new Error('Public output must be outside the Source checkout');
+  }
+  const selectedOutput = outputDir || verifyDir;
+  if (manifestPath && selectedOutput && (resolve(manifestPath) === resolve(selectedOutput)
+    || resolve(manifestPath).startsWith(`${resolve(selectedOutput)}${sep}`))) throw new Error('Manifest must remain outside the public artifact');
 const canonical = await readJson('canonical/heroes.v1.json');
 const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
 const heroIdentities = await readJson('canonical/hero-identities.v1.json');
@@ -270,8 +329,11 @@ for (const hero of generated.heroes) {
 }
 const portraitPaths = [...new Set(generated.heroes.map((hero) => hero.portrait))];
 
-const output = await mkdtemp(join(tmpdir(), 'langrisser-hero-slice-build-'));
+const output = selectedOutput ? resolve(selectedOutput) : await mkdtemp(join(tmpdir(), 'langrisser-hero-slice-build-'));
+if (outputDir) await mkdir(output, { recursive: false }); // Never overwrite a previous output.
+let completed = false;
 try {
+  if (!verifyDir) {
   await mkdir(join(output, 'generated'), { recursive: true });
   for (const file of ['index.html', 'app.js', 'styles.css']) await cp(resolve(file), join(output, file));
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
@@ -292,6 +354,7 @@ try {
     const destination = join(output, ...portraitPath.split('/'));
     await mkdir(dirname(destination), { recursive: true });
     await cp(resolve(portraitPath), destination);
+  }
   }
 
   const [html, app, styles] = await Promise.all([
@@ -339,7 +402,28 @@ try {
   const packagedExclusiveEquipment = JSON.parse(packagedExclusiveEquipmentText);
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, and ${packagedRelations.relations.length} Hero–Soldier relation records packaged, ${portraitPaths.length} portrait assets resolved)\n`);
+  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord);
+  if (manifestPath) {
+    const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+    if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');
+    await writeFile(resolve(manifestPath), `${JSON.stringify({ schemaVersion: 1, sourceSha, files }, null, 2)}\n`, { flag: 'wx' });
+  }
+  completed = true;
+  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, and ${packagedRelations.relations.length} Hero–Soldier relation records packaged, ${portraitPaths.length} portrait assets resolved; public allowlist ${files.length} files)\n`);
+  return { output, files };
 } finally {
-  await rm(output, { recursive: true, force: true });
+  if (!verifyDir && (!outputDir || !completed)) await rm(output, { recursive: true, force: true });
+}
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const options = {};
+  const flags = { '--output-dir': 'outputDir', '--verify-dir': 'verifyDir', '--manifest': 'manifestPath' };
+  const args = process.argv.slice(2);
+  while (args.length) {
+    const flag = args.shift();
+    if (!flags[flag] || !args[0] || args[0].startsWith('--') || options[flags[flag]]) throw new Error(`Invalid Build option: ${flag}`);
+    options[flags[flag]] = args.shift();
+  }
+  await buildSite(options);
 }
