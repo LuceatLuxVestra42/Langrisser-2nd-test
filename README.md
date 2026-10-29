@@ -21,6 +21,10 @@ Generation deterministically writes presentation consumers from canonical owners
 
 To view the page locally, serve the repository root with any static HTTP server and open `index.html`.
 
+GitHub Pages publishes the approved output from `tools/build.mjs`, not the repository root. `.github/workflows/pages.yml` waits for successful Main CI, records the exact Source SHA and per-file byte hashes in a separate Actions artifact, validates the complete public allowlist, and deploys only the site artifact. Canonical, Evidence, Tools and development documents remain public GitHub Source but are not Pages payloads. The current file count is not a permanent population contract.
+
+For an inspectable local package, use `node tools/build.mjs --output-dir /absolute/new/output` (outside the Source checkout). `--verify-dir /absolute/output` rejects extra, missing, non-regular or changed files against the current presentation owner and publication decision. TrainingTech Direct JSON is included only while its approved contract is effective. No output option preserves the existing temporary-build-and-cleanup behavior.
+
 ## Boundaries
 
 - `evidence/` preserves source and claim-scoped provenance. It is not canonical data or a production runtime dependency.

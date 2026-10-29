@@ -14,9 +14,9 @@ const SOURCE_COMMIT = '6475e63ee23d18adf733756c26a14fa9e3ed662c';
 const JSON_PATH = 'generated/soldier-training-tech-descriptions.v1.json';
 // This reviewed Build copies the four compared files without transformation.
 // A Build contract change needs a new review before this runner can certify it.
-const REVIEWED_BUILD_BLOB = '24ebcb243a5d6810d5825d471b6b56698b7f7894';
-const PAGES_WORKFLOW_ID = 367575105;
-const PAGES_WORKFLOW_PATH = 'dynamic/pages/pages-build-deployment';
+const REVIEWED_BUILD_BLOB = 'ecf1c7e67b7e2911b960bd5d1e074bc44b7273a1';
+const PAGES_WORKFLOW_ID = 'pages.yml'; // API accepts the reviewed workflow filename.
+const PAGES_WORKFLOW_PATH = '.github/workflows/pages.yml';
 const SCRIPT = fileURLToPath(import.meta.url);
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const gitBlob = bytes => createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
@@ -64,7 +64,7 @@ function validateDeployment(deployment, status, expectedSha, expectedId) {
   sourceEqual(status.environment_url, HOSTED, 'Deployment URL');
 }
 function selectPagesRun(runs, expectedSha) {
-  const run = runs.find(r => r.workflow_id === PAGES_WORKFLOW_ID && r.path === PAGES_WORKFLOW_PATH
+  const run = runs.find(r => Number.isSafeInteger(r.workflow_id) && r.workflow_id > 0 && r.path === PAGES_WORKFLOW_PATH
     && r.head_sha === expectedSha && r.head_branch === 'main' && r.status === 'completed' && r.conclusion === 'success');
   evidence(run, 'Verified Pages workflow run evidence missing', { workflowId: PAGES_WORKFLOW_ID, path: PAGES_WORKFLOW_PATH, expectedSha });
   return run;
@@ -215,10 +215,11 @@ async function selfTest() {
   assert.doesNotMatch(workflow, /(?:contents|actions|deployments|pages): write/);
   for (const required of ['if: always()', 'if-no-files-found: error', 'cancel-in-progress: false', 'github.workflow_sha', 'persist-credentials: false', 'ARTIFACT_OUTCOME', '--finalize', '--self-test']) assert.ok(workflow.includes(required), required);
   pass('WORKFLOW_CONTRACT', 'WORKFLOW_STATIC_VALIDATION');
-  const run = { id: 40778088217, workflow_id: PAGES_WORKFLOW_ID, path: PAGES_WORKFLOW_PATH, head_sha: sha, head_branch: 'main', status: 'completed', conclusion: 'success' };
+  const run = { id: 40778088217, workflow_id: 123456789, path: PAGES_WORKFLOW_PATH, head_sha: sha, head_branch: 'main', status: 'completed', conclusion: 'success' };
   assert.equal(selectPagesRun([run], sha).id, run.id); pass('ACTUAL_PAGES_RUN_SHAPE');
   const expectSourceError = (id, code, action) => { assert.throws(action, e => e.code === code); pass(id); };
   expectSourceError('PAGES_RUN_MISSING', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectPagesRun([], sha));
+  expectSourceError('PAGES_WRONG_WORKFLOW', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectPagesRun([{ ...run, path: 'dynamic/pages/pages-build-deployment' }], sha));
   expectSourceError('ARTIFACT_EXPIRED', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectArtifact([{ name: 'github-pages', expired: true }], run));
   expectSourceError('ARTIFACT_LINK_MISSING', 'HOSTED_SOURCE_EVIDENCE_GAP', () => selectArtifact([{ name: 'github-pages', expired: false }], run));
   expectSourceError('BYTE_MISMATCH_CATEGORY', 'HOSTED_SOURCE_MISMATCH', () => sourceEqual('observed', 'expected', 'Hosted bytes'));

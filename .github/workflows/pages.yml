@@ -1,0 +1,79 @@
+name: Publish approved static site
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: >-
+      github.repository == 'LuceatLuxVestra42/Langrisser-2nd-test' &&
+      ((github.event_name == 'workflow_run' && github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify current Main and successful exact-source CI
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+          test "$(gh api repos/$GITHUB_REPOSITORY/git/ref/heads/main --jq .object.sha)" = "$SOURCE_SHA"
+          gh api "repos/$GITHUB_REPOSITORY/actions/workflows/ci.yml/runs?head_sha=$SOURCE_SHA&event=push" \
+            --jq '.workflow_runs | any(.head_branch == "main" and .status == "completed" and .conclusion == "success")' | grep -qx true
+      - uses: actions/configure-pages@v5
+      - name: Build only approved files and preserve private byte manifest
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node tools/build.mjs --output-dir "$RUNNER_TEMP/public-site" --manifest "$RUNNER_TEMP/public-site-manifest.json"
+      - name: Verify final upload directory allowlist and Source parity
+        run: node tools/build.mjs --verify-dir "$RUNNER_TEMP/public-site"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/public-site
+      - name: Preserve Source SHA and per-file hashes outside public payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-source-manifest-${{ github.event.workflow_run.head_sha || github.sha }}
+          path: ${{ runner.temp }}/public-site-manifest.json
+          if-no-files-found: error
+          retention-days: 14
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy validated Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
