@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-source-order",
+  "evidenceClass": "A",
+  "scope": "One-based positions of M01 Skin IDs in the complete ConfigDataHeroInfo.ID=1 Skins_ID array at the pinned historical snapshot. No future population or UI sorting claim.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "scope": "Historical China ConfigData snapshot; game build number and official publication date unknown.",
+    "projectionPath": "evidence/source/configdata/skin-relation-order-records-m02.v1.json",
+    "projectionSha256": "063f36b71af111f6968024143ea40172b5654de1968e54a32d19fb956cdc987e",
+    "projectionVerification": "Projection was independently extracted from the two complete raw files. Full Git blob SHA-1, byte count and SHA-256 were verified for each raw file; selected records/fields were verified directly.",
+    "files": [
+      {
+        "path": "data/configdata/ConfigDataHeroInfo.json",
+        "blobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+        "sizeBytes": 16894185,
+        "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b"
+      },
+      {
+        "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+        "blobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+        "sizeBytes": 563343,
+        "sha256": "6fe685622a57a6546f4cce73ff788057605fca215eba6327eff66c3b5d4847c7"
+      }
+    ]
+  },
+  "semanticBasis": {
+    "orderedField": "ConfigDataHeroInfo.Skins_ID[]",
+    "recordLocator": "ConfigDataHeroInfo.ID=1",
+    "orderDefinition": "arrayIndexZeroBased is the literal zero-based source array offset; sourceOrder is the corresponding one-based position. The mapping preserves array position and does not sort or derive from SkinID.",
+    "populationBoundary": "The source record contains exactly [102,103,104,105] in this pinned snapshot. This states only the contents of that one source field at that snapshot; it does not create a general Skin completeness or future count rule."
+  },
+  "legacySupport": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "artifacts": [
+      {
+        "path": "data/contracts/skin-stage1-input-contract.v1.json",
+        "blobSha1": "c2550a67e5538bf86dfad90fbc95b535b19dd4af"
+      },
+      {
+        "path": "data/generated/skin-stage1-canonical.v1.json",
+        "blobSha1": "acd83dc94e4ef30841f53ad464ae53a9ffef92b7"
+      },
+      {
+        "path": "data/validation/skin-stage1-2-parity.v1.json",
+        "blobSha1": "f7e5e03dbe7b89cb6e79f144eea8a8111e1c202d"
+      },
+      {
+        "path": "data/generated/skin-stage2-3-bidirectional-relation.v1.json",
+        "blobSha1": "c69bc6a970909b66502574dcd709d3c731607ead"
+      },
+      {
+        "path": "data/contracts/skin-stage2-5-consumer-contract.v1.json",
+        "blobSha1": "a7bc76818ad6bb20c1b27e1e7914e1ded885b7dc"
+      },
+      {
+        "path": "data/validation/skin-stage2-5-final.v1.json",
+        "blobSha1": "1ea21a2c72be78daab8ae7b326976544432b617b"
+      },
+      {
+        "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+        "blobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9"
+      }
+    ],
+    "scope": "Historical 540-skin regular-Hero-skin validation is corroboration and population contract only; M02 admits only M01's four endpoints."
+  },
+  "limitations": [
+    "Only one Hero source record and the four M01 identities are in scope.",
+    "Source order is snapshot-scoped provenance, not UI, release, chronology, or future presentation policy.",
+    "The exact game client build represented by the pinned source snapshot is not identified.",
+    "No future source snapshot is constrained to contain this same array or population."
+  ],
+  "records": [
+    {
+      "skinId": 102,
+      "sourceRecordHeroId": 1,
+      "arrayIndexZeroBased": 0,
+      "sourceOrder": 1,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroInfo.json#records[ID=1].Skins_ID[0]",
+      "projectionLocator": "evidence/source/configdata/skin-relation-order-records-m02.v1.json#heroInfoRecords[ID=1].Skins_ID[0]",
+      "decision": "ADMIT_SNAPSHOT_SOURCE_ORDER",
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE"
+    },
+    {
+      "skinId": 103,
+      "sourceRecordHeroId": 1,
+      "arrayIndexZeroBased": 1,
+      "sourceOrder": 2,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroInfo.json#records[ID=1].Skins_ID[1]",
+      "projectionLocator": "evidence/source/configdata/skin-relation-order-records-m02.v1.json#heroInfoRecords[ID=1].Skins_ID[1]",
+      "decision": "ADMIT_SNAPSHOT_SOURCE_ORDER",
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE"
+    },
+    {
+      "skinId": 104,
+      "sourceRecordHeroId": 1,
+      "arrayIndexZeroBased": 2,
+      "sourceOrder": 3,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroInfo.json#records[ID=1].Skins_ID[2]",
+      "projectionLocator": "evidence/source/configdata/skin-relation-order-records-m02.v1.json#heroInfoRecords[ID=1].Skins_ID[2]",
+      "decision": "ADMIT_SNAPSHOT_SOURCE_ORDER",
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE"
+    },
+    {
+      "skinId": 105,
+      "sourceRecordHeroId": 1,
+      "arrayIndexZeroBased": 3,
+      "sourceOrder": 4,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroInfo.json#records[ID=1].Skins_ID[3]",
+      "projectionLocator": "evidence/source/configdata/skin-relation-order-records-m02.v1.json#heroInfoRecords[ID=1].Skins_ID[3]",
+      "decision": "ADMIT_SNAPSHOT_SOURCE_ORDER",
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE"
+    }
+  ]
+}

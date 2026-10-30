@@ -28,6 +28,18 @@ jobs:
       - name: Test M01 Skin identity failure boundaries
         run: node tools/test-skin-identities.mjs
 
+      - name: Validate M02 Skin-to-Hero ownership
+        run: node tools/validate-skin-hero-relations-m02.mjs
+
+      - name: Test M02 Skin-to-Hero ownership failure boundaries
+        run: node tools/test-skin-hero-relations-m02.mjs
+
+      - name: Validate M02 Skin source array positions
+        run: node tools/validate-skin-source-orders-m02.mjs
+
+      - name: Test M02 Skin source array position failure boundaries
+        run: node tools/test-skin-source-orders-m02.mjs
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "scope": "One-based Source Order for the four M01 Skin identities in ConfigDataHeroInfo.ID=1 at the pinned historical source snapshot only.",
+  "sourceEvidence": "evidence/source/skin-source-orders-m02.v1.json",
+  "records": [
+    {
+      "skinId": 102,
+      "sourceOrder": 1,
+      "provenance": "evidence/source/skin-source-orders-m02.v1.json#records/skinId=102"
+    },
+    {
+      "skinId": 103,
+      "sourceOrder": 2,
+      "provenance": "evidence/source/skin-source-orders-m02.v1.json#records/skinId=103"
+    },
+    {
+      "skinId": 104,
+      "sourceOrder": 3,
+      "provenance": "evidence/source/skin-source-orders-m02.v1.json#records/skinId=104"
+    },
+    {
+      "skinId": 105,
+      "sourceOrder": 4,
+      "provenance": "evidence/source/skin-source-orders-m02.v1.json#records/skinId=105"
+    }
+  ]
+}
