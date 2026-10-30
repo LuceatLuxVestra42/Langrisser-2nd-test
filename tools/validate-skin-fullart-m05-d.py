@@ -86,7 +86,9 @@ def validate():
     assert len(matches) == 1, "Asset Registry must contain exactly one 601 record"
     assert matches[0] == {"skinId": 601, "assetRecordSkinId": 601, "assetEvidence": manifest_path,
                           "admissionStatus": "APPROVED", "assetValidator": "tools/validate-skin-fullart-m05-d.py"}
-    assert {row["skinId"] for row in registry["records"] if row["admissionStatus"] == "APPROVED"} == {102, 103, 104, 105, 601}
+    approved_ids = {row["skinId"] for row in registry["records"] if row["admissionStatus"] == "APPROVED"}
+    assert {102, 103, 104, 105, 601}.issubset(approved_ids), "M05-D baseline Assets must remain approved"
+    assert len(approved_ids) == len([row for row in registry["records"] if row["admissionStatus"] == "APPROVED"]), "approved Asset IDs must be unique"
 
     print("M05-D Skin 601 Asset Admission: PASS (WebP, SHA-256, size, dimensions, alpha, Semantic link, Asset Registry parity)")
 

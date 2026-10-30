@@ -36,6 +36,41 @@
       "assetEvidence": "evidence/assets/skin-fullart-m05-d.v1.json",
       "admissionStatus": "APPROVED",
       "assetValidator": "tools/validate-skin-fullart-m05-d.py"
+    },
+    {
+      "skinId": 602,
+      "assetRecordSkinId": 602,
+      "assetEvidence": "evidence/assets/skin-fullart-m06.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m06.py"
+    },
+    {
+      "skinId": 603,
+      "assetRecordSkinId": 603,
+      "assetEvidence": "evidence/assets/skin-fullart-m06.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m06.py"
+    },
+    {
+      "skinId": 604,
+      "assetRecordSkinId": 604,
+      "assetEvidence": "evidence/assets/skin-fullart-m06.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m06.py"
+    },
+    {
+      "skinId": 605,
+      "assetRecordSkinId": 605,
+      "assetEvidence": "evidence/assets/skin-fullart-m06.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m06.py"
+    },
+    {
+      "skinId": 606,
+      "assetRecordSkinId": 606,
+      "assetEvidence": "evidence/assets/skin-fullart-m06.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m06.py"
     }
   ]
 }
