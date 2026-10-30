@@ -34,10 +34,11 @@ try {
   }
   assert.ok(built.files.includes(undefined) === false);
   assert.ok(built.files.some((file) => file.path === 'skin-fullart-presentation.mjs'));
+  assert.ok(built.files.some((file) => file.path === 'skin-asset-publication-contract.mjs'));
   assert.ok(built.files.every(file => !/^(canonical|evidence|tools|docs)\//.test(file.path)));
   assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m04.v1.json'), 'internal Asset Manifest must remain private');
   assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m05-d.v1.json'), 'M05-D internal Asset Evidence must remain private');
-  assert.ok(!built.files.some((file) => file.path === 'assets/skin-admissions/m05-d/skin-601.webp'), 'Asset Admission alone must not publish Skin 601');
+  assert.ok(built.files.some((file) => file.path === 'assets/skin-admissions/m05-d/skin-601.webp'), 'Publication-approved Skin 601 must be included from its exact manifest path');
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
   const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);
   await rm(join(output, skinConsumerPath));
@@ -71,10 +72,10 @@ try {
     assert.equal(response.status, 200, 'public Skin JSON URL must return HTTP 200');
     assert.deepEqual(await response.json(), { schemaVersion: 1, skins: expectedPublicRows }, 'fetched Skin JSON must retain approved semantic rows');
     for (const path of skinAssetPaths) assert.equal((await fetch(`${origin}/${path}`)).status, 200, `published Skin Fullart URL must resolve: ${path}`);
+    assert.equal((await fetch(`${origin}/assets/skin-admissions/other/skin-601.webp`)).status, 404, 'unregistered admission directories must not be published');
     assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
     assert.equal((await fetch(`${origin}/canonical/skin-identities.v1.json`)).status, 404, 'Canonical owner files must remain outside the publication surface');
     assert.equal((await fetch(`${origin}/evidence/source/skin-identity-m01.v1.json`)).status, 404, 'Evidence files must remain outside the publication surface');
-    assert.equal((await fetch(`${origin}/assets/skin-admissions/m05-d/skin-601.webp`)).status, 404, 'Skin 601 must remain unpublished without Publication approval');
     assert.equal((await fetch(`${origin}/evidence/assets/skin-fullart-m05-d.v1.json`)).status, 404, 'M05-D Asset Evidence must remain private');
   } finally {
     await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));

@@ -10,7 +10,7 @@ const rejects = (mutateConsumer, mutateAssets, pattern) => {
   const c = clone(), a = cloneAssets(); mutateConsumer?.(c); mutateAssets?.(a);
   assert.throws(() => selectSkinFullarts(c, 1, a), pattern);
 };
-assert.equal(selectSkinFullarts(consumer, 6, assets).length, 0);
+// Hero 6 publication is validated by the M05-E owner; this test retains the M04 Hero 1 contract.
 rejects((v) => v.skins.push(v.skins[0]), null, /duplicate/);
 const wrongHero = clone(); wrongHero.skins[0].heroId = 6;
 assert.equal(selectSkinFullarts(wrongHero, 1, assets).length, 3, 'wrong-Hero row is never shown on Hero 1');
@@ -26,6 +26,7 @@ assert.deepEqual(selectSkinFullarts(shuffled, 1, assets).map((row) => row.skinId
 const orderFixture = [{ skinId: 80, sourceOrder: 2 }, { skinId: 12, sourceOrder: 3 }, { skinId: 50, sourceOrder: 1 }];
 assert.deepEqual(sortPresentationFixture(orderFixture).map((r) => r.skinId), [50, 80, 12]);
 assert.notDeepEqual(sortPresentationFixture(orderFixture).map((r) => r.skinId), [12, 50, 80]);
-assert.equal(selectSkinFullarts({ schemaVersion: 1, skins: [...consumer.skins, { skinId: 601, heroId: 6, sourceOrder: 1 }] }, 6, assets).length, 0,
-  'unpublished Skin has no Asset mapping and stays hidden');
-process.stdout.write('M04 generalized presentation negatives: PASS (10 cases; per-Hero order, publication filtering, no fallback)\n');
+const withUnmappedAsset = { schemaVersion: 1, skins: [...consumer.skins, { skinId: 9999, heroId: 6, sourceOrder: 2 }] };
+assert.equal(selectSkinFullarts(withUnmappedAsset, 6, assets).length, 1,
+  'a Semantic row without a Publication Asset mapping stays hidden');
+process.stdout.write('M04 presentation regression: PASS (10 cases; frozen Hero 1 rows, per-Hero order, publication filtering, no fallback)\n');

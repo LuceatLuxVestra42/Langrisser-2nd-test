@@ -1,3 +1,5 @@
+import { skinAssetPathFromPublicUrl } from './skin-asset-publication-contract.mjs';
+
 // Presentation consumes only the generated public Skin records and approved URL map.
 // It does not derive identity, ownership, order, or publication status.
 export function selectSkinFullarts(consumer, heroId, publicAssets) {
@@ -20,7 +22,7 @@ export function selectSkinFullarts(consumer, heroId, publicAssets) {
   for (const asset of publicAssets.assets) {
     if (!asset || Object.keys(asset).sort().join('|') !== 'imageUrl|skinId'
       || !Number.isSafeInteger(asset.skinId) || !seenSkins.has(asset.skinId)
-      || typeof asset.imageUrl !== 'string' || !/^\.\/assets\/skins\/[a-zA-Z0-9._-]+\.webp$/.test(asset.imageUrl)
+      || !skinAssetPathFromPublicUrl(asset.imageUrl)
       || paths.has(asset.skinId) || usedUrls.has(asset.imageUrl)) {
       throw new Error('Malformed or duplicate approved Skin Asset URL mapping');
     }

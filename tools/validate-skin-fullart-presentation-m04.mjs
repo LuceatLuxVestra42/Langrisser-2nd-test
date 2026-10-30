@@ -16,11 +16,12 @@ const frozenRows = [
   { skinId: 104, heroId: 1, sourceOrder: 3 }, { skinId: 105, heroId: 1, sourceOrder: 4 },
 ];
 assert.deepEqual(frozen.skins, frozenRows, 'M03 Frozen Consumer must remain unchanged');
-assert.deepEqual(consumer.skins, frozenRows, 'M04 public Skin population remains approved four');
+assert.deepEqual(consumer.skins.filter((row) => row.heroId === 1), frozenRows, 'M04 public Hero 1 rows remain the approved four');
+assert.ok(consumer.skins.length >= frozenRows.length, 'M04 public rows must remain available');
 assert.deepEqual(manifest.records.map((row) => row.skinId), [102, 103, 104, 105], 'M04 Asset admission remains frozen');
 const rows = selectSkinFullarts(consumer, 1, publicAssets);
 assert.deepEqual(rows.map(({ skinId, heroId, sourceOrder }) => ({ skinId, heroId, sourceOrder })), frozenRows);
-assert.equal(selectSkinFullarts(consumer, 6, publicAssets).length, 0);
+// Additive Publication-approved rows for other Heroes are owned by later Migrations.
 for (const record of manifest.records) {
   const bytes = await readFile(record.output.path);
   assert.equal(createHash('sha256').update(bytes).digest('hex'), record.output.sha256);

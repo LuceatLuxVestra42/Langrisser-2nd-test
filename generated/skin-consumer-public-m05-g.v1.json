@@ -20,6 +20,11 @@
       "skinId": 105,
       "heroId": 1,
       "sourceOrder": 4
+    },
+    {
+      "skinId": 601,
+      "heroId": 6,
+      "sourceOrder": 1
     }
   ]
 }

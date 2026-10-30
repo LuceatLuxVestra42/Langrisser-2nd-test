@@ -9,6 +9,7 @@ import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cach
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateM05G } from './validate-skin-m05-g.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
+import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -26,9 +27,9 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
   const value = JSON.parse(await readFile(resolve(sourceRoot, skinAssetsPublicPath), 'utf8'));
   if (value.schemaVersion !== 1 || !Array.isArray(value.assets)) throw new Error('Public Skin Asset map schema is invalid');
   const paths = value.assets.map((asset) => {
-    if (!Number.isSafeInteger(asset.skinId) || typeof asset.imageUrl !== 'string'
-      || !/^\.\/assets\/skins\/[a-zA-Z0-9._-]+\.webp$/.test(asset.imageUrl)) throw new Error('Public Skin Asset map contains an invalid URL');
-    return asset.imageUrl.slice(2);
+    const path = skinAssetPathFromPublicUrl(asset.imageUrl);
+    if (!Number.isSafeInteger(asset.skinId) || !path) throw new Error('Public Skin Asset map contains an invalid URL');
+    return path;
   });
   if (new Set(paths).size !== paths.length) throw new Error('Public Skin Asset map contains duplicate paths');
   return paths;
@@ -36,6 +37,10 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
 
 // Publication packaging only: this list does not admit semantic populations.
 export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = []) {
+  if (!Array.isArray(skinFullartPaths) || skinFullartPaths.some((path) => !isAllowedSkinAssetPath(path))
+    || new Set(skinFullartPaths).size !== skinFullartPaths.length) {
+    throw new Error('Skin Fullart Build paths must be unique approved Asset paths');
+  }
   const files = [
     'index.html', 'app.js', 'styles.css',
     'generated/hero-slice.v1.json', 'generated/job-glossary.v1.json',
@@ -46,6 +51,7 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
     skinConsumerPublicPath,
     skinAssetsPublicPath,
     'skin-fullart-presentation.mjs',
+    'skin-asset-publication-contract.mjs',
     ...skinFullartPaths,
   ];
   if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
@@ -370,6 +376,7 @@ try {
   await cp(resolve(skinConsumerPublicPath), join(output, ...skinConsumerPublicPath.split('/')));
   await cp(resolve(skinAssetsPublicPath), join(output, ...skinAssetsPublicPath.split('/')));
   await cp(resolve('skin-fullart-presentation.mjs'), join(output, 'skin-fullart-presentation.mjs'));
+  await cp(resolve('skin-asset-publication-contract.mjs'), join(output, 'skin-asset-publication-contract.mjs'));
   for (const skinPath of skinFullartPaths) {
     const destination = join(output, ...skinPath.split('/'));
     await mkdir(dirname(destination), { recursive: true });

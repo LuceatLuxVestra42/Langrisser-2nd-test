@@ -16,6 +16,10 @@
     {
       "skinId": 105,
       "imageUrl": "./assets/skins/skin-105.webp"
+    },
+    {
+      "skinId": 601,
+      "imageUrl": "./assets/skin-admissions/m05-d/skin-601.webp"
     }
   ]
 }

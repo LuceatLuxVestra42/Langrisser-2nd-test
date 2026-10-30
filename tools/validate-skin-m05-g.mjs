@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 
 const same = (a, b, label) => assert.deepEqual(a, b, label);
 const read = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -92,9 +93,16 @@ export function validateM05GData(input) {
     assert.ok(assetIds.has(approval.skinId), 'Publication approval has no Asset');
     assert.ok(!approvalIds.has(approval.skinId), 'duplicate Publication approval');
     assert.ok(!urls.has(approval.approvedUrl), 'duplicate public URL');
-    assert.match(approval.approvedUrl, /^\.\/assets\/skins\/[a-zA-Z0-9._-]+\.webp$/);
-    assert.equal(approval.approvedUrl, `./${manifestById.get(approval.skinId)?.output?.path}`, 'approved URL differs from admitted Asset path');
+    assert.ok(skinAssetPathFromPublicUrl(approval.approvedUrl), 'Publication URL is outside supported Asset paths');
+    assert.equal(skinAssetPathFromPublicUrl(approval.approvedUrl), manifestById.get(approval.skinId)?.output?.path,
+      'approved URL differs from admitted Asset path');
     assert.ok(approval.approvalRecord);
+    assert.equal(Boolean(approval.semanticAdmission), Boolean(approval.assetAdmission),
+      'Publication owner references must include both Semantic and Asset Admission when supplied');
+    if (approval.semanticAdmission) {
+      assert.equal(typeof approval.semanticAdmission, 'string');
+      assert.equal(typeof approval.assetAdmission, 'string');
+    }
     approvalIds.add(approval.skinId); urls.add(approval.approvedUrl);
   }
   const intersection = rows.filter((row) => assetIds.has(row.skinId) && approvalIds.has(row.skinId));
@@ -102,7 +110,6 @@ export function validateM05GData(input) {
   same(publicAssets, { schemaVersion: 1, assets: intersection.map((row) => ({
     skinId: row.skinId, imageUrl: approved.find((approval) => approval.skinId === row.skinId).approvedUrl,
   })) }, 'Public Asset map is not approval intersection');
-  assert.ok(!publicConsumer.skins.some((row) => row.skinId === 601), '601 must not publish before Asset and Publication approval');
   return { status: 'PASS', frozen: frozenRows.length, composed: rows.length, assets: assetIds.size, published: intersection.length };
 }
 
