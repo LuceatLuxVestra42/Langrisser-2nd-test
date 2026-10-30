@@ -763,6 +763,77 @@ export function renderHeroSoldierRelations(heroPresentation, relationOwner, sold
   return JSON.stringify({ schemaVersion: 1, relations }, null, 2) + '\n';
 }
 
+export function renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities) {
+  const owners = [
+    ['Skin identity', skinIdentities],
+    ['Skin-to-Hero relation', skinHeroRelations],
+    ['Skin Source Order', skinSourceOrders],
+    ['Hero identity', heroIdentities],
+  ];
+  for (const [label, owner] of owners) {
+    if (owner?.schemaVersion !== 1 || !Array.isArray(owner.records)) {
+      throw new Error(`Unsupported ${label} Canonical owner`);
+    }
+  }
+
+  const identityById = new Map();
+  for (const row of skinIdentities.records) {
+    if (!Number.isSafeInteger(row.skinId) || row.skinId <= 0 || typeof row.provenance !== 'string' || !row.provenance.trim()) {
+      throw new Error('Skin identity owner contains a malformed record');
+    }
+    if (identityById.has(row.skinId)) throw new Error(`Duplicate Skin identity ${row.skinId}`);
+    identityById.set(row.skinId, row);
+  }
+
+  const heroIds = new Set();
+  for (const row of heroIdentities.records) {
+    if (!Number.isSafeInteger(row.heroId) || row.heroId <= 0 || typeof row.provenance !== 'string' || !row.provenance.trim()) {
+      throw new Error('Hero identity owner contains a malformed record');
+    }
+    if (heroIds.has(row.heroId)) throw new Error(`Duplicate Hero identity ${row.heroId}`);
+    heroIds.add(row.heroId);
+  }
+
+  const relationBySkinId = new Map();
+  for (const row of skinHeroRelations.records) {
+    if (!Number.isSafeInteger(row.skinId) || !Number.isSafeInteger(row.heroId)
+      || typeof row.provenance !== 'string' || !row.provenance.trim()) {
+      throw new Error('Skin ownership owner contains a malformed record');
+    }
+    if (!identityById.has(row.skinId)) throw new Error(`Ownership references missing Skin ${row.skinId}`);
+    if (!heroIds.has(row.heroId)) throw new Error(`Ownership references missing Hero ${row.heroId}`);
+    if (relationBySkinId.has(row.skinId)) throw new Error(`Multiple ownership claims for Skin ${row.skinId}`);
+    relationBySkinId.set(row.skinId, row);
+  }
+
+  const orderBySkinId = new Map();
+  const sourceOrders = new Set();
+  for (const row of skinSourceOrders.records) {
+    if (!Number.isSafeInteger(row.skinId) || !Number.isSafeInteger(row.sourceOrder) || row.sourceOrder < 1
+      || typeof row.provenance !== 'string' || !row.provenance.trim()) {
+      throw new Error('Skin Source Order owner contains a malformed record');
+    }
+    if (!identityById.has(row.skinId)) throw new Error(`Source Order references missing Skin ${row.skinId}`);
+    if (orderBySkinId.has(row.skinId)) throw new Error(`Multiple Source Order claims for Skin ${row.skinId}`);
+    if (sourceOrders.has(row.sourceOrder)) throw new Error(`Duplicate Source Order ${row.sourceOrder}`);
+    orderBySkinId.set(row.skinId, row.sourceOrder);
+    sourceOrders.add(row.sourceOrder);
+  }
+
+  if (identityById.size !== relationBySkinId.size) throw new Error('Skin identity and ownership populations differ');
+  if (identityById.size !== orderBySkinId.size) throw new Error('Skin identity and Source Order populations differ');
+
+  const skins = [...identityById.keys()].map((skinId) => {
+    const relation = relationBySkinId.get(skinId);
+    const sourceOrder = orderBySkinId.get(skinId);
+    if (!relation) throw new Error(`Missing ownership for Skin ${skinId}`);
+    if (sourceOrder === undefined) throw new Error(`Missing Source Order for Skin ${skinId}`);
+    return { skinId, heroId: relation.heroId, sourceOrder };
+  }).sort((a, b) => a.sourceOrder - b.sourceOrder);
+
+  return `${JSON.stringify({ schemaVersion: 1, skins }, null, 2)}\n`;
+}
+
 
 export function renderExclusiveEquipment(identities, localizations) {
   if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported Exclusive Equipment identity owner');
@@ -876,5 +947,12 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');
   await writeFile(exclusiveEquipmentOutputPath, renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', and ' + heroSoldierOutputPath + '\n');
+  const [skinIdentities, skinHeroRelations, skinSourceOrders] = await Promise.all([
+    readFile(resolve('canonical/skin-identities.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve('canonical/skin-hero-relations-m02.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve('canonical/skin-source-orders-m02.v1.json'), 'utf8').then(JSON.parse),
+  ]);
+  const skinOutputPath = resolve('generated/skin-consumer.v1.json');
+  await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
 }

@@ -10,9 +10,12 @@ const decision = JSON.parse(await readFile(TRAINING_TECH_DECISION_RECORD_PATH, '
 const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
+const skinConsumerPath = 'generated/skin-consumer.v1.json';
 try {
   const built = await buildSite({ outputDir: output });
   assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision));
+  assert.ok(!built.files.some(file => file.path === skinConsumerPath), 'internal Skin Generated consumer must remain outside the public artifact');
+  assert.ok(!publicSitePaths(heroes, decision).includes(skinConsumerPath), 'Skin Generated consumer must not enter the Pages allowlist');
   assert.ok(built.files.every(file => !/^(canonical|evidence|tools|docs)\//.test(file.path)));
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
   const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);

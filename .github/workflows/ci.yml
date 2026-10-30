@@ -40,6 +40,12 @@ jobs:
       - name: Test M02 Skin source array position failure boundaries
         run: node tools/test-skin-source-orders-m02.mjs
 
+      - name: Validate M03 Skin Generated consumer
+        run: node tools/validate-skin-generated.mjs
+
+      - name: Test M03 Skin Generated consumer failure boundaries
+        run: node tools/test-skin-generated.mjs
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 

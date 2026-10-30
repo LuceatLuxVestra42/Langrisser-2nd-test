@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve, sep } from 'node:path';
 import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
+import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
@@ -92,6 +93,7 @@ const talentRelations = await readJson('canonical/hero-talent-star-skills.v1.jso
 const talentLocalizations = await readJson('canonical/hero-talent-localizations-ko.v1.json');
 const skills = await readJson('canonical/skills.v1.json');
 const heroJobLevelRawStats = await readJson('canonical/hero-job-level-raw-stats.v1.json');
+await validateSkinGenerated(process.cwd());
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats);

@@ -4,6 +4,7 @@ import { resolve, sep } from 'node:path';
 import { renderGenerated, renderGeneralSsrEquipment } from './generate.mjs';
 import { validateHeroPortraitSelection } from './validate-hero-portrait-selection.mjs';
 import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-raw-stats.mjs';
+import { validateSkinGenerated } from './validate-skin-generated.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -677,4 +678,5 @@ for (const record of equipmentGenerated.equipment) {
 
 await validateHeroPortraitSelection(root);
 await loadAndValidateHeroJobLevelRawStats(root);
+await validateSkinGenerated(root);
 process.stdout.write('Hero slice, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators and scoped raw JobLevel stats; no derived combat stats admitted)\n');
