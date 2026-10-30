@@ -4,7 +4,10 @@ import { generateSkinM05G } from './generate-skin-m05-g.mjs';
 import { readFile } from 'node:fs/promises';
 
 const input = await loadM05GInputs();
-assert.deepEqual(validateM05GData(input), { status: 'PASS', frozen: 4, composed: 5, assets: 4, published: 4 });
+assert.deepEqual(validateM05GData(input), { status: 'PASS', frozen: 4, composed: 5, assets: 5, published: 4 });
+assert.deepEqual(input.assetRegistry.records.filter((row) => row.admissionStatus === 'APPROVED').map((row) => row.skinId), [102, 103, 104, 105, 601]);
+assert.deepEqual(input.publicConsumer.skins.map((row) => row.skinId), [102, 103, 104, 105]);
+assert.deepEqual(input.publicAssets.assets.map((row) => row.skinId), [102, 103, 104, 105]);
 const generatedBefore = await Promise.all([
   readFile('generated/skin-consumer-composed-m05-g.v1.json', 'utf8'),
   readFile('generated/skin-consumer-public-m05-g.v1.json', 'utf8'),

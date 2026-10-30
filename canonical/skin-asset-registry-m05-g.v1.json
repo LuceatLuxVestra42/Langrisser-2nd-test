@@ -2,9 +2,40 @@
   "schemaVersion": 1,
   "scope": "Explicitly admitted Skin Fullart assets; records are private provenance references and do not grant publication approval.",
   "records": [
-    { "skinId": 102, "assetRecordSkinId": 102, "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json", "admissionStatus": "APPROVED", "assetValidator": "tools/validate-skin-fullart-m04.py" },
-    { "skinId": 103, "assetRecordSkinId": 103, "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json", "admissionStatus": "APPROVED", "assetValidator": "tools/validate-skin-fullart-m04.py" },
-    { "skinId": 104, "assetRecordSkinId": 104, "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json", "admissionStatus": "APPROVED", "assetValidator": "tools/validate-skin-fullart-m04.py" },
-    { "skinId": 105, "assetRecordSkinId": 105, "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json", "admissionStatus": "APPROVED", "assetValidator": "tools/validate-skin-fullart-m04.py" }
+    {
+      "skinId": 102,
+      "assetRecordSkinId": 102,
+      "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m04.py"
+    },
+    {
+      "skinId": 103,
+      "assetRecordSkinId": 103,
+      "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m04.py"
+    },
+    {
+      "skinId": 104,
+      "assetRecordSkinId": 104,
+      "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m04.py"
+    },
+    {
+      "skinId": 105,
+      "assetRecordSkinId": 105,
+      "assetEvidence": "evidence/assets/skin-fullart-m04.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m04.py"
+    },
+    {
+      "skinId": 601,
+      "assetRecordSkinId": 601,
+      "assetEvidence": "evidence/assets/skin-fullart-m05-d.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m05-d.py"
+    }
   ]
 }
