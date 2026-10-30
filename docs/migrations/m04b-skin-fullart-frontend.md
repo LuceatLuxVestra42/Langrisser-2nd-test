@@ -33,13 +33,14 @@ The combined head is formed by merging the exact PR head commits in the listed o
 - `tools/test-browser-smoke.mjs`
 - `tools/validate-skin-fullart-presentation-m04.mjs`
 - `tools/test-skin-fullart-presentation-m04.mjs`
+- `tools/test-hero-soldier-navigation.mjs` (existing regression harness updated to pass an empty Skin map)
 - `docs/migrations/m04b-skin-fullart-frontend.md`
 
 ## Validation record
 
-The M01 identity, M02 relation and source-order, M03 consumer, and PR #156 Asset validators and negative tests pass against the fixed integration tree. The M04-B consumer/asset presentation validator and its 18 failure controls pass. The static Build publishes 46 files, including the four approved WebPs and the M03 JSON; it excludes `evidence/` and verifies the asset byte digests. Build/publication negatives and cache-key validation pass. The broader Hero validator passes.
+The M01 identity, M02 relation and source-order, M03 consumer, and PR #156 Asset validators and negative tests pass against the fixed integration tree. The M04-B consumer/asset presentation validator and its 18 failure controls pass. The static Build publishes 46 files, including the four approved WebPs and the M03 JSON; it excludes `evidence/` and verifies the asset byte digests. Build/publication negatives and cache-key validation pass. The broader Hero validator passes. PR CI exposed a fixture-isolation dependency in the existing Hero→Soldier navigation test; that harness now supplies an empty Skin map, and both affected Hero navigation regression tests pass locally.
 
-The extended Chromium Browser Smoke checks the four decoded images at desktop and mobile viewports, Hero isolation, sequence labels, no horizontal overflow, and absence of Skin names or IDs in the visible Skin section. Local Chromium is unavailable in the current environment; the exact test is wired to the PR Browser QA workflow. CI and hosted Browser results are pending PR creation.
+The extended Chromium Browser Smoke checks the four decoded images at desktop and mobile viewports, Hero isolation, sequence labels, no horizontal overflow, and absence of Skin names or IDs in the visible Skin section. Local Chromium is unavailable in the current environment; the exact test is wired to the PR Browser QA workflow. PR #157 CI and Browser QA are pending the updated Head.
 
 ## Status and continuation
 
