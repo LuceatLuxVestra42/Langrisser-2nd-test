@@ -15,6 +15,76 @@
         "evidence/source/skin-source-order-m05-c.v1.json"
       ],
       "validator": "tools/validate-skin-admission-m05-c.mjs"
+    },
+    {
+      "admissionId": "M06-SKIN-602",
+      "status": "APPROVED",
+      "skinId": 602,
+      "identityCanonical": "canonical/skin-identities-m06.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-m06.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-m06.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-m06.v1.json",
+        "evidence/source/skin-hero-relation-m06.v1.json",
+        "evidence/source/skin-source-order-m06.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-m06.mjs"
+    },
+    {
+      "admissionId": "M06-SKIN-603",
+      "status": "APPROVED",
+      "skinId": 603,
+      "identityCanonical": "canonical/skin-identities-m06.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-m06.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-m06.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-m06.v1.json",
+        "evidence/source/skin-hero-relation-m06.v1.json",
+        "evidence/source/skin-source-order-m06.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-m06.mjs"
+    },
+    {
+      "admissionId": "M06-SKIN-604",
+      "status": "APPROVED",
+      "skinId": 604,
+      "identityCanonical": "canonical/skin-identities-m06.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-m06.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-m06.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-m06.v1.json",
+        "evidence/source/skin-hero-relation-m06.v1.json",
+        "evidence/source/skin-source-order-m06.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-m06.mjs"
+    },
+    {
+      "admissionId": "M06-SKIN-605",
+      "status": "APPROVED",
+      "skinId": 605,
+      "identityCanonical": "canonical/skin-identities-m06.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-m06.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-m06.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-m06.v1.json",
+        "evidence/source/skin-hero-relation-m06.v1.json",
+        "evidence/source/skin-source-order-m06.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-m06.mjs"
+    },
+    {
+      "admissionId": "M06-SKIN-606",
+      "status": "APPROVED",
+      "skinId": 606,
+      "identityCanonical": "canonical/skin-identities-m06.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-m06.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-m06.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-m06.v1.json",
+        "evidence/source/skin-hero-relation-m06.v1.json",
+        "evidence/source/skin-source-order-m06.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-m06.mjs"
     }
   ]
 }

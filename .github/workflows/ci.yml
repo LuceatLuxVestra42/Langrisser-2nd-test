@@ -83,6 +83,11 @@ jobs:
       - name: Test M05-G composition and approval failure boundaries
         run: node tools/test-skin-m05-g.mjs
 
+      - name: Validate M06 Hero 6 Skin 602-606 semantic admissions
+        run: node tools/validate-skin-admission-m06.mjs
+      - name: Test M06 Hero 6 semantic admission failure boundaries
+        run: node tools/test-skin-admission-m06.mjs
+
       - name: Validate M05-D Skin 601 Fullart Asset Admission
         run: python tools/validate-skin-fullart-m05-d.py
 

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-identity",
+  "evidenceClass": "A",
+  "scope": "Direct source-native ID field for each admitted Skin; identity only.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "snapshotDescription": "Historical China ConfigData snapshot; original game build number and official publication date unknown.",
+    "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+    "gitBlobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+    "sizeBytes": 563343,
+    "sha256": "6fe685622a57a6546f4cce73ff788057605fca215eba6327eff66c3b5d4847c7",
+    "field": "ID",
+    "matchingRecordCountPerSkin": 1,
+    "recordCount": 565
+  },
+  "records": [
+    {
+      "skinId": 602,
+      "sourceRecord": {
+        "ID": 602
+      }
+    },
+    {
+      "skinId": 603,
+      "sourceRecord": {
+        "ID": 603
+      }
+    },
+    {
+      "skinId": 604,
+      "sourceRecord": {
+        "ID": 604
+      }
+    },
+    {
+      "skinId": 605,
+      "sourceRecord": {
+        "ID": 605
+      }
+    },
+    {
+      "skinId": 606,
+      "sourceRecord": {
+        "ID": 606
+      }
+    }
+  ],
+  "limitations": [
+    "This evidence supports Skin Identity only.",
+    "It does not establish localization, release status, ownership, order, asset admission, or UI eligibility."
+  ]
+}

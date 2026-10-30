@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "scope": "M06-B one-based Source Order claims for SkinIDs 602-606 in ConfigDataHeroInfo.ID=6 Skins_ID[] at the pinned historical snapshot only; not release or UI order.",
+  "records": [
+    {
+      "skinId": 602,
+      "sourceOrder": 2,
+      "provenance": "evidence/source/skin-source-order-m06.v1.json#records/skinId=602"
+    },
+    {
+      "skinId": 603,
+      "sourceOrder": 3,
+      "provenance": "evidence/source/skin-source-order-m06.v1.json#records/skinId=603"
+    },
+    {
+      "skinId": 604,
+      "sourceOrder": 4,
+      "provenance": "evidence/source/skin-source-order-m06.v1.json#records/skinId=604"
+    },
+    {
+      "skinId": 605,
+      "sourceOrder": 5,
+      "provenance": "evidence/source/skin-source-order-m06.v1.json#records/skinId=605"
+    },
+    {
+      "skinId": 606,
+      "sourceOrder": 6,
+      "provenance": "evidence/source/skin-source-order-m06.v1.json#records/skinId=606"
+    }
+  ]
+}

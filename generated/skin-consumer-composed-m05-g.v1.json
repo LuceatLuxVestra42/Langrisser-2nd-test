@@ -25,6 +25,31 @@
       "skinId": 601,
       "heroId": 6,
       "sourceOrder": 1
+    },
+    {
+      "skinId": 602,
+      "heroId": 6,
+      "sourceOrder": 2
+    },
+    {
+      "skinId": 603,
+      "heroId": 6,
+      "sourceOrder": 3
+    },
+    {
+      "skinId": 604,
+      "heroId": 6,
+      "sourceOrder": 4
+    },
+    {
+      "skinId": 605,
+      "heroId": 6,
+      "sourceOrder": 5
+    },
+    {
+      "skinId": 606,
+      "heroId": 6,
+      "sourceOrder": 6
     }
   ]
 }

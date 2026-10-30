@@ -3,7 +3,10 @@ import { loadM05GInputs, validateM05GData } from './validate-skin-m05-g.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { validateM05E } from './validate-skin-publication-m05-e.mjs';
 
-assert.deepEqual(await validateM05E(), { status: 'PASS', frozenHeroOne: 4, semantic: 5, assets: 5, publication: 5, public: 5, heroSix: 1 });
+assert.deepEqual(await validateM05E(), {
+  status: 'PASS', frozenHeroOne: 4, semanticBaseline: 5, assetBaseline: 5,
+  publicationBaseline: 5, publicBaseline: 5, heroSixBaseline: 1,
+});
 assert.equal(isAllowedSkinAssetPath('assets/skins/skin-105.webp'), true);
 assert.equal(isAllowedSkinAssetPath('assets/skin-admissions/m05-d/skin-601.webp'), true);
 for (const invalid of [
