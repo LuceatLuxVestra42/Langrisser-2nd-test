@@ -2,9 +2,13 @@ import assert from 'node:assert/strict';
 import { loadM06SemanticInputs, validateM06SemanticData, assertM06PerHeroOrderUniqueness } from './validate-skin-admission-m06.mjs';
 
 const baseline = await loadM06SemanticInputs();
-assert.deepEqual(validateM06SemanticData(baseline), {
-  status: 'PASS', newSemantic: 5, composed: 10, existingPublic: 5, newlyPublishedFromM06: 0,
-});
+const baselineResult = validateM06SemanticData(baseline);
+assert.deepEqual({ status: baselineResult.status, newSemantic: baselineResult.newSemantic,
+  composed: baselineResult.composed, existingPublic: baselineResult.existingPublic },
+{ status: 'PASS', newSemantic: 5, composed: 10, existingPublic: 5 });
+assert.equal(baselineResult.newlyPublishedFromM06,
+  baseline.publicConsumer.skins.filter((row) => [602, 603, 604, 605, 606].includes(row.skinId)).length,
+  'M06 publication count must reflect later Publication Owner decisions');
 assertM06PerHeroOrderUniqueness([{ heroId: 6, sourceOrder: 1 }, { heroId: 7, sourceOrder: 1 }]);
 
 const rejects = (label, mutate, pattern) => {
@@ -24,9 +28,8 @@ rejects('duplicate admission key', (v) => { v.admissionRegistry.admissions[1].ad
 rejects('duplicate Source Order in same Hero', (v) => { v.composed.skins[6].sourceOrder = 1; }, /composed internal Consumer/);
 rejects('M01 Frozen population mutation', (v) => { v.frozenIdentity.records.pop(); }, /M01 Frozen population/);
 rejects('M05-C population mutation', (v) => { v.m05Relation.records[0].heroId = 7; }, /M05-C ownership/);
-rejects('unapproved Semantic-only public row', (v) => {
-  v.publicConsumer.skins.push({ skinId: 602, heroId: 6, sourceOrder: 2 });
-  v.publicAssets.assets.push({ skinId: 602, imageUrl: './assets/skin-admissions/m06/skin-602.webp' });
+rejects('public Semantic row without Publication Approval', (v) => {
+  v.publication.approvals = v.publication.approvals.filter((row) => row.skinId !== 602);
 }, /Semantic-only Skin 602 leaked/);
 
 process.stdout.write('M06 Semantic failure controls: PASS (12 isolated identity, ownership, order, provenance, scope, and publication mutations)\n');

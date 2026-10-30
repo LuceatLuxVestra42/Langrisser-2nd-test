@@ -27,6 +27,8 @@ const orderFixture = [{ skinId: 80, sourceOrder: 2 }, { skinId: 12, sourceOrder:
 assert.deepEqual(sortPresentationFixture(orderFixture).map((r) => r.skinId), [50, 80, 12]);
 assert.notDeepEqual(sortPresentationFixture(orderFixture).map((r) => r.skinId), [12, 50, 80]);
 const withUnmappedAsset = { schemaVersion: 1, skins: [...consumer.skins, { skinId: 9999, heroId: 6, sourceOrder: 2 }] };
-assert.equal(selectSkinFullarts(withUnmappedAsset, 6, assets).length, 1,
+const heroSixWithUnmapped = selectSkinFullarts(withUnmappedAsset, 6, assets);
+assert.equal(heroSixWithUnmapped.length, consumer.skins.filter((row) => row.heroId === 6).length,
   'a Semantic row without a Publication Asset mapping stays hidden');
+assert.ok(!heroSixWithUnmapped.some((row) => row.skinId === 9999), 'unmapped SkinID must not be exposed');
 process.stdout.write('M04 presentation regression: PASS (10 cases; frozen Hero 1 rows, per-Hero order, publication filtering, no fallback)\n');

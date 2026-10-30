@@ -38,7 +38,13 @@ try {
   assert.ok(built.files.every(file => !/^(canonical|evidence|tools|docs)\//.test(file.path)));
   assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m04.v1.json'), 'internal Asset Manifest must remain private');
   assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m05-d.v1.json'), 'M05-D internal Asset Evidence must remain private');
+  assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m06.v1.json'), 'M06 internal Asset Evidence must remain private');
   assert.ok(built.files.some((file) => file.path === 'assets/skin-admissions/m05-d/skin-601.webp'), 'Publication-approved Skin 601 must be included from its exact manifest path');
+  for (const id of [602, 603, 604, 605, 606]) {
+    const path = `assets/skin-admissions/m06/skin-${id}.webp`;
+    assert.ok(built.files.some((file) => file.path === path), `Publication-approved M06 Skin ${id} must be included from its exact manifest path`);
+    assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published M06 Skin ${id} bytes must match admitted Asset`);
+  }
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
   const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);
   await rm(join(output, skinConsumerPath));
