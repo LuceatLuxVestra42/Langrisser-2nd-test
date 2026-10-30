@@ -241,7 +241,8 @@ try {
     assert.ok(layout.navigationVisible, `${viewport.name}: section navigation must be visible`);
     assert.equal(layout.links.length, 6, `${viewport.name}: expected six shortcut links`);
     assert.ok(layout.links.every((link) => link.visible), `${viewport.name}: every shortcut must be visible`);
-    assert.ok(Object.values(layout.rendered).every((count) => count > 0), `${viewport.name}: site content must render`);
+    assert.ok(Object.entries(layout.rendered).filter(([name]) => name !== 'otherHeroSkinSections')
+      .every(([, count]) => count > 0), `${viewport.name}: expected site content must render`);
     assert.equal(layout.rendered.heroOneSkinImages, 4, `${viewport.name}: Hero 1 must display four Skin Fullarts`);
     assert.equal(layout.rendered.otherHeroSkinSections, 0, `${viewport.name}: other Heroes must not receive Skin Fullarts`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
