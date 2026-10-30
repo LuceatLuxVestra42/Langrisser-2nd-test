@@ -65,6 +65,7 @@ const sandbox = {
 };
 
 const runtime = [
+  extractFunction(frontend, 'makeSkinFullartPresentation'),
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
@@ -269,7 +270,7 @@ const soldiersById = new Map([
   ...spData.soldiers.map((record) => [record.spSoldierId, { namespace: 'SP', nameKo: record.nameKo, domId: `sp-soldier-${record.spSoldierId}` }]),
 ]);
 functions.setHeroRelations(new Map([[heroRelation.soldierId, [hero.id]]]));
-functions.addHero(hero, new Map([[hero.id, [heroRelation.soldierId]]]), soldiersById);
+functions.addHero(hero, new Map([[hero.id, [heroRelation.soldierId]]]), soldiersById, new Map());
 const heroCard = findById(`hero-${hero.id}`, heroContainer);
 clickAndDrain(findByClass('soldier-navigation-link', heroCard));
 assert.ok(document.getElementById(soldierEndpoint.domId)?.scrolled, 'Hero→Soldier restores a filtered target and scrolls to it');
