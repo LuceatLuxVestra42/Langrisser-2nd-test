@@ -106,9 +106,9 @@ jobs:
         run: node tools/test-skin-publication-m05-e.mjs
 
       - name: Validate M06 Skin 602-606 Publication Approval and Fullart projection
-        run: node tools/validate-skin-publication-m06-d.mjs
+        run: node tools/validate-skin-publication-m06-e.mjs
       - name: Test M06 Skin 602-606 Publication failure boundaries
-        run: node tools/test-skin-publication-m06-d.mjs
+        run: node tools/test-skin-publication-m06-e.mjs
 
       - name: Test read-only Skin Source Snapshot change classification
         run: node tools/test-skin-source-diff-m05-g.mjs

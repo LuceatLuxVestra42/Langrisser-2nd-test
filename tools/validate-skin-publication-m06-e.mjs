@@ -13,7 +13,7 @@ const OLD_URLS = new Map([
   [601, './assets/skin-admissions/m05-d/skin-601.webp'],
 ]);
 
-export function validateM06DData(input) {
+export function validateM06EData(input) {
   const result = validateM05GData(input);
   assert.equal(result.status, 'PASS');
   const semantic = input.composed.skins.filter((row) => IDS.includes(row.skinId));
@@ -65,10 +65,10 @@ export function validateM06DData(input) {
   return { status: 'PASS', frozen: result.frozen, composed: result.composed, assets: result.assets, published: result.published, heroSix: 6 };
 }
 
-export async function validateM06D(root = process.cwd()) {
-  return validateM06DData(await loadM05GInputs(root));
+export async function validateM06E(root = process.cwd()) {
+  return validateM06EData(await loadM05GInputs(root));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  process.stdout.write(`M06-D publication: PASS ${JSON.stringify(await validateM06D())}\n`);
+  process.stdout.write(`M06-E publication: PASS ${JSON.stringify(await validateM06E())}\n`);
 }

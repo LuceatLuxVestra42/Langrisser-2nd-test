@@ -2,14 +2,14 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { generateSkinM05G } from './generate-skin-m05-g.mjs';
 import { loadM05GInputs } from './validate-skin-m05-g.mjs';
-import { validateM06DData } from './validate-skin-publication-m06-d.mjs';
+import { validateM06EData } from './validate-skin-publication-m06-e.mjs';
 
 const input = await loadM05GInputs();
-assert.equal(validateM06DData(input).status, 'PASS');
+assert.equal(validateM06EData(input).status, 'PASS');
 const rejects = (mutate, pattern, label) => {
   const value = structuredClone(input);
   mutate(value);
-  assert.throws(() => validateM06DData(value), pattern, label);
+  assert.throws(() => validateM06EData(value), pattern, label);
 };
 rejects((v) => { v.publication.approvals.find((r) => r.skinId === 602).approvedUrl = './../assets/skin-admissions/m06/skin-602.webp'; }, /supported Asset paths|URL/,
   'path traversal must be rejected');
@@ -54,4 +54,4 @@ const after = await Promise.all([
   readFile('generated/skin-assets-public-m05-g.v1.json', 'utf8'),
 ]);
 assert.deepEqual(after, before, 'M05-G projections must be deterministic for the approved input set');
-process.stdout.write('M06-D publication negative controls: PASS (14 isolated mutations; approval intersection, exact URL paths, claim pointers, source order, bytes, and determinism)\n');
+process.stdout.write('M06-E publication negative controls: PASS (14 isolated mutations; approval intersection, exact URL paths, claim pointers, source order, bytes, and determinism)\n');
