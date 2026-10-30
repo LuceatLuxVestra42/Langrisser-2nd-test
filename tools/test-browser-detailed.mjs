@@ -45,7 +45,7 @@ function consumerBlobSha(path) {
   return execFileSync('git', ['-C', siteRoot, 'rev-parse', `${actualSiteSha}:${path}`], { encoding: 'utf8' }).trim();
 }
 
-const mime = new Map([['.css','text/css; charset=utf-8'],['.html','text/html; charset=utf-8'],['.js','text/javascript; charset=utf-8'],['.json','application/json'],['.svg','image/svg+xml'],['.png','image/png'],['.webp','image/webp']]);
+const mime = new Map([['.css','text/css; charset=utf-8'],['.html','text/html; charset=utf-8'],['.js','text/javascript; charset=utf-8'],['.mjs','text/javascript; charset=utf-8'],['.json','application/json'],['.svg','image/svg+xml'],['.png','image/png'],['.webp','image/webp']]);
 const server = createServer(async (request, response) => {
   try {
     const pathname = decodeURIComponent(new URL(request.url ?? '/', 'http://127.0.0.1').pathname);
