@@ -42,7 +42,7 @@ The combined head is formed by merging the exact PR head commits in the listed o
 
 The M01 identity, M02 relation and source-order, M03 consumer, and PR #156 Asset validators and negative tests pass against the fixed integration tree. The M04-B consumer/asset presentation validator and its 18 failure controls pass. The static Build publishes 46 files, including the four approved WebPs and the M03 JSON; it excludes `evidence/` and verifies the asset byte digests. Build/publication negatives and cache-key validation pass. The broader Hero validator passes. PR CI exposed fixture-isolation dependencies in existing Hero→Soldier navigation, Soldier search, and Hero Equipment presentation tests; those harnesses now supply an empty Skin map. All three pass locally.
 
-The extended Chromium Browser Smoke checks the four decoded images at desktop and mobile viewports, Hero isolation, sequence labels, no horizontal overflow, and absence of Skin names or IDs in the visible Skin section. Local Chromium is unavailable in the current environment; the exact test is wired to the PR Browser QA workflow. PR #157 CI and Browser QA are pending the updated Head.
+The extended Chromium Browser Smoke checks the four decoded images at desktop and mobile viewports, Hero isolation, sequence labels, no horizontal overflow, and absence of Skin names or IDs in the visible Skin section. Its first hosted run found that the QA static server did not assign a JavaScript MIME type to `.mjs`; the harness now serves `.mjs` as JavaScript. The exact-head Browser QA rerun is pending. Local Chromium is unavailable in the current environment.
 
 ## Status and continuation
 
