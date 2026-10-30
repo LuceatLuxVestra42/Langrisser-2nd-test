@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-identity",
+  "scope": "M01: source-native Skin Identity 102, 103, 104, 105 only; historical China ConfigData snapshot, not global Skin completeness or current release status.",
+  "source": {
+    "family": "China ConfigData",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+    "blobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+    "sha256": "6fe685622a57a6546f4cce73ff788057605fca215eba6327eff66c3b5d4847c7",
+    "sizeBytes": 563343,
+    "verification": "Full UTF-8 source bytes retrieved independently and Git blob SHA-1 matched the GitHub file object; each selected ID occurs exactly once.",
+    "preservedSubset": "evidence/source/configdata/ConfigDataHeroSkinInfo.records-identity-m01.v1.json",
+    "selection": "Select records by explicit ID in [102, 103, 104, 105]; preserve only ID and Name verbatim. No numeric range, name matching, or ownership selection.",
+    "transformation": "ID -> skinId without arithmetic or coercion. Name is source-reference text only and is not admitted as canonical localization."
+  },
+  "semanticBasis": {
+    "identityField": "ConfigDataHeroSkinInfo.ID",
+    "meaning": "Source-native identifier of a Hero skin record. Legacy source interpretation explicitly joins HeroInfo.Skins_ID[] to this table's ID; the inspected builder indexes HeroSkinInfo by unique integer ID. M01 admits the four identities only.",
+    "legacySourceTraceLocator": "data/validation/hero-page-stage5-5-2-source-trace.v1.json#fields/skins",
+    "builderLocator": "scripts/build_hero_page_stage5_5_3.cjs#skinInfoById = byUniqueInt(skinInfo, 'ID', 'HeroSkinInfo')",
+    "preservedInterpretation": {
+      "detailSource": "ConfigDataHeroSkinInfo",
+      "join": "ConfigDataHeroInfo.Skins_ID[] -> ConfigDataHeroSkinInfo.ID"
+    },
+    "support": "Direct source-native ID records establish existence; the prior source interpretation explains the identifier's Skin meaning. Generated parity is corroboration, not identity authority."
+  },
+  "legacyComparison": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "ref": "main",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "artifacts": [
+      {
+        "path": "data/contracts/skin-stage1-input-contract.v1.json",
+        "blobSha1": "c2550a67e5538bf86dfad90fbc95b535b19dd4af"
+      },
+      {
+        "path": "data/generated/skin-stage1-canonical.v1.json",
+        "blobSha1": "acd83dc94e4ef30841f53ad464ae53a9ffef92b7"
+      },
+      {
+        "path": "data/validation/skin-stage1-2-parity.v1.json",
+        "blobSha1": "f7e5e03dbe7b89cb6e79f144eea8a8111e1c202d"
+      },
+      {
+        "path": "data/generated/skin-stage2-3-bidirectional-relation.v1.json",
+        "blobSha1": "c69bc6a970909b66502574dcd709d3c731607ead"
+      },
+      {
+        "path": "data/contracts/skin-stage2-5-consumer-contract.v1.json",
+        "blobSha1": "a7bc76818ad6bb20c1b27e1e7914e1ded885b7dc"
+      },
+      {
+        "path": "data/validation/skin-stage2-5-final.v1.json",
+        "blobSha1": "1ea21a2c72be78daab8ae7b326976544432b617b"
+      },
+      {
+        "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+        "blobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9"
+      },
+      {
+        "path": "scripts/build_hero_page_stage5_5_3.cjs",
+        "blobSha1": "764c6cb7c0464b7ce34738210158a681926b6a66"
+      },
+      {
+        "path": "scripts/generate-skin-stage1-1.py",
+        "blobSha1": "0155c2dd789201194f761efd2834153aaa311f49"
+      }
+    ],
+    "validationScope": "Stage1-2 compares 540 accepted regular-skin IDs, owner, order, identity, assets and acquisition to its upstream projection. Stage2-5 validates 540 forward/reverse relation edges over 267 Heroes. These are historical scopes, not Target completeness or M01 relation admission.",
+    "transformationProvenance": "build_hero_page_stage5_5_3.cjs selects explicit HeroInfo.Skins_ID entries, resolves each through the unique HeroSkinInfo.ID index and copies Name; generate-skin-stage1-1.py flattens upstream skins[].skinId into records[].skinId. This history is retained but not used as a future admission selector.",
+    "rawSnapshotLimitation": "The inspected historical raw snapshot is pinned separately. M01 does not assert that the Legacy generated artifacts were built from exactly this commit.",
+    "referencesOnly": true
+  },
+  "limitations": [
+    "No game client build number or official publication date is established by the Git snapshot; its scope is the preserved source version.",
+    "Names support source inspection only; no Korean name or canonical Chinese localization is admitted.",
+    "Hero ownership and sourceOrder are comparison references only, deferred to M02. Neither is canonical nor an identity selection or sorting rule.",
+    "No assets, acquisition meaning, SP illustration, Soldier skin, release scope, generated consumer or frontend eligibility is admitted.",
+    "No authoritative contradiction was found within the inspected source and Legacy evidence; this is not a live-server or exhaustive external contradiction survey."
+  ],
+  "records": [
+    {
+      "skinId": 102,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroSkinInfo.json#records[ID=102].ID",
+      "preservedLocator": "evidence/source/configdata/ConfigDataHeroSkinInfo.records-identity-m01.v1.json#records[ID=102].ID",
+      "sourceName": "执事美酒",
+      "legacyLocator": "data/generated/skin-stage1-canonical.v1.json#records[skinId=102]",
+      "comparisonOnly": {
+        "heroId": 1,
+        "sourceOrder": 1
+      },
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE",
+      "decision": "ADMIT_IDENTITY_ONLY"
+    },
+    {
+      "skinId": 103,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroSkinInfo.json#records[ID=103].ID",
+      "preservedLocator": "evidence/source/configdata/ConfigDataHeroSkinInfo.records-identity-m01.v1.json#records[ID=103].ID",
+      "sourceName": "灵魂指挥",
+      "legacyLocator": "data/generated/skin-stage1-canonical.v1.json#records[skinId=103]",
+      "comparisonOnly": {
+        "heroId": 1,
+        "sourceOrder": 2
+      },
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE",
+      "decision": "ADMIT_IDENTITY_ONLY"
+    },
+    {
+      "skinId": 104,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroSkinInfo.json#records[ID=104].ID",
+      "preservedLocator": "evidence/source/configdata/ConfigDataHeroSkinInfo.records-identity-m01.v1.json#records[ID=104].ID",
+      "sourceName": "铸剑的英雄",
+      "legacyLocator": "data/generated/skin-stage1-canonical.v1.json#records[skinId=104]",
+      "comparisonOnly": {
+        "heroId": 1,
+        "sourceOrder": 3
+      },
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE",
+      "decision": "ADMIT_IDENTITY_ONLY"
+    },
+    {
+      "skinId": 105,
+      "evidenceClass": "A",
+      "sourceLocator": "data/configdata/ConfigDataHeroSkinInfo.json#records[ID=105].ID",
+      "preservedLocator": "evidence/source/configdata/ConfigDataHeroSkinInfo.records-identity-m01.v1.json#records[ID=105].ID",
+      "sourceName": "妙想假日",
+      "legacyLocator": "data/generated/skin-stage1-canonical.v1.json#records[skinId=105]",
+      "comparisonOnly": {
+        "heroId": 1,
+        "sourceOrder": 4
+      },
+      "contradiction": "NONE_OBSERVED_IN_INSPECTED_SCOPE",
+      "decision": "ADMIT_IDENTITY_ONLY"
+    }
+  ]
+}

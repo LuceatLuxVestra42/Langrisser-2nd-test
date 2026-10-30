@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "scope": "M01: source-native Skin Identity 102, 103, 104, 105 only; historical China ConfigData snapshot, not global Skin completeness or current release status.",
+  "sourceEvidence": "evidence/source/skin-identity-m01.v1.json",
+  "records": [
+    {
+      "skinId": 102,
+      "provenance": "evidence/source/skin-identity-m01.v1.json#records/skinId=102"
+    },
+    {
+      "skinId": 103,
+      "provenance": "evidence/source/skin-identity-m01.v1.json#records/skinId=103"
+    },
+    {
+      "skinId": 104,
+      "provenance": "evidence/source/skin-identity-m01.v1.json#records/skinId=104"
+    },
+    {
+      "skinId": 105,
+      "provenance": "evidence/source/skin-identity-m01.v1.json#records/skinId=105"
+    }
+  ]
+}
