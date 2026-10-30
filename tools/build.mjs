@@ -26,6 +26,7 @@ export function publicSitePaths(heroPresentation, decisionRecord) {
     'generated/general-ssr-equipment.v1.json', 'generated/exclusive-equipment.v1.json',
     'generated/sp-soldiers.v1.json', 'generated/normal-soldiers.v1.json',
     'generated/hero-soldier-relations.v1.json',
+    'generated/skin-consumer.v1.json',
   ];
   if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
   if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
@@ -341,6 +342,8 @@ try {
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
+  const skinConsumerPath = resolve('generated/skin-consumer.v1.json');
+  await cp(skinConsumerPath, join(output, 'generated', 'skin-consumer.v1.json'));
   if (includeTrainingTechDirectJson) {
     await cp(trainingTechGeneratedPath, join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'));
   }
