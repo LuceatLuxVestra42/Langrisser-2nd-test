@@ -60,6 +60,12 @@ jobs:
       - name: Test M04 Skin fullart Asset failure boundaries
         run: python tools/test-skin-fullart-m04.py
 
+      - name: Validate M04 Skin fullart presentation contract
+        run: node tools/validate-skin-fullart-presentation-m04.mjs
+
+      - name: Test M04 Skin fullart presentation failure boundaries
+        run: node tools/test-skin-fullart-presentation-m04.mjs
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 

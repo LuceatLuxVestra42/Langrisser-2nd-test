@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - codex/m04b-integration-exact
     paths:
       - '.github/workflows/browser-qa.yml'
       - 'index.html'

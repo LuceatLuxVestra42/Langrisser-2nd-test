@@ -47,6 +47,13 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; align-items: stretch; }
 .hero-card { display: flex; min-height: 390px; flex-direction: column; overflow: hidden; border: 1px solid #344050; border-radius: 16px; background: #1a202a; box-shadow: 0 12px 32px #070a0e66; }
 .hero-portrait { display: block; width: 100%; height: 320px; padding: 12px; object-fit: contain; background: linear-gradient(180deg, #283444, #1b222c); }
+.hero-skin-fullarts { min-width: 0; margin: 0 16px 16px; }
+.hero-skin-fullarts h3 { margin: 0 0 10px; color: #aab9cc; font-size: .86rem; }
+.hero-skin-fullart-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.hero-skin-fullart-list li { display: grid; min-width: 0; min-height: 220px; place-items: center; overflow: hidden; border: 1px solid #344050; border-radius: 10px; background-color: #151b24; }
+.hero-skin-fullart { display: block; width: 100%; height: clamp(260px, 44vw, 480px); object-fit: contain; }
+.hero-skin-fullart-error { margin: 0; padding: 18px; color: #ffb8ad; font-size: .82rem; text-align: center; }
+@media (max-width: 520px) { .hero-skin-fullart-list { grid-template-columns: minmax(0, 1fr); } .hero-skin-fullart { height: min(128vw, 480px); } }
 .hero-details { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 16px 17px; }
 .hero-details h2 { margin: 0; font-size: 1.12rem; }
 .hero-metadata { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
