@@ -43,7 +43,7 @@ The Browser QA workflow now includes the exact M05-C dependent base branch and c
 - PR #158 Head / M05-G base: `5d77262f8b19ffbc4997d65d7c6d225087353771`
 - Branch: `codex/m05-g-skin-dynamic-expansion`
 - Merge and deployment: not performed
-- Branch completion: pending exact-head CI and Browser QA
+- Branch completion gates: exact-Head CI and Browser QA checks attached to the current PR Head
 
 ## Expected changed paths
 
