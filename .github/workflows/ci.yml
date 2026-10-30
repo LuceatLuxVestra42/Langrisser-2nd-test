@@ -94,6 +94,11 @@ jobs:
       - name: Test M05-D Skin 601 Asset Admission failure boundaries
         run: python tools/test-skin-fullart-m05-d.py
 
+      - name: Validate M06 Hero 6 Skin Fullart Asset Admission
+        run: python tools/validate-skin-fullart-m06.py
+      - name: Test M06 Fullart Asset Admission failure boundaries
+        run: python tools/test-skin-fullart-m06.py
+
       - name: Validate M05-E Skin publication and Hero Fullart
         run: node tools/validate-skin-publication-m05-e.mjs
 

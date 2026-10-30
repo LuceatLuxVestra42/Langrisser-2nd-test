@@ -36,3 +36,23 @@ The following have passed in the isolated Target clone:
 - M05-E publication baseline Validator and negative tests
 
 M06-C, M06-D, and M06-E remain pending. This checkpoint does not assert that any M06 change has been integrated or published.
+
+## M06-B Main Integration Checkpoint
+
+PR #162 (`codex/m06-hero6-semantic-602-606`) was merged by squash after its final head `4f11d32cbd3ca32447563aa28c7b3c4572548b53` passed the Required `validate` job and Browser Smoke. The Main merge commit is `fafa3970e2c019c613e8354e1ba28f575fcc90bd`. Main CI run `41062980962` (`push`, `main`, that exact SHA) completed with Required `validate` success. Pages Build also succeeded for this SHA; the deployment run was still in progress at the time this M06-C branch was prepared and remains a separate M06-E check.
+
+## M06-C — Asset Admission Candidate
+
+The five existing Legacy WebP files were fetched from their pinned raw paths and independently checked against the pinned Legacy file Git blob IDs, the fullart reference manifest, and its validation record. Actual SHA-256, WebP decode, dimensions, RGBA alpha, and transparent-pixel counts were checked. The decoded files were also visually inspected: full-body illustration, no card frame, transparent background, and no apparent body crop. These are reused rendered outputs; this work did not regenerate them or independently repeat Unity bundle extraction, Prefab resolution, or dependency acquisition.
+
+| SkinID | Bytes | Dimensions | Transparent pixels | SHA-256 |
+|---:|---:|---:|---:|---|
+| 602 | 232,916 | 1195×1600 | 1,239,912 | `6bada0ead22ef77345b4d70d6dcd61b0859346af4992a670f0d44ff5211e96c8` |
+| 603 | 207,196 | 1241×1600 | 1,318,323 | `f332a8f40e6b18b7dca6f58d82da7f4f9aa136420695afab2f0ee59debb37eb5` |
+| 604 | 322,998 | 1296×1600 | 1,129,971 | `88272ddd4e8728a251db143058514d8f51071ffd830f4bdba288c62d7f880689` |
+| 605 | 110,520 | 576×1600 | 538,435 | `1a6d17329535c34d8e70bc1a988c669e32898643049435dbe2b5f079122b02e3` |
+| 606 | 324,268 | 1271×1600 | 927,874 | `60fc6cb6b5e090ee94603b5ce140d24ede4487c493a7654665beb785893cd9b7` |
+
+The Target Asset Registry and private Asset Evidence candidate register these at `assets/skin-admissions/m06/skin-{id}.webp`. M05-D's validator retains its exact SkinID 601 checks and now allows separately validated approved rows. M06's validator and negative controls check binary integrity, per-Skin source links, Semantic admission, and Registry parity. At this stage, none of the five M06 Assets has Publication Approval; the public Consumer, URL map, and Build remain at five records/files.
+
+Local M06-C validation passed: M05-D and M06 Asset Validators/negative tests; M05-G and M06 Semantic validators/negative tests; M05-E baseline validator/negative tests; Build and publication regression. The Asset changes are a separate branch from M06-B and require their own PR CI, Main integration, and Main Required CI before M06-D.
