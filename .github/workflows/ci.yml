@@ -83,6 +83,12 @@ jobs:
       - name: Test M05-G composition and approval failure boundaries
         run: node tools/test-skin-m05-g.mjs
 
+      - name: Validate M05-D Skin 601 Fullart Asset Admission
+        run: python tools/validate-skin-fullart-m05-d.py
+
+      - name: Test M05-D Skin 601 Asset Admission failure boundaries
+        run: python tools/test-skin-fullart-m05-d.py
+
       - name: Test read-only Skin Source Snapshot change classification
         run: node tools/test-skin-source-diff-m05-g.mjs
 

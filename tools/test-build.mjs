@@ -36,6 +36,8 @@ try {
   assert.ok(built.files.some((file) => file.path === 'skin-fullart-presentation.mjs'));
   assert.ok(built.files.every(file => !/^(canonical|evidence|tools|docs)\//.test(file.path)));
   assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m04.v1.json'), 'internal Asset Manifest must remain private');
+  assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m05-d.v1.json'), 'M05-D internal Asset Evidence must remain private');
+  assert.ok(!built.files.some((file) => file.path === 'assets/skin-admissions/m05-d/skin-601.webp'), 'Asset Admission alone must not publish Skin 601');
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
   const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);
   await rm(join(output, skinConsumerPath));
@@ -72,6 +74,8 @@ try {
     assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
     assert.equal((await fetch(`${origin}/canonical/skin-identities.v1.json`)).status, 404, 'Canonical owner files must remain outside the publication surface');
     assert.equal((await fetch(`${origin}/evidence/source/skin-identity-m01.v1.json`)).status, 404, 'Evidence files must remain outside the publication surface');
+    assert.equal((await fetch(`${origin}/assets/skin-admissions/m05-d/skin-601.webp`)).status, 404, 'Skin 601 must remain unpublished without Publication approval');
+    assert.equal((await fetch(`${origin}/evidence/assets/skin-fullart-m05-d.v1.json`)).status, 404, 'M05-D Asset Evidence must remain private');
   } finally {
     await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
   }
