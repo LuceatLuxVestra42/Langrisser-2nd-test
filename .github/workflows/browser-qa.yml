@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - codex/m04b-integration-exact
+      - codex/m05-c-skin-601-semantic-admission
     paths:
       - '.github/workflows/browser-qa.yml'
       - 'index.html'

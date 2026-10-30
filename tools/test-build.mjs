@@ -12,20 +12,22 @@ const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
 const skinConsumerPath = 'generated/skin-consumer.v1.json';
-const skinAssetPaths = [102, 103, 104, 105].map((id) => `assets/skins/skin-${id}.webp`);
-const expectedSkinRows = [
-  { skinId: 102, heroId: 1, sourceOrder: 1 },
-  { skinId: 103, heroId: 1, sourceOrder: 2 },
-  { skinId: 104, heroId: 1, sourceOrder: 3 },
-  { skinId: 105, heroId: 1, sourceOrder: 4 },
-];
+const publicConsumerPath = 'generated/skin-consumer-public-m05-g.v1.json';
+const publicAssetsPath = 'generated/skin-assets-public-m05-g.v1.json';
+const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
+const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
+const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
+const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
 try {
   const built = await buildSite({ outputDir: output });
-  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision));
+  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths));
   assert.ok(built.files.some(file => file.path === skinConsumerPath), 'approved Skin Generated consumer must enter the public artifact');
-  assert.ok(publicSitePaths(heroes, decision).includes(skinConsumerPath), 'Skin Generated consumer must be present in the Pages allowlist');
+  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(skinConsumerPath), 'Frozen M03 consumer compatibility artifact must remain published');
+  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(publicConsumerPath), 'approved generic Skin consumer must be published');
   const skinConsumer = JSON.parse(await readFile(skinConsumerPath, 'utf8'));
   assert.deepEqual(skinConsumer, { schemaVersion: 1, skins: expectedSkinRows }, 'public Skin payload must preserve the exact approved M03 population and fields');
+  assert.deepEqual(JSON.parse(await readFile(join(output, publicConsumerPath), 'utf8')).skins, expectedPublicRows);
+  assert.deepEqual(JSON.parse(await readFile(join(output, publicAssetsPath), 'utf8')), publicAssets);
   for (const path of skinAssetPaths) {
     assert.ok(built.files.some((file) => file.path === path), `approved Skin Fullart must be published: ${path}`);
     assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published Skin Fullart bytes must match source: ${path}`);
@@ -63,9 +65,9 @@ try {
   try {
     const address = server.address();
     const origin = `http://127.0.0.1:${address.port}`;
-    const response = await fetch(`${origin}/${skinConsumerPath}`, { cache: 'no-store' });
+    const response = await fetch(`${origin}/${publicConsumerPath}`, { cache: 'no-store' });
     assert.equal(response.status, 200, 'public Skin JSON URL must return HTTP 200');
-    assert.deepEqual(await response.json(), { schemaVersion: 1, skins: expectedSkinRows }, 'fetched Skin JSON must retain the exact schema and population');
+    assert.deepEqual(await response.json(), { schemaVersion: 1, skins: expectedPublicRows }, 'fetched Skin JSON must retain approved semantic rows');
     for (const path of skinAssetPaths) assert.equal((await fetch(`${origin}/${path}`)).status, 200, `published Skin Fullart URL must resolve: ${path}`);
     assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
     assert.equal((await fetch(`${origin}/canonical/skin-identities.v1.json`)).status, 404, 'Canonical owner files must remain outside the publication surface');
@@ -102,7 +104,7 @@ try {
       disabled.decisionA.status = 'NOT_APPROVED';
       disabled.decisionB.status = 'NOT_APPROVED';
     }
-    assert.ok(!publicSitePaths(heroes, disabled).includes(trainingPath));
+    assert.ok(!publicSitePaths(heroes, disabled, skinAssetPaths).includes(trainingPath));
     await assert.rejects(validate(disabled), /allowlist mismatch/);
     await rm(join(output, trainingPath));
     await validate(disabled);
@@ -113,7 +115,7 @@ try {
   assert.throws(() => publicSitePaths(heroes, invalid), /contract approval\/effectiveness state mismatch/);
   await validate();
   await buildSite({ verifyDir: output });
-  console.log('Public Build checks: PASS (Skin JSON and four WebP URLs, byte parity, internal Evidence exclusion, allowlist negatives and publication-contract failures)');
+  console.log('Public Build checks: PASS (generic approved Skin projections, registry WebP URLs, byte parity, private Evidence and allowlist negatives)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

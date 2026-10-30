@@ -1,0 +1,16 @@
+{
+  "before": {
+    "snapshot": { "version": "fixture-a", "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" },
+    "records": [
+      { "skinId": 8, "heroId": 2, "sourceOrder": 1 },
+      { "skinId": 12, "heroId": 3, "sourceOrder": 1 }
+    ]
+  },
+  "after": {
+    "snapshot": { "version": "fixture-b", "commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" },
+    "records": [
+      { "skinId": 12, "heroId": 3, "sourceOrder": 2 },
+      { "skinId": 50, "heroId": 6, "sourceOrder": 1 }
+    ]
+  }
+}

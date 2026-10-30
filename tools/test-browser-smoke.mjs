@@ -139,7 +139,8 @@ try {
   const expectedGenerated = [
     '/generated/hero-slice.v1.json',
     '/generated/hero-soldier-relations.v1.json',
-    '/generated/skin-consumer.v1.json',
+    '/generated/skin-consumer-public-m05-g.v1.json',
+    '/generated/skin-assets-public-m05-g.v1.json',
     '/generated/normal-soldiers.v1.json',
     '/generated/sp-soldiers.v1.json',
     '/generated/job-glossary.v1.json',
@@ -250,7 +251,7 @@ try {
     assert.deepEqual(layout.skinPresentation.labels, [1, 2, 3, 4].map((index) => `영웅 스킨 일러스트 ${index} / 4`));
     assert.ok(layout.skinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: each Skin WebP must decode`);
     assert.ok(layout.skinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: fullart aspect ratio must be preserved`);
-    assert.doesNotMatch(layout.skinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|102|103|104|105/);
+    assert.doesNotMatch(layout.skinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|102|103|104|105|601/);
     assert.equal(layout.trainingTech.normalVisible, true, `${viewport.name}: NORMAL 115 presentation must render`);
     assert.equal(layout.trainingTech.spVisible, true, `${viewport.name}: SP 5115 presentation must render`);
     assert.equal(layout.trainingTech.normalCollapsed, true, `${viewport.name}: NORMAL disclosure must start collapsed`);

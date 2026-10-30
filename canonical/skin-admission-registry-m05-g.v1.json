@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicitly registered, independently validated Skin admissions eligible for internal composition; registry membership does not grant Asset or Publication approval.",
+  "admissions": [
+    {
+      "admissionId": "M05-C-SKIN-601",
+      "status": "APPROVED",
+      "skinId": 601,
+      "identityCanonical": "canonical/skin-identities-m05-c.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-m05-c.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-m05-c.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-m05-c.v1.json",
+        "evidence/source/skin-hero-relation-m05-c.v1.json",
+        "evidence/source/skin-source-order-m05-c.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-m05-c.mjs"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "skinId": 102,
+      "imageUrl": "./assets/skins/skin-102.webp"
+    },
+    {
+      "skinId": 103,
+      "imageUrl": "./assets/skins/skin-103.webp"
+    },
+    {
+      "skinId": 104,
+      "imageUrl": "./assets/skins/skin-104.webp"
+    },
+    {
+      "skinId": 105,
+      "imageUrl": "./assets/skins/skin-105.webp"
+    }
+  ]
+}

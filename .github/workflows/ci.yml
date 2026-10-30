@@ -71,6 +71,21 @@ jobs:
       - name: Test M05-C Skin 601 admission failure boundaries
         run: node tools/test-skin-admission-m05-c.mjs
 
+      - name: Generate M05-G dynamic Skin projections
+        run: node tools/generate-skin-m05-g.mjs
+
+      - name: Fail if committed M05-G projections were stale
+        run: git diff --exit-code -- generated/skin-consumer-composed-m05-g.v1.json generated/skin-consumer-public-m05-g.v1.json generated/skin-assets-public-m05-g.v1.json
+
+      - name: Validate M05-G composition, Asset Registry and publication intersection
+        run: node tools/validate-skin-m05-g.mjs
+
+      - name: Test M05-G composition and approval failure boundaries
+        run: node tools/test-skin-m05-g.mjs
+
+      - name: Test read-only Skin Source Snapshot change classification
+        run: node tools/test-skin-source-diff-m05-g.mjs
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 
