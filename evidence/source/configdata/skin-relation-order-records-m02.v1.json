@@ -1,0 +1,31 @@
+{
+  "heroInfoRecords": [
+    {
+      "ID": 1,
+      "Skins_ID": [
+        102,
+        103,
+        104,
+        105
+      ]
+    }
+  ],
+  "heroSkinInfoRecords": [
+    {
+      "ID": 102,
+      "SpecifiedHero": 1
+    },
+    {
+      "ID": 103,
+      "SpecifiedHero": 1
+    },
+    {
+      "ID": 104,
+      "SpecifiedHero": 1
+    },
+    {
+      "ID": 105,
+      "SpecifiedHero": 1
+    }
+  ]
+}

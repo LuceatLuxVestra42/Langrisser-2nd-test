@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "scope": "M02 Skin→Hero ownership for the four Skin identities admitted by M01; no other Skin or Hero population is implied.",
+  "sourceEvidence": "evidence/source/skin-hero-relations-m02.v1.json",
+  "records": [
+    {
+      "skinId": 102,
+      "heroId": 1,
+      "provenance": "evidence/source/skin-hero-relations-m02.v1.json#records/skinId=102"
+    },
+    {
+      "skinId": 103,
+      "heroId": 1,
+      "provenance": "evidence/source/skin-hero-relations-m02.v1.json#records/skinId=103"
+    },
+    {
+      "skinId": 104,
+      "heroId": 1,
+      "provenance": "evidence/source/skin-hero-relations-m02.v1.json#records/skinId=104"
+    },
+    {
+      "skinId": 105,
+      "heroId": 1,
+      "provenance": "evidence/source/skin-hero-relations-m02.v1.json#records/skinId=105"
+    }
+  ]
+}
