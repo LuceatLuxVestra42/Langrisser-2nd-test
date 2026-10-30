@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "scope": "M06-B independent historical-snapshot ownership claims for SkinIDs 602-606 -> HeroID 6 only.",
+  "records": [
+    {
+      "skinId": 602,
+      "heroId": 6,
+      "provenance": "evidence/source/skin-hero-relation-m06.v1.json#records/skinId=602"
+    },
+    {
+      "skinId": 603,
+      "heroId": 6,
+      "provenance": "evidence/source/skin-hero-relation-m06.v1.json#records/skinId=603"
+    },
+    {
+      "skinId": 604,
+      "heroId": 6,
+      "provenance": "evidence/source/skin-hero-relation-m06.v1.json#records/skinId=604"
+    },
+    {
+      "skinId": 605,
+      "heroId": 6,
+      "provenance": "evidence/source/skin-hero-relation-m06.v1.json#records/skinId=605"
+    },
+    {
+      "skinId": 606,
+      "heroId": 6,
+      "provenance": "evidence/source/skin-hero-relation-m06.v1.json#records/skinId=606"
+    }
+  ]
+}

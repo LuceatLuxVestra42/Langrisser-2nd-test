@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-to-hero-ownership",
+  "evidenceClass": "A",
+  "scope": "Direct source membership and SpecifiedHero cross-check for SkinIDs 602-606 -> HeroID 6 in the pinned historical snapshot.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "snapshotDescription": "Historical China ConfigData snapshot; original game build number and official publication date unknown.",
+    "files": [
+      {
+        "path": "data/configdata/ConfigDataHeroInfo.json",
+        "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+        "sizeBytes": 16894185,
+        "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b"
+      },
+      {
+        "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+        "gitBlobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+        "sizeBytes": 563343,
+        "sha256": "6fe685622a57a6546f4cce73ff788057605fca215eba6327eff66c3b5d4847c7"
+      }
+    ]
+  },
+  "records": [
+    {
+      "skinId": 602,
+      "heroId": 6,
+      "membership": {
+        "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+        "heroRecordLocator": "ID=6",
+        "zeroBasedPosition": 1,
+        "membershipConfirmed": true,
+        "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/1"
+      },
+      "ownershipCrossCheck": {
+        "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero",
+        "skinRecordLocator": "ID=602",
+        "value": 6,
+        "sourceRecordFieldValue": 6,
+        "directSourceRecordVerified": true
+      }
+    },
+    {
+      "skinId": 603,
+      "heroId": 6,
+      "membership": {
+        "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+        "heroRecordLocator": "ID=6",
+        "zeroBasedPosition": 2,
+        "membershipConfirmed": true,
+        "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/2"
+      },
+      "ownershipCrossCheck": {
+        "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero",
+        "skinRecordLocator": "ID=603",
+        "value": 6,
+        "sourceRecordFieldValue": 6,
+        "directSourceRecordVerified": true
+      }
+    },
+    {
+      "skinId": 604,
+      "heroId": 6,
+      "membership": {
+        "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+        "heroRecordLocator": "ID=6",
+        "zeroBasedPosition": 3,
+        "membershipConfirmed": true,
+        "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/3"
+      },
+      "ownershipCrossCheck": {
+        "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero",
+        "skinRecordLocator": "ID=604",
+        "value": 6,
+        "sourceRecordFieldValue": 6,
+        "directSourceRecordVerified": true
+      }
+    },
+    {
+      "skinId": 605,
+      "heroId": 6,
+      "membership": {
+        "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+        "heroRecordLocator": "ID=6",
+        "zeroBasedPosition": 4,
+        "membershipConfirmed": true,
+        "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/4"
+      },
+      "ownershipCrossCheck": {
+        "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero",
+        "skinRecordLocator": "ID=605",
+        "value": 6,
+        "sourceRecordFieldValue": 6,
+        "directSourceRecordVerified": true
+      }
+    },
+    {
+      "skinId": 606,
+      "heroId": 6,
+      "membership": {
+        "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+        "heroRecordLocator": "ID=6",
+        "zeroBasedPosition": 5,
+        "membershipConfirmed": true,
+        "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/5"
+      },
+      "ownershipCrossCheck": {
+        "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero",
+        "skinRecordLocator": "ID=606",
+        "value": 6,
+        "sourceRecordFieldValue": 6,
+        "directSourceRecordVerified": true
+      }
+    }
+  ],
+  "legacyValidationChain": [
+    {
+      "path": "data/validation/skin-stage1-2-parity.v1.json",
+      "result": "PASS; accepted Stage 1 identity and Hero source parity, zero owner mismatches."
+    },
+    {
+      "path": "data/validation/skin-stage2-1-final.v1.json",
+      "result": "PASS; accepted Skin -> Hero forward relation, zero duplicate, unknown Hero, or owner mismatch."
+    },
+    {
+      "path": "data/validation/skin-stage2-2-final.v1.json",
+      "result": "PASS; accepted Hero -> ordered Skin reverse relation."
+    },
+    {
+      "path": "data/validation/skin-stage2-3-final.v1.json",
+      "result": "PASS; bidirectional relation and Source Order parity."
+    }
+  ],
+  "limitations": [
+    "Claim scope is the pinned historical China ConfigData snapshot.",
+    "This evidence does not establish localization, release state, Asset Admission, or UI eligibility."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "scope": "M06-B independent historical-snapshot admissions: source-native Skin Identity claims for SkinIDs 602-606 only; no localization, release state, or completeness is implied.",
+  "records": [
+    {
+      "skinId": 602,
+      "provenance": "evidence/source/skin-identity-m06.v1.json#records/skinId=602"
+    },
+    {
+      "skinId": 603,
+      "provenance": "evidence/source/skin-identity-m06.v1.json#records/skinId=603"
+    },
+    {
+      "skinId": 604,
+      "provenance": "evidence/source/skin-identity-m06.v1.json#records/skinId=604"
+    },
+    {
+      "skinId": 605,
+      "provenance": "evidence/source/skin-identity-m06.v1.json#records/skinId=605"
+    },
+    {
+      "skinId": 606,
+      "provenance": "evidence/source/skin-identity-m06.v1.json#records/skinId=606"
+    }
+  ]
+}

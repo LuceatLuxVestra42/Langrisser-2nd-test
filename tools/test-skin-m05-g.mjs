@@ -4,11 +4,22 @@ import { generateSkinM05G } from './generate-skin-m05-g.mjs';
 import { readFile } from 'node:fs/promises';
 
 const input = await loadM05GInputs();
-assert.deepEqual(validateM05GData(input), { status: 'PASS', frozen: 4, composed: 5, assets: 5, published: 5 });
-assert.deepEqual(input.assetRegistry.records.filter((row) => row.admissionStatus === 'APPROVED').map((row) => row.skinId), [102, 103, 104, 105, 601]);
-assert.deepEqual(input.publication.approvals.filter((row) => row.status === 'APPROVED').map((row) => row.skinId), [102, 103, 104, 105, 601]);
-assert.deepEqual(input.publicConsumer.skins.map((row) => row.skinId), [102, 103, 104, 105, 601]);
-assert.deepEqual(input.publicAssets.assets.map((row) => row.skinId), [102, 103, 104, 105, 601]);
+const baselineResult = validateM05GData(input);
+assert.equal(baselineResult.status, 'PASS');
+assert.equal(baselineResult.frozen, 4);
+assert.ok(baselineResult.composed >= 5, 'composed Consumer must retain the Frozen + M05-C baseline');
+assert.ok(baselineResult.assets >= 5, 'Asset Registry must retain the M04 + M05-D baseline');
+assert.ok(baselineResult.published >= 5, 'publication must retain the M04 + M05-E baseline');
+for (const row of input.assetRegistry.records.filter((row) => [102, 103, 104, 105, 601].includes(row.skinId))) {
+  assert.equal(row.admissionStatus, 'APPROVED', `M04/M05 baseline Asset ${row.skinId} must remain approved`);
+}
+for (const row of input.publication.approvals.filter((row) => [102, 103, 104, 105, 601].includes(row.skinId))) {
+  assert.equal(row.status, 'APPROVED', `M04/M05 baseline Publication ${row.skinId} must remain approved`);
+}
+for (const skinId of [102, 103, 104, 105, 601]) {
+  assert.ok(input.publicConsumer.skins.some((row) => row.skinId === skinId), `baseline public Consumer ${skinId} must remain`);
+  assert.ok(input.publicAssets.assets.some((row) => row.skinId === skinId), `baseline public URL ${skinId} must remain`);
+}
 assert.equal(input.publicAssets.assets.find((row) => row.skinId === 601).imageUrl, './assets/skin-admissions/m05-d/skin-601.webp');
 const generatedBefore = await Promise.all([
   readFile('generated/skin-consumer-composed-m05-g.v1.json', 'utf8'),

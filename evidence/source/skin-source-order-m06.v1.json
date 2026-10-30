@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-source-order",
+  "evidenceClass": "B",
+  "scope": "One-based array position for SkinIDs 602-606 in HeroID 6 at the pinned historical snapshot only; not release or UI order.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "snapshotDescription": "Historical China ConfigData snapshot; original game build number and official publication date unknown.",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sizeBytes": 16894185,
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+    "heroRecordLocator": "ID=6",
+    "zeroBasedToOneBasedRule": "sourceOrder = zeroBasedPosition + 1"
+  },
+  "records": [
+    {
+      "skinId": 602,
+      "heroId": 6,
+      "zeroBasedPosition": 1,
+      "sourceOrder": 2,
+      "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/1",
+      "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=602"
+    },
+    {
+      "skinId": 603,
+      "heroId": 6,
+      "zeroBasedPosition": 2,
+      "sourceOrder": 3,
+      "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/2",
+      "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=603"
+    },
+    {
+      "skinId": 604,
+      "heroId": 6,
+      "zeroBasedPosition": 3,
+      "sourceOrder": 4,
+      "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/3",
+      "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=604"
+    },
+    {
+      "skinId": 605,
+      "heroId": 6,
+      "zeroBasedPosition": 4,
+      "sourceOrder": 5,
+      "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/4",
+      "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=605"
+    },
+    {
+      "skinId": 606,
+      "heroId": 6,
+      "zeroBasedPosition": 5,
+      "sourceOrder": 6,
+      "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/5",
+      "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=606"
+    }
+  ],
+  "legacyValidationChain": [
+    {
+      "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json#fields/skins/ordering",
+      "result": "SOURCE_ORDER_CONFIRMED; preserve ConfigDataHeroInfo.Skins_ID[] order without sorting."
+    },
+    {
+      "path": "data/validation/skin-stage1-2-parity.v1.json",
+      "result": "PASS; accepted Stage 1/2 source order parity."
+    },
+    {
+      "path": "data/validation/skin-stage2-1-final.v1.json",
+      "result": "PASS; forward relation has no invalid Source Order."
+    },
+    {
+      "path": "data/validation/skin-stage2-2-final.v1.json",
+      "result": "PASS; reverse index preserves Source Order."
+    },
+    {
+      "path": "data/validation/skin-stage2-3-final.v1.json",
+      "result": "PASS; bidirectional Source Order parity."
+    }
+  ],
+  "limitations": [
+    "Legacy validation is reused for interpretation of one-based array positions.",
+    "Order uniqueness is per Hero array; same order values on other Heroes are valid.",
+    "This claim is snapshot-scoped and does not represent release order."
+  ]
+}
