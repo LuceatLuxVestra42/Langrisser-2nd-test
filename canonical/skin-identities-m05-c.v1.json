@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "scope": "M05-C independent Target admission: source-native Skin Identity claim for SkinID 601 only; historical China ConfigData snapshot.",
+  "records": [
+    {
+      "skinId": 601,
+      "provenance": "evidence/source/skin-identity-m05-c.v1.json#records/skinId=601"
+    }
+  ]
+}
