@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
 import { readFile, mkdtemp, mkdir, rm, writeFile, symlink, copyFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -11,14 +12,58 @@ const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
 const skinConsumerPath = 'generated/skin-consumer.v1.json';
+const expectedSkinRows = [
+  { skinId: 102, heroId: 1, sourceOrder: 1 },
+  { skinId: 103, heroId: 1, sourceOrder: 2 },
+  { skinId: 104, heroId: 1, sourceOrder: 3 },
+  { skinId: 105, heroId: 1, sourceOrder: 4 },
+];
 try {
   const built = await buildSite({ outputDir: output });
   assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision));
-  assert.ok(!built.files.some(file => file.path === skinConsumerPath), 'internal Skin Generated consumer must remain outside the public artifact');
-  assert.ok(!publicSitePaths(heroes, decision).includes(skinConsumerPath), 'Skin Generated consumer must not enter the Pages allowlist');
+  assert.ok(built.files.some(file => file.path === skinConsumerPath), 'approved Skin Generated consumer must enter the public artifact');
+  assert.ok(publicSitePaths(heroes, decision).includes(skinConsumerPath), 'Skin Generated consumer must be present in the Pages allowlist');
+  const skinConsumer = JSON.parse(await readFile(skinConsumerPath, 'utf8'));
+  assert.deepEqual(skinConsumer, { schemaVersion: 1, skins: expectedSkinRows }, 'public Skin payload must preserve the exact approved M03 population and fields');
   assert.ok(built.files.every(file => !/^(canonical|evidence|tools|docs)\//.test(file.path)));
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
   const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);
+  await rm(join(output, skinConsumerPath));
+  await assert.rejects(validate(), /allowlist mismatch/);
+  await copyFile(skinConsumerPath, join(output, skinConsumerPath));
+  await writeFile(join(output, skinConsumerPath), '{}');
+  await assert.rejects(validate(), /bytes differ.*generated\/skin-consumer\.v1\.json/);
+  await copyFile(skinConsumerPath, join(output, skinConsumerPath));
+  await validate();
+  const server = createServer(async (request, response) => {
+    const path = new URL(request.url ?? '/', 'http://127.0.0.1').pathname.replace(/^\/+/, '');
+    if (!built.files.some(file => file.path === path)) {
+      response.writeHead(404).end('Not Found');
+      return;
+    }
+    try {
+      const bytes = await readFile(join(output, path));
+      response.writeHead(200, { 'content-type': 'application/json; charset=utf-8' }).end(bytes);
+    } catch {
+      response.writeHead(404).end('Not Found');
+    }
+  });
+  await new Promise((resolve, reject) => {
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  try {
+    const address = server.address();
+    const origin = `http://127.0.0.1:${address.port}`;
+    const response = await fetch(`${origin}/${skinConsumerPath}`, { cache: 'no-store' });
+    assert.equal(response.status, 200, 'public Skin JSON URL must return HTTP 200');
+    assert.deepEqual(await response.json(), { schemaVersion: 1, skins: expectedSkinRows }, 'fetched Skin JSON must retain the exact schema and population');
+    assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
+    assert.equal((await fetch(`${origin}/canonical/skin-identities.v1.json`)).status, 404, 'Canonical owner files must remain outside the publication surface');
+    assert.equal((await fetch(`${origin}/evidence/source/skin-identity-m01.v1.json`)).status, 404, 'Evidence files must remain outside the publication surface');
+  } finally {
+    await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
+  }
   await writeFile(join(output, 'unexpected.json'), '{}');
   await assert.rejects(validate(), /allowlist mismatch/);
   await rm(join(output, 'unexpected.json'));
@@ -59,7 +104,7 @@ try {
   assert.throws(() => publicSitePaths(heroes, invalid), /contract approval\/effectiveness state mismatch/);
   await validate();
   await buildSite({ verifyDir: output });
-  console.log('Public Build negatives: PASS (extra/missing files, directories, symlinks, wrong bytes, no overwrite, invalid/revoked/non-effective publication)');
+  console.log('Public Build checks: PASS (exact Skin JSON Fetch/404/parity, internal-file exclusion, allowlist negatives and publication-contract failures)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
