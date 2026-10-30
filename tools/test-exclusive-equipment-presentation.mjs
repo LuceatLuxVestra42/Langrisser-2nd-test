@@ -39,7 +39,7 @@ const end = frontend.indexOf('function addSpSoldier(', start);
 assert.ok(start >= 0 && end > start, 'equipment runtime boundaries are missing');
 const equipmentRuntime = frontend.slice(start, end);
 const anchorRuntime = extractFunction(frontend, 'makeAnchor');
-const heroRuntime = `${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'makeFactionPresentation')}\n${extractFunction(frontend, 'makeOriginPresentation')}\n${extractFunction(frontend, 'appendSkillDescription')}\n${extractFunction(frontend, 'makeTalentDescription')}\n${extractFunction(frontend, 'makeTalentPresentation')}\n${extractFunction(frontend, 'makeSpJobPresentation')}\n${extractFunction(frontend, 'makeJobConnectionLabel')}\n${extractFunction(frontend, 'makeJobLevelSourceStatsPresentation')}\n${extractFunction(frontend, 'addHero')}`;
+const heroRuntime = `${extractFunction(frontend, 'makeSkinFullartPresentation')}\n${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'makeFactionPresentation')}\n${extractFunction(frontend, 'makeOriginPresentation')}\n${extractFunction(frontend, 'appendSkillDescription')}\n${extractFunction(frontend, 'makeTalentDescription')}\n${extractFunction(frontend, 'makeTalentPresentation')}\n${extractFunction(frontend, 'makeSpJobPresentation')}\n${extractFunction(frontend, 'makeJobConnectionLabel')}\n${extractFunction(frontend, 'makeJobLevelSourceStatsPresentation')}\n${extractFunction(frontend, 'addHero')}`;
 const { runInNewContext } = await import('node:vm');
 const element = () => ({
   children: [], listeners: {}, value: '', textContent: '', className: '',
@@ -175,7 +175,7 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
       URL,
     };
     const addHeroRuntime = runInNewContext(`(() => { ${anchorRuntime}\n${heroRuntime}\nreturn addHero; })()`, heroSandbox);
-    for (const hero of heroSlice.heroes) addHeroRuntime(hero, new Map(), new Map());
+    for (const hero of heroSlice.heroes) addHeroRuntime(hero, new Map(), new Map(), new Map());
     assert.deepEqual(heroContainer.children.map((card) => card.id), heroSlice.heroes.map((hero) => `hero-${hero.id}`));
     for (const [index, hero] of heroSlice.heroes.entries()) {
       const heroEquipmentSection = heroContainer.children[index].children.find((child) => child.className === 'exclusive-equipment');

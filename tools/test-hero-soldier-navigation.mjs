@@ -55,6 +55,7 @@ const sandbox = {
   spSoldierNavigation: null,
 };
 const runtime = [
+  extractFunction(frontend, 'makeSkinFullartPresentation'),
   extractFunction(frontend, 'makeHeroRarityLabel'),
   extractFunction(frontend, 'makeFactionPresentation'),
   extractFunction(frontend, 'makeOriginPresentation'),
@@ -76,7 +77,7 @@ for (const { heroId, soldierId } of generatedApprovedPairs) {
   ids.push(soldierId);
   relationsByHero.set(heroId, ids);
 }
-for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById);
+for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById, new Map());
 
 const actualPairs = [];
 const flushAnimationFrames = () => {

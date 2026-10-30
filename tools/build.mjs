@@ -18,6 +18,29 @@ const exactKeys = (value, expected, label) => {
   }
 };
 
+const skinFullartPaths = [102, 103, 104, 105].map((skinId) => `assets/skins/skin-${skinId}.webp`);
+
+async function validateSkinFullartPublicationInputs() {
+  const manifest = await readJson('evidence/assets/skin-fullart-m04.v1.json');
+  if (manifest.schemaVersion !== 1 || !Array.isArray(manifest.records)
+    || JSON.stringify(manifest.records.map((record) => record.skinId)) !== '[102,103,104,105]') {
+    throw new Error('Skin Fullart Asset Manifest population is invalid');
+  }
+  for (const record of manifest.records) {
+    const path = `assets/skins/skin-${record.skinId}.webp`;
+    const output = record.output;
+    if (output?.path !== path || output?.format !== 'image/webp' || output?.alpha?.present !== true
+      || output?.alpha?.transparentPixelsExist !== true
+      || typeof output.sha256 !== 'string' || !/^[a-f0-9]{64}$/.test(output.sha256)) {
+      throw new Error(`Skin Fullart public asset contract is invalid for ${record.skinId}`);
+    }
+    const bytes = await readFile(resolve(path));
+    if (createHash('sha256').update(bytes).digest('hex') !== output.sha256) {
+      throw new Error(`Skin Fullart public asset hash differs from internal Manifest: ${path}`);
+    }
+  }
+}
+
 // Publication packaging only: this list does not admit semantic populations.
 export function publicSitePaths(heroPresentation, decisionRecord) {
   const files = [
@@ -27,6 +50,8 @@ export function publicSitePaths(heroPresentation, decisionRecord) {
     'generated/sp-soldiers.v1.json', 'generated/normal-soldiers.v1.json',
     'generated/hero-soldier-relations.v1.json',
     'generated/skin-consumer.v1.json',
+    'skin-fullart-presentation.mjs',
+    ...skinFullartPaths,
   ];
   if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
   if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
@@ -73,6 +98,7 @@ export async function buildSite({ outputDir, verifyDir, manifestPath } = {}) {
     throw new Error('Public output must be outside the Source checkout');
   }
   const selectedOutput = outputDir || verifyDir;
+  await validateSkinFullartPublicationInputs();
   if (manifestPath && selectedOutput && (resolve(manifestPath) === resolve(selectedOutput)
     || resolve(manifestPath).startsWith(`${resolve(selectedOutput)}${sep}`))) throw new Error('Manifest must remain outside the public artifact');
 const canonical = await readJson('canonical/heroes.v1.json');
@@ -344,6 +370,12 @@ try {
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
   const skinConsumerPath = resolve('generated/skin-consumer.v1.json');
   await cp(skinConsumerPath, join(output, 'generated', 'skin-consumer.v1.json'));
+  await cp(resolve('skin-fullart-presentation.mjs'), join(output, 'skin-fullart-presentation.mjs'));
+  for (const skinPath of skinFullartPaths) {
+    const destination = join(output, ...skinPath.split('/'));
+    await mkdir(dirname(destination), { recursive: true });
+    await cp(resolve(skinPath), destination);
+  }
   if (includeTrainingTechDirectJson) {
     await cp(trainingTechGeneratedPath, join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'));
   }

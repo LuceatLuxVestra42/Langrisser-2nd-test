@@ -1,3 +1,5 @@
+import { selectSkinFullarts } from './skin-fullart-presentation.mjs';
+
 const container = document.querySelector('#heroes');
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
@@ -339,7 +341,38 @@ function makeJobLevelSourceStatsPresentation(hero) {
   return section;
 }
 
-function addHero(hero, relationsByHero, soldiersById) {
+function makeSkinFullartPresentation(rows) {
+  if (!Array.isArray(rows) || rows.length === 0) return null;
+  const section = document.createElement('section');
+  section.className = 'hero-skin-fullarts';
+  const heading = document.createElement('h3');
+  heading.textContent = '스킨 일러스트';
+  const list = document.createElement('ul');
+  list.className = 'hero-skin-fullart-list';
+  list.setAttribute('aria-label', '스킨 일러스트');
+  rows.forEach((row, index) => {
+    const item = document.createElement('li');
+    const image = document.createElement('img');
+    image.className = 'hero-skin-fullart';
+    image.src = new URL(row.imageUrl, document.baseURI).href;
+    image.alt = row.accessibleLabel;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.addEventListener('error', () => {
+      const status = document.createElement('p');
+      status.className = 'hero-skin-fullart-error';
+      status.setAttribute('role', 'status');
+      status.textContent = `스킨 일러스트 ${index + 1}을 불러오지 못했습니다.`;
+      item.replaceChildren(status);
+    }, { once: true });
+    item.append(image);
+    list.append(item);
+  });
+  section.append(heading, list);
+  return section;
+}
+
+function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
   const article = document.createElement('article');
   article.className = 'hero-card';
   article.id = `hero-${hero.id}`;
@@ -372,6 +405,8 @@ function addHero(hero, relationsByHero, soldiersById) {
   }
   const jobLevelSourceStats = makeJobLevelSourceStatsPresentation(hero);
   article.append(image, details);
+  const skinPresentation = makeSkinFullartPresentation(skinsByHero.get(hero.id) ?? []);
+  if (skinPresentation) article.append(skinPresentation);
   article.append(makeFactionPresentation(hero.factions));
   article.append(makeOriginPresentation(hero.origins));
   if (hero.talent) article.append(makeTalentPresentation(hero.id, hero.talent));
@@ -429,17 +464,18 @@ function addHero(hero, relationsByHero, soldiersById) {
 }
 
 try {
-  const [heroResponse, relationResponse, normalResponse, spResponse] = await Promise.all([
+  const [heroResponse, relationResponse, normalResponse, spResponse, skinResponse] = await Promise.all([
     fetch('./generated/hero-slice.v1.json'),
     fetch('./generated/hero-soldier-relations.v1.json'),
     fetch('./generated/normal-soldiers.v1.json'),
     fetch('./generated/sp-soldiers.v1.json'),
+    fetch('./generated/skin-consumer.v1.json'),
   ]);
-  for (const response of [heroResponse, relationResponse, normalResponse, spResponse]) {
+  for (const response of [heroResponse, relationResponse, normalResponse, spResponse, skinResponse]) {
     if (!response.ok) throw new Error(`Generated presentation request failed (${response.status})`);
   }
-  const [data, relationData, normalData, spData] = await Promise.all([
-    heroResponse.json(), relationResponse.json(), normalResponse.json(), spResponse.json(),
+  const [data, relationData, normalData, spData, skinConsumer] = await Promise.all([
+    heroResponse.json(), relationResponse.json(), normalResponse.json(), spResponse.json(), skinResponse.json(),
   ]);
   if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated Hero data');
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
@@ -503,7 +539,12 @@ try {
       heroBySoldierId.set(soldierId, heroIdsForSoldier);
     }
   }
-  for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById);
+  const skinsByHero = new Map();
+  for (const hero of data.heroes) {
+    const rows = selectSkinFullarts(skinConsumer, hero.id);
+    if (rows.length) skinsByHero.set(hero.id, rows);
+  }
+  for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById, skinsByHero);
   heroNavigation = renderHeroSearch({
     heroes: data.heroes, input: heroSearch, clearButton: heroSearchClear,
     count: heroSearchCount, emptyState: heroSearchEmpty,

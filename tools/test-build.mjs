@@ -12,6 +12,7 @@ const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
 const skinConsumerPath = 'generated/skin-consumer.v1.json';
+const skinAssetPaths = [102, 103, 104, 105].map((id) => `assets/skins/skin-${id}.webp`);
 const expectedSkinRows = [
   { skinId: 102, heroId: 1, sourceOrder: 1 },
   { skinId: 103, heroId: 1, sourceOrder: 2 },
@@ -25,7 +26,14 @@ try {
   assert.ok(publicSitePaths(heroes, decision).includes(skinConsumerPath), 'Skin Generated consumer must be present in the Pages allowlist');
   const skinConsumer = JSON.parse(await readFile(skinConsumerPath, 'utf8'));
   assert.deepEqual(skinConsumer, { schemaVersion: 1, skins: expectedSkinRows }, 'public Skin payload must preserve the exact approved M03 population and fields');
+  for (const path of skinAssetPaths) {
+    assert.ok(built.files.some((file) => file.path === path), `approved Skin Fullart must be published: ${path}`);
+    assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published Skin Fullart bytes must match source: ${path}`);
+  }
+  assert.ok(built.files.includes(undefined) === false);
+  assert.ok(built.files.some((file) => file.path === 'skin-fullart-presentation.mjs'));
   assert.ok(built.files.every(file => !/^(canonical|evidence|tools|docs)\//.test(file.path)));
+  assert.ok(!built.files.some((file) => file.path === 'evidence/assets/skin-fullart-m04.v1.json'), 'internal Asset Manifest must remain private');
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
   const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);
   await rm(join(output, skinConsumerPath));
@@ -43,7 +51,7 @@ try {
     }
     try {
       const bytes = await readFile(join(output, path));
-      response.writeHead(200, { 'content-type': 'application/json; charset=utf-8' }).end(bytes);
+      response.writeHead(200, { 'content-type': path.endsWith('.webp') ? 'image/webp' : 'application/json; charset=utf-8' }).end(bytes);
     } catch {
       response.writeHead(404).end('Not Found');
     }
@@ -58,6 +66,7 @@ try {
     const response = await fetch(`${origin}/${skinConsumerPath}`, { cache: 'no-store' });
     assert.equal(response.status, 200, 'public Skin JSON URL must return HTTP 200');
     assert.deepEqual(await response.json(), { schemaVersion: 1, skins: expectedSkinRows }, 'fetched Skin JSON must retain the exact schema and population');
+    for (const path of skinAssetPaths) assert.equal((await fetch(`${origin}/${path}`)).status, 200, `published Skin Fullart URL must resolve: ${path}`);
     assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
     assert.equal((await fetch(`${origin}/canonical/skin-identities.v1.json`)).status, 404, 'Canonical owner files must remain outside the publication surface');
     assert.equal((await fetch(`${origin}/evidence/source/skin-identity-m01.v1.json`)).status, 404, 'Evidence files must remain outside the publication surface');
@@ -104,7 +113,7 @@ try {
   assert.throws(() => publicSitePaths(heroes, invalid), /contract approval\/effectiveness state mismatch/);
   await validate();
   await buildSite({ verifyDir: output });
-  console.log('Public Build checks: PASS (exact Skin JSON Fetch/404/parity, internal-file exclusion, allowlist negatives and publication-contract failures)');
+  console.log('Public Build checks: PASS (Skin JSON and four WebP URLs, byte parity, internal Evidence exclusion, allowlist negatives and publication-contract failures)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
