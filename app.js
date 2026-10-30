@@ -464,18 +464,19 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
 }
 
 try {
-  const [heroResponse, relationResponse, normalResponse, spResponse, skinResponse] = await Promise.all([
+  const [heroResponse, relationResponse, normalResponse, spResponse, skinResponse, skinAssetResponse] = await Promise.all([
     fetch('./generated/hero-slice.v1.json'),
     fetch('./generated/hero-soldier-relations.v1.json'),
     fetch('./generated/normal-soldiers.v1.json'),
     fetch('./generated/sp-soldiers.v1.json'),
-    fetch('./generated/skin-consumer.v1.json'),
+    fetch('./generated/skin-consumer-public-m05-g.v1.json'),
+    fetch('./generated/skin-assets-public-m05-g.v1.json'),
   ]);
-  for (const response of [heroResponse, relationResponse, normalResponse, spResponse, skinResponse]) {
+  for (const response of [heroResponse, relationResponse, normalResponse, spResponse, skinResponse, skinAssetResponse]) {
     if (!response.ok) throw new Error(`Generated presentation request failed (${response.status})`);
   }
-  const [data, relationData, normalData, spData, skinConsumer] = await Promise.all([
-    heroResponse.json(), relationResponse.json(), normalResponse.json(), spResponse.json(), skinResponse.json(),
+  const [data, relationData, normalData, spData, skinConsumer, skinPublicAssets] = await Promise.all([
+    heroResponse.json(), relationResponse.json(), normalResponse.json(), spResponse.json(), skinResponse.json(), skinAssetResponse.json(),
   ]);
   if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated Hero data');
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
@@ -541,7 +542,7 @@ try {
   }
   const skinsByHero = new Map();
   for (const hero of data.heroes) {
-    const rows = selectSkinFullarts(skinConsumer, hero.id);
+    const rows = selectSkinFullarts(skinConsumer, hero.id, skinPublicAssets);
     if (rows.length) skinsByHero.set(hero.id, rows);
   }
   for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById, skinsByHero);

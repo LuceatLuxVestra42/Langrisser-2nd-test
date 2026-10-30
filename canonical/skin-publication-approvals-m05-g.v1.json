@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit approval for public Skin Fullart delivery; publication requires independent Semantic and Asset approval as well.",
+  "approvals": [
+    { "skinId": 102, "status": "APPROVED", "approvedUrl": "./assets/skins/skin-102.webp", "approvalRecord": "M04 Main integration d9b880511edca2427373c77b571c2eaf4ecbfeeb" },
+    { "skinId": 103, "status": "APPROVED", "approvedUrl": "./assets/skins/skin-103.webp", "approvalRecord": "M04 Main integration d9b880511edca2427373c77b571c2eaf4ecbfeeb" },
+    { "skinId": 104, "status": "APPROVED", "approvedUrl": "./assets/skins/skin-104.webp", "approvalRecord": "M04 Main integration d9b880511edca2427373c77b571c2eaf4ecbfeeb" },
+    { "skinId": 105, "status": "APPROVED", "approvedUrl": "./assets/skins/skin-105.webp", "approvalRecord": "M04 Main integration d9b880511edca2427373c77b571c2eaf4ecbfeeb" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "skins": [
+    {
+      "skinId": 102,
+      "heroId": 1,
+      "sourceOrder": 1
+    },
+    {
+      "skinId": 103,
+      "heroId": 1,
+      "sourceOrder": 2
+    },
+    {
+      "skinId": 104,
+      "heroId": 1,
+      "sourceOrder": 3
+    },
+    {
+      "skinId": 105,
+      "heroId": 1,
+      "sourceOrder": 4
+    }
+  ]
+}
