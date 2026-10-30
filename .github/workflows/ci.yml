@@ -22,6 +22,12 @@ jobs:
         with:
           node-version: 22
 
+      - name: Validate M01 Skin identity owner
+        run: node tools/validate-skin-identities.mjs
+
+      - name: Test M01 Skin identity failure boundaries
+        run: node tools/test-skin-identities.mjs
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 
