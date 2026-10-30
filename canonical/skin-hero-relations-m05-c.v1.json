@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "M05-C independent Target admission: SkinID 601 -> HeroID 6 ownership only; no additional Skin or Hero population is implied.",
+  "records": [
+    {
+      "skinId": 601,
+      "heroId": 6,
+      "provenance": "evidence/source/skin-hero-relation-m05-c.v1.json#records/skinId=601"
+    }
+  ]
+}

@@ -66,6 +66,11 @@ jobs:
       - name: Test M04 Skin fullart presentation failure boundaries
         run: node tools/test-skin-fullart-presentation-m04.mjs
 
+      - name: Validate M05-C Skin 601 independent admission and internal Consumer
+        run: node tools/validate-skin-admission-m05-c.mjs
+      - name: Test M05-C Skin 601 admission failure boundaries
+        run: node tools/test-skin-admission-m05-c.mjs
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 

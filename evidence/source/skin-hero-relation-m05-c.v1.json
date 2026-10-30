@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-to-hero-ownership",
+  "evidenceClass": "B",
+  "scope": "One ownership claim for SkinID 601, evaluated from source-native membership plus SpecifiedHero cross-check in the pinned historical snapshot.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "snapshotDescription": "Historical China ConfigData snapshot; original game build number and official publication date unknown.",
+    "files": [
+      {
+        "path": "data/configdata/ConfigDataHeroInfo.json",
+        "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+        "sizeBytes": 16894185,
+        "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b"
+      },
+      {
+        "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+        "gitBlobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+        "sizeBytes": 563343,
+        "sha256": "6fe685622a57a6546f4cce73ff788057605fca215eba6327eff66c3b5d4847c7"
+      }
+    ]
+  },
+  "records": [
+    {
+      "skinId": 601,
+      "heroId": 6,
+      "membership": {
+        "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+        "heroRecordLocator": "ID=6",
+        "membershipConfirmed": true,
+        "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/0"
+      },
+      "ownershipCrossCheck": {
+        "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero",
+        "skinRecordLocator": "ID=601",
+        "value": 6,
+        "directSourceRecordVerified": true
+      }
+    }
+  ],
+  "legacyValidationChain": [
+    {
+      "path": "data/generated/skin-stage1-canonical.v1.json#skinId=601",
+      "result": "SkinID 601, HeroID 6, Source Order 1; derived from the accepted Stage 5-5 output."
+    },
+    {
+      "path": "data/generated/skin-stage1-source-metadata.v1.json#skinId=601/heroSkinSource",
+      "result": "heroSkinInfoId=601 and specifiedHeroId=6."
+    },
+    {
+      "path": "data/generated/skin-stage2-1-forward-relation.v1.json#skinId=601",
+      "result": "Forward edge 601 -> 6; cardinality EXACTLY_ONE."
+    },
+    {
+      "path": "data/validation/skin-stage1-2-parity.v1.json",
+      "result": "PASS; frozen 540-skin Stage 1/2 parity."
+    },
+    {
+      "path": "data/validation/skin-stage2-1-final.v1.json",
+      "result": "PASS; 540 forward edges, zero duplicate SkinID, unknown HeroID, missing HeroID, or invalid order."
+    },
+    {
+      "path": "data/validation/skin-stage2-2-final.v1.json",
+      "result": "PASS; zero forward/reverse owner mismatches, missing/extra edges, or source-order mismatches."
+    },
+    {
+      "path": "data/validation/skin-stage2-3-final.v1.json",
+      "result": "PASS; zero owner mismatch, missing/extra edges, or source-order mismatches."
+    }
+  ],
+  "limitations": [
+    "Evidence B reuses the validated Legacy chain for membership and the exact one-to-one relation; the complete raw ConfigDataHeroInfo.json bytes were not retrieved in this execution.",
+    "The claim is historical-snapshot scoped and does not establish current release state or a global Skin population."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "M05-C one-based Source Order for SkinID 601 in ConfigDataHeroInfo.ID=6 Skins_ID[] at the pinned historical snapshot only.",
+  "records": [
+    {
+      "skinId": 601,
+      "sourceOrder": 1,
+      "provenance": "evidence/source/skin-source-order-m05-c.v1.json#records/skinId=601"
+    }
+  ]
+}

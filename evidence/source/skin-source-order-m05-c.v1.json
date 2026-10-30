@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-source-order",
+  "evidenceClass": "B",
+  "scope": "One-based array position for SkinID 601 in HeroID 6 at the pinned historical snapshot only; not release or UI order.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+    "heroRecordLocator": "ID=6",
+    "zeroBasedToOneBasedRule": "sourceOrder = zeroBasedPosition + 1",
+    "snapshotDescription": "Historical China ConfigData snapshot; original game build number and official publication date unknown."
+  },
+  "records": [
+    {
+      "skinId": 601,
+      "heroId": 6,
+      "zeroBasedPosition": 0,
+      "sourceOrder": 1,
+      "legacyProjection": "data/generated/hero-detail/by-id/6.json#heroId=6/skins/0",
+      "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=601"
+    }
+  ],
+  "legacyValidationChain": [
+    {
+      "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json#fields/skins",
+      "result": "SOURCE_SEMANTICS_CONFIRMED; membership is ConfigDataHeroInfo.Skins_ID[] and source ordering is the array position."
+    },
+    {
+      "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json#fields/skins/ordering",
+      "result": "SOURCE_ORDER_CONFIRMED; preserve array order, do not sort by SkinID, Score, store UI sort, or acquisition category."
+    },
+    {
+      "path": "data/validation/skin-stage1-2-parity.v1.json",
+      "result": "PASS; zero invalid source orders over the frozen 540-skin population."
+    },
+    {
+      "path": "data/validation/skin-stage2-1-final.v1.json",
+      "result": "PASS; zero invalid source orders."
+    },
+    {
+      "path": "data/validation/skin-stage2-2-final.v1.json",
+      "result": "PASS; zero source-order mismatches."
+    },
+    {
+      "path": "data/validation/skin-stage2-3-final.v1.json",
+      "result": "PASS; zero source-order mismatches."
+    }
+  ],
+  "limitations": [
+    "Evidence B reuses the validated Legacy source-order chain; the complete raw ConfigDataHeroInfo.json bytes were not retrieved in this execution.",
+    "Order uniqueness is scoped per Hero array; the same order on a different Hero is valid.",
+    "The claim is snapshot scoped, not a future Population ceiling or UI sorting policy."
+  ]
+}
