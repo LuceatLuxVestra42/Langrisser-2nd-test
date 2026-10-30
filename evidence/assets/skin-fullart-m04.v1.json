@@ -1,0 +1,610 @@
+{
+  "schemaVersion": 1,
+  "scope": "Four Spine fullart assets for Skin IDs 102-105; assets only; not semantic authority, presentation approval, or publication approval.",
+  "semanticOwner": {
+    "kind": "reference-only",
+    "path": "generated/skin-consumer.v1.json",
+    "authority": "M01-M03 canonical owners"
+  },
+  "assetSourceAuthority": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "kind": "official-unity-client-asset-source",
+    "installVersion": "1.1.113"
+  },
+  "limitations": [
+    "Original game build number was not established.",
+    "The ConfigData Semantic Snapshot and Unity client Asset Source version are independent provenance streams.",
+    "Source is a fixed historical official installer package; it does not imply current or future game population.",
+    "Skin 105 decorative typography belongs to the rendered Spine artwork."
+  ],
+  "records": [
+    {
+      "skinId": 102,
+      "semanticReference": {
+        "generatedConsumer": "generated/skin-consumer.v1.json",
+        "heroId": 1,
+        "sourceOrder": 1
+      },
+      "assetKind": "skin-spine-fullart",
+      "source": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "sourceMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+        "locatorEvidence": {
+          "path": "data/generated/skin-stage3-1-asset-inventory.v1.json",
+          "gitBlobSha": "a5713e1f9574013b124033bbe70c7e8201b910cd",
+          "frozenLocator": "Spine/Char/Mathew_ABS/Mathew_Skin01_Prefab.prefab"
+        },
+        "installationPackage": {
+          "kind": "official-installer",
+          "version": "1.1.113",
+          "package": "InstallPage_1.1.113_25.zip",
+          "sizeBytes": 113075694,
+          "sha256": "2d2aceb0c5f3b53742e794cc2e37784f3d07814c935093dc4e631d2c72b65740",
+          "url": "http://mhmnzupdate.zlongame.com/MHMNZ/InstallVersion/InstallPage_1.1.113/InstallPage_1.1.113_25.zip"
+        },
+        "bundle": {
+          "name": "begin_spine_char_mathew_abs.b",
+          "archivePath": "Client/Langrisser_Data/StreamingAssets/ExportAssetBundle/begin_spine_char_mathew_abs.b",
+          "sizeBytes": 4651863,
+          "sha256": "8d2525638331fe5b0e4af8801e32548a11d29de717d52cdf0471a0590b6cc5d3"
+        },
+        "runtimePrefab": {
+          "containerPath": "assets/gameproject/runtimeassets/spine/char/mathew_abs/mathew_skin01_prefab.prefab",
+          "objectType": "GameObject",
+          "pathId": -4830474767695816888,
+          "serializedBytes": 83,
+          "sha256": "c8e2326b534376e0f2edba4b73dda9ee9d5350f88fb844edb188b835e3220532"
+        },
+        "skeletonAnimation": {
+          "objectType": "MonoBehaviour",
+          "pathId": 6141732902901849962,
+          "prefabConfiguredAnimation": "idle_Normal",
+          "initialSkin": "default",
+          "skeletonDataAssetPathId": 3937527295356760436
+        },
+        "skeletonData": {
+          "objectType": "MonoBehaviour",
+          "pathId": 3937527295356760436,
+          "name": "Mathew_Skin01_SkeletonData",
+          "scale": 0.009999999776482582,
+          "skeletonTextAssetPathId": 9203859883283707701,
+          "payloadName": "Mathew_Skin01.skel",
+          "sizeBytes": 180671,
+          "sha256": "896eefa18d3c8470608e427fa4e2233cda3f6f15b6df83d78104685555d81ea0",
+          "spineVersion": "3.3.05",
+          "headerHash": "5f/DT/0h7YUO4OdGuZNyVtwuHDI"
+        },
+        "atlas": {
+          "atlasAssetPathId": 6998921735145173502,
+          "textAssetPathId": -9186462604436121014,
+          "textAssetName": "Mathew_Skin01.atlas",
+          "sizeBytes": 8248,
+          "sha256": "ac4ae0ae3a847e69187557b86bbee6b79a9b7f05ba2fe1f3e4f1761163f54c36",
+          "materialPathId": -5373711949732433682,
+          "textureObjectPathId": -3170988451221955392,
+          "textureName": "Mathew_Skin01",
+          "textureDimensions": [
+            2048,
+            1024
+          ],
+          "exportedTexturePngSha256": "662955065de2f5994e9e7092658375d567bb6de2f54c48f7b701662113b6b293"
+        }
+      },
+      "renderer": {
+        "rendererSourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+        "rendererSourceCommit": "ab1bed2c",
+        "geometryRendererPath": "scripts/render-skin-fullart0-geometry.py",
+        "geometryRendererSha256": "b5819e3926a93951361ad06044f5dce2a21c4c7096c8885368bf3608d14fee24",
+        "spineGeometrySourcePath": "tools/skin-fullart0/SpineGeometry.cs",
+        "spineGeometrySourceSha256": "9c6aa74e5c6adb745e6da8cae8b3b7cb1e3b9a170b5909a9ea4d5f46ea3bc29b",
+        "spineRuntime": "EsotericSoftware/spine-runtimes",
+        "spineRuntimeCommit": "1c1936532527900f74cfb58f7002998bf157b254",
+        "spineRuntimeVersion": "3.3.05",
+        "spineRuntimeArchiveSha256": "15a7765995f04f76acd197ad45165c7b99442d39a90b99556851518b2effd9b4",
+        "unityPyVersion": "1.25.3",
+        "pose": {
+          "animation": "idle_Normal",
+          "timeSeconds": 0.0
+        },
+        "canvas": [
+          971,
+          1910
+        ],
+        "geometry": {
+          "renderableAttachmentCount": 37,
+          "triangleCount": 1068,
+          "bounds": {
+            "minX": -420.12497,
+            "minY": -862.3489,
+            "maxX": 502.25192,
+            "maxY": 998.6892,
+            "width": 922.3769,
+            "height": 1861.0381
+          },
+          "alphaBoundingBox": {
+            "left": 50,
+            "top": 24,
+            "rightExclusive": 946,
+            "bottomExclusive": 1874,
+            "width": 896,
+            "height": 1850
+          }
+        },
+        "renderStatus": "FULLART_RENDER_PASS"
+      },
+      "output": {
+        "path": "assets/skins/skin-102.webp",
+        "format": "image/webp",
+        "dimensions": [
+          813,
+          1600
+        ],
+        "alpha": {
+          "present": true,
+          "extrema": [
+            0,
+            255
+          ],
+          "transparentPixelsExist": true
+        },
+        "sizeBytes": 148804,
+        "sha256": "0e226d0650202d75303f9beb6241fab86855a35f7a6f2c0982845a06f0e17f27",
+        "encoder": {
+          "Pillow": "13.0.0",
+          "quality": 90,
+          "method": 6,
+          "maxDimension": 1600
+        }
+      },
+      "visualReview": {
+        "status": "PASS",
+        "reviewMethod": "direct rendered output inspection",
+        "fullBodyVisible": true,
+        "cardFramePresent": false,
+        "backgroundTransparent": true,
+        "missingMajorAttachmentsObserved": false
+      }
+    },
+    {
+      "skinId": 103,
+      "semanticReference": {
+        "generatedConsumer": "generated/skin-consumer.v1.json",
+        "heroId": 1,
+        "sourceOrder": 2
+      },
+      "assetKind": "skin-spine-fullart",
+      "source": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "sourceMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+        "locatorEvidence": {
+          "path": "data/generated/skin-stage3-1-asset-inventory.v1.json",
+          "gitBlobSha": "a5713e1f9574013b124033bbe70c7e8201b910cd",
+          "frozenLocator": "Spine/Char/Mathew_ABS/Mathew_Skin02_Prefab.prefab"
+        },
+        "installationPackage": {
+          "kind": "official-installer",
+          "version": "1.1.113",
+          "package": "InstallPage_1.1.113_25.zip",
+          "sizeBytes": 113075694,
+          "sha256": "2d2aceb0c5f3b53742e794cc2e37784f3d07814c935093dc4e631d2c72b65740",
+          "url": "http://mhmnzupdate.zlongame.com/MHMNZ/InstallVersion/InstallPage_1.1.113/InstallPage_1.1.113_25.zip"
+        },
+        "bundle": {
+          "name": "begin_spine_char_mathew_abs.b",
+          "archivePath": "Client/Langrisser_Data/StreamingAssets/ExportAssetBundle/begin_spine_char_mathew_abs.b",
+          "sizeBytes": 4651863,
+          "sha256": "8d2525638331fe5b0e4af8801e32548a11d29de717d52cdf0471a0590b6cc5d3"
+        },
+        "runtimePrefab": {
+          "containerPath": "assets/gameproject/runtimeassets/spine/char/mathew_abs/mathew_skin02_prefab.prefab",
+          "objectType": "GameObject",
+          "pathId": 6333494947721339510,
+          "serializedBytes": 83,
+          "sha256": "7ad64b26709b643b5fde64808eb7e0c793c5c66e5f3c26a1448fd7a37d240774"
+        },
+        "skeletonAnimation": {
+          "objectType": "MonoBehaviour",
+          "pathId": 6619864519877150078,
+          "prefabConfiguredAnimation": "idle_Normal",
+          "initialSkin": "default",
+          "skeletonDataAssetPathId": 3231249327697940975
+        },
+        "skeletonData": {
+          "objectType": "MonoBehaviour",
+          "pathId": 3231249327697940975,
+          "name": "Mathew_Skin02_SkeletonData",
+          "scale": 0.009999999776482582,
+          "skeletonTextAssetPathId": -4175195188288922640,
+          "payloadName": "Mathew_Skin02.skel",
+          "sizeBytes": 157193,
+          "sha256": "b7047878fb665e440ed64c71fbc74c8467d59bcfe2fdc7daafdc7996cf010ae4",
+          "spineVersion": "3.3.05",
+          "headerHash": "XiAZ6dHiwgIz5eJk21lvvFqiBo8"
+        },
+        "atlas": {
+          "atlasAssetPathId": -942504564875658746,
+          "textAssetPathId": 9055389669165287395,
+          "textAssetName": "Mathew_Skin02.atlas",
+          "sizeBytes": 6285,
+          "sha256": "90ed0e2d1b30040edeee16fbfac43ac9a8e76478a8d058cfdefcdde7a86b9601",
+          "materialPathId": -5893267525478230697,
+          "textureObjectPathId": -9116570383638830721,
+          "textureName": "Mathew_Skin02",
+          "textureDimensions": [
+            2048,
+            1024
+          ],
+          "exportedTexturePngSha256": "92753a5e9112366740016e4db210566bc74f7cb2ce0e92f2c7411727020aefa6"
+        }
+      },
+      "renderer": {
+        "rendererSourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+        "rendererSourceCommit": "ab1bed2c",
+        "geometryRendererPath": "scripts/render-skin-fullart0-geometry.py",
+        "geometryRendererSha256": "b5819e3926a93951361ad06044f5dce2a21c4c7096c8885368bf3608d14fee24",
+        "spineGeometrySourcePath": "tools/skin-fullart0/SpineGeometry.cs",
+        "spineGeometrySourceSha256": "9c6aa74e5c6adb745e6da8cae8b3b7cb1e3b9a170b5909a9ea4d5f46ea3bc29b",
+        "spineRuntime": "EsotericSoftware/spine-runtimes",
+        "spineRuntimeCommit": "1c1936532527900f74cfb58f7002998bf157b254",
+        "spineRuntimeVersion": "3.3.05",
+        "spineRuntimeArchiveSha256": "15a7765995f04f76acd197ad45165c7b99442d39a90b99556851518b2effd9b4",
+        "unityPyVersion": "1.25.3",
+        "pose": {
+          "animation": "idle_Normal",
+          "timeSeconds": 0.0
+        },
+        "canvas": [
+          1067,
+          1932
+        ],
+        "geometry": {
+          "renderableAttachmentCount": 33,
+          "triangleCount": 899,
+          "bounds": {
+            "minX": -560.21326,
+            "minY": -888.8622,
+            "maxX": 458.25412,
+            "maxY": 994.8305,
+            "width": 1018.4674,
+            "height": 1883.6926
+          },
+          "alphaBoundingBox": {
+            "left": 24,
+            "top": 24,
+            "rightExclusive": 1042,
+            "bottomExclusive": 1881,
+            "width": 1018,
+            "height": 1857
+          }
+        },
+        "renderStatus": "FULLART_RENDER_PASS"
+      },
+      "output": {
+        "path": "assets/skins/skin-103.webp",
+        "format": "image/webp",
+        "dimensions": [
+          884,
+          1600
+        ],
+        "alpha": {
+          "present": true,
+          "extrema": [
+            0,
+            255
+          ],
+          "transparentPixelsExist": true
+        },
+        "sizeBytes": 138370,
+        "sha256": "8cc6fe9c0496d78686d3b2e3d71420e7416743efa59f2f4401ce971db0576490",
+        "encoder": {
+          "Pillow": "13.0.0",
+          "quality": 90,
+          "method": 6,
+          "maxDimension": 1600
+        }
+      },
+      "visualReview": {
+        "status": "PASS",
+        "reviewMethod": "direct rendered output inspection",
+        "fullBodyVisible": true,
+        "cardFramePresent": false,
+        "backgroundTransparent": true,
+        "missingMajorAttachmentsObserved": false
+      }
+    },
+    {
+      "skinId": 104,
+      "semanticReference": {
+        "generatedConsumer": "generated/skin-consumer.v1.json",
+        "heroId": 1,
+        "sourceOrder": 3
+      },
+      "assetKind": "skin-spine-fullart",
+      "source": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "sourceMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+        "locatorEvidence": {
+          "path": "data/generated/skin-stage3-1-asset-inventory.v1.json",
+          "gitBlobSha": "a5713e1f9574013b124033bbe70c7e8201b910cd",
+          "frozenLocator": "Spine/Char/Mathew_ABS/Mathew_Skin03_Prefab.prefab"
+        },
+        "installationPackage": {
+          "kind": "official-installer",
+          "version": "1.1.113",
+          "package": "InstallPage_1.1.113_25.zip",
+          "sizeBytes": 113075694,
+          "sha256": "2d2aceb0c5f3b53742e794cc2e37784f3d07814c935093dc4e631d2c72b65740",
+          "url": "http://mhmnzupdate.zlongame.com/MHMNZ/InstallVersion/InstallPage_1.1.113/InstallPage_1.1.113_25.zip"
+        },
+        "bundle": {
+          "name": "begin_spine_char_mathew_abs.b",
+          "archivePath": "Client/Langrisser_Data/StreamingAssets/ExportAssetBundle/begin_spine_char_mathew_abs.b",
+          "sizeBytes": 4651863,
+          "sha256": "8d2525638331fe5b0e4af8801e32548a11d29de717d52cdf0471a0590b6cc5d3"
+        },
+        "runtimePrefab": {
+          "containerPath": "assets/gameproject/runtimeassets/spine/char/mathew_abs/mathew_skin03_prefab.prefab",
+          "objectType": "GameObject",
+          "pathId": 1414710146631031648,
+          "serializedBytes": 83,
+          "sha256": "cc521729ae6e26f4eb00aa6da3fd7841ed53e84766dc54d44bd52809c047ab44"
+        },
+        "skeletonAnimation": {
+          "objectType": "MonoBehaviour",
+          "pathId": 4177100245386526942,
+          "prefabConfiguredAnimation": "idle_Normal",
+          "initialSkin": "default",
+          "skeletonDataAssetPathId": 3211526450202947180
+        },
+        "skeletonData": {
+          "objectType": "MonoBehaviour",
+          "pathId": 3211526450202947180,
+          "name": "Mathew_Skin03_SkeletonData",
+          "scale": 0.009999999776482582,
+          "skeletonTextAssetPathId": -4957437310996145169,
+          "payloadName": "Mathew_Skin03.skel",
+          "sizeBytes": 199720,
+          "sha256": "6d32871aa9115105957235fd72c3fc63654016f6b393b8b6d161c8dd45446b0d",
+          "spineVersion": "3.3.05",
+          "headerHash": "QceN1UtsVtmXQa2v9GoWQByk5tU"
+        },
+        "atlas": {
+          "atlasAssetPathId": -1863593326684507411,
+          "textAssetPathId": -5528951626405018522,
+          "textAssetName": "Mathew_Skin03.atlas",
+          "sizeBytes": 7910,
+          "sha256": "3787584c7e8b813bf5da26bc5a7ffc307913980523eb9c39571b494ab5d74002",
+          "materialPathId": 2263394627653323662,
+          "textureObjectPathId": -500053778644859952,
+          "textureName": "Mathew_Skin03",
+          "textureDimensions": [
+            2048,
+            2048
+          ],
+          "exportedTexturePngSha256": "f78edf203553ffad9ccdf1ddfbf7ecfdcb8acf30ec4aa48622f39f43dcbd5688"
+        }
+      },
+      "renderer": {
+        "rendererSourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+        "rendererSourceCommit": "ab1bed2c",
+        "geometryRendererPath": "scripts/render-skin-fullart0-geometry.py",
+        "geometryRendererSha256": "b5819e3926a93951361ad06044f5dce2a21c4c7096c8885368bf3608d14fee24",
+        "spineGeometrySourcePath": "tools/skin-fullart0/SpineGeometry.cs",
+        "spineGeometrySourceSha256": "9c6aa74e5c6adb745e6da8cae8b3b7cb1e3b9a170b5909a9ea4d5f46ea3bc29b",
+        "spineRuntime": "EsotericSoftware/spine-runtimes",
+        "spineRuntimeCommit": "1c1936532527900f74cfb58f7002998bf157b254",
+        "spineRuntimeVersion": "3.3.05",
+        "spineRuntimeArchiveSha256": "15a7765995f04f76acd197ad45165c7b99442d39a90b99556851518b2effd9b4",
+        "unityPyVersion": "1.25.3",
+        "pose": {
+          "animation": "idle_Normal",
+          "timeSeconds": 0.0
+        },
+        "canvas": [
+          1926,
+          1854
+        ],
+        "geometry": {
+          "renderableAttachmentCount": 43,
+          "triangleCount": 916,
+          "bounds": {
+            "minX": -1158.7053,
+            "minY": -814.02734,
+            "maxX": 719.0723,
+            "maxY": 990.9926,
+            "width": 1877.7776,
+            "height": 1805.02
+          },
+          "alphaBoundingBox": {
+            "left": 129,
+            "top": 24,
+            "rightExclusive": 1902,
+            "bottomExclusive": 1829,
+            "width": 1773,
+            "height": 1805
+          }
+        },
+        "renderStatus": "FULLART_RENDER_PASS"
+      },
+      "output": {
+        "path": "assets/skins/skin-104.webp",
+        "format": "image/webp",
+        "dimensions": [
+          1600,
+          1540
+        ],
+        "alpha": {
+          "present": true,
+          "extrema": [
+            0,
+            255
+          ],
+          "transparentPixelsExist": true
+        },
+        "sizeBytes": 201662,
+        "sha256": "fa20105915c11d9891a6bd3c420caeb9212f60fb195fdae321f2ac53278346d2",
+        "encoder": {
+          "Pillow": "13.0.0",
+          "quality": 90,
+          "method": 6,
+          "maxDimension": 1600
+        }
+      },
+      "visualReview": {
+        "status": "PASS",
+        "reviewMethod": "direct rendered output inspection",
+        "fullBodyVisible": true,
+        "cardFramePresent": false,
+        "backgroundTransparent": true,
+        "missingMajorAttachmentsObserved": false
+      }
+    },
+    {
+      "skinId": 105,
+      "semanticReference": {
+        "generatedConsumer": "generated/skin-consumer.v1.json",
+        "heroId": 1,
+        "sourceOrder": 4
+      },
+      "assetKind": "skin-spine-fullart",
+      "source": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "sourceMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+        "locatorEvidence": {
+          "path": "data/generated/skin-stage3-1-asset-inventory.v1.json",
+          "gitBlobSha": "a5713e1f9574013b124033bbe70c7e8201b910cd",
+          "frozenLocator": "Spine/Char/Mathew_ABS/Mathew_Skin04_Prefab.prefab"
+        },
+        "installationPackage": {
+          "kind": "official-installer",
+          "version": "1.1.113",
+          "package": "InstallPage_1.1.113_25.zip",
+          "sizeBytes": 113075694,
+          "sha256": "2d2aceb0c5f3b53742e794cc2e37784f3d07814c935093dc4e631d2c72b65740",
+          "url": "http://mhmnzupdate.zlongame.com/MHMNZ/InstallVersion/InstallPage_1.1.113/InstallPage_1.1.113_25.zip"
+        },
+        "bundle": {
+          "name": "begin_spine_char_mathew_abs.b",
+          "archivePath": "Client/Langrisser_Data/StreamingAssets/ExportAssetBundle/begin_spine_char_mathew_abs.b",
+          "sizeBytes": 4651863,
+          "sha256": "8d2525638331fe5b0e4af8801e32548a11d29de717d52cdf0471a0590b6cc5d3"
+        },
+        "runtimePrefab": {
+          "containerPath": "assets/gameproject/runtimeassets/spine/char/mathew_abs/mathew_skin04_prefab.prefab",
+          "objectType": "GameObject",
+          "pathId": -6966643492473705188,
+          "serializedBytes": 83,
+          "sha256": "7e61fbfb988ba6832269899722c666bb18019277b879231211c98609e6182d6a"
+        },
+        "skeletonAnimation": {
+          "objectType": "MonoBehaviour",
+          "pathId": -3732542534703359066,
+          "prefabConfiguredAnimation": "idle_Normal",
+          "initialSkin": "default",
+          "skeletonDataAssetPathId": 3679961884027633451
+        },
+        "skeletonData": {
+          "objectType": "MonoBehaviour",
+          "pathId": 3679961884027633451,
+          "name": "Mathew_Skin04_SkeletonData",
+          "scale": 0.009999999776482582,
+          "skeletonTextAssetPathId": -8576633210638960049,
+          "payloadName": "Mathew_Skin04.skel",
+          "sizeBytes": 187242,
+          "sha256": "c77d5618d94623ba27eabf2acee86b65b1956650cad9c9dec1e101d1f1bdf6b1",
+          "spineVersion": "3.3.05",
+          "headerHash": "59UiJvmh/UnStZGEv8yMSpPWddo"
+        },
+        "atlas": {
+          "atlasAssetPathId": 2493246496995505226,
+          "textAssetPathId": -4701301235204103719,
+          "textAssetName": "Mathew_Skin04.atlas",
+          "sizeBytes": 6710,
+          "sha256": "275b93bd542ee53a18568afcd04cc5eeb33ee3b86475b7286626aa51bb0d4088",
+          "materialPathId": -5117748237658004929,
+          "textureObjectPathId": 9012900034930310838,
+          "textureName": "Mathew_Skin04",
+          "textureDimensions": [
+            2048,
+            1024
+          ],
+          "exportedTexturePngSha256": "c93e4c95f0b5a2df34a51056b8d87974fe11e605404dfbf252fa30c0622ba617"
+        }
+      },
+      "renderer": {
+        "rendererSourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+        "rendererSourceCommit": "ab1bed2c",
+        "geometryRendererPath": "scripts/render-skin-fullart0-geometry.py",
+        "geometryRendererSha256": "b5819e3926a93951361ad06044f5dce2a21c4c7096c8885368bf3608d14fee24",
+        "spineGeometrySourcePath": "tools/skin-fullart0/SpineGeometry.cs",
+        "spineGeometrySourceSha256": "9c6aa74e5c6adb745e6da8cae8b3b7cb1e3b9a170b5909a9ea4d5f46ea3bc29b",
+        "spineRuntime": "EsotericSoftware/spine-runtimes",
+        "spineRuntimeCommit": "1c1936532527900f74cfb58f7002998bf157b254",
+        "spineRuntimeVersion": "3.3.05",
+        "spineRuntimeArchiveSha256": "15a7765995f04f76acd197ad45165c7b99442d39a90b99556851518b2effd9b4",
+        "unityPyVersion": "1.25.3",
+        "pose": {
+          "animation": "idle_Normal",
+          "timeSeconds": 0.0
+        },
+        "canvas": [
+          733,
+          1850
+        ],
+        "geometry": {
+          "renderableAttachmentCount": 33,
+          "triangleCount": 1268,
+          "bounds": {
+            "minX": -443.16223,
+            "minY": -831.97656,
+            "maxX": 240.94267,
+            "maxY": 969.038,
+            "width": 684.1049,
+            "height": 1801.0146
+          },
+          "alphaBoundingBox": {
+            "left": 24,
+            "top": 24,
+            "rightExclusive": 708,
+            "bottomExclusive": 1825,
+            "width": 684,
+            "height": 1801
+          }
+        },
+        "renderStatus": "FULLART_RENDER_PASS"
+      },
+      "output": {
+        "path": "assets/skins/skin-105.webp",
+        "format": "image/webp",
+        "dimensions": [
+          634,
+          1600
+        ],
+        "alpha": {
+          "present": true,
+          "extrema": [
+            0,
+            255
+          ],
+          "transparentPixelsExist": true
+        },
+        "sizeBytes": 147268,
+        "sha256": "716d0e0a0325f59664e060423d087a833f9d4423b5e822d05de0629f04bb4f50",
+        "encoder": {
+          "Pillow": "13.0.0",
+          "quality": 90,
+          "method": 6,
+          "maxDimension": 1600
+        }
+      },
+      "visualReview": {
+        "status": "PASS",
+        "reviewMethod": "direct rendered output inspection",
+        "fullBodyVisible": true,
+        "cardFramePresent": false,
+        "backgroundTransparent": true,
+        "missingMajorAttachmentsObserved": false
+      }
+    }
+  ]
+}

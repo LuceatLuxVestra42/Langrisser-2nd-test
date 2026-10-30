@@ -46,6 +46,20 @@ jobs:
       - name: Test M03 Skin Generated consumer failure boundaries
         run: node tools/test-skin-generated.mjs
 
+      - name: Set up Python for Skin fullart Asset validation
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Skin fullart image validator dependency
+        run: python -m pip install Pillow==13.0.0
+
+      - name: Validate M04 Skin fullart Assets
+        run: python tools/validate-skin-fullart-m04.py
+
+      - name: Test M04 Skin fullart Asset failure boundaries
+        run: python tools/test-skin-fullart-m04.py
+
       - name: Test static resource cache-key contract
         run: node tools/test-app-cache-key.mjs
 
