@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 
 const pretty = (value) => `${JSON.stringify(value, null, 2)}\n`;
 const frozenIds = [102, 103, 104, 105];
@@ -74,6 +75,7 @@ export async function generateSkinM05G(root = process.cwd()) {
 
   const semanticIds = new Set(composed.map((row) => row.skinId));
   const assetRecords = [];
+  const assetPaths = new Map();
   for (const record of assetRegistry.records) {
     if (!['APPROVED', 'NOT_APPROVED', 'REVIEW'].includes(record.admissionStatus)) throw new Error('M05-G Asset Registry status invalid');
     if (record.admissionStatus !== 'APPROVED') continue;
@@ -82,6 +84,8 @@ export async function generateSkinM05G(root = process.cwd()) {
     const assetManifest = await read(record.assetEvidence);
     const manifestRecord = assetManifest.records.find((row) => row.skinId === record.assetRecordSkinId);
     if (!manifestRecord) throw new Error(`M05-G approved Asset missing from source Manifest: ${record.skinId}`);
+    if (!isAllowedSkinAssetPath(manifestRecord.output?.path)) throw new Error(`M05-G approved Asset has unsupported Manifest path: ${record.skinId}`);
+    assetPaths.set(record.skinId, manifestRecord.output.path);
     assetRecords.push({ skinId: record.skinId, record: manifestRecord });
   }
   if (new Set(assetRecords.map(({ skinId }) => skinId)).size !== assetRecords.length) throw new Error('M05-G duplicate Asset registry record');
@@ -92,7 +96,7 @@ export async function generateSkinM05G(root = process.cwd()) {
   for (const approval of publication.approvals) {
     if (approval.status !== 'APPROVED') continue;
     if (!assetIds.has(approval.skinId) || !semanticIds.has(approval.skinId)
-      || typeof approval.approvedUrl !== 'string' || !/^\.\/assets\/skins\/[a-zA-Z0-9._-]+\.webp$/.test(approval.approvedUrl)
+      || skinAssetPathFromPublicUrl(approval.approvedUrl) !== assetPaths.get(approval.skinId)
       || urls.has(approval.approvedUrl)) throw new Error('M05-G invalid or duplicate Publication approval');
     urls.set(approval.approvedUrl, approval.skinId);
   }

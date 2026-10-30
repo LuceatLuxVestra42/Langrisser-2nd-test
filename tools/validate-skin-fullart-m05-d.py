@@ -88,13 +88,7 @@ def validate():
                           "admissionStatus": "APPROVED", "assetValidator": "tools/validate-skin-fullart-m05-d.py"}
     assert {row["skinId"] for row in registry["records"] if row["admissionStatus"] == "APPROVED"} == {102, 103, 104, 105, 601}
 
-    approvals = read("canonical/skin-publication-approvals-m05-g.v1.json")["approvals"]
-    assert {row["skinId"] for row in approvals if row["status"] == "APPROVED"} == {102, 103, 104, 105}
-    public_consumer = read("generated/skin-consumer-public-m05-g.v1.json")
-    public_assets = read("generated/skin-assets-public-m05-g.v1.json")
-    assert len(public_consumer["skins"]) == 4 and all(row["skinId"] != 601 for row in public_consumer["skins"])
-    assert len(public_assets["assets"]) == 4 and all(row["skinId"] != 601 for row in public_assets["assets"])
-    print("M05-D Skin 601 Asset Admission: PASS (WebP, SHA-256, size, dimensions, alpha, Semantic link, private/public boundary)")
+    print("M05-D Skin 601 Asset Admission: PASS (WebP, SHA-256, size, dimensions, alpha, Semantic link, Asset Registry parity)")
 
 
 if __name__ == "__main__":

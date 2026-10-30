@@ -141,6 +141,7 @@ try {
     '/generated/hero-soldier-relations.v1.json',
     '/generated/skin-consumer-public-m05-g.v1.json',
     '/generated/skin-assets-public-m05-g.v1.json',
+    '/skin-asset-publication-contract.mjs',
     '/generated/normal-soldiers.v1.json',
     '/generated/sp-soldiers.v1.json',
     '/generated/job-glossary.v1.json',
@@ -159,6 +160,7 @@ try {
   const renderedSelectors = [
     '#heroes .hero-card',
     '#hero-1 .hero-skin-fullarts img',
+    '#hero-6 .hero-skin-fullarts img',
     '#general-ssr-equipment .general-equipment-card',
     '#exclusive-equipment .general-equipment-card',
     '#sp-soldiers .sp-soldier-card',
@@ -185,8 +187,9 @@ try {
     await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
     await page.waitForFunction((selectors) => selectors.every((selector) => document.querySelector(selector)), renderedSelectors, { timeout: 60_000 });
     await page.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+    await page.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
     await page.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img')].length === 4
-      && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img')].every((image) => image.complete && image.naturalWidth > 0), undefined, { timeout: 60_000 });
+      && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')].every((image) => image.complete && image.naturalWidth > 0), undefined, { timeout: 60_000 });
 
     const layout = await page.evaluate(() => ({
       viewportWidth: window.innerWidth,
@@ -200,7 +203,8 @@ try {
       rendered: {
         heroes: document.querySelectorAll('#heroes .hero-card').length,
         heroOneSkinImages: document.querySelectorAll('#hero-1 .hero-skin-fullarts img').length,
-        otherHeroSkinSections: [...document.querySelectorAll('#heroes .hero-card:not(#hero-1)')]
+        heroSixSkinImages: document.querySelectorAll('#hero-6 .hero-skin-fullarts img').length,
+        otherHeroSkinSections: [...document.querySelectorAll('#heroes .hero-card:not(#hero-1):not(#hero-6)')]
           .filter((card) => card.querySelector('.hero-skin-fullarts')).length,
         generalEquipment: document.querySelectorAll('#general-ssr-equipment .general-equipment-card').length,
         exclusiveEquipment: document.querySelectorAll('#exclusive-equipment .general-equipment-card').length,
@@ -237,6 +241,18 @@ try {
           visibleText: section?.innerText ?? '',
         };
       })(),
+      heroSixSkinPresentation: (() => {
+        const section = document.querySelector('#hero-6 .hero-skin-fullarts');
+        const images = [...(section?.querySelectorAll('img') ?? [])];
+        return {
+          heading: section?.querySelector('h3')?.textContent ?? '',
+          labels: images.map((image) => image.alt),
+          sources: images.map((image) => new URL(image.src).pathname),
+          naturalWidths: images.map((image) => image.naturalWidth),
+          objectFits: images.map((image) => getComputedStyle(image).objectFit),
+          visibleText: section?.innerText ?? '',
+        };
+      })(),
     }));
     assert.equal(layout.viewportWidth, viewport.width);
     assert.ok(layout.navigationVisible, `${viewport.name}: section navigation must be visible`);
@@ -245,13 +261,20 @@ try {
     assert.ok(Object.entries(layout.rendered).filter(([name]) => name !== 'otherHeroSkinSections')
       .every(([, count]) => count > 0), `${viewport.name}: expected site content must render`);
     assert.equal(layout.rendered.heroOneSkinImages, 4, `${viewport.name}: Hero 1 must display four Skin Fullarts`);
+    assert.equal(layout.rendered.heroSixSkinImages, 1, `${viewport.name}: Hero 6 must display its approved Skin Fullart`);
     assert.equal(layout.rendered.otherHeroSkinSections, 0, `${viewport.name}: other Heroes must not receive Skin Fullarts`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
     assert.deepEqual(layout.skinPresentation.sources, [102, 103, 104, 105].map((id) => `/assets/skins/skin-${id}.webp`));
     assert.deepEqual(layout.skinPresentation.labels, [1, 2, 3, 4].map((index) => `영웅 스킨 일러스트 ${index} / 4`));
+    assert.equal(layout.heroSixSkinPresentation.heading, '스킨 일러스트');
+    assert.deepEqual(layout.heroSixSkinPresentation.sources, ['/assets/skin-admissions/m05-d/skin-601.webp']);
+    assert.deepEqual(layout.heroSixSkinPresentation.labels, ['영웅 스킨 일러스트 1 / 1']);
+    assert.ok(layout.heroSixSkinPresentation.naturalWidths[0] > 0, `${viewport.name}: Hero 6 Skin WebP must decode`);
+    assert.deepEqual(layout.heroSixSkinPresentation.objectFits, ['contain'], `${viewport.name}: Hero 6 fullart aspect ratio must be preserved`);
     assert.ok(layout.skinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: each Skin WebP must decode`);
     assert.ok(layout.skinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: fullart aspect ratio must be preserved`);
     assert.doesNotMatch(layout.skinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|102|103|104|105|601/);
+    assert.doesNotMatch(layout.heroSixSkinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|601/);
     assert.equal(layout.trainingTech.normalVisible, true, `${viewport.name}: NORMAL 115 presentation must render`);
     assert.equal(layout.trainingTech.spVisible, true, `${viewport.name}: SP 5115 presentation must render`);
     assert.equal(layout.trainingTech.normalCollapsed, true, `${viewport.name}: NORMAL disclosure must start collapsed`);

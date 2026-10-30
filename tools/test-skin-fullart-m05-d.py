@@ -16,10 +16,7 @@ COPIED = [
     "canonical/skin-hero-relations-m05-c.v1.json",
     "canonical/skin-source-orders-m05-c.v1.json",
     "canonical/skin-asset-registry-m05-g.v1.json",
-    "canonical/skin-publication-approvals-m05-g.v1.json",
     "evidence/assets/skin-fullart-m05-d.v1.json",
-    "generated/skin-consumer-public-m05-g.v1.json",
-    "generated/skin-assets-public-m05-g.v1.json",
     "assets/skin-admissions/m05-d/skin-601.webp",
 ]
 
@@ -69,8 +66,6 @@ rejects("wrong Source locator", "evidence/assets/skin-fullart-m05-d.v1.json", la
 rejects("missing Source provenance", "evidence/assets/skin-fullart-m05-d.v1.json", lambda v: v["records"][0]["source"].pop("bundle"))
 rejects("duplicate Asset Registry entry", "canonical/skin-asset-registry-m05-g.v1.json", lambda v: v["records"].append(v["records"][-1]))
 rejects("wrong semantic owner", "canonical/skin-hero-relations-m05-c.v1.json", lambda v: v["records"][0].update(heroId=999))
-rejects("unapproved public Skin 601", "generated/skin-assets-public-m05-g.v1.json", lambda v: v["assets"].append({"skinId": 601, "imageUrl": "./assets/skin-admissions/m05-d/skin-601.webp"}))
-rejects("Publication approval for 601", "canonical/skin-publication-approvals-m05-g.v1.json", lambda v: v["approvals"].append({"skinId": 601, "status": "APPROVED", "approvedUrl": "./assets/skin-admissions/m05-d/skin-601.webp"}))
 
 for label, transform in [
     ("corrupt WebP", lambda data: data.__setitem__(slice(0, 4), b"NOPE")),
@@ -87,4 +82,4 @@ for label, transform in [
     finally:
         temp.cleanup()
 
-print("M05-D failure controls: PASS (11 isolated Asset, provenance, Semantic, and publication mutations)")
+print("M05-D failure controls: PASS (9 isolated Asset, provenance, and Semantic mutations)")
