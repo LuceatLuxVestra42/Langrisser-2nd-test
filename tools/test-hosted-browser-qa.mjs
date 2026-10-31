@@ -37,8 +37,36 @@ function hostedUrl(value) {
   assert.ok(!/%2f|%5c|%2e/i.test(u.pathname), 'Encoded path traversal not allowed');
   return u;
 }
+const HOSTED_MEDIA_TYPES = Object.freeze({
+  html: 'text/html',
+  js: 'text/javascript',
+  mjs: 'text/javascript',
+  css: 'text/css',
+  json: 'application/json',
+  webp: 'image/webp',
+  png: 'image/png',
+});
+const TEXT_MEDIA_TYPES = new Set(['text/html', 'text/javascript', 'text/css', 'application/json']);
+function validateHostedContentType(path, contentType) {
+  const extension = typeof path === 'string' ? path.match(/\.([^.\/]+)$/)?.[1]?.toLowerCase() : undefined;
+  assert.ok(extension && Object.hasOwn(HOSTED_MEDIA_TYPES, extension), `Unsupported Hosted resource extension: ${path}`);
+  const expected = HOSTED_MEDIA_TYPES[extension];
+  const token = "[!#$%&'*+.^_`|~0-9A-Za-z-]+";
+  const parsed = typeof contentType === 'string'
+    ? contentType.match(new RegExp(`^\\s*(${token})\\/(${token})(?:\\s*;\\s*(${token})\\s*=\\s*(?:\"([^\"\\r\\n]*)\"|(${token})))?\\s*$`))
+    : null;
+  assert.ok(parsed, `Malformed Hosted Content-Type: ${path}`);
+  const actual = `${parsed[1]}/${parsed[2]}`.toLowerCase();
+  assert.equal(actual, expected, `Incorrect Hosted Content-Type: ${path}`);
+  if (parsed[3] !== undefined) {
+    assert.ok(TEXT_MEDIA_TYPES.has(expected), `Content-Type parameters are not allowed for ${expected}`);
+    assert.equal(parsed[3].toLowerCase(), 'charset', `Unsupported Hosted Content-Type parameter: ${path}`);
+    assert.equal((parsed[4] ?? parsed[5]).toLowerCase(), 'utf-8', `Unsupported Hosted Content-Type charset: ${path}`);
+  }
+  return expected;
+}
 function validateHtml(text, contentType) {
-  assert.match(contentType || '', /text\/html/i, 'HTML Content-Type required');
+  validateHostedContentType('index.html', contentType);
   assert.ok(!/Site Unavailable|Access Denied|Checking your browser|Verify you are human/i.test(text), 'Error or access-block HTML');
   for (const marker of ['id="heroes"', 'id="sp-soldiers"', 'id="normal-soldiers"', './app.js', './styles.css']) {
     assert.ok(text.includes(marker), `Normal site HTML missing ${marker}`);
@@ -318,6 +346,22 @@ async function selfTest() {
   const checks = [];
   const pass = (id, layer = 'PURE_HELPER_TEST') => { count++; checks.push({ id, layer, status: 'PASS' }); };
   const reject = (id, fn) => { assert.throws(fn, undefined, id); pass(id); };
+  for (const [path, type] of [
+    ['index.html', 'text/html; charset=utf-8'], ['app.js', 'text/javascript; charset=UTF-8'],
+    ['app.mjs', 'text/javascript; charset=utf-8'], ['styles.css', 'text/css'],
+    ['data.json', 'application/json; charset="utf-8"'], ['skin.webp', 'image/webp'], ['portrait.png', 'image/png'],
+    ['APP.MJS', ' TEXT/JAVASCRIPT ; CHARSET = "UTF-8" '],
+  ]) assert.ok(validateHostedContentType(path, type));
+  pass('HOSTED_CONTENT_TYPE_ALLOWED_MATRIX');
+  reject('HOSTED_MJS_CONTENT_TYPE', () => validateHostedContentType('app.mjs', 'text/html'));
+  reject('HOSTED_JS_UNSUPPORTED_ALIAS', () => validateHostedContentType('app.js', 'application/javascript'));
+  reject('HOSTED_CONTENT_TYPE_UNSUPPORTED_EXTENSION', () => validateHostedContentType('data.svg', 'image/svg+xml'));
+  reject('HOSTED_CONTENT_TYPE_UNSUPPORTED_PARAMETER', () => validateHostedContentType('app.mjs', 'text/javascript; version=1'));
+  reject('HOSTED_CONTENT_TYPE_BAD_CHARSET', () => validateHostedContentType('app.mjs', 'text/javascript; charset=latin1'));
+  reject('HOSTED_CONTENT_TYPE_DUPLICATE_PARAMETER', () => validateHostedContentType('app.mjs', 'text/javascript; charset=utf-8; charset=utf-8'));
+  reject('HOSTED_CONTENT_TYPE_MALFORMED_PARAMETER', () => validateHostedContentType('app.mjs', 'text/javascript; charset='));
+  reject('HOSTED_CONTENT_TYPE_IMAGE_PARAMETER', () => validateHostedContentType('skin.webp', 'image/webp; charset=utf-8'));
+  reject('HOSTED_CONTENT_TYPE_SUBSTRING_MATCH', () => validateHostedContentType('app.mjs', 'application/x-text/javascript'));
   reject('URL_EXTERNAL', () => hostedUrl('https://example.com/'));
   reject('URL_BASE_PATH', () => hostedUrl('https://luceatluxvestra42.github.io/other/'));
   reject('URL_HTTP', () => hostedUrl(HOSTED.replace('https:', 'http:')));
@@ -617,10 +661,7 @@ async function runHosted() {
           const expected = file.expected;
           sourceEqual(sha256(response.bytes), expected.sha256, `Hosted versus Build bytes ${file.path}`);
           assert.equal(response.bytes.length, expected.bytes, `Hosted versus Build size ${file.path}`);
-          const expectedType = file.path.endsWith('.js') ? /(?:java|ecma)script/i : file.path.endsWith('.css') ? /text\/css/i
-            : file.path.endsWith('.json') ? /application\/json/i : file.path.endsWith('.webp') ? /image\/webp/i
-              : file.path.endsWith('.png') ? /image\/png/i : /text\/html/i;
-          assert.match(response.contentType || '', expectedType, `Incorrect Hosted Content-Type: ${file.path}`);
+          validateHostedContentType(file.path, response.contentType);
           result.sourceParity.push({ path: file.path, bytes: expected.bytes, decodedBodySha256: expected.sha256 });
           if (file.path === 'index.html') { html = response.bytes.toString('utf8'); validateHtml(html, response.contentType); }
           if (file.path === JSON_PATH) payload = JSON.parse(response.bytes.toString('utf8'));
