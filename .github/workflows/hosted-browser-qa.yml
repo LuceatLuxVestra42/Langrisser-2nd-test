@@ -90,7 +90,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           QA_INFRASTRUCTURE_ROOT: ${{ github.workspace }}/qa-infrastructure
           SITE_SOURCE_ROOT: ${{ github.workspace }}/site-source
-        run: node qa-infrastructure/tools/test-hosted-browser-qa.mjs
+        run: xvfb-run -a node qa-infrastructure/tools/test-hosted-browser-qa.mjs
 
       - name: Clean only this run's temporary runtime
         if: always()
