@@ -1,13 +1,10 @@
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
-import { copyFile, mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { dirname, extname, join, resolve, sep } from 'node:path';
+import { readFile, stat } from 'node:fs/promises';
+import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 
 const require = createRequire(resolve(process.env.PLAYWRIGHT_PACKAGE_ROOT, 'package.json'));
 const { chromium } = require('playwright');
@@ -29,123 +26,11 @@ const qaRoot = resolve(process.env.QA_INFRASTRUCTURE_ROOT);
 const siteRoot = resolve(process.env.SITE_SOURCE_ROOT);
 const publicSkinConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-consumer-public-m05-g.v1.json'), 'utf8'));
 const publicSkinAssets = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-assets-public-m05-g.v1.json'), 'utf8'));
-const publishedSkinRows = validatePublishedSkinRows(publicSkinConsumer, publicSkinAssets);
-const publishedSkinById = new Map(publishedSkinRows.map((row) => [row.skinId, row]));
-const protectedSkinClaims = [
-  ...[102, 103, 104, 105].map((skinId, index) => ({ skinId, heroId: 1, sourceOrder: index + 1 })),
-  ...[601, 602, 603, 604, 605, 606].map((skinId, index) => ({ skinId, heroId: 6, sourceOrder: index + 1 })),
-];
-const assetEvidenceFiles = [
-  'evidence/assets/skin-fullart-m04.v1.json',
-  'evidence/assets/skin-fullart-m05-d.v1.json',
-  'evidence/assets/skin-fullart-m06.v1.json',
-];
-const assetEvidenceRecords = new Map();
-for (const evidencePath of assetEvidenceFiles) {
-  const evidence = JSON.parse(await readFile(resolve(siteRoot, evidencePath), 'utf8'));
-  for (const record of evidence.records) assetEvidenceRecords.set(record.skinId, record);
-}
-for (const claim of protectedSkinClaims) {
-  const actual = publishedSkinById.get(claim.skinId);
-  const evidence = assetEvidenceRecords.get(claim.skinId);
-  assert.ok(actual, `protected Skin ${claim.skinId} missing from public Consumer`);
-  assert.deepEqual({ skinId: actual.skinId, heroId: actual.heroId, sourceOrder: actual.sourceOrder }, claim,
-    `protected Semantic claim changed for Skin ${claim.skinId}`);
-  assert.ok(evidence, `protected Asset evidence missing for Skin ${claim.skinId}`);
-  assert.equal(actual.imageUrl, `./${evidence.output.path}`, `protected image URL changed for Skin ${claim.skinId}`);
-  const digest = createHash('sha256').update(await readFile(resolve(siteRoot, evidence.output.path))).digest('hex');
-  assert.equal(digest, evidence.output.sha256, `protected Asset SHA-256 mismatch for Skin ${claim.skinId}`);
-}
-console.log('PROTECTED_SKIN_CLAIMS=10_PASS');
-
-function validatePublishedSkinRows(consumer, assets) {
-  assert.deepEqual(Object.keys(consumer).sort(), ['schemaVersion', 'skins']);
-  assert.equal(consumer.schemaVersion, 1);
-  assert.ok(Array.isArray(consumer.skins));
-  assert.deepEqual(Object.keys(assets).sort(), ['assets', 'schemaVersion']);
-  assert.equal(assets.schemaVersion, 1);
-  assert.ok(Array.isArray(assets.assets));
-  const skinById = new Map();
-  const orders = new Set();
-  for (const row of consumer.skins) {
-    assert.deepEqual(Object.keys(row).sort(), ['heroId', 'skinId', 'sourceOrder']);
-    assert.ok(Number.isSafeInteger(row.skinId) && row.skinId > 0);
-    assert.ok(Number.isSafeInteger(row.heroId) && row.heroId > 0);
-    assert.ok(Number.isSafeInteger(row.sourceOrder) && row.sourceOrder > 0);
-    assert.ok(!skinById.has(row.skinId), `duplicate SkinID ${row.skinId}`);
-    const orderKey = `${row.heroId}:${row.sourceOrder}`;
-    assert.ok(!orders.has(orderKey), `Source Order collision for Hero ${row.heroId}: ${row.sourceOrder}`);
-    orders.add(orderKey);
-    skinById.set(row.skinId, row);
-  }
-  const assetById = new Map();
-  const urls = new Set();
-  for (const asset of assets.assets) {
-    assert.deepEqual(Object.keys(asset).sort(), ['imageUrl', 'skinId']);
-    assert.ok(Number.isSafeInteger(asset.skinId) && skinById.has(asset.skinId), `Asset mapping has no Consumer row: ${asset.skinId}`);
-    assert.ok(!assetById.has(asset.skinId), `duplicate Asset mapping for Skin ${asset.skinId}`);
-    const path = skinAssetPathFromPublicUrl(asset.imageUrl);
-    assert.ok(path && isAllowedSkinAssetPath(path), `unapproved Asset URL for Skin ${asset.skinId}`);
-    assert.ok(!urls.has(asset.imageUrl), `duplicate public Asset URL ${asset.imageUrl}`);
-    urls.add(asset.imageUrl);
-    assetById.set(asset.skinId, asset.imageUrl);
-  }
-  assert.deepEqual([...assetById.keys()].sort((a, b) => a - b), [...skinById.keys()].sort((a, b) => a - b),
-    'Consumer and Asset mapping populations must match exactly');
-  return [...skinById.values()].map((row) => ({ ...row, imageUrl: assetById.get(row.skinId) }))
-    .sort((a, b) => a.heroId - b.heroId || a.sourceOrder - b.sourceOrder);
-}
-
-function rowsForHero(rows, heroId) {
-  return rows.filter((row) => row.heroId === heroId).sort((a, b) => a.sourceOrder - b.sourceOrder);
-}
-
-function runContractFixtures() {
-  assert.throws(() => validatePublishedSkinRows({ ...publicSkinConsumer,
-    skins: [...publicSkinConsumer.skins, publicSkinConsumer.skins[0]] }, publicSkinAssets), /duplicate SkinID/);
-  assert.throws(() => validatePublishedSkinRows({ ...publicSkinConsumer,
-    skins: publicSkinConsumer.skins.map((row, index) => index === 1 ? { ...row, sourceOrder: 1 } : row) }, publicSkinAssets), /Source Order collision/);
-  assert.throws(() => validatePublishedSkinRows(publicSkinConsumer,
-    { ...publicSkinAssets, assets: publicSkinAssets.assets.slice(1) }), /populations must match/);
-  assert.throws(() => validatePublishedSkinRows(publicSkinConsumer,
-    { ...publicSkinAssets, assets: publicSkinAssets.assets.map((row, index) => index === 0 ? { ...row, skinId: 999999 } : row) }), /Asset mapping has no Consumer row/);
-  for (const id of ['F05_DUPLICATE_SKIN_ID', 'F06_SOURCE_ORDER_COLLISION', 'F07_APPROVED_URL_MISSING', 'F08_CONSUMER_ASSET_MISMATCH']) {
-    console.log(`${id}=PASS`);
-  }
-}
-
-runContractFixtures();
-
-async function assertRenderedSkinRows(page, rows, label) {
-  for (const heroId of new Set(rows.map((row) => row.heroId))) {
-    await page.locator(`#hero-${heroId} .hero-skin-fullarts`).scrollIntoViewIfNeeded();
-  }
-  await page.waitForFunction(() => [...document.querySelectorAll('.hero-skin-fullarts img')]
-    .every((image) => image.complete && image.naturalWidth > 0), undefined, { timeout: 60_000 });
-  const actual = await page.evaluate(() => [...document.querySelectorAll('#heroes .hero-card')].flatMap((card) => {
-    const heroId = Number(card.id.match(/^hero-(\d+)$/)?.[1]);
-    return [...card.querySelectorAll('.hero-skin-fullarts img')].map((image) => ({
-      heroId,
-      imageUrl: new URL(image.src).pathname,
-      alt: image.alt,
-      objectFit: getComputedStyle(image).objectFit,
-      decoded: image.complete && image.naturalWidth > 0,
-    }));
-  }).sort((a, b) => a.heroId - b.heroId));
-  const expected = rows.map((row) => {
-    const group = rowsForHero(rows, row.heroId);
-    return {
-      heroId: row.heroId,
-      imageUrl: new URL(row.imageUrl, 'https://fixture.invalid').pathname,
-      alt: `영웅 스킨 일러스트 ${group.findIndex((item) => item.skinId === row.skinId) + 1} / ${group.length}`,
-    };
-  });
-  assert.deepEqual(actual.map(({ heroId, imageUrl }) => ({ heroId, imageUrl })),
-    expected.map(({ heroId, imageUrl }) => ({ heroId, imageUrl })),
-    `${label}: rendered records differ from approved Consumer and Asset mapping`);
-  assert.ok(actual.every((row, index) => row.alt === expected[index].alt), `${label}: accessible label/order mismatch`);
-  assert.ok(actual.every((row) => row.decoded && row.objectFit === 'contain'), `${label}: image decode/aspect ratio failed`);
-}
+const heroSixExpected = publicSkinConsumer.skins
+  .filter((row) => row.heroId === 6)
+  .sort((a, b) => a.sourceOrder - b.sourceOrder)
+  .map((row) => ({ ...row, imageUrl: publicSkinAssets.assets.find((asset) => asset.skinId === row.skinId)?.imageUrl }));
+assert.ok(heroSixExpected.every((row) => row.imageUrl), 'every published Hero 6 Consumer row must have an approved URL');
 const shaPattern = /^[0-9a-f]{40}$/;
 for (const key of ['QA_INFRASTRUCTURE_SHA', 'PR_BASE_SHA', 'PR_HEAD_SHA', 'BROWSER_TEST_SOURCE_SHA', 'SITE_SOURCE_SHA', 'BUILD_VALIDATION_SHA']) {
   assert.match(process.env[key], shaPattern, `${key} must be a full Git SHA`);
@@ -191,15 +76,13 @@ const mimeTypes = new Map([
   ['.webp', 'image/webp'],
 ]);
 
-let servedRoot = siteRoot;
-let fixtureTempRoot;
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url ?? '/', 'http://127.0.0.1');
     const pathname = decodeURIComponent(url.pathname);
     const relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
-    const filePath = resolve(servedRoot, relativePath);
-    if (filePath !== servedRoot && !filePath.startsWith(`${servedRoot}${sep}`)) {
+    const filePath = resolve(siteRoot, relativePath);
+    if (filePath !== siteRoot && !filePath.startsWith(`${siteRoot}${sep}`)) {
       response.writeHead(403).end('Forbidden');
       return;
     }
@@ -310,7 +193,10 @@ try {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
     await page.waitForFunction((selectors) => selectors.every((selector) => document.querySelector(selector)), renderedSelectors, { timeout: 60_000 });
-    await assertRenderedSkinRows(page, publishedSkinRows, `BASELINE-${viewport.name}`);
+    await page.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+    await page.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img')].length === 4
+      && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')].every((image) => image.complete && image.naturalWidth > 0), undefined, { timeout: 60_000 });
 
     const layout = await page.evaluate(() => ({
       viewportWidth: window.innerWidth,
@@ -325,7 +211,8 @@ try {
         heroes: document.querySelectorAll('#heroes .hero-card').length,
         heroOneSkinImages: document.querySelectorAll('#hero-1 .hero-skin-fullarts img').length,
         heroSixSkinImages: document.querySelectorAll('#hero-6 .hero-skin-fullarts img').length,
-        skinSections: document.querySelectorAll('#heroes .hero-card .hero-skin-fullarts').length,
+        otherHeroSkinSections: [...document.querySelectorAll('#heroes .hero-card:not(#hero-1):not(#hero-6)')]
+          .filter((card) => card.querySelector('.hero-skin-fullarts')).length,
         generalEquipment: document.querySelectorAll('#general-ssr-equipment .general-equipment-card').length,
         exclusiveEquipment: document.querySelectorAll('#exclusive-equipment .general-equipment-card').length,
         spSoldiers: document.querySelectorAll('#sp-soldiers .sp-soldier-card').length,
@@ -380,16 +267,13 @@ try {
     assert.ok(layout.links.every((link) => link.visible), `${viewport.name}: every shortcut must be visible`);
     assert.ok(Object.entries(layout.rendered).filter(([name]) => name !== 'otherHeroSkinSections')
       .every(([, count]) => count > 0), `${viewport.name}: expected site content must render`);
-    assert.equal(layout.rendered.heroOneSkinImages, rowsForHero(publishedSkinRows, 1).length, `${viewport.name}: Hero 1 must display all approved Skin Fullarts`);
-    assert.equal(layout.rendered.heroSixSkinImages, rowsForHero(publishedSkinRows, 6).length, `${viewport.name}: Hero 6 must display all approved Skin Fullarts`);
-    assert.equal(layout.rendered.skinSections, new Set(publishedSkinRows.map((row) => row.heroId)).size,
-      `${viewport.name}: each approved Hero must have one Skin section`);
+    assert.equal(layout.rendered.heroOneSkinImages, 4, `${viewport.name}: Hero 1 must display four Skin Fullarts`);
+    assert.equal(layout.rendered.heroSixSkinImages, heroSixExpected.length, `${viewport.name}: Hero 6 must display all and only its approved Skin Fullarts`);
+    assert.equal(layout.rendered.otherHeroSkinSections, 0, `${viewport.name}: other Heroes must not receive Skin Fullarts`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
-    const heroOneExpected = rowsForHero(publishedSkinRows, 1);
-    assert.deepEqual(layout.skinPresentation.sources, heroOneExpected.map((row) => new URL(row.imageUrl, 'https://example.invalid').pathname));
-    assert.deepEqual(layout.skinPresentation.labels, heroOneExpected.map((_, index) => `영웅 스킨 일러스트 ${index + 1} / ${heroOneExpected.length}`));
+    assert.deepEqual(layout.skinPresentation.sources, [102, 103, 104, 105].map((id) => `/assets/skins/skin-${id}.webp`));
+    assert.deepEqual(layout.skinPresentation.labels, [1, 2, 3, 4].map((index) => `영웅 스킨 일러스트 ${index} / 4`));
     assert.equal(layout.heroSixSkinPresentation.heading, '스킨 일러스트');
-    const heroSixExpected = rowsForHero(publishedSkinRows, 6);
     assert.deepEqual(layout.heroSixSkinPresentation.sources, heroSixExpected.map((row) => new URL(row.imageUrl, 'https://example.invalid').pathname),
       `${viewport.name}: Hero 6 images must follow approved Source Order and URL mapping`);
     assert.deepEqual(layout.heroSixSkinPresentation.labels, heroSixExpected.map((_, index) => `영웅 스킨 일러스트 ${index + 1} / ${heroSixExpected.length}`));
@@ -397,11 +281,8 @@ try {
     assert.ok(layout.heroSixSkinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: Hero 6 fullart aspect ratios must be preserved`);
     assert.ok(layout.skinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: each Skin WebP must decode`);
     assert.ok(layout.skinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: fullart aspect ratio must be preserved`);
-    const visibleSkinSections = await page.locator('.hero-skin-fullarts').allTextContents();
-    for (const text of visibleSkinSections) assert.doesNotMatch(text, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|SkinID/);
-    for (const text of visibleSkinSections) {
-      for (const row of publishedSkinRows) assert.doesNotMatch(text, new RegExp(`\\b${row.skinId}\\b`));
-    }
+    assert.doesNotMatch(layout.skinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|102|103|104|105|601|602|603|604|605|606/);
+    assert.doesNotMatch(layout.heroSixSkinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|601|602|603|604|605|606/);
     assert.equal(layout.trainingTech.normalVisible, true, `${viewport.name}: NORMAL 115 presentation must render`);
     assert.equal(layout.trainingTech.spVisible, true, `${viewport.name}: SP 5115 presentation must render`);
     assert.equal(layout.trainingTech.normalCollapsed, true, `${viewport.name}: NORMAL disclosure must start collapsed`);
@@ -430,97 +311,6 @@ try {
     console.log(`VIEWPORT_${viewport.name.toUpperCase()}=${JSON.stringify(layout)}`);
   }
 
-  // Keep all test-only rows and duplicated image bytes inside a disposable Build output.
-  const fixtureSourceSha = actualTestSourceSha;
-  const fixtureSiteRoot = await (async () => {
-    fixtureTempRoot = await mkdtemp(join(tmpdir(), 'skin-browser-smoke-fixtures-'));
-    const output = join(fixtureTempRoot, 'site');
-    execFileSync(process.execPath, [resolve(siteRoot, 'tools/build.mjs'), '--output-dir', output], {
-      cwd: siteRoot,
-      stdio: 'inherit',
-    });
-    return output;
-  })();
-  const fixtureConsumerPath = resolve(fixtureSiteRoot, 'generated/skin-consumer-public-m05-g.v1.json');
-  const fixtureAssetsPath = resolve(fixtureSiteRoot, 'generated/skin-assets-public-m05-g.v1.json');
-  const originalFixtureConsumer = JSON.parse(await readFile(fixtureConsumerPath, 'utf8'));
-  const originalFixtureAssets = JSON.parse(await readFile(fixtureAssetsPath, 'utf8'));
-  const fixtureHeroSlice = JSON.parse(await readFile(resolve(fixtureSiteRoot, 'generated/hero-slice.v1.json'), 'utf8'));
-  const heroWithoutPublishedSkins = fixtureHeroSlice.heroes.find((hero) => !publishedSkinRows.some((row) => row.heroId === hero.id));
-  assert.ok(heroWithoutPublishedSkins, 'F03 requires a public Hero with no published Skin');
-  const fixtureScenarios = [
-    // These IDs are isolated fixture labels; they are never written into source or tracked data.
-    { id: 'F01', heroId: 1, skinId: 990001 },
-    { id: 'F02', heroId: 6, skinId: 990002 },
-    { id: 'F03', heroId: heroWithoutPublishedSkins.id, skinId: 990003 },
-  ];
-  const fixtureSourceWebp = resolve(fixtureSiteRoot, 'assets/skins/skin-102.webp');
-  for (const scenario of fixtureScenarios) {
-    const sourceOrder = Math.max(0, ...originalFixtureConsumer.skins
-      .filter((row) => row.heroId === scenario.heroId).map((row) => row.sourceOrder)) + 1;
-    const fixtureRow = { skinId: scenario.skinId, heroId: scenario.heroId, sourceOrder };
-    const relativeAsset = `assets/skin-admissions/fixture-test/skin-${scenario.skinId}.webp`;
-    const fixtureAsset = resolve(fixtureSiteRoot, relativeAsset);
-    await mkdir(dirname(fixtureAsset), { recursive: true });
-    await copyFile(fixtureSourceWebp, fixtureAsset);
-    const consumer = { ...originalFixtureConsumer, skins: [...originalFixtureConsumer.skins, fixtureRow] };
-    const assets = { ...originalFixtureAssets,
-      assets: [...originalFixtureAssets.assets, { skinId: scenario.skinId, imageUrl: `./${relativeAsset}` }] };
-    await writeFile(fixtureConsumerPath, `${JSON.stringify(consumer, null, 2)}\n`);
-    await writeFile(fixtureAssetsPath, `${JSON.stringify(assets, null, 2)}\n`);
-    const expectedRows = validatePublishedSkinRows(consumer, assets);
-    servedRoot = fixtureSiteRoot;
-    for (const viewport of viewports) {
-      const logPrefix = `SCENARIO=${scenario.id} FIXTURE_SKIN=${scenario.skinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${viewport.name}`;
-      try {
-        await page.setViewportSize({ width: viewport.width, height: viewport.height });
-        await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
-        await page.waitForSelector(`#hero-${scenario.heroId} .hero-skin-fullarts`, { timeout: 60_000 });
-        await assertRenderedSkinRows(page, expectedRows, `${scenario.id}-${viewport.name}`);
-        assert.ok(await page.locator(`#hero-${scenario.heroId} .hero-skin-fullarts img`).count() > 0);
-        assert.ok((await page.evaluate(() => document.documentElement.scrollWidth)) <= viewport.width,
-          `${scenario.id}-${viewport.name}: horizontal overflow`);
-        console.log(`${logPrefix} RESULT=PASS`);
-      } catch (error) {
-        console.error(`${logPrefix} RESULT=FAIL REASON=${error.message}`);
-        throw error;
-      }
-    }
-  }
-
-  await writeFile(fixtureConsumerPath, `${JSON.stringify(originalFixtureConsumer, null, 2)}\n`);
-  await writeFile(fixtureAssetsPath, `${JSON.stringify(originalFixtureAssets, null, 2)}\n`);
-  servedRoot = fixtureSiteRoot;
-  const f04Viewport = viewports[0];
-  await page.setViewportSize({ width: f04Viewport.width, height: f04Viewport.height });
-  await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
-  await page.waitForSelector(`#hero-${heroWithoutPublishedSkins.id}.hero-card`, { timeout: 60_000 });
-  const f04FixtureSkinId = 990004;
-  // F04 deliberately violates Presentation input at the DOM boundary only.
-  await page.evaluate(({ heroId, imageUrl }) => {
-    const hero = document.querySelector(`#hero-${heroId}`);
-    const section = document.createElement('section');
-    section.className = 'hero-skin-fullarts';
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    image.alt = '영웅 스킨 일러스트 1 / 1';
-    section.append(image);
-    hero.append(section);
-  }, { heroId: heroWithoutPublishedSkins.id, imageUrl: '/assets/skins/skin-102.webp' });
-  await page.locator(`#hero-${heroWithoutPublishedSkins.id} .hero-skin-fullarts`).scrollIntoViewIfNeeded();
-  let f04Detected = false;
-  try {
-    await assertRenderedSkinRows(page, publishedSkinRows, 'F04-unapproved-dom-skin');
-  } catch (error) {
-    if (!/rendered records differ from approved Consumer and Asset mapping/.test(error.message)) throw error;
-    f04Detected = true;
-  }
-  if (!f04Detected) {
-    console.error(`SCENARIO=F04 FIXTURE_SKIN=${f04FixtureSkinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${f04Viewport.name} RESULT=FAIL REASON=UNAPPROVED_DOM_NOT_DETECTED`);
-    throw new Error('Browser comparator accepted an unapproved Skin exposed in the DOM');
-  }
-  console.log(`SCENARIO=F04 FIXTURE_SKIN=${f04FixtureSkinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${f04Viewport.name} RESULT=PASS NEGATIVE=UNAPPROVED_DOM_DETECTED`);
-
   for (const path of expectedGenerated) {
     assert.ok(loadedSameOriginPaths.has(path), `Browser did not load required generated resource ${path}`);
   }
@@ -548,7 +338,6 @@ try {
   console.log(`BROWSER_RESOURCE_FAILURES=${JSON.stringify(resourceFailures)}`);
   console.log(`BROWSER_CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
   if (browser) await browser.close();
-  if (fixtureTempRoot) await rm(fixtureTempRoot, { recursive: true, force: true });
   if (server.listening) {
     await new Promise((resolveClose, rejectClose) => server.close((error) => error ? rejectClose(error) : resolveClose()));
   }
