@@ -24,6 +24,13 @@ for (const key of requiredEnvironment) assert.ok(process.env[key], `${key} is re
 
 const qaRoot = resolve(process.env.QA_INFRASTRUCTURE_ROOT);
 const siteRoot = resolve(process.env.SITE_SOURCE_ROOT);
+const publicSkinConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-consumer-public-m05-g.v1.json'), 'utf8'));
+const publicSkinAssets = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-assets-public-m05-g.v1.json'), 'utf8'));
+const heroSixExpected = publicSkinConsumer.skins
+  .filter((row) => row.heroId === 6)
+  .sort((a, b) => a.sourceOrder - b.sourceOrder)
+  .map((row) => ({ ...row, imageUrl: publicSkinAssets.assets.find((asset) => asset.skinId === row.skinId)?.imageUrl }));
+assert.ok(heroSixExpected.every((row) => row.imageUrl), 'every published Hero 6 Consumer row must have an approved URL');
 const shaPattern = /^[0-9a-f]{40}$/;
 for (const key of ['QA_INFRASTRUCTURE_SHA', 'PR_BASE_SHA', 'PR_HEAD_SHA', 'BROWSER_TEST_SOURCE_SHA', 'SITE_SOURCE_SHA', 'BUILD_VALIDATION_SHA']) {
   assert.match(process.env[key], shaPattern, `${key} must be a full Git SHA`);
@@ -261,20 +268,21 @@ try {
     assert.ok(Object.entries(layout.rendered).filter(([name]) => name !== 'otherHeroSkinSections')
       .every(([, count]) => count > 0), `${viewport.name}: expected site content must render`);
     assert.equal(layout.rendered.heroOneSkinImages, 4, `${viewport.name}: Hero 1 must display four Skin Fullarts`);
-    assert.equal(layout.rendered.heroSixSkinImages, 1, `${viewport.name}: Hero 6 must display its approved Skin Fullart`);
+    assert.equal(layout.rendered.heroSixSkinImages, heroSixExpected.length, `${viewport.name}: Hero 6 must display all and only its approved Skin Fullarts`);
     assert.equal(layout.rendered.otherHeroSkinSections, 0, `${viewport.name}: other Heroes must not receive Skin Fullarts`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
     assert.deepEqual(layout.skinPresentation.sources, [102, 103, 104, 105].map((id) => `/assets/skins/skin-${id}.webp`));
     assert.deepEqual(layout.skinPresentation.labels, [1, 2, 3, 4].map((index) => `영웅 스킨 일러스트 ${index} / 4`));
     assert.equal(layout.heroSixSkinPresentation.heading, '스킨 일러스트');
-    assert.deepEqual(layout.heroSixSkinPresentation.sources, ['/assets/skin-admissions/m05-d/skin-601.webp']);
-    assert.deepEqual(layout.heroSixSkinPresentation.labels, ['영웅 스킨 일러스트 1 / 1']);
-    assert.ok(layout.heroSixSkinPresentation.naturalWidths[0] > 0, `${viewport.name}: Hero 6 Skin WebP must decode`);
-    assert.deepEqual(layout.heroSixSkinPresentation.objectFits, ['contain'], `${viewport.name}: Hero 6 fullart aspect ratio must be preserved`);
+    assert.deepEqual(layout.heroSixSkinPresentation.sources, heroSixExpected.map((row) => new URL(row.imageUrl, 'https://example.invalid').pathname),
+      `${viewport.name}: Hero 6 images must follow approved Source Order and URL mapping`);
+    assert.deepEqual(layout.heroSixSkinPresentation.labels, heroSixExpected.map((_, index) => `영웅 스킨 일러스트 ${index + 1} / ${heroSixExpected.length}`));
+    assert.ok(layout.heroSixSkinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: every Hero 6 Skin WebP must decode`);
+    assert.ok(layout.heroSixSkinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: Hero 6 fullart aspect ratios must be preserved`);
     assert.ok(layout.skinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: each Skin WebP must decode`);
     assert.ok(layout.skinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: fullart aspect ratio must be preserved`);
-    assert.doesNotMatch(layout.skinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|102|103|104|105|601/);
-    assert.doesNotMatch(layout.heroSixSkinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|601/);
+    assert.doesNotMatch(layout.skinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|102|103|104|105|601|602|603|604|605|606/);
+    assert.doesNotMatch(layout.heroSixSkinPresentation.visibleText, /执事美酒|灵魂指挥|铸剑的英雄|妙想假日|601|602|603|604|605|606/);
     assert.equal(layout.trainingTech.normalVisible, true, `${viewport.name}: NORMAL 115 presentation must render`);
     assert.equal(layout.trainingTech.spVisible, true, `${viewport.name}: SP 5115 presentation must render`);
     assert.equal(layout.trainingTech.normalCollapsed, true, `${viewport.name}: NORMAL disclosure must start collapsed`);

@@ -20,6 +20,26 @@
     {
       "skinId": 601,
       "imageUrl": "./assets/skin-admissions/m05-d/skin-601.webp"
+    },
+    {
+      "skinId": 602,
+      "imageUrl": "./assets/skin-admissions/m06/skin-602.webp"
+    },
+    {
+      "skinId": 603,
+      "imageUrl": "./assets/skin-admissions/m06/skin-603.webp"
+    },
+    {
+      "skinId": 604,
+      "imageUrl": "./assets/skin-admissions/m06/skin-604.webp"
+    },
+    {
+      "skinId": 605,
+      "imageUrl": "./assets/skin-admissions/m06/skin-605.webp"
+    },
+    {
+      "skinId": 606,
+      "imageUrl": "./assets/skin-admissions/m06/skin-606.webp"
     }
   ]
 }

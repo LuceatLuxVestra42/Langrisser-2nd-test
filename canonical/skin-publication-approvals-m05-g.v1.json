@@ -33,6 +33,46 @@
       "semanticAdmission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M05-C-SKIN-601",
       "assetAdmission": "canonical/skin-asset-registry-m05-g.v1.json#records/skinId=601",
       "approvalRecord": "docs/migrations/m05-e-skin601-publication.md"
+    },
+    {
+      "skinId": 602,
+      "status": "APPROVED",
+      "approvedUrl": "./assets/skin-admissions/m06/skin-602.webp",
+      "semanticAdmission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M06-SKIN-602",
+      "assetAdmission": "canonical/skin-asset-registry-m05-g.v1.json#records/skinId=602",
+      "approvalRecord": "docs/migrations/m06-hero6-skin-fullart-expansion.md"
+    },
+    {
+      "skinId": 603,
+      "status": "APPROVED",
+      "approvedUrl": "./assets/skin-admissions/m06/skin-603.webp",
+      "semanticAdmission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M06-SKIN-603",
+      "assetAdmission": "canonical/skin-asset-registry-m05-g.v1.json#records/skinId=603",
+      "approvalRecord": "docs/migrations/m06-hero6-skin-fullart-expansion.md"
+    },
+    {
+      "skinId": 604,
+      "status": "APPROVED",
+      "approvedUrl": "./assets/skin-admissions/m06/skin-604.webp",
+      "semanticAdmission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M06-SKIN-604",
+      "assetAdmission": "canonical/skin-asset-registry-m05-g.v1.json#records/skinId=604",
+      "approvalRecord": "docs/migrations/m06-hero6-skin-fullart-expansion.md"
+    },
+    {
+      "skinId": 605,
+      "status": "APPROVED",
+      "approvedUrl": "./assets/skin-admissions/m06/skin-605.webp",
+      "semanticAdmission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M06-SKIN-605",
+      "assetAdmission": "canonical/skin-asset-registry-m05-g.v1.json#records/skinId=605",
+      "approvalRecord": "docs/migrations/m06-hero6-skin-fullart-expansion.md"
+    },
+    {
+      "skinId": 606,
+      "status": "APPROVED",
+      "approvedUrl": "./assets/skin-admissions/m06/skin-606.webp",
+      "semanticAdmission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M06-SKIN-606",
+      "assetAdmission": "canonical/skin-asset-registry-m05-g.v1.json#records/skinId=606",
+      "approvalRecord": "docs/migrations/m06-hero6-skin-fullart-expansion.md"
     }
   ]
 }
