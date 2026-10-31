@@ -46,7 +46,8 @@ const HOSTED_MEDIA_TYPES = Object.freeze({
   webp: 'image/webp',
   png: 'image/png',
 });
-const TEXT_MEDIA_TYPES = new Set(['text/html', 'text/javascript', 'text/css', 'application/json']);
+const TEXT_MEDIA_TYPES = new Set(['text/html', 'text/javascript', 'application/javascript', 'text/css', 'application/json']);
+const JAVASCRIPT_MEDIA_TYPES = new Set(['text/javascript', 'application/javascript']);
 function validateHostedContentType(path, contentType) {
   const extension = typeof path === 'string' ? path.match(/\.([^.\/]+)$/)?.[1]?.toLowerCase() : undefined;
   assert.ok(extension && Object.hasOwn(HOSTED_MEDIA_TYPES, extension), `Unsupported Hosted resource extension: ${path}`);
@@ -57,9 +58,13 @@ function validateHostedContentType(path, contentType) {
     : null;
   assert.ok(parsed, `Malformed Hosted Content-Type: ${path}`);
   const actual = `${parsed[1]}/${parsed[2]}`.toLowerCase();
-  assert.equal(actual, expected, `Incorrect Hosted Content-Type: ${path}`);
+  if (extension === 'js' || extension === 'mjs') {
+    assert.ok(JAVASCRIPT_MEDIA_TYPES.has(actual), `Incorrect Hosted Content-Type: ${path}`);
+  } else {
+    assert.equal(actual, expected, `Incorrect Hosted Content-Type: ${path}`);
+  }
   if (parsed[3] !== undefined) {
-    assert.ok(TEXT_MEDIA_TYPES.has(expected), `Content-Type parameters are not allowed for ${expected}`);
+    assert.ok(TEXT_MEDIA_TYPES.has(actual), `Content-Type parameters are not allowed for ${actual}`);
     assert.equal(parsed[3].toLowerCase(), 'charset', `Unsupported Hosted Content-Type parameter: ${path}`);
     assert.equal((parsed[4] ?? parsed[5]).toLowerCase(), 'utf-8', `Unsupported Hosted Content-Type charset: ${path}`);
   }
@@ -351,14 +356,24 @@ async function selfTest() {
     ['app.mjs', 'text/javascript; charset=utf-8'], ['styles.css', 'text/css'],
     ['data.json', 'application/json; charset="utf-8"'], ['skin.webp', 'image/webp'], ['portrait.png', 'image/png'],
     ['APP.MJS', ' TEXT/JAVASCRIPT ; CHARSET = "UTF-8" '],
+    ['app.js', 'application/javascript'], ['app.js', 'application/javascript; charset=utf-8'],
+    ['app.mjs', 'application/javascript'], ['app.mjs', 'application/javascript; charset=UTF-8'],
   ]) assert.ok(validateHostedContentType(path, type));
   pass('HOSTED_CONTENT_TYPE_ALLOWED_MATRIX');
-  reject('HOSTED_MJS_CONTENT_TYPE', () => validateHostedContentType('app.mjs', 'text/html'));
-  reject('HOSTED_JS_UNSUPPORTED_ALIAS', () => validateHostedContentType('app.js', 'application/javascript'));
+  reject('HOSTED_JS_HTML_FALLBACK', () => validateHostedContentType('app.js', 'text/html'));
+  reject('HOSTED_MJS_HTML_FALLBACK', () => validateHostedContentType('app.mjs', 'text/html'));
+  reject('HOSTED_JS_UNSUPPORTED_ALIAS', () => validateHostedContentType('app.js', 'application/not-javascript'));
+  reject('HOSTED_MJS_UNSUPPORTED_ALIAS', () => validateHostedContentType('app.mjs', 'application/x-text/javascript'));
+  reject('HOSTED_JS_UNSUPPORTED_SUFFIX', () => validateHostedContentType('app.js', 'text/javascript-extra'));
+  reject('HOSTED_MJS_UNSUPPORTED_SUFFIX', () => validateHostedContentType('app.mjs', 'application/javascript-extra'));
+  reject('HOSTED_JS_MISSING_CONTENT_TYPE', () => validateHostedContentType('app.js', undefined));
+  reject('HOSTED_MJS_MISSING_CONTENT_TYPE', () => validateHostedContentType('app.mjs', undefined));
   reject('HOSTED_CONTENT_TYPE_UNSUPPORTED_EXTENSION', () => validateHostedContentType('data.svg', 'image/svg+xml'));
   reject('HOSTED_CONTENT_TYPE_UNSUPPORTED_PARAMETER', () => validateHostedContentType('app.mjs', 'text/javascript; version=1'));
   reject('HOSTED_CONTENT_TYPE_BAD_CHARSET', () => validateHostedContentType('app.mjs', 'text/javascript; charset=latin1'));
   reject('HOSTED_CONTENT_TYPE_DUPLICATE_PARAMETER', () => validateHostedContentType('app.mjs', 'text/javascript; charset=utf-8; charset=utf-8'));
+  reject('HOSTED_JS_ALIAS_BAD_CHARSET', () => validateHostedContentType('app.js', 'application/javascript; charset=latin1'));
+  reject('HOSTED_MJS_ALIAS_DUPLICATE_PARAMETER', () => validateHostedContentType('app.mjs', 'application/javascript; charset=utf-8; charset=utf-8'));
   reject('HOSTED_CONTENT_TYPE_MALFORMED_PARAMETER', () => validateHostedContentType('app.mjs', 'text/javascript; charset='));
   reject('HOSTED_CONTENT_TYPE_IMAGE_PARAMETER', () => validateHostedContentType('skin.webp', 'image/webp; charset=utf-8'));
   reject('HOSTED_CONTENT_TYPE_SUBSTRING_MATCH', () => validateHostedContentType('app.mjs', 'application/x-text/javascript'));
