@@ -119,6 +119,9 @@ jobs:
       - name: Validate static resource cache-key contract
         run: node tools/validate-app-cache-key.mjs
 
+      - name: Test Hosted Browser QA infrastructure contracts
+        run: node tools/test-hosted-browser-qa.mjs --self-test
+
       - name: Validate Hero presentation slice
         run: node tools/validate.mjs
 
