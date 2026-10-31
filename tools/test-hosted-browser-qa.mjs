@@ -732,6 +732,10 @@ async function runHosted() {
         const response = await page.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
         await page.locator('#normal-soldier-115 .soldier-training-tech-descriptions').waitFor();
         await page.locator('#sp-soldier-5115 .soldier-training-tech-descriptions').waitFor();
+        // The galleries use loading="lazy". Bring both inspected sections into view so
+        // Chromium requests their real Hosted images before asserting decode success.
+        await page.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+        await page.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
         await page.waitForFunction(() => {
           const one = [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img')];
           const six = [...document.querySelectorAll('#hero-6 .hero-skin-fullarts img')];
@@ -925,6 +929,8 @@ async function runHosted() {
       cacheCdp.on('Network.responseReceivedExtraInfo', event => cacheEvidence.extraStatuses.push({ requestId: event.requestId, status: event.statusCode }));
       cacheEvidence.startedAt = new Date().toISOString();
       const response = await cachePage.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
+      await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+      await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
         .length === 10 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
@@ -942,6 +948,8 @@ async function runHosted() {
       assert.ok(cacheContext && cachePage && cacheCdp);
       await cachePage.goto('about:blank', { waitUntil: 'load' });
       const response = await cachePage.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
+      await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+      await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
         .length === 10 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
