@@ -890,7 +890,8 @@ async function runHosted() {
       contexts.push(cacheContext);
       const worker = cacheContext.serviceWorkers().find(item => item.url().startsWith('chrome-extension://'))
         || await cacheContext.waitForEvent('serviceworker', { timeout: 15000 });
-      const enabledRulesets = await worker.evaluate(() => new Promise(resolveRules => chrome.runtime.sendMessage('qa-guard-rulesets', resolveRules)));
+      const enabledRulesets = await worker.evaluate(async () => await chrome.declarativeNetRequest.getEnabledRulesets());
+      assert.ok(Array.isArray(enabledRulesets), 'Chrome did not return enabled DNR rulesets');
       assert.ok(enabledRulesets.includes(guard.ruleSetId), 'Chrome DNR allowlist ruleset was not enabled');
       const guardPage = await cacheContext.newPage();
       const blockedRequests = [];
