@@ -136,6 +136,9 @@ jobs:
       - name: Test Hosted Browser QA infrastructure contracts
         run: node tools/test-hosted-browser-qa.mjs --self-test
 
+      - name: Test hosted mobile Touch QA failure boundaries
+        run: node tools/test-hosted-browser-touch.mjs --self-test
+
       - name: Validate Hero presentation slice
         run: node tools/validate.mjs
 

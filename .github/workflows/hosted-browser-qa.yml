@@ -92,6 +92,18 @@ jobs:
           SITE_SOURCE_ROOT: ${{ github.workspace }}/site-source
         run: xvfb-run -a node qa-infrastructure/tools/test-hosted-browser-qa.mjs
 
+      - name: Run independent mobile touch assertions
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          QA_INFRASTRUCTURE_SHA: ${{ github.workflow_sha }}
+          EXPECTED_SITE_SHA: ${{ inputs.expected_site_sha }}
+          EXPECTED_DEPLOYMENT_ID: ${{ inputs.expected_deployment_id }}
+          HOSTED_URL: ${{ env.HOSTED_URL }}
+          QA_RESULT_DIR: ${{ env.QA_RESULT_DIR }}
+          PLAYWRIGHT_PACKAGE_ROOT: ${{ env.PLAYWRIGHT_PACKAGE_ROOT }}
+        run: node qa-infrastructure/tools/test-hosted-browser-touch.mjs
+
       - name: Clean only this run's temporary runtime
         if: always()
         shell: bash

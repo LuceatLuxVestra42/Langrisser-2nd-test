@@ -17,6 +17,8 @@ on:
       - 'tools/generate.mjs'
       - 'tools/test-browser-smoke.mjs'
       - 'tools/test-browser-detailed.mjs'
+      - 'tools/test-hosted-browser-touch.mjs'
+      - '.github/workflows/hosted-browser-qa.yml'
 
 permissions:
   contents: read
