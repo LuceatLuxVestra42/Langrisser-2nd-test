@@ -942,7 +942,7 @@ async function runHosted() {
       const response = await cachePage.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
       await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
-      await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
+      await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .length === 11 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
       const snapshot = await deploymentSnapshot();
@@ -953,7 +953,7 @@ async function runHosted() {
       result.cacheObservation.firstVisit = { status: response.status(), at: cacheEvidence.startedAt, fullartCount: 11,
         responseHeaders: cacheEvidence.responses.filter(row => /app\.js|styles\.css|skin-/.test(row.url)).map(({ url, status, cacheControl, etag }) => ({ url, status, cacheControl, etag })) };
       assert.deepEqual(cacheEvidence.consoleErrors, []); assert.deepEqual(cacheEvidence.pageErrors, []); assert.deepEqual(cacheEvidence.failed, []);
-      return { siteSha: snapshot.sha, deploymentId: snapshot.id, fullartCount: 10, firstVisitResponses: cacheEvidence.responses.length };
+      return { siteSha: snapshot.sha, deploymentId: snapshot.id, fullartCount: 11, firstVisitResponses: cacheEvidence.responses.length };
     });
     await test('CACHE_REVISIT', 'Same isolated Context revisits Hosted URL and directly observes HTTP cache or revalidation', async () => {
       assert.ok(cacheContext && cachePage && cacheCdp);
@@ -961,7 +961,7 @@ async function runHosted() {
       const response = await cachePage.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
       await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
-      await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
+      await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .length === 11 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
       await new Promise(resolveWait => setTimeout(resolveWait, 1000));
