@@ -71,6 +71,11 @@ jobs:
       - name: Test M05-C Skin 601 admission failure boundaries
         run: node tools/test-skin-admission-m05-c.mjs
 
+      - name: Validate Skin 3701 independent semantic admission
+        run: node tools/validate-skin-admission-3701.mjs
+      - name: Test Skin 3701 admission failure boundaries
+        run: node tools/test-skin-admission-3701.mjs
+
       - name: Generate M05-G dynamic Skin projections
         run: node tools/generate-skin-m05-g.mjs
 
