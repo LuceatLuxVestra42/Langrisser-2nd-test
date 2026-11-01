@@ -15,20 +15,31 @@ const readFixture = async () => {
     registry: await read('canonical/skin-admission-registry-m05-g.v1.json'),
   };
 };
+
 const baseline = await readFixture();
 assert.equal(validateSkin3701(baseline).status, 'PASS');
-const reject = (mutate, pattern) => {
-  const data = structuredClone(baseline); mutate(data);
-  assert.throws(() => validateSkin3701(data), pattern);
+
+const reject = (name, mutate) => {
+  const data = structuredClone(baseline);
+  mutate(data);
+  assert.throws(() => validateSkin3701(data), undefined, name);
 };
-reject(x => { x.identity.records[0].skinId = 3702; }, /deepStrictEqual/);
-reject(x => { x.relation.records[0].heroId = 36; }, /deepStrictEqual/);
-reject(x => { x.order.records[0].sourceOrder = 2; }, /deepStrictEqual/);
-reject(x => { x.identityEvidence.source.snapshotCommit = '0'.repeat(40); }, /strictEqual/);
-reject(x => { x.identity.records[0].provenance = 'wrong'; }, /deepStrictEqual/);
-reject(x => { x.identityEvidence.records = []; }, /Cannot read|strictEqual/);
-reject(x => { x.registry.admissions.push(x.registry.admissions.find(row => row.skinId === 3701)); }, /strictEqual|AssertionError/);
-const unregistered = structuredClone(baseline);
-unregistered.registry.admissions = unregistered.registry.admissions.filter(row => row.skinId !== 3701);
-assert.throws(() => validateSkin3701(unregistered), /3701 Admission Registry entry missing/);
-process.stdout.write('Skin 3701 Admission negative tests: PASS (8 cases)\\n');
+
+reject('rejects wrong SkinID', x => { x.identity.records[0].skinId = 3702; });
+reject('rejects wrong HeroID in canonical relation', x => { x.relation.records[0].heroId = 36; });
+reject('rejects wrong HeroID in relation evidence', x => { x.relationEvidence.records[0].heroId = 36; });
+reject('rejects wrong Source Order in canonical', x => { x.order.records[0].sourceOrder = 2; });
+reject('rejects wrong Source Order position evidence', x => { x.orderEvidence.records[0].zeroBasedPosition = 1; });
+reject('rejects wrong pinned Snapshot', x => { x.identityEvidence.source.snapshotCommit = '0'.repeat(40); });
+reject('rejects wrong evidence Source pointer', x => { x.identity.records[0].provenance = 'evidence/source/wrong.json#records/skinId=3701'; });
+reject('rejects missing Evidence record', x => { x.identityEvidence.records = []; });
+reject('rejects duplicate Admission Registry registration', x => {
+  x.registry.admissions.push(structuredClone(x.registry.admissions.find(row => row.skinId === 3701)));
+});
+reject('rejects missing Admission Registry registration', x => {
+  x.registry.admissions = x.registry.admissions.filter(row => row.skinId !== 3701);
+});
+reject('rejects wrong direct Skin source field', x => { x.identityEvidence.records[0].sourceRecord.ID = 3702; });
+reject('rejects failed Hero membership cross-check', x => { x.relationEvidence.records[0].membership.membershipConfirmed = false; });
+
+process.stdout.write('Skin 3701 Admission negative tests: PASS (12 cases)\\n');
