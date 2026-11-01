@@ -989,7 +989,13 @@ async function runHosted() {
         assert.rejects(guardPage.goto('https://example.com/', { waitUntil: 'commit', timeout: 15000 }), /ERR_BLOCKED_BY_CLIENT/));
       assert.equal(blockedRequests.length, 2);
       assert.ok(blockedRequests.every(row => row.error?.includes('ERR_BLOCKED_BY_CLIENT')));
-      await runObservedSubstep(resultPath, result, 'CACHE_GUARD_CLOSE_PROBE_PAGE', () => guardPage.close());
+      // Keep this isolated probe page in its owned context; closing a page with completed
+      // extension-blocked navigations can stall Playwright. The enclosing context is closed
+      // and verified during final cleanup, after cache observation uses a fresh page.
+      await runObservedSubstep(resultPath, result, 'CACHE_GUARD_DEFER_PROBE_PAGE_CLEANUP', () => {
+        assert.equal(guardPage.isClosed(), false, 'Probe page unexpectedly closed before context cleanup');
+        return { cleanup: 'deferred to owned cache context' };
+      });
       result.cacheObservation = { ...result.cacheObservation, profileId: cacheProfileDir.split('/').at(-1), rulesetId: guard.ruleSetId,
         allowedPublicPathCount: filePaths.length + 1, deniedProbes: blockedRequests, playwrightRoutingEnabled: false,
         serviceWorkers: 'blocked; HTTP cache observed separately', securityPolicy: 'DNR allowlist blocks unapproved HTTP(S) requests before network; exact artifact paths only' };
