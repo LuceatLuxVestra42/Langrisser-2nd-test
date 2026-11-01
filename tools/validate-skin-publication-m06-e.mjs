@@ -59,7 +59,9 @@ export function validateM06EData(input) {
   ], 'Hero 6 public Consumer must preserve Source Order 1–6');
   assert.deepEqual(input.publicAssets.assets.map((row) => row.skinId), [102, 103, 104, 105, 601, ...IDS]);
   assert.equal(result.frozen, 4);
-  assert.equal(result.composed, 10);
+  const approvedSemanticCount = input.admissionRegistry.admissions.filter((row) => row.status === 'APPROVED').length;
+  assert.equal(result.composed, result.frozen + approvedSemanticCount,
+    'M05-G composition must include every Frozen and approved Semantic row');
   assert.equal(result.assets, 10);
   assert.equal(result.published, 10);
   return { status: 'PASS', frozen: result.frozen, composed: result.composed, assets: result.assets, published: result.published, heroSix: 6 };
