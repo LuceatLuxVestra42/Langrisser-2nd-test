@@ -18,7 +18,7 @@ rejects(v => { v.actualAssetDigests[3701] = '0'.repeat(64); }, /Asset hash misma
 rejects(v => { v.assetRegistry.records = v.assetRegistry.records.filter(row => row.skinId !== 3701); }, /Asset/, 'missing Asset Admission');
 rejects(v => { v.publication.approvals = v.publication.approvals.filter(row => row.skinId !== 3701); }, /exactly one explicit Publication Approval/, 'missing approval');
 rejects(v => { v.publication.approvals.push(structuredClone(v.publication.approvals.find(row => row.skinId === 3701))); }, /exactly one explicit Publication Approval/, 'duplicate approval');
-rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvedUrl = './../assets/skin-admissions/m07/skin-3701.webp'; }, /supported Asset paths|differs from admitted Asset path|URL|invalid or duplicate Publication approval/, 'traversal URL');
+rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvedUrl = './../assets/skin-admissions/m07/skin-3701.webp'; }, /approved URL must match the admitted Asset path/, 'traversal URL');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).semanticAdmission = 'wrong'; }, /M07-SKIN-3701/, 'wrong Semantic pointer');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).assetAdmission = 'wrong'; }, /skinId=3701/, 'wrong Asset pointer');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvalRecord = 'unapproved.md'; }, /approvalRecord|M07 Publication/, 'wrong decision record');
