@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-identity",
+  "evidenceClass": "A",
+  "scope": "Direct source-native ID field for SkinID 3701 only.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "snapshotDescription": "Historical China ConfigData snapshot; original game build number and official publication date unknown.",
+    "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+    "gitBlobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+    "field": "ID",
+    "recordLocator": "ID=3701",
+    "matchingRecordCount": 1
+  },
+  "records": [
+    { "skinId": 3701, "sourceRecord": { "ID": 3701 } }
+  ],
+  "limitations": [
+    "Identity only; ownership and Source Order are supported by separate claim evidence.",
+    "Legacy Frozen evidence is reused; original ConfigData bytes were not rehydrated in this Target change."
+  ]
+}
