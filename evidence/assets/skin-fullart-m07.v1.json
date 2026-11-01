@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "scope": "Skin 3701 private Fullart Asset Admission only; no Publication Approval or public delivery.",
+  "semanticOwner": {
+    "kind": "reference-only",
+    "identity": "canonical/skin-identities-3701.v1.json#records/skinId=3701",
+    "relation": "canonical/skin-hero-relations-3701.v1.json#records/skinId=3701",
+    "order": "canonical/skin-source-orders-3701.v1.json#records/skinId=3701",
+    "admission": "canonical/skin-admission-registry-m05-g.v1.json#admissions/M07-SKIN-3701"
+  },
+  "limitations": [
+    "The official bundle-level SHA-256 and byte size were not independently verified.",
+    "The recorded source evidence resolves direct prefab references and renderer inputs; a complete recursive Unity dependency closure was not independently reconstructed in this Target admission.",
+    "The renderer result is a historical successful Legacy workflow artifact. This Asset Admission does not create Publication Approval or public Build inclusion."
+  ],
+  "records": [
+    {
+      "skinId": 3701,
+      "semanticReference": {
+        "admission": "M07-SKIN-3701",
+        "heroId": 37,
+        "sourceOrder": 1
+      },
+      "assetKind": "skin-spine-fullart",
+      "source": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "sourceMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+        "sourceEvidencePath": "data/evidence/skin-stage3-2-asset-resolution-evidence.v1.json",
+        "sourceEvidenceGitBlobSha": "259c9e8f2ef72ff61a9551c233f6041d509cc563",
+        "kind": "official-unity-client-asset-source",
+        "installVersion": "1.1.113",
+        "officialSourceRef": "official-install://1.1.113/InstallPage_1.1.113_45.zip/PC/AssetBundle/spine_char_zigodlla_abs.b#assets/gameproject/runtimeassets/spine/char/zigodlla_abs/zigodlla_skin01_prefab.prefab",
+        "prefabLocator": "Spine/Char/Zigodlla_ABS/Zigodlla_Skin01_Prefab.prefab",
+        "resolvedPrefabPath": "assets/gameproject/runtimeassets/spine/char/zigodlla_abs/zigodlla_skin01_prefab.prefab",
+        "prefabObject": {
+          "sizeBytes": 87,
+          "sha256": "2c2f57aa8efe46a76ff3694ccfe2d66dbca0d15c3c7efa4c026990dcfc91b43c"
+        },
+        "bundle": {
+          "name": "spine_char_zigodlla_abs.b",
+          "installerPackage": "InstallPage_1.1.113_45.zip",
+          "sizeBytes": null,
+          "sha256": null,
+          "integrityStatus": "NOT_VERIFIED"
+        },
+        "resolvedRenderInputs": {
+          "spineVersion": "3.3.05",
+          "atlas": {
+            "runtimePath": "assets/gameproject/runtimeassets/spine/char/zigodlla_abs/zigodlla_skin01.atlas.txt",
+            "sizeBytes": 9012,
+            "sha256": "7015ca22aee890abe0d6fb9f863f1562fbc6bb932d3f62eeae59b5c96939f7be"
+          },
+          "skeleton": {
+            "runtimePath": "assets/gameproject/runtimeassets/spine/char/zigodlla_abs/zigodlla_skin01.skel.bytes",
+            "sizeBytes": 208681,
+            "sha256": "6c6091552bc53a8ca4e83bea650de5dd2d39ef5bf850915346991478808c9c9b"
+          },
+          "texture": {
+            "runtimePath": "assets/gameproject/runtimeassets/spine/char/zigodlla_abs/zigodlla_skin01.png",
+            "sizeBytes": 1260638,
+            "sha256": "8ced279126446c3ef911d27c57707220be01d7e25abc5fc5085543d9be83e885",
+            "dimensions": [2048, 1024]
+          },
+          "dependencyScope": "renderer-reextracted-required-inputs; full recursive bundle closure not independently verified"
+        }
+      },
+      "render": {
+        "repository": "LuceatLuxVestra42/langrisser-future-guide",
+        "runId": 33516153818,
+        "headBranch": "work/skin-fullart-representative-crosscheck-20260901",
+        "headCommit": "9aa141fd54bbbed13b95bf5f2f918e0ec2e65158",
+        "job": "crosscheck (3701)",
+        "workflowPath": ".github/workflows/skin-fullart-representative-crosscheck.yml",
+        "workflowBlobSha": "bd78866742371fa77ed82a6d32598c663726e022",
+        "artifact": {
+          "artifactId": 9803689710,
+          "name": "skin-fullart-representative-3701",
+          "sizeBytes": 714193,
+          "digest": "sha256:0277d38e881b6da04046d4cd7edf786546d508d8f795b52fe70e988e6e3fce7d"
+        },
+        "renderer": {
+          "repository": "EsotericSoftware/spine-runtimes",
+          "commit": "1c1936532527900f74cfb58f7002998bf157b254",
+          "spineVersion": "3.3.05",
+          "pose": {
+            "animation": "idle_Normal",
+            "timeSeconds": 0
+          }
+        },
+        "result": {
+          "status": "PASS_CURRENT_SPINE_CHAR_IDLE_RENDER",
+          "pngPath": "char.png",
+          "pngSha256": "a2c6f42a38effe45f506081d6c82dce36ecec8ff1cd119deedf278bdab64127d",
+          "pngSizeBytes": 685927,
+          "dimensions": [898, 1081],
+          "alphaBBox": [24, 24, 873, 1057],
+          "renderables": 51,
+          "triangles": 824
+        }
+      },
+      "conversion": {
+        "inputPngSha256": "a2c6f42a38effe45f506081d6c82dce36ecec8ff1cd119deedf278bdab64127d",
+        "inputPngSizeBytes": 685927,
+        "tool": "Pillow Image.save",
+        "pillowVersion": "12.3.0",
+        "libwebpVersion": "1.6.0",
+        "options": {
+          "format": "WEBP",
+          "lossless": true,
+          "quality": 100,
+          "method": 6,
+          "exact": true
+        },
+        "decodedPixelsExactlyMatchInputPng": true
+      },
+      "output": {
+        "path": "assets/skin-admissions/m07/skin-3701.webp",
+        "format": "image/webp",
+        "dimensions": [898, 1081],
+        "sizeBytes": 451082,
+        "sha256": "c3307ee65ab66a0a47b527c54b508103629ad53203b08fd66e6ee52553965987",
+        "alpha": {
+          "present": true,
+          "transparentPixelsExist": true,
+          "transparentPixelCount": 512151
+        }
+      },
+      "visualReview": {
+        "status": "PASS",
+        "reviewMethod": "direct visual inspection of decoded lossless WebP",
+        "fullBodyVisible": true,
+        "cardFramePresent": false,
+        "backgroundTransparent": true,
+        "aspectRatioPreserved": true,
+        "pixelExactAgainstVerifiedPng": true
+      }
+    }
+  ]
+}
