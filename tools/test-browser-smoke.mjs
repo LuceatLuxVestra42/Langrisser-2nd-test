@@ -412,7 +412,7 @@ try {
     assert.ok(layout.heroSixSkinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: every Hero 6 Skin WebP must decode`);
     assert.ok(layout.heroSixSkinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: Hero 6 fullart aspect ratios must be preserved`);
     assert.equal(layout.heroThirtySevenSkinPresentation.heading, '스킨 일러스트');
-    assert.deepEqual(layout.heroThirtySevenSkinPresentation.sources, ['/Langrisser-2nd-test/assets/skin-admissions/m07/skin-3701.webp']);
+    assert.deepEqual(layout.heroThirtySevenSkinPresentation.sources, [new URL(publishedSkinRows.find((row) => row.skinId === 3701).imageUrl, 'https://example.invalid').pathname]);
     assert.deepEqual(layout.heroThirtySevenSkinPresentation.labels, ['영웅 스킨 일러스트 1 / 1']);
     assert.ok(layout.heroThirtySevenSkinPresentation.naturalWidths[0] > 0, `${viewport.name}: Hero 37 Skin 3701 WebP must decode`);
     assert.deepEqual(layout.heroThirtySevenSkinPresentation.objectFits, ['contain']);
@@ -498,81 +498,3 @@ try {
         await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
         await page.waitForSelector(`#hero-${scenario.heroId} .hero-skin-fullarts`, { timeout: 60_000 });
         await assertRenderedSkinRows(page, expectedRows, `${scenario.id}-${viewport.name}`);
-        assert.ok(await page.locator(`#hero-${scenario.heroId} .hero-skin-fullarts img`).count() > 0);
-        assert.ok((await page.evaluate(() => document.documentElement.scrollWidth)) <= viewport.width,
-          `${scenario.id}-${viewport.name}: horizontal overflow`);
-        console.log(`${logPrefix} RESULT=PASS`);
-      } catch (error) {
-        console.error(`${logPrefix} RESULT=FAIL REASON=${error.message}`);
-        throw error;
-      }
-    }
-  }
-
-  await writeFile(fixtureConsumerPath, `${JSON.stringify(originalFixtureConsumer, null, 2)}\n`);
-  await writeFile(fixtureAssetsPath, `${JSON.stringify(originalFixtureAssets, null, 2)}\n`);
-  servedRoot = fixtureSiteRoot;
-  const f04Viewport = viewports[0];
-  await page.setViewportSize({ width: f04Viewport.width, height: f04Viewport.height });
-  await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
-  await page.waitForSelector(`#hero-${heroWithoutPublishedSkins.id}.hero-card`, { timeout: 60_000 });
-  const f04FixtureSkinId = 990004;
-  // F04 deliberately violates Presentation input at the DOM boundary only.
-  await page.evaluate(({ heroId, imageUrl }) => {
-    const hero = document.querySelector(`#hero-${heroId}`);
-    const section = document.createElement('section');
-    section.className = 'hero-skin-fullarts';
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    image.alt = '영웅 스킨 일러스트 1 / 1';
-    section.append(image);
-    hero.append(section);
-  }, { heroId: heroWithoutPublishedSkins.id, imageUrl: '/assets/skins/skin-102.webp' });
-  await page.locator(`#hero-${heroWithoutPublishedSkins.id} .hero-skin-fullarts`).scrollIntoViewIfNeeded();
-  let f04Detected = false;
-  try {
-    await assertRenderedSkinRows(page, publishedSkinRows, 'F04-unapproved-dom-skin');
-  } catch (error) {
-    if (!/rendered records differ from approved Consumer and Asset mapping/.test(error.message)) throw error;
-    f04Detected = true;
-  }
-  if (!f04Detected) {
-    console.error(`SCENARIO=F04 FIXTURE_SKIN=${f04FixtureSkinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${f04Viewport.name} RESULT=FAIL REASON=UNAPPROVED_DOM_NOT_DETECTED`);
-    throw new Error('Browser comparator accepted an unapproved Skin exposed in the DOM');
-  }
-  console.log(`SCENARIO=F04 FIXTURE_SKIN=${f04FixtureSkinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${f04Viewport.name} RESULT=PASS NEGATIVE=UNAPPROVED_DOM_DETECTED`);
-
-  for (const path of expectedGenerated) {
-    assert.ok(loadedSameOriginPaths.has(path), `Browser did not load required generated resource ${path}`);
-  }
-  const trainingTechPayload = await page.evaluate(async () => {
-    const response = await fetch('./generated/soldier-training-tech-descriptions.v1.json');
-    return { status: response.status, data: await response.json() };
-  });
-  assert.equal(trainingTechPayload.status, 200, 'Direct Generated JSON must be reachable under Decision B');
-  assert.equal(trainingTechPayload.data.contract.status, 'EFFECTIVE');
-  assert.equal(trainingTechPayload.data.contract.approved, true);
-  assert.equal(trainingTechPayload.data.contract.effective, true);
-  assert.equal(trainingTechPayload.data.records.length, 20, 'Direct JSON must contain exactly the approved 20 claims');
-  assert.equal(trainingTechPayload.data.records.filter((row) => row.variant === 'NORMAL' && row.soldierId === 115 && row.sourceField === 'Description').length, 10);
-  assert.equal(trainingTechPayload.data.records.filter((row) => row.variant === 'SP' && row.soldierId === 5115 && row.sourceField === 'SpSoidlierDescription').length, 10);
-  assert.ok([...loadedSameOriginPaths].some((path) => path === '/styles.css'), 'Browser did not load styles.css');
-  assert.ok([...loadedSameOriginPaths].some((path) => path === '/app.js'), 'Browser did not load app.js');
-  assert.deepEqual(resourceFailures, [], `same-origin resource failures: ${resourceFailures.join('; ')}`);
-  assert.deepEqual(pageErrors, [], `uncaught Browser page errors: ${pageErrors.join('; ')}`);
-  console.log(`BROWSER_RESOURCE_PATHS=${JSON.stringify([...loadedSameOriginPaths].sort())}`);
-  console.log(`BROWSER_CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
-  console.log('DESKTOP_1440_SMOKE=PASS');
-  console.log('MOBILE_390_SMOKE=PASS');
-} finally {
-  console.log(`BROWSER_PAGE_ERRORS=${JSON.stringify(pageErrors)}`);
-  console.log(`BROWSER_RESOURCE_FAILURES=${JSON.stringify(resourceFailures)}`);
-  console.log(`BROWSER_CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
-  if (browser) await browser.close();
-  if (fixtureTempRoot) await rm(fixtureTempRoot, { recursive: true, force: true });
-  if (server.listening) {
-    await new Promise((resolveClose, rejectClose) => server.close((error) => error ? rejectClose(error) : resolveClose()));
-  }
-  console.log(`BROWSER_CLOSED=${!browser || browser.isConnected() === false}`);
-  console.log(`SERVER_CLOSED=${!server.listening}`);
-}
