@@ -41,7 +41,7 @@ def exactly_one(rows, predicate, label):
 def validate():
     evidence = read_json(EVIDENCE)
     assert evidence["schemaVersion"] == 1
-    assert evidence["scope"] == "Skin 3701 private Fullart Asset Admission only; no Publication Approval or public delivery."
+    assert evidence["scope"] == "Skin 3701 Fullart Asset Admission; distinct from any Publication Approval or public delivery."
     sem_registry = read_json(SEMANTIC_REGISTRY)
     sem_admission = exactly_one(sem_registry["admissions"], lambda r: r.get("skinId") == 3701, "Semantic Admission")
     assert sem_admission["admissionId"] == "M07-SKIN-3701" and sem_admission["status"] == "APPROVED"
@@ -155,10 +155,6 @@ def validate():
     approved_ids = {r["skinId"] for r in rows if r["admissionStatus"] == "APPROVED"}
     assert {102, 103, 104, 105, 601, 602, 603, 604, 605, 606, 3701}.issubset(approved_ids)
 
-    approvals = read_json(PUBLICATION)["approvals"]
-    assert not any(r.get("skinId") == 3701 and r.get("status") == "APPROVED" for r in approvals),         "private M07 Asset must not be connected to approved Publication"
-    assert not any(r.get("skinId") == 3701 for r in read_json(PUBLIC_CONSUMER)["skins"]),         "Skin 3701 leaked into Public Consumer"
-    assert not any(r.get("skinId") == 3701 for r in read_json(PUBLIC_ASSETS)["assets"]),         "Skin 3701 leaked into public Asset URL projection"
 
     asset_path = ROOT / ASSET
     st = asset_path.lstat()

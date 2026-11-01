@@ -40,6 +40,10 @@
     {
       "skinId": 606,
       "imageUrl": "./assets/skin-admissions/m06/skin-606.webp"
+    },
+    {
+      "skinId": 3701,
+      "imageUrl": "./assets/skin-admissions/m07/skin-3701.webp"
     }
   ]
 }

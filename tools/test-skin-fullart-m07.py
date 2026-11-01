@@ -81,12 +81,6 @@ rejects("wrong output size", "evidence/assets/skin-fullart-m07.v1.json",
         lambda v: v["records"][0]["output"].update(sizeBytes=1))
 rejects("duplicate Asset Registry row", "canonical/skin-asset-registry-m05-g.v1.json",
         lambda v: v["records"].append(v["records"][-1]))
-rejects("approved Publication connection", "canonical/skin-publication-approvals-m05-g.v1.json",
-        lambda v: v["approvals"].append({"skinId": 3701, "status": "APPROVED", "approvedUrl": "./assets/skin-admissions/m07/skin-3701.webp", "approvalRecord": "test"}))
-rejects("Public Consumer leak", "generated/skin-consumer-public-m05-g.v1.json",
-        lambda v: v["skins"].append({"skinId": 3701, "heroId": 37, "sourceOrder": 1}))
-rejects("Public Asset URL leak", "generated/skin-assets-public-m05-g.v1.json",
-        lambda v: v["assets"].append({"skinId": 3701, "imageUrl": "./assets/skin-admissions/m07/skin-3701.webp"}))
 
 temporary, root = fixture()
 try:
@@ -107,4 +101,4 @@ try:
 finally:
     temporary.cleanup()
 
-print("M07 Asset failure controls: PASS (14 isolated identity, provenance, binary integrity and publication-boundary mutations)")
+print("M07 Asset failure controls: PASS (11 isolated identity, provenance and binary-integrity mutations)")

@@ -119,6 +119,11 @@ jobs:
       - name: Test M06 Skin 602-606 Publication failure boundaries
         run: node tools/test-skin-publication-m06-e.mjs
 
+      - name: Validate Skin 3701 Publication Approval and Hero Fullart
+        run: node tools/validate-skin-publication-m07.mjs
+      - name: Test Skin 3701 Publication failure boundaries
+        run: node tools/test-skin-publication-m07.mjs
+
       - name: Test read-only Skin Source Snapshot change classification
         run: node tools/test-skin-source-diff-m05-g.mjs
 

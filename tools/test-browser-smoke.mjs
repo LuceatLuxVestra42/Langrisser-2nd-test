@@ -34,11 +34,13 @@ const publishedSkinById = new Map(publishedSkinRows.map((row) => [row.skinId, ro
 const protectedSkinClaims = [
   ...[102, 103, 104, 105].map((skinId, index) => ({ skinId, heroId: 1, sourceOrder: index + 1 })),
   ...[601, 602, 603, 604, 605, 606].map((skinId, index) => ({ skinId, heroId: 6, sourceOrder: index + 1 })),
+  { skinId: 3701, heroId: 37, sourceOrder: 1 },
 ];
 const assetEvidenceFiles = [
   'evidence/assets/skin-fullart-m04.v1.json',
   'evidence/assets/skin-fullart-m05-d.v1.json',
   'evidence/assets/skin-fullart-m06.v1.json',
+  'evidence/assets/skin-fullart-m07.v1.json',
 ];
 const assetEvidenceRecords = new Map();
 for (const evidencePath of assetEvidenceFiles) {
@@ -56,7 +58,7 @@ for (const claim of protectedSkinClaims) {
   const digest = createHash('sha256').update(await readFile(resolve(siteRoot, evidence.output.path))).digest('hex');
   assert.equal(digest, evidence.output.sha256, `protected Asset SHA-256 mismatch for Skin ${claim.skinId}`);
 }
-console.log('PROTECTED_SKIN_CLAIMS=10_PASS');
+console.log('PROTECTED_SKIN_CLAIMS=11_PASS');
 
 function validatePublishedSkinRows(consumer, assets) {
   assert.deepEqual(Object.keys(consumer).sort(), ['schemaVersion', 'skins']);
@@ -325,6 +327,7 @@ try {
         heroes: document.querySelectorAll('#heroes .hero-card').length,
         heroOneSkinImages: document.querySelectorAll('#hero-1 .hero-skin-fullarts img').length,
         heroSixSkinImages: document.querySelectorAll('#hero-6 .hero-skin-fullarts img').length,
+        heroThirtySevenSkinImages: document.querySelectorAll('#hero-37 .hero-skin-fullarts img').length,
         skinSections: document.querySelectorAll('#heroes .hero-card .hero-skin-fullarts').length,
         generalEquipment: document.querySelectorAll('#general-ssr-equipment .general-equipment-card').length,
         exclusiveEquipment: document.querySelectorAll('#exclusive-equipment .general-equipment-card').length,
@@ -373,6 +376,18 @@ try {
           visibleText: section?.innerText ?? '',
         };
       })(),
+      heroThirtySevenSkinPresentation: (() => {
+        const section = document.querySelector('#hero-37 .hero-skin-fullarts');
+        const images = [...(section?.querySelectorAll('img') ?? [])];
+        return {
+          heading: section?.querySelector('h3')?.textContent ?? '',
+          labels: images.map((image) => image.alt),
+          sources: images.map((image) => new URL(image.src).pathname),
+          naturalWidths: images.map((image) => image.naturalWidth),
+          objectFits: images.map((image) => getComputedStyle(image).objectFit),
+          visibleText: section?.innerText ?? '',
+        };
+      })(),
     }));
     assert.equal(layout.viewportWidth, viewport.width);
     assert.ok(layout.navigationVisible, `${viewport.name}: section navigation must be visible`);
@@ -382,6 +397,7 @@ try {
       .every(([, count]) => count > 0), `${viewport.name}: expected site content must render`);
     assert.equal(layout.rendered.heroOneSkinImages, rowsForHero(publishedSkinRows, 1).length, `${viewport.name}: Hero 1 must display all approved Skin Fullarts`);
     assert.equal(layout.rendered.heroSixSkinImages, rowsForHero(publishedSkinRows, 6).length, `${viewport.name}: Hero 6 must display all approved Skin Fullarts`);
+    assert.equal(layout.rendered.heroThirtySevenSkinImages, 1, `${viewport.name}: Hero 37 must display the approved Skin 3701 Fullart`);
     assert.equal(layout.rendered.skinSections, new Set(publishedSkinRows.map((row) => row.heroId)).size,
       `${viewport.name}: each approved Hero must have one Skin section`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
@@ -395,6 +411,11 @@ try {
     assert.deepEqual(layout.heroSixSkinPresentation.labels, heroSixExpected.map((_, index) => `영웅 스킨 일러스트 ${index + 1} / ${heroSixExpected.length}`));
     assert.ok(layout.heroSixSkinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: every Hero 6 Skin WebP must decode`);
     assert.ok(layout.heroSixSkinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: Hero 6 fullart aspect ratios must be preserved`);
+    assert.equal(layout.heroThirtySevenSkinPresentation.heading, '스킨 일러스트');
+    assert.deepEqual(layout.heroThirtySevenSkinPresentation.sources, [new URL(publishedSkinRows.find((row) => row.skinId === 3701).imageUrl, 'https://example.invalid').pathname]);
+    assert.deepEqual(layout.heroThirtySevenSkinPresentation.labels, ['영웅 스킨 일러스트 1 / 1']);
+    assert.ok(layout.heroThirtySevenSkinPresentation.naturalWidths[0] > 0, `${viewport.name}: Hero 37 Skin 3701 WebP must decode`);
+    assert.deepEqual(layout.heroThirtySevenSkinPresentation.objectFits, ['contain']);
     assert.ok(layout.skinPresentation.naturalWidths.every((width) => width > 0), `${viewport.name}: each Skin WebP must decode`);
     assert.ok(layout.skinPresentation.objectFits.every((value) => value === 'contain'), `${viewport.name}: fullart aspect ratio must be preserved`);
     const visibleSkinSections = await page.locator('.hero-skin-fullarts').allTextContents();

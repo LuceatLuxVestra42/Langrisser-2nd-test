@@ -120,16 +120,18 @@ function validatePublicSkinPopulation(consumer, assets, filePaths) {
   assert.deepEqual(consumer, { schemaVersion: 1, skins: [
     ...[102, 103, 104, 105].map((skinId, i) => ({ skinId, heroId: 1, sourceOrder: i + 1 })),
     ...[601, 602, 603, 604, 605, 606].map((skinId, i) => ({ skinId, heroId: 6, sourceOrder: i + 1 })),
+    { skinId: 3701, heroId: 37, sourceOrder: 1 },
   ] }, 'Public Skin Consumer population/order differs from current approved M04–M06 scope');
   assert.deepEqual(assets, { schemaVersion: 1, assets: consumer.skins.map(row => {
-    const expectedPath = row.skinId >= 602 && row.skinId <= 606
+    const expectedPath = row.skinId === 3701 ? './assets/skin-admissions/m07/skin-3701.webp'
+      : row.skinId >= 602 && row.skinId <= 606
       ? `./assets/skin-admissions/m06/skin-${row.skinId}.webp`
       : row.skinId === 601 ? './assets/skin-admissions/m05-d/skin-601.webp' : `./assets/skins/skin-${row.skinId}.webp`;
     return { skinId: row.skinId, imageUrl: expectedPath };
   }) }, 'Public Skin Asset URL map does not match the approved consumer');
   const listed = new Set(filePaths);
   for (const asset of assets.assets) assert.ok(listed.has(asset.imageUrl.slice(2)), `Build manifest omits approved Skin ${asset.skinId}`);
-  return { hero1: 4, hero6: 6, assets: assets.assets.length };
+  return { hero1: 4, hero6: 6, hero37: 1, assets: assets.assets.length };
 }
 function safeArtifactPath(path) {
   return typeof path === 'string' && path.length > 0 && !path.startsWith('/') && !path.includes('\\')
@@ -219,6 +221,7 @@ async function verifySiteBuild(siteRoot, expectedSha, parentDir) {
     ['tools/validate-skin-m05-g.mjs'],
     ['tools/validate-skin-publication-m05-e.mjs'],
     ['tools/validate-skin-publication-m06-e.mjs'],
+    ['tools/validate-skin-publication-m07.mjs'],
     ['tools/test-build.mjs'],
   ];
   const validatorRuns = [];
@@ -484,19 +487,22 @@ async function selfTest() {
   const skinConsumer = { schemaVersion: 1, skins: [
     ...[102, 103, 104, 105].map((skinId, i) => ({ skinId, heroId: 1, sourceOrder: i + 1 })),
     ...[601, 602, 603, 604, 605, 606].map((skinId, i) => ({ skinId, heroId: 6, sourceOrder: i + 1 })),
+    { skinId: 3701, heroId: 37, sourceOrder: 1 },
   ] };
   const skinAssets = { schemaVersion: 1, assets: skinConsumer.skins.map(row => ({ skinId: row.skinId,
-    imageUrl: row.skinId >= 602 ? `./assets/skin-admissions/m06/skin-${row.skinId}.webp`
+    imageUrl: row.skinId === 3701 ? './assets/skin-admissions/m07/skin-3701.webp'
+      : row.skinId >= 602 ? `./assets/skin-admissions/m06/skin-${row.skinId}.webp`
       : row.skinId === 601 ? './assets/skin-admissions/m05-d/skin-601.webp' : `./assets/skins/skin-${row.skinId}.webp` })) };
   const skinPaths = skinAssets.assets.map(row => row.imageUrl.slice(2));
-  assert.deepEqual(validatePublicSkinPopulation(skinConsumer, skinAssets, skinPaths), { hero1: 4, hero6: 6, assets: 10 }); pass('APPROVED_M04_M06_POPULATION');
+  assert.deepEqual(validatePublicSkinPopulation(skinConsumer, skinAssets, skinPaths), { hero1: 4, hero6: 6, hero37: 1, assets: 11 }); pass('APPROVED_M04_M06_M07_POPULATION');
   reject('SKIN_POPULATION_MISSING', () => validatePublicSkinPopulation({ ...skinConsumer, skins: skinConsumer.skins.slice(1) }, skinAssets, skinPaths));
   reject('SKIN_ASSET_WRONG_URL', () => validatePublicSkinPopulation(skinConsumer, { ...skinAssets, assets: skinAssets.assets.map((row, i) => i === 0 ? { ...row, imageUrl: './assets/skins/skin-105.webp' } : row) }, skinPaths));
   const rules = cacheGuardRules(['app.js', 'styles.css', SKIN_CONSUMER_PATH, SKIN_ASSETS_PATH, ...skinPaths]);
   assert.equal(rules[0].action.type, 'block');
   assert.ok(rules.some(rule => rule.action.type === 'allow' && rule.condition.regexFilter.includes(String.raw`skin-606\.webp`)));
   assert.ok(rules.every((rule, index) => rule.id === index + 1)); pass('CACHE_GUARD_ALLOWLIST_RULES');
-  assert.equal(cacheGuardAllows(`${HOSTED}assets/skin-admissions/m06/skin-606.webp`, rules), true); pass('CACHE_GUARD_APPROVED_URL');
+  assert.equal(cacheGuardAllows(`${HOSTED}assets/skin-admissions/m06/skin-606.webp`, rules), true);
+  assert.equal(cacheGuardAllows(`${HOSTED}assets/skin-admissions/m07/skin-3701.webp`, rules), true); pass('CACHE_GUARD_APPROVED_URL');
   assert.equal(cacheGuardAllows(`${HOSTED}canonical/skin-identities.v1.json`, rules), false); pass('CACHE_GUARD_PRIVATE_PATH');
   assert.equal(cacheGuardAllows('https://example.com/', rules), false); pass('CACHE_GUARD_EXTERNAL_ORIGIN');
   reject('CACHE_TRANSITION_REQUIRES_REAL_PROFILE', () => validateCacheTransitionEvidence({ status: 'PASS', previous: PRIOR_M05_I, previousCacheProfileAvailable: false }));
@@ -736,10 +742,13 @@ async function runHosted() {
         // Chromium requests their real Hosted images before asserting decode success.
         await page.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
         await page.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+        await page.locator('#hero-37 .hero-skin-fullarts').scrollIntoViewIfNeeded();
         await page.waitForFunction(() => {
           const one = [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img')];
           const six = [...document.querySelectorAll('#hero-6 .hero-skin-fullarts img')];
-          return one.length === 4 && six.length === 6 && [...one, ...six].every(image => image.complete && image.naturalWidth > 0);
+          const thirtySeven = [...document.querySelectorAll('#hero-37 .hero-skin-fullarts img')];
+          return one.length === 4 && six.length === 6 && thirtySeven.length === 1
+            && [...one, ...six, ...thirtySeven].every(image => image.complete && image.naturalWidth > 0);
         }, undefined, { timeout: 60000 });
         const dimensions = await page.evaluate(() => ({ width: innerWidth, height: innerHeight })); assert.deepEqual(dimensions, viewport); return dimensions;
       });
@@ -823,14 +832,15 @@ async function runHosted() {
         for (let i = 1; i < boxes.length; i++) assert.ok(boxes[i].top >= boxes[i - 1].bottom - 1, 'Skill/TrainingTech overlap');
         await skill.locator('summary').click(); assert.equal(await skill.getAttribute('open'), null); return { nav, boxes };
       });
-      await check(`${prefix}15`, 'Hero 1 and Hero 6 render every approved Fullart in Generated Source Order', async () => {
+      await check(`${prefix}15`, 'Hero 1, Hero 6 and Hero 37 render every approved Fullart in Generated Source Order', async () => {
         await page.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
         await page.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+        await page.locator('#hero-37 .hero-skin-fullarts').scrollIntoViewIfNeeded();
         const galleries = await page.evaluate(() => {
           const cards = [...document.querySelectorAll('#heroes .hero-card')];
           return {
             populatedHeroIds: cards.filter(card => card.querySelector('.hero-skin-fullarts')).map(card => Number(card.id.slice('hero-'.length))).sort((a,b) => a-b),
-            heroes: [1, 6].map(heroId => {
+            heroes: [1, 6, 37].map(heroId => {
               const section = document.querySelector(`#hero-${heroId} .hero-skin-fullarts`);
               const list = section?.querySelector('.hero-skin-fullart-list');
               return { heroId, heading: section?.querySelector('h3')?.textContent ?? '', listLabel: list?.getAttribute('aria-label') ?? '',
@@ -840,7 +850,7 @@ async function runHosted() {
             }), viewportWidth: innerWidth, documentWidth: document.documentElement.scrollWidth,
           };
         });
-        assert.deepEqual(galleries.populatedHeroIds, [1, 6]);
+        assert.deepEqual(galleries.populatedHeroIds, [1, 6, 37]);
         for (const gallery of galleries.heroes) {
           const expectedRows = publicConsumer.skins.filter(row => row.heroId === gallery.heroId).sort((a,b) => a.sourceOrder - b.sourceOrder);
           const expectedUrls = expectedRows.map(row => new URL(publicAssets.assets.find(asset => asset.skinId === row.skinId).imageUrl, HOSTED).pathname);
@@ -933,14 +943,14 @@ async function runHosted() {
       await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
-        .length === 10 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
+        .length === 11 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
       const snapshot = await deploymentSnapshot();
       assert.equal(snapshot.sha, env.EXPECTED_SITE_SHA);
       result.contexts.push({ id: 'cache-' + randomUUID(), kind: 'FRESH_THEN_REVISIT_CACHE_OBSERVATION', viewport: { width: 390, height: 844 },
         isMobile: true, hasTouch: true, serviceWorkers: 'blocked', routing: false, newProfile: true });
       result.cacheObservation.currentDeployment = snapshot;
-      result.cacheObservation.firstVisit = { status: response.status(), at: cacheEvidence.startedAt, fullartCount: 10,
+      result.cacheObservation.firstVisit = { status: response.status(), at: cacheEvidence.startedAt, fullartCount: 11,
         responseHeaders: cacheEvidence.responses.filter(row => /app\.js|styles\.css|skin-/.test(row.url)).map(({ url, status, cacheControl, etag }) => ({ url, status, cacheControl, etag })) };
       assert.deepEqual(cacheEvidence.consoleErrors, []); assert.deepEqual(cacheEvidence.pageErrors, []); assert.deepEqual(cacheEvidence.failed, []);
       return { siteSha: snapshot.sha, deploymentId: snapshot.id, fullartCount: 10, firstVisitResponses: cacheEvidence.responses.length };
@@ -952,7 +962,7 @@ async function runHosted() {
       await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
-        .length === 10 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img')]
+        .length === 11 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
       await new Promise(resolveWait => setTimeout(resolveWait, 1000));
       const cached = cacheEvidence.responses.filter(row => cacheEvidence.cachedRequestIds.has(row.requestId) || row.fromDiskCache || row.fromServiceWorker);
