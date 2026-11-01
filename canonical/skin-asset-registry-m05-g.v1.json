@@ -71,6 +71,13 @@
       "assetEvidence": "evidence/assets/skin-fullart-m06.v1.json",
       "admissionStatus": "APPROVED",
       "assetValidator": "tools/validate-skin-fullart-m06.py"
+    },
+    {
+      "skinId": 3701,
+      "assetRecordSkinId": 3701,
+      "assetEvidence": "evidence/assets/skin-fullart-m07.v1.json",
+      "admissionStatus": "APPROVED",
+      "assetValidator": "tools/validate-skin-fullart-m07.py"
     }
   ]
 }

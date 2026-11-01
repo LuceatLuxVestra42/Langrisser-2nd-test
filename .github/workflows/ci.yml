@@ -103,6 +103,10 @@ jobs:
         run: python tools/validate-skin-fullart-m06.py
       - name: Test M06 Fullart Asset Admission failure boundaries
         run: python tools/test-skin-fullart-m06.py
+      - name: Validate Skin 3701 private Fullart Asset Admission
+        run: python tools/validate-skin-fullart-m07.py
+      - name: Test Skin 3701 Fullart Asset Admission failure boundaries
+        run: python tools/test-skin-fullart-m07.py
 
       - name: Validate M05-E Skin publication and Hero Fullart
         run: node tools/validate-skin-publication-m05-e.mjs
