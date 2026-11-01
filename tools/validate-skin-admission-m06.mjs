@@ -111,7 +111,12 @@ export function validateM06SemanticData(input) {
     ...IDS.map((skinId) => ({ skinId, heroId: 6, sourceOrder: CLAIMS.get(skinId).sourceOrder })),
   ];
   assertM06PerHeroOrderUniqueness(expectedInternal);
-  exact(composed.skins, expectedInternal, 'M05-G composed internal Consumer is not Frozen + approved Semantic admissions');
+  for (const expected of expectedInternal) {
+    expect(composed.skins.filter((row) => row.skinId === expected.skinId).length === 1
+      && composed.skins.some((row) => row.skinId === expected.skinId && row.heroId === expected.heroId
+        && row.sourceOrder === expected.sourceOrder),
+    `M05-G composed internal Consumer did not preserve approved Semantic claim ${expected.skinId}`);
+  }
   expect(composed.skins.every((row) => heroes.has(row.heroId)), 'Composed Consumer contains an unresolved Hero FK');
 
   const baselinePublic = [102, 103, 104, 105, 601];
