@@ -19,10 +19,6 @@ const BASELINE = [
 ];
 
 export function validateM07PublicationData(input) {
-  const composed = validateM05GData(input);
-  assert.equal(composed.status, 'PASS');
-  assert.deepEqual(input.composed.skins.find(row => row.skinId === SKIN_ID), CLAIM,
-    'Skin 3701 Semantic claim must remain unchanged');
   const assetRows = input.assetRegistry.records.filter(row => row.skinId === SKIN_ID && row.admissionStatus === 'APPROVED');
   assert.equal(assetRows.length, 1, 'Skin 3701 must have exactly one approved Asset Admission');
   const assetRow = assetRows[0];
@@ -42,6 +38,11 @@ export function validateM07PublicationData(input) {
   assert.equal(approval.semanticAdmission, SEMANTIC);
   assert.equal(approval.assetAdmission, ASSET);
   assert.equal(approval.approvalRecord, 'docs/migrations/m07-skin-3701-publication.md');
+
+  const composed = validateM05GData(input);
+  assert.equal(composed.status, 'PASS');
+  assert.deepEqual(input.composed.skins.find(row => row.skinId === SKIN_ID), CLAIM,
+    'Skin 3701 Semantic claim must remain unchanged');
 
   assert.deepEqual(input.publicConsumer.skins.filter(row => row.skinId === SKIN_ID), [CLAIM],
     'Skin 3701 must appear once with its admitted Hero and Source Order');
