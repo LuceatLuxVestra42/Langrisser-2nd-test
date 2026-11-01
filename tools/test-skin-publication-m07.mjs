@@ -19,9 +19,9 @@ rejects(v => { v.assetRegistry.records = v.assetRegistry.records.filter(row => r
 rejects(v => { v.publication.approvals = v.publication.approvals.filter(row => row.skinId !== 3701); }, /exactly one explicit Publication Approval/, 'missing approval');
 rejects(v => { v.publication.approvals.push(structuredClone(v.publication.approvals.find(row => row.skinId === 3701))); }, /exactly one explicit Publication Approval/, 'duplicate approval');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvedUrl = './../assets/skin-admissions/m07/skin-3701.webp'; }, /approved URL must match the admitted Asset path/, 'traversal URL');
-rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).semanticAdmission = 'wrong'; }, /M07-SKIN-3701/, 'wrong Semantic pointer');
-rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).assetAdmission = 'wrong'; }, /skinId=3701/, 'wrong Asset pointer');
-rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvalRecord = 'unapproved.md'; }, /approvalRecord|M07 Publication/, 'wrong decision record');
+rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).semanticAdmission = 'wrong'; }, /Semantic Admission pointer mismatch/, 'wrong Semantic pointer');
+rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).assetAdmission = 'wrong'; }, /Asset Admission pointer mismatch/, 'wrong Asset pointer');
+rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvalRecord = 'unapproved.md'; }, /Publication decision record pointer mismatch/, 'wrong decision record');
 rejects(v => { v.publicConsumer.skins = v.publicConsumer.skins.filter(row => row.skinId !== 3701); }, /Public Consumer is not Semantic|Skin 3701 must appear/, 'missing public claim');
 rejects(v => { v.publicConsumer.skins.find(row => row.skinId === 3701).heroId = 6; }, /Public Consumer is not Semantic|Skin 3701 must appear/, 'wrong public Hero mapping');
 rejects(v => { v.publicAssets.assets = v.publicAssets.assets.filter(row => row.skinId !== 3701); }, /Public Asset map is not|Skin 3701 public URL/, 'missing public URL');
