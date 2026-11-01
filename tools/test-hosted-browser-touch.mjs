@@ -81,7 +81,7 @@ async function run() {
   assert.equal(env.HOSTED_URL, HOSTED);
   assert.match(env.EXPECTED_SITE_SHA || '', FULL_SHA);
   assert.match(env.QA_INFRASTRUCTURE_SHA || '', FULL_SHA);
-  assert.match(env.EXPECTED_DEPLOYMENT_ID || '', /^\\d+$/);
+  assert.match(env.EXPECTED_DEPLOYMENT_ID || '', /^\d+$/);
   assert.ok(env.QA_RESULT_DIR && env.PLAYWRIGHT_PACKAGE_ROOT);
   const resultPath = join(resolve(env.QA_RESULT_DIR), 'result.json');
   const hostedResult = JSON.parse(await readFile(resultPath, 'utf8'));
@@ -155,7 +155,7 @@ async function run() {
             const tag = node.tagName.toLowerCase();
             const id = node.id ? `#${node.id}` : '';
             const classes = typeof node.className === 'string' && node.className.trim()
-              ? '.' + node.className.trim().split(/\\s+/).join('.') : '';
+              ? '.' + node.className.trim().split(/\s+/).join('.') : '';
             const href = node instanceof HTMLAnchorElement ? `[href="${node.getAttribute('href')}"]` : '';
             return `${tag}${id}${classes}${href}`;
           };
