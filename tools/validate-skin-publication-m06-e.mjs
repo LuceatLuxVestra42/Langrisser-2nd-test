@@ -62,7 +62,7 @@ export function validateM06EData(input) {
   const approvedSemanticCount = input.admissions.admissions.filter((row) => row.status === 'APPROVED').length;
   assert.equal(result.composed, result.frozen + approvedSemanticCount,
     'M05-G composition must include every Frozen and approved Semantic row');
-  assert.equal(result.assets, 10);
+  assert.ok(result.assets >= 10, 'baseline admitted Assets remain present; additive private Asset Admissions do not change this M06 publication scope');
   assert.equal(result.published, 10);
   return { status: 'PASS', frozen: result.frozen, composed: result.composed, assets: result.assets, published: result.published, heroSix: 6 };
 }
