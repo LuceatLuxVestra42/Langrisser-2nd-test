@@ -22,22 +22,22 @@ export function validateM07PublicationData(input) {
   const assetRows = input.assetRegistry.records.filter(row => row.skinId === SKIN_ID && row.admissionStatus === 'APPROVED');
   assert.equal(assetRows.length, 1, 'Skin 3701 must have exactly one approved Asset Admission');
   const assetRow = assetRows[0];
-  assert.equal(assetRow.assetRecordSkinId, SKIN_ID);
-  assert.equal(assetRow.assetEvidence, EVIDENCE);
+  assert.equal(assetRow.assetRecordSkinId, SKIN_ID, 'Skin 3701 Asset Registry ID mismatch');
+  assert.equal(assetRow.assetEvidence, EVIDENCE, 'Skin 3701 Asset Evidence pointer mismatch');
   const assetRecord = input.assetManifest[EVIDENCE].records.find(row => row.skinId === SKIN_ID);
   assert.ok(assetRecord, 'Skin 3701 Asset Evidence is missing');
-  assert.equal(assetRecord.output.path, ASSET_PATH);
-  assert.equal(assetRecord.output.format, 'image/webp');
+  assert.equal(assetRecord.output.path, ASSET_PATH, 'Skin 3701 Asset path differs from its Evidence');
+  assert.equal(assetRecord.output.format, 'image/webp', 'Skin 3701 Asset format must be WebP');
   assert.equal(input.actualAssetDigests[SKIN_ID], assetRecord.output.sha256, 'Skin 3701 Asset hash mismatch');
 
   const approvals = input.publication.approvals.filter(row => row.skinId === SKIN_ID && row.status === 'APPROVED');
   assert.equal(approvals.length, 1, 'Skin 3701 needs exactly one explicit Publication Approval');
   const approval = approvals[0];
   assert.equal(approval.approvedUrl, ASSET_URL, 'Skin 3701 approved URL must match the admitted Asset path');
-  assert.equal(skinAssetPathFromPublicUrl(approval.approvedUrl), ASSET_PATH);
-  assert.equal(approval.semanticAdmission, SEMANTIC);
-  assert.equal(approval.assetAdmission, ASSET);
-  assert.equal(approval.approvalRecord, 'docs/migrations/m07-skin-3701-publication.md');
+  assert.equal(skinAssetPathFromPublicUrl(approval.approvedUrl), ASSET_PATH, 'Skin 3701 approved URL must resolve to the admitted Asset path');
+  assert.equal(approval.semanticAdmission, SEMANTIC, 'Skin 3701 Semantic Admission pointer mismatch');
+  assert.equal(approval.assetAdmission, ASSET, 'Skin 3701 Asset Admission pointer mismatch');
+  assert.equal(approval.approvalRecord, 'docs/migrations/m07-skin-3701-publication.md', 'Skin 3701 Publication decision record pointer mismatch');
 
   const composed = validateM05GData(input);
   assert.equal(composed.status, 'PASS');
