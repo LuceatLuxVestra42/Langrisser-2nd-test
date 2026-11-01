@@ -942,6 +942,7 @@ async function runHosted() {
       const response = await cachePage.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
       await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+      await cachePage.locator('#hero-37 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .length === 11 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
@@ -961,6 +962,7 @@ async function runHosted() {
       const response = await cachePage.goto(HOSTED, { waitUntil: 'networkidle' }); successfulResponse(response.status());
       await cachePage.locator('#hero-1 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.locator('#hero-6 .hero-skin-fullarts').scrollIntoViewIfNeeded();
+      await cachePage.locator('#hero-37 .hero-skin-fullarts').scrollIntoViewIfNeeded();
       await cachePage.waitForFunction(() => [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .length === 11 && [...document.querySelectorAll('#hero-1 .hero-skin-fullarts img, #hero-6 .hero-skin-fullarts img, #hero-37 .hero-skin-fullarts img')]
         .every(image => image.complete && image.naturalWidth > 0), undefined, { timeout: 60000 });
