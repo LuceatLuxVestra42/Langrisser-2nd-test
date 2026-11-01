@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-source-order",
+  "evidenceClass": "B",
+  "scope": "One-based array position of SkinID 3701 in HeroID 37 at the pinned historical snapshot; not release order.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sourceField": "ConfigDataHeroInfo.Skins_ID[]",
+    "heroRecordLocator": "ID=37",
+    "zeroBasedToOneBasedRule": "sourceOrder = zeroBasedPosition + 1"
+  },
+  "records": [
+    { "skinId": 3701, "heroId": 37, "zeroBasedPosition": 0, "sourceOrder": 1, "legacyCanonical": "data/generated/skin-stage1-canonical.v1.json#skinId=3701" }
+  ],
+  "legacyValidationChain": [
+    { "path": "data/validation/hero-page-stage5-5-5-final.v1.json", "result": "PASS; Hero 37 skin membership and source order preserved from source array." },
+    { "path": "data/validation/skin-stage1-2-parity.v1.json", "result": "PASS; 540-row canonical parity including skinId=3701." }
+  ],
+  "limitations": ["Reuses frozen validation; Hero ConfigData array was not directly re-read during Target admission.", "Snapshot-scoped, not release chronology."]
+}
