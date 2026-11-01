@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "claimType": "skin-to-hero-ownership",
+  "evidenceClass": "A",
+  "scope": "SkinID 3701 -> HeroID 37 in the pinned historical snapshot.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "repositoryMainCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "heroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "recordLocator": "ID=37",
+      "field": "Skins_ID[]"
+    },
+    "heroSkinInfo": {
+      "path": "data/configdata/ConfigDataHeroSkinInfo.json",
+      "gitBlobSha1": "f6bd2611114ae8ae8aec24d8f304b94f2c314dc9",
+      "recordLocator": "ID=3701",
+      "field": "SpecifiedHero"
+    }
+  },
+  "records": [
+    {
+      "skinId": 3701,
+      "heroId": 37,
+      "membership": { "sourceField": "ConfigDataHeroInfo.Skins_ID[]", "heroRecordLocator": "ID=37", "membershipConfirmed": true },
+      "ownershipCrossCheck": { "sourceField": "ConfigDataHeroSkinInfo.SpecifiedHero", "skinRecordLocator": "ID=3701", "value": 37, "directSourceRecordVerified": true }
+    }
+  ],
+  "legacyValidation": {
+    "heroStage55": "data/validation/hero-page-stage5-5-5-final.v1.json#skins",
+    "skinStage12": "data/validation/skin-stage1-2-parity.v1.json",
+    "meaning": "Reuse frozen same-snapshot membership and owner parity; Stage 1-2 is parity validation, not a raw ConfigData validator."
+  },
+  "limitations": ["Snapshot-scoped; does not establish release state, localization, Asset Admission or UI eligibility."]
+}

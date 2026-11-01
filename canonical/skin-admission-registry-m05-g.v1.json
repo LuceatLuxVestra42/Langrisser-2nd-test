@@ -85,6 +85,20 @@
         "evidence/source/skin-source-order-m06.v1.json"
       ],
       "validator": "tools/validate-skin-admission-m06.mjs"
+    },
+    {
+      "admissionId": "M07-SKIN-3701",
+      "status": "APPROVED",
+      "skinId": 3701,
+      "identityCanonical": "canonical/skin-identities-3701.v1.json",
+      "relationCanonical": "canonical/skin-hero-relations-3701.v1.json",
+      "orderCanonical": "canonical/skin-source-orders-3701.v1.json",
+      "evidence": [
+        "evidence/source/skin-identity-3701.v1.json",
+        "evidence/source/skin-hero-relation-3701.v1.json",
+        "evidence/source/skin-source-order-3701.v1.json"
+      ],
+      "validator": "tools/validate-skin-admission-3701.mjs"
     }
   ]
 }

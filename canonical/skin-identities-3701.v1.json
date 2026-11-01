@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "scope": "M07-B independent Target admission: source-native Skin Identity claim for SkinID 3701 only; historical China ConfigData snapshot.",
+  "records": [
+    {
+      "skinId": 3701,
+      "provenance": "evidence/source/skin-identity-3701.v1.json#records/skinId=3701"
+    }
+  ]
+}

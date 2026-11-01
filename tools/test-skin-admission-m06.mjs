@@ -5,7 +5,7 @@ const baseline = await loadM06SemanticInputs();
 const baselineResult = validateM06SemanticData(baseline);
 assert.deepEqual({ status: baselineResult.status, newSemantic: baselineResult.newSemantic,
   composed: baselineResult.composed, existingPublic: baselineResult.existingPublic },
-{ status: 'PASS', newSemantic: 5, composed: 10, existingPublic: 5 });
+{ status: 'PASS', newSemantic: 5, composed: 11, existingPublic: 5 });
 assert.equal(baselineResult.newlyPublishedFromM06,
   baseline.publicConsumer.skins.filter((row) => [602, 603, 604, 605, 606].includes(row.skinId)).length,
   'M06 publication count must reflect later Publication Owner decisions');
