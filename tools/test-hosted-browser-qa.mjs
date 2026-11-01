@@ -195,6 +195,21 @@ async function evaluateTest(entry, action) {
   catch (e) { entry.status = 'FAIL'; entry.error = errorText(e); entry.errorCategory = e.code || null; entry.errorEvidence = e.details || null; throw e; }
   finally { entry.completedAt = new Date().toISOString(); }
 }
+
+async function recordProgress(path, result, id, status, startedAt, error = null, writer = writeFile) {
+  const at = new Date().toISOString();
+  const event = { id, status, startedAt, at, elapsedMs: startedAt ? Date.parse(at) - Date.parse(startedAt) : null };
+  if (error) event.error = errorText(error);
+  const previous = result.progress || { lastStartedStage: null, lastCompletedStage: null, currentStage: null, events: [] };
+  result.progress = {
+    lastStartedStage: status === 'START' ? id : previous.lastStartedStage,
+    lastCompletedStage: status === 'PASS' ? id : previous.lastCompletedStage,
+    currentStage: status === 'START' ? id : previous.currentStage === id ? null : previous.currentStage,
+    events: [...previous.events, event],
+  };
+  console.log(`HOSTED_QA_STAGE_${status} ${JSON.stringify(event)}`);
+  await persist(path, result, writer);
+}
 async function githubJson(path, token, fetcher = fetch) {
   assert.ok(path.startsWith(`/repos/${REPOSITORY}/`), 'API path outside repository');
   let response;
@@ -429,6 +444,24 @@ async function selfTest() {
   const dir = await mkdtemp(join(tmpdir(), 'hosted-qa-fixture-'));
   try {
     const path = join(dir, 'result.json');
+    const progressFixture = { tests: [] };
+    const progressLogs = [];
+    await recordProgress(path, progressFixture, 'FIXTURE_STAGE', 'START', new Date().toISOString(), null, async (file, data) => {
+      progressLogs.push('write'); await writeFile(file, data);
+    });
+    assert.equal(JSON.parse(await readFile(path, 'utf8')).progress.currentStage, 'FIXTURE_STAGE');
+    await recordProgress(path, progressFixture, 'FIXTURE_STAGE', 'PASS', new Date(Date.now() - 5).toISOString(), null, async (file, data) => {
+      progressLogs.push('write'); await writeFile(file, data);
+    });
+    const persistedProgress = JSON.parse(await readFile(path, 'utf8')).progress;
+    assert.equal(persistedProgress.lastStartedStage, 'FIXTURE_STAGE');
+    assert.equal(persistedProgress.lastCompletedStage, 'FIXTURE_STAGE');
+    assert.equal(persistedProgress.currentStage, null);
+    assert.deepEqual(persistedProgress.events.map(event => event.status), ['START', 'PASS']);
+    assert.deepEqual(progressLogs, ['write', 'write']); pass('PROGRESS_STAGE_START_PASS_PERSISTED');
+    await assert.rejects(recordProgress(path, progressFixture, 'FIXTURE_WRITE_FAIL', 'START', new Date().toISOString(), null,
+      async () => { throw new Error('progress disk failure fixture'); }));
+    pass('PROGRESS_WRITE_FAILURE_SURFACED');
     for (const reason of ['BROWSER_LAUNCH_FAIL', 'PROBE_FAIL']) {
       const entry = { id: reason, status: 'NOT_VERIFIED' };
       let nextStageCalled = false;
@@ -539,16 +572,23 @@ async function runHosted() {
   const test = async (id, expectation, action, viewport = null) => {
     const entry = { id, viewport, expectation, url: HOSTED, startedAt: new Date().toISOString(), status: 'NOT_VERIFIED' };
     result.tests.push(entry);
-    await evaluateTest(entry, async () => {
-      try { return await action(); }
-      catch (e) {
-        if (['DEPLOYMENT_SOURCE', 'DEPLOYMENT_STILL_CURRENT'].includes(id)
-          && !['HOSTED_SOURCE_MISMATCH', 'HOSTED_SOURCE_EVIDENCE_GAP'].includes(e.code)) {
-          throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', 'Deployment evidence could not be evaluated', { cause: errorText(e) });
+    await recordProgress(resultPath, result, id, 'START', entry.startedAt);
+    try {
+      await evaluateTest(entry, async () => {
+        try { return await action(); }
+        catch (e) {
+          if (['DEPLOYMENT_SOURCE', 'DEPLOYMENT_STILL_CURRENT'].includes(id)
+            && !['HOSTED_SOURCE_MISMATCH', 'HOSTED_SOURCE_EVIDENCE_GAP'].includes(e.code)) {
+            throw sourceError('HOSTED_SOURCE_EVIDENCE_GAP', 'Deployment evidence could not be evaluated', { cause: errorText(e) });
+          }
+          throw e;
         }
-        throw e;
-      }
-    });
+      });
+      await recordProgress(resultPath, result, id, 'PASS', entry.startedAt);
+    } catch (e) {
+      await recordProgress(resultPath, result, id, 'FAIL', entry.startedAt, e);
+      throw e;
+    }
   };
   let browser;
   let cacheContext;
