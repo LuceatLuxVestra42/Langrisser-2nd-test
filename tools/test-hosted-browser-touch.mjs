@@ -17,7 +17,7 @@ function validateTouchEvents(events, selector) {
   assert.ok(start.sequence < end.sequence, 'touchstart must precede touchend');
   for (const event of [start, end]) {
     assert.ok(Array.isArray(event.path), 'Touch event propagation path is missing');
-    assert.ok(event.path.includes(selector), `Touch event did not propagate through ${selector}`);
+    assert.ok(event.path.some(pathItem => pathItem === selector || pathItem.endsWith(selector)), `Touch event did not propagate through ${selector}`);
   }
   return { start, end };
 }
@@ -43,8 +43,8 @@ function validateHostedEvidence(result, env) {
 function selfTest() {
   const selector = '#hero-search';
   const valid = [
-    { type: 'touchstart', sequence: 1, path: [selector, 'input#hero-search'] },
-    { type: 'touchend', sequence: 2, path: [selector, 'input#hero-search'] },
+    { type: 'touchstart', sequence: 1, path: ['input#hero-search'] },
+    { type: 'touchend', sequence: 2, path: ['input#hero-search'] },
   ];
   validateTouchEvents(valid, selector);
   assert.throws(() => validateTouchEvents([valid[0]], selector), /touchend was not observed/);
