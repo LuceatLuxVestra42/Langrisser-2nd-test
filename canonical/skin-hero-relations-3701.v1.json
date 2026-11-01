@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "M07-B independent Target admission: SkinID 3701 -> HeroID 37 ownership only; no additional Skin or Hero population is implied.",
+  "records": [
+    {
+      "skinId": 3701,
+      "heroId": 37,
+      "provenance": "evidence/source/skin-hero-relation-3701.v1.json#records/skinId=3701"
+    }
+  ]
+}
