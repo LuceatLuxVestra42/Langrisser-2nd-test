@@ -210,6 +210,34 @@ async function recordProgress(path, result, id, status, startedAt, error = null,
   console.log(`HOSTED_QA_STAGE_${status} ${JSON.stringify(event)}`);
   await persist(path, result, writer);
 }
+
+async function runObservedSubstep(path, result, id, action) {
+  const startedAt = new Date().toISOString();
+  const previous = result.progress || { events: [] };
+  const event = { id, status: 'START', startedAt, at: startedAt };
+  result.progress = { ...previous, currentSubstep: id, substeps: [...(previous.substeps || []), event] };
+  console.log(`HOSTED_QA_SUBSTEP_START ${JSON.stringify(event)}`);
+  await persist(path, result);
+  try {
+    const value = await action();
+    const at = new Date().toISOString();
+    const completed = { id, status: 'PASS', startedAt, at, elapsedMs: Date.parse(at) - Date.parse(startedAt) };
+    const progress = result.progress;
+    result.progress = { ...progress, lastCompletedSubstep: id, currentSubstep: null,
+      substeps: [...progress.substeps.slice(0, -1), completed] };
+    console.log(`HOSTED_QA_SUBSTEP_PASS ${JSON.stringify(completed)}`);
+    await persist(path, result);
+    return value;
+  } catch (error) {
+    const at = new Date().toISOString();
+    const failed = { id, status: 'FAIL', startedAt, at, elapsedMs: Date.parse(at) - Date.parse(startedAt), error: errorText(error) };
+    const progress = result.progress;
+    result.progress = { ...progress, currentSubstep: id, substeps: [...progress.substeps.slice(0, -1), failed] };
+    console.log(`HOSTED_QA_SUBSTEP_FAIL ${JSON.stringify(failed)}`);
+    await persist(path, result);
+    throw error;
+  }
+}
 async function githubJson(path, token, fetcher = fetch) {
   assert.ok(path.startsWith(`/repos/${REPOSITORY}/`), 'API path outside repository');
   let response;
@@ -444,6 +472,13 @@ async function selfTest() {
   const dir = await mkdtemp(join(tmpdir(), 'hosted-qa-fixture-'));
   try {
     const path = join(dir, 'result.json');
+    const substepFixture = { progress: { events: [] } };
+    const substepValue = await runObservedSubstep(path, substepFixture, 'CACHE_GUARD_FIXTURE', async () => 'ok');
+    assert.equal(substepValue, 'ok');
+    assert.equal(JSON.parse(await readFile(path, 'utf8')).progress.lastCompletedSubstep, 'CACHE_GUARD_FIXTURE');
+    await assert.rejects(runObservedSubstep(path, substepFixture, 'CACHE_GUARD_FAIL_FIXTURE', async () => { throw new Error('fixture failure'); }));
+    assert.equal(JSON.parse(await readFile(path, 'utf8')).progress.currentSubstep, 'CACHE_GUARD_FAIL_FIXTURE');
+    pass('CACHE_GUARD_SUBSTEP_START_PASS_FAIL_PERSISTED');
     const progressFixture = { tests: [] };
     const progressLogs = [];
     await recordProgress(path, progressFixture, 'FIXTURE_STAGE', 'START', new Date().toISOString(), null, async (file, data) => {
@@ -929,28 +964,32 @@ async function runHosted() {
     await test('CACHE_GUARD', 'Cache observation uses a fresh Chromium profile with pre-request Origin and Path allowlisting', async () => {
       const extensionDir = join(env.BROWSER_QA_RUNTIME_ROOT, 'cache-guard-extension');
       const filePaths = buildEvidence.manifest.files.map(file => file.path);
-      const guard = await writeCacheGuardExtension(extensionDir, filePaths);
+      const guard = await runObservedSubstep(resultPath, result, 'CACHE_GUARD_WRITE_EXTENSION', () => writeCacheGuardExtension(extensionDir, filePaths));
       cacheProfileDir = join(env.BROWSER_QA_RUNTIME_ROOT, `cache-profile-${randomUUID()}`);
       try { await access(cacheProfileDir); throw new Error('Cache profile path unexpectedly exists before browser launch'); }
       catch (error) { if (error.code !== 'ENOENT') throw error; }
-      cacheContext = await chromium.launchPersistentContext(cacheProfileDir, {
+      cacheContext = await runObservedSubstep(resultPath, result, 'CACHE_GUARD_LAUNCH_PERSISTENT_CONTEXT', () => chromium.launchPersistentContext(cacheProfileDir, {
         headless: false, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true,
         serviceWorkers: 'block', args: [`--disable-extensions-except=${extensionDir}`, `--load-extension=${extensionDir}`],
-      });
+      }));
       contexts.push(cacheContext);
-      const worker = cacheContext.serviceWorkers().find(item => item.url().startsWith('chrome-extension://'))
-        || await cacheContext.waitForEvent('serviceworker', { timeout: 15000 });
-      const enabledRulesets = await worker.evaluate(async () => await chrome.declarativeNetRequest.getEnabledRulesets());
+      const worker = await runObservedSubstep(resultPath, result, 'CACHE_GUARD_WAIT_EXTENSION_SERVICE_WORKER', async () =>
+        cacheContext.serviceWorkers().find(item => item.url().startsWith('chrome-extension://'))
+          || await cacheContext.waitForEvent('serviceworker', { timeout: 15000 }));
+      const enabledRulesets = await runObservedSubstep(resultPath, result, 'CACHE_GUARD_READ_ENABLED_RULESETS', () =>
+        worker.evaluate(async () => await chrome.declarativeNetRequest.getEnabledRulesets()));
       assert.ok(Array.isArray(enabledRulesets), 'Chrome did not return enabled DNR rulesets');
       assert.ok(enabledRulesets.includes(guard.ruleSetId), 'Chrome DNR allowlist ruleset was not enabled');
-      const guardPage = await cacheContext.newPage();
+      const guardPage = await runObservedSubstep(resultPath, result, 'CACHE_GUARD_CREATE_PROBE_PAGE', () => cacheContext.newPage());
       const blockedRequests = [];
       guardPage.on('requestfailed', request => blockedRequests.push({ url: request.url(), error: request.failure()?.errorText }));
-      await assert.rejects(guardPage.goto(new URL('evidence/private.json', HOSTED).href, { waitUntil: 'commit', timeout: 15000 }), /ERR_BLOCKED_BY_CLIENT/);
-      await assert.rejects(guardPage.goto('https://example.com/', { waitUntil: 'commit', timeout: 15000 }), /ERR_BLOCKED_BY_CLIENT/);
+      await runObservedSubstep(resultPath, result, 'CACHE_GUARD_DENY_PRIVATE_PATH', () =>
+        assert.rejects(guardPage.goto(new URL('evidence/private.json', HOSTED).href, { waitUntil: 'commit', timeout: 15000 }), /ERR_BLOCKED_BY_CLIENT/));
+      await runObservedSubstep(resultPath, result, 'CACHE_GUARD_DENY_EXTERNAL_ORIGIN', () =>
+        assert.rejects(guardPage.goto('https://example.com/', { waitUntil: 'commit', timeout: 15000 }), /ERR_BLOCKED_BY_CLIENT/));
       assert.equal(blockedRequests.length, 2);
       assert.ok(blockedRequests.every(row => row.error?.includes('ERR_BLOCKED_BY_CLIENT')));
-      await guardPage.close();
+      await runObservedSubstep(resultPath, result, 'CACHE_GUARD_CLOSE_PROBE_PAGE', () => guardPage.close());
       result.cacheObservation = { ...result.cacheObservation, profileId: cacheProfileDir.split('/').at(-1), rulesetId: guard.ruleSetId,
         allowedPublicPathCount: filePaths.length + 1, deniedProbes: blockedRequests, playwrightRoutingEnabled: false,
         serviceWorkers: 'blocked; HTTP cache observed separately', securityPolicy: 'DNR allowlist blocks unapproved HTTP(S) requests before network; exact artifact paths only' };
