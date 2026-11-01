@@ -105,12 +105,12 @@ async function run() {
   };
   assert.equal(evidence.playwrightVersion, '1.62.1', 'Unexpected Playwright version');
   const outputPath = join(resolve(env.QA_RESULT_DIR), 'mobile-touch.json');
-  await writeFile(outputPath, JSON.stringify(evidence, null, 2) + '\\n', { flag: 'wx' });
+  await writeFile(outputPath, JSON.stringify(evidence, null, 2) + '\n', { flag: 'wx' });
 
   let browser;
   let context;
   let page;
-  const persist = async () => writeFile(outputPath, JSON.stringify(evidence, null, 2) + '\\n');
+  const persist = async () => writeFile(outputPath, JSON.stringify(evidence, null, 2) + '\n');
   async function runTest(id, action) {
     const entry = evidence.tests.find(test => test.id === id);
     entry.startedAt = new Date().toISOString();
