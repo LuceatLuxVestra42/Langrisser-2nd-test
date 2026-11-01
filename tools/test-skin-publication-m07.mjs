@@ -12,13 +12,13 @@ const rejects = (mutate, pattern, label) => {
   mutate(value);
   assert.throws(() => validateM07PublicationData(value), pattern, label);
 };
-rejects(v => { v.composed.skins.find(row => row.skinId === 3701).heroId = 6; }, /Skin 3701 Semantic claim/, 'wrong Hero FK');
-rejects(v => { v.composed.skins.find(row => row.skinId === 3701).sourceOrder = 2; }, /Skin 3701 Semantic claim/, 'wrong Source Order');
+rejects(v => { v.composed.skins.find(row => row.skinId === 3701).heroId = 6; }, /M05-G|composed|Skin 3701 Semantic claim/, 'wrong Hero FK');
+rejects(v => { v.composed.skins.find(row => row.skinId === 3701).sourceOrder = 2; }, /M05-G|composed|Skin 3701 Semantic claim/, 'wrong Source Order');
 rejects(v => { v.actualAssetDigests[3701] = '0'.repeat(64); }, /Asset hash mismatch/, 'wrong Asset digest');
 rejects(v => { v.assetRegistry.records = v.assetRegistry.records.filter(row => row.skinId !== 3701); }, /Asset/, 'missing Asset Admission');
 rejects(v => { v.publication.approvals = v.publication.approvals.filter(row => row.skinId !== 3701); }, /exactly one explicit Publication Approval/, 'missing approval');
 rejects(v => { v.publication.approvals.push(structuredClone(v.publication.approvals.find(row => row.skinId === 3701))); }, /duplicate Publication approval|duplicate/i, 'duplicate approval');
-rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvedUrl = './../assets/skin-admissions/m07/skin-3701.webp'; }, /supported Asset paths|differs from admitted Asset path|URL/, 'traversal URL');
+rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvedUrl = './../assets/skin-admissions/m07/skin-3701.webp'; }, /supported Asset paths|differs from admitted Asset path|URL|invalid or duplicate Publication approval/, 'traversal URL');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).semanticAdmission = 'wrong'; }, /M07-SKIN-3701/, 'wrong Semantic pointer');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).assetAdmission = 'wrong'; }, /skinId=3701/, 'wrong Asset pointer');
 rejects(v => { v.publication.approvals.find(row => row.skinId === 3701).approvalRecord = 'unapproved.md'; }, /approvalRecord|M07 Publication/, 'wrong decision record');

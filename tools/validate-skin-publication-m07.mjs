@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { loadM05GInputs, validateM05GData } from './validate-skin-m05-g.mjs';
@@ -58,7 +58,7 @@ export function validateM07PublicationData(input) {
   }), 'Existing approved URLs must remain unchanged');
   assert.equal(composed.published, BASELINE.length + 1);
 
-  const decision = await readFile(resolve(input.root ?? process.cwd(), 'docs/migrations/m07-skin-3701-publication.md'), 'utf8');
+  const decision = readFileSync(resolve(input.root ?? process.cwd(), 'docs/migrations/m07-skin-3701-publication.md'), 'utf8');
   assert.match(decision, /Publication decision: APPROVED by repository owner LuceatLuxVestra42/);
   assert.match(decision, /explicit user request dated 2026-11-01/);
   return { status: 'PASS', publicSkins: BASELINE.length + 1, added: CLAIM, assetUrl: ASSET_URL };
