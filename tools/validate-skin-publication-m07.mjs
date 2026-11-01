@@ -33,7 +33,7 @@ export function validateM07PublicationData(input) {
   const approvals = input.publication.approvals.filter(row => row.skinId === SKIN_ID && row.status === 'APPROVED');
   assert.equal(approvals.length, 1, 'Skin 3701 needs exactly one explicit Publication Approval');
   const approval = approvals[0];
-  assert.equal(approval.approvedUrl, ASSET_URL);
+  assert.equal(approval.approvedUrl, ASSET_URL, 'Skin 3701 approved URL must match the admitted Asset path');
   assert.equal(skinAssetPathFromPublicUrl(approval.approvedUrl), ASSET_PATH);
   assert.equal(approval.semanticAdmission, SEMANTIC);
   assert.equal(approval.assetAdmission, ASSET);
