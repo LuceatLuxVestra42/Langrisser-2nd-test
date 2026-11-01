@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Skin 3701 private Fullart Asset Admission only; no Publication Approval or public delivery.",
+  "scope": "Skin 3701 Fullart Asset Admission; distinct from any Publication Approval or public delivery.",
   "semanticOwner": {
     "kind": "reference-only",
     "identity": "canonical/skin-identities-3701.v1.json#records/skinId=3701",
