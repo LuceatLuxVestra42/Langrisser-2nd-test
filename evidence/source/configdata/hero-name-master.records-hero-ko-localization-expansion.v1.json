@@ -12,7 +12,7 @@
     "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
     "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
   },
-  "scope": "Pinned Hero name master mappings for the 46 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
+  "scope": "Pinned Hero name master mappings for the 66 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
   "fieldMapping": {
     "heroId": "ConfigData Hero ID",
     "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
@@ -246,6 +246,106 @@
     {
       "heroId": 48,
       "nameCn": "阿伦",
+      "status": "verified"
+    },
+    {
+      "heroId": 49,
+      "nameCn": "法娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 51,
+      "nameCn": "雪露法妮尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 54,
+      "nameCn": "妮丝蒂尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 57,
+      "nameCn": "威拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 58,
+      "nameCn": "塞蕾娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 59,
+      "nameCn": "基扎洛夫",
+      "status": "verified"
+    },
+    {
+      "heroId": 61,
+      "nameCn": "拉姆达",
+      "status": "verified"
+    },
+    {
+      "heroId": 62,
+      "nameCn": "阿尔弗雷德",
+      "status": "verified"
+    },
+    {
+      "heroId": 63,
+      "nameCn": "雷因法鲁斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 64,
+      "nameCn": "布琳达",
+      "status": "verified"
+    },
+    {
+      "heroId": 65,
+      "nameCn": "维拉玖",
+      "status": "verified"
+    },
+    {
+      "heroId": 66,
+      "nameCn": "克拉蕾特",
+      "status": "verified"
+    },
+    {
+      "heroId": 69,
+      "nameCn": "艾丝蒂尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 70,
+      "nameCn": "约修亚",
+      "status": "verified"
+    },
+    {
+      "heroId": 71,
+      "nameCn": "玲",
+      "status": "verified"
+    },
+    {
+      "heroId": 72,
+      "nameCn": "莱恩哈特",
+      "status": "verified"
+    },
+    {
+      "heroId": 73,
+      "nameCn": "奥利维尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 74,
+      "nameCn": "科洛丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 75,
+      "nameCn": "蒂德莉特",
+      "status": "verified"
+    },
+    {
+      "heroId": 76,
+      "nameCn": "亚修拉姆",
       "status": "verified"
     }
   ],
