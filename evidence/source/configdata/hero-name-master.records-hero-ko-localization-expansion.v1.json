@@ -12,7 +12,7 @@
     "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
     "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
   },
-  "scope": "Pinned Hero name master mappings for the 93 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
+  "scope": "Pinned Hero name master mappings for the 133 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
   "fieldMapping": {
     "heroId": "ConfigData Hero ID",
     "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
@@ -481,6 +481,206 @@
     {
       "heroId": 105,
       "nameCn": "茉",
+      "status": "verified"
+    },
+    {
+      "heroId": 106,
+      "nameCn": "伊普西龙",
+      "status": "verified"
+    },
+    {
+      "heroId": 108,
+      "nameCn": "邪神库鲁加",
+      "status": "verified"
+    },
+    {
+      "heroId": 109,
+      "nameCn": "怀特·茜茜",
+      "status": "verified"
+    },
+    {
+      "heroId": 110,
+      "nameCn": "阿雷斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 111,
+      "nameCn": "梅雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 112,
+      "nameCn": "托娃",
+      "status": "verified"
+    },
+    {
+      "heroId": 113,
+      "nameCn": "降生之光",
+      "status": "verified"
+    },
+    {
+      "heroId": 114,
+      "nameCn": "玛丽埃尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 115,
+      "nameCn": "罗莎莉娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 116,
+      "nameCn": "诺埃米",
+      "status": "verified"
+    },
+    {
+      "heroId": 118,
+      "nameCn": "奥托克拉托四世",
+      "status": "verified"
+    },
+    {
+      "heroId": 119,
+      "nameCn": "卢克蕾蒂娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 120,
+      "nameCn": "弗洛朗蒂娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 121,
+      "nameCn": "燕",
+      "status": "verified"
+    },
+    {
+      "heroId": 122,
+      "nameCn": "希尔达",
+      "status": "verified"
+    },
+    {
+      "heroId": 123,
+      "nameCn": "沃尔纳",
+      "status": "verified"
+    },
+    {
+      "heroId": 124,
+      "nameCn": "克里斯蒂安妮",
+      "status": "verified"
+    },
+    {
+      "heroId": 125,
+      "nameCn": "丽可丽丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 126,
+      "nameCn": "帕希尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 127,
+      "nameCn": "蕾娜塔",
+      "status": "verified"
+    },
+    {
+      "heroId": 129,
+      "nameCn": "古斯塔夫",
+      "status": "verified"
+    },
+    {
+      "heroId": 130,
+      "nameCn": "米歇尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 131,
+      "nameCn": "亚尔缇娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 132,
+      "nameCn": "阿瑞安赫德",
+      "status": "verified"
+    },
+    {
+      "heroId": 133,
+      "nameCn": "黎恩",
+      "status": "verified"
+    },
+    {
+      "heroId": 134,
+      "nameCn": "安兹·乌尔·恭",
+      "status": "verified"
+    },
+    {
+      "heroId": 135,
+      "nameCn": "雅儿贝德",
+      "status": "verified"
+    },
+    {
+      "heroId": 136,
+      "nameCn": "夏提雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 137,
+      "nameCn": "战部渡",
+      "status": "verified"
+    },
+    {
+      "heroId": 138,
+      "nameCn": "忍部火美子",
+      "status": "verified"
+    },
+    {
+      "heroId": 139,
+      "nameCn": "剑部武一郎",
+      "status": "verified"
+    },
+    {
+      "heroId": 140,
+      "nameCn": "真田辽",
+      "status": "verified"
+    },
+    {
+      "heroId": 141,
+      "nameCn": "迦游罗",
+      "status": "verified"
+    },
+    {
+      "heroId": 142,
+      "nameCn": "羽柴当麻",
+      "status": "verified"
+    },
+    {
+      "heroId": 143,
+      "nameCn": "坂田银时",
+      "status": "verified"
+    },
+    {
+      "heroId": 144,
+      "nameCn": "神乐",
+      "status": "verified"
+    },
+    {
+      "heroId": 145,
+      "nameCn": "志村新八",
+      "status": "verified"
+    },
+    {
+      "heroId": 146,
+      "nameCn": "塞贝莉雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 147,
+      "nameCn": "亚莉希雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 148,
+      "nameCn": "伊莎拉",
       "status": "verified"
     }
   ],
