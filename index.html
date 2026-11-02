@@ -6,8 +6,8 @@
     <link rel="icon" href="data:,">
     <meta name="description" content="검증된 영웅, 전직, 용병과 일반 SSR 장비 정보를 표시합니다.">
     <title>랑그릿사 데이터 조각</title>
-    <link rel="stylesheet" href="./styles.css?v=36e1c2890b28d9df74cb2ca8787c03cf9b65e5906168530317dc84b8d224b69e">
-    <script type="module" src="./app.js?v=0ba27afa7cbdd031a203455bbef3b26b4b6a6600b7eac8a6ce6c8d74f81713c9"></script>
+    <link rel="stylesheet" href="./styles.css?v=a43a9fa09deb244548d96a5fa0863b4c750fc5ae15a4f4e43f24b65886412560">
+    <script type="module" src="./app.js?v=c8e20b206556a90df1cc2cd22917eb53cd7d525d9465028119ff86b05122b773"></script>
   </head>
   <body>
     <main class="page">
@@ -30,6 +30,10 @@
           <input id="hero-search" type="search" autocomplete="off" placeholder="영웅명 일부 또는 Hero ID 입력">
           <button id="hero-search-clear" type="button">검색 초기화</button>
         </div>
+        <label for="hero-faction-filter">진영</label>
+        <select id="hero-faction-filter" aria-label="영웅 진영 필터">
+          <option value="all">전체</option>
+        </select>
         <p id="hero-search-count" class="hero-search-count" aria-live="polite">영웅 전체 목록을 표시합니다.</p>
       </div>
       <p id="hero-search-empty" class="status hero-search-empty" role="status" aria-live="polite" hidden>영웅 검색 결과가 없습니다.</p>
