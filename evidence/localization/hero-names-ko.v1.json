@@ -393,6 +393,61 @@
       "sourceLine": 47,
       "sourceRow": 18,
       "evidenceClass": "A"
+    },
+    {
+      "heroId": 20,
+      "nameCn": "索尼娅",
+      "nameKo": "소니아",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=20",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=20/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=索尼娅",
+      "sourceLine": 48,
+      "sourceRow": 19,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 21,
+      "nameCn": "巴尔加斯",
+      "nameKo": "발가스",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=21",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=21/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=巴尔加斯",
+      "sourceLine": 49,
+      "sourceRow": 20,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 22,
+      "nameCn": "杰西卡",
+      "nameKo": "제시카",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=22",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=22/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=杰西卡",
+      "sourceLine": 50,
+      "sourceRow": 21,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 23,
+      "nameCn": "洛加",
+      "nameKo": "로우가",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=23",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=23/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=洛加",
+      "sourceLine": 51,
+      "sourceRow": 22,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 24,
+      "nameCn": "斯科特",
+      "nameKo": "스코트",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=24",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=24/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=斯科特",
+      "sourceLine": 52,
+      "sourceRow": 23,
+      "evidenceClass": "A"
     }
   ],
   "limitations": [
