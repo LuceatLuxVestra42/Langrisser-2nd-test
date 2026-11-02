@@ -237,6 +237,90 @@
       "nameKo": "스코트",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=24"
+    },
+    {
+      "heroId": 30,
+      "nameKo": "리파니",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=30"
+    },
+    {
+      "heroId": 31,
+      "nameKo": "소피아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=31"
+    },
+    {
+      "heroId": 34,
+      "nameKo": "키리카제",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=34"
+    },
+    {
+      "heroId": 35,
+      "nameKo": "안젤리카",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=35"
+    },
+    {
+      "heroId": 36,
+      "nameKo": "실버울프",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=36"
+    },
+    {
+      "heroId": 38,
+      "nameKo": "제리올&레이라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=38"
+    },
+    {
+      "heroId": 39,
+      "nameKo": "페라키아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=39"
+    },
+    {
+      "heroId": 41,
+      "nameKo": "피엘",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=41"
+    },
+    {
+      "heroId": 42,
+      "nameKo": "디오스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=42"
+    },
+    {
+      "heroId": 43,
+      "nameKo": "안나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=43"
+    },
+    {
+      "heroId": 44,
+      "nameKo": "레아드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=44"
+    },
+    {
+      "heroId": 45,
+      "nameKo": "키스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=45"
+    },
+    {
+      "heroId": 47,
+      "nameKo": "레티시아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=47"
+    },
+    {
+      "heroId": 48,
+      "nameKo": "아론",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=48"
     }
   ]
 }
