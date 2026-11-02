@@ -207,6 +207,36 @@
       "nameKo": "레스터",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=19"
+    },
+    {
+      "heroId": 20,
+      "nameKo": "소니아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=20"
+    },
+    {
+      "heroId": 21,
+      "nameKo": "발가스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=21"
+    },
+    {
+      "heroId": 22,
+      "nameKo": "제시카",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=22"
+    },
+    {
+      "heroId": 23,
+      "nameKo": "로우가",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=23"
+    },
+    {
+      "heroId": 24,
+      "nameKo": "스코트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=24"
     }
   ]
 }
