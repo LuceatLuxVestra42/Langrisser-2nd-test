@@ -93,7 +93,34 @@
     73,
     74,
     75,
-    76
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
   ],
   "selectedRows": [
     {
@@ -599,15 +626,204 @@
       "sourceRow": 72,
       "nameCn": "亚修拉姆",
       "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=76/nameCn"
+    },
+    {
+      "heroId": 77,
+      "sourceLine": 102,
+      "sourceRow": 73,
+      "nameCn": "帕恩",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=77/nameCn"
+    },
+    {
+      "heroId": 78,
+      "sourceLine": 103,
+      "sourceRow": 74,
+      "nameCn": "比萝蒂丝",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=78/nameCn"
+    },
+    {
+      "heroId": 79,
+      "sourceLine": 104,
+      "sourceRow": 75,
+      "nameCn": "真宫寺樱",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=79/nameCn"
+    },
+    {
+      "heroId": 80,
+      "sourceLine": 105,
+      "sourceRow": 76,
+      "nameCn": "神崎堇",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=80/nameCn"
+    },
+    {
+      "heroId": 81,
+      "sourceLine": 106,
+      "sourceRow": 77,
+      "nameCn": "爱丽丝",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=81/nameCn"
+    },
+    {
+      "heroId": 82,
+      "sourceLine": 107,
+      "sourceRow": 78,
+      "nameCn": "浦饭幽助",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=82/nameCn"
+    },
+    {
+      "heroId": 83,
+      "sourceLine": 108,
+      "sourceRow": 79,
+      "nameCn": "飞影",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=83/nameCn"
+    },
+    {
+      "heroId": 84,
+      "sourceLine": 109,
+      "sourceRow": 80,
+      "nameCn": "藏马",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=84/nameCn"
+    },
+    {
+      "heroId": 85,
+      "sourceLine": 110,
+      "sourceRow": 81,
+      "nameCn": "户愚吕兄弟",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=85/nameCn"
+    },
+    {
+      "heroId": 86,
+      "sourceLine": 111,
+      "sourceRow": 82,
+      "nameCn": "桑原和真",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=86/nameCn"
+    },
+    {
+      "heroId": 87,
+      "sourceLine": 112,
+      "sourceRow": 83,
+      "nameCn": "贝蒂",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=87/nameCn"
+    },
+    {
+      "heroId": 88,
+      "sourceLine": 113,
+      "sourceRow": 84,
+      "nameCn": "艾拉斯卓",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=88/nameCn"
+    },
+    {
+      "heroId": 91,
+      "sourceLine": 115,
+      "sourceRow": 86,
+      "nameCn": "艾米莉亚",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=91/nameCn"
+    },
+    {
+      "heroId": 92,
+      "sourceLine": 116,
+      "sourceRow": 87,
+      "nameCn": "女神化身",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=92/nameCn"
+    },
+    {
+      "heroId": 93,
+      "sourceLine": 117,
+      "sourceRow": 88,
+      "nameCn": "谜之骑士",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=93/nameCn"
+    },
+    {
+      "heroId": 94,
+      "sourceLine": 118,
+      "sourceRow": 89,
+      "nameCn": "阿卡娅",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=94/nameCn"
+    },
+    {
+      "heroId": 95,
+      "sourceLine": 119,
+      "sourceRow": 90,
+      "nameCn": "奥利佛",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=95/nameCn"
+    },
+    {
+      "heroId": 96,
+      "sourceLine": 120,
+      "sourceRow": 91,
+      "nameCn": "梅露帕妮",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=96/nameCn"
+    },
+    {
+      "heroId": 97,
+      "sourceLine": 121,
+      "sourceRow": 92,
+      "nameCn": "伊露希亚",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=97/nameCn"
+    },
+    {
+      "heroId": 98,
+      "sourceLine": 122,
+      "sourceRow": 93,
+      "nameCn": "文森特",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=98/nameCn"
+    },
+    {
+      "heroId": 99,
+      "sourceLine": 123,
+      "sourceRow": 94,
+      "nameCn": "克洛泰尔",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=99/nameCn"
+    },
+    {
+      "heroId": 100,
+      "sourceLine": 124,
+      "sourceRow": 95,
+      "nameCn": "罗泽希尔",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=100/nameCn"
+    },
+    {
+      "heroId": 101,
+      "sourceLine": 125,
+      "sourceRow": 96,
+      "nameCn": "海伦娜",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=101/nameCn"
+    },
+    {
+      "heroId": 102,
+      "sourceLine": 126,
+      "sourceRow": 97,
+      "nameCn": "树之贤者",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=102/nameCn"
+    },
+    {
+      "heroId": 103,
+      "sourceLine": 127,
+      "sourceRow": 98,
+      "nameCn": "希琳卡",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=103/nameCn"
+    },
+    {
+      "heroId": 104,
+      "sourceLine": 128,
+      "sourceRow": 99,
+      "nameCn": "阿尔法",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=104/nameCn"
+    },
+    {
+      "heroId": 105,
+      "sourceLine": 129,
+      "sourceRow": 100,
+      "nameCn": "茉",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=105/nameCn"
     }
   ],
-  "selectedRowCount": 73,
+  "selectedRowCount": 100,
   "extraction": "Existing direct ConfigData Name evidence is retained for the original 7 Hero IDs. For additional IDs, use the current identity-authority-pinned hero-name-master nameCn projection, then exact-key lookup in the unchanged project localization reference; names are never used to create identity or relations.",
   "knownLimitations": [
     "The supplied localization reference does not establish official Korean-server provenance or a source version.",
     "The supplied localization reference supports display localization only for the Hero IDs explicitly declared in this source manifest.",
     "The Chinese lookup key does not create or alter Hero identity, population, release status, or relations.",
-    "The 66 expansion Chinese keys are taken from the pinned hero-name-master rows declared by the existing Hero identity authority, not re-parsed from raw ConfigDataHeroInfo.Name in this work.",
+    "The 93 expansion Chinese keys are taken from the pinned hero-name-master rows declared by the existing Hero identity authority, not re-parsed from raw ConfigDataHeroInfo.Name in this work.",
     "Official Korean-server name provenance remains unverified."
   ],
   "targetDeclarationRole": "Explicit target set for this localization owner only; not Hero population, migration backlog, or selection from reference order.",
@@ -718,7 +934,34 @@
     73,
     74,
     75,
-    76
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
   ],
   "nameMasterProjection": {
     "projectionPath": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json",
