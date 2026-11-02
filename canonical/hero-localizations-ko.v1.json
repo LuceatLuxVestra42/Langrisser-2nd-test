@@ -603,6 +603,246 @@
       "nameKo": "뮤",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=105"
+    },
+    {
+      "heroId": 106,
+      "nameKo": "입실론",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=106"
+    },
+    {
+      "heroId": 108,
+      "nameKo": "사신 크루거",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=108"
+    },
+    {
+      "heroId": 109,
+      "nameKo": "화이트 시시",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=109"
+    },
+    {
+      "heroId": 110,
+      "nameKo": "아레스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=110"
+    },
+    {
+      "heroId": 111,
+      "nameKo": "마이야",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=111"
+    },
+    {
+      "heroId": 112,
+      "nameKo": "토와",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=112"
+    },
+    {
+      "heroId": 113,
+      "nameKo": "탄생의 빛",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=113"
+    },
+    {
+      "heroId": 114,
+      "nameKo": "마리엘",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=114"
+    },
+    {
+      "heroId": 115,
+      "nameKo": "로자리아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=115"
+    },
+    {
+      "heroId": 116,
+      "nameKo": "노에미",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=116"
+    },
+    {
+      "heroId": 118,
+      "nameKo": "오토크라트 4세",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=118"
+    },
+    {
+      "heroId": 119,
+      "nameKo": "루크레치아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=119"
+    },
+    {
+      "heroId": 120,
+      "nameKo": "플로렌티아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=120"
+    },
+    {
+      "heroId": 121,
+      "nameKo": "츠바메",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=121"
+    },
+    {
+      "heroId": 122,
+      "nameKo": "힐다",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=122"
+    },
+    {
+      "heroId": 123,
+      "nameKo": "베르너",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=123"
+    },
+    {
+      "heroId": 124,
+      "nameKo": "크리스티아네",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=124"
+    },
+    {
+      "heroId": 125,
+      "nameKo": "리코리스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=125"
+    },
+    {
+      "heroId": 126,
+      "nameKo": "팟시르",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=126"
+    },
+    {
+      "heroId": 127,
+      "nameKo": "레나타",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=127"
+    },
+    {
+      "heroId": 129,
+      "nameKo": "구스타프",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=129"
+    },
+    {
+      "heroId": 130,
+      "nameKo": "미셸",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=130"
+    },
+    {
+      "heroId": 131,
+      "nameKo": "알티나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=131"
+    },
+    {
+      "heroId": 132,
+      "nameKo": "아리안로드",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=132"
+    },
+    {
+      "heroId": 133,
+      "nameKo": "린 슈바르처",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=133"
+    },
+    {
+      "heroId": 134,
+      "nameKo": "아인즈 울 고운",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=134"
+    },
+    {
+      "heroId": 135,
+      "nameKo": "알베도",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=135"
+    },
+    {
+      "heroId": 136,
+      "nameKo": "샤르티아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=136"
+    },
+    {
+      "heroId": 137,
+      "nameKo": "와타루",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=137"
+    },
+    {
+      "heroId": 138,
+      "nameKo": "히미코",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=138"
+    },
+    {
+      "heroId": 139,
+      "nameKo": "시바라쿠",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=139"
+    },
+    {
+      "heroId": 140,
+      "nameKo": "사나다 료",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=140"
+    },
+    {
+      "heroId": 141,
+      "nameKo": "카유라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=141"
+    },
+    {
+      "heroId": 142,
+      "nameKo": "하시바 토마",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=142"
+    },
+    {
+      "heroId": 143,
+      "nameKo": "사카타 긴토키",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=143"
+    },
+    {
+      "heroId": 144,
+      "nameKo": "카구라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=144"
+    },
+    {
+      "heroId": 145,
+      "nameKo": "시무라 신파치",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=145"
+    },
+    {
+      "heroId": 146,
+      "nameKo": "셀베리아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=146"
+    },
+    {
+      "heroId": 147,
+      "nameKo": "알리시아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=147"
+    },
+    {
+      "heroId": 148,
+      "nameKo": "이사라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=148"
     }
   ]
 }
