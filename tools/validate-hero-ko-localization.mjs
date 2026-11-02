@@ -15,6 +15,7 @@ const PATHS = Object.freeze({
   evidence: 'evidence/localization/hero-names-ko.v1.json',
   canonical: 'canonical/hero-localizations-ko.v1.json',
 });
+const BASELINE_LOCALIZED_HERO_IDS = Object.freeze([5,6,8,52,32,28,53,1,3,4,7,9,10,11,12,13,14,25,26,27,29,33,37,40,55,56,60,67,89]);
 const fail = (message) => { throw new Error(`Hero Korean localization validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
 const same = (a, b) => isDeepStrictEqual(a, b);
@@ -86,12 +87,55 @@ export function validateHeroKoLocalization(input) {
   check(new Set(identityIds).size === identityIds.length, 'duplicate Hero identity ID');
   const identitySet = new Set(identityIds);
 
+  const admissionPolicy = sourceManifest.admissionPolicy;
+  exactKeys(admissionPolicy, ['version','decisionRecord','l1','l2','l3'], 'Hero localization admission policy');
+  check(admissionPolicy.version === 1, 'Hero localization admission policy version mismatch');
+  exactKeys(admissionPolicy.decisionRecord, ['repository','issueNumber','commentId','commentUrl'], 'Hero localization decision record');
+  check(admissionPolicy.decisionRecord.repository === 'LuceatLuxVestra42/Langrisser-2nd-test'
+    && admissionPolicy.decisionRecord.issueNumber === 138
+    && admissionPolicy.decisionRecord.commentId === 6572923222
+    && admissionPolicy.decisionRecord.commentUrl === 'https://github.com/LuceatLuxVestra42/Langrisser-2nd-test/issues/138#issuecomment-6572923222',
+  'Hero localization policy decision record mismatch');
+  exactKeys(admissionPolicy.l1, ['sourceReviewFact','sourceReviewScope','canonicalStatusMutation','officialKrProvenanceStatus'], 'Hero localization L1 policy');
+  check(admissionPolicy.l1.sourceReviewFact === 'USER_REVIEWED'
+    && admissionPolicy.l1.sourceReviewScope === 'User-provided hero-names-ko.v1.txt values'
+    && admissionPolicy.l1.canonicalStatusMutation === false
+    && admissionPolicy.l1.officialKrProvenanceStatus === 'unverified',
+  'Hero localization L1 source review or official provenance boundary mismatch');
+  exactKeys(admissionPolicy.l2, ['baselineLocalizedHeroIds','additionalCandidatePopulation','initialBatchSize',
+    'minimumCumulativeUniqueAdmissions','thresholdEffect','countRequiresCanonicalAdmission','countRequiresOwningValidation',
+    'thresholdAuthorizesAutomaticAdmission','thresholdAuthorizesFrontendPublication'], 'Hero localization L2 policy');
+  const baselineLocalizedIds = admissionPolicy.l2.baselineLocalizedHeroIds;
+  check(Array.isArray(baselineLocalizedIds) && baselineLocalizedIds.every(Number.isInteger)
+    && new Set(baselineLocalizedIds).size === baselineLocalizedIds.length
+    && sameIdSet(baselineLocalizedIds, BASELINE_LOCALIZED_HERO_IDS)
+    && baselineLocalizedIds.every((id) => identitySet.has(id)),
+  'Hero localization L2 baseline admission IDs are malformed');
+  check(admissionPolicy.l2.additionalCandidatePopulation === identityIds.length - baselineLocalizedIds.length
+    && admissionPolicy.l2.additionalCandidatePopulation === 238
+    && admissionPolicy.l2.initialBatchSize === 'UNSPECIFIED'
+    && admissionPolicy.l2.minimumCumulativeUniqueAdmissions === 24
+    && admissionPolicy.l2.thresholdEffect === 'ALLOW_FUTURE_BATCH_SIZE_INCREASE_ONLY'
+    && admissionPolicy.l2.countRequiresCanonicalAdmission === true
+    && admissionPolicy.l2.countRequiresOwningValidation === true
+    && admissionPolicy.l2.thresholdAuthorizesAutomaticAdmission === false
+    && admissionPolicy.l2.thresholdAuthorizesFrontendPublication === false,
+  'Hero localization L2 batch expansion policy mismatch');
+  exactKeys(admissionPolicy.l3, ['finalAdmissionApprover','approvalRequiredPerBatch',
+    'frontendPublicationRequiresSeparateApproval','gitCommitOrMergeIsApproval'], 'Hero localization L3 policy');
+  check(admissionPolicy.l3.finalAdmissionApprover === 'USER'
+    && admissionPolicy.l3.approvalRequiredPerBatch === true
+    && admissionPolicy.l3.frontendPublicationRequiresSeparateApproval === true
+    && admissionPolicy.l3.gitCommitOrMergeIsApproval === false,
+  'Hero localization L3 approval boundary mismatch');
+
   check(sourceManifest.schemaVersion === 1 && Array.isArray(sourceManifest.targetIds),
     'localization target declaration schema mismatch');
   const targetIds = sourceManifest.targetIds;
   check(targetIds.every(Number.isInteger), 'malformed target Hero ID');
   check(new Set(targetIds).size === targetIds.length, 'duplicate target Hero ID');
   check(targetIds.every((id) => identitySet.has(id)), 'target Hero ID is absent from the existing identity owner');
+  check(baselineLocalizedIds.every((id) => targetIds.includes(id)), 'existing Hero localization baseline was removed');
 
   check(Array.isArray(heroInfoRecords), 'ConfigData HeroInfo evidence is not an array');
   const directIds = heroInfoRecords.map((row) => row.ID);
