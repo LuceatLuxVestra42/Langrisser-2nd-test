@@ -12,7 +12,7 @@
     "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
     "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
   },
-  "scope": "Pinned Hero name master mappings for the 22 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
+  "scope": "Pinned Hero name master mappings for the 27 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
   "fieldMapping": {
     "heroId": "ConfigData Hero ID",
     "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
@@ -126,6 +126,31 @@
     {
       "heroId": 89,
       "nameCn": "尤利娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 15,
+      "nameCn": "莉亚娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 16,
+      "nameCn": "兰斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 17,
+      "nameCn": "埃格贝尔特",
+      "status": "verified"
+    },
+    {
+      "heroId": 18,
+      "nameCn": "伊梅尔达",
+      "status": "verified"
+    },
+    {
+      "heroId": 19,
+      "nameCn": "利斯塔",
       "status": "verified"
     }
   ],

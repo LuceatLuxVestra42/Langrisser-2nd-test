@@ -338,6 +338,61 @@
       "sourceLine": 114,
       "sourceRow": 85,
       "evidenceClass": "A"
+    },
+    {
+      "heroId": 15,
+      "nameCn": "莉亚娜",
+      "nameKo": "리아나",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=15",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=15/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=莉亚娜",
+      "sourceLine": 43,
+      "sourceRow": 14,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 16,
+      "nameCn": "兰斯",
+      "nameKo": "란스",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=16",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=16/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=兰斯",
+      "sourceLine": 44,
+      "sourceRow": 15,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 17,
+      "nameCn": "埃格贝尔特",
+      "nameKo": "에그베르트",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=17",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=17/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=埃格贝尔特",
+      "sourceLine": 45,
+      "sourceRow": 16,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 18,
+      "nameCn": "伊梅尔达",
+      "nameKo": "이멜다",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=18",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=18/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=伊梅尔达",
+      "sourceLine": 46,
+      "sourceRow": 17,
+      "evidenceClass": "A"
+    },
+    {
+      "heroId": 19,
+      "nameCn": "利斯塔",
+      "nameKo": "레스터",
+      "identityLocator": "canonical/hero-identities.v1.json#heroId=19",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=19/nameCn",
+      "sourceLocator": "hero-names-ko.v1.txt#nameCn=利斯塔",
+      "sourceLine": 47,
+      "sourceRow": 18,
+      "evidenceClass": "A"
     }
   ],
   "limitations": [

@@ -177,6 +177,36 @@
       "nameKo": "유리아",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=89"
+    },
+    {
+      "heroId": 15,
+      "nameKo": "리아나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=15"
+    },
+    {
+      "heroId": 16,
+      "nameKo": "란스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=16"
+    },
+    {
+      "heroId": 17,
+      "nameKo": "에그베르트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=17"
+    },
+    {
+      "heroId": 18,
+      "nameKo": "이멜다",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=18"
+    },
+    {
+      "heroId": 19,
+      "nameKo": "레스터",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=19"
     }
   ]
 }

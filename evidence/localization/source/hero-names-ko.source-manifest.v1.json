@@ -49,7 +49,12 @@
     56,
     60,
     67,
-    89
+    89,
+    15,
+    16,
+    17,
+    18,
+    19
   ],
   "selectedRows": [
     {
@@ -247,15 +252,50 @@
       "sourceRow": 85,
       "nameCn": "尤利娅",
       "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=89/nameCn"
+    },
+    {
+      "heroId": 15,
+      "sourceLine": 43,
+      "sourceRow": 14,
+      "nameCn": "莉亚娜",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=15/nameCn"
+    },
+    {
+      "heroId": 16,
+      "sourceLine": 44,
+      "sourceRow": 15,
+      "nameCn": "兰斯",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=16/nameCn"
+    },
+    {
+      "heroId": 17,
+      "sourceLine": 45,
+      "sourceRow": 16,
+      "nameCn": "埃格贝尔特",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=17/nameCn"
+    },
+    {
+      "heroId": 18,
+      "sourceLine": 46,
+      "sourceRow": 17,
+      "nameCn": "伊梅尔达",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=18/nameCn"
+    },
+    {
+      "heroId": 19,
+      "sourceLine": 47,
+      "sourceRow": 18,
+      "nameCn": "利斯塔",
+      "nameMasterLocator": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#heroId=19/nameCn"
     }
   ],
-  "selectedRowCount": 29,
+  "selectedRowCount": 34,
   "extraction": "Existing direct ConfigData Name evidence is retained for the original 7 Hero IDs. For additional IDs, use the current identity-authority-pinned hero-name-master nameCn projection, then exact-key lookup in the unchanged project localization reference; names are never used to create identity or relations.",
   "knownLimitations": [
     "The supplied localization reference does not establish official Korean-server provenance or a source version.",
     "The supplied localization reference supports display localization only for the Hero IDs explicitly declared in this source manifest.",
     "The Chinese lookup key does not create or alter Hero identity, population, release status, or relations.",
-    "The 22 expansion Chinese keys are taken from the pinned hero-name-master rows declared by the existing Hero identity authority, not re-parsed from raw ConfigDataHeroInfo.Name in this work.",
+    "The 27 expansion Chinese keys are taken from the pinned hero-name-master rows declared by the existing Hero identity authority, not re-parsed from raw ConfigDataHeroInfo.Name in this work.",
     "Official Korean-server name provenance remains unverified."
   ],
   "targetDeclarationRole": "Explicit target set for this localization owner only; not Hero population, migration backlog, or selection from reference order.",
@@ -324,7 +364,12 @@
     56,
     60,
     67,
-    89
+    89,
+    15,
+    16,
+    17,
+    18,
+    19
   ],
   "nameMasterProjection": {
     "projectionPath": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json",
