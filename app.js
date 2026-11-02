@@ -3,6 +3,7 @@ import { selectSkinFullarts } from './skin-fullart-presentation.mjs';
 const container = document.querySelector('#heroes');
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
+const heroFactionFilter = document.querySelector('#hero-faction-filter');
 const heroSearchCount = document.querySelector('#hero-search-count');
 const heroSearchEmpty = document.querySelector('#hero-search-empty');
 const spSoldierContainer = document.querySelector('#sp-soldiers');
@@ -90,9 +91,29 @@ function filterHeroes(heroes, query) {
   return heroes.filter((hero) => hero.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
 }
 
-function renderHeroSearch({ heroes, input, clearButton, count, emptyState }) {
+function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, emptyState }) {
+  const factions = new Map();
+  for (const hero of heroes) {
+    for (const faction of hero.factions) {
+      const label = faction.localizationStatus === 'PROJECT_REVIEWED'
+        ? `${faction.nameKo} · 프로젝트 검수 표시명`
+        : `미번역 · ${faction.nameCn}`;
+      const previous = factions.get(faction.factionId);
+      if (previous && previous !== label) throw new Error(`Conflicting presentation labels for Faction ID ${faction.factionId}`);
+      factions.set(faction.factionId, label);
+    }
+  }
+  for (const [factionId, label] of [...factions].sort(([left], [right]) => left - right)) {
+    const option = document.createElement('option');
+    option.value = String(factionId);
+    option.textContent = label;
+    factionFilter.append(option);
+  }
   const update = () => {
-    const matches = filterHeroes(heroes, input.value);
+    const searchMatches = filterHeroes(heroes, input.value);
+    const selectedFactionId = factionFilter.value === 'all' ? null : Number(factionFilter.value);
+    const matches = searchMatches.filter((hero) => selectedFactionId === null
+      || hero.factions.some(({ factionId }) => factionId === selectedFactionId));
     const visibleIds = new Set(matches.map(({ id }) => id));
     for (const hero of heroes) {
       const card = document.getElementById(`hero-${hero.id}`);
@@ -104,14 +125,22 @@ function renderHeroSearch({ heroes, input, clearButton, count, emptyState }) {
     return matches;
   };
   input.addEventListener('input', update);
+  factionFilter.addEventListener('change', update);
   const showAll = (focus = true) => {
     input.value = '';
     update();
     if (focus) input.focus();
   };
   const showTarget = (heroId) => {
-    if (!heroes.some(({ id }) => id === heroId)) return false;
-    showAll(false);
+    const target = heroes.find(({ id }) => id === heroId);
+    if (!target) return false;
+    const searchHidesTarget = !filterHeroes(heroes, input.value).some(({ id }) => id === heroId);
+    const selectedFactionId = factionFilter.value === 'all' ? null : Number(factionFilter.value);
+    const factionHidesTarget = selectedFactionId !== null
+      && !target.factions.some(({ factionId }) => factionId === selectedFactionId);
+    if (searchHidesTarget) input.value = '';
+    if (factionHidesTarget) factionFilter.value = 'all';
+    update();
     return true;
   };
   clearButton.addEventListener('click', () => showAll());
@@ -548,7 +577,7 @@ try {
   for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById, skinsByHero);
   heroNavigation = renderHeroSearch({
     heroes: data.heroes, input: heroSearch, clearButton: heroSearchClear,
-    count: heroSearchCount, emptyState: heroSearchEmpty,
+    factionFilter: heroFactionFilter, count: heroSearchCount, emptyState: heroSearchEmpty,
   });
   revealInitialHeroFragment();
 } catch (error) {

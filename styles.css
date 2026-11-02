@@ -146,11 +146,13 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-search, .equipment-search, .soldier-search { margin: 0 0 14px; }
 .hero-search > label, .equipment-search > label, .soldier-search > label { display: block; margin-bottom: 7px; color: #c5cfdb; font-size: .84rem; font-weight: 700; }
 .equipment-search-controls { display: flex; gap: 8px; }
-.hero-search input, .equipment-search input, .soldier-search input { min-width: 0; flex: 1; padding: 10px 12px; border: 1px solid #46566b; border-radius: 8px; background: #151b24; color: #f2f4f8; font: inherit; }
+.hero-search input, .hero-search select, .equipment-search input, .soldier-search input { min-width: 0; flex: 1; padding: 10px 12px; border: 1px solid #46566b; border-radius: 8px; background: #151b24; color: #f2f4f8; font: inherit; }
 .hero-search input:focus-visible, .hero-search button:focus-visible,
+.hero-search select:focus-visible,
 .equipment-search input:focus-visible, .equipment-search button:focus-visible,
 .soldier-search input:focus-visible, .soldier-search button:focus-visible { outline: 2px solid #91bfff; outline-offset: 2px; }
 .hero-search button, .equipment-search button, .soldier-search button { padding: 9px 12px; border: 1px solid #46566b; border-radius: 8px; background: #263345; color: #f2f4f8; font: inherit; cursor: pointer; }
+.hero-search select { width: 100%; margin-top: 8px; cursor: pointer; }
 .hero-search-count, .equipment-search-count, .soldier-search-count { margin: 7px 0 0; color: #aab5c3; font-size: .8rem; }
 .hero-search-empty { margin: 0 0 14px; }
 .hero-card[hidden] { display: none; }
