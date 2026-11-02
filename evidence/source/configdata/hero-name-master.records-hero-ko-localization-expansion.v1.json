@@ -12,7 +12,7 @@
     "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
     "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
   },
-  "scope": "Pinned Hero name master mappings for the 32 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
+  "scope": "Pinned Hero name master mappings for the 46 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
   "fieldMapping": {
     "heroId": "ConfigData Hero ID",
     "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
@@ -176,6 +176,76 @@
     {
       "heroId": 24,
       "nameCn": "斯科特",
+      "status": "verified"
+    },
+    {
+      "heroId": 30,
+      "nameCn": "莉法妮",
+      "status": "verified"
+    },
+    {
+      "heroId": 31,
+      "nameCn": "索菲亚",
+      "status": "verified"
+    },
+    {
+      "heroId": 34,
+      "nameCn": "雾风",
+      "status": "verified"
+    },
+    {
+      "heroId": 35,
+      "nameCn": "安杰丽卡",
+      "status": "verified"
+    },
+    {
+      "heroId": 36,
+      "nameCn": "银狼",
+      "status": "verified"
+    },
+    {
+      "heroId": 38,
+      "nameCn": "杰利奥鲁&蕾拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 39,
+      "nameCn": "弗拉基亚",
+      "status": "verified"
+    },
+    {
+      "heroId": 41,
+      "nameCn": "皮耶鲁",
+      "status": "verified"
+    },
+    {
+      "heroId": 42,
+      "nameCn": "迪欧斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 43,
+      "nameCn": "安娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 44,
+      "nameCn": "利亚特",
+      "status": "verified"
+    },
+    {
+      "heroId": 45,
+      "nameCn": "基斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 47,
+      "nameCn": "蕾蒂西亚",
+      "status": "verified"
+    },
+    {
+      "heroId": 48,
+      "nameCn": "阿伦",
       "status": "verified"
     }
   ],
