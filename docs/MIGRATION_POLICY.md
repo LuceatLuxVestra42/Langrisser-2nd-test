@@ -143,6 +143,8 @@ Different evidence may be tracked at claim level without creating a separate mig
 
 Split migration responsibilities when the concerns are independently meaningful and have distinct semantic or completion boundaries.
 
+Where a domain explicitly separates semantic admission, asset admission, and publication approval, preserve those independent responsibility and validation boundaries. Semantic admission or verified asset provenance does not, by itself, authorize public delivery. Apply the current owning domain contracts and validators. Do not introduce a global publication framework or require all three gates for domains that do not need them.
+
 Do not let a broad Legacy artifact force unrelated responsibilities into one migration unit.
 
 ## 8. Identity and population migration
@@ -313,6 +315,8 @@ Generated output remains replaceable and non-authoritative.
 
 Prefer small executable slices over domain-wide migration.
 
+The initial 2–3 Heroes example is historical bootstrap guidance, not a statement of the repository's current implementation, a standing backlog, or an instruction to rebuild completed responsibilities. Before selecting a new migration slice, inspect the current target ref/HEAD, applicable contracts, existing canonical and evidence, generated consumers, and owning validation results. Reuse completed responsibilities when their claim, scope, authority, and supporting evidence remain valid. Start from the smallest independently meaningful unfinished slice.
+
 The first Hero slice should prove the new architecture with only the data required for the path being implemented.
 
 A suitable initial scope is:
@@ -350,6 +354,8 @@ A semantic responsibility is migrated when all of the following are true for the
 - other non-blocking historical deviations may remain explicitly documented
 
 Migration completion is local to the responsibility.
+
+Semantic migration completion is scoped to the admitted semantic responsibility and does not by itself establish asset admission, publication approval, or hosted presentation completion. Where the owning contract requires a separate publication gate, public delivery completion additionally requires valid publication approval and its owning validation. Asset admission, generated validation, frontend/build validation, deployment, and hosted/browser QA remain independently evaluated gates where applicable. Passing one gate does not establish completion of another gate or of a broader delivery scope.
 
 It does not create a global Stage, Freeze, promotion status, or repository-wide completion state.
 
