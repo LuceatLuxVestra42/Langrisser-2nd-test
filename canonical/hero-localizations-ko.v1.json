@@ -441,6 +441,168 @@
       "nameKo": "아슈람",
       "evidenceClass": "A",
       "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=76"
+    },
+    {
+      "heroId": 77,
+      "nameKo": "판",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=77"
+    },
+    {
+      "heroId": 78,
+      "nameKo": "필로테스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=78"
+    },
+    {
+      "heroId": 79,
+      "nameKo": "신구지 사쿠라",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=79"
+    },
+    {
+      "heroId": 80,
+      "nameKo": "칸자키 스미레",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=80"
+    },
+    {
+      "heroId": 81,
+      "nameKo": "아이리스",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=81"
+    },
+    {
+      "heroId": 82,
+      "nameKo": "우라메시 유스케",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=82"
+    },
+    {
+      "heroId": 83,
+      "nameKo": "히에이",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=83"
+    },
+    {
+      "heroId": 84,
+      "nameKo": "쿠라마",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=84"
+    },
+    {
+      "heroId": 85,
+      "nameKo": "도구로 형제",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=85"
+    },
+    {
+      "heroId": 86,
+      "nameKo": "쿠와바라 카즈마",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=86"
+    },
+    {
+      "heroId": 87,
+      "nameKo": "베티",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=87"
+    },
+    {
+      "heroId": 88,
+      "nameKo": "엘라스타",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=88"
+    },
+    {
+      "heroId": 91,
+      "nameKo": "에밀리아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=91"
+    },
+    {
+      "heroId": 92,
+      "nameKo": "환생 제시카",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=92"
+    },
+    {
+      "heroId": 93,
+      "nameKo": "미지의 기사",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=93"
+    },
+    {
+      "heroId": 94,
+      "nameKo": "아카야",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=94"
+    },
+    {
+      "heroId": 95,
+      "nameKo": "올리버",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=95"
+    },
+    {
+      "heroId": 96,
+      "nameKo": "멜파니",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=96"
+    },
+    {
+      "heroId": 97,
+      "nameKo": "일루시아",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=97"
+    },
+    {
+      "heroId": 98,
+      "nameKo": "빈센트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=98"
+    },
+    {
+      "heroId": 99,
+      "nameKo": "클로테르",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=99"
+    },
+    {
+      "heroId": 100,
+      "nameKo": "로젠실",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=100"
+    },
+    {
+      "heroId": 101,
+      "nameKo": "헬레나",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=101"
+    },
+    {
+      "heroId": 102,
+      "nameKo": "세계수의 현자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=102"
+    },
+    {
+      "heroId": 103,
+      "nameKo": "실린카",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=103"
+    },
+    {
+      "heroId": 104,
+      "nameKo": "알파",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=104"
+    },
+    {
+      "heroId": 105,
+      "nameKo": "뮤",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/hero-names-ko.v1.json#heroId=105"
     }
   ]
 }
