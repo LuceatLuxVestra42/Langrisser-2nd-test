@@ -138,10 +138,13 @@ Examples of distinct responsibilities include:
 - TrainingTech meaning
 - asset identity and provenance
 - presentation eligibility
+- publication eligibility when an asset or other public payload requires a separate explicit approval
 
 Different evidence may be tracked at claim level without creating a separate migration responsibility.
 
 Split migration responsibilities when the concerns are independently meaningful and have distinct semantic or completion boundaries.
+
+Where a domain explicitly separates semantic admission, asset admission, and publication approval, preserve those independent gates. Semantic validity or possession of a verified asset does not by itself authorize public delivery. Apply the current owning domain contracts and validators; do not impose a new global publication system on domains that do not need one.
 
 Do not let a broad Legacy artifact force unrelated responsibilities into one migration unit.
 
@@ -313,6 +316,8 @@ Generated output remains replaceable and non-authoritative.
 
 Prefer small executable slices over domain-wide migration.
 
+The first-Hero example below is a historical bootstrap illustration, not a description of the repository’s current implementation, a standing backlog, or an instruction to rebuild completed slices. Before selecting work, inspect the target ref/HEAD, current contracts and implementation, and already admitted claims with their owning validation evidence. Reuse completed responsibilities when the same claim and scope remain valid, and begin at the smallest actually unfinished slice.
+
 The first Hero slice should prove the new architecture with only the data required for the path being implemented.
 
 A suitable initial scope is:
@@ -344,6 +349,7 @@ A semantic responsibility is migrated when all of the following are true for the
 - known D contradictions affecting the scope are resolved or explicitly excluded from admission
 - required localization or presentation metadata is handled in its proper scope
 - required validation passes
+- where the intended scope includes public delivery governed by a separate publication-approval gate, that gate and its owning validation also pass; semantic or asset admission alone does not establish public eligibility
 - generated consumers, if any, are reproducible from new canonical data
 - normal production use does not require Legacy
 - Legacy differences that materially affect canonical validity, required downstream consumers, or remaining predecessor dependency are resolved
