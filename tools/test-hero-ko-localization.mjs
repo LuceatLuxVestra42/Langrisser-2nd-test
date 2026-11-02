@@ -27,7 +27,7 @@ const extraId = Math.max(...targetIds) + 1;
 const rowFor = (rows, id) => rows.find(row => row.heroId === id);
 
 rejected('duplicate target ID', x => { x.sourceManifest.targetIds[1] = firstId; }, /duplicate target Hero ID/);
-rejected('missing declared target', x => { x.sourceManifest.targetIds.pop(); }, /selected source locator count mismatch|target declaration\/selected rows mismatch/);
+rejected('missing declared target', x => { x.sourceManifest.targetIds.pop(); }, /selected source locator count mismatch|target declaration\/selected rows mismatch|existing Hero localization baseline was removed/);
 rejected('extra declared target', x => { x.sourceManifest.targetIds.push(extraId); }, /selected source locator count mismatch|target declaration\/selected rows mismatch|target Hero ID is absent from the existing identity owner|source target ID sets do not exactly match localization target/);
 rejected('identity endpoint missing', x => {
   x.sourceManifest.targetIds[0] = 999999;
@@ -52,5 +52,13 @@ rejected('official provenance overstated', x => { x.canonical.officialKrProvenan
 rejected('reference bytes changed', x => { x.sourceText += '\n甲 - 갑'; }, /source hash or byte count mismatch/);
 rejected('identity count changed', x => { x.heroIdentities.records.pop(); }, /Hero identity population count changed/);
 rejected('identity duplicate', x => { x.heroIdentities.records[0].heroId = x.heroIdentities.records[1].heroId; }, /duplicate Hero identity ID/);
+rejected('L1 source review status changed', x => { x.sourceManifest.admissionPolicy.l1.sourceReviewFact = 'PROJECT_REVIEWED'; }, /L1 source review or official provenance boundary mismatch/);
+rejected('L1 official provenance overstated', x => { x.sourceManifest.admissionPolicy.l1.officialKrProvenanceStatus = 'official'; }, /L1 source review or official provenance boundary mismatch/);
+rejected('L2 baseline localization removed', x => { x.sourceManifest.admissionPolicy.l2.baselineLocalizedHeroIds.pop(); }, /L2 baseline admission IDs are malformed/);
+rejected('L2 baseline IDs changed', x => { x.sourceManifest.admissionPolicy.l2.baselineLocalizedHeroIds[0] = 20; }, /L2 baseline admission IDs are malformed/);
+rejected('L2 threshold changed', x => { x.sourceManifest.admissionPolicy.l2.minimumCumulativeUniqueAdmissions = 23; }, /L2 batch expansion policy mismatch/);
+rejected('L2 threshold does not auto-admit remainder', x => { x.sourceManifest.admissionPolicy.l2.thresholdEffect = 'AUTO_ADMIT_REMAINDER'; }, /L2 batch expansion policy mismatch/);
+rejected('L2 automatic admission introduced', x => { x.sourceManifest.admissionPolicy.l2.thresholdAuthorizesAutomaticAdmission = true; }, /L2 batch expansion policy mismatch/);
+rejected('L3 approval delegated to Git merge', x => { x.sourceManifest.admissionPolicy.l3.gitCommitOrMergeIsApproval = true; }, /L3 approval boundary mismatch/);
 
 process.stdout.write('Hero Korean localization data-driven negatives: PASS (target declaration, source, identity, evidence, canonical, provenance)\n');

@@ -259,6 +259,40 @@
     "Official Korean-server name provenance remains unverified."
   ],
   "targetDeclarationRole": "Explicit target set for this localization owner only; not Hero population, migration backlog, or selection from reference order.",
+  "admissionPolicy": {
+    "version": 1,
+    "decisionRecord": {
+      "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+      "issueNumber": 138,
+      "commentId": 6572923222,
+      "commentUrl": "https://github.com/LuceatLuxVestra42/Langrisser-2nd-test/issues/138#issuecomment-6572923222"
+    },
+    "l1": {
+      "sourceReviewFact": "USER_REVIEWED",
+      "sourceReviewScope": "User-provided hero-names-ko.v1.txt values",
+      "canonicalStatusMutation": false,
+      "officialKrProvenanceStatus": "unverified"
+    },
+    "l2": {
+      "baselineLocalizedHeroIds": [
+        5, 6, 8, 52, 32, 28, 53, 1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89
+      ],
+      "additionalCandidatePopulation": 238,
+      "initialBatchSize": "UNSPECIFIED",
+      "minimumCumulativeUniqueAdmissions": 24,
+      "thresholdEffect": "ALLOW_FUTURE_BATCH_SIZE_INCREASE_ONLY",
+      "countRequiresCanonicalAdmission": true,
+      "countRequiresOwningValidation": true,
+      "thresholdAuthorizesAutomaticAdmission": false,
+      "thresholdAuthorizesFrontendPublication": false
+    },
+    "l3": {
+      "finalAdmissionApprover": "USER",
+      "approvalRequiredPerBatch": true,
+      "frontendPublicationRequiresSeparateApproval": true,
+      "gitCommitOrMergeIsApproval": false
+    }
+  },
   "directTargetIds": [
     5,
     6,
