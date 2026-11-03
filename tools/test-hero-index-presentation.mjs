@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { extractFunction } from './test-app-function-source.mjs';
 
@@ -102,3 +103,63 @@ assert.notEqual('hero-index-results', 'heroes');
 assert.match(html, /id="hero-index-search"/);
 assert.match(html, /id="hero-search"/);
 process.stdout.write('Hero Index Frontend regression: PASS (exact ID/name search, empty/reset, independent state, 267 rows, 29 valid links, 238 unlinked rows)\n');
+
+const moduleSource = (await readFile('app.js', 'utf8')).replace(/^import .*;\n/m, '');
+const appElements = new Map();
+const moduleErrors = [];
+const appDocument = {
+  baseURI: `file://${process.cwd()}/index.html`,
+  querySelector(selector) {
+    if (!appElements.has(selector)) appElements.set(selector, makeElement('div', selector.slice(1)));
+    return appElements.get(selector);
+  },
+  createElement: (tagName) => makeElement(tagName),
+  createTextNode(text) { return { tagName: '#text', textContent: text }; },
+  getElementById(id) {
+    const visit = (node) => {
+      if (node.id === id) return node;
+      for (const child of node.children ?? []) {
+        const match = visit(child);
+        if (match) return match;
+      }
+      return null;
+    };
+    for (const root of appElements.values()) {
+      const match = visit(root);
+      if (match) return match;
+    }
+    return null;
+  },
+};
+const appFetch = async (url) => {
+  const path = resolve(url.replace(/^\.\//, ''));
+  const data = JSON.parse(await readFile(path, 'utf8'));
+  return { ok: true, status: 200, async json() { return data; } };
+};
+const initializedApp = await runInNewContext(`(async () => {
+  "use strict";
+  ${moduleSource}
+  return { heroNavigation, heroIndexDetailIds, heroBySoldierId };
+})()`, {
+  document: appDocument,
+  window,
+  fetch: appFetch,
+  console: { error(error) { moduleErrors.push(error); }, warn() {}, log() {} },
+  selectSkinFullarts() { return []; },
+  Map, Set, URL, URLSearchParams, AbortController, Request, Response, Headers,
+}, { timeout: 10000 });
+assert.equal(initializedApp.heroIndexDetailIds.size, 29, 'actual app initialization must retain the existing 29 Hero detail IDs');
+assert.equal(appElements.get('#hero-index-results').children.length, 267,
+  'actual app initialization must render all 267 Hero Index rows');
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName === 'a').length, 29,
+  'actual app initialization must retain exactly 29 detail links');
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName !== 'a').length, 238,
+  'actual app initialization must retain 238 rows without detail links');
+assert.deepEqual(moduleErrors.map((error) => error.message), [], 'actual app initialization must not log runtime errors');
+const appIndexInput = appElements.get('#hero-index-search');
+appIndexInput.value = '999999';
+appIndexInput.listeners.input();
+assert.equal(appElements.get('#hero-index-results').children.length, 0, 'actual app index search must render empty results');
+appElements.get('#hero-index-search-clear').listeners.click();
+assert.equal(appElements.get('#hero-index-results').children.length, 267, 'actual app index reset must restore all rows');
+process.stdout.write('Hero Index app-module initialization regression: PASS (strict mode, 267 rows, 29 detail links, 238 unlinked rows, search and reset)\n');

@@ -660,7 +660,7 @@ try {
       || seen.has(hero.heroId)) throw new Error('Malformed or duplicate generated Hero Index row');
     seen.add(hero.heroId);
   }
-  heroIndexNavigation = renderHeroIndexSearch({
+  renderHeroIndexSearch({
     heroes: data.heroes, detailHeroIds: heroIndexDetailIds,
     input: heroIndexSearch, clearButton: heroIndexSearchClear,
     count: heroIndexSearchCount, emptyState: heroIndexSearchEmpty, container: heroIndexContainer,
