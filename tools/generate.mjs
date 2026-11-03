@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
@@ -14,6 +15,89 @@ const TRAINING_TECH_DESCRIPTION_SOURCE = {
   levelInfoPath: 'data/configdata/ConfigDataTrainingTechLevelInfo.json',
 };
 const TRAINING_TECH_LEVEL_INFO_IDS = [2230, 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2239];
+
+export function renderHeroIndex(heroIdentities, heroLocalization, publicationDecision) {
+  if (heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)
+    || heroLocalization?.schemaVersion !== 1 || !Array.isArray(heroLocalization.records)
+    || heroLocalization.officialKrProvenanceStatus !== 'unverified'
+    || publicationDecision?.schemaVersion !== 1
+    || publicationDecision?.decisionType !== 'HERO_INDEX_PUBLICATION'
+    || publicationDecision?.status !== 'APPROVED') {
+    throw new Error('Unsupported Hero Index publication input');
+  }
+  const scope = publicationDecision.approvedScope;
+  const approval = publicationDecision.approval;
+  const exactKeys = (value, expected) => value && JSON.stringify(Object.keys(value).sort())
+    === JSON.stringify([...expected].sort());
+  if (!exactKeys(publicationDecision, ['schemaVersion', 'decisionType', 'status', 'approvedScope', 'approval', 'effect'])
+    || !exactKeys(scope, ['repository', 'baselineRef', 'baselineHead', 'heroIds', 'fields', 'surfaces', 'nameLabelStatus', 'officialKrProvenanceStatus', 'detailLinkPolicy', 'detailHeroIds', 'authorizedIdRangeExpression', 'approvedConsumerSha256', 'excluded'])
+    || !exactKeys(approval, ['approverRole', 'authorityBasis', 'source', 'recordedAtDate'])
+    || !exactKeys(approval?.source, ['kind', 'sourceDescription', 'contextualApprovalQuote', 'currentRequestText', 'messageIdStatus', 'originalMessageIdOrUrl', 'conversationDate'])
+    || !exactKeys(publicationDecision.effect, ['effective', 'condition', 'reviewWhen'])) {
+    throw new Error('Hero Index publication decision contains unexpected or missing fields');
+  }
+  if (scope?.repository !== 'LuceatLuxVestra42/Langrisser-2nd-test'
+    || scope?.baselineRef !== 'main'
+    || scope?.baselineHead !== '5a7f284e0f9453b669d95b82bc6198f0f24e732e'
+    || JSON.stringify(scope?.fields) !== '["heroId","nameKo"]'
+    || JSON.stringify(scope?.surfaces) !== '["HERO_INDEX_LIST","HERO_INDEX_SEARCH"]'
+    || scope?.nameLabelStatus !== 'PROJECT_REVIEWED'
+    || scope?.officialKrProvenanceStatus !== 'unverified'
+    || scope?.detailLinkPolicy !== 'ONLY_APPROVED_HERO_SLICE_ENDPOINTS'
+    || scope?.authorizedIdRangeExpression !== '1, 3–45, 47–49, 51–67, 69–89, 91–106, 108–116, 118–127, 129–148, 99161–99287'
+    || !Array.isArray(scope?.heroIds) || scope.heroIds.length !== 267
+    || !Array.isArray(scope?.detailHeroIds)
+    || approval?.approverRole !== 'USER'
+    || approval?.authorityBasis !== 'Issue #138 L3 assigns separate Frontend publication approval to the user.'
+    || approval?.source?.kind !== 'CURRENT_USER_EXECUTION_REQUEST'
+    || approval?.source?.sourceDescription !== 'The user-authored execution request explicitly states that this is an implementation following Hero Index Publication Approval and supplies the exact approved scope.'
+    || approval?.source?.contextualApprovalQuote !== '승인하고 다음 작업 어떻게 할건지 알려줘'
+    || approval?.source?.currentRequestText !== '이번 작업은 사전검토 완료 후 사용자 Publication Approval을 받은 별도 Hero Index 구현이다.'
+    || approval?.source?.messageIdStatus !== 'NOT_ACCESSIBLE'
+    || approval?.source?.originalMessageIdOrUrl !== 'NOT_AVAILABLE'
+    || approval?.source?.conversationDate !== '2026-11-03'
+    || approval?.recordedAtDate !== '2026-11-03'
+    || JSON.stringify(scope?.excluded) !== JSON.stringify(['Identity mutation', 'Relation mutation', 'Stats', 'Release status', 'Images or Assets', 'Expansion of the existing detailed Hero presentation'])
+    || publicationDecision.effect?.effective !== true) {
+    throw new Error('Hero Index publication approval scope is invalid or incomplete');
+  }
+
+  const approvedIds = scope.heroIds;
+  if (approvedIds.some((id, index) => !Number.isSafeInteger(id) || id <= 0
+      || (index > 0 && approvedIds[index - 1] >= id))
+    || new Set(approvedIds).size !== approvedIds.length) {
+    throw new Error('Hero Index publication IDs must be unique ascending positive integers');
+  }
+  const identityIds = heroIdentities.records.map(({ heroId }) => heroId);
+  const localizationById = new Map();
+  for (const record of heroLocalization.records) {
+    if (!Number.isSafeInteger(record.heroId) || typeof record.nameKo !== 'string' || !record.nameKo.trim()
+      || localizationById.has(record.heroId)) {
+      throw new Error('Hero Index localization has a malformed, empty, or duplicate Hero ID');
+    }
+    localizationById.set(record.heroId, record.nameKo);
+  }
+  const sortedIdentityIds = [...identityIds].sort((left, right) => left - right);
+  if (identityIds.some((id) => !Number.isSafeInteger(id))
+    || new Set(identityIds).size !== identityIds.length
+    || JSON.stringify(sortedIdentityIds) !== JSON.stringify(approvedIds)
+    || JSON.stringify([...localizationById.keys()].sort((left, right) => left - right)) !== JSON.stringify(approvedIds)) {
+    throw new Error('Hero Index publication IDs must exactly match Canonical Hero Identity and Localization IDs');
+  }
+  const detailIds = scope.detailHeroIds;
+  if (detailIds.some((id, index) => !Number.isSafeInteger(id) || id <= 0
+      || (index > 0 && detailIds[index - 1] >= id))
+    || new Set(detailIds).size !== detailIds.length) {
+    throw new Error('Hero Index detail endpoint IDs must be unique ascending positive integers');
+  }
+  const heroes = approvedIds.map((heroId) => ({ heroId, nameKo: localizationById.get(heroId) }));
+  const generated = `${JSON.stringify({ schemaVersion: 1, heroes }, null, 2)}\n`;
+  const approvedDigest = createHash('sha256').update(generated, 'utf8').digest('hex');
+  if (scope.approvedConsumerSha256 !== approvedDigest) {
+    throw new Error('Hero Index approved ID/name snapshot hash mismatch; new values require a matching publication decision');
+  }
+  return generated;
+}
 
 function validateTrainingTechDescriptionMarkup(value, label) {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`${label} is empty or malformed`);
@@ -888,6 +972,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const heroRarities = JSON.parse(await readFile(rarityPath, 'utf8'));
   const heroIdentities = JSON.parse(await readFile(resolve('canonical/hero-identities.v1.json'), 'utf8'));
+  const heroIndexPublication = JSON.parse(await readFile(resolve('docs/decisions/hero-index-publication.v1.json'), 'utf8'));
   const [factionIdentities, heroFactionRelations] = await Promise.all([
     readFile(factionIdentityPath, 'utf8'), readFile(heroFactionRelationsPath, 'utf8'),
   ]).then(([identities, relations]) => [JSON.parse(identities), JSON.parse(relations)]);
@@ -906,6 +991,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/sp-job-identities.v1.json'), 'utf8'),
   ]).then(([relations, identities]) => [JSON.parse(relations), JSON.parse(identities)]);
   await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, canonicalSkills, heroJobLevelRawStats), 'utf8');
+  await writeFile(resolve('generated/hero-index.v1.json'), renderHeroIndex(heroIdentities, heroLocalization, heroIndexPublication), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');

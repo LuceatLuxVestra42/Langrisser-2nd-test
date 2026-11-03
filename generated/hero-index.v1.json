@@ -1,0 +1,1073 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 1,
+      "nameKo": "매튜"
+    },
+    {
+      "heroId": 3,
+      "nameKo": "그레니어"
+    },
+    {
+      "heroId": 4,
+      "nameKo": "아멜다"
+    },
+    {
+      "heroId": 5,
+      "nameKo": "크리스"
+    },
+    {
+      "heroId": 6,
+      "nameKo": "레온"
+    },
+    {
+      "heroId": 7,
+      "nameKo": "베른하르트"
+    },
+    {
+      "heroId": 8,
+      "nameKo": "라나"
+    },
+    {
+      "heroId": 9,
+      "nameKo": "보젤"
+    },
+    {
+      "heroId": 10,
+      "nameKo": "레딘"
+    },
+    {
+      "heroId": 11,
+      "nameKo": "나암"
+    },
+    {
+      "heroId": 12,
+      "nameKo": "엘윈"
+    },
+    {
+      "heroId": 13,
+      "nameKo": "헤인"
+    },
+    {
+      "heroId": 14,
+      "nameKo": "쉐리"
+    },
+    {
+      "heroId": 15,
+      "nameKo": "리아나"
+    },
+    {
+      "heroId": 16,
+      "nameKo": "란스"
+    },
+    {
+      "heroId": 17,
+      "nameKo": "에그베르트"
+    },
+    {
+      "heroId": 18,
+      "nameKo": "이멜다"
+    },
+    {
+      "heroId": 19,
+      "nameKo": "레스터"
+    },
+    {
+      "heroId": 20,
+      "nameKo": "소니아"
+    },
+    {
+      "heroId": 21,
+      "nameKo": "발가스"
+    },
+    {
+      "heroId": 22,
+      "nameKo": "제시카"
+    },
+    {
+      "heroId": 23,
+      "nameKo": "로우가"
+    },
+    {
+      "heroId": 24,
+      "nameKo": "스코트"
+    },
+    {
+      "heroId": 25,
+      "nameKo": "알테뮬러"
+    },
+    {
+      "heroId": 26,
+      "nameKo": "루나"
+    },
+    {
+      "heroId": 27,
+      "nameKo": "디하르트"
+    },
+    {
+      "heroId": 28,
+      "nameKo": "젤다"
+    },
+    {
+      "heroId": 29,
+      "nameKo": "티아리스"
+    },
+    {
+      "heroId": 30,
+      "nameKo": "리파니"
+    },
+    {
+      "heroId": 31,
+      "nameKo": "소피아"
+    },
+    {
+      "heroId": 32,
+      "nameKo": "에마링크"
+    },
+    {
+      "heroId": 33,
+      "nameKo": "프레아"
+    },
+    {
+      "heroId": 34,
+      "nameKo": "키리카제"
+    },
+    {
+      "heroId": 35,
+      "nameKo": "안젤리카"
+    },
+    {
+      "heroId": 36,
+      "nameKo": "실버울프"
+    },
+    {
+      "heroId": 37,
+      "nameKo": "쥬그라"
+    },
+    {
+      "heroId": 38,
+      "nameKo": "제리올&레이라"
+    },
+    {
+      "heroId": 39,
+      "nameKo": "페라키아"
+    },
+    {
+      "heroId": 40,
+      "nameKo": "루인"
+    },
+    {
+      "heroId": 41,
+      "nameKo": "피엘"
+    },
+    {
+      "heroId": 42,
+      "nameKo": "디오스"
+    },
+    {
+      "heroId": 43,
+      "nameKo": "안나"
+    },
+    {
+      "heroId": 44,
+      "nameKo": "레아드"
+    },
+    {
+      "heroId": 45,
+      "nameKo": "키스"
+    },
+    {
+      "heroId": 47,
+      "nameKo": "레티시아"
+    },
+    {
+      "heroId": 48,
+      "nameKo": "아론"
+    },
+    {
+      "heroId": 49,
+      "nameKo": "파나"
+    },
+    {
+      "heroId": 51,
+      "nameKo": "셀파닐"
+    },
+    {
+      "heroId": 52,
+      "nameKo": "안젤리나"
+    },
+    {
+      "heroId": 53,
+      "nameKo": "란포드"
+    },
+    {
+      "heroId": 54,
+      "nameKo": "리스틸"
+    },
+    {
+      "heroId": 55,
+      "nameKo": "란디우스"
+    },
+    {
+      "heroId": 56,
+      "nameKo": "레이첼"
+    },
+    {
+      "heroId": 57,
+      "nameKo": "윌러"
+    },
+    {
+      "heroId": 58,
+      "nameKo": "세레나"
+    },
+    {
+      "heroId": 59,
+      "nameKo": "기자로프"
+    },
+    {
+      "heroId": 60,
+      "nameKo": "시그마"
+    },
+    {
+      "heroId": 61,
+      "nameKo": "람다"
+    },
+    {
+      "heroId": 62,
+      "nameKo": "알프레드"
+    },
+    {
+      "heroId": 63,
+      "nameKo": "레인폴스"
+    },
+    {
+      "heroId": 64,
+      "nameKo": "브렌다"
+    },
+    {
+      "heroId": 65,
+      "nameKo": "비라쥬"
+    },
+    {
+      "heroId": 66,
+      "nameKo": "클라렛"
+    },
+    {
+      "heroId": 67,
+      "nameKo": "오메가"
+    },
+    {
+      "heroId": 69,
+      "nameKo": "에스텔"
+    },
+    {
+      "heroId": 70,
+      "nameKo": "요슈아"
+    },
+    {
+      "heroId": 71,
+      "nameKo": "렌"
+    },
+    {
+      "heroId": 72,
+      "nameKo": "레온하르트"
+    },
+    {
+      "heroId": 73,
+      "nameKo": "올리비에"
+    },
+    {
+      "heroId": 74,
+      "nameKo": "클로제"
+    },
+    {
+      "heroId": 75,
+      "nameKo": "디드리트"
+    },
+    {
+      "heroId": 76,
+      "nameKo": "아슈람"
+    },
+    {
+      "heroId": 77,
+      "nameKo": "판"
+    },
+    {
+      "heroId": 78,
+      "nameKo": "필로테스"
+    },
+    {
+      "heroId": 79,
+      "nameKo": "신구지 사쿠라"
+    },
+    {
+      "heroId": 80,
+      "nameKo": "칸자키 스미레"
+    },
+    {
+      "heroId": 81,
+      "nameKo": "아이리스"
+    },
+    {
+      "heroId": 82,
+      "nameKo": "우라메시 유스케"
+    },
+    {
+      "heroId": 83,
+      "nameKo": "히에이"
+    },
+    {
+      "heroId": 84,
+      "nameKo": "쿠라마"
+    },
+    {
+      "heroId": 85,
+      "nameKo": "도구로 형제"
+    },
+    {
+      "heroId": 86,
+      "nameKo": "쿠와바라 카즈마"
+    },
+    {
+      "heroId": 87,
+      "nameKo": "베티"
+    },
+    {
+      "heroId": 88,
+      "nameKo": "엘라스타"
+    },
+    {
+      "heroId": 89,
+      "nameKo": "유리아"
+    },
+    {
+      "heroId": 91,
+      "nameKo": "에밀리아"
+    },
+    {
+      "heroId": 92,
+      "nameKo": "환생 제시카"
+    },
+    {
+      "heroId": 93,
+      "nameKo": "미지의 기사"
+    },
+    {
+      "heroId": 94,
+      "nameKo": "아카야"
+    },
+    {
+      "heroId": 95,
+      "nameKo": "올리버"
+    },
+    {
+      "heroId": 96,
+      "nameKo": "멜파니"
+    },
+    {
+      "heroId": 97,
+      "nameKo": "일루시아"
+    },
+    {
+      "heroId": 98,
+      "nameKo": "빈센트"
+    },
+    {
+      "heroId": 99,
+      "nameKo": "클로테르"
+    },
+    {
+      "heroId": 100,
+      "nameKo": "로젠실"
+    },
+    {
+      "heroId": 101,
+      "nameKo": "헬레나"
+    },
+    {
+      "heroId": 102,
+      "nameKo": "세계수의 현자"
+    },
+    {
+      "heroId": 103,
+      "nameKo": "실린카"
+    },
+    {
+      "heroId": 104,
+      "nameKo": "알파"
+    },
+    {
+      "heroId": 105,
+      "nameKo": "뮤"
+    },
+    {
+      "heroId": 106,
+      "nameKo": "입실론"
+    },
+    {
+      "heroId": 108,
+      "nameKo": "사신 크루거"
+    },
+    {
+      "heroId": 109,
+      "nameKo": "화이트 시시"
+    },
+    {
+      "heroId": 110,
+      "nameKo": "아레스"
+    },
+    {
+      "heroId": 111,
+      "nameKo": "마이야"
+    },
+    {
+      "heroId": 112,
+      "nameKo": "토와"
+    },
+    {
+      "heroId": 113,
+      "nameKo": "탄생의 빛"
+    },
+    {
+      "heroId": 114,
+      "nameKo": "마리엘"
+    },
+    {
+      "heroId": 115,
+      "nameKo": "로자리아"
+    },
+    {
+      "heroId": 116,
+      "nameKo": "노에미"
+    },
+    {
+      "heroId": 118,
+      "nameKo": "오토크라트 4세"
+    },
+    {
+      "heroId": 119,
+      "nameKo": "루크레치아"
+    },
+    {
+      "heroId": 120,
+      "nameKo": "플로렌티아"
+    },
+    {
+      "heroId": 121,
+      "nameKo": "츠바메"
+    },
+    {
+      "heroId": 122,
+      "nameKo": "힐다"
+    },
+    {
+      "heroId": 123,
+      "nameKo": "베르너"
+    },
+    {
+      "heroId": 124,
+      "nameKo": "크리스티아네"
+    },
+    {
+      "heroId": 125,
+      "nameKo": "리코리스"
+    },
+    {
+      "heroId": 126,
+      "nameKo": "팟시르"
+    },
+    {
+      "heroId": 127,
+      "nameKo": "레나타"
+    },
+    {
+      "heroId": 129,
+      "nameKo": "구스타프"
+    },
+    {
+      "heroId": 130,
+      "nameKo": "미셸"
+    },
+    {
+      "heroId": 131,
+      "nameKo": "알티나"
+    },
+    {
+      "heroId": 132,
+      "nameKo": "아리안로드"
+    },
+    {
+      "heroId": 133,
+      "nameKo": "린 슈바르처"
+    },
+    {
+      "heroId": 134,
+      "nameKo": "아인즈 울 고운"
+    },
+    {
+      "heroId": 135,
+      "nameKo": "알베도"
+    },
+    {
+      "heroId": 136,
+      "nameKo": "샤르티아"
+    },
+    {
+      "heroId": 137,
+      "nameKo": "와타루"
+    },
+    {
+      "heroId": 138,
+      "nameKo": "히미코"
+    },
+    {
+      "heroId": 139,
+      "nameKo": "시바라쿠"
+    },
+    {
+      "heroId": 140,
+      "nameKo": "사나다 료"
+    },
+    {
+      "heroId": 141,
+      "nameKo": "카유라"
+    },
+    {
+      "heroId": 142,
+      "nameKo": "하시바 토마"
+    },
+    {
+      "heroId": 143,
+      "nameKo": "사카타 긴토키"
+    },
+    {
+      "heroId": 144,
+      "nameKo": "카구라"
+    },
+    {
+      "heroId": 145,
+      "nameKo": "시무라 신파치"
+    },
+    {
+      "heroId": 146,
+      "nameKo": "셀베리아"
+    },
+    {
+      "heroId": 147,
+      "nameKo": "알리시아"
+    },
+    {
+      "heroId": 148,
+      "nameKo": "이사라"
+    },
+    {
+      "heroId": 99161,
+      "nameKo": "크림조의 왕"
+    },
+    {
+      "heroId": 99162,
+      "nameKo": "수제트"
+    },
+    {
+      "heroId": 99163,
+      "nameKo": "초월자"
+    },
+    {
+      "heroId": 99164,
+      "nameKo": "베르너 폰 에길"
+    },
+    {
+      "heroId": 99165,
+      "nameKo": "마리안델"
+    },
+    {
+      "heroId": 99166,
+      "nameKo": "웨탐"
+    },
+    {
+      "heroId": 99167,
+      "nameKo": "리사"
+    },
+    {
+      "heroId": 99168,
+      "nameKo": "엘마"
+    },
+    {
+      "heroId": 99169,
+      "nameKo": "켈티스"
+    },
+    {
+      "heroId": 99170,
+      "nameKo": "로비나 대제"
+    },
+    {
+      "heroId": 99171,
+      "nameKo": "방주의 성녀"
+    },
+    {
+      "heroId": 99172,
+      "nameKo": "크림조의 집정관"
+    },
+    {
+      "heroId": 99173,
+      "nameKo": "아이언 챈슬러"
+    },
+    {
+      "heroId": 99174,
+      "nameKo": "아즈사"
+    },
+    {
+      "heroId": 99175,
+      "nameKo": "오보로"
+    },
+    {
+      "heroId": 99176,
+      "nameKo": "캐롤리안"
+    },
+    {
+      "heroId": 99177,
+      "nameKo": "카구야"
+    },
+    {
+      "heroId": 99178,
+      "nameKo": "아사멜"
+    },
+    {
+      "heroId": 99179,
+      "nameKo": "로스탐"
+    },
+    {
+      "heroId": 99180,
+      "nameKo": "방랑투사"
+    },
+    {
+      "heroId": 99181,
+      "nameKo": "줄리안"
+    },
+    {
+      "heroId": 99182,
+      "nameKo": "리키"
+    },
+    {
+      "heroId": 99183,
+      "nameKo": "마크렌"
+    },
+    {
+      "heroId": 99184,
+      "nameKo": "빛의 수호사도"
+    },
+    {
+      "heroId": 99185,
+      "nameKo": "아단켈모"
+    },
+    {
+      "heroId": 99186,
+      "nameKo": "빛과 그림자 검의 영혼"
+    },
+    {
+      "heroId": 99187,
+      "nameKo": "껍질 소녀"
+    },
+    {
+      "heroId": 99188,
+      "nameKo": "리오벡"
+    },
+    {
+      "heroId": 99189,
+      "nameKo": "시엔"
+    },
+    {
+      "heroId": 99190,
+      "nameKo": "폴리알"
+    },
+    {
+      "heroId": 99191,
+      "nameKo": "루그너"
+    },
+    {
+      "heroId": 99192,
+      "nameKo": "그렌실"
+    },
+    {
+      "heroId": 99193,
+      "nameKo": "요아&코니"
+    },
+    {
+      "heroId": 99194,
+      "nameKo": "일레인"
+    },
+    {
+      "heroId": 99195,
+      "nameKo": "반"
+    },
+    {
+      "heroId": 99196,
+      "nameKo": "아니에스"
+    },
+    {
+      "heroId": 99197,
+      "nameKo": "각성자"
+    },
+    {
+      "heroId": 99198,
+      "nameKo": "아마데우스"
+    },
+    {
+      "heroId": 99199,
+      "nameKo": "사그니"
+    },
+    {
+      "heroId": 99200,
+      "nameKo": "키리카"
+    },
+    {
+      "heroId": 99201,
+      "nameKo": "소니아 블랑쉬"
+    },
+    {
+      "heroId": 99202,
+      "nameKo": "엑셀러"
+    },
+    {
+      "heroId": 99203,
+      "nameKo": "님프"
+    },
+    {
+      "heroId": 99204,
+      "nameKo": "타탈리아"
+    },
+    {
+      "heroId": 99205,
+      "nameKo": "투어밀크"
+    },
+    {
+      "heroId": 99206,
+      "nameKo": "이리스"
+    },
+    {
+      "heroId": 99207,
+      "nameKo": "롤랑"
+    },
+    {
+      "heroId": 99208,
+      "nameKo": "프레시아"
+    },
+    {
+      "heroId": 99209,
+      "nameKo": "리나"
+    },
+    {
+      "heroId": 99210,
+      "nameKo": "제르가디스"
+    },
+    {
+      "heroId": 99211,
+      "nameKo": "가우리"
+    },
+    {
+      "heroId": 99212,
+      "nameKo": "강신자"
+    },
+    {
+      "heroId": 99213,
+      "nameKo": "캡틴 잭"
+    },
+    {
+      "heroId": 99214,
+      "nameKo": "네미아"
+    },
+    {
+      "heroId": 99215,
+      "nameKo": "안드리올"
+    },
+    {
+      "heroId": 99216,
+      "nameKo": "에쉬앤"
+    },
+    {
+      "heroId": 99217,
+      "nameKo": "호프만"
+    },
+    {
+      "heroId": 99218,
+      "nameKo": "이졸데"
+    },
+    {
+      "heroId": 99219,
+      "nameKo": "제이스"
+    },
+    {
+      "heroId": 99220,
+      "nameKo": "패트리샤"
+    },
+    {
+      "heroId": 99221,
+      "nameKo": "군"
+    },
+    {
+      "heroId": 99222,
+      "nameKo": "알칸펠"
+    },
+    {
+      "heroId": 99223,
+      "nameKo": "쇼우"
+    },
+    {
+      "heroId": 99224,
+      "nameKo": "아기토"
+    },
+    {
+      "heroId": 99225,
+      "nameKo": "빙설 심연의 지배자"
+    },
+    {
+      "heroId": 99226,
+      "nameKo": "테란틸"
+    },
+    {
+      "heroId": 99227,
+      "nameKo": "타브리스"
+    },
+    {
+      "heroId": 99228,
+      "nameKo": "이미르"
+    },
+    {
+      "heroId": 99229,
+      "nameKo": "셀리카"
+    },
+    {
+      "heroId": 99230,
+      "nameKo": "세라피나"
+    },
+    {
+      "heroId": 99231,
+      "nameKo": "비리아"
+    },
+    {
+      "heroId": 99232,
+      "nameKo": "빛의 소환사"
+    },
+    {
+      "heroId": 99233,
+      "nameKo": "시온"
+    },
+    {
+      "heroId": 99234,
+      "nameKo": "티아나"
+    },
+    {
+      "heroId": 99235,
+      "nameKo": "캡틴 코만도&베이비 헤드"
+    },
+    {
+      "heroId": 99236,
+      "nameKo": "맥&긴주"
+    },
+    {
+      "heroId": 99237,
+      "nameKo": "엔야"
+    },
+    {
+      "heroId": 99238,
+      "nameKo": "아리아"
+    },
+    {
+      "heroId": 99239,
+      "nameKo": "이리아"
+    },
+    {
+      "heroId": 99240,
+      "nameKo": "사프린"
+    },
+    {
+      "heroId": 99241,
+      "nameKo": "노노린"
+    },
+    {
+      "heroId": 99242,
+      "nameKo": "염룡파멸자"
+    },
+    {
+      "heroId": 99243,
+      "nameKo": "날개 꺾인 새"
+    },
+    {
+      "heroId": 99244,
+      "nameKo": "란델"
+    },
+    {
+      "heroId": 99245,
+      "nameKo": "마리 로즈"
+    },
+    {
+      "heroId": 99246,
+      "nameKo": "뇨텐구"
+    },
+    {
+      "heroId": 99247,
+      "nameKo": "카스미"
+    },
+    {
+      "heroId": 99248,
+      "nameKo": "시엘나"
+    },
+    {
+      "heroId": 99249,
+      "nameKo": "마카엘라"
+    },
+    {
+      "heroId": 99250,
+      "nameKo": "샘"
+    },
+    {
+      "heroId": 99251,
+      "nameKo": "마안의 서큐버스"
+    },
+    {
+      "heroId": 99252,
+      "nameKo": "루크만"
+    },
+    {
+      "heroId": 99253,
+      "nameKo": "아브샤이트"
+    },
+    {
+      "heroId": 99254,
+      "nameKo": "레이아"
+    },
+    {
+      "heroId": 99255,
+      "nameKo": "엘비스"
+    },
+    {
+      "heroId": 99256,
+      "nameKo": "엘자"
+    },
+    {
+      "heroId": 99257,
+      "nameKo": "루시"
+    },
+    {
+      "heroId": 99258,
+      "nameKo": "나츠"
+    },
+    {
+      "heroId": 99259,
+      "nameKo": "레이피어"
+    },
+    {
+      "heroId": 99260,
+      "nameKo": "샤리크"
+    },
+    {
+      "heroId": 99261,
+      "nameKo": "훔바바"
+    },
+    {
+      "heroId": 99262,
+      "nameKo": "비앙카"
+    },
+    {
+      "heroId": 99263,
+      "nameKo": "키벨레"
+    },
+    {
+      "heroId": 99264,
+      "nameKo": "빛과 어둠의 반역자"
+    },
+    {
+      "heroId": 99265,
+      "nameKo": "레이가"
+    },
+    {
+      "heroId": 99266,
+      "nameKo": "생거"
+    },
+    {
+      "heroId": 99267,
+      "nameKo": "라이잘린 스타우트"
+    },
+    {
+      "heroId": 99268,
+      "nameKo": "릴라 디자이어스"
+    },
+    {
+      "heroId": 99269,
+      "nameKo": "클라우디아 발렌츠"
+    },
+    {
+      "heroId": 99270,
+      "nameKo": "타지"
+    },
+    {
+      "heroId": 99271,
+      "nameKo": "린"
+    },
+    {
+      "heroId": 99272,
+      "nameKo": "무닝"
+    },
+    {
+      "heroId": 99273,
+      "nameKo": "태초의 젤다"
+    },
+    {
+      "heroId": 99274,
+      "nameKo": "란카"
+    },
+    {
+      "heroId": 99275,
+      "nameKo": "아오라"
+    },
+    {
+      "heroId": 99276,
+      "nameKo": "아이바 미유키"
+    },
+    {
+      "heroId": 99277,
+      "nameKo": "D-BOY"
+    },
+    {
+      "heroId": 99278,
+      "nameKo": "아이바 신야"
+    },
+    {
+      "heroId": 99279,
+      "nameKo": "아시"
+    },
+    {
+      "heroId": 99280,
+      "nameKo": "사륜"
+    },
+    {
+      "heroId": 99281,
+      "nameKo": "효랑어홍사"
+    },
+    {
+      "heroId": 99282,
+      "nameKo": "은(밴시)"
+    },
+    {
+      "heroId": 99283,
+      "nameKo": "아윈(쿠모)"
+    },
+    {
+      "heroId": 99284,
+      "nameKo": "야차왕 가이"
+    },
+    {
+      "heroId": 99285,
+      "nameKo": "수라왕 슈라토"
+    },
+    {
+      "heroId": 99286,
+      "nameKo": "가루다왕 레이가"
+    },
+    {
+      "heroId": 99287,
+      "nameKo": "마해검사"
+    }
+  ]
+}

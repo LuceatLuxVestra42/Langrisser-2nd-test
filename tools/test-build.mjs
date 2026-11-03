@@ -14,6 +14,8 @@ const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
 const skinConsumerPath = 'generated/skin-consumer.v1.json';
 const publicConsumerPath = 'generated/skin-consumer-public-m05-g.v1.json';
 const publicAssetsPath = 'generated/skin-assets-public-m05-g.v1.json';
+const heroIndexPath = 'generated/hero-index.v1.json';
+const heroIndex = JSON.parse(await readFile(heroIndexPath, 'utf8'));
 const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
 const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
 const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
@@ -21,6 +23,11 @@ const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')
 try {
   const built = await buildSite({ outputDir: output });
   assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths));
+  assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
+  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
+  assert.deepEqual(JSON.parse(await readFile(join(output, heroIndexPath), 'utf8')), heroIndex, 'packaged Hero Index must match the validated consumer');
+  assert.equal(heroIndex.heroes.length, 267);
+  assert.ok(heroIndex.heroes.every((row) => JSON.stringify(Object.keys(row).sort()) === '["heroId","nameKo"]'));
   assert.ok(built.files.some(file => file.path === skinConsumerPath), 'approved Skin Generated consumer must enter the public artifact');
   assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(skinConsumerPath), 'Frozen M03 consumer compatibility artifact must remain published');
   assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(publicConsumerPath), 'approved generic Skin consumer must be published');
@@ -50,6 +57,12 @@ try {
   await rm(join(output, skinConsumerPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
+  await rm(join(output, heroIndexPath));
+  await assert.rejects(validate(), /allowlist mismatch/);
+  await copyFile(heroIndexPath, join(output, heroIndexPath));
+  await writeFile(join(output, heroIndexPath), '{}');
+  await assert.rejects(validate(), /bytes differ.*hero-index\.v1\.json/);
+  await copyFile(heroIndexPath, join(output, heroIndexPath));
   await writeFile(join(output, skinConsumerPath), '{}');
   await assert.rejects(validate(), /bytes differ.*generated\/skin-consumer\.v1\.json/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
@@ -77,10 +90,14 @@ try {
     const response = await fetch(`${origin}/${publicConsumerPath}`, { cache: 'no-store' });
     assert.equal(response.status, 200, 'public Skin JSON URL must return HTTP 200');
     assert.deepEqual(await response.json(), { schemaVersion: 1, skins: expectedPublicRows }, 'fetched Skin JSON must retain approved semantic rows');
+    const heroIndexResponse = await fetch(`${origin}/${heroIndexPath}`, { cache: 'no-store' });
+    assert.equal(heroIndexResponse.status, 200, 'approved Hero Index JSON URL must return HTTP 200');
+    assert.deepEqual(await heroIndexResponse.json(), heroIndex, 'fetched Hero Index must contain only the exact approved ID/name consumer');
     for (const path of skinAssetPaths) assert.equal((await fetch(`${origin}/${path}`)).status, 200, `published Skin Fullart URL must resolve: ${path}`);
     assert.equal((await fetch(`${origin}/assets/skin-admissions/other/skin-601.webp`)).status, 404, 'unregistered admission directories must not be published');
     assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
     assert.equal((await fetch(`${origin}/canonical/skin-identities.v1.json`)).status, 404, 'Canonical owner files must remain outside the publication surface');
+    assert.equal((await fetch(`${origin}/canonical/hero-localizations-ko.v1.json`)).status, 404, 'Hero Canonical localization must remain outside the publication surface');
     assert.equal((await fetch(`${origin}/evidence/source/skin-identity-m01.v1.json`)).status, 404, 'Evidence files must remain outside the publication surface');
     assert.equal((await fetch(`${origin}/evidence/assets/skin-fullart-m05-d.v1.json`)).status, 404, 'M05-D Asset Evidence must remain private');
   } finally {
