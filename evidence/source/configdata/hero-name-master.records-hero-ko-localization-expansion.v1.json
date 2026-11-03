@@ -12,7 +12,7 @@
     "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
     "sourceBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
   },
-  "scope": "Pinned Hero name master mappings for the 133 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
+  "scope": "Pinned Hero name master mappings for the 190 already-canonical Hero IDs; nameCn is used only as a localization lookup key.",
   "fieldMapping": {
     "heroId": "ConfigData Hero ID",
     "nameCn": "ConfigData Chinese display-name key as represented by the pinned Hero name master"
@@ -681,6 +681,291 @@
     {
       "heroId": 148,
       "nameCn": "伊莎拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 99161,
+      "nameCn": "红月之王",
+      "status": "verified"
+    },
+    {
+      "heroId": 99162,
+      "nameCn": "修杰特",
+      "status": "verified"
+    },
+    {
+      "heroId": 99163,
+      "nameCn": "超越之人",
+      "status": "verified"
+    },
+    {
+      "heroId": 99164,
+      "nameCn": "维尔纳",
+      "status": "verified"
+    },
+    {
+      "heroId": 99165,
+      "nameCn": "玛丽安蒂尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99166,
+      "nameCn": "维坦",
+      "status": "verified"
+    },
+    {
+      "heroId": 99167,
+      "nameCn": "丽莎",
+      "status": "verified"
+    },
+    {
+      "heroId": 99168,
+      "nameCn": "艾尔玛",
+      "status": "verified"
+    },
+    {
+      "heroId": 99169,
+      "nameCn": "凯尔蒂斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 99170,
+      "nameCn": "洛维奈尔大帝",
+      "status": "verified"
+    },
+    {
+      "heroId": 99171,
+      "nameCn": "方舟圣女",
+      "status": "verified"
+    },
+    {
+      "heroId": 99172,
+      "nameCn": "月之执政官",
+      "status": "verified"
+    },
+    {
+      "heroId": 99173,
+      "nameCn": "铁血总帅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99174,
+      "nameCn": "梓",
+      "status": "verified"
+    },
+    {
+      "heroId": 99175,
+      "nameCn": "胧",
+      "status": "verified"
+    },
+    {
+      "heroId": 99176,
+      "nameCn": "卡洛莉安",
+      "status": "verified"
+    },
+    {
+      "heroId": 99177,
+      "nameCn": "辉夜",
+      "status": "verified"
+    },
+    {
+      "heroId": 99178,
+      "nameCn": "亚莎梅尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99179,
+      "nameCn": "洛斯塔姆",
+      "status": "verified"
+    },
+    {
+      "heroId": 99180,
+      "nameCn": "漂逐斗客",
+      "status": "verified"
+    },
+    {
+      "heroId": 99181,
+      "nameCn": "朱利安",
+      "status": "verified"
+    },
+    {
+      "heroId": 99182,
+      "nameCn": "里奇",
+      "status": "verified"
+    },
+    {
+      "heroId": 99183,
+      "nameCn": "马库雷",
+      "status": "verified"
+    },
+    {
+      "heroId": 99184,
+      "nameCn": "光佑使徒",
+      "status": "verified"
+    },
+    {
+      "heroId": 99185,
+      "nameCn": "亚德凯摩",
+      "status": "verified"
+    },
+    {
+      "heroId": 99186,
+      "nameCn": "光影剑魄",
+      "status": "verified"
+    },
+    {
+      "heroId": 99187,
+      "nameCn": "壳中少女",
+      "status": "verified"
+    },
+    {
+      "heroId": 99188,
+      "nameCn": "里奥贝克",
+      "status": "verified"
+    },
+    {
+      "heroId": 99189,
+      "nameCn": "席恩",
+      "status": "verified"
+    },
+    {
+      "heroId": 99190,
+      "nameCn": "波莉阿鲁",
+      "status": "verified"
+    },
+    {
+      "heroId": 99191,
+      "nameCn": "卢古耐尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99192,
+      "nameCn": "格伦希尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99193,
+      "nameCn": "琼&康娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 99194,
+      "nameCn": "艾蕾因",
+      "status": "verified"
+    },
+    {
+      "heroId": 99195,
+      "nameCn": "范恩",
+      "status": "verified"
+    },
+    {
+      "heroId": 99196,
+      "nameCn": "亚妮艾丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 99197,
+      "nameCn": "醒觉者",
+      "status": "verified"
+    },
+    {
+      "heroId": 99198,
+      "nameCn": "阿玛迪斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 99199,
+      "nameCn": "萨格尼",
+      "status": "verified"
+    },
+    {
+      "heroId": 99200,
+      "nameCn": "雾香",
+      "status": "verified"
+    },
+    {
+      "heroId": 99201,
+      "nameCn": "桑妮雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99202,
+      "nameCn": "爱克雪拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 99203,
+      "nameCn": "宁芙",
+      "status": "verified"
+    },
+    {
+      "heroId": 99204,
+      "nameCn": "塔塔利亚",
+      "status": "verified"
+    },
+    {
+      "heroId": 99205,
+      "nameCn": "托米尔克",
+      "status": "verified"
+    },
+    {
+      "heroId": 99206,
+      "nameCn": "伊莉丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 99207,
+      "nameCn": "罗兰",
+      "status": "verified"
+    },
+    {
+      "heroId": 99208,
+      "nameCn": "普蕾茜娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99209,
+      "nameCn": "莉娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 99210,
+      "nameCn": "杰路刚帝士",
+      "status": "verified"
+    },
+    {
+      "heroId": 99211,
+      "nameCn": "高里",
+      "status": "verified"
+    },
+    {
+      "heroId": 99212,
+      "nameCn": "神降者",
+      "status": "verified"
+    },
+    {
+      "heroId": 99213,
+      "nameCn": "杰克船长",
+      "status": "verified"
+    },
+    {
+      "heroId": 99214,
+      "nameCn": "奈米娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99215,
+      "nameCn": "安德里奥",
+      "status": "verified"
+    },
+    {
+      "heroId": 99216,
+      "nameCn": "艾希恩",
+      "status": "verified"
+    },
+    {
+      "heroId": 99287,
+      "nameCn": "魔骸剑使",
       "status": "verified"
     }
   ],
