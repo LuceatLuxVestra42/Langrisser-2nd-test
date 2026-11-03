@@ -276,6 +276,7 @@ try {
     '/generated/soldier-training-tech-descriptions.v1.json',
   ];
   const anchors = [
+    ['영웅 전체 목록', 'hero-index'],
     ['영웅', 'heroes'],
     ['일반 SSR 장비', 'general-ssr-equipment'],
     ['전용 장비', 'exclusive-equipment'],
@@ -391,7 +392,9 @@ try {
     }));
     assert.equal(layout.viewportWidth, viewport.width);
     assert.ok(layout.navigationVisible, `${viewport.name}: section navigation must be visible`);
-    assert.equal(layout.links.length, 6, `${viewport.name}: expected six shortcut links`);
+    assert.deepEqual(layout.links.map(({ label, href }) => [label, href]),
+      anchors.map(([label, id]) => [label, `#${id}`]),
+      `${viewport.name}: shortcut count, order, labels, and fragments must match the approved contract`);
     assert.ok(layout.links.every((link) => link.visible), `${viewport.name}: every shortcut must be visible`);
     assert.ok(Object.entries(layout.rendered).filter(([name]) => name !== 'otherHeroSkinSections')
       .every(([, count]) => count > 0), `${viewport.name}: expected site content must render`);
@@ -560,6 +563,7 @@ try {
   assert.ok([...loadedSameOriginPaths].some((path) => path === '/app.js'), 'Browser did not load app.js');
   assert.deepEqual(resourceFailures, [], `same-origin resource failures: ${resourceFailures.join('; ')}`);
   assert.deepEqual(pageErrors, [], `uncaught Browser page errors: ${pageErrors.join('; ')}`);
+  assert.deepEqual(consoleErrors, [], `Browser console errors: ${consoleErrors.join('; ')}`);
   console.log(`BROWSER_RESOURCE_PATHS=${JSON.stringify([...loadedSameOriginPaths].sort())}`);
   console.log(`BROWSER_CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
   console.log('DESKTOP_1440_SMOKE=PASS');
