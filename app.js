@@ -1,6 +1,11 @@
 import { selectSkinFullarts } from './skin-fullart-presentation.mjs';
 
 const container = document.querySelector('#heroes');
+const heroIndexContainer = document.querySelector('#hero-index-results');
+const heroIndexSearch = document.querySelector('#hero-index-search');
+const heroIndexSearchClear = document.querySelector('#hero-index-search-clear');
+const heroIndexSearchCount = document.querySelector('#hero-index-search-count');
+const heroIndexSearchEmpty = document.querySelector('#hero-index-search-empty');
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
 const heroFactionFilter = document.querySelector('#hero-faction-filter');
@@ -26,6 +31,7 @@ const normalSoldierCount = document.querySelector('#normal-soldier-count');
 let exclusiveEquipmentHeroById = new Map();
 let exclusiveEquipmentNavigation = null;
 let heroNavigation = null;
+let heroIndexDetailIds = new Set();
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
 let spSoldierNavigation = null;
@@ -89,6 +95,54 @@ function filterHeroes(heroes, query) {
   if (/^(?:\d|[+-]\d)/.test(term)) return [];
   const nameQuery = term.toLocaleLowerCase('ko-KR');
   return heroes.filter((hero) => hero.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
+}
+
+function filterHeroIndex(heroes, query) {
+  const term = query.trim();
+  if (!term) return heroes;
+  if (/^\d+$/.test(term)) return heroes.filter((hero) => String(hero.heroId) === term);
+  if (/^(?:\d|[+-]\d)/.test(term)) return [];
+  const nameQuery = term.toLocaleLowerCase('ko-KR');
+  return heroes.filter((hero) => hero.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
+}
+
+function renderHeroIndexSearch({ heroes, detailHeroIds, input, clearButton, count, emptyState, container, showDetailTarget }) {
+  const approvedDetailIds = new Set(detailHeroIds);
+  const update = () => {
+    const matches = filterHeroIndex(heroes, input.value);
+    const rows = matches.map((hero) => {
+      const item = document.createElement('li');
+      item.className = 'hero-index-row';
+      item.id = `hero-index-entry-${hero.heroId}`;
+      const name = document.createElement('span');
+      name.className = 'hero-index-name';
+      name.textContent = hero.nameKo;
+      const id = document.createElement('span');
+      id.className = 'hero-index-id';
+      id.textContent = `Hero ID ${hero.heroId}`;
+      if (approvedDetailIds.has(hero.heroId)) {
+        const link = makeAnchor(hero.nameKo, `hero-${hero.heroId}`, () => showDetailTarget(hero.heroId), true);
+        link.className = 'hero-index-detail-link';
+        item.append(link, id);
+      } else {
+        item.append(name, id);
+      }
+      return item;
+    });
+    container.replaceChildren(...rows);
+    count.textContent = `검색 결과 ${matches.length}명 / 전체 ${heroes.length}명`;
+    emptyState.hidden = matches.length > 0;
+    return matches;
+  };
+  input.addEventListener('input', update);
+  const showAll = (focus = true) => {
+    input.value = '';
+    update();
+    if (focus) input.focus();
+  };
+  clearButton.addEventListener('click', () => showAll());
+  update();
+  return { showAll, update };
 }
 
 function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, emptyState }) {
@@ -508,6 +562,7 @@ try {
     heroResponse.json(), relationResponse.json(), normalResponse.json(), spResponse.json(), skinResponse.json(), skinAssetResponse.json(),
   ]);
   if (data.schemaVersion !== 1 || !Array.isArray(data.heroes)) throw new Error('Unsupported generated Hero data');
+  heroIndexDetailIds = new Set(data.heroes.map(({ id }) => id));
   if (data.heroes.some((hero) => typeof hero.nameKo !== 'string' || !hero.nameKo)) throw new Error('Generated Hero Korean display label is missing');
   if (data.heroes.some((hero) => !Number.isSafeInteger(hero.rarity?.rankId) || typeof hero.rarity.label !== 'string' || !hero.rarity.label.trim())) throw new Error('Generated Hero rarity is missing');
   if (data.heroes.some((hero) => !Array.isArray(hero.factions) || hero.factions.length === 0)) throw new Error('Generated Hero Faction presentation is missing');
@@ -585,6 +640,34 @@ try {
   status.className = 'status status-error';
   status.textContent = '영웅 정보를 불러오지 못했습니다.';
   container.replaceChildren(status);
+  console.error(error);
+}
+
+try {
+  const response = await fetch('./generated/hero-index.v1.json');
+  if (!response.ok) throw new Error(`Generated Hero Index request failed (${response.status})`);
+  const data = await response.json();
+  if (data.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== 267) {
+    throw new Error('Unsupported generated Hero Index data');
+  }
+  const seen = new Set();
+  for (const hero of data.heroes) {
+    if (Object.keys(hero).sort().join(',') !== 'heroId,nameKo'
+      || !Number.isSafeInteger(hero.heroId) || typeof hero.nameKo !== 'string' || !hero.nameKo.trim()
+      || seen.has(hero.heroId)) throw new Error('Malformed or duplicate generated Hero Index row');
+    seen.add(hero.heroId);
+  }
+  heroIndexNavigation = renderHeroIndexSearch({
+    heroes: data.heroes, detailHeroIds: heroIndexDetailIds,
+    input: heroIndexSearch, clearButton: heroIndexSearchClear,
+    count: heroIndexSearchCount, emptyState: heroIndexSearchEmpty, container: heroIndexContainer,
+    showDetailTarget: (heroId) => heroNavigation?.showTarget(heroId),
+  });
+} catch (error) {
+  const status = document.createElement('p');
+  status.className = 'status status-error';
+  status.textContent = '영웅 전체 목록을 불러오지 못했습니다.';
+  heroIndexContainer.replaceChildren(status);
   console.error(error);
 }
 

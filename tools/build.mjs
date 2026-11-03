@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve, sep } from 'node:path';
 import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
+import { validateHeroIndex } from './validate-hero-index.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateM05G } from './validate-skin-m05-g.mjs';
@@ -43,7 +44,7 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   }
   const files = [
     'index.html', 'app.js', 'styles.css',
-    'generated/hero-slice.v1.json', 'generated/job-glossary.v1.json',
+    'generated/hero-slice.v1.json', 'generated/hero-index.v1.json', 'generated/job-glossary.v1.json',
     'generated/general-ssr-equipment.v1.json', 'generated/exclusive-equipment.v1.json',
     'generated/sp-soldiers.v1.json', 'generated/normal-soldiers.v1.json',
     'generated/hero-soldier-relations.v1.json',
@@ -101,6 +102,7 @@ export async function buildSite({ outputDir, verifyDir, manifestPath } = {}) {
   }
   const selectedOutput = outputDir || verifyDir;
   await validateM05G();
+  const heroIndexValidation = await validateHeroIndex();
   const skinFullartPaths = await readApprovedSkinAssetPaths();
   if (manifestPath && selectedOutput && (resolve(manifestPath) === resolve(selectedOutput)
     || resolve(manifestPath).startsWith(`${resolve(selectedOutput)}${sep}`))) throw new Error('Manifest must remain outside the public artifact');
@@ -369,6 +371,7 @@ try {
   await mkdir(join(output, 'generated'), { recursive: true });
   for (const file of ['index.html', 'app.js', 'styles.css']) await cp(resolve(file), join(output, file));
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
+  await cp(resolve('generated/hero-index.v1.json'), join(output, 'generated', 'hero-index.v1.json'));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
   const skinConsumerPath = resolve('generated/skin-consumer.v1.json');
@@ -413,6 +416,9 @@ try {
   if (!app.includes("fetch('./generated/hero-slice.v1.json')")) {
     throw new Error('built app does not resolve the generated Hero data entry');
   }
+  if (!app.includes("fetch('./generated/hero-index.v1.json')")) {
+    throw new Error('built app does not resolve the approved Generated Hero Index entry');
+  }
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
   if (!app.includes("fetch('./generated/soldier-training-tech-descriptions.v1.json')")) throw new Error('built app does not resolve the scoped TrainingTech proposal consumer');
@@ -452,7 +458,7 @@ try {
     await writeFile(resolve(manifestPath), `${JSON.stringify({ schemaVersion: 1, sourceSha, files }, null, 2)}\n`, { flag: 'wx' });
   }
   completed = true;
-  process.stdout.write(`Static build: PASS (${output}; fresh Hero, ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, and ${packagedEquipment.equipment.length} General SSR Equipment plus ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, and ${packagedRelations.relations.length} Hero–Soldier relation records packaged, ${portraitPaths.length} portrait assets resolved; public allowlist ${files.length} files)\n`);
+  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} detail endpoints; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
   return { output, files };
 } finally {
   if (!verifyDir && (!outputDir || !completed)) await rm(output, { recursive: true, force: true });

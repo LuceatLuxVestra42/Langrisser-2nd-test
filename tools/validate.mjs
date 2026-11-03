@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { renderGenerated, renderGeneralSsrEquipment } from './generate.mjs';
+import { validateHeroIndex } from './validate-hero-index.mjs';
 import { validateHeroPortraitSelection } from './validate-hero-portrait-selection.mjs';
 import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-raw-stats.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
@@ -561,6 +562,7 @@ check(generatedJson.heroes.every((hero) => {
   if ([6, 8].includes(hero.id)) expectedKeys.push('jobLevelSourceStats');
   return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());
 }), 'generated consumer contains non-presentation fields');
+await validateHeroIndex(root);
 const expectedSpJobsByHeroId = new Map([
   [1, [{ jobId: 262, nameKo: '고독한 검객', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
   [3, [{ jobId: 633, nameKo: '바람의 기사', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],

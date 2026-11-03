@@ -36,6 +36,7 @@ const [frontend, html, styles, heroData, relationData, exclusiveData] = await Pr
 ]);
 
 const sectionShortcutTargets = [
+  ['영웅 전체 목록', 'hero-index'],
   ['영웅', 'heroes'],
   ['일반 SSR 장비', 'general-ssr-equipment'],
   ['전용 장비', 'exclusive-equipment'],
@@ -48,8 +49,8 @@ assert.ok(shortcutNav, 'section shortcuts must use a named navigation landmark')
 assert.ok(shortcutNav[1].trim(), 'section shortcut navigation must have an accessible name');
 const shortcutLinks = [...shortcutNav[2].matchAll(/<a\b[^>]*href="#([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
   .map(([, target, label]) => [label.replace(/<[^>]*>/g, '').trim(), target]);
-assert.deepEqual(shortcutLinks, sectionShortcutTargets, 'shortcut labels and hrefs must match the six existing sections in order');
-assert.equal(shortcutLinks.length, 6, 'section shortcut navigation must have exactly six links');
+assert.deepEqual(shortcutLinks, sectionShortcutTargets, 'shortcut labels and hrefs must match the seven existing sections in order');
+assert.equal(shortcutLinks.length, 7, 'section shortcut navigation must have exactly seven links');
 assert.ok(!/<a\b(?![^>]*\bhref=)[^>]*>/i.test(shortcutNav[2]), 'section shortcut navigation must not contain placeholder links');
 for (const [, target] of sectionShortcutTargets) {
   const idCount = [...html.matchAll(new RegExp('\\bid="' + target + '"', 'g'))].length;
@@ -59,8 +60,8 @@ assert.match(styles, /@media\s*\(min-width:\s*768px\)\s*\{\s*\.section-shortcuts
   'section shortcuts must remain sticky on desktop');
 assert.equal([...styles.matchAll(/\.section-shortcuts\s*\{/g)].length, 1,
   'mobile and tablet widths must retain the non-sticky document-flow fallback');
-assert.match(styles, /#heroes,\s*#general-ssr-equipment,\s*#exclusive-equipment,\s*#sp-soldiers,\s*#normal-soldiers,\s*#job-glossary\s*\{\s*scroll-margin-top:\s*3\.5rem;/s,
-  'all six existing shortcut targets must clear the desktop sticky navigation');
+assert.match(styles, /#heroes,\s*#hero-index,\s*#general-ssr-equipment,\s*#exclusive-equipment,\s*#sp-soldiers,\s*#normal-soldiers,\s*#job-glossary\s*\{\s*scroll-margin-top:\s*3\.5rem;/s,
+  'existing shortcut targets must clear the desktop sticky navigation');
 assert.equal(heroData.schemaVersion, 1);
 assert.ok(heroData.heroes.length > 0);
 assert.ok(heroData.heroes.every(({ id, nameKo }) => Number.isSafeInteger(id) && typeof nameKo === 'string' && nameKo.trim()));
@@ -69,6 +70,13 @@ assert.ok(heroData.heroes.every(({ factions }) => Array.isArray(factions) && fac
 assert.equal(new Set(heroData.heroes.map(({ id }) => id)).size, heroData.heroes.length);
 assert.equal(relationData.schemaVersion, 1);
 assert.equal(exclusiveData.schemaVersion, 1);
+assert.match(html, /<section id="hero-index" class="hero-index-section"/);
+assert.match(html, /aria-label="전체 영웅 목록 검색"/);
+assert.match(html, /id="hero-index-search" type="search"/);
+assert.match(html, /id="hero-index-search-clear" type="button"/);
+assert.match(html, /id="hero-index-search-count" class="hero-search-count" aria-live="polite"/);
+assert.match(html, /id="hero-index-search-empty"[^>]*role="status"[^>]*aria-live="polite"[^>]*hidden/);
+assert.match(html, /id="hero-index-results" class="hero-index-list"/);
 assert.match(html, /<div class="hero-search" role="search" aria-label="영웅 검색">/);
 assert.match(html, /<label for="hero-search">한국어 영웅명 또는 Hero ID<\/label>/);
 assert.match(html, /id="hero-search" type="search"/);

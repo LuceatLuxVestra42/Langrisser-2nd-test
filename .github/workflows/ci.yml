@@ -142,6 +142,12 @@ jobs:
       - name: Validate Hero presentation slice
         run: node tools/validate.mjs
 
+      - name: Validate approved Hero Index Consumer
+        run: node tools/validate-hero-index.mjs
+
+      - name: Test Hero Index approval and Generated failure boundaries
+        run: node tools/test-hero-index.mjs
+
       - name: Test Hero JobLevel raw stats
         run: node tools/test-hero-job-level-raw-stats.mjs
 
@@ -177,6 +183,9 @@ jobs:
 
       - name: Test Hero search presentation and hidden-target navigation
         run: node tools/test-hero-search-presentation.mjs
+
+      - name: Test Hero Index search and presentation regressions
+        run: node tools/test-hero-index-presentation.mjs
 
       - name: Validate Hero Talent star-skill relations
         run: node tools/validate-hero-talent-star-skills.mjs
