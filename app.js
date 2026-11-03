@@ -31,6 +31,7 @@ const normalSoldierCount = document.querySelector('#normal-soldier-count');
 let exclusiveEquipmentHeroById = new Map();
 let exclusiveEquipmentNavigation = null;
 let heroNavigation = null;
+let heroIndexNavigation = null;
 let heroIndexDetailIds = new Set();
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
@@ -142,7 +143,13 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, input, clearButton, coun
   };
   clearButton.addEventListener('click', () => showAll());
   update();
-  return { showAll, update };
+  const showTarget = (heroId) => {
+    if (!heroes.some(({ heroId: id }) => id === heroId)) return false;
+    input.value = '';
+    update();
+    return true;
+  };
+  return { showAll, showTarget, update };
 }
 
 function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, emptyState }) {
@@ -611,14 +618,6 @@ try {
     throw new Error('Hero–Soldier relation references an unavailable Hero presentation');
   }
   container.replaceChildren();
-  exclusiveEquipmentHeroById = new Map();
-  for (const hero of data.heroes) {
-    const equipmentId = hero.exclusiveEquipment?.equipmentId;
-    if (!Number.isSafeInteger(equipmentId) || exclusiveEquipmentHeroById.has(equipmentId)) {
-      throw new Error('Malformed or duplicate Hero Slice Exclusive Equipment endpoint');
-    }
-    exclusiveEquipmentHeroById.set(equipmentId, hero);
-  }
   heroBySoldierId = new Map();
   for (const [heroId, soldierIds] of relationsByHero) {
     for (const soldierId of soldierIds) {
@@ -660,7 +659,7 @@ try {
       || seen.has(hero.heroId)) throw new Error('Malformed or duplicate generated Hero Index row');
     seen.add(hero.heroId);
   }
-  renderHeroIndexSearch({
+  heroIndexNavigation = renderHeroIndexSearch({
     heroes: data.heroes, detailHeroIds: heroIndexDetailIds,
     input: heroIndexSearch, clearButton: heroIndexSearchClear,
     count: heroIndexSearchCount, emptyState: heroIndexSearchEmpty, container: heroIndexContainer,
@@ -827,10 +826,11 @@ function addExclusiveEquipment(item) {
   effect.textContent = item.effectDescriptionKo.replace(/\\n/g, '\n');
   const hero = exclusiveEquipmentHeroById.get(item.equipmentId);
   if (hero) {
+    const isDetail = hero.navigationTarget.surface === 'HERO_DETAIL';
     const heroLink = makeAnchor(
-      `연결 영웅 · ${hero.nameKo}`,
-      `hero-${hero.id}`,
-      () => heroNavigation?.showTarget(hero.id),
+      `연결 영웅 · ${hero.heroNameKo} · 프로젝트 검수 표시명`,
+      hero.navigationTarget.fragment,
+      () => isDetail ? heroNavigation?.showTarget(hero.heroId) : heroIndexNavigation?.showTarget(hero.heroId),
       true,
     );
     heroLink.className = 'equipment-navigation-link';
@@ -842,18 +842,38 @@ function addExclusiveEquipment(item) {
 }
 
 try {
-  const response = await fetch('./generated/exclusive-equipment.v1.json');
+  const [response, navigationResponse] = await Promise.all([
+    fetch('./generated/exclusive-equipment.v1.json'),
+    fetch('./generated/exclusive-equipment-hero-navigation.v1.json'),
+  ]);
   if (!response.ok) throw new Error('Generated Exclusive Equipment request failed (' + response.status + ')');
+  if (!navigationResponse.ok) throw new Error('Generated Exclusive Equipment Hero Navigation request failed (' + navigationResponse.status + ')');
   const data = await response.json();
+  const navigationData = await navigationResponse.json();
   if (data.schemaVersion !== 1 || !Array.isArray(data.equipment)) throw new Error('Unsupported Exclusive Equipment data');
+  if (navigationData.schemaVersion !== 1 || navigationData.consumer !== 'exclusive-equipment-hero-navigation'
+    || !Array.isArray(navigationData.records) || navigationData.records.length !== 167) {
+    throw new Error('Unsupported Exclusive Equipment Hero Navigation data');
+  }
   const ids = data.equipment.map((item) => item.equipmentId);
   if (ids.some((id) => !Number.isSafeInteger(id)) || new Set(ids).size !== ids.length) throw new Error('Malformed or duplicate Exclusive Equipment ID');
   if (data.equipment.some((item) => typeof item.nameKo !== 'string' || !item.nameKo.trim()
     || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim())) throw new Error('Exclusive Equipment presentation is incomplete');
   const equipmentIds = new Set(ids);
-  for (const [equipmentId] of exclusiveEquipmentHeroById) {
-    if (!equipmentIds.has(equipmentId)) throw new Error(`Hero Slice references missing Exclusive Equipment ID ${equipmentId}`);
+  exclusiveEquipmentHeroById = new Map();
+  for (const row of navigationData.records) {
+    if (Object.keys(row).sort().join(',') !== 'equipmentId,heroId,heroNameKo,navigationTarget'
+      || !Number.isSafeInteger(row.equipmentId) || !Number.isSafeInteger(row.heroId)
+      || !equipmentIds.has(row.equipmentId) || exclusiveEquipmentHeroById.has(row.equipmentId)
+      || typeof row.heroNameKo !== 'string' || !row.heroNameKo.trim()
+      || !row.navigationTarget || !['HERO_DETAIL', 'HERO_INDEX'].includes(row.navigationTarget.surface)
+      || Object.keys(row.navigationTarget).sort().join(',') !== 'fragment,surface'
+      || row.navigationTarget.fragment !== (row.navigationTarget.surface === 'HERO_DETAIL' ? `hero-${row.heroId}` : `hero-index-entry-${row.heroId}`)) {
+      throw new Error('Malformed, duplicate, or unresolved Exclusive Equipment Hero Navigation record');
+    }
+    exclusiveEquipmentHeroById.set(row.equipmentId, row);
   }
+  if (exclusiveEquipmentHeroById.size !== 167) throw new Error('Exclusive Equipment Hero Navigation population must remain 167');
   exclusiveEquipmentNavigation = renderEquipmentSearch({
     equipment: data.equipment, input: exclusiveEquipmentSearch, clearButton: exclusiveEquipmentClear,
     count: exclusiveEquipmentCount, container: exclusiveEquipmentContainer,

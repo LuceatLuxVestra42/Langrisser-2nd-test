@@ -34,10 +34,11 @@ process.stdout.write('Exclusive Equipment presentation negatives: PASS (populati
 const generalGenerated = await read('generated/general-ssr-equipment.v1.json');
 const heroSlice = await read('generated/hero-slice.v1.json');
 const canonicalExclusiveRelations = await read('canonical/hero-exclusive-equipment-relations.v1.json');
+const heroNavigationConsumer = await read('generated/exclusive-equipment-hero-navigation.v1.json');
 const start = frontend.indexOf('function addGeneralEquipment(');
 const end = frontend.indexOf('function addSpSoldier(', start);
 assert.ok(start >= 0 && end > start, 'equipment runtime boundaries are missing');
-const equipmentRuntime = frontend.slice(start, end);
+const equipmentRuntime = `${extractFunction(frontend, 'filterEquipment')}\n${extractFunction(frontend, 'renderEquipmentSearch')}\n${frontend.slice(start, end)}`;
 const anchorRuntime = extractFunction(frontend, 'makeAnchor');
 const heroRuntime = `${extractFunction(frontend, 'makeSkinFullartPresentation')}\n${extractFunction(frontend, 'makeHeroRarityLabel')}\n${extractFunction(frontend, 'makeFactionPresentation')}\n${extractFunction(frontend, 'makeOriginPresentation')}\n${extractFunction(frontend, 'appendSkillDescription')}\n${extractFunction(frontend, 'makeTalentDescription')}\n${extractFunction(frontend, 'makeTalentPresentation')}\n${extractFunction(frontend, 'makeSpJobPresentation')}\n${extractFunction(frontend, 'makeJobConnectionLabel')}\n${extractFunction(frontend, 'makeJobLevelSourceStatsPresentation')}\n${extractFunction(frontend, 'addHero')}`;
 const { runInNewContext } = await import('node:vm');
@@ -60,7 +61,8 @@ async function runEquipmentRuntime(general, exclusive) {
     '#exclusive-equipment-clear': exclusiveClear, '#exclusive-equipment-count': exclusiveCount,
   };
   const errors = [];
-  const heroByEquipmentId = new Map(heroSlice.heroes.map((hero) => [hero.exclusiveEquipment.equipmentId, hero]));
+  const heroByEquipmentId = new Map(heroNavigationConsumer.records.map((hero) => [hero.equipmentId, hero]));
+  const navigationState = { detailTarget: null, indexTarget: null, indexSearchValue: '필터된 검색어' };
   const sandbox = {
     generalEquipmentContainer, exclusiveEquipmentContainer,
     generalEquipmentSearch: generalInput, generalEquipmentClear: generalClear, generalEquipmentCount: generalCount,
@@ -70,16 +72,22 @@ async function runEquipmentRuntime(general, exclusive) {
       createTextNode: (text) => Object.assign(element(), { textContent: text }),
       querySelector: (selector) => selectors[selector],
       getElementById: (id) => {
-        const hero = [...heroByEquipmentId.values()].find((candidate) => `hero-${candidate.id}` === id);
-        return hero ? { id } : exclusiveEquipmentContainer.children.find((child) => child.id === id) ?? null;
+        const detail = [...heroByEquipmentId.values()].find((candidate) => candidate.navigationTarget.surface === 'HERO_DETAIL' && candidate.navigationTarget.fragment === id);
+        if (detail) return { id, hidden: true, scrollIntoView() { this.scrolled = true; } };
+        if (navigationState.indexTarget === id) return { id, scrollIntoView() { this.scrolled = true; } };
+        return exclusiveEquipmentContainer.children.find((child) => child.id === id) ?? null;
       },
     },
     exclusiveEquipmentHeroById: heroByEquipmentId,
     exclusiveEquipmentNavigation: null,
+    heroNavigation: { showTarget(id) { navigationState.detailTarget = id; return true; } },
+    heroIndexNavigation: { showTarget(id) { navigationState.indexTarget = `hero-index-entry-${id}`; navigationState.indexSearchValue = ''; return true; } },
+    window: { requestAnimationFrame(callback) { callback(); }, location: { hash: '' } },
     fetch: async (path) => ({
       ok: true,
       json: async () => structuredClone(
-        path === './generated/general-ssr-equipment.v1.json' ? general : exclusive
+        path === './generated/general-ssr-equipment.v1.json' ? general
+          : path === './generated/exclusive-equipment-hero-navigation.v1.json' ? heroNavigationConsumer : exclusive
       ),
     }),
     console: { error: (error) => errors.push(error.message) },
@@ -88,7 +96,7 @@ async function runEquipmentRuntime(general, exclusive) {
     + '\nreturn { makeAnchor, exclusiveEquipmentNavigation };\n})()', sandbox);
   return { generalEquipmentContainer, exclusiveEquipmentContainer, generalInput, generalClear, generalCount,
     exclusiveInput, exclusiveClear, exclusiveCount, errors,
-    navigation: runtimeResult.exclusiveEquipmentNavigation, makeAnchor: runtimeResult.makeAnchor };
+    navigation: runtimeResult.exclusiveEquipmentNavigation, makeAnchor: runtimeResult.makeAnchor, navigationState };
 }
 for (const [generalCount, exclusiveCount] of [[206, 167]]) {
   const general = { ...generalGenerated, equipment: generalGenerated.equipment.slice(0, generalCount) };
@@ -156,13 +164,26 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
     assert.deepEqual(result.exclusiveEquipmentContainer.children.map((card) => card.id),
       exclusive.equipment.map((item) => `equipment-${item.equipmentId}`));
     const linkedEquipment = result.exclusiveEquipmentContainer.children.filter((card) => card.children.some((child) => child.className === 'equipment-navigation-link'));
-    assert.equal(linkedEquipment.length, 29);
-    for (const hero of heroSlice.heroes) {
-      const heroLink = linkedEquipment.find((card) => card.id === `equipment-${hero.exclusiveEquipment.equipmentId}`).children
+    assert.equal(linkedEquipment.length, 167);
+    for (const relation of heroNavigationConsumer.records) {
+      const heroLink = linkedEquipment.find((card) => card.id === `equipment-${relation.equipmentId}`).children
         .find((child) => child.className === 'equipment-navigation-link');
-      assert.equal(heroLink.href, `#hero-${hero.id}`);
-      assert.equal(heroLink.textContent, `연결 영웅 · ${hero.nameKo}`);
+      assert.equal(heroLink.href, `#${relation.navigationTarget.fragment}`);
+      assert.equal(heroLink.textContent, `연결 영웅 · ${relation.heroNameKo} · 프로젝트 검수 표시명`);
     }
+    const indexRelation = heroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX');
+    const indexLink = linkedEquipment.find((card) => card.id === `equipment-${indexRelation.equipmentId}`).children
+      .find((child) => child.className === 'equipment-navigation-link');
+    let indexPrevented = false;
+    indexLink.listeners.click({ preventDefault() { indexPrevented = true; } });
+    assert.equal(indexPrevented, false, 'Index navigation must reveal a filtered or not-yet-rendered target');
+    assert.equal(result.navigationState.indexTarget, `hero-index-entry-${indexRelation.heroId}`);
+    assert.equal(result.navigationState.indexSearchValue, '', 'Index target navigation clears the independent Index search');
+    const detailRelation = heroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL');
+    const detailLink = linkedEquipment.find((card) => card.id === `equipment-${detailRelation.equipmentId}`).children
+      .find((child) => child.className === 'equipment-navigation-link');
+    detailLink.listeners.click({ preventDefault() {} });
+    assert.equal(result.navigationState.detailTarget, detailRelation.heroId, 'existing Detail navigation remains independent');
     const heroContainer = element();
     const heroSandbox = {
       container: heroContainer,

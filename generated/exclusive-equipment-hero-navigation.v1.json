@@ -1,0 +1,1509 @@
+{
+  "schemaVersion": 1,
+  "consumer": "exclusive-equipment-hero-navigation",
+  "records": [
+    {
+      "equipmentId": 273,
+      "heroId": 12,
+      "heroNameKo": "엘윈",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-12"
+      }
+    },
+    {
+      "equipmentId": 274,
+      "heroId": 27,
+      "heroNameKo": "디하르트",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-27"
+      }
+    },
+    {
+      "equipmentId": 275,
+      "heroId": 8,
+      "heroNameKo": "라나",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-8"
+      }
+    },
+    {
+      "equipmentId": 276,
+      "heroId": 18,
+      "heroNameKo": "이멜다",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-18"
+      }
+    },
+    {
+      "equipmentId": 277,
+      "heroId": 1,
+      "heroNameKo": "매튜",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-1"
+      }
+    },
+    {
+      "equipmentId": 278,
+      "heroId": 25,
+      "heroNameKo": "알테뮬러",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-25"
+      }
+    },
+    {
+      "equipmentId": 279,
+      "heroId": 56,
+      "heroNameKo": "레이첼",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-56"
+      }
+    },
+    {
+      "equipmentId": 280,
+      "heroId": 37,
+      "heroNameKo": "쥬그라",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-37"
+      }
+    },
+    {
+      "equipmentId": 281,
+      "heroId": 20,
+      "heroNameKo": "소니아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-20"
+      }
+    },
+    {
+      "equipmentId": 286,
+      "heroId": 30,
+      "heroNameKo": "리파니",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-30"
+      }
+    },
+    {
+      "equipmentId": 287,
+      "heroId": 32,
+      "heroNameKo": "에마링크",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-32"
+      }
+    },
+    {
+      "equipmentId": 292,
+      "heroId": 14,
+      "heroNameKo": "쉐리",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-14"
+      }
+    },
+    {
+      "equipmentId": 293,
+      "heroId": 51,
+      "heroNameKo": "셀파닐",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-51"
+      }
+    },
+    {
+      "equipmentId": 294,
+      "heroId": 52,
+      "heroNameKo": "안젤리나",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-52"
+      }
+    },
+    {
+      "equipmentId": 295,
+      "heroId": 7,
+      "heroNameKo": "베른하르트",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-7"
+      }
+    },
+    {
+      "equipmentId": 296,
+      "heroId": 53,
+      "heroNameKo": "란포드",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-53"
+      }
+    },
+    {
+      "equipmentId": 297,
+      "heroId": 34,
+      "heroNameKo": "키리카제",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-34"
+      }
+    },
+    {
+      "equipmentId": 298,
+      "heroId": 13,
+      "heroNameKo": "헤인",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-13"
+      }
+    },
+    {
+      "equipmentId": 403,
+      "heroId": 33,
+      "heroNameKo": "프레아",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-33"
+      }
+    },
+    {
+      "equipmentId": 404,
+      "heroId": 4,
+      "heroNameKo": "아멜다",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-4"
+      }
+    },
+    {
+      "equipmentId": 405,
+      "heroId": 17,
+      "heroNameKo": "에그베르트",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-17"
+      }
+    },
+    {
+      "equipmentId": 406,
+      "heroId": 10,
+      "heroNameKo": "레딘",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-10"
+      }
+    },
+    {
+      "equipmentId": 411,
+      "heroId": 39,
+      "heroNameKo": "페라키아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-39"
+      }
+    },
+    {
+      "equipmentId": 412,
+      "heroId": 28,
+      "heroNameKo": "젤다",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-28"
+      }
+    },
+    {
+      "equipmentId": 413,
+      "heroId": 61,
+      "heroNameKo": "람다",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-61"
+      }
+    },
+    {
+      "equipmentId": 414,
+      "heroId": 36,
+      "heroNameKo": "실버울프",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-36"
+      }
+    },
+    {
+      "equipmentId": 415,
+      "heroId": 3,
+      "heroNameKo": "그레니어",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-3"
+      }
+    },
+    {
+      "equipmentId": 416,
+      "heroId": 6,
+      "heroNameKo": "레온",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-6"
+      }
+    },
+    {
+      "equipmentId": 417,
+      "heroId": 88,
+      "heroNameKo": "엘라스타",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-88"
+      }
+    },
+    {
+      "equipmentId": 418,
+      "heroId": 16,
+      "heroNameKo": "란스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-16"
+      }
+    },
+    {
+      "equipmentId": 423,
+      "heroId": 58,
+      "heroNameKo": "세레나",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-58"
+      }
+    },
+    {
+      "equipmentId": 424,
+      "heroId": 59,
+      "heroNameKo": "기자로프",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-59"
+      }
+    },
+    {
+      "equipmentId": 425,
+      "heroId": 35,
+      "heroNameKo": "안젤리카",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-35"
+      }
+    },
+    {
+      "equipmentId": 426,
+      "heroId": 92,
+      "heroNameKo": "환생 제시카",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-92"
+      }
+    },
+    {
+      "equipmentId": 427,
+      "heroId": 62,
+      "heroNameKo": "알프레드",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-62"
+      }
+    },
+    {
+      "equipmentId": 428,
+      "heroId": 60,
+      "heroNameKo": "시그마",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-60"
+      }
+    },
+    {
+      "equipmentId": 429,
+      "heroId": 49,
+      "heroNameKo": "파나",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-49"
+      }
+    },
+    {
+      "equipmentId": 434,
+      "heroId": 31,
+      "heroNameKo": "소피아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-31"
+      }
+    },
+    {
+      "equipmentId": 435,
+      "heroId": 87,
+      "heroNameKo": "베티",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-87"
+      }
+    },
+    {
+      "equipmentId": 436,
+      "heroId": 11,
+      "heroNameKo": "나암",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-11"
+      }
+    },
+    {
+      "equipmentId": 437,
+      "heroId": 65,
+      "heroNameKo": "비라쥬",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-65"
+      }
+    },
+    {
+      "equipmentId": 438,
+      "heroId": 95,
+      "heroNameKo": "올리버",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-95"
+      }
+    },
+    {
+      "equipmentId": 439,
+      "heroId": 64,
+      "heroNameKo": "브렌다",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-64"
+      }
+    },
+    {
+      "equipmentId": 440,
+      "heroId": 94,
+      "heroNameKo": "아카야",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-94"
+      }
+    },
+    {
+      "equipmentId": 441,
+      "heroId": 21,
+      "heroNameKo": "발가스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-21"
+      }
+    },
+    {
+      "equipmentId": 446,
+      "heroId": 9,
+      "heroNameKo": "보젤",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-9"
+      }
+    },
+    {
+      "equipmentId": 447,
+      "heroId": 5,
+      "heroNameKo": "크리스",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-5"
+      }
+    },
+    {
+      "equipmentId": 448,
+      "heroId": 97,
+      "heroNameKo": "일루시아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-97"
+      }
+    },
+    {
+      "equipmentId": 449,
+      "heroId": 111,
+      "heroNameKo": "마이야",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-111"
+      }
+    },
+    {
+      "equipmentId": 450,
+      "heroId": 127,
+      "heroNameKo": "레나타",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-127"
+      }
+    },
+    {
+      "equipmentId": 451,
+      "heroId": 103,
+      "heroNameKo": "실린카",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-103"
+      }
+    },
+    {
+      "equipmentId": 452,
+      "heroId": 63,
+      "heroNameKo": "레인폴스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-63"
+      }
+    },
+    {
+      "equipmentId": 453,
+      "heroId": 91,
+      "heroNameKo": "에밀리아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-91"
+      }
+    },
+    {
+      "equipmentId": 454,
+      "heroId": 121,
+      "heroNameKo": "츠바메",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-121"
+      }
+    },
+    {
+      "equipmentId": 455,
+      "heroId": 38,
+      "heroNameKo": "제리올&레이라",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-38"
+      }
+    },
+    {
+      "equipmentId": 460,
+      "heroId": 96,
+      "heroNameKo": "멜파니",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-96"
+      }
+    },
+    {
+      "equipmentId": 461,
+      "heroId": 116,
+      "heroNameKo": "노에미",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-116"
+      }
+    },
+    {
+      "equipmentId": 462,
+      "heroId": 26,
+      "heroNameKo": "루나",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-26"
+      }
+    },
+    {
+      "equipmentId": 463,
+      "heroId": 101,
+      "heroNameKo": "헬레나",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-101"
+      }
+    },
+    {
+      "equipmentId": 464,
+      "heroId": 66,
+      "heroNameKo": "클라렛",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-66"
+      }
+    },
+    {
+      "equipmentId": 465,
+      "heroId": 67,
+      "heroNameKo": "오메가",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-67"
+      }
+    },
+    {
+      "equipmentId": 466,
+      "heroId": 55,
+      "heroNameKo": "란디우스",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-55"
+      }
+    },
+    {
+      "equipmentId": 467,
+      "heroId": 125,
+      "heroNameKo": "리코리스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-125"
+      }
+    },
+    {
+      "equipmentId": 472,
+      "heroId": 57,
+      "heroNameKo": "윌러",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-57"
+      }
+    },
+    {
+      "equipmentId": 473,
+      "heroId": 120,
+      "heroNameKo": "플로렌티아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-120"
+      }
+    },
+    {
+      "equipmentId": 474,
+      "heroId": 89,
+      "heroNameKo": "유리아",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-89"
+      }
+    },
+    {
+      "equipmentId": 475,
+      "heroId": 110,
+      "heroNameKo": "아레스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-110"
+      }
+    },
+    {
+      "equipmentId": 476,
+      "heroId": 98,
+      "heroNameKo": "빈센트",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-98"
+      }
+    },
+    {
+      "equipmentId": 477,
+      "heroId": 102,
+      "heroNameKo": "세계수의 현자",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-102"
+      }
+    },
+    {
+      "equipmentId": 478,
+      "heroId": 115,
+      "heroNameKo": "로자리아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-115"
+      }
+    },
+    {
+      "equipmentId": 479,
+      "heroId": 93,
+      "heroNameKo": "미지의 기사",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-93"
+      }
+    },
+    {
+      "equipmentId": 484,
+      "heroId": 126,
+      "heroNameKo": "팟시르",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-126"
+      }
+    },
+    {
+      "equipmentId": 485,
+      "heroId": 114,
+      "heroNameKo": "마리엘",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-114"
+      }
+    },
+    {
+      "equipmentId": 486,
+      "heroId": 123,
+      "heroNameKo": "베르너",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-123"
+      }
+    },
+    {
+      "equipmentId": 487,
+      "heroId": 106,
+      "heroNameKo": "입실론",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-106"
+      }
+    },
+    {
+      "equipmentId": 488,
+      "heroId": 40,
+      "heroNameKo": "루인",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-40"
+      }
+    },
+    {
+      "equipmentId": 489,
+      "heroId": 109,
+      "heroNameKo": "화이트 시시",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-109"
+      }
+    },
+    {
+      "equipmentId": 490,
+      "heroId": 54,
+      "heroNameKo": "리스틸",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-54"
+      }
+    },
+    {
+      "equipmentId": 495,
+      "heroId": 99161,
+      "heroNameKo": "크림조의 왕",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99161"
+      }
+    },
+    {
+      "equipmentId": 496,
+      "heroId": 118,
+      "heroNameKo": "오토크라트 4세",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-118"
+      }
+    },
+    {
+      "equipmentId": 497,
+      "heroId": 105,
+      "heroNameKo": "뮤",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-105"
+      }
+    },
+    {
+      "equipmentId": 498,
+      "heroId": 99162,
+      "heroNameKo": "수제트",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99162"
+      }
+    },
+    {
+      "equipmentId": 499,
+      "heroId": 108,
+      "heroNameKo": "사신 크루거",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-108"
+      }
+    },
+    {
+      "equipmentId": 500,
+      "heroId": 99163,
+      "heroNameKo": "초월자",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99163"
+      }
+    },
+    {
+      "equipmentId": 501,
+      "heroId": 112,
+      "heroNameKo": "토와",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-112"
+      }
+    },
+    {
+      "equipmentId": 502,
+      "heroId": 122,
+      "heroNameKo": "힐다",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-122"
+      }
+    },
+    {
+      "equipmentId": 507,
+      "heroId": 113,
+      "heroNameKo": "탄생의 빛",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-113"
+      }
+    },
+    {
+      "equipmentId": 508,
+      "heroId": 104,
+      "heroNameKo": "알파",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-104"
+      }
+    },
+    {
+      "equipmentId": 509,
+      "heroId": 99169,
+      "heroNameKo": "켈티스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99169"
+      }
+    },
+    {
+      "equipmentId": 510,
+      "heroId": 99165,
+      "heroNameKo": "마리안델",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99165"
+      }
+    },
+    {
+      "equipmentId": 511,
+      "heroId": 99167,
+      "heroNameKo": "리사",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99167"
+      }
+    },
+    {
+      "equipmentId": 512,
+      "heroId": 130,
+      "heroNameKo": "미셸",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-130"
+      }
+    },
+    {
+      "equipmentId": 513,
+      "heroId": 99170,
+      "heroNameKo": "로비나 대제",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99170"
+      }
+    },
+    {
+      "equipmentId": 514,
+      "heroId": 99171,
+      "heroNameKo": "방주의 성녀",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99171"
+      }
+    },
+    {
+      "equipmentId": 519,
+      "heroId": 124,
+      "heroNameKo": "크리스티아네",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-124"
+      }
+    },
+    {
+      "equipmentId": 520,
+      "heroId": 129,
+      "heroNameKo": "구스타프",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-129"
+      }
+    },
+    {
+      "equipmentId": 521,
+      "heroId": 99176,
+      "heroNameKo": "캐롤리안",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99176"
+      }
+    },
+    {
+      "equipmentId": 522,
+      "heroId": 29,
+      "heroNameKo": "티아리스",
+      "navigationTarget": {
+        "surface": "HERO_DETAIL",
+        "fragment": "hero-29"
+      }
+    },
+    {
+      "equipmentId": 523,
+      "heroId": 99177,
+      "heroNameKo": "카구야",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99177"
+      }
+    },
+    {
+      "equipmentId": 524,
+      "heroId": 99172,
+      "heroNameKo": "크림조의 집정관",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99172"
+      }
+    },
+    {
+      "equipmentId": 525,
+      "heroId": 99180,
+      "heroNameKo": "방랑투사",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99180"
+      }
+    },
+    {
+      "equipmentId": 526,
+      "heroId": 119,
+      "heroNameKo": "루크레치아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-119"
+      }
+    },
+    {
+      "equipmentId": 531,
+      "heroId": 99182,
+      "heroNameKo": "리키",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99182"
+      }
+    },
+    {
+      "equipmentId": 532,
+      "heroId": 99178,
+      "heroNameKo": "아사멜",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99178"
+      }
+    },
+    {
+      "equipmentId": 533,
+      "heroId": 99174,
+      "heroNameKo": "아즈사",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99174"
+      }
+    },
+    {
+      "equipmentId": 534,
+      "heroId": 99164,
+      "heroNameKo": "베르너 폰 에길",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99164"
+      }
+    },
+    {
+      "equipmentId": 535,
+      "heroId": 15,
+      "heroNameKo": "리아나",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-15"
+      }
+    },
+    {
+      "equipmentId": 536,
+      "heroId": 99175,
+      "heroNameKo": "오보로",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99175"
+      }
+    },
+    {
+      "equipmentId": 537,
+      "heroId": 99168,
+      "heroNameKo": "엘마",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99168"
+      }
+    },
+    {
+      "equipmentId": 538,
+      "heroId": 99173,
+      "heroNameKo": "아이언 챈슬러",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99173"
+      }
+    },
+    {
+      "equipmentId": 539,
+      "heroId": 99166,
+      "heroNameKo": "웨탐",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99166"
+      }
+    },
+    {
+      "equipmentId": 540,
+      "heroId": 99,
+      "heroNameKo": "클로테르",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99"
+      }
+    },
+    {
+      "equipmentId": 545,
+      "heroId": 99189,
+      "heroNameKo": "시엔",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99189"
+      }
+    },
+    {
+      "equipmentId": 546,
+      "heroId": 99188,
+      "heroNameKo": "리오벡",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99188"
+      }
+    },
+    {
+      "equipmentId": 547,
+      "heroId": 99179,
+      "heroNameKo": "로스탐",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99179"
+      }
+    },
+    {
+      "equipmentId": 548,
+      "heroId": 99187,
+      "heroNameKo": "껍질 소녀",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99187"
+      }
+    },
+    {
+      "equipmentId": 549,
+      "heroId": 100,
+      "heroNameKo": "로젠실",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-100"
+      }
+    },
+    {
+      "equipmentId": 550,
+      "heroId": 99183,
+      "heroNameKo": "마크렌",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99183"
+      }
+    },
+    {
+      "equipmentId": 551,
+      "heroId": 99181,
+      "heroNameKo": "줄리안",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99181"
+      }
+    },
+    {
+      "equipmentId": 552,
+      "heroId": 99191,
+      "heroNameKo": "루그너",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99191"
+      }
+    },
+    {
+      "equipmentId": 557,
+      "heroId": 99193,
+      "heroNameKo": "요아&코니",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99193"
+      }
+    },
+    {
+      "equipmentId": 558,
+      "heroId": 99198,
+      "heroNameKo": "아마데우스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99198"
+      }
+    },
+    {
+      "equipmentId": 559,
+      "heroId": 99184,
+      "heroNameKo": "빛의 수호사도",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99184"
+      }
+    },
+    {
+      "equipmentId": 560,
+      "heroId": 99185,
+      "heroNameKo": "아단켈모",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99185"
+      }
+    },
+    {
+      "equipmentId": 561,
+      "heroId": 99204,
+      "heroNameKo": "타탈리아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99204"
+      }
+    },
+    {
+      "equipmentId": 562,
+      "heroId": 99199,
+      "heroNameKo": "사그니",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99199"
+      }
+    },
+    {
+      "equipmentId": 567,
+      "heroId": 99203,
+      "heroNameKo": "님프",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99203"
+      }
+    },
+    {
+      "equipmentId": 568,
+      "heroId": 99186,
+      "heroNameKo": "빛과 그림자 검의 영혼",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99186"
+      }
+    },
+    {
+      "equipmentId": 569,
+      "heroId": 99190,
+      "heroNameKo": "폴리알",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99190"
+      }
+    },
+    {
+      "equipmentId": 570,
+      "heroId": 99192,
+      "heroNameKo": "그렌실",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99192"
+      }
+    },
+    {
+      "equipmentId": 571,
+      "heroId": 99206,
+      "heroNameKo": "이리스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99206"
+      }
+    },
+    {
+      "equipmentId": 572,
+      "heroId": 99205,
+      "heroNameKo": "투어밀크",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99205"
+      }
+    },
+    {
+      "equipmentId": 573,
+      "heroId": 99208,
+      "heroNameKo": "프레시아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99208"
+      }
+    },
+    {
+      "equipmentId": 578,
+      "heroId": 99207,
+      "heroNameKo": "롤랑",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99207"
+      }
+    },
+    {
+      "equipmentId": 579,
+      "heroId": 99213,
+      "heroNameKo": "캡틴 잭",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99213"
+      }
+    },
+    {
+      "equipmentId": 580,
+      "heroId": 99212,
+      "heroNameKo": "강신자",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99212"
+      }
+    },
+    {
+      "equipmentId": 581,
+      "heroId": 99217,
+      "heroNameKo": "호프만",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99217"
+      }
+    },
+    {
+      "equipmentId": 582,
+      "heroId": 99214,
+      "heroNameKo": "네미아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99214"
+      }
+    },
+    {
+      "equipmentId": 587,
+      "heroId": 99221,
+      "heroNameKo": "군",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99221"
+      }
+    },
+    {
+      "equipmentId": 588,
+      "heroId": 99220,
+      "heroNameKo": "패트리샤",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99220"
+      }
+    },
+    {
+      "equipmentId": 589,
+      "heroId": 99219,
+      "heroNameKo": "제이스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99219"
+      }
+    },
+    {
+      "equipmentId": 590,
+      "heroId": 99227,
+      "heroNameKo": "타브리스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99227"
+      }
+    },
+    {
+      "equipmentId": 595,
+      "heroId": 99226,
+      "heroNameKo": "테란틸",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99226"
+      }
+    },
+    {
+      "equipmentId": 596,
+      "heroId": 99230,
+      "heroNameKo": "세라피나",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99230"
+      }
+    },
+    {
+      "equipmentId": 597,
+      "heroId": 99233,
+      "heroNameKo": "시온",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99233"
+      }
+    },
+    {
+      "equipmentId": 598,
+      "heroId": 99234,
+      "heroNameKo": "티아나",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99234"
+      }
+    },
+    {
+      "equipmentId": 603,
+      "heroId": 99197,
+      "heroNameKo": "각성자",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99197"
+      }
+    },
+    {
+      "equipmentId": 604,
+      "heroId": 99215,
+      "heroNameKo": "안드리올",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99215"
+      }
+    },
+    {
+      "equipmentId": 605,
+      "heroId": 99238,
+      "heroNameKo": "아리아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99238"
+      }
+    },
+    {
+      "equipmentId": 606,
+      "heroId": 99241,
+      "heroNameKo": "노노린",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99241"
+      }
+    },
+    {
+      "equipmentId": 611,
+      "heroId": 99244,
+      "heroNameKo": "란델",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99244"
+      }
+    },
+    {
+      "equipmentId": 612,
+      "heroId": 99216,
+      "heroNameKo": "에쉬앤",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99216"
+      }
+    },
+    {
+      "equipmentId": 613,
+      "heroId": 99240,
+      "heroNameKo": "사프린",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99240"
+      }
+    },
+    {
+      "equipmentId": 614,
+      "heroId": 99231,
+      "heroNameKo": "비리아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99231"
+      }
+    },
+    {
+      "equipmentId": 619,
+      "heroId": 99218,
+      "heroNameKo": "이졸데",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99218"
+      }
+    },
+    {
+      "equipmentId": 620,
+      "heroId": 99228,
+      "heroNameKo": "이미르",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99228"
+      }
+    },
+    {
+      "equipmentId": 621,
+      "heroId": 99250,
+      "heroNameKo": "샘",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99250"
+      }
+    },
+    {
+      "equipmentId": 622,
+      "heroId": 99249,
+      "heroNameKo": "마카엘라",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99249"
+      }
+    },
+    {
+      "equipmentId": 627,
+      "heroId": 99243,
+      "heroNameKo": "날개 꺾인 새",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99243"
+      }
+    },
+    {
+      "equipmentId": 628,
+      "heroId": 99229,
+      "heroNameKo": "셀리카",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99229"
+      }
+    },
+    {
+      "equipmentId": 629,
+      "heroId": 99253,
+      "heroNameKo": "아브샤이트",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99253"
+      }
+    },
+    {
+      "equipmentId": 634,
+      "heroId": 99255,
+      "heroNameKo": "엘비스",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99255"
+      }
+    },
+    {
+      "equipmentId": 635,
+      "heroId": 99252,
+      "heroNameKo": "루크만",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99252"
+      }
+    },
+    {
+      "equipmentId": 636,
+      "heroId": 99239,
+      "heroNameKo": "이리아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99239"
+      }
+    },
+    {
+      "equipmentId": 637,
+      "heroId": 99254,
+      "heroNameKo": "레이아",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99254"
+      }
+    },
+    {
+      "equipmentId": 638,
+      "heroId": 99259,
+      "heroNameKo": "레이피어",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99259"
+      }
+    },
+    {
+      "equipmentId": 643,
+      "heroId": 99225,
+      "heroNameKo": "빙설 심연의 지배자",
+      "navigationTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-99225"
+      }
+    }
+  ]
+}

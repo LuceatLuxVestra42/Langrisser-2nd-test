@@ -404,3 +404,9 @@ jobs:
 
       - name: Test Hero-Exclusive Equipment relation admission
         run: node tools/test-hero-exclusive-equipment-relations.mjs
+
+      - name: Validate Exclusive Equipment Hero Navigation publication
+        run: node tools/validate-exclusive-equipment-hero-navigation.mjs
+
+      - name: Test Exclusive Equipment Hero Navigation boundaries
+        run: node tools/test-exclusive-equipment-hero-navigation.mjs
