@@ -5,9 +5,11 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildSite, publicSitePaths, validatePublicSiteDirectory } from './build.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-presentation-contract.mjs';
+import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
 
 const heroes = JSON.parse(await readFile('canonical/heroes.v1.json', 'utf8'));
 const decision = JSON.parse(await readFile(TRAINING_TECH_DECISION_RECORD_PATH, 'utf8'));
+const exclusiveHeroDecision = JSON.parse(await readFile(EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, 'utf8'));
 const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
@@ -22,9 +24,10 @@ const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).sk
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
 try {
   const built = await buildSite({ outputDir: output });
-  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths));
+  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision));
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
-  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
+  assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
+  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
   assert.deepEqual(JSON.parse(await readFile(join(output, heroIndexPath), 'utf8')), heroIndex, 'packaged Hero Index must match the validated consumer');
   assert.equal(heroIndex.heroes.length, 267);
   assert.ok(heroIndex.heroes.every((row) => JSON.stringify(Object.keys(row).sort()) === '["heroId","nameKo"]'));
@@ -53,7 +56,7 @@ try {
     assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published M06 Skin ${id} bytes must match admitted Asset`);
   }
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
-  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record);
+  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record, process.cwd(), exclusiveHeroDecision);
   await rm(join(output, skinConsumerPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
@@ -93,6 +96,10 @@ try {
     const heroIndexResponse = await fetch(`${origin}/${heroIndexPath}`, { cache: 'no-store' });
     assert.equal(heroIndexResponse.status, 200, 'approved Hero Index JSON URL must return HTTP 200');
     assert.deepEqual(await heroIndexResponse.json(), heroIndex, 'fetched Hero Index must contain only the exact approved ID/name consumer');
+  const ownerNavigationResponse = await fetch(`${origin}/${EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH}`, { cache: 'no-store' });
+  assert.equal(ownerNavigationResponse.status, 200, 'approved Equipment Hero Navigation JSON URL must return HTTP 200');
+  assert.deepEqual(await ownerNavigationResponse.json(), JSON.parse(await readFile(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, 'utf8')),
+    'fetched Equipment Hero Navigation must match the exact approved consumer');
     for (const path of skinAssetPaths) assert.equal((await fetch(`${origin}/${path}`)).status, 200, `published Skin Fullart URL must resolve: ${path}`);
     assert.equal((await fetch(`${origin}/assets/skin-admissions/other/skin-601.webp`)).status, 404, 'unregistered admission directories must not be published');
     assert.equal((await fetch(`${origin}/generated/skin-consumer-missing.v1.json`)).status, 404, 'unknown Generated path must return HTTP 404');
@@ -132,7 +139,7 @@ try {
       disabled.decisionA.status = 'NOT_APPROVED';
       disabled.decisionB.status = 'NOT_APPROVED';
     }
-    assert.ok(!publicSitePaths(heroes, disabled, skinAssetPaths).includes(trainingPath));
+    assert.ok(!publicSitePaths(heroes, disabled, skinAssetPaths, exclusiveHeroDecision).includes(trainingPath));
     await assert.rejects(validate(disabled), /allowlist mismatch/);
     await rm(join(output, trainingPath));
     await validate(disabled);

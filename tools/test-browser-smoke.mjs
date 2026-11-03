@@ -28,6 +28,10 @@ for (const key of requiredEnvironment) assert.ok(process.env[key], `${key} is re
 const qaRoot = resolve(process.env.QA_INFRASTRUCTURE_ROOT);
 const siteRoot = resolve(process.env.SITE_SOURCE_ROOT);
 const publicSkinConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-consumer-public-m05-g.v1.json'), 'utf8'));
+const exclusiveHeroNavigationConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/exclusive-equipment-hero-navigation.v1.json'), 'utf8'));
+assert.equal(exclusiveHeroNavigationConsumer.records.length, 167, 'published Equipment Hero Navigation must contain exactly 167 approved relations');
+assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length, 29);
+assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 138);
 const publicSkinAssets = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-assets-public-m05-g.v1.json'), 'utf8'));
 const publishedSkinRows = validatePublishedSkinRows(publicSkinConsumer, publicSkinAssets);
 const publishedSkinById = new Map(publishedSkinRows.map((row) => [row.skinId, row]));
@@ -273,6 +277,7 @@ try {
     '/generated/job-glossary.v1.json',
     '/generated/general-ssr-equipment.v1.json',
     '/generated/exclusive-equipment.v1.json',
+    '/generated/exclusive-equipment-hero-navigation.v1.json',
     '/generated/soldier-training-tech-descriptions.v1.json',
   ];
   const anchors = [
@@ -332,6 +337,9 @@ try {
         skinSections: document.querySelectorAll('#heroes .hero-card .hero-skin-fullarts').length,
         generalEquipment: document.querySelectorAll('#general-ssr-equipment .general-equipment-card').length,
         exclusiveEquipment: document.querySelectorAll('#exclusive-equipment .general-equipment-card').length,
+        exclusiveEquipmentOwnerLinks: document.querySelectorAll('#exclusive-equipment .general-equipment-card .equipment-navigation-link').length,
+        exclusiveEquipmentDetailLinks: document.querySelectorAll('#exclusive-equipment .general-equipment-card .equipment-navigation-link[href^="#hero-"]:not([href^="#hero-index-entry-"])').length,
+        exclusiveEquipmentIndexLinks: document.querySelectorAll('#exclusive-equipment .general-equipment-card .equipment-navigation-link[href^="#hero-index-entry-"]').length,
         spSoldiers: document.querySelectorAll('#sp-soldiers .sp-soldier-card').length,
         normalSoldiers: document.querySelectorAll('#normal-soldiers .sp-soldier-card').length,
         jobRows: document.querySelectorAll('#job-glossary tr').length,
@@ -401,6 +409,19 @@ try {
     assert.equal(layout.rendered.heroOneSkinImages, rowsForHero(publishedSkinRows, 1).length, `${viewport.name}: Hero 1 must display all approved Skin Fullarts`);
     assert.equal(layout.rendered.heroSixSkinImages, rowsForHero(publishedSkinRows, 6).length, `${viewport.name}: Hero 6 must display all approved Skin Fullarts`);
     assert.equal(layout.rendered.heroThirtySevenSkinImages, 1, `${viewport.name}: Hero 37 must display the approved Skin 3701 Fullart`);
+    assert.equal(layout.rendered.exclusiveEquipment, 167, `${viewport.name}: all Exclusive Equipment cards must render`);
+    assert.equal(layout.rendered.exclusiveEquipmentOwnerLinks, 167, `${viewport.name}: each Equipment card must show its approved owner`);
+    assert.equal(layout.rendered.exclusiveEquipmentDetailLinks, 29, `${viewport.name}: exactly 29 approved Detail links must remain`);
+    assert.equal(layout.rendered.exclusiveEquipmentIndexLinks, 138, `${viewport.name}: exactly 138 Hero Index links must render`);
+    const renderedOwnerLinks = await page.locator('#exclusive-equipment .general-equipment-card').evaluateAll((cards) => cards.map((card) => {
+      const link = card.querySelector('.equipment-navigation-link');
+      return { equipmentId: Number(card.id.replace('equipment-', '')), fragment: link?.getAttribute('href')?.slice(1), label: link?.textContent.trim() };
+    }));
+    assert.deepEqual(renderedOwnerLinks, exclusiveHeroNavigationConsumer.records.map((row) => ({
+      equipmentId: row.equipmentId,
+      fragment: row.navigationTarget.fragment,
+      label: `연결 영웅 · ${row.heroNameKo} · 프로젝트 검수 표시명`,
+    })), `${viewport.name}: every rendered Equipment owner and Navigation target must match the approved Consumer`);
     assert.equal(layout.rendered.skinSections, new Set(publishedSkinRows.map((row) => row.heroId)).size,
       `${viewport.name}: each approved Hero must have one Skin section`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
@@ -450,6 +471,22 @@ try {
       assert.equal(new URL(page.url()).hash, `#${id}`, `${viewport.name}: clicking #${id} must update the URL hash`);
       assert.equal(await page.locator(`#${id}`).count(), 1, `${viewport.name}: target #${id} must exist`);
     }
+
+    const indexRelation = exclusiveHeroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX');
+    await page.locator('#hero-index-search').fill('999999');
+    const indexOwnerLink = page.locator(`#equipment-${indexRelation.equipmentId} .equipment-navigation-link`);
+    await indexOwnerLink.click();
+    assert.equal(new URL(page.url()).hash, `#${indexRelation.navigationTarget.fragment}`, `${viewport.name}: Index owner link must target the exact approved Hero ID`);
+    assert.equal(await page.locator(`#${indexRelation.navigationTarget.fragment}`).isVisible(), true, `${viewport.name}: filtered Index target must render before scrolling`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '', `${viewport.name}: owner navigation must clear the independent Hero Index filter`);
+
+    const detailRelation = exclusiveHeroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL');
+    await page.locator('#hero-search').fill('999999');
+    const detailOwnerLink = page.locator(`#equipment-${detailRelation.equipmentId} .equipment-navigation-link`);
+    await detailOwnerLink.click();
+    assert.equal(new URL(page.url()).hash, `#${detailRelation.navigationTarget.fragment}`, `${viewport.name}: Detail owner link must preserve the existing endpoint`);
+    assert.equal(await page.locator(`#${detailRelation.navigationTarget.fragment}`).isVisible(), true, `${viewport.name}: hidden Detail target must be revealed`);
+    assert.equal(await page.locator('#hero-search').inputValue(), '', `${viewport.name}: Detail navigation must clear the existing Hero search`);
 
     console.log(`VIEWPORT_${viewport.name.toUpperCase()}=${JSON.stringify(layout)}`);
   }

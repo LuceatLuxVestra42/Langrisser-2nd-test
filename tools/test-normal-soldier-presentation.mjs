@@ -82,7 +82,9 @@ for (const soldier of JSON.parse(generated).soldiers) {
 const producerSource = await readFile(new URL('./generate.mjs', import.meta.url), 'utf8');
 const producerLibrary = producerSource.slice(0, producerSource.indexOf('const invokedPath ='))
   .replace("'./soldier-training-tech-presentation-contract.mjs'",
-    JSON.stringify(new URL('./soldier-training-tech-presentation-contract.mjs', import.meta.url).href));
+    JSON.stringify(new URL('./soldier-training-tech-presentation-contract.mjs', import.meta.url).href))
+  .replace("'./exclusive-equipment-hero-navigation-contract.mjs'",
+    JSON.stringify(new URL('./exclusive-equipment-hero-navigation-contract.mjs', import.meta.url).href));
 assert.ok(producerSource.indexOf('const invokedPath =') > 0, 'Producer library boundary must exist');
 for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
   const original = `baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense }`;

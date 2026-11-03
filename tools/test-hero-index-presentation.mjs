@@ -97,6 +97,13 @@ assert.equal(elements.get('hero-1').scrolled, true);
 const noDetailRow = container.children.find(({ id }) => !detailHeroIds.has(Number(id.slice('hero-index-entry-'.length))));
 assert.ok(noDetailRow);
 assert.ok(noDetailRow.children.every(({ tagName }) => tagName !== 'a'), 'no-detail Hero has no anchor or Fragment');
+const indexOnlyHeroId = Number(noDetailRow.id.slice('hero-index-entry-'.length));
+input.value = 'no-match'; input.listeners.input();
+assert.equal(container.children.length, 0, 'fixture must begin from an empty Index result');
+assert.equal(navigation.showTarget(indexOnlyHeroId), true, 'cross-surface navigation must resolve an approved Index-only Hero');
+assert.equal(input.value, '', 'cross-surface navigation clears the independent Index filter');
+assert.ok(container.children.some(({ id }) => id === `hero-index-entry-${indexOnlyHeroId}`), 'exact Index target is rendered after a filtered result');
+assert.equal(navigation.showTarget(999999), false, 'unknown Hero Index target is rejected');
 
 assert.notEqual('hero-index-search', 'hero-search');
 assert.notEqual('hero-index-results', 'heroes');

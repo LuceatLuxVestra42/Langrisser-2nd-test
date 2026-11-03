@@ -26,13 +26,14 @@ assert.equal(new Function(`${extractedTarget}; return target(0);`)(), 42,
 
 import { runInNewContext } from 'node:vm';
 
-const [frontend, html, styles, heroData, relationData, exclusiveData] = await Promise.all([
+const [frontend, html, styles, heroData, relationData, exclusiveData, exclusiveHeroNavigation] = await Promise.all([
   readFile('app.js', 'utf8'),
   readFile('index.html', 'utf8'),
   readFile('styles.css', 'utf8'),
   readFile('generated/hero-slice.v1.json', 'utf8').then(JSON.parse),
   readFile('generated/hero-soldier-relations.v1.json', 'utf8').then(JSON.parse),
   readFile('generated/exclusive-equipment.v1.json', 'utf8').then(JSON.parse),
+  readFile('generated/exclusive-equipment-hero-navigation.v1.json', 'utf8').then(JSON.parse),
 ]);
 
 const sectionShortcutTargets = [
@@ -321,7 +322,8 @@ for (const hero of heroData.heroes) {
 const exclusiveHero = heroData.heroes[0];
 const exclusiveEquipment = exclusiveData.equipment.find(({ equipmentId }) => equipmentId === exclusiveHero.exclusiveEquipment.equipmentId);
 assert.ok(exclusiveEquipment, 'approved Hero equipment endpoint exists in current equipment Consumer');
-functions.setExclusiveEquipmentHeroById(new Map([[exclusiveEquipment.equipmentId, exclusiveHero]]));
+const exclusiveHeroNavigationRow = exclusiveHeroNavigation.records.find(({ equipmentId }) => equipmentId === exclusiveEquipment.equipmentId);
+functions.setExclusiveEquipmentHeroById(new Map([[exclusiveEquipment.equipmentId, exclusiveHeroNavigationRow]]));
 functions.addExclusiveEquipment(exclusiveEquipment);
 const equipmentCard = container.children.at(-1);
 const equipmentHeroLink = equipmentCard.children[1];

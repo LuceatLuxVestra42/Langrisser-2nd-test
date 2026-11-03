@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope } from './soldier-training-tech-presentation-contract.mjs';
+import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, renderExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
@@ -1033,6 +1034,27 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');
   await writeFile(exclusiveEquipmentOutputPath, renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization), 'utf8');
+  const [exclusiveEquipmentIdentities, exclusiveHeroIdentities, exclusiveHeroLocalizations, exclusiveHeroRelations, exclusiveHeroSlice, exclusiveHeroIndexPublication, exclusiveHeroPublication] = await Promise.all([
+    readFile(resolve('canonical/exclusive-equipment.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve('canonical/hero-identities.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve('canonical/hero-localizations-ko.v1.json'), 'utf8').then(JSON.parse),
+    readFile(exclusiveRelationPath, 'utf8').then(JSON.parse),
+    readFile(resolve('generated/hero-slice.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve('docs/decisions/hero-index-publication.v1.json'), 'utf8').then(JSON.parse),
+    readFile(resolve(EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH), 'utf8').then(JSON.parse),
+  ]);
+  const exclusiveHeroNavigation = renderExclusiveEquipmentHeroNavigation({
+    relations: exclusiveHeroRelations,
+    equipmentIdentities: exclusiveEquipmentIdentities,
+    heroIdentities: exclusiveHeroIdentities,
+    heroLocalizations: exclusiveHeroLocalizations,
+    heroSlice: exclusiveHeroSlice,
+    heroIndexPublication: exclusiveHeroIndexPublication,
+    publicationDecision: exclusiveHeroPublication,
+    heroLocalizationSha256: createHash('sha256').update(await readFile(resolve('canonical/hero-localizations-ko.v1.json'))).digest('hex'),
+    heroIdentitySha256: createHash('sha256').update(await readFile(resolve('canonical/hero-identities.v1.json'))).digest('hex'),
+  });
+  await writeFile(resolve(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), exclusiveHeroNavigation, 'utf8');
   const [skinIdentities, skinHeroRelations, skinSourceOrders] = await Promise.all([
     readFile(resolve('canonical/skin-identities.v1.json'), 'utf8').then(JSON.parse),
     readFile(resolve('canonical/skin-hero-relations-m02.v1.json'), 'utf8').then(JSON.parse),
@@ -1040,5 +1062,5 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]);
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
 }

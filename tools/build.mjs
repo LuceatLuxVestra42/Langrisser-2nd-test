@@ -11,6 +11,7 @@ import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateM05G } from './validate-skin-m05-g.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
+import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -37,7 +38,7 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
 }
 
 // Publication packaging only: this list does not admit semantic populations.
-export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = []) {
+export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null) {
   if (!Array.isArray(skinFullartPaths) || skinFullartPaths.some((path) => !isAllowedSkinAssetPath(path))
     || new Set(skinFullartPaths).size !== skinFullartPaths.length) {
     throw new Error('Skin Fullart Build paths must be unique approved Asset paths');
@@ -56,6 +57,7 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
     ...skinFullartPaths,
   ];
   if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
+  if (exclusiveHeroPublicationDecision?.status === 'APPROVED') files.push(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH);
   if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
   for (const hero of heroPresentation.records) {
     if (typeof hero.portrait !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(hero.portrait)) {
@@ -66,9 +68,9 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   return [...new Set(files)].sort();
 }
 
-export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd()) {
+export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null) {
   const skinFullartPaths = await readApprovedSkinAssetPaths(sourceRoot);
-  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths);
+  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision);
   const allowedDirectories = new Set(expected.flatMap(file => {
     const parts = file.split('/');
     return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
@@ -132,6 +134,26 @@ const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocaliz
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
+const exclusiveHeroPublicationDecision = await readJson(EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH);
+const [exclusiveHeroEquipmentIdentity, exclusiveHeroIndexPublication, exclusiveHeroLocalizationBytes, exclusiveHeroIdentityBytes] = await Promise.all([
+  readJson('canonical/exclusive-equipment.v1.json'),
+  readJson('docs/decisions/hero-index-publication.v1.json'),
+  readFile(resolve('canonical/hero-localizations-ko.v1.json')),
+  readFile(resolve('canonical/hero-identities.v1.json')),
+]);
+const exclusiveHeroNavigationPath = resolve(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH);
+const exclusiveHeroNavigationText = await readFile(exclusiveHeroNavigationPath, 'utf8');
+validateExclusiveEquipmentHeroNavigation({ generatedText: exclusiveHeroNavigationText, inputs: {
+  relations: exclusiveRelations,
+  equipmentIdentities: exclusiveHeroEquipmentIdentity,
+  heroIdentities,
+  heroLocalizations: heroLocalization,
+  heroSlice: JSON.parse(generatedText),
+  heroIndexPublication: exclusiveHeroIndexPublication,
+  publicationDecision: exclusiveHeroPublicationDecision,
+  heroLocalizationSha256: createHash('sha256').update(exclusiveHeroLocalizationBytes).digest('hex'),
+  heroIdentitySha256: createHash('sha256').update(exclusiveHeroIdentityBytes).digest('hex'),
+} });
 const glossaryPath = resolve('generated/job-glossary.v1.json');
 const glossaryText = await readFile(glossaryPath, 'utf8');
 if (glossaryText !== renderJobGlossary(jobLocalization)) throw new Error('generated Job glossary is stale or non-deterministic');
@@ -392,6 +414,7 @@ try {
   await cp(glossaryPath, join(output, 'generated', 'job-glossary.v1.json'));
   await cp(equipmentGeneratedPath, join(output, 'generated', 'general-ssr-equipment.v1.json'));
   await cp(exclusiveEquipmentGeneratedPath, join(output, 'generated', 'exclusive-equipment.v1.json'));
+  await cp(exclusiveHeroNavigationPath, join(output, ...EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH.split('/')));
 
   for (const portraitPath of portraitPaths) {
     if (typeof portraitPath !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(portraitPath)) {
@@ -443,22 +466,27 @@ try {
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
   if (!app.includes("fetch('./generated/exclusive-equipment.v1.json')")) throw new Error('built app does not resolve the generated Exclusive Equipment entry');
+  if (!app.includes("fetch('./generated/exclusive-equipment-hero-navigation.v1.json')")) throw new Error('built app does not resolve the approved Exclusive Equipment Hero Navigation entry');
   const packagedEquipmentText = await readFile(join(output, 'generated', 'general-ssr-equipment.v1.json'), 'utf8');
   if (packagedEquipmentText !== equipmentGeneratedText) throw new Error('packaged General SSR Equipment differs from validated generated artifact');
   const packagedEquipment = JSON.parse(packagedEquipmentText);
   const packagedExclusiveEquipmentText = await readFile(join(output, 'generated', 'exclusive-equipment.v1.json'), 'utf8');
   if (packagedExclusiveEquipmentText !== exclusiveEquipmentGeneratedText) throw new Error('packaged Exclusive Equipment differs from validated generated artifact');
   const packagedExclusiveEquipment = JSON.parse(packagedExclusiveEquipmentText);
+  const packagedExclusiveHeroNavigationText = await readFile(join(output, ...EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH.split('/')), 'utf8');
+  if (packagedExclusiveHeroNavigationText !== exclusiveHeroNavigationText) throw new Error('packaged Exclusive Equipment Hero Navigation differs from validated Generated artifact');
+  const packagedExclusiveHeroNavigation = JSON.parse(packagedExclusiveHeroNavigationText);
+  if (packagedExclusiveHeroNavigation.records.length !== 167) throw new Error('packaged Exclusive Equipment Hero Navigation population mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord);
+  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');
     await writeFile(resolve(manifestPath), `${JSON.stringify({ schemaVersion: 1, sourceSha, files }, null, 2)}\n`, { flag: 'wx' });
   }
   completed = true;
-  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} detail endpoints; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
+  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} detail endpoints; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedExclusiveHeroNavigation.records.length} Equipment Hero Navigation relations, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length} detail targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length} Index targets, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
   return { output, files };
 } finally {
   if (!verifyDir && (!outputDir || !completed)) await rm(output, { recursive: true, force: true });
