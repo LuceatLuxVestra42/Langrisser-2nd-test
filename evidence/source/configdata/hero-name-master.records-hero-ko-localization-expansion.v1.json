@@ -967,6 +967,356 @@
       "heroId": 99287,
       "nameCn": "魔骸剑使",
       "status": "verified"
+    },
+    {
+      "heroId": 99217,
+      "nameCn": "霍夫曼",
+      "status": "verified"
+    },
+    {
+      "heroId": 99218,
+      "nameCn": "伊索尔德",
+      "status": "verified"
+    },
+    {
+      "heroId": 99219,
+      "nameCn": "杰斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 99220,
+      "nameCn": "帕特里夏",
+      "status": "verified"
+    },
+    {
+      "heroId": 99221,
+      "nameCn": "古恩",
+      "status": "verified"
+    },
+    {
+      "heroId": 99222,
+      "nameCn": "阿卡菲尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99223,
+      "nameCn": "深町晶",
+      "status": "verified"
+    },
+    {
+      "heroId": 99224,
+      "nameCn": "卷岛颚人",
+      "status": "verified"
+    },
+    {
+      "heroId": 99225,
+      "nameCn": "冰渊凌御者",
+      "status": "verified"
+    },
+    {
+      "heroId": 99226,
+      "nameCn": "泰兰提尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99227,
+      "nameCn": "塔布莉丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 99228,
+      "nameCn": "尤弥尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99229,
+      "nameCn": "赛利卡",
+      "status": "verified"
+    },
+    {
+      "heroId": 99230,
+      "nameCn": "塞拉菲娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 99231,
+      "nameCn": "薇莉娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99232,
+      "nameCn": "辉耀圣召使",
+      "status": "verified"
+    },
+    {
+      "heroId": 99233,
+      "nameCn": "席昂",
+      "status": "verified"
+    },
+    {
+      "heroId": 99234,
+      "nameCn": "缇雅娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 99235,
+      "nameCn": "突击队长&天才婴儿",
+      "status": "verified"
+    },
+    {
+      "heroId": 99236,
+      "nameCn": "小刀马克&忍者Ginzu",
+      "status": "verified"
+    },
+    {
+      "heroId": 99237,
+      "nameCn": "恩雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99238,
+      "nameCn": "阿莉娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99239,
+      "nameCn": "伊莉娅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99240,
+      "nameCn": "萨芙琳",
+      "status": "verified"
+    },
+    {
+      "heroId": 99241,
+      "nameCn": "诺诺琳",
+      "status": "verified"
+    },
+    {
+      "heroId": 99242,
+      "nameCn": "炎龙破灭者",
+      "status": "verified"
+    },
+    {
+      "heroId": 99243,
+      "nameCn": "断翼鸟",
+      "status": "verified"
+    },
+    {
+      "heroId": 99244,
+      "nameCn": "兰黛尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99245,
+      "nameCn": "玛莉·萝丝",
+      "status": "verified"
+    },
+    {
+      "heroId": 99246,
+      "nameCn": "女天狗",
+      "status": "verified"
+    },
+    {
+      "heroId": 99247,
+      "nameCn": "霞",
+      "status": "verified"
+    },
+    {
+      "heroId": 99248,
+      "nameCn": "席尔娜",
+      "status": "verified"
+    },
+    {
+      "heroId": 99249,
+      "nameCn": "玛卡艾拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 99250,
+      "nameCn": "塞姆",
+      "status": "verified"
+    },
+    {
+      "heroId": 99251,
+      "nameCn": "幽瞳幻惑使",
+      "status": "verified"
+    },
+    {
+      "heroId": 99252,
+      "nameCn": "鲁克曼",
+      "status": "verified"
+    },
+    {
+      "heroId": 99253,
+      "nameCn": "阿布沙伊特",
+      "status": "verified"
+    },
+    {
+      "heroId": 99254,
+      "nameCn": "蕾雅",
+      "status": "verified"
+    },
+    {
+      "heroId": 99255,
+      "nameCn": "埃尔维斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 99256,
+      "nameCn": "艾露莎",
+      "status": "verified"
+    },
+    {
+      "heroId": 99257,
+      "nameCn": "露西",
+      "status": "verified"
+    },
+    {
+      "heroId": 99258,
+      "nameCn": "纳兹",
+      "status": "verified"
+    },
+    {
+      "heroId": 99259,
+      "nameCn": "蕾贝尔",
+      "status": "verified"
+    },
+    {
+      "heroId": 99260,
+      "nameCn": "沙里克",
+      "status": "verified"
+    },
+    {
+      "heroId": 99261,
+      "nameCn": "蝴姆巴巴",
+      "status": "verified"
+    },
+    {
+      "heroId": 99262,
+      "nameCn": "贝安卡",
+      "status": "verified"
+    },
+    {
+      "heroId": 99263,
+      "nameCn": "西布莉",
+      "status": "verified"
+    },
+    {
+      "heroId": 99264,
+      "nameCn": "辉黯逆命者",
+      "status": "verified"
+    },
+    {
+      "heroId": 99265,
+      "nameCn": "黎加",
+      "status": "verified"
+    },
+    {
+      "heroId": 99266,
+      "nameCn": "桑格",
+      "status": "verified"
+    },
+    {
+      "heroId": 99267,
+      "nameCn": "莱莎琳·斯托特",
+      "status": "verified"
+    },
+    {
+      "heroId": 99268,
+      "nameCn": "莉拉·德西亚斯",
+      "status": "verified"
+    },
+    {
+      "heroId": 99269,
+      "nameCn": "科洛蒂娅·巴兰茨",
+      "status": "verified"
+    },
+    {
+      "heroId": 99270,
+      "nameCn": "达奇",
+      "status": "verified"
+    },
+    {
+      "heroId": 99271,
+      "nameCn": "琳",
+      "status": "verified"
+    },
+    {
+      "heroId": 99272,
+      "nameCn": "穆宁",
+      "status": "verified"
+    },
+    {
+      "heroId": 99273,
+      "nameCn": "初真泽瑞达",
+      "status": "verified"
+    },
+    {
+      "heroId": 99274,
+      "nameCn": "兰卡",
+      "status": "verified"
+    },
+    {
+      "heroId": 99275,
+      "nameCn": "奥拉",
+      "status": "verified"
+    },
+    {
+      "heroId": 99276,
+      "nameCn": "相羽美雪",
+      "status": "verified"
+    },
+    {
+      "heroId": 99277,
+      "nameCn": "迪波威",
+      "status": "verified"
+    },
+    {
+      "heroId": 99278,
+      "nameCn": "相羽新也",
+      "status": "verified"
+    },
+    {
+      "heroId": 99279,
+      "nameCn": "雅希",
+      "status": "verified"
+    },
+    {
+      "heroId": 99280,
+      "nameCn": "沙律",
+      "status": "verified"
+    },
+    {
+      "heroId": 99281,
+      "nameCn": "骁浪驭虹使",
+      "status": "verified"
+    },
+    {
+      "heroId": 99282,
+      "nameCn": "狺",
+      "status": "verified"
+    },
+    {
+      "heroId": 99283,
+      "nameCn": "阿云",
+      "status": "verified"
+    },
+    {
+      "heroId": 99284,
+      "nameCn": "夜叉王凯",
+      "status": "verified"
+    },
+    {
+      "heroId": 99285,
+      "nameCn": "修罗王秋亚人",
+      "status": "verified"
+    },
+    {
+      "heroId": 99286,
+      "nameCn": "迦楼罗王力伽",
+      "status": "verified"
     }
   ],
   "limitations": [
