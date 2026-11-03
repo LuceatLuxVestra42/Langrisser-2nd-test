@@ -531,8 +531,11 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
     for (const soldierId of soldierIds) {
       const soldier = soldiersById.get(soldierId);
       if (!soldier) throw new Error(`Unresolved Soldier presentation ID ${soldierId}`);
+      if (!['NORMAL', 'SP'].includes(soldier.namespace)) {
+        throw new Error(`Unsupported Soldier namespace for Hero ${hero.id}, Soldier ${soldierId}`);
+      }
       const item = document.createElement('li');
-      const soldierLink = makeAnchor(soldier.nameKo, soldier.domId, () => {
+      const soldierLink = makeAnchor(`${soldier.namespace} · ${soldier.nameKo}`, soldier.domId, () => {
         const navigation = soldier.namespace === 'NORMAL' ? normalSoldierNavigation : spSoldierNavigation;
         navigation?.showAll(false);
       });
