@@ -98,4 +98,3 @@ for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
   assert.throws(() => validate(wrongGenerated), new RegExp(`Canonical NORMAL stat parity mismatch: Soldier 115 ${field}`));
 }
 process.stdout.write('NORMAL Soldier presentation regressions: PASS (56 exact IDs; 224 independent field mutations; 4 producer-code mutants; existing scope, schema and freshness negatives)\n');
-c77f885760eeb216d209afc77d39fdf97290d2a3
