@@ -82,7 +82,9 @@ for (const soldier of JSON.parse(generated).soldiers) {
 const producerSource = await readFile(new URL('./generate.mjs', import.meta.url), 'utf8');
 const producerLibrary = producerSource.slice(0, producerSource.indexOf('const invokedPath ='))
   .replace("'./soldier-training-tech-presentation-contract.mjs'",
-    JSON.stringify(new URL('./soldier-training-tech-presentation-contract.mjs', import.meta.url).href));
+    JSON.stringify(new URL('./soldier-training-tech-presentation-contract.mjs', import.meta.url).href))
+  .replace("'./exclusive-equipment-hero-navigation-contract.mjs'",
+    JSON.stringify(new URL('./exclusive-equipment-hero-navigation-contract.mjs', import.meta.url).href));
 assert.ok(producerSource.indexOf('const invokedPath =') > 0, 'Producer library boundary must exist');
 for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
   const original = `baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense }`;
@@ -96,3 +98,4 @@ for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
   assert.throws(() => validate(wrongGenerated), new RegExp(`Canonical NORMAL stat parity mismatch: Soldier 115 ${field}`));
 }
 process.stdout.write('NORMAL Soldier presentation regressions: PASS (56 exact IDs; 224 independent field mutations; 4 producer-code mutants; existing scope, schema and freshness negatives)\n');
+c77f885760eeb216d209afc77d39fdf97290d2a3
