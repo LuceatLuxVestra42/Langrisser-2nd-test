@@ -80,6 +80,7 @@ for (const { heroId, soldierId } of generatedApprovedPairs) {
 for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById, new Map());
 
 const actualPairs = [];
+const displayedLabels = new Map();
 const flushAnimationFrames = () => {
   while (animationFrames.length) animationFrames.shift()();
 };
@@ -93,9 +94,12 @@ for (const card of cards) {
     const targetId = link.href.slice(1);
     const matched = generatedApprovedPairs.find((pair) => pair.heroId === Number(card.id.slice('hero-'.length)) && pair.domId === targetId);
     assert.ok(matched, `Hero ${card.id} link ${link.href} must target its explicit Generated Soldier endpoint`);
-    assert.equal(link.textContent, soldiersById.get(matched.soldierId).nameKo, 'existing Korean Soldier label must be preserved');
+    const soldier = soldiersById.get(matched.soldierId);
+    assert.equal(link.textContent, `${matched.namespace} · ${soldier.nameKo}`,
+      'Soldier label must include its exact namespace and unchanged Korean name');
     assert.equal(link.className, 'soldier-navigation-link');
     actualPairs.push(`${matched.namespace}:${matched.soldierId}:${matched.heroId}`);
+    displayedLabels.set(`${matched.heroId}:${matched.soldierId}`, link.textContent);
     let target = null;
     if (pairIndex !== 0) {
       target = makeElement();
@@ -124,4 +128,26 @@ const expectedPairs = generatedApprovedPairs.map(({ namespace, soldierId, heroId
 assert.deepEqual(actualPairs.sort(), expectedPairs, 'Hero displayed Soldier pairs must equal Generated approved pairs');
 assert.equal(cards.length, heroData.heroes.length, 'Hero presentation population must remain unchanged');
 assert.equal(actualPairs.length, 379, 'all currently displayed Generated relation pairs must retain a link');
+
+const normalPikemen = normalData.soldiers.find(({ normalSoldierId }) => normalSoldierId === 115);
+const spPikemen = spData.soldiers.find(({ spSoldierId }) => spSoldierId === 5115);
+assert.ok(normalPikemen && spPikemen, 'same-name NORMAL/SP negative-control endpoints must remain present');
+assert.equal(normalPikemen.nameKo, spPikemen.nameKo, 'negative-control Soldier names must be identical');
+for (const heroId of [12, 25, 53, 55]) {
+  assert.equal(displayedLabels.get(`${heroId}:115`), `NORMAL · ${normalPikemen.nameKo}`,
+    `Hero ${heroId} must label the NORMAL same-name Soldier correctly`);
+  assert.equal(displayedLabels.get(`${heroId}:5115`), `SP · ${spPikemen.nameKo}`,
+    `Hero ${heroId} must label the SP same-name Soldier correctly`);
+}
+
+const invalidNamespace = new Map(soldiersById);
+const firstRelation = generatedApprovedPairs[0];
+invalidNamespace.set(firstRelation.soldierId, { ...soldiersById.get(firstRelation.soldierId), namespace: 'OTHER' });
+assert.throws(() => functions.addHero(
+  heroData.heroes.find(({ id }) => id === firstRelation.heroId),
+  relationsByHero,
+  invalidNamespace,
+  new Map(),
+), /Unsupported Soldier namespace/, 'unsupported Soldier namespace must fail closed');
+
 process.stdout.write(`Hero → Soldier navigation PASS (${actualPairs.length} exact namespace/soldierId/heroId pairs; labels, endpoints, and click target verified)\n`);
