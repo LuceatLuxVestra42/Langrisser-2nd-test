@@ -7,6 +7,7 @@ const heroIndexSearchClear = document.querySelector('#hero-index-search-clear');
 const heroIndexSearchCount = document.querySelector('#hero-index-search-count');
 const heroIndexSearchEmpty = document.querySelector('#hero-index-search-empty');
 const hero15MinimalDetailContainer = document.querySelector('#hero-minimal-detail-15-content');
+const hero16MinimalDetailContainer = document.querySelector('#hero-minimal-detail-16-content');
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
 const heroFactionFilter = document.querySelector('#hero-faction-filter');
@@ -36,6 +37,8 @@ let heroIndexNavigation = null;
 let heroIndexDetailIds = new Set();
 let hero15MinimalDetailNavigation = null;
 let hero15MinimalDetailIds = new Set();
+let hero16MinimalDetailNavigation = null;
+let hero16MinimalDetailIds = new Set();
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
 let spSoldierNavigation = null;
@@ -160,15 +163,16 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
   return { showAll, showTarget, update };
 }
 
-function renderHero15MinimalDetailView(data, container) {
+function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }) {
+  const expectedHeroId = heroId;
   if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== 1) {
-    throw new Error('Unsupported Hero 15 minimal detail consumer');
+    throw new Error(`Unsupported Hero ${heroId} minimal detail consumer`);
   }
   const hero = data.heroes[0];
-  if (Object.keys(hero).sort().join(',') !== 'exclusiveEquipment,heroId,nameKo' || hero.heroId !== 15 || hero.nameKo !== '리아나'
+  if (Object.keys(hero).sort().join(',') !== 'exclusiveEquipment,heroId,nameKo' || hero.heroId !== heroId || hero.nameKo !== nameKo
     || Object.keys(hero.exclusiveEquipment ?? {}).sort().join(',') !== 'effectDescriptionKo,equipmentId,nameKo'
-    || hero.exclusiveEquipment.equipmentId !== 535 || !hero.exclusiveEquipment.nameKo?.trim()
-    || !hero.exclusiveEquipment.effectDescriptionKo?.trim()) throw new Error('Malformed or out-of-scope Hero 15 minimal detail consumer');
+    || hero.exclusiveEquipment.equipmentId !== equipmentId || hero.exclusiveEquipment.nameKo !== equipmentNameKo
+    || !hero.exclusiveEquipment.effectDescriptionKo?.trim()) throw new Error(`Malformed or out-of-scope Hero ${heroId} minimal detail consumer`);
   const article = document.createElement('article');
   article.className = 'hero-minimal-detail-card';
   const name = document.createElement('h3');
@@ -188,11 +192,19 @@ function renderHero15MinimalDetailView(data, container) {
   container.replaceChildren(article);
   return {
     showTarget(heroId) {
-      if (heroId !== 15) return false;
-      document.getElementById('hero-minimal-detail-15')?.scrollIntoView?.();
+      if (heroId !== expectedHeroId) return false;
+      document.getElementById(`hero-minimal-detail-${heroId}`)?.scrollIntoView?.();
       return true;
     },
   };
+}
+
+function renderHero15MinimalDetailView(data, container) {
+  return renderHeroMinimalDetailView(data, container, { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' });
+}
+
+function renderHero16MinimalDetailView(data, container) {
+  return renderHeroMinimalDetailView(data, container, { heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관' });
 }
 
 function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, emptyState }) {
@@ -704,6 +716,23 @@ try {
 }
 
 try {
+  const response = await fetch('./generated/hero-minimal-detail-16.v1.json');
+  if (!response.ok) throw new Error(`Generated Hero 16 minimal detail request failed (${response.status})`);
+  const data = await response.json();
+  hero16MinimalDetailIds = new Set(data.heroes?.map(({ heroId }) => heroId) ?? []);
+  if (hero16MinimalDetailIds.size !== 1 || !hero16MinimalDetailIds.has(16)) throw new Error('Hero Minimal Detail publication scope must contain only Hero 16');
+  hero16MinimalDetailNavigation = renderHero16MinimalDetailView(data, hero16MinimalDetailContainer);
+} catch (error) {
+  const status = document.createElement('p');
+  status.className = 'status status-error';
+  status.textContent = '영웅 최소 상세 정보를 불러오지 못했습니다.';
+  hero16MinimalDetailContainer.replaceChildren(status);
+  console.error(error);
+}
+
+const minimalDetailHeroIds = new Set([...hero15MinimalDetailIds, ...hero16MinimalDetailIds]);
+
+try {
   const response = await fetch('./generated/hero-index.v1.json');
   if (!response.ok) throw new Error(`Generated Hero Index request failed (${response.status})`);
   const data = await response.json();
@@ -718,11 +747,13 @@ try {
     seen.add(hero.heroId);
   }
   heroIndexNavigation = renderHeroIndexSearch({
-    heroes: data.heroes, detailHeroIds: heroIndexDetailIds, minimalDetailHeroIds: hero15MinimalDetailIds,
+    heroes: data.heroes, detailHeroIds: heroIndexDetailIds, minimalDetailHeroIds,
     input: heroIndexSearch, clearButton: heroIndexSearchClear,
     count: heroIndexSearchCount, emptyState: heroIndexSearchEmpty, container: heroIndexContainer,
     showDetailTarget: (heroId) => heroNavigation?.showTarget(heroId),
-    showMinimalDetailTarget: (heroId) => hero15MinimalDetailNavigation?.showTarget(heroId),
+    showMinimalDetailTarget: (heroId) => heroId === 15
+      ? hero15MinimalDetailNavigation?.showTarget(heroId)
+      : hero16MinimalDetailNavigation?.showTarget(heroId),
   });
 } catch (error) {
   const status = document.createElement('p');
@@ -891,7 +922,10 @@ function addExclusiveEquipment(item) {
       hero.navigationTarget.fragment,
       () => {
         if (isDetail) heroNavigation?.showTarget(hero.heroId);
-        else if (hero.navigationTarget.surface === 'HERO_MINIMAL_DETAIL') hero15MinimalDetailNavigation?.showTarget(hero.heroId);
+        else if (hero.navigationTarget.surface === 'HERO_MINIMAL_DETAIL') {
+          if (hero.heroId === 15) hero15MinimalDetailNavigation?.showTarget(hero.heroId);
+          else hero16MinimalDetailNavigation?.showTarget(hero.heroId);
+        }
         else heroIndexNavigation?.showTarget(hero.heroId);
       },
       true,
@@ -933,15 +967,19 @@ try {
       || Object.keys(row.navigationTarget).sort().join(',') !== 'fragment,surface'
       || row.navigationTarget.fragment !== (row.navigationTarget.surface === 'HERO_DETAIL' ? `hero-${row.heroId}`
         : row.navigationTarget.surface === 'HERO_INDEX' ? `hero-index-entry-${row.heroId}`
-          : row.equipmentId === 535 && row.heroId === 15 ? 'hero-minimal-detail-15' : null)) {
+          : row.equipmentId === 535 && row.heroId === 15 ? 'hero-minimal-detail-15'
+            : row.equipmentId === 418 && row.heroId === 16 ? 'hero-minimal-detail-16' : null)) {
       throw new Error('Malformed, duplicate, or unresolved Exclusive Equipment Hero Navigation record');
     }
     exclusiveEquipmentHeroById.set(row.equipmentId, row);
   }
   if (exclusiveEquipmentHeroById.size !== 167) throw new Error('Exclusive Equipment Hero Navigation population must remain 167');
-  if (exclusiveEquipmentHeroById.get(535)?.navigationTarget.surface !== 'HERO_MINIMAL_DETAIL'
-    || [...exclusiveEquipmentHeroById.values()].filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length !== 1) {
-    throw new Error('Only Equipment 535 may target the approved Hero 15 minimal detail');
+  const minimalRows = [...exclusiveEquipmentHeroById.values()].filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL');
+  if (exclusiveEquipmentHeroById.get(535)?.navigationTarget.fragment !== 'hero-minimal-detail-15'
+    || exclusiveEquipmentHeroById.get(418)?.navigationTarget.fragment !== 'hero-minimal-detail-16'
+    || minimalRows.length !== 2
+    || JSON.stringify(minimalRows.map(({ equipmentId, heroId }) => [equipmentId, heroId])) !== JSON.stringify([[418, 16], [535, 15]])) {
+    throw new Error('Only approved Equipment 418 and 535 may target their corresponding minimal details');
   }
   exclusiveEquipmentNavigation = renderEquipmentSearch({
     equipment: data.equipment, input: exclusiveEquipmentSearch, clearButton: exclusiveEquipmentClear,
