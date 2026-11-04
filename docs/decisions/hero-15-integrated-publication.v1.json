@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "HERO_15_INTEGRATED_PUBLICATION",
+  "status": "APPROVED",
+  "approval": {
+    "approverRole": "USER",
+    "source": {
+      "kind": "CURRENT_USER_MESSAGE",
+      "quote": "나는 Langrisser-2nd-test 프로젝트의 Hero 15(리아나) 통합 Publication 변경 P-A·P-B·P-C 전체를 승인한다.",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "contextVerified": true
+    },
+    "recordedAtDate": "2026-11-04"
+  },
+  "approvedScope": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baselineRef": "main",
+    "baselineHead": "baa012cb9ada8f09f81e154f0feb0613499b6b14",
+    "heroId": 15,
+    "nameKo": "리아나",
+    "nameLabelStatus": "PROJECT_REVIEWED",
+    "officialKrProvenanceStatus": "unverified",
+    "canonicalSources": {
+      "heroIdentity": {
+        "path": "canonical/hero-identities.v1.json",
+        "sha256": "6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c",
+        "locator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15"
+      },
+      "heroLocalization": {
+        "path": "canonical/hero-localizations-ko.v1.json",
+        "sha256": "7f0ca08eb578dd2d1fcf9aa44eb825c49f7e415faeedd2fffa4b604d2c4ab299",
+        "locator": "evidence/localization/hero-names-ko.v1.json#heroId=15"
+      },
+      "equipmentRelation": {
+        "path": "canonical/hero-exclusive-equipment-relations.v1.json",
+        "sha256": "a0aa17178c04456482018d3b166baa176224a8562b713fb5f583f2b5a113ba01",
+        "locator": "ConfigDataEquipmentInfo#recordId=535&field=SkillHero&value=15"
+      },
+      "equipmentIdentity": {
+        "path": "canonical/exclusive-equipment.v1.json",
+        "sha256": "bd59b9cce913ffd3f310d9f96b1295e939959b2e207e55324dc60b2a50f38b9f",
+        "locator": "canonical/exclusive-equipment.v1.json#equipmentId=535"
+      },
+      "equipmentLocalization": {
+        "path": "canonical/exclusive-equipment-localizations-ko.v1.json",
+        "sha256": "edd54afd11a4701dc039710670dcd321b7f459648887f55d48423ff26f1a125c",
+        "locator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=535"
+      }
+    },
+    "surfaces": [
+      "HERO_MINIMAL_DETAIL",
+      "HERO_INDEX_LIST",
+      "EXCLUSIVE_EQUIPMENT_LIST"
+    ],
+    "minimalDetail": {
+      "surface": "HERO_MINIMAL_DETAIL",
+      "heroId": 15,
+      "fragment": "hero-minimal-detail-15",
+      "fields": [
+        "heroId",
+        "nameKo",
+        "exclusiveEquipment.equipmentId",
+        "exclusiveEquipment.nameKo",
+        "exclusiveEquipment.effectDescriptionKo"
+      ]
+    },
+    "heroIndexNavigation": {
+      "surface": "HERO_INDEX_LIST",
+      "heroId": 15,
+      "targetSurface": "HERO_MINIMAL_DETAIL",
+      "fragment": "hero-minimal-detail-15",
+      "detailHeroIdsPreserved": 29,
+      "heroIndexPopulation": 267
+    },
+    "exclusiveEquipmentNavigation": {
+      "surface": "EXCLUSIVE_EQUIPMENT_LIST",
+      "equipmentId": 535,
+      "heroId": 15,
+      "previousTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-15"
+      },
+      "target": {
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-15"
+      },
+      "otherEquipmentTargetsPreserved": 166
+    },
+    "preservedPopulations": {
+      "heroIndex": 267,
+      "fullHeroDetail": 29,
+      "exclusiveEquipmentNavigation": 167
+    },
+    "excluded": [
+      "New Semantic Admission",
+      "Canonical or Evidence mutation",
+      "Legacy Repository mutation",
+      "Hero IDs other than 15",
+      "Equipment IDs other than 535",
+      "Rarity",
+      "Faction",
+      "Production",
+      "Job",
+      "Soldier",
+      "Talent",
+      "Skill",
+      "Portrait or Asset",
+      "Release status",
+      "New game statistics"
+    ]
+  },
+  "effect": {
+    "effective": true,
+    "condition": "Only Hero 15 with the exact approved fields and the exact P-B/P-C Navigation targets may be published; all other existing populations and targets remain unchanged.",
+    "reviewWhen": "Re-review if the approved IDs, fields, source claims, surfaces, Navigation targets, or preserved populations change."
+  }
+}

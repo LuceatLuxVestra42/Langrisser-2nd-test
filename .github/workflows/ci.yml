@@ -410,3 +410,9 @@ jobs:
 
       - name: Test Exclusive Equipment Hero Navigation boundaries
         run: node tools/test-exclusive-equipment-hero-navigation.mjs
+
+      - name: Validate Hero 15 Minimal Detail publication
+        run: node tools/validate-hero-15-minimal-detail.mjs
+
+      - name: Test Hero 15 Minimal Detail boundaries
+        run: node tools/test-hero-15-minimal-detail.mjs

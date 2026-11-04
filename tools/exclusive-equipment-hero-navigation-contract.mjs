@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { HERO_15_MINIMAL_DETAIL_FRAGMENT, validateHero15IntegratedPublication } from './hero-15-integrated-publication-contract.mjs';
 
 export const EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH = 'docs/decisions/exclusive-equipment-hero-navigation-publication.v1.json';
 export const EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH = 'generated/exclusive-equipment-hero-navigation.v1.json';
@@ -10,7 +11,7 @@ const exactKeys = (value, keys, label) => {
 };
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 
-export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, heroLocalizationSha256, heroIdentitySha256 }) {
+export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, heroLocalizationSha256, heroIdentitySha256 }) {
   if (relations?.schemaVersion !== 1 || !Array.isArray(relations.records)
     || equipmentIdentities?.schemaVersion !== 1 || !Array.isArray(equipmentIdentities.records)
     || heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)
@@ -20,6 +21,7 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
     || publicationDecision?.schemaVersion !== 1
     || publicationDecision?.decisionType !== 'EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PUBLICATION'
     || publicationDecision?.status !== 'APPROVED') throw new Error('Exclusive Equipment Hero publication inputs are unsupported');
+  validateHero15IntegratedPublication(integratedPublicationDecision);
 
   exactKeys(publicationDecision, ['schemaVersion', 'decisionType', 'status', 'approvedScope', 'approval', 'effect'], 'Exclusive Equipment Hero decision');
   const scope = publicationDecision.approvedScope;
@@ -100,6 +102,9 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
     if (!approvedPairs.has(pair) || seen.has(pair)) throw new Error(`Unapproved or duplicate Exclusive Equipment Hero relation ${pair}`);
     seen.add(pair);
     if (!heroIdSet.has(heroId) || !approvedHeroIds.has(heroId) || !nameById.has(heroId)) throw new Error(`Unresolved or unpublished Hero endpoint ${heroId}`);
+    if (equipmentId === 535 && heroId === 15) {
+      return { equipmentId, heroId, heroNameKo: nameById.get(heroId), navigationTarget: { surface: 'HERO_MINIMAL_DETAIL', fragment: HERO_15_MINIMAL_DETAIL_FRAGMENT } };
+    }
     if (detailIds.has(heroId)) {
       if (detailEquipmentByHero.get(heroId) !== equipmentId) throw new Error(`Approved Hero Detail endpoint ${heroId} does not own Equipment ${equipmentId} in the existing slice`);
       return { equipmentId, heroId, heroNameKo: nameById.get(heroId), navigationTarget: { surface: 'HERO_DETAIL', fragment: `hero-${heroId}` } };
@@ -108,8 +113,10 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
     throw new Error(`Hero ${heroId} has no approved navigation target`);
   });
   if (records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length !== 29
-    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length !== 138) {
-    throw new Error('Exclusive Equipment Hero target counts must remain 29 detail and 138 index');
+    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length !== 137
+    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length !== 1
+    || records.find(({ equipmentId }) => equipmentId === 535)?.navigationTarget.fragment !== HERO_15_MINIMAL_DETAIL_FRAGMENT) {
+    throw new Error('Exclusive Equipment Hero target counts must remain 29 detail, 137 Index, and 1 approved minimal detail');
   }
   return `${JSON.stringify({ schemaVersion: 1, consumer: 'exclusive-equipment-hero-navigation', records }, null, 2)}\n`;
 }

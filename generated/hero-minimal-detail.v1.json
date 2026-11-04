@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 15,
+      "nameKo": "리아나",
+      "exclusiveEquipment": {
+        "equipmentId": 535,
+        "nameKo": "완벽한 찬사",
+        "effectDescriptionKo": "생명 +10%\n[어게인] 사용 시, 대상에게 '공격, 지력 +20%' 부여, 지속 2행동\n소환한 [천공사수]의 스탯 증가 및 홀리힐 스킬 추가 보유"
+      }
+    }
+  ]
+}

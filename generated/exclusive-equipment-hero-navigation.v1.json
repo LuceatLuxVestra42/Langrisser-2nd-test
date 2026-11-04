@@ -961,8 +961,8 @@
       "heroId": 15,
       "heroNameKo": "리아나",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-15"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-15"
       }
     },
     {

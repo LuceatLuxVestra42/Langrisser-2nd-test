@@ -12,6 +12,7 @@ import { validateM05G } from './validate-skin-m05-g.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
+import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -38,7 +39,7 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
 }
 
 // Publication packaging only: this list does not admit semantic populations.
-export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null) {
+export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null) {
   if (!Array.isArray(skinFullartPaths) || skinFullartPaths.some((path) => !isAllowedSkinAssetPath(path))
     || new Set(skinFullartPaths).size !== skinFullartPaths.length) {
     throw new Error('Skin Fullart Build paths must be unique approved Asset paths');
@@ -58,6 +59,7 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   ];
   if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
   if (exclusiveHeroPublicationDecision?.status === 'APPROVED') files.push(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH);
+  if (hero15IntegratedPublication?.status === 'APPROVED') files.push(HERO_15_MINIMAL_DETAIL_PATH);
   if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
   for (const hero of heroPresentation.records) {
     if (typeof hero.portrait !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(hero.portrait)) {
@@ -68,9 +70,9 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   return [...new Set(files)].sort();
 }
 
-export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null) {
+export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null) {
   const skinFullartPaths = await readApprovedSkinAssetPaths(sourceRoot);
-  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision);
+  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication);
   const allowedDirectories = new Set(expected.flatMap(file => {
     const parts = file.split('/');
     return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
@@ -135,6 +137,7 @@ if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
 const exclusiveHeroPublicationDecision = await readJson(EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH);
+const hero15IntegratedPublication = validateHero15IntegratedPublication(await readJson(HERO_15_INTEGRATED_PUBLICATION_PATH));
 const [exclusiveHeroEquipmentIdentity, exclusiveHeroIndexPublication, exclusiveHeroLocalizationBytes, exclusiveHeroIdentityBytes] = await Promise.all([
   readJson('canonical/exclusive-equipment.v1.json'),
   readJson('docs/decisions/hero-index-publication.v1.json'),
@@ -143,6 +146,24 @@ const [exclusiveHeroEquipmentIdentity, exclusiveHeroIndexPublication, exclusiveH
 ]);
 const exclusiveHeroNavigationPath = resolve(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH);
 const exclusiveHeroNavigationText = await readFile(exclusiveHeroNavigationPath, 'utf8');
+const hero15MinimalInputs = {
+  decision: hero15IntegratedPublication,
+  heroIdentities,
+  heroLocalizations: heroLocalization,
+  relations: exclusiveRelations,
+  equipmentIdentities: exclusiveHeroEquipmentIdentity,
+  equipmentLocalizations: exclusiveLocalizations,
+  sourceHashes: Object.fromEntries(await Promise.all([
+    ['heroIdentity', 'canonical/hero-identities.v1.json'],
+    ['heroLocalization', 'canonical/hero-localizations-ko.v1.json'],
+    ['equipmentRelation', 'canonical/hero-exclusive-equipment-relations.v1.json'],
+    ['equipmentIdentity', 'canonical/exclusive-equipment.v1.json'],
+    ['equipmentLocalization', 'canonical/exclusive-equipment-localizations-ko.v1.json'],
+  ].map(async ([key, path]) => [key, createHash('sha256').update(await readFile(resolve(path))).digest('hex')]))),
+};
+const hero15MinimalDetailPath = resolve(HERO_15_MINIMAL_DETAIL_PATH);
+const hero15MinimalDetailText = await readFile(hero15MinimalDetailPath, 'utf8');
+validateHero15MinimalDetail({ generatedText: hero15MinimalDetailText, inputs: hero15MinimalInputs });
 validateExclusiveEquipmentHeroNavigation({ generatedText: exclusiveHeroNavigationText, inputs: {
   relations: exclusiveRelations,
   equipmentIdentities: exclusiveHeroEquipmentIdentity,
@@ -151,6 +172,7 @@ validateExclusiveEquipmentHeroNavigation({ generatedText: exclusiveHeroNavigatio
   heroSlice: JSON.parse(generatedText),
   heroIndexPublication: exclusiveHeroIndexPublication,
   publicationDecision: exclusiveHeroPublicationDecision,
+  integratedPublicationDecision: hero15IntegratedPublication,
   heroLocalizationSha256: createHash('sha256').update(exclusiveHeroLocalizationBytes).digest('hex'),
   heroIdentitySha256: createHash('sha256').update(exclusiveHeroIdentityBytes).digest('hex'),
 } });
@@ -394,6 +416,7 @@ try {
   for (const file of ['index.html', 'app.js', 'styles.css']) await cp(resolve(file), join(output, file));
   await cp(generatedPath, join(output, 'generated', 'hero-slice.v1.json'));
   await cp(resolve('generated/hero-index.v1.json'), join(output, 'generated', 'hero-index.v1.json'));
+  await cp(hero15MinimalDetailPath, join(output, ...HERO_15_MINIMAL_DETAIL_PATH.split('/')));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
   const skinConsumerPath = resolve('generated/skin-consumer.v1.json');
@@ -442,6 +465,7 @@ try {
   if (!app.includes("fetch('./generated/hero-index.v1.json')")) {
     throw new Error('built app does not resolve the approved Generated Hero Index entry');
   }
+  if (!app.includes(`fetch('./${HERO_15_MINIMAL_DETAIL_PATH}')`)) throw new Error('built app does not resolve the approved Hero 15 minimal detail consumer');
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
   if (!app.includes("fetch('./generated/soldier-training-tech-descriptions.v1.json')")) throw new Error('built app does not resolve the scoped TrainingTech proposal consumer');
@@ -463,6 +487,10 @@ try {
   const packagedRelationsText = await readFile(join(output, 'generated', 'hero-soldier-relations.v1.json'), 'utf8');
   if (packagedRelationsText !== heroSoldierRelationText) throw new Error('packaged Hero–Soldier relations differ from tracked generated artifact');
   const packagedRelations = JSON.parse(packagedRelationsText);
+  const packagedHero15MinimalDetailText = await readFile(join(output, ...HERO_15_MINIMAL_DETAIL_PATH.split('/')), 'utf8');
+  if (packagedHero15MinimalDetailText !== hero15MinimalDetailText) throw new Error('packaged Hero 15 minimal detail differs from validated Generated artifact');
+  const packagedHero15MinimalDetail = JSON.parse(packagedHero15MinimalDetailText);
+  if (packagedHero15MinimalDetail.heroes.length !== 1 || packagedHero15MinimalDetail.heroes[0].heroId !== 15) throw new Error('packaged Hero Minimal Detail scope mismatch');
   if (!app.includes("fetch('./generated/job-glossary.v1.json')")) throw new Error('built app does not resolve the generated Job glossary entry');
   if (!app.includes("fetch('./generated/general-ssr-equipment.v1.json')")) throw new Error('built app does not resolve the generated General SSR Equipment entry');
   if (!app.includes("fetch('./generated/exclusive-equipment.v1.json')")) throw new Error('built app does not resolve the generated Exclusive Equipment entry');
@@ -479,14 +507,14 @@ try {
   if (packagedExclusiveHeroNavigation.records.length !== 167) throw new Error('packaged Exclusive Equipment Hero Navigation population mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision);
+  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');
     await writeFile(resolve(manifestPath), `${JSON.stringify({ schemaVersion: 1, sourceSha, files }, null, 2)}\n`, { flag: 'wx' });
   }
   completed = true;
-  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} detail endpoints; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedExclusiveHeroNavigation.records.length} Equipment Hero Navigation relations, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length} detail targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length} Index targets, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
+  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} Full Detail endpoints; ${packagedHero15MinimalDetail.heroes.length} Minimal Detail endpoint; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedExclusiveHeroNavigation.records.length} Equipment Hero Navigation relations, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length} detail targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length} Index targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length} Minimal Detail targets, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
   return { output, files };
 } finally {
   if (!verifyDir && (!outputDir || !completed)) await rm(output, { recursive: true, force: true });
