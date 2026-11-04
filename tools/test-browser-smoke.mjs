@@ -30,14 +30,18 @@ const siteRoot = resolve(process.env.SITE_SOURCE_ROOT);
 const publicSkinConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-consumer-public-m05-g.v1.json'), 'utf8'));
 const exclusiveHeroNavigationConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/exclusive-equipment-hero-navigation.v1.json'), 'utf8'));
 const hero15MinimalDetailConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/hero-minimal-detail.v1.json'), 'utf8'));
+const hero16MinimalDetailConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/hero-minimal-detail-16.v1.json'), 'utf8'));
 assert.equal(exclusiveHeroNavigationConsumer.records.length, 167, 'published Equipment Hero Navigation must contain exactly 167 approved relations');
 assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length, 29);
-assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 137);
-assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 1);
+assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 136);
+assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 2);
 assert.deepEqual(hero15MinimalDetailConsumer.heroes.map(({ heroId }) => heroId), [15]);
+assert.deepEqual(hero16MinimalDetailConsumer.heroes.map(({ heroId }) => heroId), [16]);
 assert.deepEqual(exclusiveHeroNavigationConsumer.records.find(({ equipmentId }) => equipmentId === 535)?.navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-15' });
-assert.ok(exclusiveHeroNavigationConsumer.records.filter(({ equipmentId }) => equipmentId !== 535)
+assert.deepEqual(exclusiveHeroNavigationConsumer.records.find(({ equipmentId }) => equipmentId === 418)?.navigationTarget,
+  { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-16' });
+assert.ok(exclusiveHeroNavigationConsumer.records.filter(({ equipmentId }) => ![418, 535].includes(equipmentId))
   .every(({ navigationTarget }) => navigationTarget.surface !== 'HERO_MINIMAL_DETAIL'), 'all other Equipment targets must be preserved');
 const publicSkinAssets = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-assets-public-m05-g.v1.json'), 'utf8'));
 const publishedSkinRows = validatePublishedSkinRows(publicSkinConsumer, publicSkinAssets);
@@ -351,6 +355,7 @@ try {
         exclusiveEquipmentIndexLinks: document.querySelectorAll('#exclusive-equipment .general-equipment-card .equipment-navigation-link[href^="#hero-index-entry-"]').length,
         exclusiveEquipmentMinimalDetailLinks: document.querySelectorAll('#exclusive-equipment .general-equipment-card .equipment-navigation-link[href^="#hero-minimal-detail-"]').length,
         hero15MinimalDetailCards: document.querySelectorAll('#hero-minimal-detail-15-content .hero-minimal-detail-card').length,
+        hero16MinimalDetailCards: document.querySelectorAll('#hero-minimal-detail-16-content .hero-minimal-detail-card').length,
         spSoldiers: document.querySelectorAll('#sp-soldiers .sp-soldier-card').length,
         normalSoldiers: document.querySelectorAll('#normal-soldiers .sp-soldier-card').length,
         jobRows: document.querySelectorAll('#job-glossary tr').length,
@@ -423,9 +428,10 @@ try {
     assert.equal(layout.rendered.exclusiveEquipment, 167, `${viewport.name}: all Exclusive Equipment cards must render`);
     assert.equal(layout.rendered.exclusiveEquipmentOwnerLinks, 167, `${viewport.name}: each Equipment card must show its approved owner`);
     assert.equal(layout.rendered.exclusiveEquipmentDetailLinks, 29, `${viewport.name}: exactly 29 approved Detail links must remain`);
-    assert.equal(layout.rendered.exclusiveEquipmentIndexLinks, 137, `${viewport.name}: 137 unchanged Hero Index links must remain`);
-    assert.equal(layout.rendered.exclusiveEquipmentMinimalDetailLinks, 1, `${viewport.name}: only Equipment 535 may target Hero 15 Minimal Detail`);
+    assert.equal(layout.rendered.exclusiveEquipmentIndexLinks, 136, `${viewport.name}: 136 unchanged Hero Index links must remain`);
+    assert.equal(layout.rendered.exclusiveEquipmentMinimalDetailLinks, 2, `${viewport.name}: only Equipment 418 and 535 may target Minimal Detail`);
     assert.equal(layout.rendered.hero15MinimalDetailCards, 1, `${viewport.name}: Hero 15 Minimal Detail must render exactly once`);
+    assert.equal(layout.rendered.hero16MinimalDetailCards, 1, `${viewport.name}: Hero 16 Minimal Detail must render exactly once`);
     const renderedOwnerLinks = await page.locator('#exclusive-equipment .general-equipment-card').evaluateAll((cards) => cards.map((card) => {
       const link = card.querySelector('.equipment-navigation-link');
       return { equipmentId: Number(card.id.replace('equipment-', '')), fragment: link?.getAttribute('href')?.slice(1), label: link?.textContent.trim() };
@@ -437,6 +443,8 @@ try {
     })), `${viewport.name}: every rendered Equipment owner and Navigation target must match the approved Consumer`);
     assert.equal(await page.locator('#hero-minimal-detail-15-content').innerText().then((text) => text.includes('리아나') && text.includes('완벽한 찬사')), true,
       `${viewport.name}: Hero 15 minimal detail must show only the approved identity and equipment presentation`);
+    assert.equal(await page.locator('#hero-minimal-detail-16-content').innerText().then((text) => text.includes('란스') && text.includes('칼자스의 왕관')),
+      true, `${viewport.name}: Hero 16 minimal detail must show only the approved identity and equipment presentation`);
     assert.equal(layout.rendered.skinSections, new Set(publishedSkinRows.map((row) => row.heroId)).size,
       `${viewport.name}: each approved Hero must have one Skin section`);
     assert.equal(layout.skinPresentation.heading, '스킨 일러스트');
@@ -514,6 +522,17 @@ try {
     await hero15IndexLink.click();
     assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-15', `${viewport.name}: Hero Index ID 15 must navigate to Minimal Detail`);
     assert.equal(await page.locator('#hero-index-search').inputValue(), '15', `${viewport.name}: minimal navigation must preserve the Index query`);
+    await page.locator('#hero-index-search').fill('999999');
+    const equipment418Link = page.locator('#equipment-418 .equipment-navigation-link');
+    await equipment418Link.click();
+    assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-16', `${viewport.name}: Equipment 418 must use the approved Hero 16 Minimal Detail target`);
+    assert.equal(await page.locator('#hero-minimal-detail-16').isVisible(), true, `${viewport.name}: Hero 16 Minimal Detail target must exist and be visible`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '999999', `${viewport.name}: Equipment 418 navigation must preserve Hero Index search state`);
+    await page.locator('#hero-index-search').fill('16');
+    const hero16IndexLink = page.locator('#hero-index-entry-16 .hero-index-minimal-detail-link');
+    await hero16IndexLink.click();
+    assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-16', `${viewport.name}: Hero Index ID 16 must navigate to Minimal Detail`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '16', `${viewport.name}: Hero 16 minimal navigation must preserve the Index query`);
 
     console.log(`VIEWPORT_${viewport.name.toUpperCase()}=${JSON.stringify(layout)}`);
   }

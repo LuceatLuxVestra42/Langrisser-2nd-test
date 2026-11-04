@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "HERO_16_INTEGRATED_PUBLICATION",
+  "status": "APPROVED",
+  "approval": {
+    "approverRole": "USER",
+    "source": {
+      "kind": "CURRENT_USER_MESSAGE",
+      "quote": "나는 `LuceatLuxVestra42/Langrisser-2nd-test`의 Hero 16(란스) 통합 Publication 변경 P-A·P-B·P-C 전체를 직접 승인한다.",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "contextVerified": true
+    },
+    "recordedAtDate": "2026-11-04"
+  },
+  "approvedScope": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baselineRef": "main",
+    "baselineHead": "2ff8166e44f7688e1d230e727629aaa0abab9e75",
+    "heroId": 16,
+    "nameKo": "란스",
+    "nameLabelStatus": "PROJECT_REVIEWED",
+    "officialKrProvenanceStatus": "unverified",
+    "canonicalSources": {
+      "heroIdentity": {
+        "path": "canonical/hero-identities.v1.json",
+        "sha256": "6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c",
+        "locator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=16"
+      },
+      "heroLocalization": {
+        "path": "canonical/hero-localizations-ko.v1.json",
+        "sha256": "7f0ca08eb578dd2d1fcf9aa44eb825c49f7e415faeedd2fffa4b604d2c4ab299",
+        "locator": "evidence/localization/hero-names-ko.v1.json#heroId=16"
+      },
+      "equipmentRelation": {
+        "path": "canonical/hero-exclusive-equipment-relations.v1.json",
+        "sha256": "a0aa17178c04456482018d3b166baa176224a8562b713fb5f583f2b5a113ba01",
+        "locator": "ConfigDataEquipmentInfo#recordId=418&field=SkillHero&value=16"
+      },
+      "equipmentIdentity": {
+        "path": "canonical/exclusive-equipment.v1.json",
+        "sha256": "bd59b9cce913ffd3f310d9f96b1295e939959b2e207e55324dc60b2a50f38b9f",
+        "locator": "canonical/exclusive-equipment.v1.json#equipmentId=418"
+      },
+      "equipmentLocalization": {
+        "path": "canonical/exclusive-equipment-localizations-ko.v1.json",
+        "sha256": "edd54afd11a4701dc039710670dcd321b7f459648887f55d48423ff26f1a125c",
+        "locator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=418"
+      }
+    },
+    "surfaces": [
+      "HERO_MINIMAL_DETAIL",
+      "HERO_INDEX_LIST",
+      "EXCLUSIVE_EQUIPMENT_LIST"
+    ],
+    "minimalDetail": {
+      "surface": "HERO_MINIMAL_DETAIL",
+      "heroId": 16,
+      "fragment": "hero-minimal-detail-16",
+      "fields": [
+        "heroId",
+        "nameKo",
+        "exclusiveEquipment.equipmentId",
+        "exclusiveEquipment.nameKo",
+        "exclusiveEquipment.effectDescriptionKo"
+      ]
+    },
+    "heroIndexNavigation": {
+      "surface": "HERO_INDEX_LIST",
+      "heroId": 16,
+      "targetSurface": "HERO_MINIMAL_DETAIL",
+      "fragment": "hero-minimal-detail-16",
+      "fullDetailHeroIdsPreserved": 29,
+      "minimalDetailHeroIdsAfter": 2,
+      "heroIndexPopulation": 267
+    },
+    "exclusiveEquipmentNavigation": {
+      "surface": "EXCLUSIVE_EQUIPMENT_LIST",
+      "equipmentId": 418,
+      "heroId": 16,
+      "previousTarget": {
+        "surface": "HERO_INDEX",
+        "fragment": "hero-index-entry-16"
+      },
+      "target": {
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-16"
+      },
+      "otherEquipmentTargetsPreserved": 166
+    },
+    "preservedPopulations": {
+      "heroIndex": 267,
+      "fullHeroDetail": 29,
+      "exclusiveEquipmentNavigation": 167,
+      "hero15MinimalDetail": 1,
+      "minimalDetailAfter": 2
+    },
+    "excluded": [
+      "New Semantic Admission",
+      "Canonical or Evidence mutation",
+      "Legacy Repository mutation",
+      "Hero IDs other than 16",
+      "Equipment IDs other than 418",
+      "Changes to Hero 15 publication",
+      "Changes to other 166 Equipment targets",
+      "Rarity",
+      "Faction",
+      "Production",
+      "Job",
+      "Soldier",
+      "Talent",
+      "Skill",
+      "Portrait or Asset",
+      "Release status",
+      "New game statistics"
+    ]
+  },
+  "effect": {
+    "effective": true,
+    "condition": "Only Hero 16 with the exact approved fields, Hero Index link, and Equipment 418 target may be published; Hero 15 and all other existing populations and targets remain unchanged.",
+    "reviewWhen": "Re-review if the approved IDs, fields, source claims, surfaces, navigation targets, or preserved populations change."
+  }
+}

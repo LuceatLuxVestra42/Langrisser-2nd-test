@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 16,
+      "nameKo": "란스",
+      "exclusiveEquipment": {
+        "equipmentId": 418,
+        "nameKo": "칼자스의 왕관",
+        "effectDescriptionKo": "생명 +5%\n혼합부대일 시, 주는 피해 +20%"
+      }
+    }
+  ]
+}

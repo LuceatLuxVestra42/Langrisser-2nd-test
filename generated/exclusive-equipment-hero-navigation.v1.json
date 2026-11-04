@@ -268,8 +268,8 @@
       "heroId": 16,
       "heroNameKo": "란스",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-16"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-16"
       }
     },
     {
