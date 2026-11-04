@@ -55,6 +55,12 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-index-detail-link { color: #a9ceff; font-weight: 700; text-underline-offset: 3px; }
 .hero-index-id { flex: 0 0 auto; color: #aab5c3; font-size: .76rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .hero-index-empty { margin: 0 0 10px; padding: 12px 0; }
+.hero-minimal-detail-section { margin: 0 0 56px; padding: 20px; border: 1px solid #344050; border-radius: 16px; background: #1a202a; }
+.hero-minimal-detail-card h3 { margin: 0 0 8px; font-size: 1.35rem; }
+.hero-minimal-detail-id, .hero-minimal-detail-provenance { margin: 4px 0; color: #aab5c3; }
+.hero-minimal-detail-card h4 { margin: 20px 0 8px; }
+.hero-minimal-detail-effect { white-space: pre-line; line-height: 1.65; }
+.hero-index-minimal-detail-link { min-width: 0; overflow-wrap: anywhere; color: #a9ceff; font-weight: 700; text-underline-offset: 3px; }
 .hero-card { display: flex; min-height: 390px; flex-direction: column; overflow: hidden; border: 1px solid #344050; border-radius: 16px; background: #1a202a; box-shadow: 0 12px 32px #070a0e66; }
 .hero-portrait { display: block; width: 100%; height: 320px; padding: 12px; object-fit: contain; background: linear-gradient(180deg, #283444, #1b222c); }
 .hero-skin-fullarts { min-width: 0; margin: 0 16px 16px; }

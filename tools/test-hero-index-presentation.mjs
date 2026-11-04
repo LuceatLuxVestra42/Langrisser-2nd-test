@@ -41,13 +41,16 @@ const count = makeElement('p', 'hero-index-search-count');
 const emptyState = makeElement('p', 'hero-index-search-empty');
 const container = makeElement('ol', 'hero-index-results');
 const detailHeroIds = new Set(approval.approvedScope.detailHeroIds);
+const minimalDetailHeroIds = new Set([15]);
 const detailedInput = makeElement('input', 'hero-search');
 const factionFilter = makeElement('select', 'hero-faction-filter');
 factionFilter.value = 'all';
 let shownHeroId = null;
+let shownMinimalHeroId = null;
 const navigation = functions.renderHeroIndexSearch({
-  heroes: index.heroes, detailHeroIds, input, clearButton, count, emptyState, container,
+  heroes: index.heroes, detailHeroIds, minimalDetailHeroIds, input, clearButton, count, emptyState, container,
   showDetailTarget(heroId) { shownHeroId = heroId; const target = elements.get(`hero-${heroId}`); if (target) target.hidden = false; },
+  showMinimalDetailTarget(heroId) { shownMinimalHeroId = heroId; },
 });
 
 assert.equal(container.children.length, 267, 'all approved Index entries render');
@@ -55,9 +58,11 @@ assert.equal(count.textContent, '검색 결과 267명 / 전체 267명');
 assert.equal(emptyState.hidden, true);
 assert.equal(new Set(container.children.map(({ id }) => id)).size, 267, 'Index DOM IDs are unique');
 assert.ok(container.children.every(({ id }) => !elements.has(id)), 'Index DOM IDs do not collide with Hero detail IDs');
-assert.equal(container.children.filter(({ children }) => children[0]?.tagName === 'a').length, 29,
+assert.equal(container.children.filter(({ children }) => children[0]?.className === 'hero-index-detail-link').length, 29,
   'only 29 existing detail endpoints render links');
-assert.equal(container.children.filter(({ children }) => children[0]?.tagName !== 'a').length, 238,
+assert.equal(container.children.filter(({ children }) => children[0]?.className === 'hero-index-minimal-detail-link').length, 1,
+  'only Hero 15 receives the separately approved minimal detail link');
+assert.equal(container.children.filter(({ children }) => children[0]?.tagName !== 'a').length, 237,
   'all other Index entries remain unlinked');
 
 const exactOne = functions.filterHeroIndex(index.heroes, '1');
@@ -94,7 +99,10 @@ detailLink.listeners.click({ preventDefault() {} });
 assert.equal(shownHeroId, 1, 'detail link delegates only to the existing detail navigation');
 while (frames.length) frames.shift()();
 assert.equal(elements.get('hero-1').scrolled, true);
-const noDetailRow = container.children.find(({ id }) => !detailHeroIds.has(Number(id.slice('hero-index-entry-'.length))));
+const noDetailRow = container.children.find(({ id }) => {
+  const heroId = Number(id.slice('hero-index-entry-'.length));
+  return !detailHeroIds.has(heroId) && !minimalDetailHeroIds.has(heroId);
+});
 assert.ok(noDetailRow);
 assert.ok(noDetailRow.children.every(({ tagName }) => tagName !== 'a'), 'no-detail Hero has no anchor or Fragment');
 const indexOnlyHeroId = Number(noDetailRow.id.slice('hero-index-entry-'.length));
@@ -104,12 +112,17 @@ assert.equal(navigation.showTarget(indexOnlyHeroId), true, 'cross-surface naviga
 assert.equal(input.value, '', 'cross-surface navigation clears the independent Index filter');
 assert.ok(container.children.some(({ id }) => id === `hero-index-entry-${indexOnlyHeroId}`), 'exact Index target is rendered after a filtered result');
 assert.equal(navigation.showTarget(999999), false, 'unknown Hero Index target is rejected');
+const minimalRow = container.children.find(({ id }) => id === 'hero-index-entry-15');
+assert.equal(minimalRow.children[0].href, '#hero-minimal-detail-15');
+minimalRow.children[0].listeners.click({ preventDefault() {} });
+assert.equal(shownMinimalHeroId, 15, 'Hero 15 Index link delegates to only the approved Minimal Detail endpoint');
 
 assert.notEqual('hero-index-search', 'hero-search');
 assert.notEqual('hero-index-results', 'heroes');
 assert.match(html, /id="hero-index-search"/);
 assert.match(html, /id="hero-search"/);
-process.stdout.write('Hero Index Frontend regression: PASS (exact ID/name search, empty/reset, independent state, 267 rows, 29 valid links, 238 unlinked rows)\n');
+assert.match(html, /id="hero-minimal-detail-15"/);
+process.stdout.write('Hero Index Frontend regression: PASS (exact ID/name search, empty/reset, independent state, 267 rows, 29 Full Detail links, 1 minimal link, 237 unlinked rows)\n');
 
 const moduleSource = (await readFile('app.js', 'utf8')).replace(/^import .*;\n/m, '');
 const appElements = new Map();
@@ -123,6 +136,9 @@ const appDocument = {
   createElement: (tagName) => makeElement(tagName),
   createTextNode(text) { return { tagName: '#text', textContent: text }; },
   getElementById(id) {
+    if (id === 'hero-minimal-detail-15' && !appElements.has('#hero-minimal-detail-15')) {
+      appElements.set('#hero-minimal-detail-15', makeElement('section', id));
+    }
     const visit = (node) => {
       if (node.id === id) return node;
       for (const child of node.children ?? []) {
@@ -146,7 +162,7 @@ const appFetch = async (url) => {
 const initializedApp = await runInNewContext(`(async () => {
   "use strict";
   ${moduleSource}
-  return { heroNavigation, heroIndexDetailIds, heroBySoldierId };
+  return { heroNavigation, heroIndexDetailIds, hero15MinimalDetailNavigation, hero15MinimalDetailIds, heroBySoldierId };
 })()`, {
   document: appDocument,
   window,
@@ -158,10 +174,16 @@ const initializedApp = await runInNewContext(`(async () => {
 assert.equal(initializedApp.heroIndexDetailIds.size, 29, 'actual app initialization must retain the existing 29 Hero detail IDs');
 assert.equal(appElements.get('#hero-index-results').children.length, 267,
   'actual app initialization must render all 267 Hero Index rows');
-assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName === 'a').length, 29,
-  'actual app initialization must retain exactly 29 detail links');
-assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName !== 'a').length, 238,
-  'actual app initialization must retain 238 rows without detail links');
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.className === 'hero-index-detail-link').length, 29,
+  'actual app initialization must retain exactly 29 Full Detail links');
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.className === 'hero-index-minimal-detail-link').length, 1,
+  'actual app initialization must render exactly one Hero 15 Minimal Detail link');
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName !== 'a').length, 237,
+  'actual app initialization must retain unlinked rows');
+assert.equal(initializedApp.hero15MinimalDetailIds.size, 1);
+assert.equal(initializedApp.hero15MinimalDetailNavigation.showTarget(15), true);
+assert.equal(initializedApp.hero15MinimalDetailNavigation.showTarget(16), false);
+assert.equal(appElements.get('#hero-minimal-detail-15-content').children[0].children[0].textContent, '리아나');
 assert.deepEqual(moduleErrors.map((error) => error.message), [], 'actual app initialization must not log runtime errors');
 const appIndexInput = appElements.get('#hero-index-search');
 appIndexInput.value = '999999';
@@ -169,4 +191,4 @@ appIndexInput.listeners.input();
 assert.equal(appElements.get('#hero-index-results').children.length, 0, 'actual app index search must render empty results');
 appElements.get('#hero-index-search-clear').listeners.click();
 assert.equal(appElements.get('#hero-index-results').children.length, 267, 'actual app index reset must restore all rows');
-process.stdout.write('Hero Index app-module initialization regression: PASS (strict mode, 267 rows, 29 detail links, 238 unlinked rows, search and reset)\n');
+process.stdout.write('Hero Index app-module initialization regression: PASS (strict mode, 267 rows, 29 Full Detail links, 1 Minimal Detail link, 237 unlinked rows, search and reset)\n');

@@ -6,15 +6,15 @@
     <link rel="icon" href="data:,">
     <meta name="description" content="검증된 영웅, 전직, 용병과 일반 SSR 장비 정보를 표시합니다.">
     <title>랑그릿사 데이터 조각</title>
-    <link rel="stylesheet" href="./styles.css?v=61814ff51ff36faebc616d6d32dee1d778d2abe313173b68e0133ea88c1b7ed3">
-    <script type="module" src="./app.js?v=482bed7455295c3cd4773762fa72b64320f24f0eaea617003685d11845b792ce"></script>
+    <link rel="stylesheet" href="./styles.css?v=148b7848c7ba31ad5e7836ce99253a3ffd80702abd2e43a77911775afbf93263">
+    <script type="module" src="./app.js?v=a194823bc491efeda030cfe020376b4c6319c2306e2588512147b4a84ea6ddff"></script>
   </head>
   <body>
     <main class="page">
       <header class="page-heading">
         <p class="eyebrow">랑그릿사 · 데이터 조각</p>
         <h1>영웅</h1>
-      <p class="summary">전체 Hero 267명의 ID와 프로젝트 검수 한국어 표시명을 검색할 수 있습니다. 상세 정보는 현재 Presentation이 승인된 29명만 제공합니다. 전체 목록의 한국어명은 공식 한국 서버 Provenance가 확인되지 않았습니다.</p>
+      <p class="summary">전체 Hero 267명의 ID와 프로젝트 검수 한국어 표시명을 검색할 수 있습니다. 기존 Full Detail 29명과 별도 승인된 Hero 15 최소 상세를 제공합니다. 전체 목록의 한국어명은 공식 한국 서버 Provenance가 확인되지 않았습니다.</p>
       </header>
       <nav class="section-shortcuts" aria-label="페이지 섹션 바로가기">
         <a href="#hero-index">영웅 전체 목록</a>
@@ -29,7 +29,7 @@
         <header class="section-heading">
           <p class="eyebrow">현재 제공 범위 · 267명</p>
           <h2 id="hero-index-title">영웅 전체 목록</h2>
-          <p class="summary">Hero ID는 정확히 검색하고, 한국어명은 일부 문자열로 검색합니다. 한국어명은 프로젝트 검수 표시명이며 공식 한국 서버 Provenance는 확인되지 않았습니다. 상세 링크는 기존 상세 화면이 있는 영웅에게만 표시됩니다.</p>
+          <p class="summary">Hero ID는 정확히 검색하고, 한국어명은 일부 문자열로 검색합니다. 한국어명은 프로젝트 검수 표시명이며 공식 한국 서버 Provenance는 확인되지 않았습니다. 기존 Full Detail 29개와 별도 승인된 Hero 15 최소 상세 링크를 표시합니다.</p>
         </header>
         <div class="hero-index-search" role="search" aria-label="전체 영웅 목록 검색">
           <label for="hero-index-search">Hero ID 또는 프로젝트 검수 한국어명</label>
@@ -43,6 +43,16 @@
         <ol id="hero-index-results" class="hero-index-list" aria-label="영웅 전체 목록 검색 결과" aria-live="polite">
           <li class="status">영웅 전체 목록을 불러오는 중…</li>
         </ol>
+      </section>
+      <section id="hero-minimal-detail-15" class="hero-minimal-detail-section" aria-labelledby="hero-minimal-detail-15-title">
+        <header class="section-heading">
+          <p class="eyebrow">별도 최소 상세 · Hero ID 15</p>
+          <h2 id="hero-minimal-detail-15-title">리아나</h2>
+          <p class="summary">기존 승인된 Identity·프로젝트 검수 한국어명·전용장비 관계만 표시합니다. 공식 한국 서버 Provenance는 확인되지 않았습니다.</p>
+        </header>
+        <div id="hero-minimal-detail-15-content" class="hero-minimal-detail-content" aria-live="polite">
+          <p class="status">최소 상세 정보를 불러오는 중…</p>
+        </div>
       </section>
       <header class="section-heading">
         <p class="eyebrow">상세 정보 · 29명</p>

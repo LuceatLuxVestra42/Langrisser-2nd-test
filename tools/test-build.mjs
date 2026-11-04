@@ -6,10 +6,12 @@ import { join } from 'node:path';
 import { buildSite, publicSitePaths, validatePublicSiteDirectory } from './build.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-presentation-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
+import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 
 const heroes = JSON.parse(await readFile('canonical/heroes.v1.json', 'utf8'));
 const decision = JSON.parse(await readFile(TRAINING_TECH_DECISION_RECORD_PATH, 'utf8'));
 const exclusiveHeroDecision = JSON.parse(await readFile(EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, 'utf8'));
+const hero15IntegratedDecision = JSON.parse(await readFile(HERO_15_INTEGRATED_PUBLICATION_PATH, 'utf8'));
 const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
@@ -24,9 +26,10 @@ const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).sk
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
 try {
   const built = await buildSite({ outputDir: output });
-  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision));
+  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision));
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
+  assert.ok(built.files.some((file) => file.path === HERO_15_MINIMAL_DETAIL_PATH), 'approved Hero 15 Minimal Detail must enter the public artifact');
   assert.ok(publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
   assert.deepEqual(JSON.parse(await readFile(join(output, heroIndexPath), 'utf8')), heroIndex, 'packaged Hero Index must match the validated consumer');
   assert.equal(heroIndex.heroes.length, 267);
@@ -56,13 +59,19 @@ try {
     assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published M06 Skin ${id} bytes must match admitted Asset`);
   }
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
-  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record, process.cwd(), exclusiveHeroDecision);
+  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision);
   await rm(join(output, skinConsumerPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
   await rm(join(output, heroIndexPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(heroIndexPath, join(output, heroIndexPath));
+  await rm(join(output, HERO_15_MINIMAL_DETAIL_PATH));
+  await assert.rejects(validate(), /allowlist mismatch/);
+  await copyFile(HERO_15_MINIMAL_DETAIL_PATH, join(output, HERO_15_MINIMAL_DETAIL_PATH));
+  await writeFile(join(output, HERO_15_MINIMAL_DETAIL_PATH), '{}');
+  await assert.rejects(validate(), /bytes differ.*hero-minimal-detail\.v1\.json/);
+  await copyFile(HERO_15_MINIMAL_DETAIL_PATH, join(output, HERO_15_MINIMAL_DETAIL_PATH));
   await writeFile(join(output, heroIndexPath), '{}');
   await assert.rejects(validate(), /bytes differ.*hero-index\.v1\.json/);
   await copyFile(heroIndexPath, join(output, heroIndexPath));
@@ -96,6 +105,9 @@ try {
     const heroIndexResponse = await fetch(`${origin}/${heroIndexPath}`, { cache: 'no-store' });
     assert.equal(heroIndexResponse.status, 200, 'approved Hero Index JSON URL must return HTTP 200');
     assert.deepEqual(await heroIndexResponse.json(), heroIndex, 'fetched Hero Index must contain only the exact approved ID/name consumer');
+  const minimalDetailResponse = await fetch(`${origin}/${HERO_15_MINIMAL_DETAIL_PATH}`, { cache: 'no-store' });
+  assert.equal(minimalDetailResponse.status, 200, 'approved Hero 15 Minimal Detail JSON URL must return HTTP 200');
+  assert.equal((await minimalDetailResponse.json()).heroes[0].heroId, 15, 'public minimal detail must contain only Hero 15');
   const ownerNavigationResponse = await fetch(`${origin}/${EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH}`, { cache: 'no-store' });
   assert.equal(ownerNavigationResponse.status, 200, 'approved Equipment Hero Navigation JSON URL must return HTTP 200');
   assert.deepEqual(await ownerNavigationResponse.json(), JSON.parse(await readFile(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, 'utf8')),
