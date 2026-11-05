@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 101,
+      "nameKo": "헬레나",
+      "exclusiveEquipment": {
+        "equipmentId": 463,
+        "nameKo": "황금 수정의 갑옷",
+        "effectDescriptionKo": "생명 방어 +5%\n행동 종료 시, 주위 1바퀴에 [황금 수정] 지형 효과 부여\n[황금 수정] 위에 있을 때 받는 피해 -15% 및 피해를 받은 후 생명 30% 회복"
+      }
+    },
+    {
+      "heroId": 102,
+      "nameKo": "세계수의 현자",
+      "exclusiveEquipment": {
+        "equipmentId": 477,
+        "nameKo": "낡은 두건",
+        "effectDescriptionKo": "생명 +10%\n부대 일반 공격 사거리 +1\n공격하여 전투 진입 후, 대상과 그 주위 1칸에 [눈부신 빛] 부여, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 103,
+      "nameKo": "실린카",
+      "exclusiveEquipment": {
+        "equipmentId": 451,
+        "nameKo": "역날개의 가면",
+        "effectDescriptionKo": "방어 +10%\n공격하여 전투 진입 시, 전투 중 주는 피해 +12%\n자신의 버프 지속시간 +1\n[휴면]상태일 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음"
+      }
+    },
+    {
+      "heroId": 104,
+      "nameKo": "알파",
+      "exclusiveEquipment": {
+        "equipmentId": 508,
+        "nameKo": "개조된 신체 αEX",
+        "effectDescriptionKo": "생명 방어 +5%, 이동력 +1\n[자수정 방패] 보유 중 물리 공격 받을 시 받은 피해의 60% 반사\n[자수정의 막] 보유 중 마법 공격 받을 시 받은 피해의 60% 반사\n[자수정 방패]와 [자수정의 막] 둘 다 보유하지 않은 경우 영웅이 주는 피해 +15%"
+      }
+    },
+    {
+      "heroId": 105,
+      "nameKo": "뮤",
+      "exclusiveEquipment": {
+        "equipmentId": 497,
+        "nameKo": "만개의 월계관",
+        "effectDescriptionKo": "생명 +10%\n행동 종료 시, '주위 3칸 내 모든 부대가 위치한 지형을 풀밭으로 취급' 획득, 지속 1행동\n([쿨타임 효과]해당 효과는 3턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 106,
+      "nameKo": "입실론",
+      "exclusiveEquipment": {
+        "equipmentId": 487,
+        "nameKo": "소멸 · 개",
+        "effectDescriptionKo": "공격 +10%\n부대 병종 상성 무시\n전장 내 부대 사망 시, 디버프 1개 제거, 생명 30% 회복 및 '알하자드의 장벽' 획득\n알하자드의 장벽: 다음에 부대가 받는 피해 -80% (사라지고 나서 쿨타임 1턴)"
+      }
+    },
+    {
+      "heroId": 108,
+      "nameKo": "사신 크루거",
+      "exclusiveEquipment": {
+        "equipmentId": 499,
+        "nameKo": "사기꾼의 가면",
+        "effectDescriptionKo": "생명 +10%\n영웅 사망 시, 주위 5칸 내 적의 버프 2개를 디버프 2개로 변환"
+      }
+    },
+    {
+      "heroId": 109,
+      "nameKo": "화이트 시시",
+      "exclusiveEquipment": {
+        "equipmentId": 489,
+        "nameKo": "비즈니스 마인드",
+        "effectDescriptionKo": "생명 +10%\n턴 시작 시 50% 확률로 [전쟁 자금] 2개 추가 획득\n획득하지 못했을 시 다음 턴 획득 확률 +50%\n획득 후 확률 50%로 재조정"
+      }
+    },
+    {
+      "heroId": 110,
+      "nameKo": "아레스",
+      "exclusiveEquipment": {
+        "equipmentId": 475,
+        "nameKo": "자경단의 투구",
+        "effectDescriptionKo": "생명 방어 +5%\n초절강화 버프 보유 시 영웅의 일반 공격 피해 +30%\n공격하여 전투 진입 전 추가로 [적진 돌입] 획득\n([적진 돌입]: 치명타율 +8%, 최대 5중첩)"
+      }
+    },
+    {
+      "heroId": 111,
+      "nameKo": "마이야",
+      "exclusiveEquipment": {
+        "equipmentId": 449,
+        "nameKo": "치명적인 빗자루",
+        "effectDescriptionKo": "지력 +5%\n부대 이동방식을 비행으로 변경\n범위 스킬이 적의 지형 효과(장판)에 적중했을 경우, 해당 지형 효과 제거\n행동 종료 시, 주위 2칸 내 모든 아군의 디버프 1개 제거"
+      }
+    },
+    {
+      "heroId": 112,
+      "nameKo": "토와",
+      "exclusiveEquipment": {
+        "equipmentId": 501,
+        "nameKo": "스피릿 비전 고글",
+        "effectDescriptionKo": "생명 방어 +5%\n초절강화 버프 보유 시, 공격하여 전투 진입 시 영웅이 주는 피해 +10%\n적 부대가 초절강화 버프가 없다면, 전투 전 '공격, 지력 -15%' 부여, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 113,
+      "nameKo": "탄생의 빛",
+      "exclusiveEquipment": {
+        "equipmentId": 507,
+        "nameKo": "전생의 글귀",
+        "effectDescriptionKo": "생명 +10%\n[위광] 최대 중첩 +1, 재행동 발동 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음"
+      }
+    },
+    {
+      "heroId": 114,
+      "nameKo": "마리엘",
+      "exclusiveEquipment": {
+        "equipmentId": 485,
+        "nameKo": "저스티스 플레일",
+        "effectDescriptionKo": "공격 +10%\n[계율]이 있을 시, 스킬 사용 후 해당 스킬의 쿨타임 -1\n[계율]이 없을 시, 영웅이 주는 피해 +10%\n([쿨타임 효과]해당 효과는 2턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 115,
+      "nameKo": "로자리아",
+      "exclusiveEquipment": {
+        "equipmentId": 478,
+        "nameKo": "세인트 소드",
+        "effectDescriptionKo": "공격 +10%\n[수호의 검] 효과 범위 내에 있을 경우,\n지형에 따른 이동 제한을 받지 않고, 부대가 치명타를 받을 확률 -20%"
+      }
+    },
+    {
+      "heroId": 116,
+      "nameKo": "노에미",
+      "exclusiveEquipment": {
+        "equipmentId": 461,
+        "nameKo": "기발한 모자",
+        "effectDescriptionKo": "생명 +10%\n[매지컬 드레스]가 부여된 모든 부대는 행동 종료 시 디버프 1개 제거 및 생명 5% 회복\n[매직 로브] 발동 시, 효과 횟수 +1"
+      }
+    },
+    {
+      "heroId": 118,
+      "nameKo": "오토크라트 4세",
+      "exclusiveEquipment": {
+        "equipmentId": 496,
+        "nameKo": "금단의 황실 갑옷",
+        "effectDescriptionKo": "방어 마방 +5%\n공격하여 피해를 줄 시 적 버프 1개 강탈\n모든 적 부대에게 걸린 [도발] 1개당 부대의 생명 외 모든 속성 +2%(최대 +10%)"
+      }
+    },
+    {
+      "heroId": 119,
+      "nameKo": "루크레치아",
+      "exclusiveEquipment": {
+        "equipmentId": 526,
+        "nameKo": "면죄의 모자",
+        "effectDescriptionKo": "생명 +10%\n[마력 꼭두각시](소환물) 행동 종료 시, 소환자의 디버프 1개 제거 및 무작위 면역 효과 1개 부여, 지속 1행동\n[마력 꼭두각시] 공격 시 선제공격 및 소환자 사망 시 주는 피해 +30%"
+      }
+    },
+    {
+      "heroId": 120,
+      "nameKo": "플로렌티아",
+      "exclusiveEquipment": {
+        "equipmentId": 473,
+        "nameKo": "제국의 보배",
+        "effectDescriptionKo": "생명 마방 +5%, 병사가 받는 피해 -10%\n전투 시작 시 1회, 아군 사망 시 [모략] 1스택 획득"
+      }
+    },
+    {
+      "heroId": 121,
+      "nameKo": "츠바메",
+      "exclusiveEquipment": {
+        "equipmentId": 454,
+        "nameKo": "숨겨진 별의 투구",
+        "effectDescriptionKo": "생명 +10%, 주는 피해 +10%, 받는 범위 피해 -10%\n[은신] 상태일 시, 치명타 피해 +15% 및 행동 종료 시 [가벼운 몸놀림] 획득, 지속 2행동\n([가벼운 몸놀림]: 이동력 +1, 최대 2스택)"
+      }
+    },
+    {
+      "heroId": 122,
+      "nameKo": "힐다",
+      "exclusiveEquipment": {
+        "equipmentId": 502,
+        "nameKo": "선홍색 무장",
+        "effectDescriptionKo": "생명 방어 +5%\n스킬 Cost 제한 무시\n근접 공격으로 전투 진입 시, 전투 전 적의 무기 장비 효과 제거(최대 생명 증가 효과 제외), 지속 1행동\n대상이 NPC일 시, 해당 효과 '공격, 지력 -25%'로 대체"
+      }
+    },
+    {
+      "heroId": 123,
+      "nameKo": "베르너",
+      "exclusiveEquipment": {
+        "equipmentId": 486,
+        "nameKo": "기동 폭발검",
+        "effectDescriptionKo": "공격 +10%\n공격하여 전투 진입 전, 이동 1칸당 부대가 적 방어 1% 무시"
+      }
+    },
+    {
+      "heroId": 124,
+      "nameKo": "크리스티아네",
+      "exclusiveEquipment": {
+        "equipmentId": 519,
+        "nameKo": "깃털 장식 모자",
+        "effectDescriptionKo": "방어 마방 +5%\n면역: '위치 이동'\n고유기 효과로 부활 시, 꽃말 [꽃무릇] 획득\n([꽃말] 효과 중첩 불가, [꽃무릇] 보유 시 다른 [꽃말] 획득 불가)"
+      }
+    },
+    {
+      "heroId": 125,
+      "nameKo": "리코리스",
+      "exclusiveEquipment": {
+        "equipmentId": 467,
+        "nameKo": "어린 왕",
+        "effectDescriptionKo": "생명 +10%\n재행동 발동 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음\n초절강화 버프를 보유하고, 행동 종료 시 피해를 주지 않았을 경우, 자신의 모든 스킬 쿨타임 -1"
+      }
+    },
+    {
+      "heroId": 126,
+      "nameKo": "팟시르",
+      "exclusiveEquipment": {
+        "equipmentId": 484,
+        "nameKo": "심취의 베일",
+        "effectDescriptionKo": "생명 마방 +5%\n적에 여성이 아닌 영웅이 존재 시 이동력 +1\n행동 종료 시, 3칸 내 무작위 여성이 아닌 적 1명에게 [무기력] 부여"
+      }
+    },
+    {
+      "heroId": 127,
+      "nameKo": "레나타",
+      "exclusiveEquipment": {
+        "equipmentId": 450,
+        "nameKo": "드래곤 크레스트",
+        "effectDescriptionKo": "생명 마방 +5%\n적에게 부여하는 디버프 지속시간 +1\n고유기 발동 시 '바람 타기', '공격, 지력 감소' 및 '침묵' 면역 획득, 지속 2행동\n메테오 스트라이크의 초절을 받을 수 있음"
+      }
+    },
+    {
+      "heroId": 129,
+      "nameKo": "구스타프",
+      "exclusiveEquipment": {
+        "equipmentId": 520,
+        "nameKo": "머나먼 메아리",
+        "effectDescriptionKo": "생명 +10%\n자신의 스킬이 쿨타임 상태일 시, 영웅이 주는 피해 +10%\n원거리 공격을 받아 전투 진입 전, 적 부대에 고정피해를 입힘. 피해량은 영웅 지력의 1배"
+      }
+    },
+    {
+      "heroId": 130,
+      "nameKo": "미셸",
+      "exclusiveEquipment": {
+        "equipmentId": 512,
+        "nameKo": "마도 과학 무장",
+        "effectDescriptionKo": "공격 +10%\n적에게 피해를 입힌 후, 50% 확률로 [화염 작렬] 1스택 부여 및 '직선 스킬 사거리 +1' 부여, 지속 1행동, 해제 불가"
+      }
+    },
+    {
+      "heroId": 99161,
+      "nameKo": "크림조의 왕",
+      "exclusiveEquipment": {
+        "equipmentId": 495,
+        "nameKo": "월식 갑옷",
+        "effectDescriptionKo": "생명 +10%, 고정피해 및 받는 치료 효과 +20%\n[달의 암면] 지휘 범위 +1"
+      }
+    },
+    {
+      "heroId": 99162,
+      "nameKo": "수제트",
+      "exclusiveEquipment": {
+        "equipmentId": 498,
+        "nameKo": "빛의 심판자",
+        "effectDescriptionKo": "공격 +10%\n빛의 군단 초절을 받을 수 있음\n범위 스킬을 맨땅에도 사용 가능\n적과의 거리가 1칸 멀어질 때마다 치명타율 +3%(최대 +15%)"
+      }
+    },
+    {
+      "heroId": 99163,
+      "nameKo": "초월자",
+      "exclusiveEquipment": {
+        "equipmentId": 500,
+        "nameKo": "무한한 고리",
+        "effectDescriptionKo": "생명 +10%\n공격하여 전투 진입 시, 영웅이 주는 피해 +15%\n전투 시작 시 [멸망과 창조의 위력] 1스택 획득\n[운명의 반전] 사용 시, 대상의 버프 3개 강탈"
+      }
+    }
+  ]
+}

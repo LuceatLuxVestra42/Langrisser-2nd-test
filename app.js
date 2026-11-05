@@ -11,6 +11,7 @@ const hero16MinimalDetailContainer = document.querySelector('#hero-minimal-detai
 const heroMinimalDetailBatchContainers = new Map([17, 18, 20, 21, 30].map((heroId) => [heroId, document.querySelector(`#hero-minimal-detail-${heroId}-content`)]));
 const heroMinimalDetailTenBatchContainers = new Map([31, 34, 35, 36, 38, 39, 49, 51, 54, 57].map((heroId) => [heroId, document.querySelector(`#hero-minimal-detail-${heroId}-content`)]));
 const heroMinimalDetailTwentyBatchContainers = new Map([58, 59, 61, 62, 63, 64, 65, 66, 87, 88, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100].map((heroId) => [heroId, document.querySelector(`#hero-minimal-detail-${heroId}-content`)]));
+const heroMinimalDetailThirtyBatchContainers = new Map([101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112, 113, 114, 115, 116, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 129, 130, 99161, 99162, 99163].map((heroId) => [heroId, document.querySelector(`#hero-minimal-detail-${heroId}-content`)]));
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
 const heroFactionFilter = document.querySelector('#hero-faction-filter');
@@ -47,6 +48,8 @@ let heroMinimalDetailBatchIds = new Set();
 let heroMinimalDetailTenBatchNavigation = new Map();
 let heroMinimalDetailTwentyBatchNavigation = new Map();
 let heroMinimalDetailTwentyBatchIds = new Set();
+let heroMinimalDetailThirtyBatchNavigation = new Map();
+let heroMinimalDetailThirtyBatchIds = new Set();
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
 let spSoldierNavigation = null;
@@ -816,11 +819,33 @@ try {
   heroMinimalDetailTwentyBatchNavigation = new Map(); heroMinimalDetailTwentyBatchIds = new Set(); console.error(error);
 }
 
-const minimalDetailHeroIds = new Set([...hero15MinimalDetailIds, ...hero16MinimalDetailIds, ...heroMinimalDetailBatchIds, ...heroMinimalDetailTenBatchIds, ...heroMinimalDetailTwentyBatchIds]);
+try {
+  const response = await fetch('./generated/hero-minimal-detail-thirty-batch.v1.json');
+  if (!response.ok) throw new Error(`Generated thirty-Hero Minimal Detail batch request failed (${response.status})`);
+  const data = await response.json();
+  const expected = new Map([[101,['헬레나',463,'황금 수정의 갑옷']],[102,['세계수의 현자',477,'낡은 두건']],[103,['실린카',451,'역날개의 가면']],[104,['알파',508,'개조된 신체 αEX']],[105,['뮤',497,'만개의 월계관']],[106,['입실론',487,'소멸 · 개']],[108,['사신 크루거',499,'사기꾼의 가면']],[109,['화이트 시시',489,'비즈니스 마인드']],[110,['아레스',475,'자경단의 투구']],[111,['마이야',449,'치명적인 빗자루']],[112,['토와',501,'스피릿 비전 고글']],[113,['탄생의 빛',507,'전생의 글귀']],[114,['마리엘',485,'저스티스 플레일']],[115,['로자리아',478,'세인트 소드']],[116,['노에미',461,'기발한 모자']],[118,['오토크라트 4세',496,'금단의 황실 갑옷']],[119,['루크레치아',526,'면죄의 모자']],[120,['플로렌티아',473,'제국의 보배']],[121,['츠바메',454,'숨겨진 별의 투구']],[122,['힐다',502,'선홍색 무장']],[123,['베르너',486,'기동 폭발검']],[124,['크리스티아네',519,'깃털 장식 모자']],[125,['리코리스',467,'어린 왕']],[126,['팟시르',484,'심취의 베일']],[127,['레나타',450,'드래곤 크레스트']],[129,['구스타프',520,'머나먼 메아리']],[130,['미셸',512,'마도 과학 무장']],[99161,['크림조의 왕',495,'월식 갑옷']],[99162,['수제트',498,'빛의 심판자']],[99163,['초월자',500,'무한한 고리']]]);
+  if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== expected.size) throw new Error('Unsupported thirty-Hero Minimal Detail batch publication scope');
+  const navigation = new Map();
+  for (const hero of data.heroes) {
+    const [nameKo, equipmentId, equipmentNameKo] = expected.get(hero.heroId) ?? [];
+    if (!nameKo || hero.nameKo !== nameKo || hero.exclusiveEquipment?.equipmentId !== equipmentId || hero.exclusiveEquipment?.nameKo !== equipmentNameKo
+      || Object.keys(hero).sort().join(',') !== 'exclusiveEquipment,heroId,nameKo'
+      || Object.keys(hero.exclusiveEquipment ?? {}).sort().join(',') !== 'effectDescriptionKo,equipmentId,nameKo' || !hero.exclusiveEquipment.effectDescriptionKo?.trim() || navigation.has(hero.heroId)) throw new Error('Malformed or out-of-scope thirty-Hero Minimal Detail record');
+    navigation.set(hero.heroId, renderHeroMinimalDetailView({ schemaVersion: 1, heroes: [hero] }, heroMinimalDetailThirtyBatchContainers.get(hero.heroId), { heroId: hero.heroId, nameKo, equipmentId, equipmentNameKo }));
+  }
+  heroMinimalDetailThirtyBatchNavigation = navigation;
+  heroMinimalDetailThirtyBatchIds = new Set(navigation.keys());
+  if (JSON.stringify([...heroMinimalDetailThirtyBatchIds]) !== JSON.stringify([...expected.keys()])) throw new Error('Thirty-Hero Minimal Detail IDs do not match the approved exact population');
+} catch (error) {
+  for (const container of heroMinimalDetailThirtyBatchContainers.values()) { const status = document.createElement('p'); status.className = 'status status-error'; status.textContent = '영웅 최소 상세 정보를 불러오지 못했습니다.'; container.replaceChildren(status); }
+  heroMinimalDetailThirtyBatchNavigation = new Map(); heroMinimalDetailThirtyBatchIds = new Set(); console.error(error);
+}
+
+const minimalDetailHeroIds = new Set([...hero15MinimalDetailIds, ...hero16MinimalDetailIds, ...heroMinimalDetailBatchIds, ...heroMinimalDetailTenBatchIds, ...heroMinimalDetailTwentyBatchIds, ...heroMinimalDetailThirtyBatchIds]);
 const showMinimalDetailTarget = (heroId) => heroId === 15
   ? hero15MinimalDetailNavigation?.showTarget(heroId)
   : heroId === 16 ? hero16MinimalDetailNavigation?.showTarget(heroId)
-    : heroMinimalDetailBatchNavigation.get(heroId)?.showTarget(heroId) ?? heroMinimalDetailTenBatchNavigation.get(heroId)?.showTarget(heroId) ?? heroMinimalDetailTwentyBatchNavigation.get(heroId)?.showTarget(heroId) ?? false;
+    : heroMinimalDetailBatchNavigation.get(heroId)?.showTarget(heroId) ?? heroMinimalDetailTenBatchNavigation.get(heroId)?.showTarget(heroId) ?? heroMinimalDetailTwentyBatchNavigation.get(heroId)?.showTarget(heroId) ?? heroMinimalDetailThirtyBatchNavigation.get(heroId)?.showTarget(heroId) ?? false;
 
 try {
   const response = await fetch('./generated/hero-index.v1.json');
@@ -1056,7 +1081,7 @@ try {
         : row.navigationTarget.surface === 'HERO_INDEX' ? `hero-index-entry-${row.heroId}`
           : row.equipmentId === 535 && row.heroId === 15 ? 'hero-minimal-detail-15'
             : row.equipmentId === 418 && row.heroId === 16 ? 'hero-minimal-detail-16'
-              : new Map([[405, 17], [276, 18], [281, 20], [441, 21], [286, 30], [434,31],[297,34],[425,35],[414,36],[455,38],[411,39],[429,49],[293,51],[490,54],[472,57],[423,58],[424,59],[413,61],[427,62],[452,63],[439,64],[437,65],[464,66],[435,87],[417,88],[453,91],[426,92],[479,93],[440,94],[438,95],[460,96],[448,97],[476,98],[540,99],[549,100]]).get(row.equipmentId) === row.heroId ? `hero-minimal-detail-${row.heroId}` : null)) {
+              : new Map([[405, 17], [276, 18], [281, 20], [441, 21], [286, 30], [434,31],[297,34],[425,35],[414,36],[455,38],[411,39],[429,49],[293,51],[490,54],[472,57],[423,58],[424,59],[413,61],[427,62],[452,63],[439,64],[437,65],[464,66],[435,87],[417,88],[453,91],[426,92],[479,93],[440,94],[438,95],[460,96],[448,97],[476,98],[540,99],[549,100],[463,101],[477,102],[451,103],[508,104],[497,105],[487,106],[499,108],[489,109],[475,110],[449,111],[501,112],[507,113],[485,114],[478,115],[461,116],[496,118],[526,119],[473,120],[454,121],[502,122],[486,123],[519,124],[467,125],[484,126],[450,127],[520,129],[512,130],[495,99161],[498,99162],[500,99163]]).get(row.equipmentId) === row.heroId ? `hero-minimal-detail-${row.heroId}` : null)) {
       throw new Error('Malformed, duplicate, or unresolved Exclusive Equipment Hero Navigation record');
     }
     exclusiveEquipmentHeroById.set(row.equipmentId, row);
@@ -1065,9 +1090,9 @@ try {
   const minimalRows = [...exclusiveEquipmentHeroById.values()].filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL');
   if (exclusiveEquipmentHeroById.get(535)?.navigationTarget.fragment !== 'hero-minimal-detail-15'
     || exclusiveEquipmentHeroById.get(418)?.navigationTarget.fragment !== 'hero-minimal-detail-16'
-    || minimalRows.length !== 37
-    || JSON.stringify(minimalRows.map(({ equipmentId, heroId }) => [equipmentId, heroId])) !== JSON.stringify([[276,18],[281,20],[286,30],[293,51],[297,34],[405,17],[411,39],[413,61],[414,36],[417,88],[418,16],[423,58],[424,59],[425,35],[426,92],[427,62],[429,49],[434,31],[435,87],[437,65],[438,95],[439,64],[440,94],[441,21],[448,97],[452,63],[453,91],[455,38],[460,96],[464,66],[472,57],[476,98],[479,93],[490,54],[535,15],[540,99],[549,100]])) {
-    throw new Error('Only the thirty-seven approved Equipment IDs may target their corresponding minimal details');
+    || minimalRows.length !== 67
+    || JSON.stringify(minimalRows.map(({ equipmentId, heroId }) => [equipmentId, heroId])) !== JSON.stringify([[276,18],[281,20],[286,30],[293,51],[297,34],[405,17],[411,39],[413,61],[414,36],[417,88],[418,16],[423,58],[424,59],[425,35],[426,92],[427,62],[429,49],[434,31],[435,87],[437,65],[438,95],[439,64],[440,94],[441,21],[448,97],[449,111],[450,127],[451,103],[452,63],[453,91],[454,121],[455,38],[460,96],[461,116],[463,101],[464,66],[467,125],[472,57],[473,120],[475,110],[476,98],[477,102],[478,115],[479,93],[484,126],[485,114],[486,123],[487,106],[489,109],[490,54],[495,99161],[496,118],[497,105],[498,99162],[499,108],[500,99163],[501,112],[502,122],[507,113],[508,104],[512,130],[519,124],[520,129],[526,119],[535,15],[540,99],[549,100]])) {
+    throw new Error('Only the sixty-seven approved Equipment IDs may target their corresponding minimal details');
   }
   exclusiveEquipmentNavigation = renderEquipmentSearch({
     equipment: data.equipment, input: exclusiveEquipmentSearch, clearButton: exclusiveEquipmentClear,
