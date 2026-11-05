@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 31,
+      "nameKo": "소피아",
+      "exclusiveEquipment": {
+        "equipmentId": 434,
+        "nameKo": "성광의 베일",
+        "effectDescriptionKo": "생명 +5%\n아군에게 스킬 사용 시 '공격, 지력 +15%' 및 '마방 +20%' 부여, 지속 2행동"
+      }
+    },
+    {
+      "heroId": 34,
+      "nameKo": "키리카제",
+      "exclusiveEquipment": {
+        "equipmentId": 297,
+        "nameKo": "삿갓",
+        "effectDescriptionKo": "방어 마방 +5%\n부대 생명이 100%일 시 기술 +30%"
+      }
+    },
+    {
+      "heroId": 35,
+      "nameKo": "안젤리카",
+      "exclusiveEquipment": {
+        "equipmentId": 425,
+        "nameKo": "만능 공구 모자",
+        "effectDescriptionKo": "마방 +10%\n행동 종료 시 가장 생명이 낮은 아군 소환물의 생명 30% 회복"
+      }
+    },
+    {
+      "heroId": 36,
+      "nameKo": "실버울프",
+      "exclusiveEquipment": {
+        "equipmentId": 414,
+        "nameKo": "의적의 가면",
+        "effectDescriptionKo": "마방 +5%\n공격하여 전투 진입 시, 상대보다 버프가 2배 많을 경우 선제 공격"
+      }
+    },
+    {
+      "heroId": 38,
+      "nameKo": "제리올&레이라",
+      "exclusiveEquipment": {
+        "equipmentId": 455,
+        "nameKo": "나의 수호자",
+        "effectDescriptionKo": "공격 지력 +10%\n영웅의 일반 공격 사거리 +1\n공격하여 전투 진입 후 생명이 가장 낮은 아군의 생명을 공격+지력 1배만큼 회복\n재행동 발동 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음"
+      }
+    },
+    {
+      "heroId": 39,
+      "nameKo": "페라키아",
+      "exclusiveEquipment": {
+        "equipmentId": 411,
+        "nameKo": "악몽의 속삭임",
+        "effectDescriptionKo": "생명 +5%\n자신이 유리한 상성의 부대와 전투 시 공격 +20%"
+      }
+    },
+    {
+      "heroId": 49,
+      "nameKo": "파나",
+      "exclusiveEquipment": {
+        "equipmentId": 429,
+        "nameKo": "스칼렛 윈드",
+        "effectDescriptionKo": "마방 +10%\n범위 피해 스킬 사용 시 효과 범위+1\n([쿨타임 효과]해당 효과는 4턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 51,
+      "nameKo": "셀파닐",
+      "exclusiveEquipment": {
+        "equipmentId": 293,
+        "nameKo": "카콘시스의 왕관",
+        "effectDescriptionKo": "마방 +10%\n행동 종료 시 30% 확률로 '스킬 사거리 +1' 및 '스킬 범위 +1' 획득, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 54,
+      "nameKo": "리스틸",
+      "exclusiveEquipment": {
+        "equipmentId": 490,
+        "nameKo": "마혈의 투구",
+        "effectDescriptionKo": "생명 +10%\n부대 생명 80% 이상일 시 방어 마방 +10%\n적에게 피해를 준 후 '주는 마법 피해 -20%' 부여, 지속 2행동"
+      }
+    },
+    {
+      "heroId": 57,
+      "nameKo": "윌러",
+      "exclusiveEquipment": {
+        "equipmentId": 472,
+        "nameKo": "은하 제독",
+        "effectDescriptionKo": "생명 +10%\n영웅 생명이 50% 이하일 시 고정피해 면역\n스킬 사용 후 50% 확률로 해당 스킬의 쿨타임 -2"
+      }
+    }
+  ]
+}
