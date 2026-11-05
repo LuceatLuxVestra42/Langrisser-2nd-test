@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { HERO_15_MINIMAL_DETAIL_FRAGMENT, validateHero15IntegratedPublication } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_MINIMAL_DETAIL_FRAGMENT, validateHero16IntegratedPublication } from './hero-16-integrated-publication-contract.mjs';
+import { HERO_MINIMAL_DETAIL_BATCH, validateHeroMinimalDetailBatchPublication } from './hero-minimal-detail-batch-contract.mjs';
 
 export const EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH = 'docs/decisions/exclusive-equipment-hero-navigation-publication.v1.json';
 export const EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH = 'generated/exclusive-equipment-hero-navigation.v1.json';
@@ -12,7 +13,7 @@ const exactKeys = (value, keys, label) => {
 };
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 
-export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroLocalizationSha256, heroIdentitySha256 }) {
+export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroLocalizationSha256, heroIdentitySha256 }) {
   if (relations?.schemaVersion !== 1 || !Array.isArray(relations.records)
     || equipmentIdentities?.schemaVersion !== 1 || !Array.isArray(equipmentIdentities.records)
     || heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)
@@ -24,6 +25,7 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
     || publicationDecision?.status !== 'APPROVED') throw new Error('Exclusive Equipment Hero publication inputs are unsupported');
   validateHero15IntegratedPublication(integratedPublicationDecision);
   validateHero16IntegratedPublication(hero16IntegratedPublicationDecision);
+  validateHeroMinimalDetailBatchPublication(heroMinimalDetailBatchPublicationDecision);
 
   exactKeys(publicationDecision, ['schemaVersion', 'decisionType', 'status', 'approvedScope', 'approval', 'effect'], 'Exclusive Equipment Hero decision');
   const scope = publicationDecision.approvedScope;
@@ -101,11 +103,12 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
   const minimalTargetByHero = new Map([
     [15, { equipmentId: 535, fragment: HERO_15_MINIMAL_DETAIL_FRAGMENT }],
     [16, { equipmentId: 418, fragment: HERO_16_MINIMAL_DETAIL_FRAGMENT }],
+    ...HERO_MINIMAL_DETAIL_BATCH.map(({ heroId, equipmentId }) => [heroId, { equipmentId, fragment: `hero-minimal-detail-${heroId}` }]),
   ]);
   const minimalHeroIds = new Set(minimalTargetByHero.keys());
   const currentIndexIds = new Set(scope.indexHeroIds);
   const indexIds = new Set([...currentIndexIds].filter((id) => !minimalHeroIds.has(id)));
-  if (indexIds.size !== 136 || [...minimalHeroIds].some((id) => !currentIndexIds.has(id))) {
+  if (indexIds.size !== 131 || [...minimalHeroIds].some((id) => !currentIndexIds.has(id))) {
     throw new Error('Approved Hero Index population must retain both minimal detail Heroes and 136 equipment Index targets');
   }
   const seen = new Set();
@@ -127,13 +130,13 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
     throw new Error(`Hero ${heroId} has no approved navigation target`);
   });
   if (records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length !== 29
-    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length !== 136
-    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length !== 2
+    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length !== 131
+    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length !== 7
     || records.find(({ equipmentId }) => equipmentId === 535)?.navigationTarget.fragment !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || records.find(({ equipmentId }) => equipmentId === 418)?.navigationTarget.fragment !== HERO_16_MINIMAL_DETAIL_FRAGMENT
     || JSON.stringify(records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').map(({ equipmentId, heroId, navigationTarget }) => [equipmentId, heroId, navigationTarget.fragment]))
-      !== JSON.stringify([[418, 16, HERO_16_MINIMAL_DETAIL_FRAGMENT], [535, 15, HERO_15_MINIMAL_DETAIL_FRAGMENT]])) {
-    throw new Error('Exclusive Equipment Hero target counts must be 29 detail, 136 Index, and the two approved minimal details only');
+      !== JSON.stringify([[276, 18, 'hero-minimal-detail-18'], [281, 20, 'hero-minimal-detail-20'], [286, 30, 'hero-minimal-detail-30'], [405, 17, 'hero-minimal-detail-17'], [418, 16, HERO_16_MINIMAL_DETAIL_FRAGMENT], [441, 21, 'hero-minimal-detail-21'], [535, 15, HERO_15_MINIMAL_DETAIL_FRAGMENT]])) {
+    throw new Error('Exclusive Equipment Hero target counts must be 29 detail, 131 Index, and exactly seven approved minimal details');
   }
   return `${JSON.stringify({ schemaVersion: 1, consumer: 'exclusive-equipment-hero-navigation', records }, null, 2)}\n`;
 }

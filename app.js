@@ -8,6 +8,7 @@ const heroIndexSearchCount = document.querySelector('#hero-index-search-count');
 const heroIndexSearchEmpty = document.querySelector('#hero-index-search-empty');
 const hero15MinimalDetailContainer = document.querySelector('#hero-minimal-detail-15-content');
 const hero16MinimalDetailContainer = document.querySelector('#hero-minimal-detail-16-content');
+const heroMinimalDetailBatchContainers = new Map([17, 18, 20, 21, 30].map((heroId) => [heroId, document.querySelector(`#hero-minimal-detail-${heroId}-content`)]));
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
 const heroFactionFilter = document.querySelector('#hero-faction-filter');
@@ -39,6 +40,8 @@ let hero15MinimalDetailNavigation = null;
 let hero15MinimalDetailIds = new Set();
 let hero16MinimalDetailNavigation = null;
 let hero16MinimalDetailIds = new Set();
+let heroMinimalDetailBatchNavigation = new Map();
+let heroMinimalDetailBatchIds = new Set();
 let heroBySoldierId = new Map();
 let spSoldiersByNormalId = new Map();
 let spSoldierNavigation = null;
@@ -730,7 +733,44 @@ try {
   console.error(error);
 }
 
-const minimalDetailHeroIds = new Set([...hero15MinimalDetailIds, ...hero16MinimalDetailIds]);
+try {
+  const response = await fetch('./generated/hero-minimal-detail-batch-17-18-20-21-30.v1.json');
+  if (!response.ok) throw new Error(`Generated Minimal Detail batch request failed (${response.status})`);
+  const data = await response.json();
+  const expected = new Map([
+    [17, ['에그베르트', 405, '플레임 코트']], [18, ['이멜다', 276, '매혹의 립스틱']],
+    [20, ['소니아', 281, '검은 서광']], [21, ['발가스', 441, '염룡의 휘광']], [30, ['리파니', 286, '요정의 날개']],
+  ]);
+  if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== expected.size) throw new Error('Unsupported Minimal Detail batch publication scope');
+  heroMinimalDetailBatchNavigation = new Map();
+  for (const hero of data.heroes) {
+    const [nameKo, equipmentId, equipmentNameKo] = expected.get(hero.heroId) ?? [];
+    if (!nameKo || hero.nameKo !== nameKo || hero.exclusiveEquipment?.equipmentId !== equipmentId || hero.exclusiveEquipment?.nameKo !== equipmentNameKo
+      || Object.keys(hero).sort().join(',') !== 'exclusiveEquipment,heroId,nameKo'
+      || Object.keys(hero.exclusiveEquipment ?? {}).sort().join(',') !== 'effectDescriptionKo,equipmentId,nameKo'
+      || !hero.exclusiveEquipment.effectDescriptionKo?.trim() || heroMinimalDetailBatchNavigation.has(hero.heroId)) throw new Error('Malformed or out-of-scope Minimal Detail batch record');
+    const target = renderHeroMinimalDetailView({ schemaVersion: 1, heroes: [hero] }, heroMinimalDetailBatchContainers.get(hero.heroId), { heroId: hero.heroId, nameKo, equipmentId, equipmentNameKo });
+    heroMinimalDetailBatchNavigation.set(hero.heroId, target);
+  }
+  heroMinimalDetailBatchIds = new Set(heroMinimalDetailBatchNavigation.keys());
+  if (JSON.stringify([...heroMinimalDetailBatchIds]) !== JSON.stringify([17, 18, 20, 21, 30])) throw new Error('Minimal Detail batch IDs do not match the approved exact population');
+} catch (error) {
+  for (const container of heroMinimalDetailBatchContainers.values()) {
+    const status = document.createElement('p');
+    status.className = 'status status-error';
+    status.textContent = '영웅 최소 상세 정보를 불러오지 못했습니다.';
+    container.replaceChildren(status);
+  }
+  heroMinimalDetailBatchNavigation = new Map();
+  heroMinimalDetailBatchIds = new Set();
+  console.error(error);
+}
+
+const minimalDetailHeroIds = new Set([...hero15MinimalDetailIds, ...hero16MinimalDetailIds, ...heroMinimalDetailBatchIds]);
+const showMinimalDetailTarget = (heroId) => heroId === 15
+  ? hero15MinimalDetailNavigation?.showTarget(heroId)
+  : heroId === 16 ? hero16MinimalDetailNavigation?.showTarget(heroId)
+    : heroMinimalDetailBatchNavigation.get(heroId)?.showTarget(heroId) ?? false;
 
 try {
   const response = await fetch('./generated/hero-index.v1.json');
@@ -751,9 +791,7 @@ try {
     input: heroIndexSearch, clearButton: heroIndexSearchClear,
     count: heroIndexSearchCount, emptyState: heroIndexSearchEmpty, container: heroIndexContainer,
     showDetailTarget: (heroId) => heroNavigation?.showTarget(heroId),
-    showMinimalDetailTarget: (heroId) => heroId === 15
-      ? hero15MinimalDetailNavigation?.showTarget(heroId)
-      : hero16MinimalDetailNavigation?.showTarget(heroId),
+    showMinimalDetailTarget,
   });
 } catch (error) {
   const status = document.createElement('p');
@@ -923,8 +961,7 @@ function addExclusiveEquipment(item) {
       () => {
         if (isDetail) heroNavigation?.showTarget(hero.heroId);
         else if (hero.navigationTarget.surface === 'HERO_MINIMAL_DETAIL') {
-          if (hero.heroId === 15) hero15MinimalDetailNavigation?.showTarget(hero.heroId);
-          else hero16MinimalDetailNavigation?.showTarget(hero.heroId);
+          showMinimalDetailTarget(hero.heroId);
         }
         else heroIndexNavigation?.showTarget(hero.heroId);
       },
@@ -968,7 +1005,8 @@ try {
       || row.navigationTarget.fragment !== (row.navigationTarget.surface === 'HERO_DETAIL' ? `hero-${row.heroId}`
         : row.navigationTarget.surface === 'HERO_INDEX' ? `hero-index-entry-${row.heroId}`
           : row.equipmentId === 535 && row.heroId === 15 ? 'hero-minimal-detail-15'
-            : row.equipmentId === 418 && row.heroId === 16 ? 'hero-minimal-detail-16' : null)) {
+            : row.equipmentId === 418 && row.heroId === 16 ? 'hero-minimal-detail-16'
+              : new Map([[405, 17], [276, 18], [281, 20], [441, 21], [286, 30]]).get(row.equipmentId) === row.heroId ? `hero-minimal-detail-${row.heroId}` : null)) {
       throw new Error('Malformed, duplicate, or unresolved Exclusive Equipment Hero Navigation record');
     }
     exclusiveEquipmentHeroById.set(row.equipmentId, row);
@@ -977,9 +1015,9 @@ try {
   const minimalRows = [...exclusiveEquipmentHeroById.values()].filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL');
   if (exclusiveEquipmentHeroById.get(535)?.navigationTarget.fragment !== 'hero-minimal-detail-15'
     || exclusiveEquipmentHeroById.get(418)?.navigationTarget.fragment !== 'hero-minimal-detail-16'
-    || minimalRows.length !== 2
-    || JSON.stringify(minimalRows.map(({ equipmentId, heroId }) => [equipmentId, heroId])) !== JSON.stringify([[418, 16], [535, 15]])) {
-    throw new Error('Only approved Equipment 418 and 535 may target their corresponding minimal details');
+    || minimalRows.length !== 7
+    || JSON.stringify(minimalRows.map(({ equipmentId, heroId }) => [equipmentId, heroId])) !== JSON.stringify([[276, 18], [281, 20], [286, 30], [405, 17], [418, 16], [441, 21], [535, 15]])) {
+    throw new Error('Only the seven approved Equipment IDs may target their corresponding minimal details');
   }
   exclusiveEquipmentNavigation = renderEquipmentSearch({
     equipment: data.equipment, input: exclusiveEquipmentSearch, clearButton: exclusiveEquipmentClear,

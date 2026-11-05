@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "FIVE_HERO_INTEGRATED_PUBLICATION",
+  "status": "APPROVED",
+  "approval": {
+    "approverRole": "USER",
+    "source": {
+      "kind": "CURRENT_USER_MESSAGE",
+      "quote": "나는 `LuceatLuxVestra42/Langrisser-2nd-test`의 다음 5명에 대한 P-A·P-B·P-C 통합 Publication 전체를 직접 승인한다.",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "contextVerified": true
+    },
+    "recordedAtDate": "2026-11-05"
+  },
+  "approvedScope": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baselineRef": "main",
+    "baselineHead": "4d20b4d32f77abd97dd1358df1f109b91bfbb1af",
+    "surfaces": ["HERO_MINIMAL_DETAIL", "HERO_INDEX_LIST", "EXCLUSIVE_EQUIPMENT_LIST"],
+    "fields": ["heroId", "nameKo", "exclusiveEquipment.equipmentId", "exclusiveEquipment.nameKo", "exclusiveEquipment.effectDescriptionKo"],
+    "nameLabelStatus": "PROJECT_REVIEWED",
+    "officialKrProvenanceStatus": "unverified",
+    "canonicalSources": {
+      "heroIdentity": { "path": "canonical/hero-identities.v1.json", "sha256": "6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c" },
+      "heroLocalization": { "path": "canonical/hero-localizations-ko.v1.json", "sha256": "7f0ca08eb578dd2d1fcf9aa44eb825c49f7e415faeedd2fffa4b604d2c4ab299" },
+      "equipmentRelation": { "path": "canonical/hero-exclusive-equipment-relations.v1.json", "sha256": "a0aa17178c04456482018d3b166baa176224a8562b713fb5f583f2b5a113ba01" },
+      "equipmentIdentity": { "path": "canonical/exclusive-equipment.v1.json", "sha256": "bd59b9cce913ffd3f310d9f96b1295e939959b2e207e55324dc60b2a50f38b9f" },
+      "equipmentLocalization": { "path": "canonical/exclusive-equipment-localizations-ko.v1.json", "sha256": "edd54afd11a4701dc039710670dcd321b7f459648887f55d48423ff26f1a125c" }
+    },
+    "heroes": [
+      { "heroId": 17, "nameKo": "에그베르트", "equipmentId": 405, "equipmentNameKo": "플레임 코트", "detailSurface": "HERO_MINIMAL_DETAIL", "detailFragment": "hero-minimal-detail-17", "heroIndexTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-17" }, "equipmentPreviousTarget": { "surface": "HERO_INDEX", "fragment": "hero-index-entry-17" }, "equipmentTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-17" } },
+      { "heroId": 18, "nameKo": "이멜다", "equipmentId": 276, "equipmentNameKo": "매혹의 립스틱", "detailSurface": "HERO_MINIMAL_DETAIL", "detailFragment": "hero-minimal-detail-18", "heroIndexTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-18" }, "equipmentPreviousTarget": { "surface": "HERO_INDEX", "fragment": "hero-index-entry-18" }, "equipmentTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-18" } },
+      { "heroId": 20, "nameKo": "소니아", "equipmentId": 281, "equipmentNameKo": "검은 서광", "detailSurface": "HERO_MINIMAL_DETAIL", "detailFragment": "hero-minimal-detail-20", "heroIndexTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-20" }, "equipmentPreviousTarget": { "surface": "HERO_INDEX", "fragment": "hero-index-entry-20" }, "equipmentTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-20" } },
+      { "heroId": 21, "nameKo": "발가스", "equipmentId": 441, "equipmentNameKo": "염룡의 휘광", "detailSurface": "HERO_MINIMAL_DETAIL", "detailFragment": "hero-minimal-detail-21", "heroIndexTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-21" }, "equipmentPreviousTarget": { "surface": "HERO_INDEX", "fragment": "hero-index-entry-21" }, "equipmentTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-21" } },
+      { "heroId": 30, "nameKo": "리파니", "equipmentId": 286, "equipmentNameKo": "요정의 날개", "detailSurface": "HERO_MINIMAL_DETAIL", "detailFragment": "hero-minimal-detail-30", "heroIndexTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-30" }, "equipmentPreviousTarget": { "surface": "HERO_INDEX", "fragment": "hero-index-entry-30" }, "equipmentTarget": { "surface": "HERO_MINIMAL_DETAIL", "fragment": "hero-minimal-detail-30" } }
+    ],
+    "preservedPopulations": { "heroIndex": 267, "fullHeroDetail": 29, "exclusiveEquipmentNavigation": 167, "minimalDetailBefore": 2, "minimalDetailAfter": 7 },
+    "excluded": ["New Semantic Admission", "Canonical or Evidence mutation", "Legacy Repository mutation", "Other Hero publication changes", "Other Equipment target changes", "Rarity", "Faction", "Production", "Job", "Soldier", "Talent", "Skill", "Portrait or Asset", "Unverified statistics"]
+  },
+  "effect": {
+    "effective": true,
+    "condition": "Only the five exact approved Hero and Equipment pairs, fields, and targets may change; Hero 15 and 16 remain unchanged and all other approved populations and targets are preserved.",
+    "reviewWhen": "Re-review if an approved ID, field, Canonical source, surface, target, or preserved population changes."
+  }
+}
