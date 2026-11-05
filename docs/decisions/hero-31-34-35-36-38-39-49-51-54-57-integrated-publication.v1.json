@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "TEN_HERO_INTEGRATED_PUBLICATION",
+  "status": "APPROVED",
+  "approval": {
+    "approverRole": "USER",
+    "source": {
+      "kind": "CURRENT_USER_MESSAGE",
+      "quote": "나는 `LuceatLuxVestra42/Langrisser-2nd-test`의 다음 10명에 대한 P-A·P-B·P-C 통합 Publication 전체를 직접 승인한다.",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "contextVerified": true
+    },
+    "recordedAtDate": "2026-11-05"
+  },
+  "approvedScope": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baselineRef": "main",
+    "baselineHead": "688c5fdd42bcac463d4665cc0f6cf1da7bbf1d7d",
+    "surfaces": [
+      "HERO_MINIMAL_DETAIL",
+      "HERO_INDEX_LIST",
+      "EXCLUSIVE_EQUIPMENT_LIST"
+    ],
+    "fields": [
+      "heroId",
+      "nameKo",
+      "exclusiveEquipment.equipmentId",
+      "exclusiveEquipment.nameKo",
+      "exclusiveEquipment.effectDescriptionKo"
+    ],
+    "nameLabelStatus": "PROJECT_REVIEWED",
+    "officialKrProvenanceStatus": "unverified",
+    "canonicalSources": {
+      "heroIdentity": {
+        "path": "canonical/hero-identities.v1.json",
+        "sha256": "6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c"
+      },
+      "heroLocalization": {
+        "path": "canonical/hero-localizations-ko.v1.json",
+        "sha256": "7f0ca08eb578dd2d1fcf9aa44eb825c49f7e415faeedd2fffa4b604d2c4ab299"
+      },
+      "equipmentRelation": {
+        "path": "canonical/hero-exclusive-equipment-relations.v1.json",
+        "sha256": "a0aa17178c04456482018d3b166baa176224a8562b713fb5f583f2b5a113ba01"
+      },
+      "equipmentIdentity": {
+        "path": "canonical/exclusive-equipment.v1.json",
+        "sha256": "bd59b9cce913ffd3f310d9f96b1295e939959b2e207e55324dc60b2a50f38b9f"
+      },
+      "equipmentLocalization": {
+        "path": "canonical/exclusive-equipment-localizations-ko.v1.json",
+        "sha256": "edd54afd11a4701dc039710670dcd321b7f459648887f55d48423ff26f1a125c"
+      }
+    },
+    "heroes": [
+      {
+        "heroId": 31,
+        "nameKo": "소피아",
+        "equipmentId": 434,
+        "equipmentNameKo": "성광의 베일",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-31",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-31"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-31"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-31"
+        }
+      },
+      {
+        "heroId": 34,
+        "nameKo": "키리카제",
+        "equipmentId": 297,
+        "equipmentNameKo": "삿갓",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-34",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-34"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-34"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-34"
+        }
+      },
+      {
+        "heroId": 35,
+        "nameKo": "안젤리카",
+        "equipmentId": 425,
+        "equipmentNameKo": "만능 공구 모자",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-35",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-35"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-35"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-35"
+        }
+      },
+      {
+        "heroId": 36,
+        "nameKo": "실버울프",
+        "equipmentId": 414,
+        "equipmentNameKo": "의적의 가면",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-36",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-36"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-36"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-36"
+        }
+      },
+      {
+        "heroId": 38,
+        "nameKo": "제리올&레이라",
+        "equipmentId": 455,
+        "equipmentNameKo": "나의 수호자",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-38",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-38"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-38"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-38"
+        }
+      },
+      {
+        "heroId": 39,
+        "nameKo": "페라키아",
+        "equipmentId": 411,
+        "equipmentNameKo": "악몽의 속삭임",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-39",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-39"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-39"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-39"
+        }
+      },
+      {
+        "heroId": 49,
+        "nameKo": "파나",
+        "equipmentId": 429,
+        "equipmentNameKo": "스칼렛 윈드",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-49",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-49"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-49"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-49"
+        }
+      },
+      {
+        "heroId": 51,
+        "nameKo": "셀파닐",
+        "equipmentId": 293,
+        "equipmentNameKo": "카콘시스의 왕관",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-51",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-51"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-51"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-51"
+        }
+      },
+      {
+        "heroId": 54,
+        "nameKo": "리스틸",
+        "equipmentId": 490,
+        "equipmentNameKo": "마혈의 투구",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-54",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-54"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-54"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-54"
+        }
+      },
+      {
+        "heroId": 57,
+        "nameKo": "윌러",
+        "equipmentId": 472,
+        "equipmentNameKo": "은하 제독",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-57",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-57"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-57"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-57"
+        }
+      }
+    ],
+    "preservedPopulations": {
+      "heroIndex": 267,
+      "fullHeroDetail": 29,
+      "exclusiveEquipmentNavigation": 167,
+      "minimalDetailBefore": 7,
+      "minimalDetailAfter": 17
+    },
+    "excluded": [
+      "New Semantic Admission",
+      "Canonical or Evidence mutation",
+      "Legacy Repository mutation",
+      "Other Hero publication changes",
+      "Other Equipment target changes",
+      "Rarity",
+      "Faction",
+      "Production",
+      "Job",
+      "Soldier",
+      "Talent",
+      "Skill",
+      "Portrait or Asset",
+      "Unverified statistics"
+    ]
+  },
+  "effect": {
+    "effective": true,
+    "condition": "Only the ten exact approved Hero and Equipment pairs, fields, and targets may change; the existing seven Minimal Detail Heroes and all other approved populations and targets are preserved.",
+    "reviewWhen": "Re-review if an approved ID, field, Canonical source, surface, target, or preserved population changes."
+  }
+}
