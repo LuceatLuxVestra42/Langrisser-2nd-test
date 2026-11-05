@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 58,
+      "nameKo": "세레나",
+      "exclusiveEquipment": {
+        "equipmentId": 423,
+        "nameKo": "여명의 수호자",
+        "effectDescriptionKo": "방어 +10%\n자신 주위 3칸 내 생명이 80% 이하의 아군을 '병사를 잃은' 상태로 간주"
+      }
+    },
+    {
+      "heroId": 59,
+      "nameKo": "기자로프",
+      "exclusiveEquipment": {
+        "equipmentId": 424,
+        "nameKo": "파멸과 창조의 지팡이",
+        "effectDescriptionKo": "지력 생명 +5%\n스킬 사용 후, [구조체](소환물)가 있을 경우 [구조체]에게 무작위 [개조] 1회 부여"
+      }
+    },
+    {
+      "heroId": 61,
+      "nameKo": "람다",
+      "exclusiveEquipment": {
+        "equipmentId": 413,
+        "nameKo": "세계수의 꽃",
+        "effectDescriptionKo": "지력 +5%\n스킬 사용 시, 적 1부대에 피해를 줄 때마다 10% 확률로 사용한 스킬 쿨타임 -5(최대 50%)"
+      }
+    },
+    {
+      "heroId": 62,
+      "nameKo": "알프레드",
+      "exclusiveEquipment": {
+        "equipmentId": 427,
+        "nameKo": "오션즈 하트",
+        "effectDescriptionKo": "공격 +8%\n전투 진입 전 적 영웅이 '수병'이 아닐 경우 적에게 '지형을 수중으로 간주' 부여, 지속 1행동\n자신 부대 생명이 100%인 경우 '자신의 지형을 수중으로 간주' 획득, 지속 1행동\n([쿨타임 효과]자신 부대 수중 부여 효과는 2턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 63,
+      "nameKo": "레인폴스",
+      "exclusiveEquipment": {
+        "equipmentId": 452,
+        "nameKo": "크림조의 심장",
+        "effectDescriptionKo": "공격 +5%, 이동력 +1\n보유한 [크림조니아의 힘]이 4스택 이상일 시, 적을 통과하여 이동 가능\n[크림조니아의 힘]이 7스택 이상일 시, 피해를 준 적에게 강력한 디버프를 1개 부여"
+      }
+    },
+    {
+      "heroId": 64,
+      "nameKo": "브렌다",
+      "exclusiveEquipment": {
+        "equipmentId": 439,
+        "nameKo": "아득한 달의 기억",
+        "effectDescriptionKo": "생명 방어 +5%\n[기품있는 모범]으로 재행동 시, 디버프 2개 제거, '주는 피해 +10%' 및 '받는 피해 -10%' 획득, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 65,
+      "nameKo": "비라쥬",
+      "exclusiveEquipment": {
+        "equipmentId": 437,
+        "nameKo": "크림조 아머",
+        "effectDescriptionKo": "방어 +10%\n부활 시, 무작위 버프 1개 획득"
+      }
+    },
+    {
+      "heroId": 66,
+      "nameKo": "클라렛",
+      "exclusiveEquipment": {
+        "equipmentId": 464,
+        "nameKo": "칼자스의 군신",
+        "effectDescriptionKo": "생명 +10%\n주위 2칸 내 아군이 없는 경우, 행동 종료 시 생명 15% 회복\n근접으로 공격 받을 시 전투 중 주는 피해 +20% 및 받는 피해 -20%"
+      }
+    },
+    {
+      "heroId": 87,
+      "nameKo": "베티",
+      "exclusiveEquipment": {
+        "equipmentId": 435,
+        "nameKo": "파멸의 샛별",
+        "effectDescriptionKo": "생명 +10%\n부대 생명이 낮을수록 주는 고정피해 상승, 최대 +30%"
+      }
+    },
+    {
+      "heroId": 88,
+      "nameKo": "엘라스타",
+      "exclusiveEquipment": {
+        "equipmentId": 417,
+        "nameKo": "바람을 싣는 날개",
+        "effectDescriptionKo": "마방 +10%\n자신이 숲, 산지, 풀밭에 있을 경우 호위 무시 공격 및 전투 후 피해량의 20% 만큼 회복"
+      }
+    },
+    {
+      "heroId": 91,
+      "nameKo": "에밀리아",
+      "exclusiveEquipment": {
+        "equipmentId": 453,
+        "nameKo": "영광의 전승",
+        "effectDescriptionKo": "방어 마방 +5%\n공격을 받아 전투 진입 시, 부대가 받는 물리 피해 -10%\n'홀리 가드' 혹은 '고급 홀리 가드'가 있을 경우 영웅은 원거리 공격 반격 가능(최대 9칸)"
+      }
+    },
+    {
+      "heroId": 92,
+      "nameKo": "환생 제시카",
+      "exclusiveEquipment": {
+        "equipmentId": 426,
+        "nameKo": "신탁을 받은 자",
+        "effectDescriptionKo": "생명 +5%\n피해를 주지 않고 이동하지 않은 상태로 행동 종료 시 재행동\n([쿨타임 효과]해당 효과는 4턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 93,
+      "nameKo": "미지의 기사",
+      "exclusiveEquipment": {
+        "equipmentId": 479,
+        "nameKo": "수호의 맹세",
+        "effectDescriptionKo": "지력 +10%\n혼합부대일 시, 부대 이동방식을 야전으로 변경\n공격해서 피해를 주기 전, 적에게 고정피해를 입힘\n피해량은 영웅 마방의 0.5배"
+      }
+    },
+    {
+      "heroId": 94,
+      "nameKo": "아카야",
+      "exclusiveEquipment": {
+        "equipmentId": 440,
+        "nameKo": "성령의 손길",
+        "effectDescriptionKo": "공격 지력 +10%\n행동 종료 시, 자신 옆에 [늑대의 혼] 1개 소환\n늑대의 혼의 능력치는 아카야 현재 스탯의 75%\n(한 번에 하나의 늑대의 혼만 존재 가능하며, 이 효과는 전투 중 최대 1회 발동)"
+      }
+    },
+    {
+      "heroId": 95,
+      "nameKo": "올리버",
+      "exclusiveEquipment": {
+        "equipmentId": 438,
+        "nameKo": "위대한 왕의 증표",
+        "effectDescriptionKo": "생명 마방 +5%\n치명타 발동 후 1개의 강력한 디버프를 부여하고, 버프 1개 강탈."
+      }
+    },
+    {
+      "heroId": 96,
+      "nameKo": "멜파니",
+      "exclusiveEquipment": {
+        "equipmentId": 460,
+        "nameKo": "활기찬 소환사",
+        "effectDescriptionKo": "치료 효과 +15%\n[지휘] 인접 아군에게 '상처 저주'(힐반전) 및 '치료 불가' 면역 부여"
+      }
+    },
+    {
+      "heroId": 97,
+      "nameKo": "일루시아",
+      "exclusiveEquipment": {
+        "equipmentId": 448,
+        "nameKo": "그 여름의 기억",
+        "effectDescriptionKo": "방어 마방 +5%\n공격을 받아 전투 진입 전, '파도 타기' 획득, 지속 1행동\n수중일 시, 주위 1바퀴 내 아군을 대신하여 모든 공격을 받음"
+      }
+    },
+    {
+      "heroId": 98,
+      "nameKo": "빈센트",
+      "exclusiveEquipment": {
+        "equipmentId": 476,
+        "nameKo": "타락한 날개",
+        "effectDescriptionKo": "1칸 이동할 때마다 치명타율 +3%(최대 +15%)\n공격으로 치명타 발생 시, 적의 버프 1개 제거"
+      }
+    },
+    {
+      "heroId": 99,
+      "nameKo": "클로테르",
+      "exclusiveEquipment": {
+        "equipmentId": 540,
+        "nameKo": "영원한 불꽃의 맹세",
+        "effectDescriptionKo": "생명 +10%\n[파멸의 염문]을 보유한 적이 있을 경우, 자신 주위 2칸 범위 내 아군 공격, 지력 +10%\n적에게 스킬로 피해를 입힌 후 '다음 스킬 피해 +25%' 효과 획득"
+      }
+    },
+    {
+      "heroId": 100,
+      "nameKo": "로젠실",
+      "exclusiveEquipment": {
+        "equipmentId": 549,
+        "nameKo": "순백의 면사포",
+        "effectDescriptionKo": "생명 +10%\n보유한 [수정 장벽] 1스택당 치료 효과 +3%\n영웅 사망 시, 주위 2칸 내 아군에게 지력 2배만큼 생명 회복"
+      }
+    }
+  ]
+}
