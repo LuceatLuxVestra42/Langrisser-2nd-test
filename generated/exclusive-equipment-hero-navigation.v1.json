@@ -223,8 +223,8 @@
       "heroId": 61,
       "heroNameKo": "람다",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-61"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-61"
       }
     },
     {
@@ -259,8 +259,8 @@
       "heroId": 88,
       "heroNameKo": "엘라스타",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-88"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-88"
       }
     },
     {
@@ -277,8 +277,8 @@
       "heroId": 58,
       "heroNameKo": "세레나",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-58"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-58"
       }
     },
     {
@@ -286,8 +286,8 @@
       "heroId": 59,
       "heroNameKo": "기자로프",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-59"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-59"
       }
     },
     {
@@ -304,8 +304,8 @@
       "heroId": 92,
       "heroNameKo": "환생 제시카",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-92"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-92"
       }
     },
     {
@@ -313,8 +313,8 @@
       "heroId": 62,
       "heroNameKo": "알프레드",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-62"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-62"
       }
     },
     {
@@ -349,8 +349,8 @@
       "heroId": 87,
       "heroNameKo": "베티",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-87"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-87"
       }
     },
     {
@@ -367,8 +367,8 @@
       "heroId": 65,
       "heroNameKo": "비라쥬",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-65"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-65"
       }
     },
     {
@@ -376,8 +376,8 @@
       "heroId": 95,
       "heroNameKo": "올리버",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-95"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-95"
       }
     },
     {
@@ -385,8 +385,8 @@
       "heroId": 64,
       "heroNameKo": "브렌다",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-64"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-64"
       }
     },
     {
@@ -394,8 +394,8 @@
       "heroId": 94,
       "heroNameKo": "아카야",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-94"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-94"
       }
     },
     {
@@ -430,8 +430,8 @@
       "heroId": 97,
       "heroNameKo": "일루시아",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-97"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-97"
       }
     },
     {
@@ -466,8 +466,8 @@
       "heroId": 63,
       "heroNameKo": "레인폴스",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-63"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-63"
       }
     },
     {
@@ -475,8 +475,8 @@
       "heroId": 91,
       "heroNameKo": "에밀리아",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-91"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-91"
       }
     },
     {
@@ -502,8 +502,8 @@
       "heroId": 96,
       "heroNameKo": "멜파니",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-96"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-96"
       }
     },
     {
@@ -538,8 +538,8 @@
       "heroId": 66,
       "heroNameKo": "클라렛",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-66"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-66"
       }
     },
     {
@@ -610,8 +610,8 @@
       "heroId": 98,
       "heroNameKo": "빈센트",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-98"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-98"
       }
     },
     {
@@ -637,8 +637,8 @@
       "heroId": 93,
       "heroNameKo": "미지의 기사",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-93"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-93"
       }
     },
     {
@@ -1006,8 +1006,8 @@
       "heroId": 99,
       "heroNameKo": "클로테르",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99"
       }
     },
     {
@@ -1051,8 +1051,8 @@
       "heroId": 100,
       "heroNameKo": "로젠실",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-100"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-100"
       }
     },
     {

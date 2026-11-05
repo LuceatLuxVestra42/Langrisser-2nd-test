@@ -33,25 +33,28 @@ const hero15MinimalDetailConsumer = JSON.parse(await readFile(resolve(siteRoot, 
 const hero16MinimalDetailConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/hero-minimal-detail-16.v1.json'), 'utf8'));
 const heroMinimalDetailBatchConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/hero-minimal-detail-batch-17-18-20-21-30.v1.json'), 'utf8'));
 const heroMinimalDetailTenBatchConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/hero-minimal-detail-batch-31-34-35-36-38-39-49-51-54-57.v1.json'), 'utf8'));
+const heroMinimalDetailTwentyBatchConsumer = JSON.parse(await readFile(resolve(siteRoot, 'generated/hero-minimal-detail-batch-58-59-61-62-63-64-65-66-87-88-91-92-93-94-95-96-97-98-99-100.v1.json'), 'utf8'));
 const approvedBatch = [{ heroId: 17, equipmentId: 405, nameKo: '에그베르트', equipmentNameKo: '플레임 코트' }, { heroId: 18, equipmentId: 276, nameKo: '이멜다', equipmentNameKo: '매혹의 립스틱' }, { heroId: 20, equipmentId: 281, nameKo: '소니아', equipmentNameKo: '검은 서광' }, { heroId: 21, equipmentId: 441, nameKo: '발가스', equipmentNameKo: '염룡의 휘광' }, { heroId: 30, equipmentId: 286, nameKo: '리파니', equipmentNameKo: '요정의 날개' }];
 const approvedTenBatch = [{heroId:31,equipmentId:434,nameKo:'소피아',equipmentNameKo:'성광의 베일'},{heroId:34,equipmentId:297,nameKo:'키리카제',equipmentNameKo:'삿갓'},{heroId:35,equipmentId:425,nameKo:'안젤리카',equipmentNameKo:'만능 공구 모자'},{heroId:36,equipmentId:414,nameKo:'실버울프',equipmentNameKo:'의적의 가면'},{heroId:38,equipmentId:455,nameKo:'제리올&레이라',equipmentNameKo:'나의 수호자'},{heroId:39,equipmentId:411,nameKo:'페라키아',equipmentNameKo:'악몽의 속삭임'},{heroId:49,equipmentId:429,nameKo:'파나',equipmentNameKo:'스칼렛 윈드'},{heroId:51,equipmentId:293,nameKo:'셀파닐',equipmentNameKo:'카콘시스의 왕관'},{heroId:54,equipmentId:490,nameKo:'리스틸',equipmentNameKo:'마혈의 투구'},{heroId:57,equipmentId:472,nameKo:'윌러',equipmentNameKo:'은하 제독'}];
+const approvedTwentyBatch = [{heroId:58,equipmentId:423,nameKo:'세레나',equipmentNameKo:'여명의 수호자'},{heroId:59,equipmentId:424,nameKo:'기자로프',equipmentNameKo:'파멸과 창조의 지팡이'},{heroId:61,equipmentId:413,nameKo:'람다',equipmentNameKo:'세계수의 꽃'},{heroId:62,equipmentId:427,nameKo:'알프레드',equipmentNameKo:'오션즈 하트'},{heroId:63,equipmentId:452,nameKo:'레인폴스',equipmentNameKo:'크림조의 심장'},{heroId:64,equipmentId:439,nameKo:'브렌다',equipmentNameKo:'아득한 달의 기억'},{heroId:65,equipmentId:437,nameKo:'비라쥬',equipmentNameKo:'크림조 아머'},{heroId:66,equipmentId:464,nameKo:'클라렛',equipmentNameKo:'칼자스의 군신'},{heroId:87,equipmentId:435,nameKo:'베티',equipmentNameKo:'파멸의 샛별'},{heroId:88,equipmentId:417,nameKo:'엘라스타',equipmentNameKo:'바람을 싣는 날개'},{heroId:91,equipmentId:453,nameKo:'에밀리아',equipmentNameKo:'영광의 전승'},{heroId:92,equipmentId:426,nameKo:'환생 제시카',equipmentNameKo:'신탁을 받은 자'},{heroId:93,equipmentId:479,nameKo:'미지의 기사',equipmentNameKo:'수호의 맹세'},{heroId:94,equipmentId:440,nameKo:'아카야',equipmentNameKo:'성령의 손길'},{heroId:95,equipmentId:438,nameKo:'올리버',equipmentNameKo:'위대한 왕의 증표'},{heroId:96,equipmentId:460,nameKo:'멜파니',equipmentNameKo:'활기찬 소환사'},{heroId:97,equipmentId:448,nameKo:'일루시아',equipmentNameKo:'그 여름의 기억'},{heroId:98,equipmentId:476,nameKo:'빈센트',equipmentNameKo:'타락한 날개'},{heroId:99,equipmentId:540,nameKo:'클로테르',equipmentNameKo:'영원한 불꽃의 맹세'},{heroId:100,equipmentId:549,nameKo:'로젠실',equipmentNameKo:'순백의 면사포'}];
 assert.equal(exclusiveHeroNavigationConsumer.records.length, 167, 'published Equipment Hero Navigation must contain exactly 167 approved relations');
 assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length, 29);
-assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 121);
-assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 17);
+assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 101);
+assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 37);
 assert.deepEqual(heroMinimalDetailBatchConsumer.heroes.map(({ heroId }) => heroId), [17, 18, 20, 21, 30]);
 assert.deepEqual(heroMinimalDetailTenBatchConsumer.heroes.map(({ heroId }) => heroId), [31,34,35,36,38,39,49,51,54,57]);
-assert.deepEqual([...approvedBatch, ...approvedTenBatch].map(({ equipmentId, heroId }) => {
+assert.deepEqual(heroMinimalDetailTwentyBatchConsumer.heroes.map(({ heroId }) => heroId), [58,59,61,62,63,64,65,66,87,88,91,92,93,94,95,96,97,98,99,100]);
+assert.deepEqual([...approvedBatch, ...approvedTenBatch, ...approvedTwentyBatch].map(({ equipmentId, heroId }) => {
   const row = exclusiveHeroNavigationConsumer.records.find((candidate) => candidate.equipmentId === equipmentId);
   return [row?.heroId, row?.navigationTarget.surface, row?.navigationTarget.fragment];
-}), [...approvedBatch, ...approvedTenBatch].map(({ heroId }) => [heroId, 'HERO_MINIMAL_DETAIL', `hero-minimal-detail-${heroId}`]), 'only the seventeen approved Equipment targets may change to their exact Minimal Detail endpoints');
+}), [...approvedBatch, ...approvedTenBatch, ...approvedTwentyBatch].map(({ heroId }) => [heroId, 'HERO_MINIMAL_DETAIL', `hero-minimal-detail-${heroId}`]), 'only the thirty-seven approved Equipment targets may use their exact Minimal Detail endpoints');
 assert.deepEqual(hero15MinimalDetailConsumer.heroes.map(({ heroId }) => heroId), [15]);
 assert.deepEqual(hero16MinimalDetailConsumer.heroes.map(({ heroId }) => heroId), [16]);
 assert.deepEqual(exclusiveHeroNavigationConsumer.records.find(({ equipmentId }) => equipmentId === 535)?.navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-15' });
 assert.deepEqual(exclusiveHeroNavigationConsumer.records.find(({ equipmentId }) => equipmentId === 418)?.navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-16' });
-assert.ok(exclusiveHeroNavigationConsumer.records.filter(({ equipmentId }) => ![276,281,286,293,297,405,411,414,418,425,429,434,441,455,472,490,535].includes(equipmentId))
+assert.ok(exclusiveHeroNavigationConsumer.records.filter(({ equipmentId }) => ![276,281,286,293,297,405,411,413,414,417,418,423,424,425,426,427,429,434,435,437,438,439,440,441,448,452,453,455,460,464,472,476,479,490,535,540,549].includes(equipmentId))
   .every(({ navigationTarget }) => navigationTarget.surface !== 'HERO_MINIMAL_DETAIL'), 'all other Equipment targets must be preserved');
 const publicSkinAssets = JSON.parse(await readFile(resolve(siteRoot, 'generated/skin-assets-public-m05-g.v1.json'), 'utf8'));
 const publishedSkinRows = validatePublishedSkinRows(publicSkinConsumer, publicSkinAssets);
@@ -292,6 +295,7 @@ try {
     '/generated/hero-minimal-detail.v1.json',
     '/generated/hero-minimal-detail-batch-17-18-20-21-30.v1.json',
     '/generated/hero-minimal-detail-batch-31-34-35-36-38-39-49-51-54-57.v1.json',
+    '/generated/hero-minimal-detail-batch-58-59-61-62-63-64-65-66-87-88-91-92-93-94-95-96-97-98-99-100.v1.json',
     '/generated/hero-soldier-relations.v1.json',
     '/generated/skin-consumer-public-m05-g.v1.json',
     '/generated/skin-assets-public-m05-g.v1.json',
@@ -442,11 +446,11 @@ try {
     assert.equal(layout.rendered.exclusiveEquipment, 167, `${viewport.name}: all Exclusive Equipment cards must render`);
     assert.equal(layout.rendered.exclusiveEquipmentOwnerLinks, 167, `${viewport.name}: each Equipment card must show its approved owner`);
     assert.equal(layout.rendered.exclusiveEquipmentDetailLinks, 29, `${viewport.name}: exactly 29 approved Detail links must remain`);
-    assert.equal(layout.rendered.exclusiveEquipmentIndexLinks, 121, `${viewport.name}: 121 unchanged Hero Index links must remain`);
-    assert.equal(layout.rendered.exclusiveEquipmentMinimalDetailLinks, 17, `${viewport.name}: exactly seventeen approved Equipment records may target Minimal Detail`);
+    assert.equal(layout.rendered.exclusiveEquipmentIndexLinks, 101, `${viewport.name}: 101 unchanged Hero Index links must remain`);
+    assert.equal(layout.rendered.exclusiveEquipmentMinimalDetailLinks, 37, `${viewport.name}: exactly thirty-seven approved Equipment records may target Minimal Detail`);
     assert.equal(layout.rendered.hero15MinimalDetailCards, 1, `${viewport.name}: Hero 15 Minimal Detail must render exactly once`);
     assert.equal(layout.rendered.hero16MinimalDetailCards, 1, `${viewport.name}: Hero 16 Minimal Detail must render exactly once`);
-    assert.equal(layout.rendered.allMinimalDetailCards, 17, `${viewport.name}: all seventeen approved Minimal Detail cards must render`);
+    assert.equal(layout.rendered.allMinimalDetailCards, 37, `${viewport.name}: all thirty-seven approved Minimal Detail cards must render`);
     const renderedOwnerLinks = await page.locator('#exclusive-equipment .general-equipment-card').evaluateAll((cards) => cards.map((card) => {
       const link = card.querySelector('.equipment-navigation-link');
       return { equipmentId: Number(card.id.replace('equipment-', '')), fragment: link?.getAttribute('href')?.slice(1), label: link?.textContent.trim() };
@@ -564,6 +568,18 @@ try {
     }
 
     for (const { heroId, equipmentId, nameKo, equipmentNameKo } of approvedTenBatch) {
+      const cardText = await page.locator(`#hero-minimal-detail-${heroId}-content`).innerText();
+      assert.ok(cardText.includes(nameKo) && cardText.includes(equipmentNameKo), `${viewport.name}: Hero ${heroId} Minimal Detail renders`);
+      await page.locator('#hero-index-search').fill('999999');
+      await page.locator(`#equipment-${equipmentId} .equipment-navigation-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Equipment ${equipmentId} routes to Hero ${heroId}`);
+      assert.equal(await page.locator(`#hero-minimal-detail-${heroId}`).isVisible(), true);
+      await page.locator('#hero-index-search').fill(String(heroId));
+      await page.locator(`#hero-index-entry-${heroId} .hero-index-minimal-detail-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Index ${heroId} routes to Minimal Detail`);
+    }
+
+    for (const { heroId, equipmentId, nameKo, equipmentNameKo } of approvedTwentyBatch) {
       const cardText = await page.locator(`#hero-minimal-detail-${heroId}-content`).innerText();
       assert.ok(cardText.includes(nameKo) && cardText.includes(equipmentNameKo), `${viewport.name}: Hero ${heroId} Minimal Detail renders`);
       await page.locator('#hero-index-search').fill('999999');
