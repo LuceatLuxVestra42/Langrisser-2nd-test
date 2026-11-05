@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 17,
+      "nameKo": "에그베르트",
+      "exclusiveEquipment": {
+        "equipmentId": 405,
+        "nameKo": "플레임 코트",
+        "effectDescriptionKo": "생명 마방 +5%\n공격을 받아 피해 입은 후 '스킬 사거리 +1' 및 '스킬 범위 +1' 획득, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 18,
+      "nameKo": "이멜다",
+      "exclusiveEquipment": {
+        "equipmentId": 276,
+        "nameKo": "매혹의 립스틱",
+        "effectDescriptionKo": "마방 +10%\n행동 종료 시, 주위 2칸 내 4명의 아군에게 '고정피해' 면역 부여, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 20,
+      "nameKo": "소니아",
+      "exclusiveEquipment": {
+        "equipmentId": 281,
+        "nameKo": "검은 서광",
+        "effectDescriptionKo": "공격 지력 +10%\n근접 공격하여 전투 진입 전 적군에게 1회 고정피해, 피해량은 영웅 지력의 2배\n원거리 공격하여 전투 진입 후 적군에게 1회 고정피해, 피해량은 영웅 공격의 2배"
+      }
+    },
+    {
+      "heroId": 21,
+      "nameKo": "발가스",
+      "exclusiveEquipment": {
+        "equipmentId": 441,
+        "nameKo": "염룡의 휘광",
+        "effectDescriptionKo": "방어 +10%\n[전력 찌르기] 보유 시, 2칸 원거리 공격에 대해 반격 가능"
+      }
+    },
+    {
+      "heroId": 30,
+      "nameKo": "리파니",
+      "exclusiveEquipment": {
+        "equipmentId": 286,
+        "nameKo": "요정의 날개",
+        "effectDescriptionKo": "지력 +5%\n공격 후 2칸 재이동 가능"
+      }
+    }
+  ]
+}

@@ -34,8 +34,8 @@
       "heroId": 18,
       "heroNameKo": "이멜다",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-18"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-18"
       }
     },
     {
@@ -79,8 +79,8 @@
       "heroId": 20,
       "heroNameKo": "소니아",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-20"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-20"
       }
     },
     {
@@ -88,8 +88,8 @@
       "heroId": 30,
       "heroNameKo": "리파니",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-30"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-30"
       }
     },
     {
@@ -187,8 +187,8 @@
       "heroId": 17,
       "heroNameKo": "에그베르트",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-17"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-17"
       }
     },
     {
@@ -403,8 +403,8 @@
       "heroId": 21,
       "heroNameKo": "발가스",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-21"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-21"
       }
     },
     {
