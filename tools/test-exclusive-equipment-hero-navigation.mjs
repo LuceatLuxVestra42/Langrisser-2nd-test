@@ -8,9 +8,10 @@ import { HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detai
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-thirty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-twenty-batch-contract.mjs';
+import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, generatedText, heroLocalizationBytes, heroIdentityBytes] = await Promise.all([
+const [relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, heroMinimalDetailThirtyOneBatchPublicationDecision, generatedText, heroLocalizationBytes, heroIdentityBytes] = await Promise.all([
   read('canonical/hero-exclusive-equipment-relations.v1.json'), read('canonical/exclusive-equipment.v1.json'),
   read('canonical/hero-identities.v1.json'), read('canonical/hero-localizations-ko.v1.json'), read('generated/hero-slice.v1.json'),
   read('docs/decisions/hero-index-publication.v1.json'), read('docs/decisions/exclusive-equipment-hero-navigation-publication.v1.json'),
@@ -20,31 +21,39 @@ const [relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSl
   read(HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH),
   read(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH),
   read(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH),
+  read(HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH),
   readFile('generated/exclusive-equipment-hero-navigation.v1.json', 'utf8'),
   readFile('canonical/hero-localizations-ko.v1.json'), readFile('canonical/hero-identities.v1.json'),
 ]);
 const inputs = {
-  relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision,
+  relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, heroMinimalDetailThirtyOneBatchPublicationDecision,
   heroLocalizationSha256: createHash('sha256').update(heroLocalizationBytes).digest('hex'),
   heroIdentitySha256: createHash('sha256').update(heroIdentityBytes).digest('hex'),
 };
 const output = validateExclusiveEquipmentHeroNavigation({ generatedText, inputs });
 assert.equal(output.records.length, 167);
 assert.equal(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length, 29);
-assert.equal(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 71);
-assert.equal(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 67);
+assert.equal(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 40);
+assert.equal(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 98);
 assert.deepEqual(output.records.find(({ equipmentId }) => equipmentId === 535).navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-15' });
 assert.deepEqual(output.records.find(({ equipmentId }) => equipmentId === 418).navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-16' });
 const minimalTargetEquipmentIds = [276,281,286,293,297,405,411,413,414,417,418,423,424,425,426,427,429,434,435,437,438,439,440,441,448,452,453,455,460,464,472,476,479,490,535,540,549,449,450,451,454,461,463,467,473,475,477,478,484,485,486,487,489,495,496,497,498,499,500,501,502,507,508,512,519,520,526].sort((a,b)=>a-b);
-assert.equal(minimalTargetEquipmentIds.length, 67);
+minimalTargetEquipmentIds.push(...HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH.map(({ equipmentId }) => equipmentId));
+minimalTargetEquipmentIds.sort((a,b)=>a-b);
+assert.equal(minimalTargetEquipmentIds.length, 98);
 assert.deepEqual(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').map(({ equipmentId }) => equipmentId), minimalTargetEquipmentIds);
 const approvedThirty = HERO_MINIMAL_DETAIL_THIRTY_BATCH.map(({ equipmentId, heroId }) => [equipmentId, heroId]);
 assert.deepEqual(approvedThirty.map(([equipmentId]) => {
   const row = output.records.find((candidate) => candidate.equipmentId === equipmentId);
   return [row?.heroId, row?.navigationTarget.surface, row?.navigationTarget.fragment];
 }), approvedThirty.map(([, heroId]) => [heroId, 'HERO_MINIMAL_DETAIL', `hero-minimal-detail-${heroId}`]));
+const approvedThirtyOne = HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH.map(({ equipmentId, heroId }) => [equipmentId, heroId]);
+assert.deepEqual(approvedThirtyOne.map(([equipmentId]) => {
+  const row = output.records.find((candidate) => candidate.equipmentId === equipmentId);
+  return [row?.heroId, row?.navigationTarget.surface, row?.navigationTarget.fragment];
+}), approvedThirtyOne.map(([, heroId]) => [heroId, 'HERO_MINIMAL_DETAIL', `hero-minimal-detail-${heroId}`]));
 assert.equal(output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length
   + output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length
   + output.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length, 167);
@@ -84,4 +93,4 @@ const wrongHero16Target = JSON.parse(generatedText);
 wrongHero16Target.records.find(({ equipmentId }) => equipmentId === 418).navigationTarget.fragment = 'hero-index-entry-16';
 assert.throws(() => validateExclusiveEquipmentHeroNavigation({ generatedText: `${JSON.stringify(wrongHero16Target, null, 2)}\n`, inputs }), /stale or non-deterministic/);
 
-process.stdout.write('Exclusive Equipment Hero Navigation regression: PASS (167 exact pairs; 29 Full Detail, 71 Index, 67 exact Minimal Detail targets; approval, endpoint, localization, scope, target, and stale-output negatives)\n');
+process.stdout.write('Exclusive Equipment Hero Navigation regression: PASS (167 exact pairs; 29 Full Detail, 40 Index, 98 exact Minimal Detail targets; approval, endpoint, localization, scope, target, and stale-output negatives)\n');
