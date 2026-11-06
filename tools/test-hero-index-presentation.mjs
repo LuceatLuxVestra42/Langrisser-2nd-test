@@ -45,7 +45,8 @@ const batchHeroIds = [17, 18, 20, 21, 30];
 const tenBatchHeroIds = [31, 34, 35, 36, 38, 39, 49, 51, 54, 57];
 const twentyBatchHeroIds = [58, 59, 61, 62, 63, 64, 65, 66, 87, 88, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
 const thirtyBatchHeroIds = [101, 102, 103, 104, 105, 106, 108, 109, 110, 111, 112, 113, 114, 115, 116, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 129, 130, 99161, 99162, 99163];
-const minimalDetailHeroIds = new Set([15, 16, ...batchHeroIds, ...tenBatchHeroIds, ...twentyBatchHeroIds, ...thirtyBatchHeroIds]);
+const thirtyOneBatchHeroIds = [99164, 99165, 99166, 99167, 99168, 99169, 99170, 99171, 99172, 99173, 99174, 99175, 99176, 99177, 99178, 99179, 99180, 99181, 99182, 99183, 99184, 99185, 99186, 99187, 99188, 99189, 99190, 99191, 99192, 99193, 99197];
+const minimalDetailHeroIds = new Set([15, 16, ...batchHeroIds, ...tenBatchHeroIds, ...twentyBatchHeroIds, ...thirtyBatchHeroIds, ...thirtyOneBatchHeroIds]);
 const detailedInput = makeElement('input', 'hero-search');
 const factionFilter = makeElement('select', 'hero-faction-filter');
 factionFilter.value = 'all';
@@ -64,9 +65,9 @@ assert.equal(new Set(container.children.map(({ id }) => id)).size, 267, 'Index D
 assert.ok(container.children.every(({ id }) => !elements.has(id)), 'Index DOM IDs do not collide with Hero detail IDs');
 assert.equal(container.children.filter(({ children }) => children[0]?.className === 'hero-index-detail-link').length, 29,
   'only 29 existing detail endpoints render links');
-assert.equal(container.children.filter(({ children }) => children[0]?.className === 'hero-index-minimal-detail-link').length, 67,
-  'only the thirty-seven approved Heroes receive Minimal Detail links');
-assert.equal(container.children.filter(({ children }) => children[0]?.tagName !== 'a').length, 171,
+assert.equal(container.children.filter(({ children }) => children[0]?.className === 'hero-index-minimal-detail-link').length, 98,
+  'only the approved Minimal Detail Heroes receive links');
+assert.equal(container.children.filter(({ children }) => children[0]?.tagName !== 'a').length, 140,
   'all other Index entries remain unlinked');
 
 const exactOne = functions.filterHeroIndex(index.heroes, '1');
@@ -145,7 +146,7 @@ assert.match(html, /id="hero-search"/);
 assert.match(html, /id="hero-minimal-detail-15"/);
 assert.match(html, /id="hero-minimal-detail-16"/);
 for (const heroId of [...batchHeroIds, ...tenBatchHeroIds, ...twentyBatchHeroIds]) assert.match(html, new RegExp(`id="hero-minimal-detail-${heroId}"`));
-process.stdout.write('Hero Index Frontend regression: PASS (exact ID/name search, empty/reset, independent state, 267 rows, 29 Full Detail links, 67 minimal links, 171 unlinked rows)\n');
+process.stdout.write('Hero Index Frontend regression: PASS (exact ID/name search, empty/reset, independent state, 267 rows, 29 Full Detail links, 98 minimal links, 140 unlinked rows)\n');
 
 const moduleSource = (await readFile('app.js', 'utf8')).replace(/^import .*;\n/m, '');
 const appElements = new Map();
@@ -165,7 +166,7 @@ const appDocument = {
     if (id === 'hero-minimal-detail-16' && !appElements.has('#hero-minimal-detail-16')) {
       appElements.set('#hero-minimal-detail-16', makeElement('section', id));
     }
-    if ([17, 18, 20, 21, 30, 31, 34, 35, 36, 38, 39, 49, 51, 54, 57, ...twentyBatchHeroIds, ...thirtyBatchHeroIds].includes(Number(id.match(/^hero-minimal-detail-(\d+)$/)?.[1])) && !appElements.has(`#${id}`)) appElements.set(`#${id}`, makeElement('section', id));
+    if ([17, 18, 20, 21, 30, 31, 34, 35, 36, 38, 39, 49, 51, 54, 57, ...twentyBatchHeroIds, ...thirtyBatchHeroIds, ...thirtyOneBatchHeroIds].includes(Number(id.match(/^hero-minimal-detail-(\d+)$/)?.[1])) && !appElements.has(`#${id}`)) appElements.set(`#${id}`, makeElement('section', id));
     const visit = (node) => {
       if (node.id === id) return node;
       for (const child of node.children ?? []) {
@@ -189,7 +190,7 @@ const appFetch = async (url) => {
 const initializedApp = await runInNewContext(`(async () => {
   "use strict";
   ${moduleSource}
-  return { heroNavigation, heroIndexDetailIds, hero15MinimalDetailNavigation, hero15MinimalDetailIds, hero16MinimalDetailNavigation, hero16MinimalDetailIds, heroMinimalDetailBatchNavigation, heroMinimalDetailBatchIds, heroMinimalDetailTenBatchNavigation, heroMinimalDetailTenBatchIds, heroMinimalDetailTwentyBatchNavigation, heroMinimalDetailTwentyBatchIds, heroMinimalDetailThirtyBatchNavigation, heroMinimalDetailThirtyBatchIds, heroBySoldierId, exclusiveEquipmentHeroById };
+  return { heroNavigation, heroIndexDetailIds, hero15MinimalDetailNavigation, hero15MinimalDetailIds, hero16MinimalDetailNavigation, hero16MinimalDetailIds, heroMinimalDetailBatchNavigation, heroMinimalDetailBatchIds, heroMinimalDetailTenBatchNavigation, heroMinimalDetailTenBatchIds, heroMinimalDetailTwentyBatchNavigation, heroMinimalDetailTwentyBatchIds, heroMinimalDetailThirtyBatchNavigation, heroMinimalDetailThirtyBatchIds, heroMinimalDetailThirtyOneBatchNavigation, heroMinimalDetailThirtyOneBatchIds, heroBySoldierId, exclusiveEquipmentHeroById };
 })()`, {
   document: appDocument,
   window,
@@ -203,9 +204,9 @@ assert.equal(appElements.get('#hero-index-results').children.length, 267,
   'actual app initialization must render all 267 Hero Index rows');
 assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.className === 'hero-index-detail-link').length, 29,
   'actual app initialization must retain exactly 29 Full Detail links');
-assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.className === 'hero-index-minimal-detail-link').length, 67,
-  'actual app initialization must render exactly sixty-seven approved Minimal Detail links');
-assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName !== 'a').length, 171,
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.className === 'hero-index-minimal-detail-link').length, 98,
+  'actual app initialization must render exactly ninety-eight approved Minimal Detail links');
+assert.equal(appElements.get('#hero-index-results').children.filter(({ children }) => children[0]?.tagName !== 'a').length, 140,
   'actual app initialization must retain unlinked rows');
 assert.equal(initializedApp.hero15MinimalDetailIds.size, 1);
 assert.equal(initializedApp.hero15MinimalDetailNavigation.showTarget(15), true);
@@ -229,6 +230,8 @@ for (const [heroId, expectedName] of [[31,'소피아'],[34,'키리카제'],[35,'
 }
 assert.deepEqual(Array.from(initializedApp.heroMinimalDetailTwentyBatchIds), twentyBatchHeroIds);
 assert.deepEqual(Array.from(initializedApp.heroMinimalDetailThirtyBatchIds), thirtyBatchHeroIds);
+assert.deepEqual(Array.from(initializedApp.heroMinimalDetailThirtyOneBatchIds), thirtyOneBatchHeroIds);
+for (const heroId of thirtyOneBatchHeroIds) { assert.equal(initializedApp.heroMinimalDetailThirtyOneBatchNavigation.get(heroId).showTarget(heroId), true); assert.equal(initializedApp.heroMinimalDetailThirtyOneBatchNavigation.get(heroId).showTarget(999), false); }
 for (const heroId of thirtyBatchHeroIds) { assert.equal(initializedApp.heroMinimalDetailThirtyBatchNavigation.get(heroId).showTarget(heroId), true); assert.equal(initializedApp.heroMinimalDetailThirtyBatchNavigation.get(heroId).showTarget(999), false); }
 for (const [heroId, expectedName] of [[58,'세레나'],[59,'기자로프'],[61,'람다'],[62,'알프레드'],[63,'레인폴스'],[64,'브렌다'],[65,'비라쥬'],[66,'클라렛'],[87,'베티'],[88,'엘라스타'],[91,'에밀리아'],[92,'환생 제시카'],[93,'미지의 기사'],[94,'아카야'],[95,'올리버'],[96,'멜파니'],[97,'일루시아'],[98,'빈센트'],[99,'클로테르'],[100,'로젠실']]) {
   assert.equal(initializedApp.heroMinimalDetailTwentyBatchNavigation.get(heroId).showTarget(heroId), true);
@@ -247,4 +250,4 @@ appIndexInput.listeners.input();
 assert.equal(appElements.get('#hero-index-results').children.length, 0, 'actual app index search must render empty results');
 appElements.get('#hero-index-search-clear').listeners.click();
 assert.equal(appElements.get('#hero-index-results').children.length, 267, 'actual app index reset must restore all rows');
-process.stdout.write('Hero Index app-module initialization regression: PASS (strict mode, 267 rows, 29 Full Detail links, 67 Minimal Detail links, 171 unlinked rows, search and reset)\n');
+process.stdout.write('Hero Index app-module initialization regression: PASS (strict mode, 267 rows, 29 Full Detail links, 98 Minimal Detail links, 140 unlinked rows, search and reset)\n');

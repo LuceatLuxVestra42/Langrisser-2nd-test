@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 99164,
+      "nameKo": "베르너 폰 에길",
+      "exclusiveEquipment": {
+        "equipmentId": 534,
+        "nameKo": "은빛 바람의 망토",
+        "effectDescriptionKo": "방어 +10%\n전투 시작 시 [강습 모드] 획득\n[강습 모드] 상태에서 공격 전 이동하지 않은 경우, 전투 후 [강습 모드] 재획득"
+      }
+    },
+    {
+      "heroId": 99165,
+      "nameKo": "마리안델",
+      "exclusiveEquipment": {
+        "equipmentId": 510,
+        "nameKo": "세계수의 꽃웃음",
+        "effectDescriptionKo": "생명 +10%\n[마나 에너지] 획득 시, 50% 확률로 1스택 추가 획득"
+      }
+    },
+    {
+      "heroId": 99166,
+      "nameKo": "웨탐",
+      "exclusiveEquipment": {
+        "equipmentId": 539,
+        "nameKo": "악마 우두머리",
+        "effectDescriptionKo": "생명 +10%\n공격하여 전투 진입 시 적이 [절망]을 보유한 경우, 영웅이 주는 피해 +10% 및 스킬 사용 시 해당 스킬의 쿨타임 -1"
+      }
+    },
+    {
+      "heroId": 99167,
+      "nameKo": "리사",
+      "exclusiveEquipment": {
+        "equipmentId": 511,
+        "nameKo": "유령 대장",
+        "effectDescriptionKo": "생명 +10%\n[형태]를 선택할 때마다 디버프 1개 제거 및 무작위 버프 1개 획득"
+      }
+    },
+    {
+      "heroId": 99168,
+      "nameKo": "엘마",
+      "exclusiveEquipment": {
+        "equipmentId": 537,
+        "nameKo": "경건한 축하",
+        "effectDescriptionKo": "생명 +10%\n[성스러운 빛의 불꽃](소환물) 치료 효과 +20%\n초절강화 버프를 보유한 경우, 부여하는 [성스러운 빛의 거울] 해제 불가"
+      }
+    },
+    {
+      "heroId": 99169,
+      "nameKo": "켈티스",
+      "exclusiveEquipment": {
+        "equipmentId": 509,
+        "nameKo": "초혼의 모자",
+        "effectDescriptionKo": "생명 +10%\n[영혼의 그림]을 보유한 적에게 공격 받아 전투 진입 후 생명 20% 회복\n적이 [그림 속 꼭두각시](소환물) 처치 시 '주는 피해 +10%', '받는 피해 -10%' 획득"
+      }
+    },
+    {
+      "heroId": 99170,
+      "nameKo": "로비나 대제",
+      "exclusiveEquipment": {
+        "equipmentId": 513,
+        "nameKo": "호령의 칼날",
+        "effectDescriptionKo": "공격, 생명 +5%\n초절강화 버프 보유 상태로 범위 스킬 사용 시 범위 +1\n아군 부대 [배치] 후 '주는 피해 +10%' 부여, 지속 2행동\n부대 [배치] 후 자신 이동력 증가 효과 지속시간 +1턴"
+      }
+    },
+    {
+      "heroId": 99171,
+      "nameKo": "방주의 성녀",
+      "exclusiveEquipment": {
+        "equipmentId": 514,
+        "nameKo": "여명의 왕관",
+        "effectDescriptionKo": "생명 +10%\n자신 주위 1바퀴 내 2명 이상의 다른 아군이 존재하면 [음양의 조화]가 아군에게 피해를 주지 않고, 받는 치료 효과 +8%"
+      }
+    },
+    {
+      "heroId": 99172,
+      "nameKo": "크림조의 집정관",
+      "exclusiveEquipment": {
+        "equipmentId": 524,
+        "nameKo": "우주전함의 결의",
+        "effectDescriptionKo": "생명 방어 +5%\n재행동 발동 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음\n행동 종료 시 수중에 위치하고 피해를 주지 않은 경우, 생명 20% 회복"
+      }
+    },
+    {
+      "heroId": 99173,
+      "nameKo": "아이언 챈슬러",
+      "exclusiveEquipment": {
+        "equipmentId": 538,
+        "nameKo": "검붉은 의지",
+        "effectDescriptionKo": "생명 +10%\n전투 중 [진법]을 1회 사용할 때마다, 해당 스킬로 부여하는 버프의 지속시간 +1"
+      }
+    },
+    {
+      "heroId": 99174,
+      "nameKo": "아즈사",
+      "exclusiveEquipment": {
+        "equipmentId": 533,
+        "nameKo": "낭월청진",
+        "effectDescriptionKo": "생명 방어 +5%\n[보호의 원기]를 보유 시 스킬 피해 +10%\n[강함], [유연함], [보호의 원기]를 모두 보유한 상태에서 치명 피해를 입을 시 그것들을 소모하여 50% 생명으로 부활(해당 효과는 전투당 1회 발동)"
+      }
+    },
+    {
+      "heroId": 99175,
+      "nameKo": "오보로",
+      "exclusiveEquipment": {
+        "equipmentId": 536,
+        "nameKo": "영혼이 깃든 법상",
+        "effectDescriptionKo": "생명 +10%\n[원기 집중] 사용 시, 초절강화 버프가 있다면 [용의 위엄] 1개 추가 획득\n공격으로 전투 진입 시, 받는 피해 및 반사 피해 -30%"
+      }
+    },
+    {
+      "heroId": 99176,
+      "nameKo": "캐롤리안",
+      "exclusiveEquipment": {
+        "equipmentId": 521,
+        "nameKo": "역행의 투구",
+        "effectDescriptionKo": "생명 방어 +5%\n고유기 효과 범위 +1 및 부여하는 이동력 감소 효과 지속시간 +1\n1칸 이동할 때마다 영웅의 치명타율 및 주는 피해 +2%(최대 +10%)"
+      }
+    },
+    {
+      "heroId": 99177,
+      "nameKo": "카구야",
+      "exclusiveEquipment": {
+        "equipmentId": 523,
+        "nameKo": "꿈의 달빛",
+        "effectDescriptionKo": "생명 +10%\n전투 시작 시, [돼지], [사슴], [나비] 중 무작위 2개 획득\n[비장의 카드] 사용 시 부대 사거리 +2 효과 해제 불가\n이번 전투에서 임의의 [돼지], [사슴], [나비] 1개 소모 시마다 영웅 치명타율 +1%(최대 +10%)"
+      }
+    },
+    {
+      "heroId": 99178,
+      "nameKo": "아사멜",
+      "exclusiveEquipment": {
+        "equipmentId": 532,
+        "nameKo": "타오르는 북극성",
+        "effectDescriptionKo": "생명 +10%\n[댄스 파트너]가 있을 시, 스킬 피해 +10%\n자신과 [댄스 파트너]가 행동 종료 시, [댄스 스텝]에 따라 아래의 면역 효과 획득, 지속 1행동\n[근접 댄스 스텝]: 고정피해\n[투게더 댄스 스텝]: 침묵\n[연속 댄스 스텝]: 이동력 감소"
+      }
+    },
+    {
+      "heroId": 99179,
+      "nameKo": "로스탐",
+      "exclusiveEquipment": {
+        "equipmentId": 547,
+        "nameKo": "뜨거운 모래바람",
+        "effectDescriptionKo": "생명 방어 +5%\n[분노의 결투] 패시브 효과 발동 시 '치명타율 +10%' 획득, 지속 1행동\n사막 위에서 행동 종료 시에도 [분노의 결투] 패시브 효과 발동 가능"
+      }
+    },
+    {
+      "heroId": 99180,
+      "nameKo": "방랑투사",
+      "exclusiveEquipment": {
+        "equipmentId": 525,
+        "nameKo": "방랑의 상처",
+        "effectDescriptionKo": "방어 +10%\n공격하여 전투 진입 시, 부대 받는 피해 -30%\n적이 [복수의 사슬] 보유 시, 추가로 받는 피해 -20%"
+      }
+    },
+    {
+      "heroId": 99181,
+      "nameKo": "줄리안",
+      "exclusiveEquipment": {
+        "equipmentId": 551,
+        "nameKo": "처형자의 침묵",
+        "effectDescriptionKo": "생명 +10%\n적 부대 생명이 100% 미만일 시, 스킬 사용 시 부대 사거리 +1\n공격 후 20% 확률로 재행동\n([쿨타임 효과]해당 효과는 2턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 99182,
+      "nameKo": "리키",
+      "exclusiveEquipment": {
+        "equipmentId": 531,
+        "nameKo": "진정한 영웅",
+        "effectDescriptionKo": "생명 방어 +5%\n[방어 방향]의 적과 전투 시, 영웅이 주는 피해 +10%\n'셀파닐'이라는 아군 부대가 있을 시, 양측의 스킬 피해 +5%"
+      }
+    },
+    {
+      "heroId": 99183,
+      "nameKo": "마크렌",
+      "exclusiveEquipment": {
+        "equipmentId": 550,
+        "nameKo": "메카파츠",
+        "effectDescriptionKo": "생명 방어 +5%\n아군의 [급류] 지형 효과 통과 시 수중 이동으로 취급\n공격하여 적 처치 후, 생명 20% 회복"
+      }
+    },
+    {
+      "heroId": 99184,
+      "nameKo": "빛의 수호사도",
+      "exclusiveEquipment": {
+        "equipmentId": 559,
+        "nameKo": "잿불의 수호",
+        "effectDescriptionKo": "생명 +10%\n[거울의 빛] 1스택마다 부대 주는 피해 +2%\n행동 종료 시 [거울의 빛]이 5스택인 경우, 생명이 가장 낮은 아군의 생명을 지력 2.5배만큼 회복"
+      }
+    },
+    {
+      "heroId": 99185,
+      "nameKo": "아단켈모",
+      "exclusiveEquipment": {
+        "equipmentId": 560,
+        "nameKo": "아득한 수수께끼",
+        "effectDescriptionKo": "생명 +10%\n아군의 [문] 위에서 행동 종료한 모든 아군은 '공격, 지력 +20%' 획득, 지속 2행동\n비행이동이 아닌 적이 [문] 주위 2칸 통과 시 이동력 1 추가 소모"
+      }
+    },
+    {
+      "heroId": 99186,
+      "nameKo": "빛과 그림자 검의 영혼",
+      "exclusiveEquipment": {
+        "equipmentId": 568,
+        "nameKo": "엇갈린 숙명",
+        "effectDescriptionKo": "생명 방어 +5%\n'치명 피해 방어'(부활)를 보유한 적과 전투 시, 부대 공격 방어 +10%\n자신이 '치명 피해 방어' 발동 후, 위치한 곳에 [영혼 가루] 생성\n([쿨타임 효과]해당 효과는 3턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 99187,
+      "nameKo": "껍질 소녀",
+      "exclusiveEquipment": {
+        "equipmentId": 548,
+        "nameKo": "소스 코어",
+        "effectDescriptionKo": "생명 +10%\n행동 종료 시, 이번 턴에 피해를 주지 않은 경우 [강화 학습] 획득\n([강화 학습]: 지력 +5%, 스킬 사용 시 부대 사거리 +1, 해제 불가, 공격으로 피해를 1회 입힌 후 소멸)"
+      }
+    },
+    {
+      "heroId": 99188,
+      "nameKo": "리오벡",
+      "exclusiveEquipment": {
+        "equipmentId": 546,
+        "nameKo": "세월의 연못",
+        "effectDescriptionKo": "생명 +10%\n[계약] 해제 불가\n[명계 화염의 침식] 사용 후 피해를 받은 적의 수만큼 쿨타임 감소(최대 -3)"
+      }
+    },
+    {
+      "heroId": 99189,
+      "nameKo": "시엔",
+      "exclusiveEquipment": {
+        "equipmentId": 545,
+        "nameKo": "도사리는 어둠",
+        "effectDescriptionKo": "생명 +10%\n[회전 칼날] 회수 후, '받는 피해 -20%' 획득, 지속 1행동\n행동 종료 시, 10칸 내 무작위 적 1명이 있는 위치에 [회전 칼날] 생성\n([쿨타임 효과]해당 효과는 2턴 후 재발동 가능)\n아레나에서는 생성 범위가 전체로 확대"
+      }
+    },
+    {
+      "heroId": 99190,
+      "nameKo": "폴리알",
+      "exclusiveEquipment": {
+        "equipmentId": 569,
+        "nameKo": "선령의 속삭임",
+        "effectDescriptionKo": "방어 +10%\n쿨타임 중인 스킬 1개당 부대 주는 피해 +10%\n적을 위치 이동 시켰을 경우 지휘 획득, 지속 1행동\n[지휘]: 주위 2칸 내 적이 받는 치료 효과 -30%"
+      }
+    },
+    {
+      "heroId": 99191,
+      "nameKo": "루그너",
+      "exclusiveEquipment": {
+        "equipmentId": 552,
+        "nameKo": "신자의 면류관",
+        "effectDescriptionKo": "생명 +10%\n아군 사망 시 공격자에게 [죄업] 4스택 부여\n적이 [죄업] 4스택 이상을 보유할 경우, 승려와 교전 시 주는 피해 -15%"
+      }
+    },
+    {
+      "heroId": 99192,
+      "nameKo": "그렌실",
+      "exclusiveEquipment": {
+        "equipmentId": 570,
+        "nameKo": "겨울 서리의 오만",
+        "effectDescriptionKo": "생명 +10%\n이동력이 자신보다 낮은 부대와 전투 시, 적은 선제공격 불가\n스킬을 사용하여 전투 진입 전 적이 이동력 감소 효과 보유 시, 전투 후 해당 스킬의 쿨타임 -4\n([쿨타임 효과]해당 효과는 2턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 99193,
+      "nameKo": "요아&코니",
+      "exclusiveEquipment": {
+        "equipmentId": 557,
+        "nameKo": "Y자 비주얼 디바이스",
+        "effectDescriptionKo": "생명 +5%\n[요아](소환물)가 3칸 내에 있을 경우 코니의 치명타 피해 +15%\n[요아]가 [채널 간섭] 사용 시 지휘 획득, 지속 2행동\n([지휘]: 주위 2칸 내 적이 코니에게 공격받을 경우, 호위를 받을 수 없음)"
+      }
+    },
+    {
+      "heroId": 99197,
+      "nameKo": "각성자",
+      "exclusiveEquipment": {
+        "equipmentId": 603,
+        "nameKo": "최후의 시선",
+        "effectDescriptionKo": "생명 +10%\n[저주의 속박]을 보유한 적과 전투 시, 부대의 공격, 지력 +15%\n사망 시, 공격자 주위 1칸 내 모든 적에게 [저주의 속박] 부여"
+      }
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { HERO_MINIMAL_DETAIL_BATCH, validateHeroMinimalDetailBatchPublication } 
 import { HERO_MINIMAL_DETAIL_TEN_BATCH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH, validateHeroMinimalDetailTwentyBatchPublication } from './hero-minimal-detail-twenty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH, validateHeroMinimalDetailThirtyBatchPublication } from './hero-minimal-detail-thirty-batch-contract.mjs';
+import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH, validateHeroMinimalDetailThirtyOneBatchPublication } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 
 export const EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH = 'docs/decisions/exclusive-equipment-hero-navigation-publication.v1.json';
 export const EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH = 'generated/exclusive-equipment-hero-navigation.v1.json';
@@ -16,7 +17,7 @@ const exactKeys = (value, keys, label) => {
 };
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 
-export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, heroLocalizationSha256, heroIdentitySha256 }) {
+export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, heroMinimalDetailThirtyOneBatchPublicationDecision, heroLocalizationSha256, heroIdentitySha256 }) {
   if (relations?.schemaVersion !== 1 || !Array.isArray(relations.records)
     || equipmentIdentities?.schemaVersion !== 1 || !Array.isArray(equipmentIdentities.records)
     || heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)
@@ -32,6 +33,7 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
   validateHeroMinimalDetailTenBatchPublication(heroMinimalDetailTenBatchPublicationDecision);
   validateHeroMinimalDetailTwentyBatchPublication(heroMinimalDetailTwentyBatchPublicationDecision);
   validateHeroMinimalDetailThirtyBatchPublication(heroMinimalDetailThirtyBatchPublicationDecision);
+  validateHeroMinimalDetailThirtyOneBatchPublication(heroMinimalDetailThirtyOneBatchPublicationDecision);
 
   exactKeys(publicationDecision, ['schemaVersion', 'decisionType', 'status', 'approvedScope', 'approval', 'effect'], 'Exclusive Equipment Hero decision');
   const scope = publicationDecision.approvedScope;
@@ -113,12 +115,13 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
     ...HERO_MINIMAL_DETAIL_TEN_BATCH.map(({ heroId, equipmentId }) => [heroId, { equipmentId, fragment: `hero-minimal-detail-${heroId}` }]),
     ...HERO_MINIMAL_DETAIL_TWENTY_BATCH.map(({ heroId, equipmentId }) => [heroId, { equipmentId, fragment: `hero-minimal-detail-${heroId}` }]),
     ...HERO_MINIMAL_DETAIL_THIRTY_BATCH.map(({ heroId, equipmentId }) => [heroId, { equipmentId, fragment: `hero-minimal-detail-${heroId}` }]),
+    ...HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH.map(({ heroId, equipmentId }) => [heroId, { equipmentId, fragment: `hero-minimal-detail-${heroId}` }]),
   ]);
   const minimalHeroIds = new Set(minimalTargetByHero.keys());
   const currentIndexIds = new Set(scope.indexHeroIds);
   const indexIds = new Set([...currentIndexIds].filter((id) => !minimalHeroIds.has(id)));
-  if (minimalHeroIds.size !== 67 || indexIds.size !== 71 || [...minimalHeroIds].some((id) => !currentIndexIds.has(id))) {
-    throw new Error('Approved Hero Index population must retain 67 minimal detail Heroes and 71 remaining equipment Index targets');
+  if (minimalHeroIds.size !== 98 || indexIds.size !== 40 || [...minimalHeroIds].some((id) => !currentIndexIds.has(id))) {
+    throw new Error('Approved Hero Index population must retain 98 minimal detail Heroes and 40 remaining equipment Index targets');
   }
   const seen = new Set();
   const records = pairs.sort((a, b) => a.equipmentId - b.equipmentId).map(({ equipmentId, heroId }) => {
@@ -140,15 +143,16 @@ export function renderExclusiveEquipmentHeroNavigation({ relations, equipmentIde
   });
   const expectedMinimalTargets = [
     [276,18,'hero-minimal-detail-18'],[281,20,'hero-minimal-detail-20'],[286,30,'hero-minimal-detail-30'],[293,51,'hero-minimal-detail-51'],[297,34,'hero-minimal-detail-34'],[405,17,'hero-minimal-detail-17'],[411,39,'hero-minimal-detail-39'],[413,61,'hero-minimal-detail-61'],[414,36,'hero-minimal-detail-36'],[417,88,'hero-minimal-detail-88'],[418,16,HERO_16_MINIMAL_DETAIL_FRAGMENT],[423,58,'hero-minimal-detail-58'],[424,59,'hero-minimal-detail-59'],[425,35,'hero-minimal-detail-35'],[426,92,'hero-minimal-detail-92'],[427,62,'hero-minimal-detail-62'],[429,49,'hero-minimal-detail-49'],[434,31,'hero-minimal-detail-31'],[435,87,'hero-minimal-detail-87'],[437,65,'hero-minimal-detail-65'],[438,95,'hero-minimal-detail-95'],[439,64,'hero-minimal-detail-64'],[440,94,'hero-minimal-detail-94'],[441,21,'hero-minimal-detail-21'],[448,97,'hero-minimal-detail-97'],[452,63,'hero-minimal-detail-63'],[453,91,'hero-minimal-detail-91'],[455,38,'hero-minimal-detail-38'],[460,96,'hero-minimal-detail-96'],[464,66,'hero-minimal-detail-66'],[472,57,'hero-minimal-detail-57'],[476,98,'hero-minimal-detail-98'],[479,93,'hero-minimal-detail-93'],[490,54,'hero-minimal-detail-54'],[535,15,HERO_15_MINIMAL_DETAIL_FRAGMENT],[540,99,'hero-minimal-detail-99'],[549,100,'hero-minimal-detail-100'],[449,111,'hero-minimal-detail-111'],[450,127,'hero-minimal-detail-127'],[451,103,'hero-minimal-detail-103'],[454,121,'hero-minimal-detail-121'],[461,116,'hero-minimal-detail-116'],[463,101,'hero-minimal-detail-101'],[467,125,'hero-minimal-detail-125'],[473,120,'hero-minimal-detail-120'],[475,110,'hero-minimal-detail-110'],[477,102,'hero-minimal-detail-102'],[478,115,'hero-minimal-detail-115'],[484,126,'hero-minimal-detail-126'],[485,114,'hero-minimal-detail-114'],[486,123,'hero-minimal-detail-123'],[487,106,'hero-minimal-detail-106'],[489,109,'hero-minimal-detail-109'],[495,99161,'hero-minimal-detail-99161'],[496,118,'hero-minimal-detail-118'],[497,105,'hero-minimal-detail-105'],[498,99162,'hero-minimal-detail-99162'],[499,108,'hero-minimal-detail-108'],[500,99163,'hero-minimal-detail-99163'],[501,112,'hero-minimal-detail-112'],[502,122,'hero-minimal-detail-122'],[507,113,'hero-minimal-detail-113'],[508,104,'hero-minimal-detail-104'],[512,130,'hero-minimal-detail-130'],[519,124,'hero-minimal-detail-124'],[520,129,'hero-minimal-detail-129'],[526,119,'hero-minimal-detail-119'],
+    ...HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH.map(({ equipmentId, heroId }) => [equipmentId, heroId, `hero-minimal-detail-${heroId}`]),
   ].sort((a,b) => a[0] - b[0]);
   if (records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length !== 29
-    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length !== 71
-    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length !== 67
+    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length !== 40
+    || records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length !== 98
     || records.find(({ equipmentId }) => equipmentId === 535)?.navigationTarget.fragment !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || records.find(({ equipmentId }) => equipmentId === 418)?.navigationTarget.fragment !== HERO_16_MINIMAL_DETAIL_FRAGMENT
     || JSON.stringify(records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').map(({ equipmentId, heroId, navigationTarget }) => [equipmentId, heroId, navigationTarget.fragment]))
       !== JSON.stringify(expectedMinimalTargets)) {
-    throw new Error('Exclusive Equipment Hero target counts must be 29 detail, 71 Index, and exactly sixty-seven approved minimal details');
+    throw new Error('Exclusive Equipment Hero target counts must be 29 detail, 40 Index, and exactly ninety-eight approved minimal details');
   }
   return `${JSON.stringify({ schemaVersion: 1, consumer: 'exclusive-equipment-hero-navigation', records }, null, 2)}\n`;
 }

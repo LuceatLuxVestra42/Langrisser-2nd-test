@@ -7,10 +7,11 @@ import { HERO_16_INTEGRATED_PUBLICATION_PATH, validateHero16IntegratedPublicatio
 import { HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyBatchPublication } from './hero-minimal-detail-thirty-batch-contract.mjs';
+import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyOneBatchPublication } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailTwentyBatchPublication } from './hero-minimal-detail-twenty-batch-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-const [relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, generatedText, heroLocalizationBytes, heroIdentityBytes] = await Promise.all([
+const [relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, heroMinimalDetailThirtyOneBatchPublicationDecision, generatedText, heroLocalizationBytes, heroIdentityBytes] = await Promise.all([
   readJson('canonical/hero-exclusive-equipment-relations.v1.json'),
   readJson('canonical/exclusive-equipment.v1.json'),
   readJson('canonical/hero-identities.v1.json'),
@@ -24,6 +25,7 @@ const [relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSl
   readJson(HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH),
   readJson(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH),
   readJson(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH),
+  readJson(HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH),
   readFile(resolve(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'utf8'),
   readFile(resolve('canonical/hero-localizations-ko.v1.json')),
   readFile(resolve('canonical/hero-identities.v1.json')),
@@ -34,9 +36,10 @@ validateHeroMinimalDetailBatchPublication(heroMinimalDetailBatchPublicationDecis
 validateHeroMinimalDetailTenBatchPublication(heroMinimalDetailTenBatchPublicationDecision);
 validateHeroMinimalDetailTwentyBatchPublication(heroMinimalDetailTwentyBatchPublicationDecision);
 validateHeroMinimalDetailThirtyBatchPublication(heroMinimalDetailThirtyBatchPublicationDecision);
+validateHeroMinimalDetailThirtyOneBatchPublication(heroMinimalDetailThirtyOneBatchPublicationDecision);
 const generated = validateExclusiveEquipmentHeroNavigation({ generatedText, inputs: {
-  relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision,
+  relations, equipmentIdentities, heroIdentities, heroLocalizations, heroSlice, heroIndexPublication, publicationDecision, integratedPublicationDecision, hero16IntegratedPublicationDecision, heroMinimalDetailBatchPublicationDecision, heroMinimalDetailTenBatchPublicationDecision, heroMinimalDetailTwentyBatchPublicationDecision, heroMinimalDetailThirtyBatchPublicationDecision, heroMinimalDetailThirtyOneBatchPublicationDecision,
   heroLocalizationSha256: createHash('sha256').update(heroLocalizationBytes).digest('hex'),
   heroIdentitySha256: createHash('sha256').update(heroIdentityBytes).digest('hex'),
 } });
-process.stdout.write(`Exclusive Equipment Hero Navigation: PASS (${generated.records.length} relations; 29 Full Detail, 71 Hero Index, 67 approved Minimal Detail; approved source hashes and deterministic output)\n`);
+process.stdout.write(`Exclusive Equipment Hero Navigation: PASS (${generated.records.length} relations; 29 Full Detail, 40 Hero Index, 98 approved Minimal Detail; approved source hashes and deterministic output)\n`);

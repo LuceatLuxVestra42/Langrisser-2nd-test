@@ -799,8 +799,8 @@
       "heroId": 99169,
       "heroNameKo": "켈티스",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99169"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99169"
       }
     },
     {
@@ -808,8 +808,8 @@
       "heroId": 99165,
       "heroNameKo": "마리안델",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99165"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99165"
       }
     },
     {
@@ -817,8 +817,8 @@
       "heroId": 99167,
       "heroNameKo": "리사",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99167"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99167"
       }
     },
     {
@@ -835,8 +835,8 @@
       "heroId": 99170,
       "heroNameKo": "로비나 대제",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99170"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99170"
       }
     },
     {
@@ -844,8 +844,8 @@
       "heroId": 99171,
       "heroNameKo": "방주의 성녀",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99171"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99171"
       }
     },
     {
@@ -871,8 +871,8 @@
       "heroId": 99176,
       "heroNameKo": "캐롤리안",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99176"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99176"
       }
     },
     {
@@ -889,8 +889,8 @@
       "heroId": 99177,
       "heroNameKo": "카구야",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99177"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99177"
       }
     },
     {
@@ -898,8 +898,8 @@
       "heroId": 99172,
       "heroNameKo": "크림조의 집정관",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99172"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99172"
       }
     },
     {
@@ -907,8 +907,8 @@
       "heroId": 99180,
       "heroNameKo": "방랑투사",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99180"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99180"
       }
     },
     {
@@ -925,8 +925,8 @@
       "heroId": 99182,
       "heroNameKo": "리키",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99182"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99182"
       }
     },
     {
@@ -934,8 +934,8 @@
       "heroId": 99178,
       "heroNameKo": "아사멜",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99178"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99178"
       }
     },
     {
@@ -943,8 +943,8 @@
       "heroId": 99174,
       "heroNameKo": "아즈사",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99174"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99174"
       }
     },
     {
@@ -952,8 +952,8 @@
       "heroId": 99164,
       "heroNameKo": "베르너 폰 에길",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99164"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99164"
       }
     },
     {
@@ -970,8 +970,8 @@
       "heroId": 99175,
       "heroNameKo": "오보로",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99175"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99175"
       }
     },
     {
@@ -979,8 +979,8 @@
       "heroId": 99168,
       "heroNameKo": "엘마",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99168"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99168"
       }
     },
     {
@@ -988,8 +988,8 @@
       "heroId": 99173,
       "heroNameKo": "아이언 챈슬러",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99173"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99173"
       }
     },
     {
@@ -997,8 +997,8 @@
       "heroId": 99166,
       "heroNameKo": "웨탐",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99166"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99166"
       }
     },
     {
@@ -1015,8 +1015,8 @@
       "heroId": 99189,
       "heroNameKo": "시엔",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99189"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99189"
       }
     },
     {
@@ -1024,8 +1024,8 @@
       "heroId": 99188,
       "heroNameKo": "리오벡",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99188"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99188"
       }
     },
     {
@@ -1033,8 +1033,8 @@
       "heroId": 99179,
       "heroNameKo": "로스탐",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99179"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99179"
       }
     },
     {
@@ -1042,8 +1042,8 @@
       "heroId": 99187,
       "heroNameKo": "껍질 소녀",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99187"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99187"
       }
     },
     {
@@ -1060,8 +1060,8 @@
       "heroId": 99183,
       "heroNameKo": "마크렌",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99183"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99183"
       }
     },
     {
@@ -1069,8 +1069,8 @@
       "heroId": 99181,
       "heroNameKo": "줄리안",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99181"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99181"
       }
     },
     {
@@ -1078,8 +1078,8 @@
       "heroId": 99191,
       "heroNameKo": "루그너",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99191"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99191"
       }
     },
     {
@@ -1087,8 +1087,8 @@
       "heroId": 99193,
       "heroNameKo": "요아&코니",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99193"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99193"
       }
     },
     {
@@ -1105,8 +1105,8 @@
       "heroId": 99184,
       "heroNameKo": "빛의 수호사도",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99184"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99184"
       }
     },
     {
@@ -1114,8 +1114,8 @@
       "heroId": 99185,
       "heroNameKo": "아단켈모",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99185"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99185"
       }
     },
     {
@@ -1150,8 +1150,8 @@
       "heroId": 99186,
       "heroNameKo": "빛과 그림자 검의 영혼",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99186"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99186"
       }
     },
     {
@@ -1159,8 +1159,8 @@
       "heroId": 99190,
       "heroNameKo": "폴리알",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99190"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99190"
       }
     },
     {
@@ -1168,8 +1168,8 @@
       "heroId": 99192,
       "heroNameKo": "그렌실",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99192"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99192"
       }
     },
     {
@@ -1321,8 +1321,8 @@
       "heroId": 99197,
       "heroNameKo": "각성자",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99197"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99197"
       }
     },
     {
