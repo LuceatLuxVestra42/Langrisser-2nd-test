@@ -11,6 +11,7 @@ import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-twenty-batch-contract.mjs';
+import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-thirty-batch-contract.mjs';
 
 const heroes = JSON.parse(await readFile('canonical/heroes.v1.json', 'utf8'));
 const decision = JSON.parse(await readFile(TRAINING_TECH_DECISION_RECORD_PATH, 'utf8'));
@@ -23,6 +24,8 @@ const heroMinimalDetailTenBatchDecision = JSON.parse(await readFile(HERO_MINIMAL
 const heroMinimalDetailTenBatchConsumer = JSON.parse(await readFile(HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, 'utf8'));
 const heroMinimalDetailTwentyBatchDecision = JSON.parse(await readFile(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH, 'utf8'));
 const heroMinimalDetailTwentyBatchConsumer = JSON.parse(await readFile(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, 'utf8'));
+const heroMinimalDetailThirtyBatchDecision = JSON.parse(await readFile(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, 'utf8'));
+const heroMinimalDetailThirtyBatchConsumer = JSON.parse(await readFile(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, 'utf8'));
 const temp = await mkdtemp(join(tmpdir(), 'public-build-test-'));
 const output = join(temp, 'site');
 const trainingPath = 'generated/soldier-training-tech-descriptions.v1.json';
@@ -37,7 +40,7 @@ const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).sk
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
 try {
   const built = await buildSite({ outputDir: output });
-  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision));
+  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision));
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_15_MINIMAL_DETAIL_PATH), 'approved Hero 15 Minimal Detail must enter the public artifact');
@@ -45,9 +48,11 @@ try {
   assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_BATCH_PATH), 'approved five-Hero Minimal Detail batch must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_TEN_BATCH_PATH), 'approved ten-Hero Minimal Detail batch must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH), 'approved twenty-Hero Minimal Detail batch must enter the public artifact');
+  assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH), 'approved thirty-Hero Minimal Detail batch must enter the public artifact');
+  assert.deepEqual(heroMinimalDetailThirtyBatchConsumer.heroes.map(({ heroId }) => heroId), [101,102,103,104,105,106,108,109,110,111,112,113,114,115,116,118,119,120,121,122,123,124,125,126,127,129,130,99161,99162,99163]);
   assert.deepEqual(heroMinimalDetailTenBatchConsumer.heroes.map(({ heroId }) => heroId), [31,34,35,36,38,39,49,51,54,57]);
   assert.deepEqual(heroMinimalDetailTwentyBatchConsumer.heroes.map(({ heroId }) => heroId), [58,59,61,62,63,64,65,66,87,88,91,92,93,94,95,96,97,98,99,100]);
-  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
+  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
   assert.deepEqual(JSON.parse(await readFile(join(output, heroIndexPath), 'utf8')), heroIndex, 'packaged Hero Index must match the validated consumer');
   assert.equal(heroIndex.heroes.length, 267);
   assert.ok(heroIndex.heroes.every((row) => JSON.stringify(Object.keys(row).sort()) === '["heroId","nameKo"]'));
@@ -76,7 +81,7 @@ try {
     assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published M06 Skin ${id} bytes must match admitted Asset`);
   }
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
-  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision);
+  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision);
   await rm(join(output, skinConsumerPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));

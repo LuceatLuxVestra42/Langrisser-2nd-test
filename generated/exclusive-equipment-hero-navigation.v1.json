@@ -439,8 +439,8 @@
       "heroId": 111,
       "heroNameKo": "마이야",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-111"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-111"
       }
     },
     {
@@ -448,8 +448,8 @@
       "heroId": 127,
       "heroNameKo": "레나타",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-127"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-127"
       }
     },
     {
@@ -457,8 +457,8 @@
       "heroId": 103,
       "heroNameKo": "실린카",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-103"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-103"
       }
     },
     {
@@ -484,8 +484,8 @@
       "heroId": 121,
       "heroNameKo": "츠바메",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-121"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-121"
       }
     },
     {
@@ -511,8 +511,8 @@
       "heroId": 116,
       "heroNameKo": "노에미",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-116"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-116"
       }
     },
     {
@@ -529,8 +529,8 @@
       "heroId": 101,
       "heroNameKo": "헬레나",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-101"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-101"
       }
     },
     {
@@ -565,8 +565,8 @@
       "heroId": 125,
       "heroNameKo": "리코리스",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-125"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-125"
       }
     },
     {
@@ -583,8 +583,8 @@
       "heroId": 120,
       "heroNameKo": "플로렌티아",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-120"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-120"
       }
     },
     {
@@ -601,8 +601,8 @@
       "heroId": 110,
       "heroNameKo": "아레스",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-110"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-110"
       }
     },
     {
@@ -619,8 +619,8 @@
       "heroId": 102,
       "heroNameKo": "세계수의 현자",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-102"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-102"
       }
     },
     {
@@ -628,8 +628,8 @@
       "heroId": 115,
       "heroNameKo": "로자리아",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-115"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-115"
       }
     },
     {
@@ -646,8 +646,8 @@
       "heroId": 126,
       "heroNameKo": "팟시르",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-126"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-126"
       }
     },
     {
@@ -655,8 +655,8 @@
       "heroId": 114,
       "heroNameKo": "마리엘",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-114"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-114"
       }
     },
     {
@@ -664,8 +664,8 @@
       "heroId": 123,
       "heroNameKo": "베르너",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-123"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-123"
       }
     },
     {
@@ -673,8 +673,8 @@
       "heroId": 106,
       "heroNameKo": "입실론",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-106"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-106"
       }
     },
     {
@@ -691,8 +691,8 @@
       "heroId": 109,
       "heroNameKo": "화이트 시시",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-109"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-109"
       }
     },
     {
@@ -709,8 +709,8 @@
       "heroId": 99161,
       "heroNameKo": "크림조의 왕",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99161"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99161"
       }
     },
     {
@@ -718,8 +718,8 @@
       "heroId": 118,
       "heroNameKo": "오토크라트 4세",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-118"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-118"
       }
     },
     {
@@ -727,8 +727,8 @@
       "heroId": 105,
       "heroNameKo": "뮤",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-105"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-105"
       }
     },
     {
@@ -736,8 +736,8 @@
       "heroId": 99162,
       "heroNameKo": "수제트",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99162"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99162"
       }
     },
     {
@@ -745,8 +745,8 @@
       "heroId": 108,
       "heroNameKo": "사신 크루거",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-108"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-108"
       }
     },
     {
@@ -754,8 +754,8 @@
       "heroId": 99163,
       "heroNameKo": "초월자",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-99163"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-99163"
       }
     },
     {
@@ -763,8 +763,8 @@
       "heroId": 112,
       "heroNameKo": "토와",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-112"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-112"
       }
     },
     {
@@ -772,8 +772,8 @@
       "heroId": 122,
       "heroNameKo": "힐다",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-122"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-122"
       }
     },
     {
@@ -781,8 +781,8 @@
       "heroId": 113,
       "heroNameKo": "탄생의 빛",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-113"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-113"
       }
     },
     {
@@ -790,8 +790,8 @@
       "heroId": 104,
       "heroNameKo": "알파",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-104"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-104"
       }
     },
     {
@@ -826,8 +826,8 @@
       "heroId": 130,
       "heroNameKo": "미셸",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-130"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-130"
       }
     },
     {
@@ -853,8 +853,8 @@
       "heroId": 124,
       "heroNameKo": "크리스티아네",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-124"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-124"
       }
     },
     {
@@ -862,8 +862,8 @@
       "heroId": 129,
       "heroNameKo": "구스타프",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-129"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-129"
       }
     },
     {
@@ -916,8 +916,8 @@
       "heroId": 119,
       "heroNameKo": "루크레치아",
       "navigationTarget": {
-        "surface": "HERO_INDEX",
-        "fragment": "hero-index-entry-119"
+        "surface": "HERO_MINIMAL_DETAIL",
+        "fragment": "hero-minimal-detail-119"
       }
     },
     {

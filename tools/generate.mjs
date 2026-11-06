@@ -9,6 +9,7 @@ import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, rende
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailBatch as renderHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailTwentyBatch } from './hero-minimal-detail-twenty-batch-contract.mjs';
+import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailThirtyBatch } from './hero-minimal-detail-thirty-batch-contract.mjs';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
@@ -1039,7 +1040,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');
   await writeFile(exclusiveEquipmentOutputPath, renderExclusiveEquipment(exclusiveEquipmentIdentity, exclusiveEquipmentLocalization), 'utf8');
-  const [exclusiveEquipmentIdentities, exclusiveHeroIdentities, exclusiveHeroLocalizations, exclusiveHeroRelations, exclusiveHeroSlice, exclusiveHeroIndexPublication, exclusiveHeroPublication, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication] = await Promise.all([
+  const [exclusiveEquipmentIdentities, exclusiveHeroIdentities, exclusiveHeroLocalizations, exclusiveHeroRelations, exclusiveHeroSlice, exclusiveHeroIndexPublication, exclusiveHeroPublication, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication] = await Promise.all([
     readFile(resolve('canonical/exclusive-equipment.v1.json'), 'utf8').then(JSON.parse),
     readFile(resolve('canonical/hero-identities.v1.json'), 'utf8').then(JSON.parse),
     readFile(resolve('canonical/hero-localizations-ko.v1.json'), 'utf8').then(JSON.parse),
@@ -1052,6 +1053,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve(HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH), 'utf8').then(JSON.parse),
     readFile(resolve(HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH), 'utf8').then(JSON.parse),
     readFile(resolve(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH), 'utf8').then(JSON.parse),
+    readFile(resolve(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH), 'utf8').then(JSON.parse),
   ]);
   const [heroIdentityBytes, heroLocalizationBytes, equipmentRelationBytes, equipmentIdentityBytes, equipmentLocalizationBytes] = await Promise.all([
     readFile(resolve('canonical/hero-identities.v1.json')),
@@ -1112,6 +1114,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await writeFile(resolve(HERO_MINIMAL_DETAIL_TEN_BATCH_PATH), heroMinimalDetailTenBatch, 'utf8');
   const heroMinimalDetailTwentyBatch = renderHeroMinimalDetailTwentyBatch({ decision: heroMinimalDetailTwentyBatchPublication, heroIdentities: exclusiveHeroIdentities, heroLocalizations: exclusiveHeroLocalizations, relations: exclusiveHeroRelations, equipmentIdentities: exclusiveEquipmentIdentities, equipmentLocalizations: exclusiveEquipmentLocalization, sourceHashes: { heroIdentity: createHash('sha256').update(heroIdentityBytes).digest('hex'), heroLocalization: createHash('sha256').update(heroLocalizationBytes).digest('hex'), equipmentRelation: createHash('sha256').update(equipmentRelationBytes).digest('hex'), equipmentIdentity: createHash('sha256').update(equipmentIdentityBytes).digest('hex'), equipmentLocalization: createHash('sha256').update(equipmentLocalizationBytes).digest('hex') } });
   await writeFile(resolve(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH), heroMinimalDetailTwentyBatch, 'utf8');
+  const heroMinimalDetailThirtyBatch = renderHeroMinimalDetailThirtyBatch({ decision: heroMinimalDetailThirtyBatchPublication, heroIdentities: exclusiveHeroIdentities, heroLocalizations: exclusiveHeroLocalizations, relations: exclusiveHeroRelations, equipmentIdentities: exclusiveEquipmentIdentities, equipmentLocalizations: exclusiveEquipmentLocalization, sourceHashes: { heroIdentity: createHash('sha256').update(heroIdentityBytes).digest('hex'), heroLocalization: createHash('sha256').update(heroLocalizationBytes).digest('hex'), equipmentRelation: createHash('sha256').update(equipmentRelationBytes).digest('hex'), equipmentIdentity: createHash('sha256').update(equipmentIdentityBytes).digest('hex'), equipmentLocalization: createHash('sha256').update(equipmentLocalizationBytes).digest('hex') } });
+  await writeFile(resolve(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH), heroMinimalDetailThirtyBatch, 'utf8');
   const exclusiveHeroNavigation = renderExclusiveEquipmentHeroNavigation({
     relations: exclusiveHeroRelations,
     equipmentIdentities: exclusiveEquipmentIdentities,
@@ -1125,6 +1129,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     heroMinimalDetailBatchPublicationDecision: heroMinimalDetailBatchPublication,
     heroMinimalDetailTenBatchPublicationDecision: heroMinimalDetailTenBatchPublication,
     heroMinimalDetailTwentyBatchPublicationDecision: heroMinimalDetailTwentyBatchPublication,
+    heroMinimalDetailThirtyBatchPublicationDecision: heroMinimalDetailThirtyBatchPublication,
     heroLocalizationSha256: createHash('sha256').update(await readFile(resolve('canonical/hero-localizations-ko.v1.json'))).digest('hex'),
     heroIdentitySha256: createHash('sha256').update(await readFile(resolve('canonical/hero-identities.v1.json'))).digest('hex'),
   });
@@ -1136,5 +1141,5 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]);
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH + ', ' + HERO_15_MINIMAL_DETAIL_PATH + ', ' + HERO_16_MINIMAL_DETAIL_PATH + ', ' + HERO_MINIMAL_DETAIL_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TEN_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH + ', ' + HERO_15_MINIMAL_DETAIL_PATH + ', ' + HERO_16_MINIMAL_DETAIL_PATH + ', ' + HERO_MINIMAL_DETAIL_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TEN_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
 }

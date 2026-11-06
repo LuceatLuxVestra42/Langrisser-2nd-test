@@ -1,0 +1,2369 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "THIRTY_HERO_INTEGRATED_PUBLICATION",
+  "status": "APPROVED",
+  "approval": {
+    "approverRole": "USER",
+    "source": {
+      "kind": "CURRENT_USER_MESSAGE",
+      "quote": "나는 `LuceatLuxVestra42/Langrisser-2nd-test`의 신규 영웅 30명에 대한 **P-A·P-B·P-C 통합 Publication 전체를 승인한다.**",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "contextVerified": true
+    },
+    "recordedAtDate": "2026-11-05"
+  },
+  "approvedScope": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baselineRef": "main",
+    "baselineHead": "178dace81c3b3ac55c955d22d80d6f87e837c23f",
+    "surfaces": [
+      "HERO_MINIMAL_DETAIL",
+      "HERO_INDEX_LIST",
+      "EXCLUSIVE_EQUIPMENT_LIST"
+    ],
+    "fields": [
+      "heroId",
+      "nameKo",
+      "exclusiveEquipment.equipmentId",
+      "exclusiveEquipment.nameKo",
+      "exclusiveEquipment.effectDescriptionKo"
+    ],
+    "nameLabelStatus": "PROJECT_REVIEWED",
+    "officialKrProvenanceStatus": "unverified",
+    "canonicalSources": {
+      "heroIdentity": {
+        "path": "canonical/hero-identities.v1.json",
+        "sha256": "6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c"
+      },
+      "heroLocalization": {
+        "path": "canonical/hero-localizations-ko.v1.json",
+        "sha256": "7f0ca08eb578dd2d1fcf9aa44eb825c49f7e415faeedd2fffa4b604d2c4ab299"
+      },
+      "equipmentRelation": {
+        "path": "canonical/hero-exclusive-equipment-relations.v1.json",
+        "sha256": "a0aa17178c04456482018d3b166baa176224a8562b713fb5f583f2b5a113ba01"
+      },
+      "equipmentIdentity": {
+        "path": "canonical/exclusive-equipment.v1.json",
+        "sha256": "bd59b9cce913ffd3f310d9f96b1295e939959b2e207e55324dc60b2a50f38b9f"
+      },
+      "equipmentLocalization": {
+        "path": "canonical/exclusive-equipment-localizations-ko.v1.json",
+        "sha256": "edd54afd11a4701dc039710670dcd321b7f459648887f55d48423ff26f1a125c"
+      }
+    },
+    "heroes": [
+      {
+        "heroId": 101,
+        "nameKo": "헬레나",
+        "equipmentId": 463,
+        "equipmentNameKo": "황금 수정의 갑옷",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-101",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-101"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-101"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-101"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=101",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=101",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=101",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=101",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=海伦娜",
+            "sourceLine": 125,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=101",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=101",
+            "source": "ConfigDataEquipmentInfo#ID=463/SkillHero=101",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=463",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=463",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=463",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=463",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=463",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 102,
+        "nameKo": "세계수의 현자",
+        "equipmentId": 477,
+        "equipmentNameKo": "낡은 두건",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-102",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-102"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-102"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-102"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=102",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=102",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=102",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=102",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=树之贤者",
+            "sourceLine": 126,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=102",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=102",
+            "source": "ConfigDataEquipmentInfo#ID=477/SkillHero=102",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=477",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=477",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=477",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=477",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=477",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 103,
+        "nameKo": "실린카",
+        "equipmentId": 451,
+        "equipmentNameKo": "역날개의 가면",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-103",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-103"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-103"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-103"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=103",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=103",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=103",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=103",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=希琳卡",
+            "sourceLine": 127,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=103",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=103",
+            "source": "ConfigDataEquipmentInfo#ID=451/SkillHero=103",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=451",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=451",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=451",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=451",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=451",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 104,
+        "nameKo": "알파",
+        "equipmentId": 508,
+        "equipmentNameKo": "개조된 신체 αEX",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-104",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-104"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-104"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-104"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=104",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=104",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=104",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=104",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=阿尔法",
+            "sourceLine": 128,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=104",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=104",
+            "source": "ConfigDataEquipmentInfo#ID=508/SkillHero=104",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=508",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=508",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=508",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=508",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=508",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 105,
+        "nameKo": "뮤",
+        "equipmentId": 497,
+        "equipmentNameKo": "만개의 월계관",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-105",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-105"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-105"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-105"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=105",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=105",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=105",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=105",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=茉",
+            "sourceLine": 129,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=105",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=105",
+            "source": "ConfigDataEquipmentInfo#ID=497/SkillHero=105",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=497",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=497",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=497",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=497",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=497",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 106,
+        "nameKo": "입실론",
+        "equipmentId": 487,
+        "equipmentNameKo": "소멸 · 개",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-106",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-106"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-106"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-106"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=106",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=106",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=106",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=106",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=伊普西龙",
+            "sourceLine": 130,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=106",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=106",
+            "source": "ConfigDataEquipmentInfo#ID=487/SkillHero=106",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=487",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=487",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=487",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=487",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=487",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 108,
+        "nameKo": "사신 크루거",
+        "equipmentId": 499,
+        "equipmentNameKo": "사기꾼의 가면",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-108",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-108"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-108"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-108"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=108",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=108",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=108",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=108",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=邪神库鲁加",
+            "sourceLine": 131,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=108",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=108",
+            "source": "ConfigDataEquipmentInfo#ID=499/SkillHero=108",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=499",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=499",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=499",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=499",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=499",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 109,
+        "nameKo": "화이트 시시",
+        "equipmentId": 489,
+        "equipmentNameKo": "비즈니스 마인드",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-109",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-109"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-109"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-109"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=109",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=109",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=109",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=109",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=怀特·茜茜",
+            "sourceLine": 132,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=109",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=109",
+            "source": "ConfigDataEquipmentInfo#ID=489/SkillHero=109",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=489",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=489",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=489",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=489",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=489",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 110,
+        "nameKo": "아레스",
+        "equipmentId": 475,
+        "equipmentNameKo": "자경단의 투구",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-110",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-110"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-110"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-110"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=110",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=110",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=110",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=110",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=阿雷斯",
+            "sourceLine": 133,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=110",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=110",
+            "source": "ConfigDataEquipmentInfo#ID=475/SkillHero=110",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=475",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=475",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=475",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=475",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=475",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 111,
+        "nameKo": "마이야",
+        "equipmentId": 449,
+        "equipmentNameKo": "치명적인 빗자루",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-111",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-111"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-111"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-111"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=111",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=111",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=111",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=111",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=梅雅",
+            "sourceLine": 134,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=111",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=111",
+            "source": "ConfigDataEquipmentInfo#ID=449/SkillHero=111",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=449",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=449",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=449",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=449",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=449",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 112,
+        "nameKo": "토와",
+        "equipmentId": 501,
+        "equipmentNameKo": "스피릿 비전 고글",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-112",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-112"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-112"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-112"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=112",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=112",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=112",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=112",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=托娃",
+            "sourceLine": 135,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=112",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=112",
+            "source": "ConfigDataEquipmentInfo#ID=501/SkillHero=112",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=501",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=501",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=501",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=501",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=501",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 113,
+        "nameKo": "탄생의 빛",
+        "equipmentId": 507,
+        "equipmentNameKo": "전생의 글귀",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-113",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-113"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-113"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-113"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=113",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=113",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=113",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=113",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=降生之光",
+            "sourceLine": 136,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=113",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=113",
+            "source": "ConfigDataEquipmentInfo#ID=507/SkillHero=113",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=507",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=507",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=507",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=507",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=507",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 114,
+        "nameKo": "마리엘",
+        "equipmentId": 485,
+        "equipmentNameKo": "저스티스 플레일",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-114",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-114"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-114"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-114"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=114",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=114",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=114",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=114",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=玛丽埃尔",
+            "sourceLine": 137,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=114",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=114",
+            "source": "ConfigDataEquipmentInfo#ID=485/SkillHero=114",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=485",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=485",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=485",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=485",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=485",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 115,
+        "nameKo": "로자리아",
+        "equipmentId": 478,
+        "equipmentNameKo": "세인트 소드",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-115",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-115"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-115"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-115"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=115",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=115",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=115",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=115",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=罗莎莉娅",
+            "sourceLine": 138,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=115",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=115",
+            "source": "ConfigDataEquipmentInfo#ID=478/SkillHero=115",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=478",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=478",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=478",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=478",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=478",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 116,
+        "nameKo": "노에미",
+        "equipmentId": 461,
+        "equipmentNameKo": "기발한 모자",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-116",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-116"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-116"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-116"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=116",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=116",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=116",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=116",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=诺埃米",
+            "sourceLine": 139,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=116",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=116",
+            "source": "ConfigDataEquipmentInfo#ID=461/SkillHero=116",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=461",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=461",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=461",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=461",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=461",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 118,
+        "nameKo": "오토크라트 4세",
+        "equipmentId": 496,
+        "equipmentNameKo": "금단의 황실 갑옷",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-118",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-118"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-118"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-118"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=118",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=118",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=118",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=118",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=奥托克拉托四世",
+            "sourceLine": 140,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=118",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=118",
+            "source": "ConfigDataEquipmentInfo#ID=496/SkillHero=118",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=496",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=496",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=496",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=496",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=496",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 119,
+        "nameKo": "루크레치아",
+        "equipmentId": 526,
+        "equipmentNameKo": "면죄의 모자",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-119",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-119"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-119"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-119"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=119",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=119",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=119",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=119",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=卢克蕾蒂娅",
+            "sourceLine": 141,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=119",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=119",
+            "source": "ConfigDataEquipmentInfo#ID=526/SkillHero=119",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=526",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=526",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=526",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=526",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=526",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 120,
+        "nameKo": "플로렌티아",
+        "equipmentId": 473,
+        "equipmentNameKo": "제국의 보배",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-120",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-120"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-120"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-120"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=120",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=120",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=120",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=120",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=弗洛朗蒂娅",
+            "sourceLine": 142,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=120",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=120",
+            "source": "ConfigDataEquipmentInfo#ID=473/SkillHero=120",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=473",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=473",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=473",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=473",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=473",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 121,
+        "nameKo": "츠바메",
+        "equipmentId": 454,
+        "equipmentNameKo": "숨겨진 별의 투구",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-121",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-121"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-121"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-121"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=121",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=121",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=121",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=121",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=燕",
+            "sourceLine": 143,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=121",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=121",
+            "source": "ConfigDataEquipmentInfo#ID=454/SkillHero=121",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=454",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=454",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=454",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=454",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=454",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 122,
+        "nameKo": "힐다",
+        "equipmentId": 502,
+        "equipmentNameKo": "선홍색 무장",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-122",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-122"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-122"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-122"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=122",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=122",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=122",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=122",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=希尔达",
+            "sourceLine": 144,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=122",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=122",
+            "source": "ConfigDataEquipmentInfo#ID=502/SkillHero=122",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=502",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=502",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=502",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=502",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=502",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 123,
+        "nameKo": "베르너",
+        "equipmentId": 486,
+        "equipmentNameKo": "기동 폭발검",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-123",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-123"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-123"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-123"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=123",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=123",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=123",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=123",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=沃尔纳",
+            "sourceLine": 145,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=123",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=123",
+            "source": "ConfigDataEquipmentInfo#ID=486/SkillHero=123",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=486",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=486",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=486",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=486",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=486",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 124,
+        "nameKo": "크리스티아네",
+        "equipmentId": 519,
+        "equipmentNameKo": "깃털 장식 모자",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-124",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-124"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-124"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-124"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=124",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=124",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=124",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=124",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=克里斯蒂安妮",
+            "sourceLine": 146,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=124",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=124",
+            "source": "ConfigDataEquipmentInfo#ID=519/SkillHero=124",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=519",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=519",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=519",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=519",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=519",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 125,
+        "nameKo": "리코리스",
+        "equipmentId": 467,
+        "equipmentNameKo": "어린 왕",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-125",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-125"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-125"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-125"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=125",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=125",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=125",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=125",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=丽可丽丝",
+            "sourceLine": 147,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=125",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=125",
+            "source": "ConfigDataEquipmentInfo#ID=467/SkillHero=125",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=467",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=467",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=467",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=467",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=467",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 126,
+        "nameKo": "팟시르",
+        "equipmentId": 484,
+        "equipmentNameKo": "심취의 베일",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-126",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-126"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-126"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-126"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=126",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=126",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=126",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=126",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=帕希尔",
+            "sourceLine": 148,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=126",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=126",
+            "source": "ConfigDataEquipmentInfo#ID=484/SkillHero=126",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=484",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=484",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=484",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=484",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=484",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 127,
+        "nameKo": "레나타",
+        "equipmentId": 450,
+        "equipmentNameKo": "드래곤 크레스트",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-127",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-127"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-127"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-127"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=127",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=127",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=127",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=127",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=蕾娜塔",
+            "sourceLine": 149,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=127",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=127",
+            "source": "ConfigDataEquipmentInfo#ID=450/SkillHero=127",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=450",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=450",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=450",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=450",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=450",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 129,
+        "nameKo": "구스타프",
+        "equipmentId": 520,
+        "equipmentNameKo": "머나먼 메아리",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-129",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-129"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-129"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-129"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=129",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=129",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=129",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=129",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=古斯塔夫",
+            "sourceLine": 150,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=129",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=129",
+            "source": "ConfigDataEquipmentInfo#ID=520/SkillHero=129",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=520",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=520",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=520",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=520",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=520",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 130,
+        "nameKo": "미셸",
+        "equipmentId": 512,
+        "equipmentNameKo": "마도 과학 무장",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-130",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-130"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-130"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-130"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=130",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=130",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=130",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=130",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=米歇尔",
+            "sourceLine": 151,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=130",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=130",
+            "source": "ConfigDataEquipmentInfo#ID=512/SkillHero=130",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=512",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=512",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=512",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=512",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=512",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 99161,
+        "nameKo": "크림조의 왕",
+        "equipmentId": 495,
+        "equipmentNameKo": "월식 갑옷",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-99161",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-99161"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-99161"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-99161"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=99161",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99161",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=99161",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=99161",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=红月之王",
+            "sourceLine": 170,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=99161",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=99161",
+            "source": "ConfigDataEquipmentInfo#ID=495/SkillHero=99161",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=495",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=495",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=495",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=495",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=495",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 99162,
+        "nameKo": "수제트",
+        "equipmentId": 498,
+        "equipmentNameKo": "빛의 심판자",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-99162",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-99162"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-99162"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-99162"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=99162",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99162",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=99162",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=99162",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=修杰特",
+            "sourceLine": 171,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=99162",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=99162",
+            "source": "ConfigDataEquipmentInfo#ID=498/SkillHero=99162",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=498",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=498",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=498",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=498",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=498",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      },
+      {
+        "heroId": 99163,
+        "nameKo": "초월자",
+        "equipmentId": 500,
+        "equipmentNameKo": "무한한 고리",
+        "detailSurface": "HERO_MINIMAL_DETAIL",
+        "detailFragment": "hero-minimal-detail-99163",
+        "heroIndexTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-99163"
+        },
+        "equipmentPreviousTarget": {
+          "surface": "HERO_INDEX",
+          "fragment": "hero-index-entry-99163"
+        },
+        "equipmentTarget": {
+          "surface": "HERO_MINIMAL_DETAIL",
+          "fragment": "hero-minimal-detail-99163"
+        },
+        "claimProvenance": {
+          "heroIdentity": {
+            "canonicalPath": "canonical/hero-identities.v1.json",
+            "canonicalLocator": "canonical/hero-identities.v1.json#heroId=99163",
+            "evidencePath": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+            "evidenceLocator": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=99163",
+            "sourceVersion": "unknown",
+            "transformation": "Exact Hero ID carried from the admitted identity evidence record.",
+            "limitation": "Source version metadata is not declared by the preserved identity artifact."
+          },
+          "heroLocalization": {
+            "canonicalPath": "canonical/hero-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/hero-localizations-ko.v1.json#heroId=99163",
+            "evidencePath": "evidence/localization/hero-names-ko.v1.json",
+            "evidenceLocator": "evidence/localization/hero-names-ko.v1.json#heroId=99163",
+            "projectSource": "evidence/localization/source/hero-names-ko.v1.txt",
+            "projectSourceLocator": "hero-names-ko.v1.txt#nameCn=超越之人",
+            "sourceLine": 172,
+            "sourceVersion": "unknown",
+            "sourceSha256": "55f49fe6aac8d898c6f05feef821f4fab9e0b56ffe5e70690093478d8f2e41f6",
+            "transformation": "Exact Chinese display-key equality to the reviewed Korean display label.",
+            "limitation": "PROJECT_REVIEWED only; official Korean server provenance is unverified."
+          },
+          "relation": {
+            "canonicalPath": "canonical/hero-exclusive-equipment-relations.v1.json",
+            "canonicalLocator": "canonical/hero-exclusive-equipment-relations.v1.json#heroId=99163",
+            "evidencePath": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json",
+            "evidenceLocator": "evidence/source/configdata/hero-exclusive-equipment-skill-hero.v1.json#heroId=99163",
+            "source": "ConfigDataEquipmentInfo#ID=500/SkillHero=99163",
+            "sourceVersion": "unknown",
+            "inheritedPredecessorHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+            "transformation": "Exact Equipment ID record and SkillHero value equality to the admitted Hero ID.",
+            "limitation": "Reuses the existing admitted Relation; no new Semantic Admission."
+          },
+          "equipmentIdentity": {
+            "canonicalPath": "canonical/exclusive-equipment.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment.v1.json#equipmentId=500",
+            "authoritativeSource": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json",
+            "sourceBlobSha1": "353c4f00b44a2ba0f8eb32dd03a76c3224635d04",
+            "sourceLocator": "data/configdata/ConfigDataEquipmentInfo.json#ID=500",
+            "transformation": "Admitted equipment identity selected by the existing exact source predicate; ID copied unchanged.",
+            "limitation": "Existing Canonical admission only."
+          },
+          "equipmentLocalization": {
+            "canonicalPath": "canonical/exclusive-equipment-localizations-ko.v1.json",
+            "canonicalLocator": "canonical/exclusive-equipment-localizations-ko.v1.json#equipmentId=500",
+            "evidencePath": "evidence/localization/exclusive-equipment-ko.v1.json",
+            "evidenceLocator": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=500",
+            "projectSource": "전용장비.txt",
+            "sourceSnapshotDate": "2026-09-20",
+            "sourceSha256": "c5eaea947311ae115de66769421c0f2b929db09206ae29a3b26db792c2d1a78a",
+            "projectSourceLocator": "EquipmentID=500",
+            "transformation": "Exact EquipmentID match; decode literal newline escapes only and preserve other text.",
+            "limitation": "PROJECT_REVIEWED display string only; effect text does not admit gameplay semantics; official Korean server provenance is unverified."
+          }
+        }
+      }
+    ],
+    "preservedPopulations": {
+      "heroIndex": 267,
+      "fullHeroDetail": 29,
+      "equipmentNavigation": 167,
+      "minimalDetailBefore": 37,
+      "minimalDetailAfter": 67,
+      "heroDetailTargets": 29,
+      "minimalDetailTargets": 67,
+      "heroIndexTargets": 71
+    },
+    "excluded": [
+      "New Semantic Admission",
+      "Canonical or Evidence mutation",
+      "Legacy Repository mutation",
+      "Other Hero publication changes",
+      "Other Equipment target changes",
+      "Rarity",
+      "Faction",
+      "Production",
+      "Job",
+      "Soldier",
+      "Talent",
+      "Skill",
+      "Portrait or Asset",
+      "Unverified statistics"
+    ]
+  },
+  "effect": {
+    "effective": true,
+    "condition": "Only the thirty exact approved Hero and Equipment pairs, five approved fields, and corresponding P-A, P-B, and P-C targets may change; existing thirty-seven Minimal Detail Heroes, twenty-nine Full Detail Heroes, 267 Hero Index entries, and all other Equipment targets are preserved.",
+    "reviewWhen": "Re-review if any approved Hero or Equipment ID, pair, field, source, surface, target, limitation, or preserved population changes."
+  }
+}
