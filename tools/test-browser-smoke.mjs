@@ -532,13 +532,8 @@ try {
       assert.equal(await page.locator(`#${id}`).count(), 1, `${viewport.name}: target #${id} must exist`);
     }
 
-    const indexRelation = exclusiveHeroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX');
-    await page.locator('#hero-index-search').fill('999999');
-    const indexOwnerLink = page.locator(`#equipment-${indexRelation.equipmentId} .equipment-navigation-link`);
-    await indexOwnerLink.click();
-    assert.equal(new URL(page.url()).hash, `#${indexRelation.navigationTarget.fragment}`, `${viewport.name}: Index owner link must target the exact approved Hero ID`);
-    assert.equal(await page.locator(`#${indexRelation.navigationTarget.fragment}`).isVisible(), true, `${viewport.name}: filtered Index target must render before scrolling`);
-    assert.equal(await page.locator('#hero-index-search').inputValue(), '', `${viewport.name}: owner navigation must clear the independent Hero Index filter`);
+    assert.equal(exclusiveHeroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 0,
+      `${viewport.name}: all approved Equipment owners must navigate to Detail or Minimal Detail`);
 
     const detailRelation = exclusiveHeroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL');
     await page.locator('#hero-search').fill('999999');
