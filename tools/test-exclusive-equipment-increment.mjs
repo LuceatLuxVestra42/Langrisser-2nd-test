@@ -33,3 +33,42 @@ bad(x => { x.candidates[0].evidence.evidenceClass = 'D'; }, 'UNSUPPORTED_EVIDENC
 bad(x => { x.equipment.pop(); }, 'INVALID_EQUIPMENT_BASELINE');
 assert.equal(screen(inputs)[0].admission, 'NOT_APPROVED', 'declared A is not admission');
 console.log('Exclusive equipment increment: synthetic positive, 17 negative cases, input immutability and approval boundary PASS');
+
+// Fixture bytes are separate from the candidate record; neither the digest nor
+// successful parsing purports to authenticate a real external source.
+const { createHash } = await import('node:crypto');
+const { verifyExclusiveEquipmentSnapshot: verify } = await import('./exclusive-equipment-increment-contract.mjs');
+const sourceRow = { ID: 99999999, SkillHero: available, GetPathList: [{ PathType: 46 }] };
+const bytes = Buffer.from(JSON.stringify({ records: [sourceRow] }));
+const manifest = { kind: 'fixture', sourceFamily: 'fixture', snapshot: 'fixture snapshot', version: 'fixture-v1', locator: 'fixture source anchor', sha256: createHash('sha256').update(bytes).digest('hex'), parser: 'json-records-v1', transformation: 'copy-ID-SkillHero-GetPathList', scope: 'fixture only', limitations: 'synthetic only', semanticDependency: 'fixture semantic decision' };
+const verifiedCandidate = structuredClone(fixture);
+verifiedCandidate.evidence.transformation = manifest.transformation;
+verifiedCandidate.evidence.record.GetPathList = structuredClone(sourceRow.GetPathList);
+verifiedCandidate.evidence.provenanceEdges = [{ from: 'fixture claim', to: verifiedCandidate.evidence.locator }, { from: verifiedCandidate.evidence.locator, to: manifest.locator }, { from: 'fixture claim', to: manifest.semanticDependency }];
+const verificationInput = { candidate: verifiedCandidate, snapshotBytes: bytes, manifest };
+const result = await verify(verificationInput);
+assert.equal(result.verificationScope, 'FIXTURE_ONLY');
+assert.equal(result.sourceAuthenticity, 'NOT_VERIFIED');
+assert.equal(result.semanticDecision, 'MANUAL_REVIEW');
+assert.equal(result.admission, 'NOT_APPROVED');
+assert.equal(result.publication, 'NOT_APPROVED');
+const invalid = async (change, error) => { const x = { candidate: structuredClone(verifiedCandidate), snapshotBytes: Buffer.from(bytes), manifest: structuredClone(manifest) }; change(x); await assert.rejects(verify(x), new RegExp(error)); };
+await invalid(x => { x.manifest.snapshot = ''; }, 'MISSING_SNAPSHOT_IDENTITY');
+await invalid(x => { x.snapshotBytes[0] ^= 1; }, 'SNAPSHOT_HASH_MISMATCH');
+await invalid(x => { x.manifest.locator = 'missing'; }, 'SNAPSHOT_LOCATOR_MISMATCH');
+await invalid(x => { x.candidate.equipmentId++; }, 'SOURCE_RECORD_NOT_FOUND_OR_DUPLICATE');
+await invalid(x => { x.candidate.heroId++; }, 'SOURCE_FIELD_MISMATCH');
+await invalid(x => { x.candidate.evidence.record.SkillHero++; }, 'SOURCE_FIELD_MISMATCH');
+await invalid(x => { x.candidate.evidence.record.GetPathList[0].PathType = 99; }, 'SELECTION_EVIDENCE_MISMATCH');
+await invalid(x => { x.manifest.snapshot = 'other'; }, 'SNAPSHOT_IDENTITY_MISMATCH');
+await invalid(x => { x.candidate.evidence.provenanceEdges.pop(); }, 'MISSING_SEMANTIC_DEPENDENCY');
+await invalid(x => { x.candidate.evidence.provenanceEdges.shift(); }, 'MISSING_SOURCE_DEPENDENCY');
+await invalid(x => { const row = { ...sourceRow, GetPathList: [{ PathType: 47 }] }; x.snapshotBytes = Buffer.from(JSON.stringify({ records: [row] })); x.manifest.sha256 = createHash('sha256').update(x.snapshotBytes).digest('hex'); }, 'SELECTION_PREDICATE_MISMATCH');
+await invalid(x => { x.snapshotBytes = Buffer.from(JSON.stringify({ wrong: [] })); x.manifest.sha256 = createHash('sha256').update(x.snapshotBytes).digest('hex'); }, 'SNAPSHOT_LOCATOR_NOT_FOUND');
+await invalid(x => { x.candidate.evidence.record.unverified = 1; }, 'UNSUPPORTED_RECORD_FIELD');
+await invalid(x => { x.candidate.evidence.evidenceClass = 'C'; }, 'UNSUPPORTED_EVIDENCE_CLASS');
+await invalid(x => { x.candidate.evidence.provenanceEdges.push({ from: x.manifest.locator, to: 'fixture claim' }); }, 'CIRCULAR_PROVENANCE');
+const external = await verify({ ...verificationInput, manifest: { ...manifest, kind: 'external' } });
+assert.equal(external.sourceAuthenticity, 'NOT_VERIFIED');
+assert.equal(external.verificationScope, 'EXTERNAL_UNATTESTED');
+console.log('Fixture snapshot integrity, independent record comparison and verification boundaries: PASS');
