@@ -537,4 +537,224 @@ try {
     const indexOwnerLink = page.locator(`#equipment-${indexRelation.equipmentId} .equipment-navigation-link`);
     await indexOwnerLink.click();
     assert.equal(new URL(page.url()).hash, `#${indexRelation.navigationTarget.fragment}`, `${viewport.name}: Index owner link must target the exact approved Hero ID`);
-    assert.equal(await page.locator(`#${indexRelation.navigationTarget.fragment}`).isVisib
+    assert.equal(await page.locator(`#${indexRelation.navigationTarget.fragment}`).isVisible(), true, `${viewport.name}: filtered Index target must render before scrolling`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '', `${viewport.name}: owner navigation must clear the independent Hero Index filter`);
+
+    const detailRelation = exclusiveHeroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL');
+    await page.locator('#hero-search').fill('999999');
+    const detailOwnerLink = page.locator(`#equipment-${detailRelation.equipmentId} .equipment-navigation-link`);
+    await detailOwnerLink.click();
+    assert.equal(new URL(page.url()).hash, `#${detailRelation.navigationTarget.fragment}`, `${viewport.name}: Detail owner link must preserve the existing endpoint`);
+    assert.equal(await page.locator(`#${detailRelation.navigationTarget.fragment}`).isVisible(), true, `${viewport.name}: hidden Detail target must be revealed`);
+    assert.equal(await page.locator('#hero-search').inputValue(), '', `${viewport.name}: Detail navigation must clear the existing Hero search`);
+
+    await page.locator('#hero-index-search').fill('999999');
+    const equipment535Link = page.locator('#equipment-535 .equipment-navigation-link');
+    await equipment535Link.click();
+    assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-15', `${viewport.name}: Equipment 535 must use the approved Minimal Detail target`);
+    assert.equal(await page.locator('#hero-minimal-detail-15').isVisible(), true, `${viewport.name}: Minimal Detail target must exist and be visible`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '999999', `${viewport.name}: P-C navigation must not mutate Hero Index search state`);
+    await page.locator('#hero-index-search').fill('15');
+    const hero15IndexLink = page.locator('#hero-index-entry-15 .hero-index-minimal-detail-link');
+    await hero15IndexLink.click();
+    assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-15', `${viewport.name}: Hero Index ID 15 must navigate to Minimal Detail`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '15', `${viewport.name}: minimal navigation must preserve the Index query`);
+    await page.locator('#hero-index-search').fill('999999');
+    const equipment418Link = page.locator('#equipment-418 .equipment-navigation-link');
+    await equipment418Link.click();
+    assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-16', `${viewport.name}: Equipment 418 must use the approved Hero 16 Minimal Detail target`);
+    assert.equal(await page.locator('#hero-minimal-detail-16').isVisible(), true, `${viewport.name}: Hero 16 Minimal Detail target must exist and be visible`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '999999', `${viewport.name}: Equipment 418 navigation must preserve Hero Index search state`);
+    await page.locator('#hero-index-search').fill('16');
+    const hero16IndexLink = page.locator('#hero-index-entry-16 .hero-index-minimal-detail-link');
+    await hero16IndexLink.click();
+    assert.equal(new URL(page.url()).hash, '#hero-minimal-detail-16', `${viewport.name}: Hero Index ID 16 must navigate to Minimal Detail`);
+    assert.equal(await page.locator('#hero-index-search').inputValue(), '16', `${viewport.name}: Hero 16 minimal navigation must preserve the Index query`);
+    for (const { heroId, equipmentId } of approvedBatch) {
+      await page.locator('#hero-index-search').fill('999999');
+      await page.locator(`#equipment-${equipmentId} .equipment-navigation-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Equipment ${equipmentId} must use the approved minimal target`);
+      assert.equal(await page.locator(`#hero-minimal-detail-${heroId}`).isVisible(), true, `${viewport.name}: Hero ${heroId} target must exist and be visible`);
+      await page.locator('#hero-index-search').fill(String(heroId));
+      await page.locator(`#hero-index-entry-${heroId} .hero-index-minimal-detail-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Hero Index ID ${heroId} must navigate to its minimal detail`);
+      assert.equal(await page.locator('#hero-index-search').inputValue(), String(heroId), `${viewport.name}: Hero ${heroId} minimal navigation must preserve the Index query`);
+    }
+
+    for (const { heroId, equipmentId, nameKo, equipmentNameKo } of approvedTenBatch) {
+      const cardText = await page.locator(`#hero-minimal-detail-${heroId}-content`).innerText();
+      assert.ok(cardText.includes(nameKo) && cardText.includes(equipmentNameKo), `${viewport.name}: Hero ${heroId} Minimal Detail renders`);
+      await page.locator('#hero-index-search').fill('999999');
+      await page.locator(`#equipment-${equipmentId} .equipment-navigation-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Equipment ${equipmentId} routes to Hero ${heroId}`);
+      assert.equal(await page.locator(`#hero-minimal-detail-${heroId}`).isVisible(), true);
+      await page.locator('#hero-index-search').fill(String(heroId));
+      await page.locator(`#hero-index-entry-${heroId} .hero-index-minimal-detail-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Index ${heroId} routes to Minimal Detail`);
+    }
+
+    for (const { heroId, equipmentId, nameKo, equipmentNameKo } of approvedTwentyBatch) {
+      const cardText = await page.locator(`#hero-minimal-detail-${heroId}-content`).innerText();
+      assert.ok(cardText.includes(nameKo) && cardText.includes(equipmentNameKo), `${viewport.name}: Hero ${heroId} Minimal Detail renders`);
+      await page.locator('#hero-index-search').fill('999999');
+      await page.locator(`#equipment-${equipmentId} .equipment-navigation-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Equipment ${equipmentId} routes to Hero ${heroId}`);
+      assert.equal(await page.locator(`#hero-minimal-detail-${heroId}`).isVisible(), true);
+      await page.locator('#hero-index-search').fill(String(heroId));
+      await page.locator(`#hero-index-entry-${heroId} .hero-index-minimal-detail-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Index ${heroId} routes to Minimal Detail`);
+    }
+
+    for (const { heroId, equipmentId, nameKo, equipmentNameKo } of approvedThirtyBatch) {
+      const cardText = await page.locator(`#hero-minimal-detail-${heroId}-content`).innerText();
+      assert.ok(cardText.includes(nameKo) && cardText.includes(equipmentNameKo), `${viewport.name}: Hero ${heroId} Minimal Detail renders`);
+      await page.locator('#hero-index-search').fill('999999');
+      await page.locator(`#equipment-${equipmentId} .equipment-navigation-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Equipment ${equipmentId} routes to Hero ${heroId}`);
+      assert.equal(await page.locator(`#hero-minimal-detail-${heroId}`).isVisible(), true);
+      await page.locator('#hero-index-search').fill(String(heroId));
+      await page.locator(`#hero-index-entry-${heroId} .hero-index-minimal-detail-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Index ${heroId} routes to Minimal Detail`);
+    }
+
+    for (const { heroId, equipmentId, nameKo, equipmentNameKo } of [...approvedThirtyOneBatch, ...approvedFortyBatch]) {
+      const cardText = await page.locator(`#hero-minimal-detail-${heroId}-content`).innerText();
+      assert.ok(cardText.includes(nameKo) && cardText.includes(equipmentNameKo), `${viewport.name}: Hero ${heroId} Minimal Detail renders`);
+      await page.locator('#hero-index-search').fill('999999');
+      await page.locator(`#equipment-${equipmentId} .equipment-navigation-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Equipment ${equipmentId} routes to Hero ${heroId}`);
+      assert.equal(await page.locator(`#hero-minimal-detail-${heroId}`).isVisible(), true);
+      await page.locator('#hero-index-search').fill(String(heroId));
+      await page.locator(`#hero-index-entry-${heroId} .hero-index-minimal-detail-link`).click();
+      assert.equal(new URL(page.url()).hash, `#hero-minimal-detail-${heroId}`, `${viewport.name}: Index ${heroId} routes to Minimal Detail`);
+    }
+
+    console.log(`VIEWPORT_${viewport.name.toUpperCase()}=${JSON.stringify(layout)}`);
+  }
+
+  // Keep all test-only rows and duplicated image bytes inside a disposable Build output.
+  const fixtureSourceSha = actualTestSourceSha;
+  const fixtureSiteRoot = await (async () => {
+    fixtureTempRoot = await mkdtemp(join(tmpdir(), 'skin-browser-smoke-fixtures-'));
+    const output = join(fixtureTempRoot, 'site');
+    execFileSync(process.execPath, [resolve(siteRoot, 'tools/build.mjs'), '--output-dir', output], {
+      cwd: siteRoot,
+      stdio: 'inherit',
+    });
+    return output;
+  })();
+  const fixtureConsumerPath = resolve(fixtureSiteRoot, 'generated/skin-consumer-public-m05-g.v1.json');
+  const fixtureAssetsPath = resolve(fixtureSiteRoot, 'generated/skin-assets-public-m05-g.v1.json');
+  const originalFixtureConsumer = JSON.parse(await readFile(fixtureConsumerPath, 'utf8'));
+  const originalFixtureAssets = JSON.parse(await readFile(fixtureAssetsPath, 'utf8'));
+  const fixtureHeroSlice = JSON.parse(await readFile(resolve(fixtureSiteRoot, 'generated/hero-slice.v1.json'), 'utf8'));
+  const heroWithoutPublishedSkins = fixtureHeroSlice.heroes.find((hero) => !publishedSkinRows.some((row) => row.heroId === hero.id));
+  assert.ok(heroWithoutPublishedSkins, 'F03 requires a public Hero with no published Skin');
+  const fixtureScenarios = [
+    // These IDs are isolated fixture labels; they are never written into source or tracked data.
+    { id: 'F01', heroId: 1, skinId: 990001 },
+    { id: 'F02', heroId: 6, skinId: 990002 },
+    { id: 'F03', heroId: heroWithoutPublishedSkins.id, skinId: 990003 },
+  ];
+  const fixtureSourceWebp = resolve(fixtureSiteRoot, 'assets/skins/skin-102.webp');
+  for (const scenario of fixtureScenarios) {
+    const sourceOrder = Math.max(0, ...originalFixtureConsumer.skins
+      .filter((row) => row.heroId === scenario.heroId).map((row) => row.sourceOrder)) + 1;
+    const fixtureRow = { skinId: scenario.skinId, heroId: scenario.heroId, sourceOrder };
+    const relativeAsset = `assets/skin-admissions/fixture-test/skin-${scenario.skinId}.webp`;
+    const fixtureAsset = resolve(fixtureSiteRoot, relativeAsset);
+    await mkdir(dirname(fixtureAsset), { recursive: true });
+    await copyFile(fixtureSourceWebp, fixtureAsset);
+    const consumer = { ...originalFixtureConsumer, skins: [...originalFixtureConsumer.skins, fixtureRow] };
+    const assets = { ...originalFixtureAssets,
+      assets: [...originalFixtureAssets.assets, { skinId: scenario.skinId, imageUrl: `./${relativeAsset}` }] };
+    await writeFile(fixtureConsumerPath, `${JSON.stringify(consumer, null, 2)}\n`);
+    await writeFile(fixtureAssetsPath, `${JSON.stringify(assets, null, 2)}\n`);
+    const expectedRows = validatePublishedSkinRows(consumer, assets);
+    servedRoot = fixtureSiteRoot;
+    for (const viewport of viewports) {
+      const logPrefix = `SCENARIO=${scenario.id} FIXTURE_SKIN=${scenario.skinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${viewport.name}`;
+      try {
+        await page.setViewportSize({ width: viewport.width, height: viewport.height });
+        await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
+        await page.waitForSelector(`#hero-${scenario.heroId} .hero-skin-fullarts`, { timeout: 60_000 });
+        await assertRenderedSkinRows(page, expectedRows, `${scenario.id}-${viewport.name}`);
+        assert.ok(await page.locator(`#hero-${scenario.heroId} .hero-skin-fullarts img`).count() > 0);
+        assert.ok((await page.evaluate(() => document.documentElement.scrollWidth)) <= viewport.width,
+          `${scenario.id}-${viewport.name}: horizontal overflow`);
+        console.log(`${logPrefix} RESULT=PASS`);
+      } catch (error) {
+        console.error(`${logPrefix} RESULT=FAIL REASON=${error.message}`);
+        throw error;
+      }
+    }
+  }
+
+  await writeFile(fixtureConsumerPath, `${JSON.stringify(originalFixtureConsumer, null, 2)}\n`);
+  await writeFile(fixtureAssetsPath, `${JSON.stringify(originalFixtureAssets, null, 2)}\n`);
+  servedRoot = fixtureSiteRoot;
+  const f04Viewport = viewports[0];
+  await page.setViewportSize({ width: f04Viewport.width, height: f04Viewport.height });
+  await page.goto(`${origin}/`, { waitUntil: 'networkidle', timeout: 60_000 });
+  await page.waitForSelector(`#hero-${heroWithoutPublishedSkins.id}.hero-card`, { timeout: 60_000 });
+  const f04FixtureSkinId = 990004;
+  // F04 deliberately violates Presentation input at the DOM boundary only.
+  await page.evaluate(({ heroId, imageUrl }) => {
+    const hero = document.querySelector(`#hero-${heroId}`);
+    const section = document.createElement('section');
+    section.className = 'hero-skin-fullarts';
+    const image = document.createElement('img');
+    image.src = imageUrl;
+    image.alt = '영웅 스킨 일러스트 1 / 1';
+    section.append(image);
+    hero.append(section);
+  }, { heroId: heroWithoutPublishedSkins.id, imageUrl: '/assets/skins/skin-102.webp' });
+  await page.locator(`#hero-${heroWithoutPublishedSkins.id} .hero-skin-fullarts`).scrollIntoViewIfNeeded();
+  let f04Detected = false;
+  try {
+    await assertRenderedSkinRows(page, publishedSkinRows, 'F04-unapproved-dom-skin');
+  } catch (error) {
+    if (!/rendered records differ from approved Consumer and Asset mapping/.test(error.message)) throw error;
+    f04Detected = true;
+  }
+  if (!f04Detected) {
+    console.error(`SCENARIO=F04 FIXTURE_SKIN=${f04FixtureSkinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${f04Viewport.name} RESULT=FAIL REASON=UNAPPROVED_DOM_NOT_DETECTED`);
+    throw new Error('Browser comparator accepted an unapproved Skin exposed in the DOM');
+  }
+  console.log(`SCENARIO=F04 FIXTURE_SKIN=${f04FixtureSkinId} SOURCE_SHA=${fixtureSourceSha} VIEWPORT=${f04Viewport.name} RESULT=PASS NEGATIVE=UNAPPROVED_DOM_DETECTED`);
+
+  for (const path of expectedGenerated) {
+    assert.ok(loadedSameOriginPaths.has(path), `Browser did not load required generated resource ${path}`);
+  }
+  const trainingTechPayload = await page.evaluate(async () => {
+    const response = await fetch('./generated/soldier-training-tech-descriptions.v1.json');
+    return { status: response.status, data: await response.json() };
+  });
+  assert.equal(trainingTechPayload.status, 200, 'Direct Generated JSON must be reachable under Decision B');
+  assert.equal(trainingTechPayload.data.contract.status, 'EFFECTIVE');
+  assert.equal(trainingTechPayload.data.contract.approved, true);
+  assert.equal(trainingTechPayload.data.contract.effective, true);
+  assert.equal(trainingTechPayload.data.records.length, 20, 'Direct JSON must contain exactly the approved 20 claims');
+  assert.equal(trainingTechPayload.data.records.filter((row) => row.variant === 'NORMAL' && row.soldierId === 115 && row.sourceField === 'Description').length, 10);
+  assert.equal(trainingTechPayload.data.records.filter((row) => row.variant === 'SP' && row.soldierId === 5115 && row.sourceField === 'SpSoidlierDescription').length, 10);
+  assert.ok([...loadedSameOriginPaths].some((path) => path === '/styles.css'), 'Browser did not load styles.css');
+  assert.ok([...loadedSameOriginPaths].some((path) => path === '/app.js'), 'Browser did not load app.js');
+  assert.deepEqual(resourceFailures, [], `same-origin resource failures: ${resourceFailures.join('; ')}`);
+  assert.deepEqual(pageErrors, [], `uncaught Browser page errors: ${pageErrors.join('; ')}`);
+  assert.deepEqual(consoleErrors, [], `Browser console errors: ${consoleErrors.join('; ')}`);
+  console.log(`BROWSER_RESOURCE_PATHS=${JSON.stringify([...loadedSameOriginPaths].sort())}`);
+  console.log(`BROWSER_CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
+  console.log('DESKTOP_1440_SMOKE=PASS');
+  console.log('MOBILE_390_SMOKE=PASS');
+} finally {
+  console.log(`BROWSER_PAGE_ERRORS=${JSON.stringify(pageErrors)}`);
+  console.log(`BROWSER_RESOURCE_FAILURES=${JSON.stringify(resourceFailures)}`);
+  console.log(`BROWSER_CONSOLE_ERRORS=${JSON.stringify(consoleErrors)}`);
+  if (browser) await browser.close();
+  if (fixtureTempRoot) await rm(fixtureTempRoot, { recursive: true, force: true });
+  if (server.listening) {
+    await new Promise((resolveClose, rejectClose) => server.close((error) => error ? rejectClose(error) : resolveClose()));
+  }
+  console.log(`BROWSER_CLOSED=${!browser || browser.isConnected() === false}`);
+  console.log(`SERVER_CLOSED=${!server.listening}`);
+}
