@@ -65,8 +65,7 @@ export function screenExclusiveEquipmentIncrement({ heroes, equipment, relations
 /** Compare candidate fields against separately supplied snapshot bytes and a pinned
  * manifest. The caller must independently establish the manifest's authority. A hash
  * match establishes integrity relative to that manifest, not source authenticity.
- * This narrow parser accepts a JSON object with a records array and is not a claim
- * that every future ConfigData snapshot has this format.
+ * The pinned predecessor uses a top-level JSON array. Future formats are not assumed.
  */
 export async function verifyExclusiveEquipmentSnapshot({ candidate, snapshotBytes, manifest }) {
   const { createHash } = await import('node:crypto');
@@ -74,7 +73,7 @@ export async function verifyExclusiveEquipmentSnapshot({ candidate, snapshotByte
   const e = candidate.evidence;
   requireCondition(text(manifest.snapshot) && text(manifest.version) && text(manifest.sourceFamily) && text(manifest.locator) && text(manifest.sha256), 'MISSING_SNAPSHOT_IDENTITY');
   requireCondition(manifest.kind === 'fixture' || manifest.kind === 'external', 'INVALID_SNAPSHOT_KIND');
-  requireCondition(manifest.parser === 'json-records-v1' && manifest.transformation === 'copy-ID-SkillHero-GetPathList', 'UNSUPPORTED_TRANSFORMATION');
+  requireCondition(manifest.parser === 'configdata-json-array-v1' && manifest.transformation === 'copy-ID-SkillHero-GetPathList', 'UNSUPPORTED_TRANSFORMATION');
   requireCondition(text(manifest.scope) && text(manifest.limitations) && text(manifest.semanticDependency), 'MISSING_MANIFEST_DEPENDENCY');
   requireCondition(e.sourceFamily === manifest.sourceFamily && e.snapshot === manifest.snapshot && e.version === manifest.version && e.scope === manifest.scope && e.transformation === manifest.transformation, 'SNAPSHOT_IDENTITY_MISMATCH');
   requireCondition(e.anchor === manifest.locator, 'SNAPSHOT_LOCATOR_MISMATCH');
@@ -84,8 +83,8 @@ export async function verifyExclusiveEquipmentSnapshot({ candidate, snapshotByte
   requireCondition(/^[a-f0-9]{64}$/.test(manifest.sha256) && createHash('sha256').update(snapshotBytes).digest('hex') === manifest.sha256, 'SNAPSHOT_HASH_MISMATCH');
   let snapshot;
   try { snapshot = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(snapshotBytes)); } catch { throw new Error('INVALID_SNAPSHOT'); }
-  requireCondition(snapshot && Array.isArray(snapshot.records), 'SNAPSHOT_LOCATOR_NOT_FOUND');
-  const matches = snapshot.records.filter(row => row && row.ID === candidate.equipmentId);
+  requireCondition(Array.isArray(snapshot), 'SNAPSHOT_LOCATOR_NOT_FOUND');
+  const matches = snapshot.filter(row => row && row.ID === candidate.equipmentId);
   requireCondition(matches.length === 1, 'SOURCE_RECORD_NOT_FOUND_OR_DUPLICATE');
   const row = matches[0];
   requireCondition(e.locator === `ConfigDataEquipmentInfo#ID=${row.ID}`, 'SOURCE_RECORD_LOCATOR_MISMATCH');

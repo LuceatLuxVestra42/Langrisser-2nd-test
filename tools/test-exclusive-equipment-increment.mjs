@@ -39,8 +39,8 @@ console.log('Exclusive equipment increment: synthetic positive, 17 negative case
 const { createHash } = await import('node:crypto');
 const { verifyExclusiveEquipmentSnapshot: verify } = await import('./exclusive-equipment-increment-contract.mjs');
 const sourceRow = { ID: 99999999, SkillHero: available, GetPathList: [{ PathType: 46 }] };
-const bytes = Buffer.from(JSON.stringify({ records: [sourceRow] }));
-const manifest = { kind: 'fixture', sourceFamily: 'fixture', snapshot: 'fixture snapshot', version: 'fixture-v1', locator: 'fixture source anchor', sha256: createHash('sha256').update(bytes).digest('hex'), parser: 'json-records-v1', transformation: 'copy-ID-SkillHero-GetPathList', scope: 'fixture only', limitations: 'synthetic only', semanticDependency: 'fixture semantic decision' };
+const bytes = Buffer.from(JSON.stringify([sourceRow]));
+const manifest = { kind: 'fixture', sourceFamily: 'fixture', snapshot: 'fixture snapshot', version: 'fixture-v1', locator: 'fixture source anchor', sha256: createHash('sha256').update(bytes).digest('hex'), parser: 'configdata-json-array-v1', transformation: 'copy-ID-SkillHero-GetPathList', scope: 'fixture only', limitations: 'synthetic only', semanticDependency: 'fixture semantic decision' };
 const verifiedCandidate = structuredClone(fixture);
 verifiedCandidate.evidence.transformation = manifest.transformation;
 verifiedCandidate.evidence.record.GetPathList = structuredClone(sourceRow.GetPathList);
@@ -63,7 +63,7 @@ await invalid(x => { x.candidate.evidence.record.GetPathList[0].PathType = 99; }
 await invalid(x => { x.manifest.snapshot = 'other'; }, 'SNAPSHOT_IDENTITY_MISMATCH');
 await invalid(x => { x.candidate.evidence.provenanceEdges.pop(); }, 'MISSING_SEMANTIC_DEPENDENCY');
 await invalid(x => { x.candidate.evidence.provenanceEdges.shift(); }, 'MISSING_SOURCE_DEPENDENCY');
-await invalid(x => { const row = { ...sourceRow, GetPathList: [{ PathType: 47 }] }; x.snapshotBytes = Buffer.from(JSON.stringify({ records: [row] })); x.manifest.sha256 = createHash('sha256').update(x.snapshotBytes).digest('hex'); }, 'SELECTION_PREDICATE_MISMATCH');
+await invalid(x => { const row = { ...sourceRow, GetPathList: [{ PathType: 47 }] }; x.snapshotBytes = Buffer.from(JSON.stringify([row])); x.manifest.sha256 = createHash('sha256').update(x.snapshotBytes).digest('hex'); }, 'SELECTION_PREDICATE_MISMATCH');
 await invalid(x => { x.snapshotBytes = Buffer.from(JSON.stringify({ wrong: [] })); x.manifest.sha256 = createHash('sha256').update(x.snapshotBytes).digest('hex'); }, 'SNAPSHOT_LOCATOR_NOT_FOUND');
 await invalid(x => { x.candidate.evidence.record.unverified = 1; }, 'UNSUPPORTED_RECORD_FIELD');
 await invalid(x => { x.candidate.evidence.evidenceClass = 'C'; }, 'UNSUPPORTED_EVIDENCE_CLASS');
