@@ -35,6 +35,29 @@ export function screenExclusiveEquipmentIncrement({ heroes, equipment, relations
     // A declared anchor is not independently verified. Derived or self-referential
     // evidence cannot be promoted; all other chains still need external review.
     requireCondition(e.provenanceKind === 'source' && text(e.anchor) && e.anchor !== e.locator && e.anchor !== e.claimReference, 'CIRCULAR_OR_MISSING_ANCHOR');
+    // Check all supplied provenance edges for cycles, including indirect cycles.
+    // Omitted or fabricated edges cannot be established by this structural check.
+    requireCondition(Array.isArray(e.provenanceEdges) && e.provenanceEdges.length > 0, 'MISSING_PROVENANCE_CHAIN');
+    const graph = new Map();
+    for (const edge of e.provenanceEdges) {
+      requireCondition(edge && text(edge.from) && text(edge.to), 'INVALID_PROVENANCE_EDGE');
+      if (!graph.has(edge.from)) graph.set(edge.from, []);
+      graph.get(edge.from).push(edge.to);
+    }
+    const visiting = new Set(), done = new Set();
+    const visit = node => {
+      requireCondition(!visiting.has(node), 'CIRCULAR_PROVENANCE');
+      if (done.has(node)) return;
+      visiting.add(node);
+      for (const next of graph.get(node) ?? []) visit(next);
+      visiting.delete(node); done.add(node);
+    };
+    for (const node of graph.keys()) visit(node);
+    requireCondition(graph.has(e.claimReference), 'MISSING_CLAIM_CHAIN');
+    const reachable = new Set();
+    const collect = node => { if (reachable.has(node)) return; reachable.add(node); for (const next of graph.get(node) ?? []) collect(next); };
+    collect(e.claimReference);
+    requireCondition(reachable.has(e.anchor) && !graph.has(e.anchor), 'MISSING_SOURCE_ANCHOR');
     return { equipmentId: c.equipmentId, heroId: c.heroId, structuralScreen: 'PASS', sourceAuthenticity: 'NOT_VERIFIED', semanticDecision: 'MANUAL_REVIEW', admission: 'NOT_APPROVED', publication: 'NOT_APPROVED' };
   });
 }
