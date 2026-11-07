@@ -62,7 +62,7 @@ async function runEquipmentRuntime(general, exclusive) {
   };
   const errors = [];
   const heroByEquipmentId = new Map(heroNavigationConsumer.records.map((hero) => [hero.equipmentId, hero]));
-  const navigationState = { detailTarget: null, indexTarget: null, indexSearchValue: '필터된 검색어' };
+  const navigationState = { detailTarget: null, minimalTarget: null, indexTarget: null, indexSearchValue: '필터된 검색어' };
   const sandbox = {
     generalEquipmentContainer, exclusiveEquipmentContainer,
     generalEquipmentSearch: generalInput, generalEquipmentClear: generalClear, generalEquipmentCount: generalCount,
@@ -74,6 +74,8 @@ async function runEquipmentRuntime(general, exclusive) {
       getElementById: (id) => {
         const detail = [...heroByEquipmentId.values()].find((candidate) => candidate.navigationTarget.surface === 'HERO_DETAIL' && candidate.navigationTarget.fragment === id);
         if (detail) return { id, hidden: true, scrollIntoView() { this.scrolled = true; } };
+        const minimal = [...heroByEquipmentId.values()].find((candidate) => candidate.navigationTarget.surface === 'HERO_MINIMAL_DETAIL' && candidate.navigationTarget.fragment === id);
+        if (minimal) return { id, hidden: true, scrollIntoView() { this.scrolled = true; } };
         if (navigationState.indexTarget === id) return { id, scrollIntoView() { this.scrolled = true; } };
         return exclusiveEquipmentContainer.children.find((child) => child.id === id) ?? null;
       },
@@ -81,6 +83,7 @@ async function runEquipmentRuntime(general, exclusive) {
     exclusiveEquipmentHeroById: heroByEquipmentId,
     exclusiveEquipmentNavigation: null,
     heroNavigation: { showTarget(id) { navigationState.detailTarget = id; return true; } },
+    showMinimalDetailTarget(id) { navigationState.minimalTarget = id; return true; },
     heroIndexNavigation: { showTarget(id) { navigationState.indexTarget = `hero-index-entry-${id}`; navigationState.indexSearchValue = ''; return true; } },
     window: { requestAnimationFrame(callback) { callback(); }, location: { hash: '' } },
     fetch: async (path) => ({
@@ -171,14 +174,13 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
       assert.equal(heroLink.href, `#${relation.navigationTarget.fragment}`);
       assert.equal(heroLink.textContent, `연결 영웅 · ${relation.heroNameKo} · 프로젝트 검수 표시명`);
     }
-    const indexRelation = heroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX');
-    const indexLink = linkedEquipment.find((card) => card.id === `equipment-${indexRelation.equipmentId}`).children
+    assert.equal(heroNavigationConsumer.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length, 0,
+      'all 167 Equipment relations now target a published detail surface');
+    const minimalRelation = heroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL');
+    const minimalLink = linkedEquipment.find((card) => card.id === `equipment-${minimalRelation.equipmentId}`).children
       .find((child) => child.className === 'equipment-navigation-link');
-    let indexPrevented = false;
-    indexLink.listeners.click({ preventDefault() { indexPrevented = true; } });
-    assert.equal(indexPrevented, false, 'Index navigation must reveal a filtered or not-yet-rendered target');
-    assert.equal(result.navigationState.indexTarget, `hero-index-entry-${indexRelation.heroId}`);
-    assert.equal(result.navigationState.indexSearchValue, '', 'Index target navigation clears the independent Index search');
+    minimalLink.listeners.click({ preventDefault() {} });
+    assert.equal(result.navigationState.minimalTarget, minimalRelation.heroId, 'Minimal Detail navigation must reveal the exact approved Hero');
     const detailRelation = heroNavigationConsumer.records.find(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL');
     const detailLink = linkedEquipment.find((card) => card.id === `equipment-${detailRelation.equipmentId}`).children
       .find((child) => child.className === 'equipment-navigation-link');

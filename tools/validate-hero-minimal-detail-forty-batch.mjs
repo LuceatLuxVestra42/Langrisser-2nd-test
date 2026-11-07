@@ -1,0 +1,13 @@
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailFortyBatch, validateHeroMinimalDetailFortyBatch, validateHeroMinimalDetailFortyBatchPublication } from './hero-minimal-detail-forty-batch-contract.mjs';
+const readJson=async path=>JSON.parse(await readFile(path,'utf8'));
+const [decision,heroIdentities,heroLocalizations,relations,equipmentIdentities,equipmentLocalizations]=await Promise.all([HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH,'canonical/hero-identities.v1.json','canonical/hero-localizations-ko.v1.json','canonical/hero-exclusive-equipment-relations.v1.json','canonical/exclusive-equipment.v1.json','canonical/exclusive-equipment-localizations-ko.v1.json'].map(readJson));
+const paths={heroIdentity:'canonical/hero-identities.v1.json',heroLocalization:'canonical/hero-localizations-ko.v1.json',equipmentRelation:'canonical/hero-exclusive-equipment-relations.v1.json',equipmentIdentity:'canonical/exclusive-equipment.v1.json',equipmentLocalization:'canonical/exclusive-equipment-localizations-ko.v1.json'};
+const sourceHashes=Object.fromEntries(await Promise.all(Object.entries(paths).map(async([key,path])=>[key,createHash('sha256').update(await readFile(path)).digest('hex')])));
+const inputs={decision,heroIdentities,heroLocalizations,relations,equipmentIdentities,equipmentLocalizations,sourceHashes};
+validateHeroMinimalDetailFortyBatchPublication(decision);
+const generatedText=await readFile(HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH,'utf8');
+const generated=validateHeroMinimalDetailFortyBatch({generatedText,inputs});
+if(renderHeroMinimalDetailFortyBatch(inputs)!==generatedText)throw new Error('Forty-Hero regeneration parity failed');
+process.stdout.write(`Hero Minimal Detail forty batch: PASS (${generated.heroes.length} exact approved Hero/Equipment pairs; Canonical hashes, relation provenance, and deterministic output)\n`);

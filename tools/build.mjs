@@ -19,6 +19,7 @@ import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLI
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailTwentyBatchPublication, validateHeroMinimalDetailTwentyBatch } from './hero-minimal-detail-twenty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyBatchPublication, validateHeroMinimalDetailThirtyBatch } from './hero-minimal-detail-thirty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyOneBatchPublication, validateHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
+import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailFortyBatchPublication, validateHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -45,7 +46,7 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
 }
 
 // Publication packaging only: this list does not admit semantic populations.
-export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null) {
+export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null) {
   if (!Array.isArray(skinFullartPaths) || skinFullartPaths.some((path) => !isAllowedSkinAssetPath(path))
     || new Set(skinFullartPaths).size !== skinFullartPaths.length) {
     throw new Error('Skin Fullart Build paths must be unique approved Asset paths');
@@ -72,6 +73,7 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   if (heroMinimalDetailTwentyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH);
   if (heroMinimalDetailThirtyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH);
   if (heroMinimalDetailThirtyOneBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH);
+  if (heroMinimalDetailFortyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH);
   if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
   for (const hero of heroPresentation.records) {
     if (typeof hero.portrait !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(hero.portrait)) {
@@ -82,9 +84,9 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   return [...new Set(files)].sort();
 }
 
-export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null) {
+export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null) {
   const skinFullartPaths = await readApprovedSkinAssetPaths(sourceRoot);
-  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication);
+  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication);
   const allowedDirectories = new Set(expected.flatMap(file => {
     const parts = file.split('/');
     return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
@@ -156,6 +158,7 @@ const heroMinimalDetailTenBatchPublication = validateHeroMinimalDetailTenBatchPu
 const heroMinimalDetailTwentyBatchPublication = validateHeroMinimalDetailTwentyBatchPublication(await readJson(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH));
 const heroMinimalDetailThirtyBatchPublication = validateHeroMinimalDetailThirtyBatchPublication(await readJson(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH));
 const heroMinimalDetailThirtyOneBatchPublication = validateHeroMinimalDetailThirtyOneBatchPublication(await readJson(HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH));
+const heroMinimalDetailFortyBatchPublication = validateHeroMinimalDetailFortyBatchPublication(await readJson(HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH));
 const [exclusiveHeroEquipmentIdentity, exclusiveHeroIndexPublication, exclusiveHeroLocalizationBytes, exclusiveHeroIdentityBytes] = await Promise.all([
   readJson('canonical/exclusive-equipment.v1.json'),
   readJson('docs/decisions/hero-index-publication.v1.json'),
@@ -206,6 +209,10 @@ validateHeroMinimalDetailThirtyBatch({ generatedText: heroMinimalDetailThirtyBat
 const heroMinimalDetailThirtyOneBatchText = await readFile(heroMinimalDetailThirtyOneBatchPath, 'utf8');
 const heroMinimalDetailThirtyOneBatchInputs = { ...hero15MinimalInputs, decision: heroMinimalDetailThirtyOneBatchPublication };
 validateHeroMinimalDetailThirtyOneBatch({ generatedText: heroMinimalDetailThirtyOneBatchText, inputs: heroMinimalDetailThirtyOneBatchInputs });
+const heroMinimalDetailFortyBatchPath = resolve(HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH);
+const heroMinimalDetailFortyBatchText = await readFile(heroMinimalDetailFortyBatchPath, 'utf8');
+const heroMinimalDetailFortyBatchInputs = { ...hero15MinimalInputs, decision: heroMinimalDetailFortyBatchPublication };
+validateHeroMinimalDetailFortyBatch({ generatedText: heroMinimalDetailFortyBatchText, inputs: heroMinimalDetailFortyBatchInputs });
 validateExclusiveEquipmentHeroNavigation({ generatedText: exclusiveHeroNavigationText, inputs: {
   relations: exclusiveRelations,
   equipmentIdentities: exclusiveHeroEquipmentIdentity,
@@ -221,6 +228,7 @@ validateExclusiveEquipmentHeroNavigation({ generatedText: exclusiveHeroNavigatio
   heroMinimalDetailTwentyBatchPublicationDecision: heroMinimalDetailTwentyBatchPublication,
   heroMinimalDetailThirtyBatchPublicationDecision: heroMinimalDetailThirtyBatchPublication,
   heroMinimalDetailThirtyOneBatchPublicationDecision: heroMinimalDetailThirtyOneBatchPublication,
+  heroMinimalDetailFortyBatchPublicationDecision: heroMinimalDetailFortyBatchPublication,
   heroLocalizationSha256: createHash('sha256').update(exclusiveHeroLocalizationBytes).digest('hex'),
   heroIdentitySha256: createHash('sha256').update(exclusiveHeroIdentityBytes).digest('hex'),
 } });
@@ -471,6 +479,7 @@ try {
   await cp(heroMinimalDetailTwentyBatchPath, join(output, ...HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH.split('/')));
   await cp(heroMinimalDetailThirtyBatchPath, join(output, ...HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH.split('/')));
   await cp(heroMinimalDetailThirtyOneBatchPath, join(output, ...HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH.split('/')));
+  await cp(heroMinimalDetailFortyBatchPath, join(output, ...HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH.split('/')));
   await cp(spGeneratedPath, join(output, 'generated', 'sp-soldiers.v1.json'));
   await cp(normalSoldierGeneratedPath, join(output, 'generated', 'normal-soldiers.v1.json'));
   const skinConsumerPath = resolve('generated/skin-consumer.v1.json');
@@ -525,6 +534,7 @@ try {
   if (!app.includes(`fetch('./${HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH}')`)) throw new Error('built app does not resolve the approved twenty-Hero Minimal Detail batch consumer');
   if (!app.includes(`fetch('./${HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH}')`)) throw new Error('built app does not resolve the approved thirty-Hero Minimal Detail batch consumer');
   if (!app.includes(`fetch('./${HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH}')`)) throw new Error('built app does not resolve the approved thirty-one-Hero Minimal Detail batch consumer');
+  if (!app.includes(`fetch('./${HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH}')`)) throw new Error('built app does not resolve the approved forty-Hero Minimal Detail batch consumer');
   if (!app.includes("fetch('./generated/sp-soldiers.v1.json')")) throw new Error('built app does not resolve the generated SP Soldier data entry');
   if (!app.includes("fetch('./generated/normal-soldiers.v1.json')")) throw new Error('built app does not resolve the generated NORMAL Soldier data entry');
   if (!app.includes("fetch('./generated/soldier-training-tech-descriptions.v1.json')")) throw new Error('built app does not resolve the scoped TrainingTech proposal consumer');
@@ -572,6 +582,10 @@ try {
   if (packagedHeroMinimalDetailThirtyOneBatchText !== heroMinimalDetailThirtyOneBatchText) throw new Error('packaged thirty-one-Hero Minimal Detail batch differs from validated Generated artifact');
   const packagedHeroMinimalDetailThirtyBatch = JSON.parse(packagedHeroMinimalDetailThirtyBatchText);
   const packagedHeroMinimalDetailThirtyOneBatch = JSON.parse(packagedHeroMinimalDetailThirtyOneBatchText);
+  const packagedHeroMinimalDetailFortyBatchText = await readFile(join(output, ...HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH.split('/')), 'utf8');
+  if (packagedHeroMinimalDetailFortyBatchText !== heroMinimalDetailFortyBatchText) throw new Error('packaged forty-Hero Minimal Detail batch differs from validated Generated artifact');
+  const packagedHeroMinimalDetailFortyBatch = JSON.parse(packagedHeroMinimalDetailFortyBatchText);
+  if (packagedHeroMinimalDetailFortyBatch.heroes.length !== 40 || packagedHeroMinimalDetailFortyBatch.heroes.some(({ heroId }, index) => heroId !== heroMinimalDetailFortyBatchInputs.decision.approvedScope.heroes[index].heroId)) throw new Error('packaged forty-Hero Minimal Detail batch scope mismatch');
   if (JSON.stringify(packagedHeroMinimalDetailThirtyOneBatch.heroes.map(({ heroId }) => heroId)) !== '[99164,99165,99166,99167,99168,99169,99170,99171,99172,99173,99174,99175,99176,99177,99178,99179,99180,99181,99182,99183,99184,99185,99186,99187,99188,99189,99190,99191,99192,99193,99197]') throw new Error('packaged thirty-one-Hero Minimal Detail batch scope mismatch');
   if (JSON.stringify(packagedHeroMinimalDetailThirtyBatch.heroes.map(({ heroId }) => heroId)) !== '[101,102,103,104,105,106,108,109,110,111,112,113,114,115,116,118,119,120,121,122,123,124,125,126,127,129,130,99161,99162,99163]') throw new Error('packaged thirty-Hero Minimal Detail batch scope mismatch');
   if (!app.includes("fetch('./generated/hero-minimal-detail-batch-31-34-35-36-38-39-49-51-54-57.v1.json')")) throw new Error('built app does not resolve approved ten-Hero Minimal Detail batch');
@@ -591,14 +605,14 @@ try {
   if (packagedExclusiveHeroNavigation.records.length !== 167) throw new Error('packaged Exclusive Equipment Hero Navigation population mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication);
+  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');
     await writeFile(resolve(manifestPath), `${JSON.stringify({ schemaVersion: 1, sourceSha, files }, null, 2)}\n`, { flag: 'wx' });
   }
   completed = true;
-  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} Full Detail endpoints; ${packagedHero15MinimalDetail.heroes.length + packagedHero16MinimalDetail.heroes.length + packagedHeroMinimalDetailBatch.heroes.length + packagedHeroMinimalDetailTenBatch.heroes.length + packagedHeroMinimalDetailTwentyBatch.heroes.length + packagedHeroMinimalDetailThirtyBatch.heroes.length + packagedHeroMinimalDetailThirtyOneBatch.heroes.length} Minimal Detail endpoints; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedExclusiveHeroNavigation.records.length} Equipment Hero Navigation relations, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length} detail targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length} Index targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length} Minimal Detail targets, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
+  process.stdout.write(`Static build: PASS (${output}; ${heroIndexValidation.indexCount} approved Hero Index rows; ${heroIndexValidation.detailCount} Full Detail endpoints; ${packagedHero15MinimalDetail.heroes.length + packagedHero16MinimalDetail.heroes.length + packagedHeroMinimalDetailBatch.heroes.length + packagedHeroMinimalDetailTenBatch.heroes.length + packagedHeroMinimalDetailTwentyBatch.heroes.length + packagedHeroMinimalDetailThirtyBatch.heroes.length + packagedHeroMinimalDetailThirtyOneBatch.heroes.length + packagedHeroMinimalDetailFortyBatch.heroes.length} Minimal Detail endpoints; ${spGenerated.soldiers.length} SP Soldier, ${normalSoldierGenerated.soldiers.length} NORMAL Soldier, ${packagedGlossary.jobs.length} Job glossary, ${packagedEquipment.equipment.length} General SSR Equipment, ${packagedExclusiveEquipment.equipment.length} Exclusive Equipment, ${packagedExclusiveHeroNavigation.records.length} Equipment Hero Navigation relations, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_DETAIL').length} detail targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_INDEX').length} Index targets, ${packagedExclusiveHeroNavigation.records.filter(({ navigationTarget }) => navigationTarget.surface === 'HERO_MINIMAL_DETAIL').length} Minimal Detail targets, ${packagedRelations.relations.length} Hero–Soldier relation records, ${portraitPaths.length} portrait assets; public allowlist ${files.length} files)\n`);
   return { output, files };
 } finally {
   if (!verifyDir && (!outputDir || !completed)) await rm(output, { recursive: true, force: true });
