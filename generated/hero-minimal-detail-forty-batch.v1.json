@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "heroes": [
+    {
+      "heroId": 99198,
+      "nameKo": "아마데우스",
+      "exclusiveEquipment": {
+        "equipmentId": 558,
+        "nameKo": "반짝이는 가시창",
+        "effectDescriptionKo": "공격 방어 +5%\n자신이 보유한 [신목 갑주] 1스택당 범위 피해 +5%\n부대 생명이 40% 초과할 경우, 사망 시 생명 20%로 부활 및 [신목 갑주] 4스택 획득\n(해당 효과는 전투당 2회 발동)"
+      }
+    },
+    {
+      "heroId": 99199,
+      "nameKo": "사그니",
+      "exclusiveEquipment": {
+        "equipmentId": 562,
+        "nameKo": "겨울의 제사 로브",
+        "effectDescriptionKo": "생명 +10%\n[한기의 눈빛] 사용 후, [부엉이] 이동 가능 횟수 +1\n6칸 내 자신이 소환한 [부엉이]가 있을 경우, 치명 피해를 받아도 사망하지 않음(해당 효과는 전투당 1회 발동)"
+      }
+    },
+    {
+      "heroId": 99203,
+      "nameKo": "님프",
+      "exclusiveEquipment": {
+        "equipmentId": 567,
+        "nameKo": "먼 바다의 조가비",
+        "effectDescriptionKo": "지력 +10%\n[판타지 버블] 부여 시, 자신의 모든 스킬 쿨타임 -1\n턴 시작 시 자신이 [아리아]를 보유하고 있다면, 추가로 고유기 1스택 획득"
+      }
+    },
+    {
+      "heroId": 99204,
+      "nameKo": "타탈리아",
+      "exclusiveEquipment": {
+        "equipmentId": 561,
+        "nameKo": "징벌의 협객",
+        "effectDescriptionKo": "생명 방어 +5%\n[사념 감지]를 보유한 적 주위 3칸 내에서 전투 시 주는 피해 +10%\n[사념 잠식]으로 적 처치 후 행동 종료 시, '부대 생명이 70% 이상인 경우, 적군의 일반 공격 및 스킬의 대상이 되지 않음' 획득, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 99205,
+      "nameKo": "투어밀크",
+      "exclusiveEquipment": {
+        "equipmentId": 572,
+        "nameKo": "침묵의 고백",
+        "effectDescriptionKo": "생명 +10%\n턴 시작 시, [이성]과 [감성] 중 많은 쪽을 적은 쪽으로 1개 전환\n[이성]과 [감성]의 수량 차이가 적을수록 영웅이 주는 피해 증가, 최대 +10%"
+      }
+    },
+    {
+      "heroId": 99206,
+      "nameKo": "이리스",
+      "exclusiveEquipment": {
+        "equipmentId": 571,
+        "nameKo": "극야의 열쇠",
+        "effectDescriptionKo": "공격 +8%\n자신 3칸 내 아군이 설치한 [수호의 열쇠]가 있을 시, 부대 피해 +20%\n공격하여 전투 진입 시, 적이 아군 [수호의 열쇠] 위에 있을 경우, 전투 전 적에게 '기절' 부여, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 99207,
+      "nameKo": "롤랑",
+      "exclusiveEquipment": {
+        "equipmentId": 578,
+        "nameKo": "새벽빛의 비밀",
+        "effectDescriptionKo": "생명 +10%\n[형태] 전환 시, 자신에게 적용중인 버프의 지속시간이 감소하지 않음"
+      }
+    },
+    {
+      "heroId": 99208,
+      "nameKo": "프레시아",
+      "exclusiveEquipment": {
+        "equipmentId": 573,
+        "nameKo": "순차의 빛",
+        "effectDescriptionKo": "공격 +10%\n[시간 당기기]로 자신의 모든 쿨타임 추가로 -1\n[시간 정지] 사용 쿨타임 제거\n쿨타임이 돌지 않는 스킬 1개당 부대 피해 +5%"
+      }
+    },
+    {
+      "heroId": 99212,
+      "nameKo": "강신자",
+      "exclusiveEquipment": {
+        "equipmentId": 580,
+        "nameKo": "심연의 계시",
+        "effectDescriptionKo": "생명 +10%\n3종 이상의 고유기 스탯 증가 효과 보유 시, 자신이 부여하는 [검은 악몽]과 [악마의 선택] 해제 불가\n주위 3칸 내 적이 신관 혹은 마물일 시 모든 디버프 면역"
+      }
+    },
+    {
+      "heroId": 99213,
+      "nameKo": "캡틴 잭",
+      "exclusiveEquipment": {
+        "equipmentId": 579,
+        "nameKo": "검은 고양이 선장 모자",
+        "effectDescriptionKo": "생명 +10%\n스킬 Cost 제한 무시\n[항로 마크] 지형 효과 내의 아군이 공격하여 피해를 준 적의 버프 1개 강탈\n아군이 [항로 마크] 내에서 행동 종료 시 캡틴 잭에게 무작위 버프 1개 부여"
+      }
+    },
+    {
+      "heroId": 99214,
+      "nameKo": "네미아",
+      "exclusiveEquipment": {
+        "equipmentId": 582,
+        "nameKo": "기원 탐구의 길",
+        "effectDescriptionKo": "생명 방어 +5%\n[고고한 섬의 파도] 사거리 +1\n자신은 아군의 [심오의 해류] 지형 효과를 밟아도 제거하지 않음\n주위 2칸 내 다른 아군이 아군의 [심오의 해류]를 밟아 제거할 때, [웨이브 서프] 획득, 지속 1행동\n([웨이브 서프]: 아군의 [심오의 해류] 통과 시 2칸의 이동력을 소모하지 않고 이동 가능)"
+      }
+    },
+    {
+      "heroId": 99215,
+      "nameKo": "안드리올",
+      "exclusiveEquipment": {
+        "equipmentId": 604,
+        "nameKo": "황제가 내린 훈장",
+        "effectDescriptionKo": "생명 +10%\n[충성의 맹세] 발동으로 맹세 대상의 진영을 획득\n고유기 발동 후 임의의 유닛을 통과하여 이동 시 1칸의 이동력을 소모하지 않고 이동 가능\n맹세 대상 아군이 공격하여 전투 진입 시, 적을 처치하지 못할 경우 [적개심] 획득, 지속 2행동"
+      }
+    },
+    {
+      "heroId": 99216,
+      "nameKo": "에쉬앤",
+      "exclusiveEquipment": {
+        "equipmentId": 612,
+        "nameKo": "페가수스의 광휘",
+        "effectDescriptionKo": "생명 +10%\n[통제 기술] 사거리 +1 및 추가 효과 획득:\n[재건]: 대상의 디버프 1개 제거\n[어명]: 대상에게 '침묵' 면역 부여, 지속 2행동\n[질주]: 대상에게 '주는 피해 +15%' 부여, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 99217,
+      "nameKo": "호프만",
+      "exclusiveEquipment": {
+        "equipmentId": 581,
+        "nameKo": "녹과 영광",
+        "effectDescriptionKo": "생명, 방어 +5%\n[왕국의 방패]로 [영광의 수호] 사용 시, 지휘 획득\n[지휘]: 비행이동이 아닌 아군이 스킬 범위 통과 시, 1칸의 이동력을 소모하지 않고 이동 가능, 지속 4행동, 해제 불가"
+      }
+    },
+    {
+      "heroId": 99218,
+      "nameKo": "이졸데",
+      "exclusiveEquipment": {
+        "equipmentId": 619,
+        "nameKo": "잊혀진 전설",
+        "effectDescriptionKo": "생명 +10%\n[의지] 획득 시, 아래의 추가 효과 획득:\n[고독한 여정]: 치명 피해에 사망하지 않음(게임당 1회 발동)\n[저항]: 자신의 모든 스킬 쿨타임-3\n[존속]: 다음 피해를 받을 때, 추가 별도 행동 기회 획득"
+      }
+    },
+    {
+      "heroId": 99219,
+      "nameKo": "제이스",
+      "exclusiveEquipment": {
+        "equipmentId": 589,
+        "nameKo": "새벽 바람",
+        "effectDescriptionKo": "생명 +10%\n피해를 입히고 행동 종료 시, 현재 쿨타임이 가장 짧은 스킬 쿨타임 -1\n전장의 아군 [오르카나 빛 자국] 1개당 적의 마방 5% 무시 (최대 20%)"
+      }
+    },
+    {
+      "heroId": 99220,
+      "nameKo": "패트리샤",
+      "exclusiveEquipment": {
+        "equipmentId": 588,
+        "nameKo": "붉은 숨결",
+        "effectDescriptionKo": "지력 +10%\n자신이 부여한 [영혼을 태우는 불길] 지속시간 +1\n공격하여 피해를 입힌 후, 100% 확률로 적에게 [영혼을 태우는 불길] 1스택 추가 부여"
+      }
+    },
+    {
+      "heroId": 99221,
+      "nameKo": "군",
+      "exclusiveEquipment": {
+        "equipmentId": 587,
+        "nameKo": "산행의 망토",
+        "effectDescriptionKo": "생명 방어 +5%\n고유기로 [복수하는 고독한 늑대] 효과 제거 시, 자신의 치료 효과 -5%\n고유기에 추가효과 부여: 행동 종료 시, [월랑의 힘]을 [복수하는 고독한 늑대]로 변경 가능\n([쿨타임 효과]해당 효과는 1턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 99225,
+      "nameKo": "빙설 심연의 지배자",
+      "exclusiveEquipment": {
+        "equipmentId": 643,
+        "nameKo": "빙룡의 서리 왕관",
+        "effectDescriptionKo": "생명 +10%, 광역 스킬 피해 +10%\n아군 영웅에게 피해를 줄 때 '공격하여 적에게 범위 피해를 입힐 시 [뼈 시린 한기] 부여, 발동 후 제거' 부여, 해제 불가"
+      }
+    },
+    {
+      "heroId": 99226,
+      "nameKo": "테란틸",
+      "exclusiveEquipment": {
+        "equipmentId": 595,
+        "nameKo": "초대 왕의 후손",
+        "effectDescriptionKo": "생명 +10%\n[지배의 인장]을 보유한 적과 전투 전 버프 1개 제거하고, 전투 후 준 피해의 30%만큼 회복\n[지배의 인장]을 보유한 적이 사망 시, '다음 [지배의 인장] 목표 대상 +1' 효과 획득, 면역 및 해제 불가"
+      }
+    },
+    {
+      "heroId": 99227,
+      "nameKo": "타브리스",
+      "exclusiveEquipment": {
+        "equipmentId": 590,
+        "nameKo": "암흑 날개 투구",
+        "effectDescriptionKo": "생명 +10%\n아군이 피해를 입은 경우 공격자에게 [암흑의 깃] 1스택 부여\n스킬을 사용하여 전투 진입 시 적이 보유한 [암흑의 깃] 1스택마다 해당 스킬의 쿨타임 -1"
+      }
+    },
+    {
+      "heroId": 99228,
+      "nameKo": "이미르",
+      "exclusiveEquipment": {
+        "equipmentId": 620,
+        "nameKo": "잃어버린 여명",
+        "effectDescriptionKo": "생명 +10%\n[신성 족쇄] 보유 시, 공격을 받아 피해 입은 후 [분노 물결] 1스택 획득\n[신성 족쇄] 미보유 시, 공격하여 전투 진입 후, 모든 디버프가 없는 아군에게 자신의 [분노 물결] 스택만큼 무작위 버프 부여, 최대 4개"
+      }
+    },
+    {
+      "heroId": 99229,
+      "nameKo": "셀리카",
+      "exclusiveEquipment": {
+        "equipmentId": 628,
+        "nameKo": "연금의 법칙",
+        "effectDescriptionKo": "지력 +10%\n스킬 사용 후 고유기의 [스킬 전환]으로 스킬을 교체할 때, 교체를 선택하지 않으면 교체 가능한 스킬을 1회 재추첨 가능([쿨타임 효과]해당 효과는 2턴 후 재발동 가능)\n자신의 스킬이 아군에 명중하면 해당 아군에게 [원소] 1스택 부여\n([원소] 최대 3중첩, 면역 및 해제 불가)\n스킬 교체 후 해당 아군이 보유한 모든 [원소]를 소모하여 스택만큼 디버프 제거"
+      }
+    },
+    {
+      "heroId": 99230,
+      "nameKo": "세라피나",
+      "exclusiveEquipment": {
+        "equipmentId": 596,
+        "nameKo": "칼날의 포옹",
+        "effectDescriptionKo": "생명 +10%\n통과한 적에게 무작위 디버프 1개 부여\n공격하여 피해를 입힌 후(고정피해 포함), 적에게 무작위 강력한 디버프 1개 부여"
+      }
+    },
+    {
+      "heroId": 99231,
+      "nameKo": "비리아",
+      "exclusiveEquipment": {
+        "equipmentId": 614,
+        "nameKo": "섬의 예절",
+        "effectDescriptionKo": "생명 +10%\n스킬 Cost 제한 무시\n위험 범위 밖에서 [주문 준비] 발동 후, 자신의 모든 [쿨타임 효과] -1턴"
+      }
+    },
+    {
+      "heroId": 99233,
+      "nameKo": "시온",
+      "exclusiveEquipment": {
+        "equipmentId": 597,
+        "nameKo": "운명의 왕검",
+        "effectDescriptionKo": "공격 +10%\n각 전투 시작 시 [왕명] 획득\n[왕명] 또는 [천명]을 보유 시, 공격하여 전투 진입 시 치명 피해로 사망하지 않으며, 부대 이동방식을 야전으로 변경"
+      }
+    },
+    {
+      "heroId": 99234,
+      "nameKo": "티아나",
+      "exclusiveEquipment": {
+        "equipmentId": 598,
+        "nameKo": "고독한 기사의 결의",
+        "effectDescriptionKo": "생명 +10%\n[수호]를 보유한 아군을 대신해 전투 진입 후 [선제 습격] 획득, 지속 2행동\n[고독한 군사]를 보유한 적이 사망 시, 주위 2칸 내 아군에게 [고독한 군사] 부여"
+      }
+    },
+    {
+      "heroId": 99238,
+      "nameKo": "아리아",
+      "exclusiveEquipment": {
+        "equipmentId": 605,
+        "nameKo": "축복의 달",
+        "effectDescriptionKo": "생명 +10%\n동일한 [행운] 2개 이상 보유 시 부대 이동력 +1\n동일한 [행운] 1개 더 보유할 때마다 추가로 이동력 +1\n동일한 [행운] 3개 이상 보유 시 치명 피해를 받아도 사망하지 않으며, 부활 후 무작위 [행운] 3개 획득\n([쿨타임 효과]치명 피해 방어 효과는 4턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 99239,
+      "nameKo": "이리아",
+      "exclusiveEquipment": {
+        "equipmentId": 636,
+        "nameKo": "영력의 비단 왕관",
+        "effectDescriptionKo": "생명 +10%\n턴 종료 시 이번 턴에 [정의의 천사]가 소환되었거나 이동했다면, 자신과 가장 가까운 아군 2명에게 [빛의 가호](면역) 1스택 부여"
+      }
+    },
+    {
+      "heroId": 99240,
+      "nameKo": "사프린",
+      "exclusiveEquipment": {
+        "equipmentId": 613,
+        "nameKo": "엘프의 새싹",
+        "effectDescriptionKo": "지력 +10%\n[조화의 영혼](소환물)이 소환될 시 아래 효과 보유:\n'적군의 일반 공격 및 스킬의 목표가 되지 않음'(해당 효과는 적이 인접하여 행동 종료 시 사라짐)\n'주위 3칸 내 적의 지형을 풀밭으로 간주', 면역 및 해제 불가, 지속 1행동"
+      }
+    },
+    {
+      "heroId": 99241,
+      "nameKo": "노노린",
+      "exclusiveEquipment": {
+        "equipmentId": 606,
+        "nameKo": "파도의 메아리",
+        "effectDescriptionKo": "생명 +10%\n행동 종료 시 이번 턴에 스킬을 사용한 경우, 주위 1바퀴 내에 [만조] 적용, 지속 2행동\n수중에 위치하거나 '프로텍션'(실드) 보유 시, 부대 받는 피해 -10%\n두 경우를 동시에 만족할 경우, 부대 받는 피해 -20%"
+      }
+    },
+    {
+      "heroId": 99243,
+      "nameKo": "날개 꺾인 새",
+      "exclusiveEquipment": {
+        "equipmentId": 627,
+        "nameKo": "부러진 깃털의 잔상",
+        "effectDescriptionKo": "생명 +10%\n적군이 [파악] 획득 시, 자신이 이미 행동했을 경우 추가 별도 행동 기회 획득(해당 효과는 매턴 1회 발동 가능)\n[주시]를 보유한 적이 행동 종료 시, 직선 범위 내 가장 가까운 모든 적에게 [파악] 부여"
+      }
+    },
+    {
+      "heroId": 99244,
+      "nameKo": "란델",
+      "exclusiveEquipment": {
+        "equipmentId": 611,
+        "nameKo": "꿈의 망토",
+        "effectDescriptionKo": "마방 +10%\n행동 종료 시 [상자 속 어둠](힐) 발동 시, [혼돈의 단편] 스택 여러 개 소모 가능하며 해당 스택만큼 [상자 속 어둠] 부여 가능\n[혼돈의 단편]을 5스택을 초과하여 획득할 경우, 현재 쿨타임이 가장 긴 스킬의 쿨타임 -1"
+      }
+    },
+    {
+      "heroId": 99249,
+      "nameKo": "마카엘라",
+      "exclusiveEquipment": {
+        "equipmentId": 622,
+        "nameKo": "마지막 알현",
+        "effectDescriptionKo": "공격 +10%\n주위 2칸 내 아군의 [숨겨진 칼날]이 있을 때 스킬 사거리 +2(직선 스킬은 직선 2줄 추가), 행동 종료 시 모든 스킬 쿨타임 -1\n추가로 스킬을 사용하여 공격하여 전투 진입 시 근접 공격 피해 감면을 무시하고, 원거리 병사는 같이 공격에 진입"
+      }
+    },
+    {
+      "heroId": 99250,
+      "nameKo": "샘",
+      "exclusiveEquipment": {
+        "equipmentId": 621,
+        "nameKo": "베오프의 비극",
+        "effectDescriptionKo": "생명 +10%\n[혈통의 왕관]을 보유하고 행동 종료 시, 가장 가까운 아군 1명에게 [혈통의 온기] 부여, 면역 및 해제 불가, 지속 2행동\n([혈통의 온기]: 행동 종료 시 자신 2칸 내 모든 적에게 0.1배 범위 피해를 입히며, 공격자는 샘으로 간주)\n범위 피해를 입힐 시, 현재 쿨타임이 가장 긴 스킬의 쿨타임 -2\n([쿨타임 효과]두 효과 각각 2턴 후 재발동 가능)"
+      }
+    },
+    {
+      "heroId": 99252,
+      "nameKo": "루크만",
+      "exclusiveEquipment": {
+        "equipmentId": 635,
+        "nameKo": "수호의 칼날",
+        "effectDescriptionKo": "공격 +10%\n공격하여 전투 진입 후, 주위 3칸 내 [한마음]을 보유한 아군 1명당 적에게 공격의 2배만큼의 고정피해를 입히며, 모든 [한마음]을 보유한 아군에게 버프 1개 부여(해당 효과 최대 3배 적용)"
+      }
+    },
+    {
+      "heroId": 99253,
+      "nameKo": "아브샤이트",
+      "exclusiveEquipment": {
+        "equipmentId": 629,
+        "nameKo": "신의 인형의 족쇄",
+        "effectDescriptionKo": "생명 +10%\n[오버 히트] 1스택마다 이동력 +1(최대 +3)\n[과부하]가 끝날 때 모든 스킬의 쿨타임 -2\n액티브 스킬을 사용했고 [과부하]가 아닐 시 행동 종료 시 자신에게 적용중인 버프의 지속시간이 감소하지 않음"
+      }
+    },
+    {
+      "heroId": 99254,
+      "nameKo": "레이아",
+      "exclusiveEquipment": {
+        "equipmentId": 637,
+        "nameKo": "지혜의 날개 왕관",
+        "effectDescriptionKo": "생명 +10%\n[빛]의 지속시간 1턴마다 부대 주는 피해 +4%(최대 +20%)\n범위 스킬로 적 3명 이상 명중 시 [빛] 1턴 획득 및 현재 쿨타임이 가장 긴 스킬의 쿨타임 -2"
+      }
+    },
+    {
+      "heroId": 99255,
+      "nameKo": "엘비스",
+      "exclusiveEquipment": {
+        "equipmentId": 634,
+        "nameKo": "암흑 날개의 부활",
+        "effectDescriptionKo": "생명 +10%\n[망자의 계약] 획득 시 '모든 디버프 면역' 획득\n[망자의 계약]을 보유한 상태로 피해를 입으면 생명 50% 회복 및 공격자에게 '침묵' 부여, 지속 2행동"
+      }
+    },
+    {
+      "heroId": 99259,
+      "nameKo": "레이피어",
+      "exclusiveEquipment": {
+        "equipmentId": 638,
+        "nameKo": "신제국의 대검",
+        "effectDescriptionKo": "공격 +10%\n자신이 재행동이나 텔레포트를 발동할 경우, 부대 이동방식을 야전으로 변경 및 적 통과 가능, 지속 2행동\n[정의의 결전]을 보유한 적과 전투 시, 적이 부여하는 디버프에 면역 및 전투 후 입힌 피해의 30%만큼 회복"
+      }
+    }
+  ]
+}

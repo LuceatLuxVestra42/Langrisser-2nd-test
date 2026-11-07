@@ -452,3 +452,9 @@ jobs:
 
       - name: Test Thirty-One-Hero Minimal Detail boundaries
         run: node tools/test-hero-minimal-detail-thirty-one-batch.mjs
+
+      - name: Validate Forty-Hero Minimal Detail publication
+        run: node tools/validate-hero-minimal-detail-forty-batch.mjs
+
+      - name: Test Forty-Hero Minimal Detail boundaries
+        run: node tools/test-hero-minimal-detail-forty-batch.mjs
