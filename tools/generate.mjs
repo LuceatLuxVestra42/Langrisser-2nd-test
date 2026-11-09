@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope } from './soldier-training-tech-presentation-contract.mjs';
+import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, renderExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, renderHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
@@ -618,7 +619,10 @@ export function renderJobGlossary(jobLocalization) {
   return `${JSON.stringify({ schemaVersion: 1, jobs }, null, 2)}\n`;
 }
 
-export function renderGeneralSsrEquipment(identities, localizations) {
+export function renderGeneralSsrEquipment(identities, localizations, decision, contract) {
+  const publication = validateGeneralSsrPublication({ canonical: identities, localization: localizations, contract, decision });
+  if (publication.status !== 'APPROVED') throw new Error('General SSR Equipment public generation requires an approved Publication Decision');
+  const approvedIds = new Set(publication.approvedPublicIds);
   if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported General SSR Equipment identity owner');
   if (localizations?.schemaVersion !== 1 || !Array.isArray(localizations.records)) throw new Error('Unsupported General SSR Equipment localization owner');
   const identityIds = new Set();
@@ -636,7 +640,7 @@ export function renderGeneralSsrEquipment(identities, localizations) {
     localizationById.set(record.equipmentId, record);
   }
   if (localizationById.size !== identityIds.size || [...identityIds].some((id) => !localizationById.has(id))) throw new Error('General SSR Equipment localization ID set does not exactly match identity');
-  const equipment = [...identityIds].sort((a, b) => a - b).map((equipmentId) => {
+  const equipment = [...identityIds].filter(id => approvedIds.has(id)).sort((a, b) => a - b).map((equipmentId) => {
     const localization = localizationById.get(equipmentId);
     return { equipmentId, nameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo };
   });
@@ -1037,7 +1041,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const equipmentIdentity = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment.v1.json'), 'utf8'));
   const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
   const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');
-  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'utf8');
+  const equipmentContract = JSON.parse(await readFile(resolve('evidence/source/equipment/general-ssr-equipment-population-contract.v1.json'), 'utf8'));
+  const equipmentPublicationDecision = JSON.parse(await readFile(resolve('docs/decisions/general-ssr-equipment-publication.v1.json'), 'utf8'));
+  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublicationDecision, equipmentContract), 'utf8');
   const exclusiveEquipmentIdentity = JSON.parse(await readFile(resolve('canonical/exclusive-equipment.v1.json'), 'utf8'));
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');

@@ -6,6 +6,7 @@ import { validateHeroIndex } from './validate-hero-index.mjs';
 import { validateHeroPortraitSelection } from './validate-hero-portrait-selection.mjs';
 import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-raw-stats.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
+import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -658,20 +659,19 @@ for (const hero of generatedJson.heroes) {
 
 const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.json');
 const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
+const equipmentContract = await readJson('evidence/source/equipment/general-ssr-equipment-population-contract.v1.json');
+const equipmentPublicationDecision = await readJson('docs/decisions/general-ssr-equipment-publication.v1.json');
+const equipmentPublication = validateGeneralSsrPublication({ canonical: equipmentIdentity, localization: equipmentLocalization, contract: equipmentContract, decision: equipmentPublicationDecision });
 const equipmentGeneratedText = await readFile(resolve(root, 'generated/general-ssr-equipment.v1.json'), 'utf8');
-check(Array.isArray(equipmentIdentity.records) && Array.isArray(equipmentLocalization.records), 'General SSR Equipment canonical records missing');
-check(equipmentGeneratedText === renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'generated General SSR Equipment consumer is stale or non-deterministic');
+check(equipmentGeneratedText === renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublicationDecision, equipmentContract), 'generated General SSR Equipment consumer is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
 check(equipmentGenerated.schemaVersion === 1 && Array.isArray(equipmentGenerated.equipment), 'generated General SSR Equipment schema mismatch');
-const identityIds = new Set(equipmentIdentity.records.map((record) => record.id));
-const localizationById = new Map();
-for (const record of equipmentLocalization.records) {
-  check(Number.isInteger(record.equipmentId) && !localizationById.has(record.equipmentId), 'malformed or duplicate General SSR Equipment localization ID');
-  localizationById.set(record.equipmentId, record);
-}
+check(equipmentIdentity.records.length === 206 && equipmentLocalization.records.length === 206, 'General SSR Semantic/Localization baseline count mismatch');
+const localizationById = new Map(equipmentLocalization.records.map(record => [record.equipmentId, record]));
 const generatedIds = equipmentGenerated.equipment.map((record) => record.equipmentId);
-check(new Set(generatedIds).size === generatedIds.length && generatedIds.length === identityIds.size && generatedIds.every((id) => identityIds.has(id)), 'generated General SSR Equipment ID set differs from canonical identity');
+check(equipmentGenerated.equipment.length === 198 && new Set(generatedIds).size === generatedIds.length
+  && JSON.stringify(generatedIds) === JSON.stringify(equipmentPublication.approvedPublicIds), 'generated General SSR Equipment ID set differs from approved publication');
 for (const record of equipmentGenerated.equipment) {
   exactKeys(record, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'generated General SSR Equipment ' + record.equipmentId);
   const localized = localizationById.get(record.equipmentId);

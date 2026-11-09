@@ -375,10 +375,16 @@ jobs:
       - name: Test General SSR Equipment identity
         run: node tools/test-general-ssr-equipment-identity.mjs
 
-      - name: Validate General SSR publication proposal
+      - name: Generate approved General SSR public consumer
+        run: node tools/generate.mjs
+
+      - name: Fail if Generated artifacts are stale after generation
+        run: git diff --exit-code -- generated
+
+      - name: Validate approved General SSR publication
         run: node tools/validate-general-ssr-equipment-publication.mjs
 
-      - name: Test General SSR publication proposal
+      - name: Test approved General SSR publication boundaries
         run: node tools/test-general-ssr-equipment-publication.mjs
 
       - name: Validate General SSR Equipment Korean localization

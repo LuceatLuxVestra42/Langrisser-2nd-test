@@ -46,6 +46,10 @@ const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).sk
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
 try {
   const built = await buildSite({ outputDir: output });
+  const publicEquipment = JSON.parse(await readFile(join(output, 'generated/general-ssr-equipment.v1.json'), 'utf8'));
+  const excludedEquipmentIds = [265, 266, 267, 268, 288, 289, 290, 291];
+  assert.equal(publicEquipment.equipment.length, 198, 'public General SSR Equipment must contain the approved 198 IDs');
+  assert.equal(publicEquipment.equipment.some(({ equipmentId }) => excludedEquipmentIds.includes(equipmentId)), false, 'excluded General SSR Equipment IDs must not enter Build output');
   assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision));
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');

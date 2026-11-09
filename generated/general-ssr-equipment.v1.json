@@ -472,26 +472,6 @@
       "effectDescriptionKo": "지력 +8%\\n공격하여 피해를 입혔을 시, 50% 확률로 적의 버프 1개 제거"
     },
     {
-      "equipmentId": 265,
-      "nameKo": "케른바이터",
-      "effectDescriptionKo": "방어 마방 +5%\\n범위 스킬 사용 시, 효과 범위 +1\\n범위가 1칸인 범위 스킬에 대해서는 무효, 직선기는 사거리만 증가"
-    },
-    {
-      "equipmentId": 266,
-      "nameKo": "마도 지팡이",
-      "effectDescriptionKo": "단일 기술 사용 시 피해 +15%\\n공격하여 전투 진입 전, 50% 확률로 적에게 무작위 디버프 1개 부여"
-    },
-    {
-      "equipmentId": 267,
-      "nameKo": "옷걸이 집게 봉",
-      "effectDescriptionKo": "입히는 피해 -10%\\n영웅의 일반 공격 사거리 +1"
-    },
-    {
-      "equipmentId": 268,
-      "nameKo": "유격사 훈장",
-      "effectDescriptionKo": "모든 스탯 +5%\\n면역: '고정피해', '침묵'"
-    },
-    {
       "equipmentId": 269,
       "nameKo": "세계수의 왕관",
       "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 인접한 아군 1명에게 '마방 +20%', '기절', '버프 불가' 및 '이동력 감소' 면역 부여, 지속 1행동"
@@ -530,26 +510,6 @@
       "equipmentId": 285,
       "nameKo": "성검 훈장",
       "effectDescriptionKo": "모든 스탯 +5%\\n면역: '고정피해', '침묵'"
-    },
-    {
-      "equipmentId": 288,
-      "nameKo": "영검 아라타카",
-      "effectDescriptionKo": "공격 기술 +8%\\n공격하여 전투 중 치명타가 발생하면 적의 버프 1개 해제 및 디버프 1개 부여"
-    },
-    {
-      "equipmentId": 289,
-      "nameKo": "화격단 제복",
-      "effectDescriptionKo": "방어 마방 +5%\\n원거리 공격을 받을 시 전투 진입 전 적에게 고정피해를 입힘. 피해량은 영웅 마방의 1.5배"
-    },
-    {
-      "equipmentId": 290,
-      "nameKo": "붉은 리본",
-      "effectDescriptionKo": "생명 +10%\\n행동 종료 시, 부대 생명이 50% 미만일 시 생명 20% 회복"
-    },
-    {
-      "equipmentId": 291,
-      "nameKo": "곰인형",
-      "effectDescriptionKo": "치료 효과 +15%\\n단일 대상 지원 스킬 사용 시, 버프 지속시간 +1"
     },
     {
       "equipmentId": 299,
