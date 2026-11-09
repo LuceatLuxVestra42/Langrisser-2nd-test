@@ -387,6 +387,9 @@ jobs:
       - name: Test Exclusive Equipment identity negatives
         run: node tools/test-exclusive-equipment-identity.mjs
 
+      - name: Test Exclusive Equipment incremental candidate screening
+        run: node tools/test-exclusive-equipment-increment.mjs
+
       - name: Validate Exclusive Equipment Korean localization
         run: node tools/validate-exclusive-equipment-ko-localization.mjs
 
