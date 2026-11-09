@@ -3,6 +3,7 @@ import { selectSkinFullarts } from './skin-fullart-presentation.mjs';
 const container = document.querySelector('#heroes');
 const heroIndexContainer = document.querySelector('#hero-index-results');
 const heroIndexSearch = document.querySelector('#hero-index-search');
+const heroIndexDetailFilter = document.querySelector('#hero-index-detail-filter');
 const heroIndexSearchClear = document.querySelector('#hero-index-search-clear');
 const heroIndexSearchCount = document.querySelector('#hero-index-search-count');
 const heroIndexSearchEmpty = document.querySelector('#hero-index-search-empty');
@@ -130,11 +131,12 @@ function filterHeroIndex(heroes, query) {
   return heroes.filter((hero) => hero.nameKo.toLocaleLowerCase('ko-KR').includes(nameQuery));
 }
 
-function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = new Set(), input, clearButton, count, emptyState, container, showDetailTarget, showMinimalDetailTarget }) {
+function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = new Set(), input, detailFilter, clearButton, count, emptyState, container, showDetailTarget, showMinimalDetailTarget }) {
   const approvedDetailIds = new Set(detailHeroIds);
   const approvedMinimalDetailIds = new Set(minimalDetailHeroIds);
   const update = () => {
-    const matches = filterHeroIndex(heroes, input.value);
+    const levelFor = (heroId) => approvedDetailIds.has(heroId) ? 'full' : approvedMinimalDetailIds.has(heroId) ? 'minimal' : 'index';
+    const matches = filterHeroIndex(heroes, input.value).filter(({ heroId }) => !detailFilter.value || detailFilter.value === 'all' || levelFor(heroId) === detailFilter.value);
     const rows = matches.map((hero) => {
       const item = document.createElement('li');
       item.className = 'hero-index-row';
@@ -156,6 +158,10 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
       } else {
         item.append(name, id);
       }
+      const level = document.createElement('span');
+      level.className = 'hero-index-level';
+      level.textContent = { full: 'Full Detail', minimal: 'Minimal Detail', index: 'Index Only' }[levelFor(hero.heroId)];
+      item.append(level);
       return item;
     });
     container.replaceChildren(...rows);
@@ -164,6 +170,7 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
     return matches;
   };
   input.addEventListener('input', update);
+  detailFilter.addEventListener('change', update);
   const showAll = (focus = true) => {
     input.value = '';
     update();
@@ -174,6 +181,7 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
   const showTarget = (heroId) => {
     if (!heroes.some(({ heroId: id }) => id === heroId)) return false;
     input.value = '';
+    detailFilter.value = 'all';
     update();
     return true;
   };
@@ -915,7 +923,7 @@ try {
   }
   heroIndexNavigation = renderHeroIndexSearch({
     heroes: data.heroes, detailHeroIds: heroIndexDetailIds, minimalDetailHeroIds,
-    input: heroIndexSearch, clearButton: heroIndexSearchClear,
+    input: heroIndexSearch, detailFilter: heroIndexDetailFilter, clearButton: heroIndexSearchClear,
     count: heroIndexSearchCount, emptyState: heroIndexSearchEmpty, container: heroIndexContainer,
     showDetailTarget: (heroId) => heroNavigation?.showTarget(heroId),
     showMinimalDetailTarget,

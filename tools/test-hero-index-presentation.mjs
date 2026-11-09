@@ -37,6 +37,8 @@ const functions = runInNewContext(`(() => { ${runtime}; return { filterHeroIndex
 
 const input = makeElement('input', 'hero-index-search');
 const clearButton = makeElement('button', 'hero-index-search-clear');
+const detailFilter = makeElement('select', 'hero-index-detail-filter');
+detailFilter.value = 'all';
 const count = makeElement('p', 'hero-index-search-count');
 const emptyState = makeElement('p', 'hero-index-search-empty');
 const container = makeElement('ol', 'hero-index-results');
@@ -54,7 +56,7 @@ factionFilter.value = 'all';
 let shownHeroId = null;
 let shownMinimalHeroId = null;
 const navigation = functions.renderHeroIndexSearch({
-  heroes: index.heroes, detailHeroIds, minimalDetailHeroIds, input, clearButton, count, emptyState, container,
+  heroes: index.heroes, detailHeroIds, minimalDetailHeroIds, input, detailFilter, clearButton, count, emptyState, container,
   showDetailTarget(heroId) { shownHeroId = heroId; const target = elements.get(`hero-${heroId}`); if (target) target.hidden = false; },
   showMinimalDetailTarget(heroId) { shownMinimalHeroId = heroId; },
 });
@@ -70,6 +72,26 @@ assert.equal(container.children.filter(({ children }) => children[0]?.className 
   'only the approved Minimal Detail Heroes receive links');
 assert.equal(container.children.filter(({ children }) => children[0]?.tagName !== 'a').length, 100,
   'all other Index entries remain unlinked');
+
+
+assert.equal([...detailHeroIds].filter((id) => minimalDetailHeroIds.has(id)).length, 0, 'detail populations are disjoint');
+const indexIds = new Set(index.heroes.map(({ heroId }) => heroId));
+assert.ok([...detailHeroIds, ...minimalDetailHeroIds].every((id) => indexIds.has(id)), 'detail populations belong to approved Index');
+for (const [level, expected] of [['full', detailHeroIds], ['minimal', minimalDetailHeroIds], ['index', new Set([...indexIds].filter((id) => !detailHeroIds.has(id) && !minimalDetailHeroIds.has(id)))], ['all', indexIds]]) {
+  detailFilter.value = level; detailFilter.listeners.change();
+  assert.deepEqual(new Set(container.children.map(({ id }) => Number(id.replace('hero-index-entry-', '')))), expected, `${level} returns exact IDs`);
+  assert.ok(container.children.every(({ children }) => children[2].textContent === ({ full: 'Full Detail', minimal: 'Minimal Detail', index: 'Index Only' })[detailHeroIds.has(Number(children[1].textContent.slice(8))) ? 'full' : minimalDetailHeroIds.has(Number(children[1].textContent.slice(8))) ? 'minimal' : 'index']));
+}
+detailFilter.value = 'minimal'; detailFilter.listeners.change();
+input.value = '15'; input.listeners.input();
+assert.equal(container.children.length, 1);
+input.value = '1'; input.listeners.input();
+assert.equal(container.children.length, 0); assert.equal(emptyState.hidden, false);
+input.value = '리아'; input.listeners.input();
+assert.ok(container.children.some(({ id }) => id === 'hero-index-entry-15'));
+clearButton.listeners.click();
+assert.equal(detailFilter.value, 'minimal'); assert.equal(container.children.length, minimalDetailHeroIds.size);
+assert.equal(navigation.showTarget(1), true); assert.equal(detailFilter.value, 'all');
 
 const exactOne = functions.filterHeroIndex(index.heroes, '1');
 assert.deepEqual(Array.from(exactOne, ({ heroId }) => heroId), [1], 'numeric search is exact and does not return IDs 10–19');
