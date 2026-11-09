@@ -101,7 +101,7 @@ async function runEquipmentRuntime(general, exclusive) {
     exclusiveInput, exclusiveClear, exclusiveCount, errors,
     navigation: runtimeResult.exclusiveEquipmentNavigation, makeAnchor: runtimeResult.makeAnchor, navigationState };
 }
-for (const [generalCount, exclusiveCount] of [[206, 167]]) {
+for (const [generalCount, exclusiveCount] of [[198, 167]]) {
   const general = { ...generalGenerated, equipment: generalGenerated.equipment.slice(0, generalCount) };
   const exclusive = { ...generated, equipment: generated.equipment.slice(0, exclusiveCount) };
   const result = await runEquipmentRuntime(general, exclusive);
@@ -121,7 +121,7 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
   }
   assert.match(result.generalCount.textContent, new RegExp(`검색 결과 ${generalCount}건 / 전체 ${generalCount}건`));
   assert.match(result.exclusiveCount.textContent, new RegExp(`검색 결과 ${exclusiveCount}건 / 전체 ${exclusiveCount}건`));
-  if (generalCount === 206 && exclusiveCount === 167) {
+  if (generalCount === 198 && exclusiveCount === 167) {
     const originalGeneral = JSON.stringify(general);
     const originalExclusive = JSON.stringify(exclusive);
     const assertFiltered = (input, container, count, query, expected) => {
@@ -152,9 +152,9 @@ for (const [generalCount, exclusiveCount] of [[206, 167]]) {
     }
     result.generalInput.value = '6'; result.generalInput.listeners.input(); result.generalClear.listeners.click();
     result.exclusiveInput.value = '273'; result.exclusiveInput.listeners.input(); result.exclusiveClear.listeners.click();
-    assert.equal(result.generalEquipmentContainer.children.length, 206);
+    assert.equal(result.generalEquipmentContainer.children.length, 198);
     assert.equal(result.exclusiveEquipmentContainer.children.length, 167);
-    assert.match(result.generalCount.textContent, /검색 결과 206건 \/ 전체 206건/);
+    assert.match(result.generalCount.textContent, /검색 결과 198건 \/ 전체 198건/);
     assert.match(result.exclusiveCount.textContent, /검색 결과 167건 \/ 전체 167건/);
     assert.equal(JSON.stringify(general), originalGeneral);
     assert.equal(JSON.stringify(exclusive), originalExclusive);
