@@ -618,7 +618,14 @@ export function renderJobGlossary(jobLocalization) {
   return `${JSON.stringify({ schemaVersion: 1, jobs }, null, 2)}\n`;
 }
 
-export function renderGeneralSsrEquipment(identities, localizations) {
+export function renderGeneralSsrEquipment(identities, localizations, publication) {
+  if (publication?.status !== 'APPROVED' || !Array.isArray(publication.approvedPublicIds)
+    || publication.approvedPublicIds.length !== 198 || new Set(publication.approvedPublicIds).size !== 198) {
+    throw new Error('General SSR Equipment public generation requires a validated approved Publication Decision');
+  }
+  const identityIdSet = new Set(identities.records.map(record => record.id));
+  if (publication.approvedPublicIds.some(id => !identityIdSet.has(id))) throw new Error('Approved public ID is outside the General SSR baseline');
+  const approvedIds = new Set(publication.approvedPublicIds);
   if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported General SSR Equipment identity owner');
   if (localizations?.schemaVersion !== 1 || !Array.isArray(localizations.records)) throw new Error('Unsupported General SSR Equipment localization owner');
   const identityIds = new Set();
@@ -636,7 +643,7 @@ export function renderGeneralSsrEquipment(identities, localizations) {
     localizationById.set(record.equipmentId, record);
   }
   if (localizationById.size !== identityIds.size || [...identityIds].some((id) => !localizationById.has(id))) throw new Error('General SSR Equipment localization ID set does not exactly match identity');
-  const equipment = [...identityIds].sort((a, b) => a - b).map((equipmentId) => {
+  const equipment = [...identityIds].filter(id => approvedIds.has(id)).sort((a, b) => a - b).map((equipmentId) => {
     const localization = localizationById.get(equipmentId);
     return { equipmentId, nameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo };
   });
@@ -1037,7 +1044,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const equipmentIdentity = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment.v1.json'), 'utf8'));
   const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
   const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');
-  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization), 'utf8');
+  const { loadAndValidateGeneralSsrPublicationForGenerator } = await import('./validate-general-ssr-equipment-publication.mjs');
+  const { result: equipmentPublication } = await loadAndValidateGeneralSsrPublicationForGenerator();
+  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublication), 'utf8');
   const exclusiveEquipmentIdentity = JSON.parse(await readFile(resolve('canonical/exclusive-equipment.v1.json'), 'utf8'));
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');

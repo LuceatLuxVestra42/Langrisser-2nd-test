@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "decisionType": "GENERAL_SSR_PUBLICATION",
+  "targetRepository": "LuceatLuxVestra42/Langrisser-2nd-test",
+  "semanticOwner": "canonical/general-ssr-equipment.v1.json",
+  "localizationOwner": "canonical/general-ssr-equipment-localizations-ko.v1.json",
+  "baselineIdSetSha256": "8ebfa88ede242bee1d12527ea66f73f0aa4f2ef50f50eb27cea230e7ed551e68",
+  "approvedPublicCount": 198,
+  "excludedIds": [
+    265,
+    266,
+    267,
+    268,
+    288,
+    289,
+    290,
+    291
+  ],
+  "surface": [
+    "GENERAL_SSR_LIST",
+    "GENERAL_SSR_SEARCH",
+    "GENERAL_SSR_PUBLIC_DETAIL_IF_PRESENT"
+  ],
+  "publicIdRule": "the exact reviewed 206-ID canonical baseline minus excludedIds; no future IDs are included",
+  "approval": {
+    "source": "user-provided screenshot showing the approval question and the user's reply in the same conversation view",
+    "verification": "visually reviewed in this conversation; approval scope matched against PR #211 decision scope",
+    "messageId": "NOT_AVAILABLE",
+    "url": "NOT_AVAILABLE",
+    "timestamp": "NOT_AVAILABLE",
+    "limitations": "Screenshot confirms displayed request-response context and wording; it does not expose message identifier, source URL, or exact time."
+  },
+  "legacyEvidence": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/presentation/equipment-public-admission-correction.v1.json",
+    "blob": "e221735636a72ab80948149bae18e6691954d694",
+    "locator": "excludedEquipmentIds; policy.scope; expectedPublicProjection"
+  },
+  "limitations": {
+    "canonicalIdentity": "unchanged",
+    "localization": "unchanged",
+    "aliasReplacement": "NOT_APPROVED",
+    "futureEquipmentAutoPublication": "NOT_APPROVED",
+    "newSemanticAdmission": "NOT_APPROVED"
+  }
+}

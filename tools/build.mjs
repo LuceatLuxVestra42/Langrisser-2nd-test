@@ -9,6 +9,7 @@ import { validateHeroIndex } from './validate-hero-index.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateM05G } from './validate-skin-m05-g.mjs';
+import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
@@ -243,15 +244,20 @@ if (glossary.schemaVersion !== 1 || !Array.isArray(glossary.jobs) || glossary.jo
 
 const equipmentIdentity = await readJson('canonical/general-ssr-equipment.v1.json');
 const equipmentLocalization = await readJson('canonical/general-ssr-equipment-localizations-ko.v1.json');
+const equipmentContract = await readJson('evidence/source/equipment/general-ssr-equipment-population-contract.v1.json');
+const equipmentPublicationDecision = await readJson('docs/decisions/general-ssr-equipment-publication.v1.json');
+const equipmentPublication = validateGeneralSsrPublication({ canonical: equipmentIdentity, localization: equipmentLocalization, contract: equipmentContract, decision: equipmentPublicationDecision });
 const equipmentGeneratedPath = resolve('generated/general-ssr-equipment.v1.json');
 const equipmentGeneratedText = await readFile(equipmentGeneratedPath, 'utf8');
-if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
+if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublication)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
 if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment)) throw new Error('unsupported General SSR Equipment presentation schema');
-if (equipmentGenerated.equipment.length !== equipmentIdentity.records.length) throw new Error('General SSR Equipment generated/canonical count mismatch');
+if (equipmentIdentity.records.length !== 206 || equipmentLocalization.records.length !== 206) throw new Error('General SSR Equipment semantic/localization baseline mismatch');
+if (equipmentGenerated.equipment.length !== 198) throw new Error('General SSR Equipment approved public count mismatch');
 const generatedEquipmentIds = equipmentGenerated.equipment.map((item) => item.equipmentId);
-if (generatedEquipmentIds.some((id) => !Number.isInteger(id)) || new Set(generatedEquipmentIds).size !== generatedEquipmentIds.length) throw new Error('General SSR Equipment generated IDs are malformed or duplicated');
+if (generatedEquipmentIds.some((id) => !Number.isInteger(id)) || new Set(generatedEquipmentIds).size !== generatedEquipmentIds.length
+  || JSON.stringify(generatedEquipmentIds) !== JSON.stringify(equipmentPublication.approvedPublicIds)) throw new Error('General SSR Equipment generated IDs differ from approved publication');
 for (const item of equipmentGenerated.equipment) {
   exactKeys(item, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'General SSR Equipment ' + item.equipmentId);
   if (!Number.isInteger(item.equipmentId) || typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed General SSR Equipment presentation');
