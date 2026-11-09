@@ -49,8 +49,8 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-index-section { min-width: 0; margin: 0 0 56px; }
 .hero-index-search { max-width: 720px; margin: 0 0 12px; }
 .hero-index-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
-.hero-index-row { display: flex; min-width: 0; min-height: 52px; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 10px 12px; border: 1px solid #344050; border-radius: 10px; background: #1a202a; }
-.hero-index-name, .hero-index-detail-link { min-width: 0; overflow-wrap: anywhere; }
+.hero-index-row { display: flex; flex-wrap: wrap; min-width: 0; min-height: 52px; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 10px 12px; border: 1px solid #344050; border-radius: 10px; background: #1a202a; }
+.hero-index-name, .hero-index-detail-link, .hero-index-minimal-detail-link { min-width: 0; overflow-wrap: anywhere; }
 .hero-index-name { color: #f2f4f8; font-weight: 650; }
 .hero-index-detail-link { color: #a9ceff; font-weight: 700; text-underline-offset: 3px; }
 .hero-index-id { flex: 0 0 auto; color: #aab5c3; font-size: .76rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -185,3 +185,5 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-soldier-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .hero-soldier-list li { max-width: 100%; padding: 5px 9px; border: 1px solid #344050; border-radius: 999px; color: #d4dce7; font-size: .78rem; overflow-wrap: anywhere; }
 .hero-soldier-list a { color: #a9ceff; text-underline-offset: 3px; }
+
+.hero-index-level { color: #cbd7e7; font-size: .76rem; white-space: nowrap; }
