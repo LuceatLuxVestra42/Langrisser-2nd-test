@@ -375,6 +375,9 @@ jobs:
       - name: Test General SSR Equipment identity
         run: node tools/test-general-ssr-equipment-identity.mjs
 
+      - name: Test General SSR Equipment increment screening boundaries
+        run: node tools/test-general-ssr-equipment-increment.mjs
+
       - name: Generate approved General SSR public consumer
         run: node tools/generate.mjs
 
