@@ -1,8 +1,41 @@
+import { createHash } from 'node:crypto';
+
 // Candidate screening only. No outcome grants admission or publication.
 // Authenticity, semantic interpretation and independence require human review.
 const id = n => Number.isSafeInteger(n) && n > 0;
 const text = s => typeof s === 'string' && s.trim().length > 0;
 const requireCondition = (condition, code) => { if (!condition) throw new Error(code); };
+
+// This anchor is limited to the historical EquipmentInfo file at one pinned
+// predecessor commit. It does not authenticate a future snapshot or classify
+// new equipment. Its values are bound to the existing identity evidence and
+// independently checked Git object bytes for this exact path.
+const PINNED_EQUIPMENT_INFO = Object.freeze({
+  sourceRepository: 'LuceatLuxVestra42/langrisser-future-guide',
+  sourceIdentityEvidence: 'evidence/exclusive-equipment-identity.v1.json#claims.claimA.provenance',
+  sourcePackContract: 'data/contracts/configdata-source-pack-contract.v1.json#authoritativePredecessor',
+  sourceFamily: 'UNITYDATATOOL_PARSED_CONFIGDATA',
+  sourceCommit: '6475e63ee23d18adf733756c26a14fa9e3ed662c',
+  commitTreeGitSha1: '08e1e6c2773730e60b258940e31494f68d65f86a',
+  configDataTreeGitSha1: 'b18983f60cb054c2e6e094d64cdb98979211d7fc',
+  snapshot: 'source-configdata-v1-6475e63e',
+  version: '6475e63ee23d18adf733756c26a14fa9e3ed662c',
+  logicalPath: 'data/configdata/ConfigDataEquipmentInfo.json',
+  gitBlobSha1: '353c4f00b44a2ba0f8eb32dd03a76c3224635d04',
+  anchorLocator: 'git-blob:6475e63ee23d18adf733756c26a14fa9e3ed662c:data/configdata/ConfigDataEquipmentInfo.json#353c4f00b44a2ba0f8eb32dd03a76c3224635d04',
+  fileSha256: 'b4e4a27c68a7038c1b282140b82a634c9d18c348f79b9e6d411840c7ffe54e70',
+  byteLength: 1343806,
+  parser: 'configdata-json-array-v1',
+  transformation: 'copy-ID-SkillHero-GetPathList',
+  scope: 'pinned EquipmentInfo source-file identity and direct record-field comparison only',
+  limitations: 'PathType=46 is a preserved selector in this pinned scope; its future semantic meaning and future snapshots are not authenticated',
+  semanticDependency: 'existing exclusive-equipment identity evidence; semantic reuse remains claim-scoped',
+});
+
+function gitBlobSha1(bytes) {
+  const header = Buffer.from(`blob ${bytes.length}\0`, 'ascii');
+  return createHash('sha1').update(Buffer.concat([header, bytes])).digest('hex');
+}
 
 /** Baselines must first pass their existing owning validators. Inputs are read only.
  * Source records are caller-supplied: matching their values does not authenticate them.
@@ -68,7 +101,6 @@ export function screenExclusiveEquipmentIncrement({ heroes, equipment, relations
  * The pinned predecessor uses a top-level JSON array. Future formats are not assumed.
  */
 export async function verifyExclusiveEquipmentSnapshot({ candidate, snapshotBytes, manifest }) {
-  const { createHash } = await import('node:crypto');
   requireCondition(candidate && candidate.evidence && manifest, 'INVALID_SOURCE_INPUT');
   const e = candidate.evidence;
   requireCondition(text(manifest.snapshot) && text(manifest.version) && text(manifest.sourceFamily) && text(manifest.locator) && text(manifest.sha256), 'MISSING_SNAPSHOT_IDENTITY');
@@ -109,4 +141,80 @@ export async function verifyExclusiveEquipmentSnapshot({ candidate, snapshotByte
   };
   for (const node of graph.keys()) visit(node);
   return { verificationScope: manifest.kind === 'fixture' ? 'FIXTURE_ONLY' : 'EXTERNAL_UNATTESTED', snapshotIntegrity: 'PASS_AGAINST_SUPPLIED_MANIFEST', sourceRecord: 'PASS_AGAINST_SUPPLIED_BYTES', selectionPredicate: 'PASS', sourceAuthenticity: 'NOT_VERIFIED', semanticDecision: 'MANUAL_REVIEW', externalDependencies: 'NOT_VERIFIED', admission: 'NOT_APPROVED', publication: 'NOT_APPROVED' };
+}
+
+/**
+ * Bind bytes to the one previously evidenced EquipmentInfo Git blob. Both
+ * sourceIdentity and manifest are caller claims; neither supplies the trusted
+ * values. The fixed anchor above is the only accepted identity for this path.
+ * This performs no live remote Git lookup and cannot authorize future snapshots.
+ */
+export async function verifyPinnedExclusiveEquipmentSnapshot({ candidate, snapshotBytes, sourceIdentity, manifest }) {
+  requireCondition(candidate && candidate.evidence && sourceIdentity && manifest, 'INVALID_PINNED_SOURCE_INPUT');
+  requireCondition(manifest.kind === 'pinned-git-blob', 'PINNED_SOURCE_KIND_REQUIRED');
+
+  const identityKeys = Object.keys(PINNED_EQUIPMENT_INFO).sort();
+  requireCondition(Object.keys(sourceIdentity).sort().join(',') === identityKeys.join(','), 'PINNED_SOURCE_IDENTITY_SHAPE_MISMATCH');
+  for (const key of identityKeys) requireCondition(sourceIdentity[key] === PINNED_EQUIPMENT_INFO[key], `PINNED_SOURCE_${key.toUpperCase()}_MISMATCH`);
+
+  const manifestExpected = {
+    kind: 'pinned-git-blob',
+    sourceFamily: PINNED_EQUIPMENT_INFO.sourceFamily,
+    snapshot: PINNED_EQUIPMENT_INFO.snapshot,
+    version: PINNED_EQUIPMENT_INFO.version,
+    sourceRepository: PINNED_EQUIPMENT_INFO.sourceRepository,
+    sourceIdentityEvidence: PINNED_EQUIPMENT_INFO.sourceIdentityEvidence,
+    sourcePackContract: PINNED_EQUIPMENT_INFO.sourcePackContract,
+    sourceCommit: PINNED_EQUIPMENT_INFO.sourceCommit,
+    commitTreeGitSha1: PINNED_EQUIPMENT_INFO.commitTreeGitSha1,
+    configDataTreeGitSha1: PINNED_EQUIPMENT_INFO.configDataTreeGitSha1,
+    sourcePath: PINNED_EQUIPMENT_INFO.logicalPath,
+    sourceBlobSha1: PINNED_EQUIPMENT_INFO.gitBlobSha1,
+    sha256: PINNED_EQUIPMENT_INFO.fileSha256,
+    byteLength: PINNED_EQUIPMENT_INFO.byteLength,
+    parser: PINNED_EQUIPMENT_INFO.parser,
+    transformation: PINNED_EQUIPMENT_INFO.transformation,
+    scope: PINNED_EQUIPMENT_INFO.scope,
+    limitations: PINNED_EQUIPMENT_INFO.limitations,
+    semanticDependency: PINNED_EQUIPMENT_INFO.semanticDependency,
+    locator: PINNED_EQUIPMENT_INFO.anchorLocator,
+  };
+  requireCondition(Object.keys(manifest).sort().join(',') === Object.keys(manifestExpected).sort().join(','), 'PINNED_MANIFEST_SHAPE_MISMATCH');
+  for (const [key, value] of Object.entries(manifestExpected)) requireCondition(manifest[key] === value, `PINNED_MANIFEST_${key.toUpperCase()}_MISMATCH`);
+
+  requireCondition(Buffer.isBuffer(snapshotBytes), 'MISSING_SNAPSHOT_BYTES');
+  requireCondition(snapshotBytes.length === PINNED_EQUIPMENT_INFO.byteLength, 'PINNED_SOURCE_BYTE_LENGTH_MISMATCH');
+  requireCondition(createHash('sha256').update(snapshotBytes).digest('hex') === PINNED_EQUIPMENT_INFO.fileSha256, 'PINNED_SOURCE_SHA256_MISMATCH');
+  requireCondition(gitBlobSha1(snapshotBytes) === PINNED_EQUIPMENT_INFO.gitBlobSha1, 'PINNED_SOURCE_GIT_BLOB_SHA1_MISMATCH');
+
+  // Reuse the existing record/field and selector contract, but construct its
+  // manifest from the private fixed anchor instead of trusting caller values.
+  const verified = await verifyExclusiveEquipmentSnapshot({
+    candidate,
+    snapshotBytes,
+    manifest: {
+      kind: 'external',
+      sourceFamily: PINNED_EQUIPMENT_INFO.sourceFamily,
+      snapshot: PINNED_EQUIPMENT_INFO.snapshot,
+      version: PINNED_EQUIPMENT_INFO.version,
+      locator: PINNED_EQUIPMENT_INFO.anchorLocator,
+      sha256: PINNED_EQUIPMENT_INFO.fileSha256,
+      parser: PINNED_EQUIPMENT_INFO.parser,
+      transformation: PINNED_EQUIPMENT_INFO.transformation,
+      scope: PINNED_EQUIPMENT_INFO.scope,
+      limitations: PINNED_EQUIPMENT_INFO.limitations,
+      semanticDependency: PINNED_EQUIPMENT_INFO.semanticDependency,
+    },
+  });
+  return {
+    ...verified,
+    verificationScope: 'PINNED_GIT_BLOB_BYTES_ONLY',
+    snapshotIntegrity: 'PASS_AGAINST_PINNED_SOURCE_ANCHOR',
+    pinnedSourceIdentity: 'PASS_FOR_FIXED_ANCHOR_BYTE_IDENTITY',
+    sourceAuthenticity: 'PASS_FOR_PINNED_SOURCE_FILE_BYTES_ONLY',
+    futureSnapshotAuthority: 'NOT_VERIFIED',
+    semanticDecision: 'MANUAL_REVIEW',
+    admission: 'NOT_APPROVED',
+    publication: 'NOT_APPROVED',
+  };
 }
