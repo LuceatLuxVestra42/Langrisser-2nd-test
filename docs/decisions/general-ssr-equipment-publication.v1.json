@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "REVIEW_REQUIRED",
+  "semanticOwner": "canonical/general-ssr-equipment.v1.json",
+  "localizationOwner": "canonical/general-ssr-equipment-localizations-ko.v1.json",
+  "baselineIdSetSha256": "8ebfa88ede242bee1d12527ea66f73f0aa4f2ef50f50eb27cea230e7ed551e68",
+  "surface": "generated/general-ssr-equipment.v1.json public general equipment list and detail",
+  "excludedIds": [265, 266, 267, 268, 288, 289, 290, 291],
+  "proposedRule": "exact reviewed canonical baseline minus excludedIds",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/presentation/equipment-public-admission-correction.v1.json",
+    "blob": "e221735636a72ab80948149bae18e6691954d694",
+    "locator": "excludedEquipmentIds; policy.scope; expectedPublicProjection"
+  },
+  "approval": null,
+  "limitations": "Draft only. Legacy approval is not approval for this repository. No canonical identity or localization change, alias or replacement claim, automatic admission, or automatic publication is authorized."
+}

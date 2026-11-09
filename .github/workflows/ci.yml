@@ -375,6 +375,12 @@ jobs:
       - name: Test General SSR Equipment identity
         run: node tools/test-general-ssr-equipment-identity.mjs
 
+      - name: Validate General SSR publication proposal
+        run: node tools/validate-general-ssr-equipment-publication.mjs
+
+      - name: Test General SSR publication proposal
+        run: node tools/test-general-ssr-equipment-publication.mjs
+
       - name: Validate General SSR Equipment Korean localization
         run: node tools/validate-general-ssr-equipment-ko-localization.mjs
 
