@@ -663,7 +663,7 @@ const equipmentContract = await readJson('evidence/source/equipment/general-ssr-
 const equipmentPublicationDecision = await readJson('docs/decisions/general-ssr-equipment-publication.v1.json');
 const equipmentPublication = validateGeneralSsrPublication({ canonical: equipmentIdentity, localization: equipmentLocalization, contract: equipmentContract, decision: equipmentPublicationDecision });
 const equipmentGeneratedText = await readFile(resolve(root, 'generated/general-ssr-equipment.v1.json'), 'utf8');
-check(equipmentGeneratedText === renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublicationDecision, equipmentContract), 'generated General SSR Equipment consumer is stale or non-deterministic');
+check(equipmentGeneratedText === renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublication), 'generated General SSR Equipment consumer is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
 check(equipmentGenerated.schemaVersion === 1 && Array.isArray(equipmentGenerated.equipment), 'generated General SSR Equipment schema mismatch');

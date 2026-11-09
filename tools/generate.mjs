@@ -3,7 +3,6 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope } from './soldier-training-tech-presentation-contract.mjs';
-import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, renderExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, renderHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
@@ -619,9 +618,13 @@ export function renderJobGlossary(jobLocalization) {
   return `${JSON.stringify({ schemaVersion: 1, jobs }, null, 2)}\n`;
 }
 
-export function renderGeneralSsrEquipment(identities, localizations, decision, contract) {
-  const publication = validateGeneralSsrPublication({ canonical: identities, localization: localizations, contract, decision });
-  if (publication.status !== 'APPROVED') throw new Error('General SSR Equipment public generation requires an approved Publication Decision');
+export function renderGeneralSsrEquipment(identities, localizations, publication) {
+  if (publication?.status !== 'APPROVED' || !Array.isArray(publication.approvedPublicIds)
+    || publication.approvedPublicIds.length !== 198 || new Set(publication.approvedPublicIds).size !== 198) {
+    throw new Error('General SSR Equipment public generation requires a validated approved Publication Decision');
+  }
+  const identityIdSet = new Set(identities.records.map(record => record.id));
+  if (publication.approvedPublicIds.some(id => !identityIdSet.has(id))) throw new Error('Approved public ID is outside the General SSR baseline');
   const approvedIds = new Set(publication.approvedPublicIds);
   if (identities?.schemaVersion !== 1 || !Array.isArray(identities.records)) throw new Error('Unsupported General SSR Equipment identity owner');
   if (localizations?.schemaVersion !== 1 || !Array.isArray(localizations.records)) throw new Error('Unsupported General SSR Equipment localization owner');
@@ -1041,9 +1044,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   const equipmentIdentity = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment.v1.json'), 'utf8'));
   const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
   const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');
-  const equipmentContract = JSON.parse(await readFile(resolve('evidence/source/equipment/general-ssr-equipment-population-contract.v1.json'), 'utf8'));
-  const equipmentPublicationDecision = JSON.parse(await readFile(resolve('docs/decisions/general-ssr-equipment-publication.v1.json'), 'utf8'));
-  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublicationDecision, equipmentContract), 'utf8');
+  const { loadAndValidateGeneralSsrPublicationForGenerator } = await import('./validate-general-ssr-equipment-publication.mjs');
+  const { result: equipmentPublication } = await loadAndValidateGeneralSsrPublicationForGenerator();
+  await writeFile(equipmentOutputPath, renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublication), 'utf8');
   const exclusiveEquipmentIdentity = JSON.parse(await readFile(resolve('canonical/exclusive-equipment.v1.json'), 'utf8'));
   const exclusiveEquipmentLocalization = JSON.parse(await readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json'), 'utf8'));
   const exclusiveEquipmentOutputPath = resolve('generated/exclusive-equipment.v1.json');

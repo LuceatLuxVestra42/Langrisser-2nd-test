@@ -249,7 +249,7 @@ const equipmentPublicationDecision = await readJson('docs/decisions/general-ssr-
 const equipmentPublication = validateGeneralSsrPublication({ canonical: equipmentIdentity, localization: equipmentLocalization, contract: equipmentContract, decision: equipmentPublicationDecision });
 const equipmentGeneratedPath = resolve('generated/general-ssr-equipment.v1.json');
 const equipmentGeneratedText = await readFile(equipmentGeneratedPath, 'utf8');
-if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublicationDecision, equipmentContract)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
+if (equipmentGeneratedText !== renderGeneralSsrEquipment(equipmentIdentity, equipmentLocalization, equipmentPublication)) throw new Error('generated General SSR Equipment is stale or non-deterministic');
 const equipmentGenerated = JSON.parse(equipmentGeneratedText);
 exactKeys(equipmentGenerated, ['schemaVersion', 'equipment'], 'generated General SSR Equipment');
 if (equipmentGenerated.schemaVersion !== 1 || !Array.isArray(equipmentGenerated.equipment)) throw new Error('unsupported General SSR Equipment presentation schema');
