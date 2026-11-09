@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 
 // Candidate screening only. No outcome grants admission or publication.
-// Authenticity, semantic interpretation and independence require human review.
+// Unpinned source authenticity, semantic interpretation and provenance independence require review.
 const id = n => Number.isSafeInteger(n) && n > 0;
 const text = s => typeof s === 'string' && s.trim().length > 0;
 const requireCondition = (condition, code) => { if (!condition) throw new Error(code); };
@@ -211,6 +211,7 @@ export async function verifyPinnedExclusiveEquipmentSnapshot({ candidate, snapsh
     verificationScope: 'PINNED_GIT_BLOB_BYTES_ONLY',
     snapshotIntegrity: 'PASS_AGAINST_PINNED_SOURCE_ANCHOR',
     pinnedSourceIdentity: 'PASS_FOR_FIXED_ANCHOR_BYTE_IDENTITY',
+    sourceRecord: 'PASS_AGAINST_PINNED_SOURCE_BYTES',
     sourceAuthenticity: 'PASS_FOR_PINNED_SOURCE_FILE_BYTES_ONLY',
     futureSnapshotAuthority: 'NOT_VERIFIED',
     semanticDecision: 'MANUAL_REVIEW',

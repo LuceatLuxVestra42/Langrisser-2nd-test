@@ -185,7 +185,7 @@ if (pinnedSourceBytes) {
   assert.equal(bound.verificationScope, 'PINNED_GIT_BLOB_BYTES_ONLY');
   assert.equal(bound.snapshotIntegrity, 'PASS_AGAINST_PINNED_SOURCE_ANCHOR');
   assert.equal(bound.pinnedSourceIdentity, 'PASS_FOR_FIXED_ANCHOR_BYTE_IDENTITY');
-  assert.equal(bound.sourceRecord, 'PASS_AGAINST_SUPPLIED_BYTES');
+  assert.equal(bound.sourceRecord, 'PASS_AGAINST_PINNED_SOURCE_BYTES');
   assert.equal(bound.sourceAuthenticity, 'PASS_FOR_PINNED_SOURCE_FILE_BYTES_ONLY');
   assert.equal(bound.futureSnapshotAuthority, 'NOT_VERIFIED');
   assert.equal(bound.semanticDecision, 'MANUAL_REVIEW');
