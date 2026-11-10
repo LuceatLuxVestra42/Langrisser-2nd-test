@@ -48,7 +48,12 @@
       "spIdField": "ID"
     }
   },
-  "currentRegression": {
+  "knownLimitations": [
+    "This manifest is scoped to the currently admitted canonical claims and must not be used as a future completeness or admission engine.",
+    "Source-kind interpretation is defined by the current-native Hero-Soldier source-semantics artifact.",
+    "The preserved baseline counts and record digest protect the pre-Hero-15 canonical set; they are not source-population claims."
+  ],
+  "preservedBaselineRegression": {
     "relationCount": 379,
     "provenanceCount": 380,
     "sourceKindCounts": {
@@ -63,11 +68,7 @@
         "soldierId": 5423,
         "provenanceCount": 2
       }
-    ]
-  },
-  "knownLimitations": [
-    "This manifest is scoped to the currently admitted canonical claims and must not be used as a future completeness or admission engine.",
-    "Source-kind interpretation is defined by the current-native Hero-Soldier source-semantics artifact.",
-    "The current regression counts are validation targets for the admitted canonical state, not source population claims."
-  ]
+    ],
+    "baselineRecordsSha256": "61ea23215c88306ef9cc842477afc36e6e52ab808aaccead27fe0c01045be974"
+  }
 }
