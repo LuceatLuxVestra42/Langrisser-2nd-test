@@ -5,7 +5,7 @@ const input = await loadProductionKoLocalizationInputs();
 const result = validateProductionKoLocalization(input);
 assert.deepEqual(result.localizedIds, [3, 4, 5, 6, 7, 8]);
 assert.equal(result.identityCount, 6);
-assert.equal(result.relationCount, 29);
+assert.equal(result.relationCount, 30);
 assert.equal(result.presentationRelationCount, 29);
 
 const missingAdmittedHeroRelation = structuredClone(input);
