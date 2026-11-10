@@ -134,11 +134,38 @@ const restores = [];
 try {
   const before = await snapshotDirectory(repo);
   expectSuccess(run(sourceValidator), 'clean SP Hero reward source validator', /SP Hero reward source evidence: PASS/);
-  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /Hero-Soldier direct-source validation: PASS/);
+  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /386 admitted relations; 387 admitted provenance; 7 deferred SP candidates/);
   const after = await snapshotDirectory(repo);
   if (after !== before) throw new Error('Hero-Soldier validators mutated repository content');
 
-  let restore = await editJson(canonicalPath, (doc) => { doc.records.splice(0, 1); });
+  let restore = await editJson(canonicalPath, (doc) => {
+    doc.records = doc.records.filter((row) => !(row.heroId === 15 && row.soldierId === 210));
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'missing Hero 15 NORMAL admission', /Hero 15 Canonical NORMAL admission set drift/); await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => {
+    const row = structuredClone(doc.records.find((item) => item.heroId === 1 && item.soldierId === 5210));
+    row.heroId = 15;
+    row.evidencePoolLocator = `${directManifestPath}#heroId=15&soldierId=5210`;
+    row.provenance[0].origin.recordId = 210;
+    row.provenance[0].parentEdge.heroId = 15;
+    row.provenance[0].supportRelation.normalSoldierId = 210;
+    doc.records.push(row);
+    doc.records.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'automatic Hero 15 SP inheritance admission', /deferred Hero 15 SP inheritance candidate was admitted to Canonical/); await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => {
+    doc.records.push({
+      heroId: 15, soldierId: 216, evidenceClass: 'A',
+      evidencePoolLocator: `${directManifestPath}#heroId=15&soldierId=216`,
+      provenance: [{ sourceKind: 'BASE_SOLDIER_HERO', sourceClass: 'DIRECT', origin: { table: 'ConfigDataSoldierInfo', recordId: 216, recordKeyField: 'ID', field: 'GetSoldierHeros_ID' } }],
+    });
+    doc.records.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'NORMAL relation absent from direct source', /Hero 15 Canonical NORMAL admission set drift/); await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => { doc.records.splice(0, 1); });
   restores.push(restore); expectFailure(primaryValidator, 'missing canonical edge', /extra direct-source edges within current admitted target: 1:210/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => {

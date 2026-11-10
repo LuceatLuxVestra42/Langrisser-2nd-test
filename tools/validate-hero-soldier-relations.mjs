@@ -14,10 +14,10 @@ const soldierSourcePath = 'evidence/source/configdata/ConfigDataSoldierInfo.reco
 const spSoldierSourcePath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json';
 const soldierSourceManifestPath = 'evidence/source/configdata/sp-soldier-population.source-manifest.v1.json';
 const sourceSemanticsPath = 'evidence/source/configdata/hero-soldier-source-semantics.v1.json';
-const currentRelationCount = 379;
-const currentProvenanceCount = 380;
+const currentRelationCount = 386;
+const currentProvenanceCount = 387;
 const currentSourceKindCounts = {
-  BASE_SOLDIER_HERO: 170,
+  BASE_SOLDIER_HERO: 177,
   SP_HERO_REWARD: 5,
   SP_SOLDIER_EXPAND: 30,
   SP_SOLDIER_INHERIT: 175,
@@ -69,7 +69,7 @@ export async function validateHeroSoldierRelations() {
   exactKeys(directManifest, [
     'schemaVersion','sourceRole','canonical','generated','productionRuntimeDependency','canonicalTarget',
     'claimScope','locatorFormat','locatorSemantics','sourceSemanticsContract','sources',
-    'currentRegression','knownLimitations'
+    'preservedBaselineRegression','knownLimitations'
   ], 'direct-source provenance manifest');
   check(directManifest.schemaVersion === 1
     && directManifest.sourceRole === 'hero_soldier_direct_source_provenance'
@@ -217,7 +217,10 @@ export async function validateHeroSoldierRelations() {
     previousSoldierId = row.soldierId;
     check(heroIds.has(row.heroId), `canonical pair ${key} references missing Hero endpoint`);
     check(soldierVariant.has(row.soldierId), `canonical pair ${key} references missing Soldier endpoint`);
-    check(row.evidenceClass === 'B', `canonical pair ${key} evidence class drift`);
+    check(row.evidenceClass === 'B' || (row.heroId === 15 && row.evidenceClass === 'A'), `canonical pair ${key} evidence class drift`);
+    if (row.evidenceClass === 'A') {
+      check(row.heroId === 15 && row.provenance.every((item) => item.sourceKind === 'BASE_SOLDIER_HERO' && item.sourceClass === 'DIRECT'), `A-class canonical pair ${key} is outside the approved NORMAL direct-source slice`);
+    }
     check(row.evidencePoolLocator === `${directManifestPath}#heroId=${row.heroId}&soldierId=${row.soldierId}`, `canonical pair ${key} direct-source evidence locator drift`);
     check(Array.isArray(row.provenance) && row.provenance.length > 0, `canonical pair ${key} has no provenance`);
     canonicalByPair.set(key, row);
@@ -295,33 +298,57 @@ export async function validateHeroSoldierRelations() {
   }
 
   const reconstructed = [...byPair.values()].sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
-  const reconstructedByPair = new Map(reconstructed.map((row) => [pairKey(row.heroId, row.soldierId), row]));
-  const missing = [...canonicalByPair.keys()].filter((key) => !reconstructedByPair.has(key));
-  const extra = [...reconstructedByPair.keys()].filter((key) => !canonicalByPair.has(key));
+  const hero15NormalAdmissions = reconstructed.filter((row) => row.heroId === 15
+    && row.provenance.length > 0
+    && row.provenance.every((item) => item.sourceKind === 'BASE_SOLDIER_HERO'));
+  const hero15SpInheritanceCandidates = reconstructed.filter((row) => row.heroId === 15
+    && row.provenance.some((item) => item.sourceKind === 'SP_SOLDIER_INHERIT'));
+  check(hero15NormalAdmissions.length === 7, `expected seven source-supported Hero 15 NORMAL admissions; found ${hero15NormalAdmissions.length}`);
+  check(isDeepStrictEqual(hero15NormalAdmissions.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 NORMAL source-derived admission set drift');
+  check(hero15SpInheritanceCandidates.length === 7, `expected seven deferred Hero 15 SP inheritance candidates; found ${hero15SpInheritanceCandidates.length}`);
+  check(hero15SpInheritanceCandidates.every((row) => !canonicalByPair.has(pairKey(row.heroId, row.soldierId))), 'deferred Hero 15 SP inheritance candidate was admitted to Canonical');
+
+  const admittedReconstructed = reconstructed.filter((row) => !hero15SpInheritanceCandidates.includes(row));
+  const admittedByPair = new Map(admittedReconstructed.map((row) => [pairKey(row.heroId, row.soldierId), row]));
+  const missing = [...canonicalByPair.keys()].filter((key) => !admittedByPair.has(key));
+  const extra = [...admittedByPair.keys()].filter((key) => !canonicalByPair.has(key));
   const provenanceMismatches = [];
   for (const [key, canonicalRow] of canonicalByPair) {
-    const sourceRow = reconstructedByPair.get(key);
+    const sourceRow = admittedByPair.get(key);
     if (sourceRow && !isDeepStrictEqual(canonicalRow.provenance, sourceRow.provenance)) provenanceMismatches.push(key);
   }
 
-  const provenanceCount = reconstructed.reduce((sum, row) => sum + row.provenance.length, 0);
+  const provenanceCount = admittedReconstructed.reduce((sum, row) => sum + row.provenance.length, 0);
   const sourceKindCounts = { BASE_SOLDIER_HERO: 0, SP_HERO_REWARD: 0, SP_SOLDIER_EXPAND: 0, SP_SOLDIER_INHERIT: 0 };
-  for (const row of reconstructed) for (const provenance of row.provenance) {
+  for (const row of admittedReconstructed) for (const provenance of row.provenance) {
     check(Object.hasOwn(sourceKindCounts, provenance.sourceKind), `unsupported reconstructed source kind ${provenance.sourceKind}`);
     sourceKindCounts[provenance.sourceKind] += 1;
   }
-  const multiProvenance = reconstructed.filter((row) => row.provenance.length > 1);
+  const multiProvenance = admittedReconstructed.filter((row) => row.provenance.length > 1);
+
+  const hero15Canonical = canonical.records.filter((row) => row.heroId === 15);
+  check(isDeepStrictEqual(hero15Canonical.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 Canonical NORMAL admission set drift');
+  check(hero15Canonical.every((row) => row.evidenceClass === 'A' && row.provenance.length === 1 && row.provenance[0].sourceKind === 'BASE_SOLDIER_HERO'), 'Hero 15 Canonical contains a non-NORMAL or unsupported relation');
 
   check(missing.length === 0, `missing canonical-supported edges: ${missing.join(', ') || 'none'}`);
   check(extra.length === 0, `extra direct-source edges within current admitted target: ${extra.join(', ') || 'none'}`);
   check(provenanceMismatches.length === 0, `provenance mismatches: ${provenanceMismatches.join(', ') || 'none'}`);
-  check(reconstructed.length === currentRelationCount && canonical.records.length === currentRelationCount, `current relation count drift: reconstructed=${reconstructed.length}; canonical=${canonical.records.length}`);
+  const priorRecords = canonical.records.filter((row) => row.heroId !== 15);
+  const priorRecordsSha256 = createHash('sha256').update(JSON.stringify(priorRecords)).digest('hex');
+  check(priorRecordsSha256 === directManifest.preservedBaselineRegression.baselineRecordsSha256, 'existing 379 canonical relation Pair/Provenance set changed');
+  check(admittedReconstructed.length === currentRelationCount && canonical.records.length === currentRelationCount, `current relation count drift: reconstructed=${admittedReconstructed.length}; canonical=${canonical.records.length}`);
   check(provenanceCount === currentProvenanceCount, `current provenance count drift: reconstructed=${provenanceCount}`);
-  check(isDeepStrictEqual(sourceKindCounts, currentSourceKindCounts), `current source-kind counts drift: ${JSON.stringify(sourceKindCounts)}`);
-  check(isDeepStrictEqual(directManifest.currentRegression, {
-    relationCount: currentRelationCount,
-    provenanceCount: currentProvenanceCount,
-    sourceKindCounts: currentSourceKindCounts,
+  check(isDeepStrictEqual(sourceKindCounts, currentSourceKindCounts), `admitted source-kind counts drift: ${JSON.stringify(sourceKindCounts)}`);
+  check(isDeepStrictEqual(directManifest.preservedBaselineRegression, {
+    relationCount: 379,
+    provenanceCount: 380,
+    sourceKindCounts: {
+      BASE_SOLDIER_HERO: 170,
+      SP_HERO_REWARD: 5,
+      SP_SOLDIER_EXPAND: 30,
+      SP_SOLDIER_INHERIT: 175,
+    },
+    baselineRecordsSha256: '61ea23215c88306ef9cc842477afc36e6e52ab808aaccead27fe0c01045be974',
     multiProvenanceEdges: [{ heroId: 37, soldierId: 5423, provenanceCount: 2 }],
   }), 'direct-source manifest current regression metadata drift');
   check(multiProvenance.length === 1
@@ -331,9 +358,11 @@ export async function validateHeroSoldierRelations() {
   'current dual-provenance edge regression drift');
 
   return {
-    relationCount: reconstructed.length,
+    relationCount: admittedReconstructed.length,
     provenanceCount,
     sourceKindCounts,
+    deferredSpInheritanceCandidates: hero15SpInheritanceCandidates.length,
+    sourceReconstructionCandidateCount: reconstructed.length,
     missingEdges: missing.length,
     extraEdges: extra.length,
     provenanceMismatches: provenanceMismatches.length,
@@ -344,5 +373,5 @@ export async function validateHeroSoldierRelations() {
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   check(process.argv.slice(2).length === 0, 'Usage: node tools/validate-hero-soldier-relations.mjs');
   const result = await validateHeroSoldierRelations();
-  process.stdout.write(`Hero-Soldier direct-source validation: PASS (${result.relationCount} relations; ${result.provenanceCount} provenance; missing ${result.missingEdges}; extra ${result.extraEdges}; provenance mismatches ${result.provenanceMismatches})\n`);
+  process.stdout.write(`Hero-Soldier direct-source validation: PASS (${result.relationCount} admitted relations; ${result.provenanceCount} admitted provenance; ${result.deferredSpInheritanceCandidates} deferred SP candidates; missing ${result.missingEdges}; extra ${result.extraEdges}; provenance mismatches ${result.provenanceMismatches})\n`);
 }
