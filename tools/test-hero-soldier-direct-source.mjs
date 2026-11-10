@@ -17,6 +17,7 @@ const rewardManifestPath = 'evidence/source/configdata/ConfigDataSPHeroInfo.reco
 const soldierPath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json';
 const spSoldierPath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json';
 const canonicalPath = 'canonical/hero-soldier-relations.v1.json';
+const hero15SpAdmissionPath = 'evidence/source/configdata/hero-soldier-sp-inheritance-hero15.v1.json';
 const sourceValidator = 'tools/validate-sp-hero-reward-source.mjs';
 const primaryValidator = 'tools/validate-hero-soldier-relations.mjs';
 const full = (path) => join(repo, path);
@@ -134,26 +135,50 @@ const restores = [];
 try {
   const before = await snapshotDirectory(repo);
   expectSuccess(run(sourceValidator), 'clean SP Hero reward source validator', /SP Hero reward source evidence: PASS/);
-  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /386 admitted relations; 387 admitted provenance; 7 deferred SP candidates/);
+  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /393 admitted relations; 394 admitted provenance; 7 Hero 15 SP inherited admissions; 0 deferred Hero 15 SP candidates/);
   const after = await snapshotDirectory(repo);
   if (after !== before) throw new Error('Hero-Soldier validators mutated repository content');
 
   let restore = await editJson(canonicalPath, (doc) => {
     doc.records = doc.records.filter((row) => !(row.heroId === 15 && row.soldierId === 210));
   });
-  restores.push(restore); expectFailure(primaryValidator, 'missing Hero 15 NORMAL admission', /Hero 15 Canonical NORMAL admission set drift/); await restore(); restores.pop();
+  restores.push(restore); expectFailure(primaryValidator, 'missing Hero 15 NORMAL admission', /approved NORMAL parent or explicit SP_FORM_LINK/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => {
-    const row = structuredClone(doc.records.find((item) => item.heroId === 1 && item.soldierId === 5210));
-    row.heroId = 15;
-    row.evidencePoolLocator = `${directManifestPath}#heroId=15&soldierId=5210`;
-    row.provenance[0].origin.recordId = 210;
-    row.provenance[0].parentEdge.heroId = 15;
-    row.provenance[0].supportRelation.normalSoldierId = 210;
+    const row = structuredClone(doc.records.find((item) => item.heroId === 15 && item.soldierId === 5210));
+    row.soldierId = 5216;
+    row.evidencePoolLocator = `${directManifestPath}#heroId=15&soldierId=5216`;
+    row.provenance[0].origin.recordId = 216;
+    row.provenance[0].parentEdge.soldierId = 216;
+    row.provenance[0].supportRelation.recordId = 5216;
+    row.provenance[0].supportRelation.normalSoldierId = 216;
+    row.provenance[0].supportRelation.spSoldierId = 5216;
     doc.records.push(row);
     doc.records.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
   });
-  restores.push(restore); expectFailure(primaryValidator, 'automatic Hero 15 SP inheritance admission', /deferred Hero 15 SP inheritance candidate was admitted to Canonical/); await restore(); restores.pop();
+  restores.push(restore); expectFailure(primaryValidator, 'unapproved Hero 15 SP inheritance admission', /Hero 15 Canonical SP admission set drift/); await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => {
+    doc.records = doc.records.filter((row) => !(row.heroId === 15 && row.soldierId === 5210));
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'missing Hero 15 SP inherited admission', /Hero 15 SP canonical admission or complete parent\/support provenance drift/); await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => {
+    const row = doc.records.find((item) => item.heroId === 15 && item.soldierId === 5210);
+    row.evidenceClass = 'A';
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'SP derived evidence promoted to direct A class', /A-class canonical pair 15:5210 is outside the approved NORMAL direct-source slice/); await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => {
+    const row = doc.records.find((item) => item.heroId === 15 && item.soldierId === 5210);
+    row.provenance[0].supportRelation.normalSoldierId = 326;
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'SP_FORM_LINK support endpoint mismatch', /complete parent\/support provenance drift: 15:5210/); await restore(); restores.pop();
+
+  restore = await editJson(hero15SpAdmissionPath, (doc) => {
+    doc.records = doc.records.filter((row) => row.spSoldierId !== 5210);
+  });
+  restores.push(restore); expectFailure(primaryValidator, 'missing claim-scoped SP admission evidence', /Hero 15 SP inherited evidence claim set drift/); await restore(); restores.pop();
 
   restore = await editJson(canonicalPath, (doc) => {
     doc.records.push({

@@ -7,7 +7,7 @@
   "canonicalTarget": "canonical/hero-soldier-relations.v1.json",
   "claimScope": "Current admitted Hero-Soldier relation claims only; this manifest resolves provenance to retained direct source evidence and does not define future relation completeness or admission.",
   "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SoldierID>",
-  "locatorSemantics": "The fragment identifies one current canonical Hero-Soldier claim. Its support is resolved by applying the retained source-kind semantics to the listed pinned ConfigData artifacts; this manifest contains no relation rows and is not a relation population authority.",
+  "locatorSemantics": "The fragment identifies one current canonical Hero-Soldier claim. Its support is resolved by applying the retained source-kind semantics to the listed pinned ConfigData artifacts and, for scoped derived claims, the linked claim-scoped evidence artifact; this manifest contains no relation rows and is not a relation population or admission authority.",
   "sourceSemanticsContract": "evidence/source/configdata/hero-soldier-source-semantics.v1.json",
   "sources": {
     "BASE_SOLDIER_HERO": {
@@ -53,6 +53,15 @@
     "Source-kind interpretation is defined by the current-native Hero-Soldier source-semantics artifact.",
     "The preserved baseline counts and record digest protect the pre-Hero-15 canonical set; they are not source-population claims."
   ],
+  "claimScopedAdmissionEvidence": {
+    "artifactPath": "evidence/source/configdata/hero-soldier-sp-inheritance-hero15.v1.json",
+    "claimType": "hero-soldier-sp-inherited-relations",
+    "evidenceClass": "B",
+    "sourceKind": "SP_SOLDIER_INHERIT",
+    "claimCount": 7,
+    "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SP SoldierID>",
+    "admissionAuthority": false
+  },
   "preservedBaselineRegression": {
     "relationCount": 379,
     "provenanceCount": 380,

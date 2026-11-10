@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-soldier-sp-inherited-relations",
+  "evidenceClass": "B",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claimScope": "Hero 15 relations to the seven SP Soldiers explicitly linked to its admitted NORMAL Soldier relations; this is a claim-scoped provenance record, not an SP population or admission authority.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "sourceVersionStatus": "unknown",
+    "originalPath": "data/configdata/ConfigDataSPSoldierInfo.json",
+    "originalBlobSha1": "93dd784a7de913daa6d72f5df6cf6890a710c58a",
+    "preservedArtifactPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json",
+    "preservedArtifactBlobSha1": "f1d5ba516c38f20d71a07e9f26e565c1ff8e04dd",
+    "sourceManifestPath": "evidence/source/configdata/sp-soldier-population.source-manifest.v1.json"
+  },
+  "parentRelation": {
+    "canonicalPath": "canonical/hero-soldier-relations.v1.json",
+    "sourceKind": "BASE_SOLDIER_HERO",
+    "sourceTable": "ConfigDataSoldierInfo",
+    "sourceField": "GetSoldierHeros_ID",
+    "sourceArtifactPath": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json"
+  },
+  "supportRelation": {
+    "kind": "SP_FORM_LINK",
+    "sourceTable": "ConfigDataSPSoldierInfo",
+    "spKeyField": "ID",
+    "normalField": "NormalSoliderId",
+    "sourceArtifactPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json",
+    "interpretation": "Support-only NORMAL-to-SP form link; it creates no Hero-Soldier relation by itself."
+  },
+  "transformation": {
+    "sourceKind": "SP_SOLDIER_INHERIT",
+    "sourceClass": "DERIVED",
+    "contractPath": "evidence/source/configdata/hero-soldier-source-semantics.v1.json#edgeSourceKinds.SP_SOLDIER_INHERIT",
+    "requiresSupportRelation": "SP_FORM_LINK",
+    "rule": "An SP Soldier inherits an eligible Hero-Soldier relation from its explicit NORMAL parent."
+  },
+  "admissionBasis": {
+    "priorValidatedTransformationClaims": 175,
+    "owningValidator": "tools/validate-hero-soldier-relations.mjs",
+    "priorCanonicalBaseline": {
+      "relationCount": 386,
+      "provenanceCount": 387,
+      "recordsSha256": "fd8a44f3f3ebf6b2d5d1f0a7562b40b1f577e64d7747eb3c2bbacd1356f010ec"
+    },
+    "limitation": "The pinned source-version label remains unknown. These claims are limited to the exact Hero 15 parent relations and SP form links listed here; they do not establish SP population completeness or publication eligibility."
+  },
+  "records": [
+    { "heroId": 15, "normalSoldierId": 210, "spSoldierId": 5210, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=210", "supportLocator": "ConfigDataSPSoldierInfo#ID=5210/NormalSoliderId", "normalValue": 210, "transformation": "SP_SOLDIER_INHERIT" },
+    { "heroId": 15, "normalSoldierId": 326, "spSoldierId": 5326, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=326", "supportLocator": "ConfigDataSPSoldierInfo#ID=5326/NormalSoliderId", "normalValue": 326, "transformation": "SP_SOLDIER_INHERIT" },
+    { "heroId": 15, "normalSoldierId": 602, "spSoldierId": 5602, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=602", "supportLocator": "ConfigDataSPSoldierInfo#ID=5602/NormalSoliderId", "normalValue": 602, "transformation": "SP_SOLDIER_INHERIT" },
+    { "heroId": 15, "normalSoldierId": 621, "spSoldierId": 5621, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=621", "supportLocator": "ConfigDataSPSoldierInfo#ID=5621/NormalSoliderId", "normalValue": 621, "transformation": "SP_SOLDIER_INHERIT" },
+    { "heroId": 15, "normalSoldierId": 802, "spSoldierId": 5802, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=802", "supportLocator": "ConfigDataSPSoldierInfo#ID=5802/NormalSoliderId", "normalValue": 802, "transformation": "SP_SOLDIER_INHERIT" },
+    { "heroId": 15, "normalSoldierId": 811, "spSoldierId": 5811, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=811", "supportLocator": "ConfigDataSPSoldierInfo#ID=5811/NormalSoliderId", "normalValue": 811, "transformation": "SP_SOLDIER_INHERIT" },
+    { "heroId": 15, "normalSoldierId": 815, "spSoldierId": 5815, "evidenceClass": "B", "parentLocator": "canonical/hero-soldier-relations.v1.json#heroId=15&soldierId=815", "supportLocator": "ConfigDataSPSoldierInfo#ID=5815/NormalSoliderId", "normalValue": 815, "transformation": "SP_SOLDIER_INHERIT" }
+  ]
+}
