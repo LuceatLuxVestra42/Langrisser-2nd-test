@@ -1,11 +1,9 @@
 import { readFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 
 const evidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json';
 const soldierEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
-const hero15EvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -18,16 +16,9 @@ const expected = [
   [3198, 293, '秘法延伸', '进入战斗时，魔法伤害提升<color=#DC143C>20%</color>，使用技能时射程提升<color=#DC143C>1</color>。'],
   [3199, 294, '秘法延伸', '进入战斗时，魔法伤害提升<color=#DC143C>30%</color>，使用技能时射程提升<color=#DC143C>1</color>。'],
 ];
-const hero15Expected = [
-  [3212, 307, '圣洁的修女', '行动结束时驱散<color=#DC143C>1</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>1.5</color>倍。'],
-  [3214, 308, '圣洁的修女', '行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2</color>倍。'],
-  [3216, 309, '圣洁的修女', '行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2.5</color>倍。'],
-  [3218, 310, '圣洁的修女', '行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>2</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>3</color>倍。'],
-];
 const expectedIds = expected.map(([id]) => id);
-const hero15ExpectedIds = hero15Expected.map(([id]) => id);
 const soldierSkillIds = [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675,66957,66958,66959,66960,66961,66962,66963,66964,66965,66966,65110,65111,65112,65113,65114,65115,65116,65117,65118,65119];
-const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds];
+const allExpectedIds = [...expectedIds, ...soldierSkillIds];
 const recordIndices = Object.fromEntries(expected.map(([id, index]) => [String(id), index]));
 const sourcePin = {
   repository: 'LuceatLuxVestra42/langrisser-future-guide',
@@ -53,16 +44,14 @@ const sourcePin = {
     archiveBytesVerifiedHere: false,
   },
 };
-const hero15SourcePin = {...sourcePin, sourceIndex: {...sourcePin.sourceIndex, recordIndices: Object.fromEntries(hero15Expected.map(([id,idx])=>[id,idx]))}};
-const prior38RecordsGitBlob = '5a6112db267526037c0e996d24c9df72eb0023cd';
 const check = (condition, code, message) => { if (!condition) throw new Error(`Skill identity validation failed [${code}]: ${message}`); };
 const exactKeys = (value, keys, label) => check(value && typeof value === 'object' && !Array.isArray(value)
   && isDeepStrictEqual(Object.keys(value).sort(), [...keys].sort()), 'SCHEMA', `${label} fields drift`);
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 export async function validateSkillIdentities(root = process.cwd()) {
-  const [evidence, soldierEvidence, canonical, talent, hero15Evidence] = await Promise.all([
-    readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath),
+  const [evidence, soldierEvidence, canonical, talent] = await Promise.all([
+    readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath),
   ]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'extraction', 'records', 'claimEvidence', 'fieldMeaningContract', 'interpretation', 'canonical', 'generated', 'productionRuntimeDependency'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail', 'EVIDENCE', 'Evidence owner identity drift');
@@ -117,49 +106,6 @@ export async function validateSkillIdentities(root = process.cwd()) {
   check(evidence.canonical === false && evidence.generated === false && evidence.productionRuntimeDependency === false,
     'BOUNDARY', 'Evidence must remain non-canonical, non-generated, and outside runtime dependencies');
 
-
-  // Four source-native Hero 15 Skill claims have independent evidence and a separate display/publication boundary.
-  exactKeys(hero15Evidence, ['schemaVersion','responsibility','scope','source','extraction','records','claimEvidence','fieldMeaningContract','interpretation','canonical','generated','publicationApproval','productionRuntimeDependency'], 'Hero15 Evidence');
-  check(hero15Evidence.schemaVersion === 1 && hero15Evidence.responsibility === 'skill-identity-and-source-detail', 'HERO15_EVIDENCE', 'Evidence owner drift');
-  exactKeys(hero15Evidence.scope, ['sourceScope','skillIds','claim','outOfScope'], 'Hero15 Evidence Scope');
-  check(hero15Evidence.scope.sourceScope === evidence.scope.sourceScope && isDeepStrictEqual(hero15Evidence.scope.skillIds, hero15ExpectedIds)
-    && hero15Evidence.scope.claim === 'Four distinct Hero 15 SkillInfo IDs with exact Chinese Name/Desc source strings.'
-    && isDeepStrictEqual(hero15Evidence.scope.outOfScope, [...evidence.scope.outOfScope,'Hero 15 Talent relation changes','Hero 15 Talent localization/publication']),
-    'HERO15_SCOPE', 'Hero15 admission scope changed');
-  exactKeys(hero15Evidence.source, Object.keys(hero15SourcePin), 'Hero15 Source Pin');
-  check(isDeepStrictEqual(hero15Evidence.source,hero15SourcePin), 'HERO15_SOURCE_PIN','Source commit/blob/hash/index changed');
-  exactKeys(hero15Evidence.extraction,['selection','verification','digestSha256RecomputedThisAdmission','indexIsLocatorOnly'],'Hero15 Extraction');
-  check(hero15Evidence.extraction.selection === 'Read exact top-level array indices 307-310, preserving only ID/Name/Desc without markup changes.'
-    && hero15Evidence.extraction.verification === 'Four pinned Git Blob records and array indices checked via GitHub API in task handoff.'
-    && hero15Evidence.extraction.digestSha256RecomputedThisAdmission === false && hero15Evidence.extraction.indexIsLocatorOnly === true,
-    'HERO15_EXTRACTION', 'Extraction or SHA-256 verification scope changed');
-  check(Array.isArray(hero15Evidence.records) && hero15Evidence.records.length === 4,'HERO15_SOURCE_RECORDS','Expected exactly four original records');
-  for (let i=0;i<hero15Expected.length;i+=1) {
-    const [id,idx,name,desc] = hero15Expected[i], row=hero15Evidence.records[i];
-    exactKeys(row,['sourceRecordIndex','sourceRecordLocator','rawRecord','fieldProvenance'],`Hero15 row ${id}`);
-    exactKeys(row.rawRecord,['ID','Name','Desc'],`Hero15 raw ${id}`);
-    exactKeys(row.fieldProvenance,['ID','Name','Desc'],`Hero15 provenance ${id}`);
-    check(row.sourceRecordIndex === idx && row.sourceRecordLocator === `${sourcePin.path}#ID=${id}`
-      && row.rawRecord.ID === id && row.rawRecord.Name === name && row.rawRecord.Desc === desc,
-      'HERO15_SOURCE_RECORDS', `Original ID, index, Name or Desc changed: ${id}`);
-    for(const field of ['ID','Name','Desc']) {
-      check(row.fieldProvenance[field] === `${sourcePin.path}#arrayIndex=${idx}/${field}`,
-        'HERO15_PROVENANCE',`Field locator mismatch: ${id}/${field}`);
-    }
-  }
-  exactKeys(hero15Evidence.claimEvidence,['sourceIdNameAndDescValues','fieldDisplayMeaning','sourceSha256'],'Hero15 Evidence Class');
-  check(hero15Evidence.claimEvidence.sourceIdNameAndDescValues === 'A'
-    && hero15Evidence.claimEvidence.fieldDisplayMeaning === 'B'
-    && hero15Evidence.claimEvidence.sourceSha256 === 'REUSED_NOT_RECOMPUTED',
-    'HERO15_EVIDENCE_CLASS', 'Evidence class or digest provenance changed');
-  check(isDeepStrictEqual(hero15Evidence.fieldMeaningContract,evidence.fieldMeaningContract),
-    'HERO15_FIELD_CONTRACT','Field meaning contract changed');
-  check(isDeepStrictEqual(hero15Evidence.interpretation,evidence.interpretation),
-    'HERO15_INTERPRETATION','Original Chinese text interpretation changed');
-  check(hero15Evidence.canonical === false && hero15Evidence.generated === false
-    && hero15Evidence.publicationApproval === false && hero15Evidence.productionRuntimeDependency === false,
-    'HERO15_BOUNDARY','Source evidence cannot approve Canonical/publication/runtime');
-
   check(soldierEvidence.schemaVersion === 1
     && soldierEvidence.source?.repository === sourcePin.repository
     && soldierEvidence.source?.commit === sourcePin.commit
@@ -183,7 +129,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
     && canonical.scope === 'Selected source-native Skill identity subset: pinned Hero Talent identities and 30 explicitly selected SkillInfo records; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 42 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 38 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -199,24 +145,8 @@ export async function validateSkillIdentities(root = process.cwd()) {
       && record.provenance.description === `${locator}/Desc`, 'PROVENANCE', `Canonical Skill ${id} has an incorrect field locator`);
     canonicalIds.push(record.skillId);
   }
-
-  for(let i=0;i<hero15Expected.length;i+=1) {
-    const [id,,name,desc]=hero15Expected[i], row=canonical.records[expected.length+i], evidenceRow=hero15Evidence.records[i];
-    exactKeys(row,['skillId','nameCn','descriptionCn','provenance'],`Canonical Hero15 Skill ${id}`);
-    exactKeys(row.provenance,['identity','name','description'],`Hero15 Skill ${id} provenance`);
-    check(row.skillId===id && Number.isSafeInteger(row.skillId)
-      && row.nameCn===name && row.descriptionCn===desc
-      && row.nameCn===evidenceRow.rawRecord.Name && row.descriptionCn===evidenceRow.rawRecord.Desc,
-      'CANONICAL',`SkillInfo ${id} ID/Name/Desc parity broken`);
-    const locator=`${hero15EvidencePath}#ID=${id}`;
-    check(row.provenance.identity===locator && row.provenance.name===`${locator}/Name`
-      && row.provenance.description===`${locator}/Desc`,
-      'PROVENANCE',`Hero15 SkillInfo ${id} field provenance broken`);
-    canonicalIds.push(row.skillId);
-  }
-
   for (let i = 0; i < soldierSkillIds.length; i += 1) {
-    const id = soldierSkillIds[i], evidenceRow = soldierEvidence.records[i], record = canonical.records[expected.length + hero15Expected.length + i];
+    const id = soldierSkillIds[i], evidenceRow = soldierEvidence.records[i], record = canonical.records[expected.length + i];
     exactKeys(record, ['skillId', 'nameCn', 'descriptionCn', 'provenance'], `Canonical Skill ${id}`);
     exactKeys(record.provenance, ['identity', 'name', 'description'], `Canonical Skill ${id} provenance`);
     check(record.skillId === id && Number.isSafeInteger(record.skillId)
@@ -231,21 +161,12 @@ export async function validateSkillIdentities(root = process.cwd()) {
   }
   check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from the 8 existing and 30 admitted IDs');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId)));
-  const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
-  check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
   exactKeys(talent, ['schemaVersion', 'scope', 'records'], 'Talent reference owner');
   check(Array.isArray(talent.records), 'TALENT_PARITY', 'Talent reference records are missing');
   const talentSkillIds = talent.records.map((row) => row.skillId).filter((id) => expectedIds.includes(id)).sort((a, b) => a - b);
   check(isDeepStrictEqual(talentSkillIds, [...expectedIds].sort((a, b) => a - b)), 'TALENT_PARITY', 'Existing Hero 6/8 Talent Skill references are not preserved exactly once');
-  const expectedTalentRows=[
-    ...expectedIds.map((skillId,i)=>[i<4?6:8,(i%4)+3,skillId]),
-    ...hero15ExpectedIds.map((skillId,i)=>[15,i+3,skillId]),
-  ];
-  check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
-    'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; preserved=38; newHero15=4; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; existing Hero Talent identities=8; selected SkillInfo identities=30; canonical claims=ID/Name/Desc only)`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

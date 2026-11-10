@@ -84,46 +84,6 @@
       }
     },
     {
-      "skillId": 3212,
-      "nameCn": "圣洁的修女",
-      "descriptionCn": "行动结束时驱散<color=#DC143C>1</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>1.5</color>倍。",
-      "provenance": {
-        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3212",
-        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3212/Name",
-        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3212/Desc"
-      }
-    },
-    {
-      "skillId": 3214,
-      "nameCn": "圣洁的修女",
-      "descriptionCn": "行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2</color>倍。",
-      "provenance": {
-        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3214",
-        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3214/Name",
-        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3214/Desc"
-      }
-    },
-    {
-      "skillId": 3216,
-      "nameCn": "圣洁的修女",
-      "descriptionCn": "行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2.5</color>倍。",
-      "provenance": {
-        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3216",
-        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3216/Name",
-        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3216/Desc"
-      }
-    },
-    {
-      "skillId": 3218,
-      "nameCn": "圣洁的修女",
-      "descriptionCn": "行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>2</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>3</color>倍。",
-      "provenance": {
-        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3218",
-        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3218/Name",
-        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID=3218/Desc"
-      }
-    },
-    {
       "skillId": 60666,
       "nameCn": "近卫枪兵Lv1",
       "descriptionCn": "士兵生命低于<color=#DC143C>70%</color>时，攻击提升<color=#DC143C>15%</color>。",
