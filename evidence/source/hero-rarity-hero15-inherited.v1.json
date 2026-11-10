@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-rarity",
+  "evidenceClass": "B",
+  "scope": {
+    "heroIds": [
+      15
+    ],
+    "sourceScope": "CN ConfigData snapshot 2026-09-02"
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "blobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "recordLocator": "ConfigDataHeroInfo#ID=15/Rank",
+    "sourceField": "Rank"
+  },
+  "legacyValidation": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/validation/hero-page-stage5-5-2-rarity.v1.json",
+    "blobSha1": "a572b97addde3a70a2fc4b08758819eef3b10866",
+    "status": "PASS",
+    "scope": "267 canonical Heroes; Hero 15 result is recorded at heroes[heroId=15].rank",
+    "recordLocator": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=15]",
+    "analyzer": {
+      "path": "scripts/analyze_hero_rarity.cjs",
+      "blobSha1": "29fd399b427b60d4093e75c000c1b7a57de30bb7",
+      "identityJoin": "Legacy canonical heroId -> ConfigDataHeroInfo.ID",
+      "valueRead": "ConfigDataHeroInfo.Rank"
+    }
+  },
+  "rankDefinition": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataRankInfo.json",
+    "blobSha1": "c8a5bb9ece5e3d2869075da68c98f5e3e88f3c0b",
+    "recordLocator": "ConfigDataRankInfo#ID=4/Desc",
+    "value": "SSR"
+  },
+  "sourceContinuity": {
+    "lastHeroInfoContentChange": {
+      "commit": "7af1ac562aa3a0c340c42fde2e4a0f588ff82e03",
+      "date": "2026-08-24T14:07:37Z"
+    },
+    "validationArtifactRecorded": {
+      "commits": [
+        "1eb857f3d971fca07d9cb172725ac5bfe369dfe7",
+        "5de42abb8ea9f68b645bc7395a7eb8f6bc49199b"
+      ],
+      "dates": [
+        "2026-08-25T10:53:20Z",
+        "2026-08-25T10:56:20Z"
+      ]
+    },
+    "pinnedSnapshot": {
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "date": "2026-09-02T01:45:21Z",
+      "heroInfoBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "nextHeroInfoPathChange": {
+      "commit": "d57b5afc8147ba607e9d7d4826521d76895ab15c",
+      "date": "2026-09-02T11:51:03Z"
+    }
+  },
+  "records": [
+    {
+      "heroId": 15,
+      "rank": 4,
+      "rarity": "SSR",
+      "sourceLocator": "data/configdata/ConfigDataHeroInfo.json#[ID=15].Rank",
+      "validationLocator": "data/validation/hero-page-stage5-5-2-rarity.v1.json#heroes[heroId=15].rank",
+      "evidenceClass": "B"
+    }
+  ],
+  "transformation": "ConfigDataHeroInfo.Rank=4 -> RankInfo.ID=4/Desc=SSR; Star remains a separate star-count field.",
+  "limitations": [
+    "The legacy validation output does not embed the input HeroInfo blob SHA; path-history continuity supports the pinned snapshot link but does not prove the exact historical process input bytes.",
+    "The HeroInfo raw bytes were not re-downloaded or re-parsed for this admission.",
+    "Evidence supports only Hero 15 base Rarity in the pinned CN snapshot; it does not approve publication, Full Detail membership, summon/banner classification, or other Hero claims."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}

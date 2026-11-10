@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-production-relation",
+  "evidenceClass": "B",
+  "projection": true,
+  "scope": {
+    "heroIds": [
+      15
+    ],
+    "productionIds": [
+      5
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceTree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sourcePack": {
+      "releaseTag": "source-configdata-v1-6475e63e",
+      "releaseId": 380931071,
+      "archiveSha256": "65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84",
+      "inventorySha256": "ea7c6381e0901a55fe11014d14bb82862d9474c418e89d11869e03ba876dcade",
+      "checksumsSha256": "be81655d43cacbb31fd55d4c64f0cdb46a47953b8247eea1b600025719a56be2"
+    },
+    "byteLength": 16894185,
+    "fileSha256": null,
+    "fileSha256Status": "NOT_DIRECTLY_RETRIEVED"
+  },
+  "semantics": {
+    "heroIdField": "ID",
+    "relationField": "HeroBelongProduction",
+    "valueType": "integer[]",
+    "meaning": "Hero origin / Production relation",
+    "nameClaimIsSeparate": true
+  },
+  "legacyValidation": {
+    "repositoryHead": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "originArtifact": {
+      "path": "data/validation/hero-page-stage5-5-2-origin.v1.json",
+      "blobSha1": "ea119a55f2aaf42713c9ec196bcb5fc0e322b902",
+      "status": "PASS",
+      "recordLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=15]/productionId",
+      "value": 5
+    },
+    "sourceTrace": {
+      "path": "data/validation/hero-page-stage5-5-2-source-trace.v1.json",
+      "blobSha1": "84dc6c6b895120ec992d3fbf7ff70cdd62272de9",
+      "status": "PASS_WITH_DATA_GAPS",
+      "originFieldStatus": "SOURCE_DICTIONARY_CONFIRMED",
+      "originField": "ConfigDataHeroInfo.HeroBelongProduction"
+    },
+    "sourcePackHydration": {
+      "path": "data/validation/configdata-source-pack-b2-hydration.v1.json",
+      "blobSha1": "61c759bf4aaeb162dc49c9e905f33cf73cebb9b1",
+      "status": "PASS",
+      "perFileSha256AndSizeVerified": true,
+      "trackedSourceByteParityVerified": true
+    },
+    "rawHeroInfoReparsedInThisChange": false
+  },
+  "records": [
+    {
+      "heroId": 15,
+      "recordId": 15,
+      "field": "HeroBelongProduction",
+      "projectedArray": [
+        5
+      ],
+      "directRawRecordRead": false,
+      "legacyLocator": "data/validation/hero-page-stage5-5-2-origin.v1.json#heroes[heroId=15]/productionId",
+      "evidenceClass": "B",
+      "canonicalAdmission": "ADMITTED"
+    }
+  ],
+  "limitations": [
+    "This ID-specific relation claim is inherited from the pinned Legacy origin validation and hydrated Source-pack contract; the ConfigDataHeroInfo row was not re-downloaded or re-parsed for this admission.",
+    "The source artifact supports the Hero-to-Production relation only; it does not establish Production name or Korean localization.",
+    "The relation claim does not imply Full Detail eligibility, Generated expansion, or Publication approval."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}

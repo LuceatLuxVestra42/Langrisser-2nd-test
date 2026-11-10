@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Explicit Hero-to-Production origin relations supported by the admitted evidence scope (29 Hero endpoints / 29 relations); independent of the seven-Hero presentation population and not a completeness claim beyond this evidence.",
+  "scope": "Explicit Hero-to-Production origin relations supported by the admitted evidence scope (30 Hero endpoints / 30 relations); independent of Full Detail and not a completeness claim beyond this evidence.",
   "sourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json",
   "relationField": "HeroBelongProduction",
   "records": [
@@ -148,7 +148,13 @@
       "heroId": 67,
       "productionId": 8,
       "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json#records/heroId=67"
+    },
+    {
+      "heroId": 15,
+      "productionId": 5,
+      "provenance": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-hero15.v1.json#records/heroId=15"
     }
   ],
-  "inheritedSourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json"
+  "inheritedSourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json",
+  "additionalInheritedSourceEvidence": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-hero15.v1.json"
 }

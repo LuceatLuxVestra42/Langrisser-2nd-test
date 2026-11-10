@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Explicit CN ConfigData Hero-to-Faction memberships for the 29 Heroes covered by the cited source evidence; Canonical admission is limited to the exact evidence-backed relation set and does not imply Presentation eligibility.",
+  "scope": "Explicit CN ConfigData Hero-to-Faction memberships for the 29 existing presentation-slice Heroes plus independently admitted Hero 15 claims; exactly 30 Hero endpoints / 74 evidence-backed edges, without implying Full Detail or Publication eligibility.",
   "sourceEvidence": "evidence/source/hero-faction.v1.json",
   "membershipField": "RelatedHeros_ID",
   "records": [
@@ -358,6 +358,22 @@
       "heroId": 40,
       "factionId": 3,
       "provenance": "evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=40"
+    },
+    {
+      "heroId": 15,
+      "factionId": 1,
+      "provenance": "evidence/source/hero-faction-hero15.v1.json#heroId=15&factionId=1"
+    },
+    {
+      "heroId": 15,
+      "factionId": 2,
+      "provenance": "evidence/source/hero-faction-hero15.v1.json#heroId=15&factionId=2"
+    },
+    {
+      "heroId": 15,
+      "factionId": 6,
+      "provenance": "evidence/source/hero-faction-hero15.v1.json#heroId=15&factionId=6"
     }
-  ]
+  ],
+  "additionalSourceEvidence": "evidence/source/hero-faction-hero15.v1.json"
 }

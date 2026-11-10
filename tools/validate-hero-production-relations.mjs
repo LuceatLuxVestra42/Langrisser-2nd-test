@@ -4,13 +4,15 @@ import { isDeepStrictEqual } from 'node:util';
 
 const evidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.hero-production.v1.json';
 const inheritedPath = 'evidence/source/configdata/ConfigDataHeroInfo.hero-production-inherited.v1.json';
+const hero15InheritedPath = 'evidence/source/configdata/ConfigDataHeroInfo.hero-production-hero15.v1.json';
 const canonicalPath = 'canonical/hero-production-relations.v1.json';
 const heroIdentityPath = 'canonical/hero-identities.v1.json';
 const productionIdentityPath = 'canonical/production-identities.v1.json';
 const directExpected = new Map([[5, 4], [6, 5], [8, 5], [28, 3], [32, 6], [52, 7], [53, 7]]);
 const inheritedExpected = new Map([[1, 3], [3, 3], [4, 3], [7, 5], [9, 4], [10, 4], [11, 4], [12, 5], [13, 5], [14, 5], [25, 6], [26, 6], [27, 6], [29, 6], [33, 6], [37, 6], [40, 6], [55, 7], [56, 7], [60, 8], [67, 8], [89, 3]]);
 const admittedInherited = new Set([...inheritedExpected].filter(([, productionId]) => productionId >= 3 && productionId <= 8).map(([heroId]) => heroId));
-const expected = new Map([...directExpected, ...[...inheritedExpected].filter(([heroId]) => admittedInherited.has(heroId))]);
+const hero15Expected = new Map([[15, 5]]);
+const expected = new Map([...directExpected, ...[...inheritedExpected].filter(([heroId]) => admittedInherited.has(heroId)), ...hero15Expected]);
 const reportPath = 'data/validation/hero-page-stage5-5-2-origin.v1.json';
 const fail = (message) => { throw new Error(`Hero–Production relation validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
@@ -19,8 +21,8 @@ const exactKeys = (value, fields, label) => check(value && typeof value === 'obj
 
 export async function validateHeroProductionRelations(root = process.cwd()) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [evidence, inherited, canonical, heroes, productions] = await Promise.all([
-    readJson(evidencePath), readJson(inheritedPath), readJson(canonicalPath), readJson(heroIdentityPath), readJson(productionIdentityPath),
+  const [evidence, inherited, hero15Inherited, canonical, heroes, productions] = await Promise.all([
+    readJson(evidencePath), readJson(inheritedPath), readJson(hero15InheritedPath), readJson(canonicalPath), readJson(heroIdentityPath), readJson(productionIdentityPath),
   ]);
   check(evidence.schemaVersion === 1 && evidence.claimType === 'hero-production-relation'
     && evidence.evidenceClass === 'B' && evidence.projection === true, 'existing source projection contract drift');
@@ -99,11 +101,12 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
     'This artifact supports Hero-to-Production relation claims only and does not support Production name or localization claims.'
   ]), 'inherited relation limitations drift');
 
-  exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'inheritedSourceEvidence', 'relationField', 'records'], 'Hero–Production canonical');
+  exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'inheritedSourceEvidence', 'additionalInheritedSourceEvidence', 'relationField', 'records'], 'Hero–Production canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceEvidence === evidencePath
     && canonical.inheritedSourceEvidence === inheritedPath
+    && canonical.additionalInheritedSourceEvidence === hero15InheritedPath
     && canonical.relationField === 'HeroBelongProduction'
-    && canonical.scope === 'Explicit Hero-to-Production origin relations supported by the admitted evidence scope (29 Hero endpoints / 29 relations); independent of the seven-Hero presentation population and not a completeness claim beyond this evidence.',
+    && canonical.scope === 'Explicit Hero-to-Production origin relations supported by the admitted evidence scope (30 Hero endpoints / 30 relations); independent of Full Detail and not a completeness claim beyond this evidence.',
   'relation canonical scope or evidence pointer drift');
   exactKeys(heroes, ['schemaVersion', 'scope', 'records'], 'Hero identity owner');
   check(heroes.schemaVersion === 1 && Array.isArray(heroes.records), 'unsupported Hero identity owner');
@@ -147,7 +150,53 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
   check(isDeepStrictEqual([...inheritedByHero.keys()].sort((a,b)=>a-b), [...inheritedExpected.keys()].sort((a,b)=>a-b)), 'inherited relation evidence Hero ID set mismatch');
   for (const [heroId, productionId] of inheritedExpected) check(inheritedByHero.get(heroId) === productionId, `inherited Production pointer drift for Hero ${heroId}`);
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'relation canonical must contain exactly 29 admitted edges');
+
+  exactKeys(hero15Inherited, ['schemaVersion', 'claimType', 'evidenceClass', 'projection', 'scope', 'source', 'semantics', 'legacyValidation', 'records', 'limitations', 'canonical', 'generated', 'productionRuntimeDependency'], 'Hero 15 inherited Production evidence');
+  check(hero15Inherited.schemaVersion === 1 && hero15Inherited.claimType === 'hero-production-relation'
+    && hero15Inherited.evidenceClass === 'B' && hero15Inherited.projection === true
+    && isDeepStrictEqual(hero15Inherited.scope, { heroIds: [15], productionIds: [5] })
+    && hero15Inherited.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && hero15Inherited.source?.sourceCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    && hero15Inherited.source?.sourceTree === 'b18983f60cb054c2e6e094d64cdb98979211d7fc'
+    && hero15Inherited.source?.sourcePath === 'data/configdata/ConfigDataHeroInfo.json'
+    && hero15Inherited.source?.gitBlobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
+    && hero15Inherited.source?.byteLength === 16894185
+    && hero15Inherited.source?.fileSha256 === null
+    && hero15Inherited.source?.fileSha256Status === 'NOT_DIRECTLY_RETRIEVED'
+    && hero15Inherited.source?.sourcePack?.releaseTag === 'source-configdata-v1-6475e63e'
+    && hero15Inherited.source?.sourcePack?.releaseId === 380931071
+    && hero15Inherited.source?.sourcePack?.archiveSha256 === '65855321776cba9523669a2d486c2edbd2908006cf854572b7a87b0b63405c84'
+    && hero15Inherited.source?.sourcePack?.inventorySha256 === 'ea7c6381e0901a55fe11014d14bb82862d9474c418e89d11869e03ba876dcade'
+    && hero15Inherited.source?.sourcePack?.checksumsSha256 === 'be81655d43cacbb31fd55d4c64f0cdb46a47953b8247eea1b600025719a56be2'
+    && hero15Inherited.legacyValidation?.repositoryHead === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+    && hero15Inherited.legacyValidation?.originArtifact?.path === reportPath
+    && hero15Inherited.legacyValidation?.originArtifact?.blobSha1 === 'ea119a55f2aaf42713c9ec196bcb5fc0e322b902'
+    && hero15Inherited.legacyValidation?.originArtifact?.status === 'PASS'
+    && hero15Inherited.legacyValidation?.originArtifact?.recordLocator === `${reportPath}#heroes[heroId=15]/productionId`
+    && hero15Inherited.legacyValidation?.originArtifact?.value === 5
+    && hero15Inherited.legacyValidation?.sourceTrace?.path === 'data/validation/hero-page-stage5-5-2-source-trace.v1.json'
+    && hero15Inherited.legacyValidation?.sourceTrace?.blobSha1 === '84dc6c6b895120ec992d3fbf7ff70cdd62272de9'
+    && hero15Inherited.legacyValidation?.sourceTrace?.status === 'PASS_WITH_DATA_GAPS'
+    && hero15Inherited.legacyValidation?.sourceTrace?.originFieldStatus === 'SOURCE_DICTIONARY_CONFIRMED'
+    && hero15Inherited.legacyValidation?.sourceTrace?.originField === 'ConfigDataHeroInfo.HeroBelongProduction'
+    && hero15Inherited.legacyValidation?.sourcePackHydration?.blobSha1 === '61c759bf4aaeb162dc49c9e905f33cf73cebb9b1'
+    && hero15Inherited.legacyValidation?.sourcePackHydration?.path === 'data/validation/configdata-source-pack-b2-hydration.v1.json'
+    && hero15Inherited.legacyValidation?.sourcePackHydration?.status === 'PASS'
+    && hero15Inherited.legacyValidation?.sourcePackHydration?.perFileSha256AndSizeVerified === true
+    && hero15Inherited.legacyValidation?.sourcePackHydration?.trackedSourceByteParityVerified === true
+    && hero15Inherited.legacyValidation?.rawHeroInfoReparsedInThisChange === false
+    && hero15Inherited.canonical === false && hero15Inherited.generated === false
+    && hero15Inherited.productionRuntimeDependency === false, 'Hero 15 inherited Production Source or Validation chain drift');
+  check(Array.isArray(hero15Inherited.records) && hero15Inherited.records.length === 1
+    && hero15Inherited.records[0]?.heroId === 15 && hero15Inherited.records[0]?.recordId === 15
+    && hero15Inherited.records[0]?.field === 'HeroBelongProduction'
+    && isDeepStrictEqual(hero15Inherited.records[0]?.projectedArray, [5])
+    && hero15Inherited.records[0]?.directRawRecordRead === false
+    && hero15Inherited.records[0]?.evidenceClass === 'B'
+    && hero15Inherited.records[0]?.legacyLocator === `${reportPath}#heroes[heroId=15]/productionId`,
+  'Hero 15 inherited Production claim locator or value drift');
+
+  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, `relation canonical must contain exactly ${expected.size} admitted edges`);
   const seen = new Set();
   const perHero = new Map();
   for (const row of canonical.records) {
@@ -157,21 +206,23 @@ export async function validateHeroProductionRelations(root = process.cwd()) {
     const key = `${row.heroId}:${row.productionId}`;
     check(!seen.has(key), `duplicate relation ${key}`);
     check(expected.get(row.heroId) === row.productionId
-      && (directByHero.get(row.heroId) ?? inheritedByHero.get(row.heroId)) === row.productionId,
+      && (directByHero.get(row.heroId) ?? inheritedByHero.get(row.heroId) ?? (row.heroId === 15 ? hero15Inherited.records[0].projectedArray[0] : undefined)) === row.productionId,
     `canonical relation differs from its ID-specific evidence for ${key}`);
     const expectedProvenance = directExpected.has(row.heroId)
       ? `${evidencePath}#claims/heroId=${row.heroId}`
-      : `${inheritedPath}#records/heroId=${row.heroId}`;
+      : hero15Expected.has(row.heroId)
+        ? `${hero15InheritedPath}#records/heroId=15`
+        : `${inheritedPath}#records/heroId=${row.heroId}`;
     check(row.provenance === expectedProvenance, `relation provenance must point to the correct HeroBelongProduction evidence for Hero ${row.heroId}`);
     seen.add(key);
     perHero.set(row.heroId, (perHero.get(row.heroId) ?? 0) + 1);
   }
-  check(isDeepStrictEqual([...seen].sort(), [...expected].map(([heroId, productionId]) => `${heroId}:${productionId}`).sort()), 'exact 29-edge relation set mismatch');
+  check(isDeepStrictEqual([...seen].sort(), [...expected].map(([heroId, productionId]) => `${heroId}:${productionId}`).sort()), 'exact evidence-backed relation set mismatch');
   for (const heroId of expected.keys()) check(perHero.get(heroId) === 1, `Hero ${heroId} must have one Production relation in this admitted scope`);
   check(canonical.records.some((row) => row.heroId === 60 && row.productionId === 8)
     && canonical.records.some((row) => row.heroId === 67 && row.productionId === 8),
   'Hero 60 and 67 must retain their supported Production ID 8 relations');
-  process.stdout.write('Hero–Production relation validator: PASS (29 admitted edges, all 22 inherited pointers admitted against the six Production identities, identity validation and provenance)\\n');
+  process.stdout.write('Hero–Production relation validator: PASS (30 admitted edges, including independent Hero 15 B claim; Full Detail remains unchanged)\\n');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)) {

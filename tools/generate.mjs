@@ -398,7 +398,11 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.factionId)
       || typeof relation.provenance !== 'string') throw new Error('Hero–Faction relation contains malformed endpoint or provenance');
     if (!heroIdentityIds.has(relation.heroId)) throw new Error(`Hero–Faction relation references unknown Hero identity ${relation.heroId}`);
-    if (relation.provenance !== `evidence/source/hero-faction.v1.json#ID=${relation.factionId}/RelatedHeros_ID&contains=${relation.heroId}`) {
+    const directFactionLocator = `evidence/source/hero-faction.v1.json#ID=${relation.factionId}/RelatedHeros_ID&contains=${relation.heroId}`;
+    const hero15SupplementalLocator = relation.heroId === 15 && [1, 2, 6].includes(relation.factionId)
+      ? `evidence/source/hero-faction-hero15.v1.json#heroId=15&factionId=${relation.factionId}`
+      : null;
+    if (relation.provenance !== directFactionLocator && relation.provenance !== hero15SupplementalLocator) {
       throw new Error(`Hero–Faction relation has unsupported provenance for ${relation.heroId}:${relation.factionId}`);
     }
     if (!factionNameById.has(relation.factionId)) throw new Error(`Hero–Faction relation references unknown Faction ${relation.factionId}`);

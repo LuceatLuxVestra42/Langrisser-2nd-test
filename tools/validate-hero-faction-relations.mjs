@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
 
 const evidencePath = 'evidence/source/hero-faction.v1.json';
+const hero15EvidencePath = 'evidence/source/hero-faction-hero15.v1.json';
 const relationPath = 'canonical/hero-faction-relations.v1.json';
 const heroIdentityPath = 'canonical/hero-identities.v1.json';
 const factionIdentityPath = 'canonical/faction-identities.v1.json';
@@ -55,16 +56,17 @@ const exactKeys = (value, fields, label) => {
 
 export async function validateHeroFactionRelations(root = process.cwd()) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [evidence, canonical, heroes, factions] = await Promise.all([
-    readJson(evidencePath), readJson(relationPath), readJson(heroIdentityPath), readJson(factionIdentityPath),
+  const [evidence, hero15Evidence, canonical, heroes, factions] = await Promise.all([
+    readJson(evidencePath), readJson(hero15EvidencePath), readJson(relationPath), readJson(heroIdentityPath), readJson(factionIdentityPath),
   ]);
   check(evidence.schemaVersion === 1 && evidence.evidenceClass === 'A'
     && evidence.semantics?.membershipField === 'RelatedHeros_ID'
     && evidence.semantics?.excludedField?.name === 'SuperHero_ID', 'membership source must be RelatedHeros_ID; SuperHero_ID is excluded');
-  exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'membershipField', 'records'], 'relation canonical');
+  exactKeys(canonical, ['schemaVersion', 'scope', 'sourceEvidence', 'additionalSourceEvidence', 'membershipField', 'records'], 'relation canonical');
   check(canonical.schemaVersion === 1
-    && canonical.scope === 'Explicit CN ConfigData Hero-to-Faction memberships for the 29 Heroes covered by the cited source evidence; Canonical admission is limited to the exact evidence-backed relation set and does not imply Presentation eligibility.'
+    && canonical.scope === 'Explicit CN ConfigData Hero-to-Faction memberships for the 29 existing presentation-slice Heroes plus independently admitted Hero 15 claims; exactly 30 Hero endpoints / 74 evidence-backed edges, without implying Full Detail or Publication eligibility.'
     && canonical.sourceEvidence === evidencePath
+    && canonical.additionalSourceEvidence === hero15EvidencePath
     && canonical.membershipField === 'RelatedHeros_ID', 'canonical scope or provenance pointer drift');
   exactKeys(heroes, ['schemaVersion', 'scope', 'records'], 'Hero identity owner');
   check(heroes.schemaVersion === 1 && Array.isArray(heroes.records), 'unsupported Hero identity owner');
@@ -92,27 +94,58 @@ export async function validateHeroFactionRelations(root = process.cwd()) {
   }
   const expectedEvidencePairs = new Set([...expectedEvidenceByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId))));
   check(isDeepStrictEqual(sourcePairs, expectedEvidencePairs), 'source RelatedHeros_ID target projection differs from the exact evidence-scoped relation set');
+  exactKeys(hero15Evidence, ['schemaVersion', 'claimType', 'evidenceClass', 'scope', 'source', 'semantics', 'records', 'limitations', 'canonical', 'generated', 'productionRuntimeDependency'], 'Hero 15 Faction evidence');
+  check(hero15Evidence.schemaVersion === 1 && hero15Evidence.claimType === 'hero-faction-membership'
+    && hero15Evidence.evidenceClass === 'A' && isDeepStrictEqual(hero15Evidence.scope, { heroIds: [15], factionIds: [1, 2, 6] })
+    && hero15Evidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && hero15Evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    && hero15Evidence.source?.tree === 'b18983f60cb054c2e6e094d64cdb98979211d7fc'
+    && hero15Evidence.source?.path === 'data/configdata/ConfigDataHeroTagInfo.json'
+    && hero15Evidence.source?.sourceFileSha256 === '545e662920cde9f379ac03e15632e970d8a530bf2821e4dbeddc21d0f4ce4a91'
+    && hero15Evidence.source?.sourceEvidencePath === evidencePath
+    && hero15Evidence.semantics?.heroMembershipField === 'RelatedHeros_ID'
+    && hero15Evidence.semantics?.factionIdentityField === 'ID'
+    && hero15Evidence.semantics?.excludedField === 'SuperHero_ID'
+    && hero15Evidence.canonical === false && hero15Evidence.generated === false
+    && hero15Evidence.productionRuntimeDependency === false, 'Hero 15 Faction evidence source pin, semantics, or boundary drift');
+  const hero15SourcePairs = new Set();
+  for (const claim of hero15Evidence.records) {
+    exactKeys(claim, ['heroId', 'factionId', 'sourceLocator'], 'Hero 15 Faction claim');
+    const source = sourceByFaction.get(claim.factionId);
+    check(claim.heroId === 15 && [1, 2, 6].includes(claim.factionId)
+      && source?.RelatedHeros_ID.includes(15)
+      && claim.sourceLocator === `${evidencePath}#ID=${claim.factionId}/RelatedHeros_ID&contains=15`,
+    `Hero 15 Faction source locator or membership mismatch for ${claim.factionId}`);
+    const key = pairKey(claim.heroId, claim.factionId);
+    check(!hero15SourcePairs.has(key), `duplicate Hero 15 Faction claim ${key}`);
+    hero15SourcePairs.add(key);
+  }
+  check(isDeepStrictEqual([...hero15SourcePairs].sort(), [1, 2, 6].map((id) => pairKey(15, id)).sort()), 'Hero 15 Faction evidence must contain exactly three memberships');
+  const admittedPairs = new Set([...expectedEvidencePairs, ...hero15SourcePairs]);
   const expectedPairs = new Set([...expectedByHero].flatMap(([heroId, factionIdsForHero]) => factionIdsForHero.map((factionId) => pairKey(heroId, factionId))));
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expectedEvidencePairs.size, 'relation count must be exactly 71 for the current evidence-backed Canonical scope');
+  check(Array.isArray(canonical.records) && canonical.records.length === admittedPairs.size, `relation count must be exactly ${admittedPairs.size} for the current evidence-backed Canonical scope`);
   const canonicalPairs = new Set();
   for (const record of canonical.records) {
     exactKeys(record, ['heroId', 'factionId', 'provenance'], `relation ${record.heroId}:${record.factionId}`);
-    check(expectedEvidenceByHero.has(record.heroId), `Hero endpoint ${record.heroId} is out of scope`);
+    check(expectedEvidenceByHero.has(record.heroId) || record.heroId === 15, `Hero endpoint ${record.heroId} is out of scope`);
     check(heroIds.has(record.heroId), `unknown Hero endpoint ${record.heroId}`);
     check(factionIds.has(record.factionId), `unknown Faction endpoint ${record.factionId}`);
     const key = pairKey(record.heroId, record.factionId);
-    check(expectedEvidencePairs.has(key) && !canonicalPairs.has(key), `unexpected or duplicate relation ${key}`);
+    check(admittedPairs.has(key) && !canonicalPairs.has(key), `unexpected or duplicate relation ${key}`);
     const source = sourceByFaction.get(record.factionId);
     check(source.RelatedHeros_ID.includes(record.heroId), `relation ${key} is not present in source RelatedHeros_ID`);
-    check(record.provenance === `${evidencePath}#ID=${record.factionId}/RelatedHeros_ID&contains=${record.heroId}`, `relation source locator drift for ${key}`);
+    const expectedLocator = record.heroId === 15
+      ? `${hero15EvidencePath}#heroId=15&factionId=${record.factionId}`
+      : `${evidencePath}#ID=${record.factionId}/RelatedHeros_ID&contains=${record.heroId}`;
+    check(record.provenance === expectedLocator, `relation source locator drift for ${key}`);
     canonicalPairs.add(key);
   }
-  check(isDeepStrictEqual(canonicalPairs, expectedEvidencePairs), 'canonical relation edge set differs from exact 65-edge evidence-backed set');
+  check(isDeepStrictEqual(canonicalPairs, admittedPairs), 'canonical relation edge set differs from the exact evidence-backed relation set');
   for (const [heroId, factionIdsForHero] of expectedByHero) {
     for (const factionId of factionIdsForHero) check(canonicalPairs.has(pairKey(heroId, factionId)), `visible Hero ${heroId} presentation relation ${factionId} is missing`);
   }
-  process.stdout.write('Hero–Faction relation owner: PASS (29 Canonical Heroes, 71 admitted edges; 29 presentation Heroes)\n');
+  process.stdout.write('Hero–Faction relation owner: PASS (30 Canonical Heroes, 74 admitted edges; 29 presentation Heroes)\n');
 }
 
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
