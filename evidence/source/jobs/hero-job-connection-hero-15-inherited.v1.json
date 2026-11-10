@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "purpose": "Claim-scoped inherited evidence for Hero 15 ordinary Job relations; not a complete Job Tree, Full Detail, Generated, or publication claim.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "snapshotCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "snapshotTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "files": {
+      "ConfigDataHeroInfo.json": { "blobSha1": "728daab3370f0c7779449663ea02e638677944d4", "locator": "ConfigDataHeroInfo#ID=15/JobConnection_ID,UseableJobConnections_ID" },
+      "ConfigDataJobConnectionInfo.json": { "blobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139", "locator": "ConfigDataJobConnectionInfo#ID={150..155}/Job_ID" },
+      "ConfigDataJobInfo.json": { "blobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133", "locator": "ConfigDataJobInfo#ID={703,707,802,803,806,811}" }
+    }
+  },
+  "legacyValidation": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "head": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "contract": { "path": "data/hero-job-stage4-2.v1.json", "blobSha1": "d9936342167fbb926ffdc5c64d35af5b111b258b" },
+    "script": { "path": "scripts/prepare_hero_jobs_stage42.cjs", "blobSha1": "a08fba9e6894aba3edaebe20854ac155a1ac5749" },
+    "summary": { "path": "data/validation/hero-job-stage4-2-summary.v1.json", "blobSha1": "bde65e7990ad610e1379fd53befab24bf536bae9", "status": "PASS", "scope": "267 canonical Heroes" },
+    "generatedClaimArtifact": { "path": "data/generated/hero-job-links.v1.json", "blobSha1": "1ca6d5c5cdf24e7ee1b35670ca92fd1ccae29528", "recordLocator": "records[heroId=15]" },
+    "fieldContract": {
+      "heroInfoId": 2,
+      "primaryJobConnectionId": 32,
+      "useableJobConnectionIds": 33,
+      "jobConnectionId": 2,
+      "jobConnectionJobId": 6,
+      "jobInfoId": 2
+    },
+    "operation": "Resolve explicit HeroInfo.JobConnection_ID and each UseableJobConnections_ID against JobConnectionInfo.ID, then resolve each JobConnectionInfo.Job_ID against JobInfo.ID."
+  },
+  "claims": {
+    "heroFieldToConnection": "B",
+    "connectionToJob": "B",
+    "jobRecordsExist": "A"
+  },
+  "selectedRelations": [
+    { "heroId": 15, "sourceField": "JobConnection_ID", "connectionId": 150, "jobId": 802, "legacyRole": "primary" },
+    { "heroId": 15, "sourceField": "UseableJobConnections_ID", "connectionId": 151, "jobId": 803, "legacyRole": "useable" },
+    { "heroId": 15, "sourceField": "UseableJobConnections_ID", "connectionId": 152, "jobId": 806, "legacyRole": "useable" },
+    { "heroId": 15, "sourceField": "UseableJobConnections_ID", "connectionId": 153, "jobId": 703, "legacyRole": "useable" },
+    { "heroId": 15, "sourceField": "UseableJobConnections_ID", "connectionId": 154, "jobId": 811, "legacyRole": "useable" },
+    { "heroId": 15, "sourceField": "UseableJobConnections_ID", "connectionId": 155, "jobId": 707, "legacyRole": "useable" }
+  ],
+  "jobInfoRecordIdsInspected": [
+    { "ID": 703 },
+    { "ID": 707 },
+    { "ID": 802 },
+    { "ID": 803 },
+    { "ID": 806 },
+    { "ID": 811 }
+  ],
+  "limitations": [
+    "The legacy 4-2 contract and parser define the explicit field joins, and the PASS summary covers 267 Heroes. The Hero 15 generated record supplies the six claim-level join results.",
+    "The HeroInfo and JobConnectionInfo raw record bytes were not directly retrieved in this run; the exact historical execution input blobs are not independently bound to the validation output. Those relation joins are inherited B evidence, not A.",
+    "Only ordinary Hero-to-Job membership is claimed. Job tree order, unlock rules, talent/skill relations, presentation eligibility, and completeness beyond the validated six connections are not separately admitted."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}

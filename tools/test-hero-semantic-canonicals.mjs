@@ -89,8 +89,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic, s
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 205 relations; 181 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 205 relations; 181 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities and the current 205/181 Hero→Job relation counts');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 211 relations; 181 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 211 relations; 181 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities, 211 evidence-backed relations, and 181 Full Detail parity pairs');
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';
@@ -113,6 +113,9 @@ try {
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records[0].jobId = 368; }, 'relation pair mutation', /relation pair\/evidence locator mismatch for 1:368/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records.push({ heroId: 15, jobId: 368, provenance: 'evidence/not-authorized.json#record=1' }); }, 'identity expansion must not expand Hero→Job relations', /relation pair\/evidence locator mismatch for 15:368/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 1 && row.jobId === 262).provenance = 'evidence/wrong.json#record=1'; }, 'relation provenance mismatch', /relation pair\/evidence locator mismatch for 1:262/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 15 && row.jobId === 802).jobId = 803; }, 'Hero 15 inherited relation endpoint mismatch', /relation pair\/evidence locator mismatch for 15:803/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records.find((row) => row.heroId === 15 && row.jobId === 811).provenance = 'evidence/wrong.json#record=1'; }, 'Hero 15 inherited relation provenance mismatch', /relation pair\/evidence locator mismatch for 15:811/);
+  await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 15 && row.jobId === 707)); }, 'missing Hero 15 inherited relation', /Hero→Job relation count differs from the current evidence-backed scope/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 5 && row.jobId === 817)); }, 'missing selected relation', /Hero→Job relation count differs from the current evidence-backed scope/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 6 && row.jobId === 377)); }, 'missing SP relation', /Hero→Job relation count differs from the current evidence-backed scope/);
 
@@ -127,6 +130,18 @@ try {
     'batch 5 explicit connection target corruption', /batch 5 explicit source join mismatch 9:91/);
   await mutateAndExpectFailure(relationPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 89 && row.jobId === 219)); },
     'missing batch 5 relation', /Hero→Job relation count differs from the current evidence-backed scope/);
+
+  const hero15JobPath = 'evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json';
+  await mutateAndExpectFailure(hero15JobPath, (doc) => { doc.claims.heroFieldToConnection = 'A'; },
+    'Hero 15 inherited evidence class boundary corruption', /Hero 15 inherited Job evidence source\/validation boundary drift/);
+  await mutateAndExpectFailure(hero15JobPath, (doc) => { doc.selectedRelations[0].jobId = 999999; },
+    'Hero 15 inherited endpoint claim corruption', /Hero 15 inherited Job claim set drift/);
+  await mutateAndExpectFailure(hero15JobPath, (doc) => { doc.selectedRelations[0].connectionId = 151; },
+    'Hero 15 duplicate source connection claim', /Hero 15 inherited Job claim set drift/);
+  await mutateAndExpectFailure(hero15JobPath, (doc) => { doc.jobInfoRecordIdsInspected[0].ID = 999999; },
+    'Hero 15 missing exact JobInfo endpoint evidence', /Hero 15 pinned JobInfo source record ID set drift/);
+  await mutateAndExpectFailure(hero15JobPath, (doc) => { doc.source.files['ConfigDataJobConnectionInfo.json'].blobSha1 = '0000000000000000000000000000000000000000'; },
+    'Hero 15 source Blob pin corruption', /Hero 15 inherited Job evidence source\/validation boundary drift/);
 
   const selectedPath = 'canonical/heroes.v1.json';
   await mutateAndExpectFailure(selectedPath, (doc) => { doc.records.find((row) => row.id === 5).jobConnections[0].jobId = 999999; }, 'selected-slice parity mutation', /selected slice relation 5:999999 is absent from the general relation owner/);
@@ -191,7 +206,7 @@ try {
   assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
   if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, 30 Hero Rarity claims with independent Hero 15 evidence negatives, current 205 Hero→Job pairs, 181-pair Full Detail parity, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, 30 Hero Rarity claims, 211 Hero→Job relations including six inherited Hero 15 claims, 181-pair Full Detail parity, inherited evidence negatives, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

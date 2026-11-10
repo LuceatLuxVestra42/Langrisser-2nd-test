@@ -373,6 +373,36 @@
       "provenance": "evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=14"
     },
     {
+      "heroId": 15,
+      "jobId": 802,
+      "provenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=150"
+    },
+    {
+      "heroId": 15,
+      "jobId": 803,
+      "provenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=151"
+    },
+    {
+      "heroId": 15,
+      "jobId": 806,
+      "provenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=152"
+    },
+    {
+      "heroId": 15,
+      "jobId": 703,
+      "provenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=153"
+    },
+    {
+      "heroId": 15,
+      "jobId": 811,
+      "provenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=154"
+    },
+    {
+      "heroId": 15,
+      "jobId": 707,
+      "provenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=155"
+    },
+    {
       "heroId": 25,
       "jobId": 102,
       "provenance": "evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json#heroId=25&connectionId=252"
