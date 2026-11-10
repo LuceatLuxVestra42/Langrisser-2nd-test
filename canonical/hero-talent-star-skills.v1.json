@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Inherited B-class Hero normal Talent Skill reference by exact Hero ID and star; admitted Heroes 6 and 8 at stars 3 through 6 only.",
+  "scope": "Inherited B-class Hero normal Talent Skill reference by exact Hero ID and star; admitted Heroes 6, 8 and 15 at stars 3 through 6 only.",
   "records": [
     {
       "heroId": 6,
@@ -49,6 +49,30 @@
       "star": 6,
       "skillId": 3199,
       "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=8&star=6"
+    },
+    {
+      "heroId": 15,
+      "star": 3,
+      "skillId": 3212,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=15&star=3"
+    },
+    {
+      "heroId": 15,
+      "star": 4,
+      "skillId": 3214,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=15&star=4"
+    },
+    {
+      "heroId": 15,
+      "star": 5,
+      "skillId": 3216,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=15&star=5"
+    },
+    {
+      "heroId": 15,
+      "star": 6,
+      "skillId": 3218,
+      "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=15&star=6"
     }
   ]
 }

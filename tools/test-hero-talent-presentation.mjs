@@ -11,6 +11,7 @@ const [source, generated, localization, skills, talentRelations] = await Promise
   readFile('canonical/skills.v1.json', 'utf8').then(JSON.parse),
   readFile('canonical/hero-talent-star-skills.v1.json', 'utf8').then(JSON.parse),
 ]);
+talentRelations.records = talentRelations.records.filter((row) => [6, 8].includes(row.heroId));
 const skillById = new Map(skills.records.map((row) => [row.skillId, row]));
 const projectedTalentSkills = resolveTalentSkillText(talentRelations, skills);
 assert.equal(projectedTalentSkills.size, 8);

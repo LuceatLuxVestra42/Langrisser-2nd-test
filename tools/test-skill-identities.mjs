@@ -72,7 +72,7 @@ try {
   await mutateJson(e, (v) => { v.fieldMeaningContract.gitBlobSha1 = 'wrong'; }, 'wrong field meaning contract pin', /\[FIELD_CONTRACT\]/);
   await mutateJson(e, (v) => { v.claimEvidence.fieldDisplayMeaning = 'A'; }, 'overstated evidence class', /\[EVIDENCE_CLASS\]/);
   await mutateJson(e, (v) => { v.scope.skillIds.push(99999); }, 'out-of-scope ID extension', /\[SCOPE\]/);
-  await mutateJson(t, (v) => { v.records.pop(); }, 'Talent relation parity regression', /\[TALENT_PARITY\]/);
+  await mutateJson(t, (v) => { v.records = v.records.filter((row) => !(row.heroId === 8 && row.star === 6)); }, 'Talent relation parity regression', /\[TALENT_PARITY\]/);
   console.log('Skill identity tests: PASS (normal fixture and 26 negative controls)');
 } finally {
   await rm(temp, { recursive: true, force: true });

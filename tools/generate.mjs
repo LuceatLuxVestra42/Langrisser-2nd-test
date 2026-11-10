@@ -330,7 +330,10 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   const heroIds = new Set(canonical.records.map(({ id }) => id));
   if (talentLocalizations.officialKrProvenanceStatus !== 'unverified') throw new Error('Hero Talent localization official Korean status must remain unverified');
   const talentRelationByKey = new Map();
-  for (const relation of talentRelations.records) {
+  // Hero 15 has semantic admission only; presentation remains restricted to Heroes 6 and 8.
+  if (talentRelations.records.some((row) => ![6, 8, 15].includes(row.heroId))) throw new Error('Unsupported Hero Talent semantic scope');
+  const presentationTalentRelations = { ...talentRelations, records: talentRelations.records.filter((row) => TALENT_HERO_IDS.has(row.heroId)) };
+  for (const relation of presentationTalentRelations.records) {
     const key = `${relation.heroId}:${relation.star}`;
     if (!Number.isSafeInteger(relation.heroId) || !Number.isSafeInteger(relation.star) || !Number.isSafeInteger(relation.skillId)
       || !TALENT_HERO_IDS.has(relation.heroId) || !TALENT_STARS.includes(relation.star) || !heroIds.has(relation.heroId)) {
@@ -339,7 +342,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     if (talentRelationByKey.has(key)) throw new Error(`Duplicate Hero Talent relation ${key}`);
     talentRelationByKey.set(key, relation.skillId);
   }
-  const talentSkillTextByKey = resolveTalentSkillText(talentRelations, skills);
+  const talentSkillTextByKey = resolveTalentSkillText(presentationTalentRelations, skills);
   const talentNameByHeroId = new Map();
   for (const name of talentLocalizations.nameRecords) {
     if (!Number.isSafeInteger(name.heroId) || !TALENT_HERO_IDS.has(name.heroId) || !heroIds.has(name.heroId)
