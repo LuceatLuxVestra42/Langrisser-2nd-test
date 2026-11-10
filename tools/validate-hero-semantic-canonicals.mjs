@@ -27,6 +27,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const hero60EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-hero-60.v1.json';
   const hero4EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-hero-4.v1.json';
   const batch5EvidencePath = 'evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json';
+  const hero15JobEvidencePath = 'evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json';
   const [identities, identityEvidence, identityManifest, relations, selected, classicEvidence, expansionEvidence, expansionHeroes, expansionConnections, expansionJobs, spEvidence, classicJobs, spJobs] = await Promise.all([
     readJson(identityPath),
     readJson(identityEvidencePath),
@@ -48,6 +49,38 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const batch3Evidence = await readJson(batch3EvidencePath);
   const batch4Evidence = await readJson(batch4EvidencePath);
   const batch5Evidence = await readJson(batch5EvidencePath);
+  const hero15JobEvidence = await readJson(hero15JobEvidencePath);
+  check(hero15JobEvidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && hero15JobEvidence.source?.snapshotCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    && hero15JobEvidence.source?.snapshotTree === '08e1e6c2773730e60b258940e31494f68d65f86a'
+    && hero15JobEvidence.source?.files?.['ConfigDataHeroInfo.json']?.blobSha1 === '728daab3370f0c7779449663ea02e638677944d4'
+    && hero15JobEvidence.source?.files?.['ConfigDataJobConnectionInfo.json']?.blobSha1 === 'cdad8d6fda6edd30c92fbcda53e0f63af1903139'
+    && hero15JobEvidence.source?.files?.['ConfigDataJobInfo.json']?.blobSha1 === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133'
+    && hero15JobEvidence.legacyValidation?.head === '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+    && hero15JobEvidence.legacyValidation?.summary?.blobSha1 === 'bde65e7990ad610e1379fd53befab24bf536bae9'
+    && hero15JobEvidence.legacyValidation?.summary?.status === 'PASS'
+    && hero15JobEvidence.legacyValidation?.script?.blobSha1 === 'a08fba9e6894aba3edaebe20854ac155a1ac5749'
+    && hero15JobEvidence.legacyValidation?.generatedClaimArtifact?.blobSha1 === '1ca6d5c5cdf24e7ee1b35670ca92fd1ccae29528'
+    && hero15JobEvidence.claims?.heroFieldToConnection === 'B'
+    && hero15JobEvidence.claims?.connectionToJob === 'B'
+    && hero15JobEvidence.claims?.jobRecordsExist === 'A'
+    && hero15JobEvidence.canonical === false && hero15JobEvidence.generated === false
+    && hero15JobEvidence.productionRuntimeDependency === false,
+  'Hero 15 inherited Job evidence source/validation boundary drift');
+  const hero15ExpectedRelations = [
+    ['JobConnection_ID', 150, 802, 'primary'],
+    ['UseableJobConnections_ID', 151, 803, 'useable'],
+    ['UseableJobConnections_ID', 152, 806, 'useable'],
+    ['UseableJobConnections_ID', 153, 703, 'useable'],
+    ['UseableJobConnections_ID', 154, 811, 'useable'],
+    ['UseableJobConnections_ID', 155, 707, 'useable'],
+  ];
+  check(JSON.stringify(hero15JobEvidence.selectedRelations?.map((row) => [row.sourceField, row.connectionId, row.jobId, row.legacyRole]))
+    === JSON.stringify(hero15ExpectedRelations), 'Hero 15 inherited Job claim set drift');
+  check(JSON.stringify(hero15JobEvidence.jobInfoRecordIdsInspected?.map((row) => row.ID))
+    === JSON.stringify([703, 707, 802, 803, 806, 811]), 'Hero 15 pinned JobInfo source record ID set drift');
+  check(hero15JobEvidence.limitations?.some((item) => item.includes('raw record bytes were not directly retrieved')),
+    'Hero 15 inherited Job raw-source limitation must remain explicit');
   check(batch5Evidence.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
     && batch5Evidence.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
     && JSON.stringify(batch5Evidence.selection?.heroIds) === '[9,29,33,37,40,56,89]'
@@ -553,8 +586,11 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     addExpectedRelation(row.heroId, row.spJobId,
       `evidence/source/jobs/hero-sp-job-relation.v1.json#heroId=${row.heroId}`, 'SP relation evidence');
   }
+  check(expectedRelations.size === 205, 'pre-existing 205 evidence-backed Hero→Job pairs or provenance changed');
+  for (const row of hero15JobEvidence.selectedRelations) addExpectedRelation(row.heroId, row.jobId,
+    `${hero15JobEvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 15 inherited validated relation evidence');
   check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
-  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + hero11Evidence.records.length + hero7Evidence.records.length + hero26Evidence.records.length + hero60Evidence.records.length + hero4Evidence.records.length + batch5Evidence.records.length + spEvidence.records.length, 'current evidence-backed relation scope has duplicate or missing pairs');
+  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + hero11Evidence.records.length + hero7Evidence.records.length + hero26Evidence.records.length + hero60Evidence.records.length + hero4Evidence.records.length + batch5Evidence.records.length + spEvidence.records.length + hero15JobEvidence.selectedRelations.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
   const assertUniqueJobSubset = (rows, label) => {
     const ids = rows.map((row) => row.ID);
@@ -563,7 +599,10 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   assertUniqueJobSubset(classicJobs, 'selected JobInfo evidence');
   assertUniqueJobSubset(expansionJobs, 'expansion JobInfo evidence');
   assertUniqueJobSubset(spJobs, 'SP JobInfo evidence');
-  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo, ...batch3Evidence.inspectedSourceRows.jobInfo, ...batch4Evidence.inspectedSourceRows.jobInfo, ...hero11Evidence.inspectedSourceRows.jobInfo, ...hero7Evidence.inspectedSourceRows.jobInfo, ...hero26Evidence.inspectedSourceRows.jobInfo, ...hero60Evidence.inspectedSourceRows.jobInfo, ...hero4Evidence.inspectedSourceRows.jobInfo, ...batch5Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID));
+  const hero15JobIds = hero15JobEvidence.jobInfoRecordIdsInspected.map((row) => row.ID);
+  check(new Set(hero15JobIds).size === 6 && JSON.stringify([...hero15JobIds].sort((a, b) => a - b)) === '[703,707,802,803,806,811]',
+    'Hero 15 JobInfo evidence must cover its exact six distinct endpoint IDs');
+  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo, ...batch3Evidence.inspectedSourceRows.jobInfo, ...batch4Evidence.inspectedSourceRows.jobInfo, ...hero11Evidence.inspectedSourceRows.jobInfo, ...hero7Evidence.inspectedSourceRows.jobInfo, ...hero26Evidence.inspectedSourceRows.jobInfo, ...hero60Evidence.inspectedSourceRows.jobInfo, ...hero4Evidence.inspectedSourceRows.jobInfo, ...batch5Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID).concat(hero15JobIds));
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
