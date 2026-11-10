@@ -14,14 +14,17 @@ const soldierSourcePath = 'evidence/source/configdata/ConfigDataSoldierInfo.reco
 const spSoldierSourcePath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json';
 const soldierSourceManifestPath = 'evidence/source/configdata/sp-soldier-population.source-manifest.v1.json';
 const sourceSemanticsPath = 'evidence/source/configdata/hero-soldier-source-semantics.v1.json';
-const currentRelationCount = 386;
-const currentProvenanceCount = 387;
+const hero15SpAdmissionPath = 'evidence/source/configdata/hero-soldier-sp-inheritance-hero15.v1.json';
+const currentRelationCount = 393;
+const currentProvenanceCount = 394;
+const preHero15SpBaselineSha256 = 'fd8a44f3f3ebf6b2d5d1f0a7562b40b1f577e64d7747eb3c2bbacd1356f010ec';
 const currentSourceKindCounts = {
   BASE_SOLDIER_HERO: 177,
   SP_HERO_REWARD: 5,
   SP_SOLDIER_EXPAND: 30,
-  SP_SOLDIER_INHERIT: 175,
+  SP_SOLDIER_INHERIT: 182,
 };
+const hero15SpAdmissionPairs = [[15, 5210], [15, 5326], [15, 5602], [15, 5621], [15, 5802], [15, 5811], [15, 5815]];
 const check = (condition, message) => { if (!condition) throw new Error(`Hero-Soldier direct-source validation failed: ${message}`); };
 const readBytes = (path) => readFile(resolve(root, path));
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -51,6 +54,7 @@ export async function validateHeroSoldierRelations() {
     spSoldierSourceDoc,
     soldierSourceManifest,
     sourceSemantics,
+    hero15SpAdmission,
     soldierSourceBytes,
     spSoldierSourceBytes,
   ] = await Promise.all([
@@ -62,6 +66,7 @@ export async function validateHeroSoldierRelations() {
     readJson(spSoldierSourcePath),
     readJson(soldierSourceManifestPath),
     readJson(sourceSemanticsPath),
+    readJson(hero15SpAdmissionPath),
     readBytes(soldierSourcePath),
     readBytes(spSoldierSourcePath),
   ]);
@@ -69,7 +74,7 @@ export async function validateHeroSoldierRelations() {
   exactKeys(directManifest, [
     'schemaVersion','sourceRole','canonical','generated','productionRuntimeDependency','canonicalTarget',
     'claimScope','locatorFormat','locatorSemantics','sourceSemanticsContract','sources',
-    'preservedBaselineRegression','knownLimitations'
+    'preservedBaselineRegression','knownLimitations','claimScopedAdmissionEvidence'
   ], 'direct-source provenance manifest');
   check(directManifest.schemaVersion === 1
     && directManifest.sourceRole === 'hero_soldier_direct_source_provenance'
@@ -81,6 +86,16 @@ export async function validateHeroSoldierRelations() {
   check(directManifest.sourceSemanticsContract === sourceSemanticsPath, 'direct-source semantics contract locator drift');
   check(directManifest.locatorFormat === `${directManifestPath}#heroId=<HeroID>&soldierId=<SoldierID>`, 'direct-source locator format drift');
   check(directManifest.claimScope === 'Current admitted Hero-Soldier relation claims only; this manifest resolves provenance to retained direct source evidence and does not define future relation completeness or admission.', 'direct-source manifest scope must remain admission-bounded');
+  check(directManifest.locatorSemantics === 'The fragment identifies one current canonical Hero-Soldier claim. Its support is resolved by applying the retained source-kind semantics to the listed pinned ConfigData artifacts and, for scoped derived claims, the linked claim-scoped evidence artifact; this manifest contains no relation rows and is not a relation population or admission authority.', 'direct-source locator semantics drift');
+  check(isDeepStrictEqual(directManifest.claimScopedAdmissionEvidence, {
+    artifactPath: hero15SpAdmissionPath,
+    claimType: 'hero-soldier-sp-inherited-relations',
+    evidenceClass: 'B',
+    sourceKind: 'SP_SOLDIER_INHERIT',
+    claimCount: 7,
+    locatorFormat: `${directManifestPath}#heroId=<HeroID>&soldierId=<SP SoldierID>`,
+    admissionAuthority: false,
+  }), 'claim-scoped derived admission evidence link drift');
 
   const sources = directManifest.sources;
   const expectedSourceSpecs = {
@@ -129,6 +144,66 @@ export async function validateHeroSoldierRelations() {
   check(soldierSourceManifest.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
     && soldierSourceManifest.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c',
   'pinned Soldier source repository/commit drift');
+  exactKeys(hero15SpAdmission, [
+    'schemaVersion','claimType','evidenceClass','canonical','generated','productionRuntimeDependency',
+    'claimScope','source','parentRelation','supportRelation','transformation','admissionBasis','records'
+  ], 'Hero 15 SP inherited relation evidence');
+  check(hero15SpAdmission.schemaVersion === 1
+    && hero15SpAdmission.claimType === 'hero-soldier-sp-inherited-relations'
+    && hero15SpAdmission.evidenceClass === 'B'
+    && hero15SpAdmission.canonical === false
+    && hero15SpAdmission.generated === false
+    && hero15SpAdmission.productionRuntimeDependency === false,
+  'Hero 15 SP inherited evidence authority or class drift');
+  check(hero15SpAdmission.source?.repository === soldierSourceManifest.source.repository
+    && hero15SpAdmission.source?.commit === soldierSourceManifest.source.commit
+    && hero15SpAdmission.source?.tree === soldierSourceManifest.source.commitTree
+    && hero15SpAdmission.source?.configDataSubtree === soldierSourceManifest.source.configDataSubtree
+    && hero15SpAdmission.source?.sourceVersionStatus === 'unknown'
+    && hero15SpAdmission.source?.originalPath === soldierSourceManifest.artifacts.spSoldierInfo.sourcePath
+    && hero15SpAdmission.source?.originalBlobSha1 === soldierSourceManifest.artifacts.spSoldierInfo.gitBlobSha1
+    && hero15SpAdmission.source?.preservedArtifactPath === spSoldierSourcePath
+    && hero15SpAdmission.source?.preservedArtifactBlobSha1 === sources.SP_SOLDIER_INHERIT.artifactGitBlobSha1
+    && hero15SpAdmission.source?.sourceManifestPath === soldierSourceManifestPath,
+  'Hero 15 SP inherited source pin drift');
+  check(hero15SpAdmission.parentRelation?.canonicalPath === canonicalPath
+    && hero15SpAdmission.parentRelation?.sourceKind === 'BASE_SOLDIER_HERO'
+    && hero15SpAdmission.parentRelation?.sourceTable === 'ConfigDataSoldierInfo'
+    && hero15SpAdmission.parentRelation?.sourceField === 'GetSoldierHeros_ID'
+    && hero15SpAdmission.parentRelation?.sourceArtifactPath === soldierSourcePath,
+  'Hero 15 SP inherited parent evidence contract drift');
+  check(hero15SpAdmission.supportRelation?.kind === 'SP_FORM_LINK'
+    && hero15SpAdmission.supportRelation?.sourceTable === 'ConfigDataSPSoldierInfo'
+    && hero15SpAdmission.supportRelation?.spKeyField === 'ID'
+    && hero15SpAdmission.supportRelation?.normalField === 'NormalSoliderId'
+    && hero15SpAdmission.supportRelation?.sourceArtifactPath === spSoldierSourcePath,
+  'Hero 15 SP_FORM_LINK evidence contract drift');
+  check(hero15SpAdmission.transformation?.sourceKind === 'SP_SOLDIER_INHERIT'
+    && hero15SpAdmission.transformation?.sourceClass === 'DERIVED'
+    && hero15SpAdmission.transformation?.contractPath === `${sourceSemanticsPath}#edgeSourceKinds.SP_SOLDIER_INHERIT`
+    && hero15SpAdmission.transformation?.requiresSupportRelation === 'SP_FORM_LINK'
+    && hero15SpAdmission.transformation?.rule === sourceSemantics.edgeSourceKinds?.SP_SOLDIER_INHERIT?.interpretation,
+  'Hero 15 SP inheritance transformation drift');
+  check(hero15SpAdmission.admissionBasis?.priorValidatedTransformationClaims === 175
+    && hero15SpAdmission.admissionBasis?.owningValidator === 'tools/validate-hero-soldier-relations.mjs'
+    && hero15SpAdmission.admissionBasis?.priorCanonicalBaseline?.relationCount === 386
+    && hero15SpAdmission.admissionBasis?.priorCanonicalBaseline?.provenanceCount === 387
+    && hero15SpAdmission.admissionBasis?.priorCanonicalBaseline?.recordsSha256 === preHero15SpBaselineSha256
+    && typeof hero15SpAdmission.admissionBasis?.limitation === 'string'
+    && hero15SpAdmission.admissionBasis.limitation.includes('source-version label remains unknown'),
+  'Hero 15 SP inheritance admission basis or limitation drift');
+  check(Array.isArray(hero15SpAdmission.records)
+    && isDeepStrictEqual(hero15SpAdmission.records.map((row) => [row.heroId, row.spSoldierId]), hero15SpAdmissionPairs),
+  'Hero 15 SP inherited evidence claim set drift');
+  for (const row of hero15SpAdmission.records) {
+    exactKeys(row, ['heroId','normalSoldierId','spSoldierId','evidenceClass','parentLocator','supportLocator','normalValue','transformation'], `Hero 15 SP inherited evidence ${row.spSoldierId}`);
+    check(row.heroId === 15 && row.evidenceClass === 'B'
+      && row.parentLocator === `${canonicalPath}#heroId=15&soldierId=${row.normalSoldierId}`
+      && row.supportLocator === `ConfigDataSPSoldierInfo#ID=${row.spSoldierId}/NormalSoliderId`
+      && row.normalValue === row.normalSoldierId
+      && row.transformation === 'SP_SOLDIER_INHERIT',
+    `Hero 15 SP inherited evidence locator or transformation drift for ${row.spSoldierId}`);
+  }
   check(soldierSourceManifest.artifacts?.soldierInfoEndpoints?.repoPreservedPath === soldierSourcePath
     && soldierSourceManifest.artifacts.soldierInfoEndpoints.gitBlobSha1 === sources.BASE_SOLDIER_HERO.originalSourceGitBlobSha1,
   'SoldierInfo direct-source provenance mismatch');
@@ -305,10 +380,29 @@ export async function validateHeroSoldierRelations() {
     && row.provenance.some((item) => item.sourceKind === 'SP_SOLDIER_INHERIT'));
   check(hero15NormalAdmissions.length === 7, `expected seven source-supported Hero 15 NORMAL admissions; found ${hero15NormalAdmissions.length}`);
   check(isDeepStrictEqual(hero15NormalAdmissions.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 NORMAL source-derived admission set drift');
-  check(hero15SpInheritanceCandidates.length === 7, `expected seven deferred Hero 15 SP inheritance candidates; found ${hero15SpInheritanceCandidates.length}`);
-  check(hero15SpInheritanceCandidates.every((row) => !canonicalByPair.has(pairKey(row.heroId, row.soldierId))), 'deferred Hero 15 SP inheritance candidate was admitted to Canonical');
+  check(hero15SpInheritanceCandidates.length === hero15SpAdmission.records.length
+    && isDeepStrictEqual(hero15SpInheritanceCandidates.map((row) => [row.heroId, row.soldierId]), hero15SpAdmission.records.map((row) => [row.heroId, row.spSoldierId])),
+  'Hero 15 source-derived SP candidates differ from the independently recorded admission claims');
+  for (const record of hero15SpAdmission.records) {
+    const candidate = hero15SpInheritanceCandidates.find((row) => row.heroId === record.heroId && row.soldierId === record.spSoldierId);
+    const parent = canonicalByPair.get(pairKey(record.heroId, record.normalSoldierId));
+    const spSource = spSoldierSourceDoc.records.find((row) => row.ID === record.spSoldierId);
+    check(parent?.evidenceClass === 'A'
+      && parent.provenance.length === 1
+      && parent.provenance[0].sourceKind === 'BASE_SOLDIER_HERO'
+      && candidate?.provenance.length === 1
+      && candidate.provenance[0].sourceKind === 'SP_SOLDIER_INHERIT'
+      && spSource?.ID === record.spSoldierId
+      && spSource?.[link.normalField] === record.normalSoldierId
+      && record.normalValue === spSource?.[link.normalField],
+    `Hero 15 SP inherited claim lacks its approved NORMAL parent or explicit SP_FORM_LINK: ${record.heroId}:${record.spSoldierId}`);
+    const canonicalRow = canonicalByPair.get(pairKey(record.heroId, record.spSoldierId));
+    check(canonicalRow?.evidenceClass === record.evidenceClass
+      && isDeepStrictEqual(canonicalRow.provenance, candidate.provenance),
+    `Hero 15 SP canonical admission or complete parent/support provenance drift: ${record.heroId}:${record.spSoldierId}`);
+  }
 
-  const admittedReconstructed = reconstructed.filter((row) => !hero15SpInheritanceCandidates.includes(row));
+  const admittedReconstructed = reconstructed;
   const admittedByPair = new Map(admittedReconstructed.map((row) => [pairKey(row.heroId, row.soldierId), row]));
   const missing = [...canonicalByPair.keys()].filter((key) => !admittedByPair.has(key));
   const extra = [...admittedByPair.keys()].filter((key) => !canonicalByPair.has(key));
@@ -327,8 +421,12 @@ export async function validateHeroSoldierRelations() {
   const multiProvenance = admittedReconstructed.filter((row) => row.provenance.length > 1);
 
   const hero15Canonical = canonical.records.filter((row) => row.heroId === 15);
-  check(isDeepStrictEqual(hero15Canonical.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 Canonical NORMAL admission set drift');
-  check(hero15Canonical.every((row) => row.evidenceClass === 'A' && row.provenance.length === 1 && row.provenance[0].sourceKind === 'BASE_SOLDIER_HERO'), 'Hero 15 Canonical contains a non-NORMAL or unsupported relation');
+  const hero15NormalCanonical = hero15Canonical.filter((row) => soldierVariant.get(row.soldierId) === 'NORMAL');
+  const hero15SpCanonical = hero15Canonical.filter((row) => soldierVariant.get(row.soldierId) === 'SP');
+  check(isDeepStrictEqual(hero15NormalCanonical.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 Canonical NORMAL admission set drift');
+  check(hero15NormalCanonical.every((row) => row.evidenceClass === 'A' && row.provenance.length === 1 && row.provenance[0].sourceKind === 'BASE_SOLDIER_HERO'), 'Hero 15 NORMAL Canonical contains an unsupported relation');
+  check(isDeepStrictEqual(hero15SpCanonical.map((row) => row.soldierId), hero15SpAdmissionPairs.map(([, soldierId]) => soldierId)), 'Hero 15 Canonical SP admission set drift');
+  check(hero15SpCanonical.every((row) => row.evidenceClass === 'B' && row.provenance.length === 1 && row.provenance[0].sourceKind === 'SP_SOLDIER_INHERIT'), 'Hero 15 SP Canonical contains an unsupported or promoted direct-source claim');
 
   check(missing.length === 0, `missing canonical-supported edges: ${missing.join(', ') || 'none'}`);
   check(extra.length === 0, `extra direct-source edges within current admitted target: ${extra.join(', ') || 'none'}`);
@@ -336,6 +434,13 @@ export async function validateHeroSoldierRelations() {
   const priorRecords = canonical.records.filter((row) => row.heroId !== 15);
   const priorRecordsSha256 = createHash('sha256').update(JSON.stringify(priorRecords)).digest('hex');
   check(priorRecordsSha256 === directManifest.preservedBaselineRegression.baselineRecordsSha256, 'existing 379 canonical relation Pair/Provenance set changed');
+  const spAdmissionPairKeys = new Set(hero15SpAdmissionPairs.map(([heroId, soldierId]) => pairKey(heroId, soldierId)));
+  const preSpAdmissionRecords = canonical.records.filter((row) => !spAdmissionPairKeys.has(pairKey(row.heroId, row.soldierId)));
+  check(preSpAdmissionRecords.length === 386
+    && preSpAdmissionRecords.reduce((sum, row) => sum + row.provenance.length, 0) === 387
+    && createHash('sha256').update(JSON.stringify(preSpAdmissionRecords)).digest('hex') === preHero15SpBaselineSha256
+    && hero15SpAdmission.admissionBasis.priorCanonicalBaseline.recordsSha256 === preHero15SpBaselineSha256,
+  'pre-Hero-15-SP canonical Pair/Type/Provenance/meaning baseline changed');
   check(admittedReconstructed.length === currentRelationCount && canonical.records.length === currentRelationCount, `current relation count drift: reconstructed=${admittedReconstructed.length}; canonical=${canonical.records.length}`);
   check(provenanceCount === currentProvenanceCount, `current provenance count drift: reconstructed=${provenanceCount}`);
   check(isDeepStrictEqual(sourceKindCounts, currentSourceKindCounts), `admitted source-kind counts drift: ${JSON.stringify(sourceKindCounts)}`);
@@ -361,7 +466,8 @@ export async function validateHeroSoldierRelations() {
     relationCount: admittedReconstructed.length,
     provenanceCount,
     sourceKindCounts,
-    deferredSpInheritanceCandidates: hero15SpInheritanceCandidates.length,
+    admittedHero15SpInheritanceRelations: hero15SpCanonical.length,
+    deferredSpInheritanceCandidates: 0,
     sourceReconstructionCandidateCount: reconstructed.length,
     missingEdges: missing.length,
     extraEdges: extra.length,
@@ -373,5 +479,5 @@ export async function validateHeroSoldierRelations() {
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   check(process.argv.slice(2).length === 0, 'Usage: node tools/validate-hero-soldier-relations.mjs');
   const result = await validateHeroSoldierRelations();
-  process.stdout.write(`Hero-Soldier direct-source validation: PASS (${result.relationCount} admitted relations; ${result.provenanceCount} admitted provenance; ${result.deferredSpInheritanceCandidates} deferred SP candidates; missing ${result.missingEdges}; extra ${result.extraEdges}; provenance mismatches ${result.provenanceMismatches})\n`);
+  process.stdout.write(`Hero-Soldier direct-source validation: PASS (${result.relationCount} admitted relations; ${result.provenanceCount} admitted provenance; ${result.admittedHero15SpInheritanceRelations} Hero 15 SP inherited admissions; ${result.deferredSpInheritanceCandidates} deferred Hero 15 SP candidates; missing ${result.missingEdges}; extra ${result.extraEdges}; provenance mismatches ${result.provenanceMismatches})\n`);
 }
