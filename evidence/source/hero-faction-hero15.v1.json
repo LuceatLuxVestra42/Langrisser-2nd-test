@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-faction-membership",
+  "evidenceClass": "A",
+  "scope": {
+    "heroIds": [
+      15
+    ],
+    "factionIds": [
+      1,
+      2,
+      6
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "path": "data/configdata/ConfigDataHeroTagInfo.json",
+    "sourceFileSha256": "545e662920cde9f379ac03e15632e970d8a530bf2821e4dbeddc21d0f4ce4a91",
+    "sourceEvidencePath": "evidence/source/hero-faction.v1.json"
+  },
+  "semantics": {
+    "heroMembershipField": "RelatedHeros_ID",
+    "factionIdentityField": "ID",
+    "excludedField": "SuperHero_ID"
+  },
+  "records": [
+    {
+      "heroId": 15,
+      "factionId": 1,
+      "sourceLocator": "evidence/source/hero-faction.v1.json#ID=1/RelatedHeros_ID&contains=15"
+    },
+    {
+      "heroId": 15,
+      "factionId": 2,
+      "sourceLocator": "evidence/source/hero-faction.v1.json#ID=2/RelatedHeros_ID&contains=15"
+    },
+    {
+      "heroId": 15,
+      "factionId": 6,
+      "sourceLocator": "evidence/source/hero-faction.v1.json#ID=6/RelatedHeros_ID&contains=15"
+    }
+  ],
+  "limitations": [
+    "The source rows are preserved in the existing ConfigData HeroTagInfo projection; this claim selects only Hero 15 membership in Faction IDs 1, 2, and 6.",
+    "This admission does not assert complete faction membership, Korean faction localization, Full Detail eligibility, or Publication approval."
+  ],
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false
+}
