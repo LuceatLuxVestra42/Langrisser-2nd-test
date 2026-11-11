@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 Fetter Reward GoodsType enum references only; no reward identity, Count semantics, payout, delivery, timing, or publication.",
+  "records": [
+    {
+      "heroId": 15,
+      "fetterEndpointId": 66,
+      "fetterEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "Reward",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "GoodsType",
+      "goodsTypeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.GoodsType",
+      "enumMember": "GoodsType_Crystal",
+      "rawRewardProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/0/fields/Reward/0/GoodsType",
+      "evidenceProvenance": "evidence/source/bonds/hero15-fetter-reward-type-references.v1.json#claims/0"
+    },
+    {
+      "heroId": 15,
+      "fetterEndpointId": 67,
+      "fetterEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "Reward",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "GoodsType",
+      "goodsTypeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.GoodsType",
+      "enumMember": "GoodsType_Crystal",
+      "rawRewardProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/1/fields/Reward/0/GoodsType",
+      "evidenceProvenance": "evidence/source/bonds/hero15-fetter-reward-type-references.v1.json#claims/1"
+    },
+    {
+      "heroId": 15,
+      "fetterEndpointId": 68,
+      "fetterEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "Reward",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "GoodsType",
+      "goodsTypeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.GoodsType",
+      "enumMember": "GoodsType_Crystal",
+      "rawRewardProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/2/fields/Reward/0/GoodsType",
+      "evidenceProvenance": "evidence/source/bonds/hero15-fetter-reward-type-references.v1.json#claims/2"
+    },
+    {
+      "heroId": 15,
+      "fetterEndpointId": 69,
+      "fetterEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "Reward",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "GoodsType",
+      "goodsTypeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.GoodsType",
+      "enumMember": "GoodsType_Crystal",
+      "rawRewardProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/3/fields/Reward/0/GoodsType",
+      "evidenceProvenance": "evidence/source/bonds/hero15-fetter-reward-type-references.v1.json#claims/3"
+    },
+    {
+      "heroId": 15,
+      "fetterEndpointId": 70,
+      "fetterEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "Reward",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "GoodsType",
+      "goodsTypeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.GoodsType",
+      "enumMember": "GoodsType_Crystal",
+      "rawRewardProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/4/fields/Reward/0/GoodsType",
+      "evidenceProvenance": "evidence/source/bonds/hero15-fetter-reward-type-references.v1.json#claims/4"
+    }
+  ]
+}
