@@ -229,8 +229,14 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   if (Object.keys(talentData ?? {}).sort().join(',') !== 'heroId,officialKrProvenanceStatus,schemaVersion,surface,talent'
     || talentData.schemaVersion !== 1 || talentData.heroId !== 15 || talentData.surface !== 'hero-minimal-detail-15'
     || talentData.officialKrProvenanceStatus !== 'unverified' || talentData.talent?.nameKo !== '성결한 수녀'
+    || Object.keys(talentData.talent ?? {}).sort().join(',') !== 'nameKo,starDescriptions'
     || JSON.stringify(talentData.talent?.starDescriptions?.map(({ star, skillId }) => [star, skillId])) !== '[[3,3212],[4,3214],[5,3216],[6,3218]]') {
     throw new Error('Hero 15 Talent consumer is malformed or outside its approved publication scope');
+  }
+  for (const row of talentData.talent.starDescriptions) {
+    if (Object.keys(row).sort().join(',') !== 'descriptionCn,descriptionKoRaw,nameCn,skillId,star') {
+      throw new Error('Hero 15 Talent consumer contains an unapproved field');
+    }
   }
   return renderHeroMinimalDetailView(data, container, { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent);
 }
