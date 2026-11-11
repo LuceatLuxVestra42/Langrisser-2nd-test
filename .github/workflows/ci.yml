@@ -522,6 +522,12 @@ jobs:
       - name: Test Casting Law Template-LevelUp relation boundaries
         run: node tools/test-casting-law-template-level-references.mjs
 
+      - name: Validate Casting Law LevelUp material references
+        run: node tools/validate-casting-law-levelup-material-references.mjs
+
+      - name: Test Casting Law LevelUp material-reference boundaries
+        run: node tools/test-casting-law-levelup-material-references.mjs
+
       - name: Validate Hero 15 Awakening raw references
         run: node tools/validate-hero15-awakening-references.mjs
 
