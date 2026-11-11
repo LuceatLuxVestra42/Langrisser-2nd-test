@@ -510,6 +510,12 @@ jobs:
       - name: Test Hero 15 Casting Law reference boundaries
         run: node tools/test-hero15-casting-law-template-references.mjs
 
+      - name: Validate shared Casting Law Template raw details
+        run: node tools/validate-casting-law-template-raw-details.mjs
+
+      - name: Test shared Casting Law Template raw-detail boundaries
+        run: node tools/test-casting-law-template-raw-details.mjs
+
       - name: Validate Hero 15 Awakening raw references
         run: node tools/validate-hero15-awakening-references.mjs
 

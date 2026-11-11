@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "claimType": "casting-law-template-raw-details",
+  "owner": "shared-casting-law-template-raw-detail",
+  "scope": {
+    "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+    "templateIds": [
+      12,
+      14,
+      37,
+      40,
+      41
+    ],
+    "selectionBasis": "Existing Hero 15 CastingLawTemplates_ID references select these shared Template endpoints; Hero ID is selection context only and is not part of Template identity.",
+    "claim": "Exact source-native raw fields and observed field-presence states for the five selected Template records."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "path": "data/configdata/ConfigDataCastingLawTemplateInfo.json",
+    "gitBlobSha1": "3d3f403120324a258cc1e1d03dd4af3cf56ad10e",
+    "sha256": "8e26a550cfb55757daa5221a674281eebea1a71e0993e30b136b98fcc98c459d",
+    "byteLength": 14036,
+    "recordCount": 50,
+    "encoding": "UTF-8 JSON; parsed for record selection; original source bytes retained externally by pinned blob."
+  },
+  "selectionEvidence": {
+    "path": "evidence/source/jobs/hero15-casting-law-template-references.v1.json",
+    "referenceCanonical": "canonical/hero-casting-law-template-references.v1.json",
+    "templateIdsInSourceOrder": [
+      14,
+      12,
+      37,
+      40,
+      41
+    ],
+    "existingEndpointPresenceEvidenceReused": true
+  },
+  "fieldsInspected": [
+    "ID",
+    "Name",
+    "CastingLawLevelUpInfoList",
+    "Icon",
+    "EquipmentType"
+  ],
+  "templateRecords": [
+    {
+      "sourceArrayIndex": 11,
+      "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=12",
+      "rawRecord": {
+        "ID": 12,
+        "Name": "锤之铸纹",
+        "CastingLawLevelUpInfoList": [
+          56,
+          57,
+          58,
+          59,
+          60,
+          10056,
+          10057,
+          10058,
+          10059,
+          10060
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Hammer.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "ABSENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 13,
+      "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=14",
+      "rawRecord": {
+        "ID": 14,
+        "Name": "杖之铸纹",
+        "CastingLawLevelUpInfoList": [
+          66,
+          67,
+          68,
+          69,
+          70,
+          10066,
+          10067,
+          10068,
+          10069,
+          10070
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Wand.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "ABSENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 36,
+      "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=37",
+      "rawRecord": {
+        "ID": 37,
+        "Name": "布甲铸纹",
+        "EquipmentType": 1,
+        "CastingLawLevelUpInfoList": [
+          181,
+          182,
+          183,
+          184,
+          185,
+          10181,
+          10182,
+          10183,
+          10184,
+          10185
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Cloth.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "PRESENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 39,
+      "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=40",
+      "rawRecord": {
+        "ID": 40,
+        "Name": "布帽铸纹",
+        "EquipmentType": 2,
+        "CastingLawLevelUpInfoList": [
+          196,
+          197,
+          198,
+          199,
+          200,
+          10196,
+          10197,
+          10198,
+          10199,
+          10200
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Cap.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "PRESENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 40,
+      "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=41",
+      "rawRecord": {
+        "ID": 41,
+        "Name": "饰品铸纹",
+        "EquipmentType": 3,
+        "CastingLawLevelUpInfoList": [
+          201,
+          202,
+          203,
+          204,
+          205,
+          10201,
+          10202,
+          10203,
+          10204,
+          10205
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Ornaments.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "PRESENT"
+      }
+    }
+  ],
+  "interpretation": {
+    "evidenceClass": "A_DIRECT_SOURCE_RECORD",
+    "transformation": "Selected array records by the existing source-array indexes; copied each raw record unchanged into rawRecord; computed fieldStates only by direct key/value inspection.",
+    "sourceIdentity": "ConfigDataCastingLawTemplateInfo.ID only.",
+    "limitation": "Raw source fields and observed field states only. No Hero identity on Template records, Template-to-LevelUp relation admission, material/cost interpretation, equipment slot, mastery, unlock, use, application, combat, acquisition, or publication claim."
+  }
+}
