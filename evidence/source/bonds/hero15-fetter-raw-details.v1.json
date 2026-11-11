@@ -1,0 +1,944 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero15-fetter-raw-details",
+  "evidenceClass": "A",
+  "scope": {
+    "heroId": 15,
+    "fetterIds": [
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "sourceFields": [
+      "ConfigDataHeroFetterInfo.MaxLevel",
+      "ConfigDataHeroFetterInfo.CompletionConditions",
+      "ConfigDataHeroFetterInfo.Reward",
+      "ConfigDataHeroFetterInfo.GotSkills_ID",
+      "ConfigDataHeroFetterInfo.LevelUpMaterials",
+      "ConfigDataHeroFetterInfo.LevelUpGold"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+    "blobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+    "sha256": "1c058ddd7ad2fd038e8fae73391aafa85b3dea4fe49868a2c834a490497172a6",
+    "recordCount": 1430
+  },
+  "selection": {
+    "relationEvidence": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences",
+    "recordSelection": "explicit endpoint IDs 66-70 only",
+    "records": [
+      {
+        "recordId": 66,
+        "recordIndex": 65,
+        "recordLocator": "ConfigDataHeroFetterInfo#ID=66",
+        "fieldStates": {
+          "MaxLevel": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          },
+          "CompletionConditions": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "Reward": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "GotSkills_ID": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpMaterials": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpGold": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          }
+        },
+        "fields": {
+          "MaxLevel": 10,
+          "CompletionConditions": [
+            {
+              "ConditionType": 1,
+              "Parm1": 15,
+              "Parm2": 5
+            }
+          ],
+          "Reward": [
+            {
+              "GoodsType": 2,
+              "Count": 15
+            }
+          ],
+          "GotSkills_ID": [
+            70000,
+            70001,
+            70002,
+            70003,
+            70004,
+            70005,
+            70006,
+            70007,
+            70008,
+            70009
+          ],
+          "LevelUpMaterials": [
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 1
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 2
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 3
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 4
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 5
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 1
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 6
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 2
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 7
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 3
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 8
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 4
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 9
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 5
+            }
+          ],
+          "LevelUpGold": [
+            1500,
+            2300,
+            3500,
+            5300,
+            8000,
+            12000,
+            18000,
+            27000,
+            41000
+          ]
+        }
+      },
+      {
+        "recordId": 67,
+        "recordIndex": 66,
+        "recordLocator": "ConfigDataHeroFetterInfo#ID=67",
+        "fieldStates": {
+          "MaxLevel": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          },
+          "CompletionConditions": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "Reward": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "GotSkills_ID": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpMaterials": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpGold": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          }
+        },
+        "fields": {
+          "MaxLevel": 10,
+          "CompletionConditions": [
+            {
+              "ConditionType": 1,
+              "Parm1": 15,
+              "Parm2": 10
+            },
+            {
+              "ConditionType": 2,
+              "Parm1": 5049
+            }
+          ],
+          "Reward": [
+            {
+              "GoodsType": 2,
+              "Count": 15
+            }
+          ],
+          "GotSkills_ID": [
+            70070,
+            70072,
+            70074,
+            70076,
+            70078,
+            70080,
+            70082,
+            70084,
+            70086,
+            70088
+          ],
+          "LevelUpMaterials": [
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 5
+            },
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 2
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 6
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 3
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 7
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 4
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3200,
+              "Count": 8
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 5
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 7
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 1
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 9
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 2
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 11
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 3
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 13
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 4
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 15
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 6
+            }
+          ],
+          "LevelUpGold": [
+            5000,
+            7500,
+            11000,
+            17000,
+            26000,
+            39000,
+            59000,
+            89000,
+            130000
+          ]
+        }
+      },
+      {
+        "recordId": 68,
+        "recordIndex": 67,
+        "recordLocator": "ConfigDataHeroFetterInfo#ID=68",
+        "fieldStates": {
+          "MaxLevel": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          },
+          "CompletionConditions": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "Reward": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "GotSkills_ID": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpMaterials": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpGold": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          }
+        },
+        "fields": {
+          "MaxLevel": 10,
+          "CompletionConditions": [
+            {
+              "ConditionType": 1,
+              "Parm1": 15,
+              "Parm2": 15
+            },
+            {
+              "ConditionType": 2,
+              "Parm1": 5050
+            }
+          ],
+          "Reward": [
+            {
+              "GoodsType": 2,
+              "Count": 30
+            }
+          ],
+          "GotSkills_ID": [
+            70030,
+            70031,
+            70032,
+            70033,
+            70034,
+            70035,
+            70036,
+            70037,
+            70038,
+            70039
+          ],
+          "LevelUpMaterials": [
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 5
+            },
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 2
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 8
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 3
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 10
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 3
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 12
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 4
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3201,
+              "Count": 15
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 5
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 6
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 1
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 7
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 2
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 8
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 3
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3202,
+              "Count": 9
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 4
+            }
+          ],
+          "LevelUpGold": [
+            9000,
+            14000,
+            21000,
+            32000,
+            48000,
+            72000,
+            110000,
+            170000,
+            260000
+          ]
+        }
+      },
+      {
+        "recordId": 69,
+        "recordIndex": 68,
+        "recordLocator": "ConfigDataHeroFetterInfo#ID=69",
+        "fieldStates": {
+          "MaxLevel": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          },
+          "CompletionConditions": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "Reward": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "GotSkills_ID": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpMaterials": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpGold": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          }
+        },
+        "fields": {
+          "MaxLevel": 10,
+          "CompletionConditions": [
+            {
+              "ConditionType": 1,
+              "Parm1": 15,
+              "Parm2": 23
+            },
+            {
+              "ConditionType": 2,
+              "Parm1": 5051
+            }
+          ],
+          "Reward": [
+            {
+              "GoodsType": 2,
+              "Count": 30
+            }
+          ],
+          "GotSkills_ID": [
+            70090,
+            70091,
+            70092,
+            70093,
+            70094,
+            70095,
+            70096,
+            70097,
+            70098,
+            70099
+          ],
+          "LevelUpMaterials": [
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 1
+            },
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3206,
+              "Count": 4
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 2
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3206,
+              "Count": 6
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 3
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3218,
+              "Count": 4
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 4
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3218,
+              "Count": 6
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 5
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3224,
+              "Count": 4
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 6
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3224,
+              "Count": 6
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 7
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3212,
+              "Count": 4
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 8
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3212,
+              "Count": 6
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 10
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3230,
+              "Count": 6
+            }
+          ],
+          "LevelUpGold": [
+            15000,
+            23000,
+            35000,
+            53000,
+            80000,
+            120000,
+            180000,
+            270000,
+            410000
+          ]
+        }
+      },
+      {
+        "recordId": 70,
+        "recordIndex": 69,
+        "recordLocator": "ConfigDataHeroFetterInfo#ID=70",
+        "fieldStates": {
+          "MaxLevel": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          },
+          "CompletionConditions": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "Reward": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "GotSkills_ID": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpMaterials": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpGold": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          }
+        },
+        "fields": {
+          "MaxLevel": 10,
+          "CompletionConditions": [
+            {
+              "ConditionType": 1,
+              "Parm1": 15,
+              "Parm2": 25
+            },
+            {
+              "ConditionType": 2,
+              "Parm1": 5052
+            }
+          ],
+          "Reward": [
+            {
+              "GoodsType": 2,
+              "Count": 45
+            }
+          ],
+          "GotSkills_ID": [
+            70100,
+            70101,
+            70102,
+            70103,
+            70104,
+            70105,
+            70106,
+            70107,
+            70108,
+            70109
+          ],
+          "LevelUpMaterials": [
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 1
+            },
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3206,
+              "Count": 4
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 2
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3206,
+              "Count": 6
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 3
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3218,
+              "Count": 4
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 4
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3218,
+              "Count": 6
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 5
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3224,
+              "Count": 4
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 6
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3224,
+              "Count": 6
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 7
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3212,
+              "Count": 4
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 8
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3212,
+              "Count": 6
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3203,
+              "Count": 10
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3230,
+              "Count": 6
+            }
+          ],
+          "LevelUpGold": [
+            20000,
+            30000,
+            45000,
+            68000,
+            100000,
+            150000,
+            230000,
+            350000,
+            530000
+          ]
+        }
+      }
+    ]
+  },
+  "transformation": {
+    "kind": "claim-scoped-raw-field-projection",
+    "sourceBytesCopied": false,
+    "fieldHandling": "Present fields copied as parsed JSON values without sorting, deduplication, flattening, numeric conversion, translation, or interpretation. Missing/null/empty/zero states recorded only when directly observable in pinned JSON.",
+    "sha256RecomputedFromPinnedBytes": [
+      "heroFetterInfo"
+    ],
+    "sha256ReusedFromVerifiedPin": []
+  },
+  "limitations": [
+    "Source-native raw field values only; no completion, unlock, reward-delivery, skill-acquisition, item-consumption, or battle-effect rules admitted.",
+    "IDs inside raw fields are not promoted to global identity or cross-domain relations.",
+    "No Fetter UI or publication approval."
+  ]
+}

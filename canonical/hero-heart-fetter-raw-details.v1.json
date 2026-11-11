@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 source-native raw Fetter detail fields only; excludes gameplay rules, endpoint identity admission, and publication.",
+  "records": [
+    {
+      "detailKind": "HEART_FETTER_RAW_DETAIL",
+      "heroId": 15,
+      "endpointId": 15,
+      "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "sourceRecordLocator": "ConfigDataHeroHeartFetterInfo#ID=15",
+      "fields": {
+        "MaxLevel": 10,
+        "UnlockConditions": [
+          {
+            "ConditionType": 1,
+            "Parm1": 35
+          },
+          {
+            "ConditionType": 2,
+            "Parm1": 55
+          }
+        ],
+        "HeroHeartFetterSkills": [
+          70461,
+          70462,
+          70463,
+          70464,
+          70465,
+          70466,
+          70467,
+          70468,
+          70469,
+          70470
+        ],
+        "LevelUpMaterials": [
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3235,
+            "Count": 8
+          },
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3206,
+            "Count": 10
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3237,
+            "Count": 12
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3206,
+            "Count": 15
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3234,
+            "Count": 16
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3218,
+            "Count": 10
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3236,
+            "Count": 20
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3218,
+            "Count": 15
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3235,
+            "Count": 20
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3239,
+            "Count": 8
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3237,
+            "Count": 20
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3241,
+            "Count": 12
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3234,
+            "Count": 24
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3238,
+            "Count": 16
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3236,
+            "Count": 24
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3240,
+            "Count": 24
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3246,
+            "Count": 12
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3224,
+            "Count": 10
+          }
+        ],
+        "LevelUpGold": [
+          10000,
+          15000,
+          23000,
+          35000,
+          53000,
+          74000,
+          100000,
+          140000,
+          200000
+        ],
+        "ShownSkillCount": 2
+      },
+      "fieldStates": {
+        "MaxLevel": {
+          "state": "PRESENT",
+          "jsonType": "number"
+        },
+        "UnlockConditions": {
+          "state": "PRESENT",
+          "jsonType": "array"
+        },
+        "HeroHeartFetterSkills": {
+          "state": "PRESENT",
+          "jsonType": "array"
+        },
+        "LevelUpMaterials": {
+          "state": "PRESENT",
+          "jsonType": "array"
+        },
+        "LevelUpGold": {
+          "state": "PRESENT",
+          "jsonType": "array"
+        },
+        "ShownSkillCount": {
+          "state": "PRESENT",
+          "jsonType": "number"
+        }
+      },
+      "provenance": "evidence/source/bonds/hero15-heart-fetter-raw-details.v1.json#selection/records/0"
+    }
+  ]
+}

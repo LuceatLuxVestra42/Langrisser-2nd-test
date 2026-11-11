@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero15-heart-fetter-raw-details",
+  "evidenceClass": "A",
+  "scope": {
+    "heroId": 15,
+    "heartFetterId": 15,
+    "sourceFields": [
+      "ConfigDataHeroHeartFetterInfo.MaxLevel",
+      "ConfigDataHeroHeartFetterInfo.UnlockConditions",
+      "ConfigDataHeroHeartFetterInfo.HeroHeartFetterSkills",
+      "ConfigDataHeroHeartFetterInfo.LevelUpMaterials",
+      "ConfigDataHeroHeartFetterInfo.LevelUpGold",
+      "ConfigDataHeroHeartFetterInfo.ShownSkillCount"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataHeroHeartFetterInfo.json",
+    "blobSha1": "be61dd6fb14662d70335e833c4c857dda5105f74",
+    "sha256": "7a150f7fd0658ffc9b05d68b8131a677290ab67710f97a22c4e4c4d78ea42b8a",
+    "recordCount": 286
+  },
+  "selection": {
+    "relationEvidence": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroHeartFetterReference",
+    "recordSelection": "explicit endpoint ID=15 only",
+    "records": [
+      {
+        "recordId": 15,
+        "recordIndex": 13,
+        "recordLocator": "ConfigDataHeroHeartFetterInfo#ID=15",
+        "fieldStates": {
+          "MaxLevel": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          },
+          "UnlockConditions": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "HeroHeartFetterSkills": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpMaterials": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "LevelUpGold": {
+            "state": "PRESENT",
+            "jsonType": "array"
+          },
+          "ShownSkillCount": {
+            "state": "PRESENT",
+            "jsonType": "number"
+          }
+        },
+        "fields": {
+          "MaxLevel": 10,
+          "UnlockConditions": [
+            {
+              "ConditionType": 1,
+              "Parm1": 35
+            },
+            {
+              "ConditionType": 2,
+              "Parm1": 55
+            }
+          ],
+          "HeroHeartFetterSkills": [
+            70461,
+            70462,
+            70463,
+            70464,
+            70465,
+            70466,
+            70467,
+            70468,
+            70469,
+            70470
+          ],
+          "LevelUpMaterials": [
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3235,
+              "Count": 8
+            },
+            {
+              "Level": 2,
+              "ItemType": 6,
+              "ItemId": 3206,
+              "Count": 10
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3237,
+              "Count": 12
+            },
+            {
+              "Level": 3,
+              "ItemType": 6,
+              "ItemId": 3206,
+              "Count": 15
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3234,
+              "Count": 16
+            },
+            {
+              "Level": 4,
+              "ItemType": 6,
+              "ItemId": 3218,
+              "Count": 10
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3236,
+              "Count": 20
+            },
+            {
+              "Level": 5,
+              "ItemType": 6,
+              "ItemId": 3218,
+              "Count": 15
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3235,
+              "Count": 20
+            },
+            {
+              "Level": 6,
+              "ItemType": 6,
+              "ItemId": 3239,
+              "Count": 8
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3237,
+              "Count": 20
+            },
+            {
+              "Level": 7,
+              "ItemType": 6,
+              "ItemId": 3241,
+              "Count": 12
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3234,
+              "Count": 24
+            },
+            {
+              "Level": 8,
+              "ItemType": 6,
+              "ItemId": 3238,
+              "Count": 16
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3236,
+              "Count": 24
+            },
+            {
+              "Level": 9,
+              "ItemType": 6,
+              "ItemId": 3240,
+              "Count": 24
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3246,
+              "Count": 12
+            },
+            {
+              "Level": 10,
+              "ItemType": 6,
+              "ItemId": 3224,
+              "Count": 10
+            }
+          ],
+          "LevelUpGold": [
+            10000,
+            15000,
+            23000,
+            35000,
+            53000,
+            74000,
+            100000,
+            140000,
+            200000
+          ],
+          "ShownSkillCount": 2
+        }
+      }
+    ],
+    "contextOnlyFields": [
+      "UnlockSkills_ID"
+    ]
+  },
+  "transformation": {
+    "kind": "claim-scoped-raw-field-projection",
+    "sourceBytesCopied": false,
+    "fieldHandling": "Selected non-duplicate fields copied as parsed JSON values without sorting, deduplication, flattening, numeric conversion, translation, or interpretation. UnlockSkills_ID retained only as source context because the existing Heart raw-condition Canonical already covers its Lv4/Lv7 subset. Missing/null/empty/zero states recorded only when directly observable in pinned JSON.",
+    "sha256RecomputedFromPinnedBytes": [
+      "heroHeartFetterInfo"
+    ],
+    "sha256ReusedFromVerifiedPin": []
+  },
+  "limitations": [
+    "Source-native raw field values only; no unlock/completion, reward delivery, skill acquisition/equip, item consumption, or battle-effect rules admitted.",
+    "UnlockSkills_ID not newly admitted to avoid duplicating the existing four raw condition claims.",
+    "No ConditionType=7 runtime meaning; remains MANUAL_REVIEW.",
+    "No UI or publication approval."
+  ]
+}
