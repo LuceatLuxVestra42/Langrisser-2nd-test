@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "hero15-skill-source-references",
+  "scope": {
+    "heroId": 15,
+    "claim": "Direct HeroInfo Skill_ID reference plus JobLevelInfo GotSkill_ID references for explicitly related Hero 15 JobConnections 150–155.",
+    "outOfScope": [
+      "Skill identity fields",
+      "skill acquisition timing beyond source reference event",
+      "equipping/availability rules",
+      "unlock conditions",
+      "combat semantics",
+      "publication/UI"
+    ]
+  },
+  "sourceSnapshot": {
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a"
+  },
+  "protobufFieldContract": {
+    "path": "data/metadata/dump.cs",
+    "gitBlobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+    "heroInfoSkillsIdFieldNumber": 19,
+    "jobLevelGotSkillIdFieldNumber": 28,
+    "skillInfoIdFieldNumber": 2,
+    "interpretation": "ConfigDataHeroInfo.Skills_ID is an explicit direct Hero reference. ConfigDataJobLevelInfo.GotSkill_ID is the explicit JobLevel skill acquisition reference and m_gotSkillInfo resolves it to ConfigDataSkillInfo.",
+    "limitation": "Field linkage establishes source-reference roles; it does not establish equipability, server availability, or combat effect semantics."
+  },
+  "meaningEvidence": {
+    "predecessorContract": {
+      "path": "data/hero-skill-acquisition-stage4-4.v1.json",
+      "gitBlobSha1": "afdabed9f82a401f50ed344e5ee4877bbc024f9c",
+      "status": "validated-review",
+      "use": "Field meaning contract only; no predecessor generated result is treated as source authority."
+    },
+    "fieldEvidence": {
+      "HeroInfo": "Pinned dump.cs declares Skills_IDFieldNumber=19 and repeated integer values; source record ID=15 contains [10801].",
+      "JobLevelInfo": "Pinned dump.cs declares GotSkill_IDFieldNumber=28 and m_gotSkillInfo ConfigDataSkillInfo endpoint; exact JobLevel source rows contain the values below."
+    }
+  },
+  "heroInfoSource": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "sourceRecordIndex": 14,
+    "recordLocator": "data/configdata/ConfigDataHeroInfo.json#ID=15",
+    "fieldNumber": 19,
+    "selectedFields": {
+      "ID": 15,
+      "Skills_ID": [
+        10801
+      ]
+    }
+  },
+  "jobConnectionEndpointSource": {
+    "evidencePath": "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-15-job-level-raw-stats.v1.json",
+    "source": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+      "recordLocator": "top-level array records by ID"
+    },
+    "records": [
+      {
+        "ID": 150,
+        "Job_ID": 802,
+        "JobLevels_ID": [
+          1501,
+          1502,
+          1503
+        ]
+      },
+      {
+        "ID": 151,
+        "Job_ID": 803,
+        "JobLevels_ID": [
+          1511,
+          1512,
+          1513,
+          1514
+        ]
+      },
+      {
+        "ID": 152,
+        "Job_ID": 806,
+        "JobLevels_ID": [
+          1521,
+          1522,
+          1523,
+          1524
+        ]
+      },
+      {
+        "ID": 153,
+        "Job_ID": 703,
+        "JobLevels_ID": [
+          1531,
+          1532,
+          1533,
+          1534
+        ]
+      },
+      {
+        "ID": 154,
+        "Job_ID": 811,
+        "JobLevels_ID": [
+          1541,
+          1542,
+          1543,
+          1544,
+          1545
+        ]
+      },
+      {
+        "ID": 155,
+        "Job_ID": 707,
+        "JobLevels_ID": [
+          1551,
+          1552,
+          1553,
+          1554,
+          1555
+        ]
+      }
+    ]
+  },
+  "jobLevelSource": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataJobLevelInfo.json",
+    "gitBlobSha1": "e9c978f78a96372db6e7b142512b69a8d0ab3182",
+    "sha256": "0f02531a2b4244683b6a56f7d7b8ce607bf454f324a45312f20569983d2ed948",
+    "fieldNumber": 28,
+    "selectedRecords": [
+      {
+        "sourceRecordIndex": 569,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1502",
+        "rawRecord": {
+          "ID": 1502,
+          "GotSkill_ID": 10816
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=569/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 574,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1512",
+        "rawRecord": {
+          "ID": 1512,
+          "GotSkill_ID": 10805
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=574/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 579,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1522",
+        "rawRecord": {
+          "ID": 1522,
+          "GotSkill_ID": 10707
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=579/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 584,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1532",
+        "rawRecord": {
+          "ID": 1532,
+          "GotSkill_ID": 10705
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=584/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 588,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1541",
+        "rawRecord": {
+          "ID": 1541,
+          "GotSkill_ID": 10804
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=588/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 590,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1543",
+        "rawRecord": {
+          "ID": 1543,
+          "GotSkill_ID": 10807
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=590/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 593,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1551",
+        "rawRecord": {
+          "ID": 1551,
+          "GotSkill_ID": 6009
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=593/GotSkill_ID"
+      },
+      {
+        "sourceRecordIndex": 595,
+        "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1553",
+        "rawRecord": {
+          "ID": 1553,
+          "GotSkill_ID": 11786
+        },
+        "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=595/GotSkill_ID"
+      }
+    ]
+  },
+  "references": [
+    {
+      "referenceKind": "HERO_DIRECT_SKILL_REFERENCE",
+      "heroId": 15,
+      "skillId": 10801,
+      "sourceRecordLocator": "data/configdata/ConfigDataHeroInfo.json#ID=15",
+      "fieldLocator": "data/configdata/ConfigDataHeroInfo.json#arrayIndex=14/Skills_ID[0]",
+      "fieldNumber": 19
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 150,
+      "jobId": 802,
+      "jobLevelId": 1502,
+      "skillId": 10816,
+      "sourceRecordIndex": 569,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1502",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=569/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 151,
+      "jobId": 803,
+      "jobLevelId": 1512,
+      "skillId": 10805,
+      "sourceRecordIndex": 574,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1512",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=574/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 152,
+      "jobId": 806,
+      "jobLevelId": 1522,
+      "skillId": 10707,
+      "sourceRecordIndex": 579,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1522",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=579/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 153,
+      "jobId": 703,
+      "jobLevelId": 1532,
+      "skillId": 10705,
+      "sourceRecordIndex": 584,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1532",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=584/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1541,
+      "skillId": 10804,
+      "sourceRecordIndex": 588,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1541",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=588/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1543,
+      "skillId": 10807,
+      "sourceRecordIndex": 590,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1543",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=590/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1551,
+      "skillId": 6009,
+      "sourceRecordIndex": 593,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1551",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=593/GotSkill_ID"
+    },
+    {
+      "heroId": 15,
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1553,
+      "skillId": 11786,
+      "sourceRecordIndex": 595,
+      "sourceRecordLocator": "data/configdata/ConfigDataJobLevelInfo.json#ID=1553",
+      "fieldLocator": "data/configdata/ConfigDataJobLevelInfo.json#arrayIndex=595/GotSkill_ID"
+    }
+  ],
+  "endpointNamespace": "ConfigDataSkillInfo.ID",
+  "endpointEvidencePath": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json",
+  "claimEvidence": {
+    "directSourceReference": "A",
+    "fieldMeaning": "B",
+    "heroJobContext": "A"
+  },
+  "canonical": false,
+  "generated": false,
+  "publicationApproval": false,
+  "productionRuntimeDependency": false
+}

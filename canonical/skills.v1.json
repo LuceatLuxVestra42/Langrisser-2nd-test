@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: pinned Hero Talent identities and 30 explicitly selected SkillInfo records; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
+  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, and 9 directly referenced Hero 15 general SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
   "records": [
     {
       "skillId": 3067,
@@ -421,6 +421,96 @@
         "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65119",
         "name": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65119/Name",
         "description": "evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json#ID=65119/Desc"
+      }
+    },
+    {
+      "skillId": 10801,
+      "nameCn": "治疗术",
+      "descriptionCn": "[治疗]主动使用，恢复单个部队的生命值，恢复量为施法者智力的<color=#DC143C>5</color>倍。并且驱散<color=#DC143C>1</color>个弱化效果。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10801",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10801/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10801/Desc"
+      }
+    },
+    {
+      "skillId": 10816,
+      "nameCn": "再行动",
+      "descriptionCn": "[支援]主动使用，可以使<color=#DC143C>1</color>个己方行动完的部队再次行动。并恢复施法者智力<color=#DC143C>2</color>倍的生命。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10816",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10816/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10816/Desc"
+      }
+    },
+    {
+      "skillId": 10805,
+      "nameCn": "福音",
+      "descriptionCn": "[支援]主动使用，使得单个部队的攻击、智力、防御提升<color=#DC143C>20%</color>，且免疫所有弱化效果，持续<color=#DC143C>2</color>回合。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10805",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10805/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10805/Desc"
+      }
+    },
+    {
+      "skillId": 10707,
+      "nameCn": "风刃",
+      "descriptionCn": "[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「飞兵」有特效。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10707",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10707/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10707/Desc"
+      }
+    },
+    {
+      "skillId": 10705,
+      "nameCn": "冰冻",
+      "descriptionCn": "[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「枪兵」有特效。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10705",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10705/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10705/Desc"
+      }
+    },
+    {
+      "skillId": 10804,
+      "nameCn": "群体护盾",
+      "descriptionCn": "[支援]主动使用，使得范围内多个部队的防御提升<color=#DC143C>20%</color>，且免疫:“防御、魔防降低”、\"无法被治疗“，持续<color=#DC143C>2</color>回合。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10804",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10804/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10804/Desc"
+      }
+    },
+    {
+      "skillId": 10807,
+      "nameCn": "圣疗",
+      "descriptionCn": "[治疗]恢复大范围内多个部队的生命，恢复量为施法者智力的<color=#DC143C>4</color>倍，并在行动结束时，恢复<color=#DC143C>20%</color>的生命，持续<color=#DC143C>2</color>回合。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10807",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10807/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10807/Desc"
+      }
+    },
+    {
+      "skillId": 6009,
+      "nameCn": "冥想",
+      "descriptionCn": "[被动]当部队生命值高于<color=#DC143C>90%</color>时，智力、魔防提升<color=#DC143C>10%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=6009",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=6009/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=6009/Desc"
+      }
+    },
+    {
+      "skillId": 11786,
+      "nameCn": "召唤天空射手",
+      "descriptionCn": "[召唤]召唤一个天空射手。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786/Desc"
       }
     }
   ]

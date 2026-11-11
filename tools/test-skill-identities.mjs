@@ -13,6 +13,7 @@ const paths = [
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json',
+  'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json',
   'tools/validate-skill-identities.mjs',
 ];
 await Promise.all(paths.map(async (path) => {
@@ -23,7 +24,7 @@ await Promise.all(paths.map(async (path) => {
 const run = () => spawnSync(process.execPath, ['tools/validate-skill-identities.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /records=42/);
+  assert.match(result.stdout, /records=51/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -43,12 +44,13 @@ async function mutateJson(path, mutate, label, pattern) {
 }
 
 try {
-  assertPass(run(), 'normal 42-record fixture');
+  assertPass(run(), 'normal 51-record fixture');
   const c = 'canonical/skills.v1.json';
   const e = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json';
   const se = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
   const t = 'canonical/hero-talent-star-skills.v1.json';
   const h15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
+  const g15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
   await mutateJson(c, (v) => { v.records.pop(); }, 'missing Skill', /\[CANONICAL\]/);
   await mutateJson(c, (v) => { v.records.push({ ...v.records[0], skillId: 99999 }); }, 'unapproved Skill ID', /\[CANONICAL\]/);
   await mutateJson(c, (v) => { v.records[1].skillId = v.records[0].skillId; }, 'duplicate Skill ID', /\[CANONICAL\]/);
@@ -97,9 +99,22 @@ try {
   await mutateJson(h15,v=>{v.fieldMeaningContract.gitBlobSha1='wrong';},'Hero15 predecessor meaning pin changed',/\[HERO15_FIELD_CONTRACT\]/);
   await mutateJson(h15,v=>{v.claimEvidence.sourceSha256='A';},'Hero15 hash evidence class overstated',/\[HERO15_EVIDENCE_CLASS\]/);
   await mutateJson(h15,v=>{v.publicationApproval=true;},'Hero15 publication falsely claimed',/\[HERO15_BOUNDARY\]/);
+  await mutateJson(c,v=>{v.records[42].skillId=99999;},'Hero15 general Skill ID changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[43].skillId=v.records[42].skillId;},'Hero15 general Skill duplicate',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records.splice(42,1);},'Hero15 general Skill missing',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[42].nameCn+='改';},'Hero15 general Skill Name changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[42].descriptionCn+='改';},'Hero15 general Skill Desc changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[42].provenance.identity='wrong';},'Hero15 general Skill provenance changed',/\[PROVENANCE\]/);
+  await mutateJson(c,v=>{v.records[42].heroId=15;},'Hero ID mixed into Skill identity',/\[SCHEMA\]/);
+  await mutateJson(g15,v=>{v.source.sha256='0'.repeat(64);},'Hero15 general source hash changed',/\[HERO15_GENERAL_SOURCE_PIN\]/);
+  await mutateJson(g15,v=>{v.source.sourceIndex.recordIndices['10801']=1914;},'Hero15 general source index changed',/\[HERO15_GENERAL_SOURCE_PIN\]/);
+  await mutateJson(g15,v=>{v.records[0].sourceRecordIndex=1914;},'Hero15 general record index changed',/\[HERO15_GENERAL_SOURCE_RECORDS\]/);
+  await mutateJson(g15,v=>{v.records[0].sourceRecordLocator='bad';},'Hero15 general record locator changed',/\[HERO15_GENERAL_SOURCE_RECORDS\]/);
+  await mutateJson(g15,v=>{v.records[0].rawRecord.Desc+='改';},'Hero15 general source Desc changed',/\[HERO15_GENERAL_SOURCE_RECORDS\]/);
+  await mutateJson(g15,v=>{v.records[0].fieldProvenance.Name+='wrong';},'Hero15 general field provenance changed',/\[HERO15_GENERAL_SOURCE_RECORDS\]/);
   await mutateJson(t,v=>{v.records[8].skillId=3214;},'Hero15 Talent relation regression',/\[TALENT_PARITY\]/);
 
-  console.log('Skill identity tests: PASS (normal fixture and 48 negative controls)');
+  console.log('Skill identity tests: PASS (normal 51-record fixture and expanded negative controls)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

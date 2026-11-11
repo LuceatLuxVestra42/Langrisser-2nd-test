@@ -205,6 +205,12 @@ jobs:
       - name: Test scoped Skill identity admission
         run: node tools/test-skill-identities.mjs
 
+      - name: Validate Hero 15 direct and JobLevel Skill references
+        run: node tools/validate-hero15-skill-references.mjs
+
+      - name: Test Hero 15 Skill reference semantic boundaries
+        run: node tools/test-hero15-skill-references.mjs
+
       - name: Validate Hero Talent Korean localization
         run: node tools/validate-hero-talent-localizations-ko.mjs
 

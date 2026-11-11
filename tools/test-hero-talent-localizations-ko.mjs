@@ -72,7 +72,7 @@ try {
   await mutateJson(e, (v) => { v.records.find(row => row.heroId === 15).reviewStatus = 'MANUAL_REVIEW'; }, 'Hero 15 reviewed name status downgraded', /\[EVIDENCE\].*name source or review/);
   await mutateJson(e, (v) => { v.projectReview.hero15FinalRecord.skillIdsByStar['3'] = 3214; }, 'reviewed Skill ID mapping changed', /\[REVIEW_STATUS\]/);
   await mutateJson(relation, (v) => { v.records.find(row => row.heroId === 15 && row.star === 3).skillId = 3214; }, 'Talent relation changed under Localization', /\[RELATION\]/);
-  await mutateJson(skills, (v) => { v.records.pop(); }, 'Skill Identity population regression', /\[SKILL_IDENTITY\]/);
+  await mutateJson(skills, (v) => { v.records = v.records.filter((row) => row.skillId !== 3212); }, 'Talent Skill Identity endpoint missing', /\[SKILL_IDENTITY\]/);
   await mutateJson(c, (v) => { v.nameRecords.find(row => row.heroId === 15).publicationApproval = true; }, 'Hero 15 Publication approval added', /\[SCHEMA\]/);
   await mutateJson(c, (v) => { v.nameRecords = v.nameRecords.filter(row => row.heroId !== 6); }, 'existing Hero 6 localization removed', /\[CANONICAL\].*names/);
   await mutateJson(c, (v) => { v.descriptionRecords = v.descriptionRecords.filter(row => row.heroId !== 8 || row.star !== 6); }, 'existing Hero 8 localization removed', /\[CANONICAL\].*descriptions/);
