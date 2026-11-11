@@ -498,6 +498,12 @@ jobs:
       - name: Test Hero 15 Fetter condition type boundaries
         run: node tools/test-hero15-fetter-condition-type-references.mjs
 
+      - name: Validate Hero 15 Fetter Reward GoodsType references
+        run: node tools/validate-hero15-fetter-reward-type-references.mjs
+
+      - name: Test Hero 15 Fetter Reward type boundaries
+        run: node tools/test-hero15-fetter-reward-type-references.mjs
+
       - name: Validate Hero 15 Talent Publication and Generated Consumer
         run: node tools/validate-hero-15-talent-publication.mjs
 
