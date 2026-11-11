@@ -217,6 +217,12 @@ jobs:
       - name: Test Hero 15 Fetter reference semantic boundaries
         run: node tools/test-hero15-fetter-references.mjs
 
+      - name: Validate Hero 15 Heart Fetter raw conditions
+        run: node tools/validate-hero15-heart-fetter-raw-conditions.mjs
+
+      - name: Test Hero 15 Heart Fetter raw-condition semantic boundaries
+        run: node tools/test-hero15-heart-fetter-raw-conditions.mjs
+
       - name: Validate Hero Talent Korean localization
         run: node tools/validate-hero-talent-localizations-ko.mjs
 

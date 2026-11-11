@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-15-heart-fetter-raw-conditions",
+  "evidenceClass": "A",
+  "scope": {
+    "heroId": 15,
+    "heartFetterId": 15,
+    "levels": [
+      4,
+      7
+    ],
+    "recordCount": 4,
+    "conditionType7Meaning": "MANUAL_REVIEW"
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "heroInformation": {
+      "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+      "blobSha1": "49aef6be8ea1a65d5725c16a05dab94fffa73f92",
+      "sha256": "ee9f81f161f79939e771b16db97329bfaa45872edad0ecbf9dd9285587ebad7e",
+      "recordCount": 291,
+      "recordIndex": 14,
+      "recordLocator": "ConfigDataHeroInformationInfo#ID=15",
+      "fields": {
+        "ID": 15,
+        "HeroHeartFetterId": 15
+      }
+    },
+    "heartFetter": {
+      "path": "data/configdata/ConfigDataHeroHeartFetterInfo.json",
+      "blobSha1": "be61dd6fb14662d70335e833c4c857dda5105f74",
+      "sha256": "7a150f7fd0658ffc9b05d68b8131a677290ab67710f97a22c4e4c4d78ea42b8a",
+      "recordCount": 286,
+      "recordIndex": 13,
+      "recordLocator": "ConfigDataHeroHeartFetterInfo#ID=15",
+      "fields": {
+        "ID": 15,
+        "UnlockSkills_ID": [
+          {
+            "SkillId": 70421,
+            "HeartFetterLevel": 4
+          },
+          {
+            "SkillId": 70422,
+            "HeartFetterLevel": 4
+          },
+          {
+            "SkillId": 70423,
+            "HeartFetterLevel": 7
+          },
+          {
+            "SkillId": 70424,
+            "HeartFetterLevel": 7
+          },
+          {
+            "SkillId": 70110,
+            "HeartFetterLevel": 10
+          }
+        ]
+      }
+    },
+    "skillInfo": {
+      "path": "data/configdata/ConfigDataSkillInfo.json",
+      "blobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+      "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+      "recordCount": 27198,
+      "records": [
+        {
+          "recordIndex": 16612,
+          "recordLocator": "ConfigDataSkillInfo#ID=70421",
+          "fields": {
+            "ID": 70421,
+            "PassiveBuffs_ID": [
+              70421
+            ]
+          }
+        },
+        {
+          "recordIndex": 16613,
+          "recordLocator": "ConfigDataSkillInfo#ID=70422",
+          "fields": {
+            "ID": 70422,
+            "PassiveBuffs_ID": [
+              70422
+            ]
+          }
+        },
+        {
+          "recordIndex": 16614,
+          "recordLocator": "ConfigDataSkillInfo#ID=70423",
+          "fields": {
+            "ID": 70423,
+            "PassiveBuffs_ID": [
+              70423
+            ]
+          }
+        },
+        {
+          "recordIndex": 16615,
+          "recordLocator": "ConfigDataSkillInfo#ID=70424",
+          "fields": {
+            "ID": 70424,
+            "PassiveBuffs_ID": [
+              70424,
+              9970424
+            ]
+          }
+        }
+      ]
+    },
+    "buffInfo": {
+      "path": "data/configdata/ConfigDataBuffInfo.json",
+      "blobSha1": "bc7d5c7e5b4ac68b5192955a76cd21b810f36982",
+      "sha256": "ce84692846e4306dc15270ad959d9a258b5e599df5aaef352bc35992f5095225",
+      "recordCount": 74054,
+      "records": [
+        {
+          "recordIndex": 32857,
+          "recordLocator": "ConfigDataBuffInfo#ID=70421",
+          "fields": {
+            "ID": 70421,
+            "ConditionType": 7,
+            "ConditionParam": [
+              811
+            ]
+          }
+        },
+        {
+          "recordIndex": 32858,
+          "recordLocator": "ConfigDataBuffInfo#ID=70422",
+          "fields": {
+            "ID": 70422,
+            "ConditionType": 7,
+            "ConditionParam": [
+              707
+            ]
+          }
+        },
+        {
+          "recordIndex": 32859,
+          "recordLocator": "ConfigDataBuffInfo#ID=70423",
+          "fields": {
+            "ID": 70423,
+            "ConditionType": 7,
+            "ConditionParam": [
+              811
+            ]
+          }
+        },
+        {
+          "recordIndex": 32860,
+          "recordLocator": "ConfigDataBuffInfo#ID=70424",
+          "fields": {
+            "ID": 70424,
+            "ConditionType": 7,
+            "ConditionParam": [
+              707
+            ]
+          }
+        },
+        {
+          "recordIndex": 32861,
+          "recordLocator": "ConfigDataBuffInfo#ID=9970424",
+          "fields": {
+            "ID": 9970424,
+            "ConditionType": 7,
+            "ConditionParam": [
+              707
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "extraction": {
+    "kind": "claim-scoped-record-field-projection",
+    "sourceBytesCopied": false,
+    "sourceAccess": "Pinned Git blobs read from Legacy repository object database at source commit; source file Git blob SHA-1 and SHA-256 verified against exact bytes.",
+    "recordSelection": "Explicit HeroInformationInfo#ID=15 -> HeartFetterInfo#ID=15; preserve Lv4/Lv7 UnlockSkills_ID entries; resolve SkillInfo.PassiveBuffs_ID in source order; project each referenced BuffInfo ConditionType and ConditionParam.",
+    "transformation": "One canonical record per explicit Lv4/Lv7 UnlockSkills_ID row; passiveBuffIds copied in source order; one condition per passive buff in the same order; no normalization, sorting, translation, calculation, or interpretation.",
+    "sha256RecomputedFromPinnedBytes": [
+      "heroInformation",
+      "heartFetter",
+      "skillInfo",
+      "buffInfo"
+    ],
+    "sha256ReusedFromVerifiedPin": []
+  },
+  "legacyValidation": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "rawConditionContractPath": "data/contracts/hero-heart-fetter-raw-condition.v1.json",
+    "rawConditionContractBlobSha1": "42a815952dc468be59b40f34592a91c70c148654",
+    "producerPath": "scripts/build-hero-heart-fetter-raw-condition-v1.cjs",
+    "validatorPath": "scripts/validate-hero-heart-fetter-raw-condition-v1.cjs",
+    "admissionArtifactPath": "data/validation/hero-heart-fetter-raw-condition-admission.v1.json",
+    "admissionArtifactBlobSha1": "766c6dcce95c83ca83d30aaa8d341771df9af9b3",
+    "admissionStatus": "PASS",
+    "validatedHead": "c417fc406dafce20ec5c79ea07023c26bc122fcb",
+    "workflowRunId": 34811581371,
+    "publicationArtifactPath": "data/validation/hero-heart-fetter-raw-condition-publication.v1.json",
+    "publicationArtifactBlobSha1": "94dd23d78c8e45659605c673630911c7531e5730",
+    "publicationStatus": "PASS",
+    "publicationRunId": 34812081488,
+    "scope": "Legacy producer/validator covered 1,066 raw rows across 267 heroes; reusable as prior validation only, not as Target Canonical admission."
+  },
+  "claims": [
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 4,
+      "skillId": 70421,
+      "passiveBuffIds": [
+        70421
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            811
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 0,
+        "skillSourceIndex": 16612,
+        "passiveBuffSourceIndices": [
+          32857
+        ]
+      }
+    },
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 4,
+      "skillId": 70422,
+      "passiveBuffIds": [
+        70422
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            707
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 1,
+        "skillSourceIndex": 16613,
+        "passiveBuffSourceIndices": [
+          32858
+        ]
+      }
+    },
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 7,
+      "skillId": 70423,
+      "passiveBuffIds": [
+        70423
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            811
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 2,
+        "skillSourceIndex": 16614,
+        "passiveBuffSourceIndices": [
+          32859
+        ]
+      }
+    },
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 7,
+      "skillId": 70424,
+      "passiveBuffIds": [
+        70424,
+        9970424
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            707
+          ]
+        },
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            707
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 3,
+        "skillSourceIndex": 16615,
+        "passiveBuffSourceIndices": [
+          32860,
+          32861
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Raw Source field parity only; no ConditionType=7 runtime predicate or ConditionParam gameplay meaning is admitted.",
+    "No applicableJobIds, jobRestricted, unlock condition, active-when-job rule, reward, stat, or combat effect is admitted.",
+    "Legacy generated output and PASS records are corroborating validation history, not semantic authority.",
+    "No Fetter/Heart Fetter UI or Publication Approval.",
+    "Admission is restricted to Hero 15, Heart Fetter ID 15, Lv4/Lv7 and these four source records."
+  ]
+}
