@@ -381,6 +381,9 @@ jobs:
       - name: Generate approved General SSR public consumer
         run: node tools/generate.mjs
 
+      - name: Generate approved Hero 15 Talent public consumer
+        run: node tools/generate-hero-15-talent-publication.mjs
+
       - name: Fail if Generated artifacts are stale after generation
         run: git diff --exit-code -- generated
 
@@ -434,6 +437,12 @@ jobs:
 
       - name: Test Hero 15 Minimal Detail boundaries
         run: node tools/test-hero-15-minimal-detail.mjs
+
+      - name: Validate Hero 15 Talent Publication and Generated Consumer
+        run: node tools/validate-hero-15-talent-publication.mjs
+
+      - name: Test Hero 15 Talent Publication failure boundaries
+        run: node tools/test-hero-15-talent-publication.mjs
 
       - name: Validate Hero 16 Minimal Detail publication
         run: node tools/validate-hero-16-minimal-detail.mjs

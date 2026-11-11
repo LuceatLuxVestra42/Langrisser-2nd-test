@@ -7,6 +7,7 @@ import { buildSite, publicSitePaths, validatePublicSiteDirectory } from './build
 import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-presentation-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
+import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -54,6 +55,8 @@ try {
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_15_MINIMAL_DETAIL_PATH), 'approved Hero 15 Minimal Detail must enter the public artifact');
+  assert.ok(built.files.some((file) => file.path === HERO_15_TALENT_PUBLIC_PATH), 'separately approved Hero 15 Talent consumer must enter the public artifact');
+  assert.deepEqual(JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')).talent.starDescriptions.map(({star,skillId})=>[star,skillId]), [[3,3212],[4,3214],[5,3216],[6,3218]]);
   assert.ok(built.files.some((file) => file.path === HERO_16_MINIMAL_DETAIL_PATH), 'approved Hero 16 Minimal Detail must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_BATCH_PATH), 'approved five-Hero Minimal Detail batch must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_TEN_BATCH_PATH), 'approved ten-Hero Minimal Detail batch must enter the public artifact');
@@ -106,6 +109,12 @@ try {
   await rm(join(output, HERO_15_MINIMAL_DETAIL_PATH));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(HERO_15_MINIMAL_DETAIL_PATH, join(output, HERO_15_MINIMAL_DETAIL_PATH));
+  await rm(join(output, HERO_15_TALENT_PUBLIC_PATH));
+  await assert.rejects(validate(), /allowlist mismatch/);
+  await copyFile(HERO_15_TALENT_PUBLIC_PATH, join(output, HERO_15_TALENT_PUBLIC_PATH));
+  await writeFile(join(output, HERO_15_TALENT_PUBLIC_PATH), '{}');
+  await assert.rejects(validate(), /bytes differ.*hero-15-talent-public/);
+  await copyFile(HERO_15_TALENT_PUBLIC_PATH, join(output, HERO_15_TALENT_PUBLIC_PATH));
   await rm(join(output, HERO_16_MINIMAL_DETAIL_PATH));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(HERO_16_MINIMAL_DETAIL_PATH, join(output, HERO_16_MINIMAL_DETAIL_PATH));

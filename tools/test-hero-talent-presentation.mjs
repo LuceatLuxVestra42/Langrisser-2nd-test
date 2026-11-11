@@ -4,12 +4,13 @@ import { runInNewContext } from 'node:vm';
 import { extractFunction } from './test-app-function-source.mjs';
 import { resolveTalentSkillText } from './generate.mjs';
 
-const [source, generated, localization, skills, talentRelations] = await Promise.all([
+const [source, generated, localization, skills, talentRelations, hero15Public] = await Promise.all([
   readFile('app.js', 'utf8'),
   readFile('generated/hero-slice.v1.json', 'utf8').then(JSON.parse),
   readFile('canonical/hero-talent-localizations-ko.v1.json', 'utf8').then(JSON.parse),
   readFile('canonical/skills.v1.json', 'utf8').then(JSON.parse),
   readFile('canonical/hero-talent-star-skills.v1.json', 'utf8').then(JSON.parse),
+  readFile('generated/hero-15-talent-public.v1.json', 'utf8').then(JSON.parse),
 ]);
 talentRelations.records = talentRelations.records.filter((row) => [6, 8].includes(row.heroId));
 const skillById = new Map(skills.records.map((row) => [row.skillId, row]));
@@ -60,6 +61,11 @@ for (const hero of generated.heroes) {
   }
 }
 assert.equal(generated.heroes.filter(({ talent }) => talent).length, 2);
+assert.deepEqual([hero15Public.heroId,hero15Public.surface,hero15Public.officialKrProvenanceStatus],[15,'hero-minimal-detail-15','unverified']);
+assert.deepEqual(hero15Public.talent.starDescriptions.map(({star,skillId})=>[star,skillId]),[[3,3212],[4,3214],[5,3216],[6,3218]]);
+assert.match(source,/fetch\('\.\/generated\/hero-15-talent-public\.v1\.json'\)/);
+assert.match(source,/Hero 15 Talent consumer is malformed or outside its approved publication scope/);
+assert.equal(generated.heroes.find(({id})=>id===15)?.talent,undefined,'Hero 15 remains outside the Full Detail Talent consumer');
 assert.match(source, /if \(hero\.talent\) article\.append\(makeTalentPresentation\(hero\.id, hero\.talent\)\)/);
 assert.match(source, /Talent · 프로젝트 검수 한국어 \(공식 표기 미확인\)/);
 
@@ -104,4 +110,4 @@ assert.equal(unsafeSource.children.length, 0, 'unsupported Chinese source markup
 assert.throws(() => functions.makeTalentDescription(' ', 3), /missing/);
 assert.throws(() => functions.makeTalentPresentation(6, { nameKo: 'x', starDescriptions: [] }), /malformed/);
 assert.throws(() => functions.makeTalentPresentation(6, { nameKo: 'x', starDescriptions: [{ star: 3, skillId: 3067 }] }), /presentation is malformed/);
-console.log('Hero Talent presentation checks passed (Heroes 6/8 only; Hero 15 Localization remains unpublished; 8 negative controls; original markup safety)');
+console.log('Hero Talent presentation checks passed (Full Detail remains Heroes 6/8; Hero 15 Talent isolated to approved Minimal Detail; 8 negative controls; original markup safety)');

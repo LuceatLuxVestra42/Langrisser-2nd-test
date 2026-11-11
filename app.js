@@ -188,7 +188,7 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
   return { showAll, showTarget, update };
 }
 
-function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }) {
+function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }, talent = null) {
   const expectedHeroId = heroId;
   if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== 1) {
     throw new Error(`Unsupported Hero ${heroId} minimal detail consumer`);
@@ -214,6 +214,7 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
   effect.className = 'hero-minimal-detail-effect';
   effect.textContent = hero.exclusiveEquipment.effectDescriptionKo.replace(/\\n/g, '\n');
   article.append(name, id, nameStatus, equipment, effect);
+  if (talent) article.append(makeTalentPresentation(heroId, talent));
   container.replaceChildren(article);
   return {
     showTarget(heroId) {
@@ -224,8 +225,20 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
   };
 }
 
-function renderHero15MinimalDetailView(data, container) {
-  return renderHeroMinimalDetailView(data, container, { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' });
+function renderHero15MinimalDetailView(data, talentData, container) {
+  if (Object.keys(talentData ?? {}).sort().join(',') !== 'heroId,officialKrProvenanceStatus,schemaVersion,surface,talent'
+    || talentData.schemaVersion !== 1 || talentData.heroId !== 15 || talentData.surface !== 'hero-minimal-detail-15'
+    || talentData.officialKrProvenanceStatus !== 'unverified' || talentData.talent?.nameKo !== '성결한 수녀'
+    || Object.keys(talentData.talent ?? {}).sort().join(',') !== 'nameKo,starDescriptions'
+    || JSON.stringify(talentData.talent?.starDescriptions?.map(({ star, skillId }) => [star, skillId])) !== '[[3,3212],[4,3214],[5,3216],[6,3218]]') {
+    throw new Error('Hero 15 Talent consumer is malformed or outside its approved publication scope');
+  }
+  for (const row of talentData.talent.starDescriptions) {
+    if (Object.keys(row).sort().join(',') !== 'descriptionCn,descriptionKoRaw,nameCn,skillId,star') {
+      throw new Error('Hero 15 Talent consumer contains an unapproved field');
+    }
+  }
+  return renderHeroMinimalDetailView(data, container, { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent);
 }
 
 function renderHero16MinimalDetailView(data, container) {
@@ -726,12 +739,16 @@ try {
 }
 
 try {
-  const response = await fetch('./generated/hero-minimal-detail.v1.json');
+  const [response, talentResponse] = await Promise.all([
+    fetch('./generated/hero-minimal-detail.v1.json'),
+    fetch('./generated/hero-15-talent-public.v1.json'),
+  ]);
   if (!response.ok) throw new Error(`Generated Hero 15 minimal detail request failed (${response.status})`);
-  const data = await response.json();
+  if (!talentResponse.ok) throw new Error(`Generated Hero 15 Talent request failed (${talentResponse.status})`);
+  const [data, talentData] = await Promise.all([response.json(), talentResponse.json()]);
   hero15MinimalDetailIds = new Set(data.heroes?.map(({ heroId }) => heroId) ?? []);
   if (hero15MinimalDetailIds.size !== 1 || !hero15MinimalDetailIds.has(15)) throw new Error('Hero Minimal Detail publication scope must contain only Hero 15');
-  hero15MinimalDetailNavigation = renderHero15MinimalDetailView(data, hero15MinimalDetailContainer);
+  hero15MinimalDetailNavigation = renderHero15MinimalDetailView(data, talentData, hero15MinimalDetailContainer);
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';
