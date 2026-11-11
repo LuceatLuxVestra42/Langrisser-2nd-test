@@ -262,6 +262,12 @@ jobs:
       - name: Test additive Hero portrait expansion
         run: node tools/test-hero-portrait-expansion.mjs
 
+      - name: Validate Hero 15 internal portrait asset admission
+        run: node tools/validate-hero-15-portrait-admission.mjs
+
+      - name: Test Hero 15 internal portrait asset admission
+        run: node tools/test-hero-15-portrait-admission.mjs
+
 
       - name: Validate Hero Korean localization
         run: node tools/validate-hero-ko-localization.mjs

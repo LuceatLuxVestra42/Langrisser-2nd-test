@@ -52,6 +52,7 @@ try {
   assert.equal(publicEquipment.equipment.length, 198, 'public General SSR Equipment must contain the approved 198 IDs');
   assert.equal(publicEquipment.equipment.some(({ equipmentId }) => excludedEquipmentIds.includes(equipmentId)), false, 'excluded General SSR Equipment IDs must not enter Build output');
   assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision));
+  assert.equal(built.files.some((file) => file.path === 'assets/portraits/hero-15.png'), false, 'internally admitted Hero 15 portrait must remain outside the public Build');
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_15_MINIMAL_DETAIL_PATH), 'approved Hero 15 Minimal Detail must enter the public artifact');
@@ -136,6 +137,11 @@ try {
   await writeFile(join(output, skinConsumerPath), '{}');
   await assert.rejects(validate(), /bytes differ.*generated\/skin-consumer\.v1\.json/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
+  await validate();
+  await mkdir(join(output, 'assets/portraits'), { recursive: true });
+  await copyFile('assets/portraits/hero-15.png', join(output, 'assets/portraits/hero-15.png'));
+  await assert.rejects(validate(), /allowlist mismatch/, 'public Build validator must reject an unapproved Hero 15 portrait');
+  await rm(join(output, 'assets/portraits/hero-15.png'));
   await validate();
   const server = createServer(async (request, response) => {
     const path = new URL(request.url ?? '/', 'http://127.0.0.1').pathname.replace(/^\/+/, '');
