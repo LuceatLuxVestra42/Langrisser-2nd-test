@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero15-fetter-condition-type-enum-references",
+  "scope": "Hero 15 Fetter CompletionConditions and Heart Fetter UnlockConditions raw Type-code references to their source-native enum members only; parameters and runtime evaluation remain uninterpreted.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/metadata/dump.cs",
+    "blobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+    "sourceRole": "Frozen generated type metadata; enum and message-field identity only, not executable runtime predicate implementation."
+  },
+  "enumDefinitions": [
+    {
+      "namespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "typeName": "FetterCompleteConditionType",
+      "typeDefIndex": 10674,
+      "locator": "data/metadata/dump.cs#L620633-L620643",
+      "members": {
+        "1": "FetterCompleteConditionType_HeroFavorabilityLevel",
+        "2": "FetterCompleteConditionType_Mission"
+      }
+    },
+    {
+      "namespace": "BlackJack.ConfigData.HeroHeartFetterUnlockConditionType",
+      "typeName": "HeroHeartFetterUnlockConditionType",
+      "typeDefIndex": 10707,
+      "locator": "data/metadata/dump.cs#L622328-L622337",
+      "members": {
+        "1": "HeroHeartFetterUnlockConditionType_HeroFetterLevel",
+        "2": "HeroHeartFetterUnlockConditionType_HeroLevel"
+      }
+    }
+  ],
+  "messageFieldDefinitions": [
+    {
+      "message": "BlackJack.ConfigData.HeroFetterCompletionCondition",
+      "typeDefIndex": 10992,
+      "locator": "data/metadata/dump.cs#L640814-L640826",
+      "fields": {
+        "ConditionType": 1,
+        "Parm1": 2,
+        "Parm2": 3
+      }
+    },
+    {
+      "message": "BlackJack.ConfigData.HeroHeartFetterUnlockCondition",
+      "typeDefIndex": 10996,
+      "locator": "data/metadata/dump.cs#L641077-L641084",
+      "fields": {
+        "ConditionType": 1,
+        "Parm1": 2
+      }
+    }
+  ],
+  "rawSourcePins": {
+    "regularFetter": {
+      "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+      "blobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+      "sha256": "1c058ddd7ad2fd038e8fae73391aafa85b3dea4fe49868a2c834a490497172a6"
+    },
+    "heartFetter": {
+      "path": "data/configdata/ConfigDataHeroHeartFetterInfo.json",
+      "blobSha1": "be61dd6fb14662d70335e833c4c857dda5105f74",
+      "sha256": "7a150f7fd0658ffc9b05d68b8131a677290ab67710f97a22c4e4c4d78ea42b8a"
+    }
+  },
+  "claims": [
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 66,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 1,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_HeroFavorabilityLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/0/fields/CompletionConditions/0"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 67,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 1,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_HeroFavorabilityLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/1/fields/CompletionConditions/0"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 67,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 1,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_Mission",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/1/fields/CompletionConditions/1"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 68,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 1,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_HeroFavorabilityLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/2/fields/CompletionConditions/0"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 68,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 1,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_Mission",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/2/fields/CompletionConditions/1"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 69,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 1,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_HeroFavorabilityLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/3/fields/CompletionConditions/0"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 69,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 1,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_Mission",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/3/fields/CompletionConditions/1"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 70,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 1,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_HeroFavorabilityLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/4/fields/CompletionConditions/0"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "REGULAR_FETTER",
+      "trackEndpointId": 70,
+      "trackEndpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceField": "CompletionConditions",
+      "sourceArrayIndex": 1,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.FetterCompleteConditionType",
+      "enumMember": "FetterCompleteConditionType_Mission",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/4/fields/CompletionConditions/1"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "HEART_FETTER",
+      "trackEndpointId": 15,
+      "trackEndpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "sourceField": "UnlockConditions",
+      "sourceArrayIndex": 0,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 1,
+      "typeEnumNamespace": "BlackJack.ConfigData.HeroHeartFetterUnlockConditionType",
+      "enumMember": "HeroHeartFetterUnlockConditionType_HeroFetterLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-heart-fetter-raw-details.v1.json#selection/records/0/fields/UnlockConditions/0"
+    },
+    {
+      "heroId": 15,
+      "trackKind": "HEART_FETTER",
+      "trackEndpointId": 15,
+      "trackEndpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "sourceField": "UnlockConditions",
+      "sourceArrayIndex": 1,
+      "sourceTypeField": "ConditionType",
+      "typeCode": 2,
+      "typeEnumNamespace": "BlackJack.ConfigData.HeroHeartFetterUnlockConditionType",
+      "enumMember": "HeroHeartFetterUnlockConditionType_HeroLevel",
+      "rawConditionProvenance": "evidence/source/bonds/hero15-heart-fetter-raw-details.v1.json#selection/records/0/fields/UnlockConditions/1"
+    }
+  ]
+}
