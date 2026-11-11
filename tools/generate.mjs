@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { renderHero15TalentPublic, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
 import { resolve } from 'node:path';
 import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope } from './soldier-training-tech-presentation-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, renderExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
@@ -1012,10 +1011,6 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(talentRelationsPath, 'utf8'), readFile(talentLocalizationsPath, 'utf8'),
   ]).then(([relations, localizations]) => [JSON.parse(relations), JSON.parse(localizations)]);
   const canonicalSkills = JSON.parse(await readFile(skillsPath, 'utf8'));
-  const hero15TalentDecision = JSON.parse(await readFile(resolve(HERO_15_TALENT_PUBLICATION_PATH), 'utf8'));
-  const hero15TalentRelations = JSON.parse(await readFile(talentRelationsPath, 'utf8'));
-  const hero15TalentLocalizations = JSON.parse(await readFile(talentLocalizationsPath, 'utf8'));
-  await writeFile(resolve(HERO_15_TALENT_PUBLIC_PATH), renderHero15TalentPublic({ decision: hero15TalentDecision, talentRelations: hero15TalentRelations, skills: canonicalSkills, localizations: hero15TalentLocalizations }), 'utf8');
   const heroJobLevelRawStats = JSON.parse(await readFile(heroJobLevelRawStatsPath, 'utf8'));
   const factionLocalizations = JSON.parse(await readFile(factionLocalizationsPath, 'utf8'));
   const productionLocalizations = JSON.parse(await readFile(productionLocalizationsPath, 'utf8'));

@@ -381,6 +381,9 @@ jobs:
       - name: Generate approved General SSR public consumer
         run: node tools/generate.mjs
 
+      - name: Generate approved Hero 15 Talent public consumer
+        run: node tools/generate-hero-15-talent-publication.mjs
+
       - name: Fail if Generated artifacts are stale after generation
         run: git diff --exit-code -- generated
 
