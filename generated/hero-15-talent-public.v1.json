@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "surface": "hero-minimal-detail-15",
+  "heroId": 15,
+  "officialKrProvenanceStatus": "unverified",
+  "talent": {
+    "nameKo": "성결한 수녀",
+    "starDescriptions": [
+      {
+        "star": 3,
+        "skillId": 3212,
+        "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">1칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">1.5배</font>만큼 회복.",
+        "nameCn": "圣洁的修女",
+        "descriptionCn": "行动结束时驱散<color=#DC143C>1</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>1.5</color>倍。"
+      },
+      {
+        "star": 4,
+        "skillId": 3214,
+        "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">2배</font>만큼 회복.",
+        "nameCn": "圣洁的修女",
+        "descriptionCn": "行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2</color>倍。"
+      },
+      {
+        "star": 5,
+        "skillId": 3216,
+        "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">2.5배</font>만큼 회복.",
+        "nameCn": "圣洁的修女",
+        "descriptionCn": "行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2.5</color>倍。"
+      },
+      {
+        "star": 6,
+        "skillId": 3218,
+        "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">2개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">3배</font>만큼 회복.",
+        "nameCn": "圣洁的修女",
+        "descriptionCn": "行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>2</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>3</color>倍。"
+      }
+    ]
+  }
+}

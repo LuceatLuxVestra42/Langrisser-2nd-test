@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "HERO_15_TALENT_PUBLICATION",
+  "status": "APPROVED",
+  "approval": {
+    "approverRole": "USER",
+    "source": {
+      "kind": "CURRENT_USER_MESSAGE",
+      "quote": "나는 LuceatLuxVestra42/Langrisser-2nd-test에서 Hero 15의 일반 Talent를 기존 hero-minimal-detail-15 Minimal Detail 화면에만 표시하는 별도 Publication을 승인한다. 공개 범위는 Hero ID 15, Talent 한국어 이름 성결한 수녀, 3~6성 기존 Skill ID(3212, 3214, 3216, 3218), 각 한국어 설명, 현재 Hero 6·8 Talent 표시와 동일한 중국어 원문 이름·설명이다. 공식 한국 서버 표기를 주장하지 않고 공식 한국 Provenance는 unverified로 유지한다. Hero Full Detail 승격, Hero Index 변경, 다른 Hero의 Talent 공개, 새 Semantic 관계·전투 효과·획득 관계, 출시 상태 주장, 기존 Hero 15 통합 Publication Decision 변경은 승인하지 않는다.",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "contextVerified": true
+    },
+    "recordedAtDate": "2026-11-11"
+  },
+  "approvedScope": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baselineRef": "main",
+    "baselineHead": "4e5cbabc703c8c76e8a1bcc6fb812c5ebe90d089",
+    "heroId": 15,
+    "surface": "hero-minimal-detail-15",
+    "fields": ["heroId", "talent.nameKo", "talent.starDescriptions.star", "talent.starDescriptions.skillId", "talent.starDescriptions.descriptionKoRaw", "talent.starDescriptions.nameCn", "talent.starDescriptions.descriptionCn", "officialKrProvenanceStatus"],
+    "officialKrProvenanceStatus": "unverified",
+    "stars": [
+      { "star": 3, "skillId": 3212 },
+      { "star": 4, "skillId": 3214 },
+      { "star": 5, "skillId": 3216 },
+      { "star": 6, "skillId": 3218 }
+    ],
+    "canonicalSources": {
+      "talentRelations": { "path": "canonical/hero-talent-star-skills.v1.json", "locator": "heroId=15&star=3..6" },
+      "skills": { "path": "canonical/skills.v1.json", "locator": "skillId=3212,3214,3216,3218" },
+      "localizations": { "path": "canonical/hero-talent-localizations-ko.v1.json", "locator": "heroId=15&star=3..6" }
+    },
+    "excluded": ["Hero Full Detail", "Hero Index", "other Hero Talent", "new Semantic relation", "battle-effect formula", "skill acquisition/equip relation", "release status", "change to hero-15-integrated-publication.v1.json"]
+  },
+  "effect": {
+    "effective": true,
+    "condition": "Publish only the exact Hero 15 Talent fields on the existing hero-minimal-detail-15 surface using the approved Canonical claims.",
+    "reviewWhen": "Re-review if an approved Hero, Skill ID, field, source claim, surface, official Korean provenance status, or exclusion changes."
+  }
+}

@@ -7,6 +7,7 @@ import { validateHeroPortraitSelection } from './validate-hero-portrait-selectio
 import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-raw-stats.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
+import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -18,6 +19,7 @@ const exactKeys = (value, expected, label) => {
   }
 };
 const check = (condition, message) => { if (!condition) throw new Error(message); };
+const hero15TalentDecision = validateHero15TalentDecision(await readJson(HERO_15_TALENT_PUBLICATION_PATH));
 
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
@@ -618,6 +620,8 @@ check(talentRelations.records.every((row) => [6,8,15].includes(row.heroId)), 'Ta
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities, skills, heroJobLevelRawStats);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
+const hero15TalentGenerated = await readFile(resolve(root, HERO_15_TALENT_PUBLIC_PATH), 'utf8');
+validateHero15TalentPublic({ generatedText: hero15TalentGenerated, inputs: { decision: hero15TalentDecision, talentRelations, skills, localizations: talentLocalizations } });
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
 check(generatedJson.heroes.every((hero) => {
