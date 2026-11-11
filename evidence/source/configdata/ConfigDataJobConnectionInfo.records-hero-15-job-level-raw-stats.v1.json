@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "scope": "Source-native JobConnection ID, Job_ID, and explicit JobLevels_ID fields for Hero 15 connections 150–155; no Talent or presentation fields admitted.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+    "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+    "recordLocator": "top-level array records by ID"
+  },
+  "extraction": {
+    "selectedRecordIds": [
+      150,
+      151,
+      152,
+      153,
+      154,
+      155
+    ],
+    "selectedFields": [
+      "ID",
+      "Job_ID",
+      "JobLevels_ID"
+    ],
+    "rule": "Project the exact source-native fields from records selected by explicit ConfigDataJobConnectionInfo.ID; retain JobLevels_ID arrays in source order."
+  },
+  "records": [
+    {
+      "ID": 150,
+      "Job_ID": 802,
+      "JobLevels_ID": [
+        1501,
+        1502,
+        1503
+      ]
+    },
+    {
+      "ID": 151,
+      "Job_ID": 803,
+      "JobLevels_ID": [
+        1511,
+        1512,
+        1513,
+        1514
+      ]
+    },
+    {
+      "ID": 152,
+      "Job_ID": 806,
+      "JobLevels_ID": [
+        1521,
+        1522,
+        1523,
+        1524
+      ]
+    },
+    {
+      "ID": 153,
+      "Job_ID": 703,
+      "JobLevels_ID": [
+        1531,
+        1532,
+        1533,
+        1534
+      ]
+    },
+    {
+      "ID": 154,
+      "Job_ID": 811,
+      "JobLevels_ID": [
+        1541,
+        1542,
+        1543,
+        1544,
+        1545
+      ]
+    },
+    {
+      "ID": 155,
+      "Job_ID": 707,
+      "JobLevels_ID": [
+        1551,
+        1552,
+        1553,
+        1554,
+        1555
+      ]
+    }
+  ]
+}

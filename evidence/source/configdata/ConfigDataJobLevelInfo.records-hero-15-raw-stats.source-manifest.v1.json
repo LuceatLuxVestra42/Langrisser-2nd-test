@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Claim-scoped fixed-source pins and extraction provenance for Hero 15 JobLevel raw stat admission.",
+  "source": {
+    "connection": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+      "sourceSha256": "990009e6d751920173a7ec5aea47a8c89954aa7dacb7ef13c9ab40bbc6b6bb3a",
+      "sourceBytes": 11498868,
+      "sourceTopLevelRecordCount": 30066,
+      "sourceVersionStatus": "unknown"
+    },
+    "job": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+      "sourceSha256": "2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf",
+      "sourceBytes": 2424034,
+      "sourceTopLevelRecordCount": 3295,
+      "sourceVersionStatus": "unknown"
+    },
+    "level": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+      "path": "data/configdata/ConfigDataJobLevelInfo.json",
+      "gitBlobSha1": "e9c978f78a96372db6e7b142512b69a8d0ab3182",
+      "sourceSha256": "0f02531a2b4244683b6a56f7d7b8ce607bf454f324a45312f20569983d2ed948",
+      "sourceBytes": 4177994,
+      "sourceTopLevelRecordCount": 7459,
+      "sourceVersionStatus": "unknown"
+    }
+  },
+  "artifacts": {
+    "evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-15-job-level-raw-stats.v1.json": {
+      "sha256": "484bf632baf8a4ec797362c2a9801a9dd24bb022cfd0792be3e187c5f7b85f4b",
+      "recordCount": 6,
+      "selectedRecordIds": [
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "selectedFields": [
+        "ID",
+        "Job_ID",
+        "JobLevels_ID"
+      ]
+    },
+    "evidence/source/configdata/ConfigDataJobInfo.records-hero-15-job-level-raw-stats.v1.json": {
+      "sha256": "deaf7b19755497a344c6e01121c92b8f3b7fa95e7d1f9611920ced7b8b197da9",
+      "recordCount": 6,
+      "selectedRecordIds": [
+        703,
+        707,
+        802,
+        803,
+        806,
+        811
+      ],
+      "selectedFields": [
+        "ID",
+        "Rank"
+      ]
+    },
+    "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-15-raw-stats.v1.json": {
+      "sha256": "aeedc5712fbc6f1bced9477c0877846a59c740f070e4239d635e6e7f752ef823",
+      "recordCount": 25,
+      "selectedRecordIds": [
+        1501,
+        1502,
+        1503,
+        1511,
+        1512,
+        1513,
+        1514,
+        1521,
+        1522,
+        1523,
+        1524,
+        1531,
+        1532,
+        1533,
+        1534,
+        1541,
+        1542,
+        1543,
+        1544,
+        1545,
+        1551,
+        1552,
+        1553,
+        1554,
+        1555
+      ],
+      "selectedFields": [
+        "ID",
+        "JobLevelUpHeroLevel",
+        "rank_code",
+        "HP_INI",
+        "HP_UP",
+        "AT_INI",
+        "AT_UP",
+        "Magic_INI",
+        "Magic_UP",
+        "DF_INI",
+        "DF_UP",
+        "MagicDF_INI",
+        "MagicDF_UP",
+        "DEX_INI"
+      ]
+    }
+  },
+  "limitations": [
+    "Source records establish raw JobLevel fields and explicit endpoints only.",
+    "No Hero final stat, growth formula, mastery, DEX_UP, or presentation/publication claim is admitted.",
+    "Historical Legacy is read-only evidence; Production generation consumes Canonical only."
+  ]
+}
