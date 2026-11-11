@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "scope": "Selected shared Casting Law Template raw records keyed only by ConfigDataCastingLawTemplateInfo.ID. This is not a complete Template population and admits no Hero assignment or runtime meaning.",
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "records": [
+    {
+      "templateId": 12,
+      "rawRecord": {
+        "ID": 12,
+        "Name": "锤之铸纹",
+        "CastingLawLevelUpInfoList": [
+          56,
+          57,
+          58,
+          59,
+          60,
+          10056,
+          10057,
+          10058,
+          10059,
+          10060
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Hammer.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "ABSENT"
+      },
+      "provenance": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords/ID=12"
+    },
+    {
+      "templateId": 14,
+      "rawRecord": {
+        "ID": 14,
+        "Name": "杖之铸纹",
+        "CastingLawLevelUpInfoList": [
+          66,
+          67,
+          68,
+          69,
+          70,
+          10066,
+          10067,
+          10068,
+          10069,
+          10070
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Wand.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "ABSENT"
+      },
+      "provenance": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords/ID=14"
+    },
+    {
+      "templateId": 37,
+      "rawRecord": {
+        "ID": 37,
+        "Name": "布甲铸纹",
+        "EquipmentType": 1,
+        "CastingLawLevelUpInfoList": [
+          181,
+          182,
+          183,
+          184,
+          185,
+          10181,
+          10182,
+          10183,
+          10184,
+          10185
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Cloth.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "PRESENT"
+      },
+      "provenance": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords/ID=37"
+    },
+    {
+      "templateId": 40,
+      "rawRecord": {
+        "ID": 40,
+        "Name": "布帽铸纹",
+        "EquipmentType": 2,
+        "CastingLawLevelUpInfoList": [
+          196,
+          197,
+          198,
+          199,
+          200,
+          10196,
+          10197,
+          10198,
+          10199,
+          10200
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Cap.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "PRESENT"
+      },
+      "provenance": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords/ID=40"
+    },
+    {
+      "templateId": 41,
+      "rawRecord": {
+        "ID": 41,
+        "Name": "饰品铸纹",
+        "EquipmentType": 3,
+        "CastingLawLevelUpInfoList": [
+          201,
+          202,
+          203,
+          204,
+          205,
+          10201,
+          10202,
+          10203,
+          10204,
+          10205
+        ],
+        "Icon": "UI/Common_New_ABS/Icon/Icon_CastingLaw_Ornaments.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "Icon": "PRESENT",
+        "EquipmentType": "PRESENT"
+      },
+      "provenance": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords/ID=41"
+    }
+  ]
+}
