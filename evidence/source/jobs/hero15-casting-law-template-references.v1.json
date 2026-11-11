@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero15-casting-law-template-source-references",
+  "scope": "Direct Hero 15 source-array references and existence of the referenced source table IDs. No cost, level progression, equipment slot, mastery, unlock, effect, or publication semantics are admitted.",
+  "sourceSnapshot": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a"
+  },
+  "heroSource": {
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "blobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "recordCount": 28789,
+    "sourceArrayIndex": 14,
+    "recordLocator": "ConfigDataHeroInfo#ID=15",
+    "fields": {
+      "ID": 15,
+      "CastingLawTemplates_ID": [14, 12, 37, 40, 41]
+    },
+    "fieldLocator": "ConfigDataHeroInfo#ID=15/CastingLawTemplates_ID"
+  },
+  "templateSource": {
+    "path": "data/configdata/ConfigDataCastingLawTemplateInfo.json",
+    "blobSha1": "3d3f403120324a258cc1e1d03dd4af3cf56ad10e",
+    "sha256": "8e26a550cfb55757daa5221a674281eebea1a71e0993e30b136b98fcc98c459d",
+    "recordCount": 50,
+    "endpointNamespace": "ConfigDataCastingLawTemplateInfo.ID"
+  },
+  "templateRecords": [
+    { "sourceArrayIndex": 11, "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=12", "fields": { "ID": 12 } },
+    { "sourceArrayIndex": 13, "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=14", "fields": { "ID": 14 } },
+    { "sourceArrayIndex": 36, "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=37", "fields": { "ID": 37 } },
+    { "sourceArrayIndex": 39, "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=40", "fields": { "ID": 40 } },
+    { "sourceArrayIndex": 40, "recordLocator": "ConfigDataCastingLawTemplateInfo#ID=41", "fields": { "ID": 41 } }
+  ],
+  "interpretation": {
+    "evidenceClass": "A_DIRECT_SOURCE_REFERENCE",
+    "transformation": "Copy the five explicit numeric array entries in source order and confirm each exists as an ID in ConfigDataCastingLawTemplateInfo. No sorting or deduplication.",
+    "priorContractLocator": "Legacy data/contracts/hero-casting-law-by-hero.v1.json#relationContract",
+    "limitation": "The claim is only that HeroInfo ID 15 references these template IDs. Template contents, material/gold costs, slot labels, skill/mastery, unlock, combat effect, acquisition, and presentation are outside this admission. Legacy generated aggregation is not used as source authority."
+  }
+}
