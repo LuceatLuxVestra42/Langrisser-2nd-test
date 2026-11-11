@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-15-fetter-source-references",
+  "evidenceClass": "A",
+  "scope": {
+    "heroId": 15,
+    "heroInformationId": 15,
+    "sourceFields": [
+      "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "ConfigDataHeroInformationInfo.HeroHeartFetterId"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "heroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "blobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+      "recordIndex": 14,
+      "recordLocator": "ConfigDataHeroInfo#ID=15",
+      "fields": {
+        "ID": 15,
+        "HeroInformation_ID": 15
+      }
+    },
+    "heroInformationInfo": {
+      "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+      "blobSha1": "49aef6be8ea1a65d5725c16a05dab94fffa73f92",
+      "sha256": "ee9f81f161f79939e771b16db97329bfaa45872edad0ecbf9dd9285587ebad7e",
+      "bytes": 313302,
+      "recordCount": 291,
+      "recordIndex": 14,
+      "recordLocator": "ConfigDataHeroInformationInfo#ID=15",
+      "fields": {
+        "ID": 15,
+        "Name": "莉亚娜",
+        "HeroFetters_ID": [66, 67, 68, 69, 70],
+        "HeroHeartFetterId": 15
+      }
+    },
+    "heroFetterInfo": {
+      "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+      "blobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+      "sha256": "1c058ddd7ad2fd038e8fae73391aafa85b3dea4fe49868a2c834a490497172a6",
+      "bytes": 3569220,
+      "recordCount": 1430,
+      "recordLocatorRule": "zero-based top-level array index plus explicit ID",
+      "endpoints": [
+        { "recordIndex": 65, "id": 66, "nameCn": "军团羁绊·辉" },
+        { "recordIndex": 66, "id": 67, "nameCn": "英雄羁绊·光" },
+        { "recordIndex": 67, "id": 68, "nameCn": "军团羁绊·耀" },
+        { "recordIndex": 68, "id": 69, "nameCn": "英雄羁绊·韧" },
+        { "recordIndex": 69, "id": 70, "nameCn": "英雄羁绊·力" }
+      ]
+    },
+    "heroHeartFetterInfo": {
+      "path": "data/configdata/ConfigDataHeroHeartFetterInfo.json",
+      "blobSha1": "be61dd6fb14662d70335e833c4c857dda5105f74",
+      "sha256": "7a150f7fd0658ffc9b05d68b8131a677290ab67710f97a22c4e4c4d78ea42b8a",
+      "bytes": 813547,
+      "recordCount": 286,
+      "recordIndex": 13,
+      "recordLocator": "ConfigDataHeroHeartFetterInfo#ID=15",
+      "fields": {
+        "ID": 15,
+        "Name": "莉亚娜"
+      }
+    },
+    "schemaMetadata": {
+      "path": "data/metadata/dump.cs",
+      "claim": "ConfigDataHeroInformationInfo.HeroHeartFetterId resolves to ConfigDataHeroHeartFetterInfo through the typed m_heartFetterInfo accessor; HeroFetters_ID and target table rows are preserved as source-native raw references only.",
+      "blobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+      "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+      "bytes": 54916284
+    }
+  },
+  "extraction": {
+    "kind": "claim-scoped-record-field-projection",
+    "sourceBytesCopied": false,
+    "recordSelection": "explicit ID=15, HeroFetters_ID endpoint IDs 66-70, and HeroHeartFetterInfo ID=15 only",
+    "transformation": "selected source-native fields and endpoint ID/name locators copied without translating, calculating, sorting, or interpreting condition parameters",
+    "sha256RecomputedFromPinnedBytes": ["heroInformationInfo", "heroFetterInfo", "heroHeartFetterInfo", "schemaMetadata"],
+    "sha256ReusedFromVerifiedPin": ["heroInfo"]
+  },
+  "claims": {
+    "heroFetterReferences": {
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "rawValue": [66, 67, 68, 69, 70],
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "endpointStatus": "all five explicit IDs resolved in the pinned endpoint table",
+      "supportedMeaning": "HeroInformationInfo record 15 contains these source-native Fetter ID references",
+      "limitation": "Does not admit completion conditions, Fetter levels, rewards, skills, Korean system labels, or gameplay effects."
+    },
+    "heroHeartFetterReference": {
+      "sourceField": "ConfigDataHeroInformationInfo.HeroHeartFetterId",
+      "rawValue": 15,
+      "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "endpointStatus": "ID 15 resolves in the pinned endpoint table",
+      "supportedMeaning": "HeroInformationInfo record 15 contains an explicit HeartFetter ID reference",
+      "limitation": "Does not admit level/unlock conditions, unlock skills, rewards, stats, or gameplay effects."
+    }
+  },
+  "nonClaims": [
+    "No Mastery reference, reward, condition, stat, accumulation rule, or battle effect.",
+    "No Fetter or HeartFetter condition, reward, skill, stat, or unlock rule.",
+    "No Korean localization, official Korea-server provenance, UI, or publication eligibility."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 source-native ConfigData Fetter ID references only; not an admission of stages, completion/unlock conditions, rewards, stats, skills, battle effects, Korean localization, or publication.",
+  "records": [
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 15,
+      "heroInformationId": 15,
+      "fetterId": 66,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 15,
+      "heroInformationId": 15,
+      "fetterId": 67,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 15,
+      "heroInformationId": 15,
+      "fetterId": 68,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 15,
+      "heroInformationId": 15,
+      "fetterId": 69,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 15,
+      "heroInformationId": 15,
+      "fetterId": 70,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences"
+    },
+    {
+      "referenceKind": "HERO_HEART_FETTER_ID_REFERENCE",
+      "heroId": 15,
+      "heroInformationId": 15,
+      "heartFetterId": 15,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroHeartFetterId",
+      "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroHeartFetterReference"
+    }
+  ]
+}

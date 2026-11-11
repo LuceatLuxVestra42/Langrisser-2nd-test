@@ -8,6 +8,7 @@ import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-r
 import { validateHero15JobAdvancementFromRoot } from './validate-hero15-job-advancement.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateHero15SkillReferences } from './validate-hero15-skill-references.mjs';
+import { validateHero15FetterReferences } from './validate-hero15-fetter-references.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 
@@ -751,5 +752,6 @@ await validateHeroPortraitSelection(root);
 await loadAndValidateHeroJobLevelRawStats(root);
 await validateHero15JobAdvancementFromRoot(root);
 await validateHero15SkillReferences(root);
+await validateHero15FetterReferences(root);
 await validateSkinGenerated(root);
-process.stdout.write('Hero slice, Job advancement, Skill references, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');
+process.stdout.write('Hero slice, Job advancement, Skill references, Fetter references, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');
