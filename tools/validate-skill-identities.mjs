@@ -7,6 +7,9 @@ const evidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-her
 const soldierEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
 const hero15EvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
 const hero15GeneralEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
+const hero15FetterEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
+const hero15FetterReferenceEvidencePath = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
+const hero15FetterReferenceCanonicalPath = 'canonical/hero-fetter-skill-references.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -37,10 +40,13 @@ const hero15GeneralExpected = [
   [11786,2028,'召唤天空射手','[召唤]召唤一个天空射手。'],
 ];
 const hero15GeneralIds = hero15GeneralExpected.map(([id]) => id);
+const hero15FetterExpectedLocators = [[70001,16200],[70002,16201],[70003,16202],[70004,16203],[70005,16204],[70006,16205],[70007,16206],[70008,16207],[70009,16208],[70072,16270],[70074,16271],[70076,16272],[70078,16273],[70080,16274],[70082,16275],[70084,16276],[70086,16277],[70088,16278],[70031,16230],[70032,16231],[70033,16232],[70034,16233],[70035,16234],[70036,16235],[70037,16236],[70038,16237],[70039,16238],[70091,16280],[70092,16281],[70093,16282],[70094,16283],[70095,16284],[70096,16285],[70097,16286],[70098,16287],[70099,16288],[70101,16290],[70102,16291],[70103,16292],[70104,16293],[70105,16294],[70106,16295],[70107,16296],[70108,16297],[70109,16298],[70462,16653],[70463,16654],[70464,16655],[70465,16656],[70466,16657],[70467,16658],[70468,16659],[70469,16660],[70470,16661]];
+const hero15FetterSkillIds = hero15FetterExpectedLocators.map(([id]) => id);
 const expectedIds = expected.map(([id]) => id);
 const hero15ExpectedIds = hero15Expected.map(([id]) => id);
 const soldierSkillIds = [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675,66957,66958,66959,66960,66961,66962,66963,66964,66965,66966,65110,65111,65112,65113,65114,65115,65116,65117,65118,65119];
-const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds];
+const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds];
+const hero15FetterRawRecordsSha256 = 'eefea5b2eddea750cebe0dd1e21b9fd583a9c559d7fd6cb9babcf946f64c1bc2';
 const recordIndices = Object.fromEntries(expected.map(([id, index]) => [String(id), index]));
 const sourcePin = {
   repository: 'LuceatLuxVestra42/langrisser-future-guide',
@@ -74,8 +80,9 @@ const exactKeys = (value, keys, label) => check(value && typeof value === 'objec
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 export async function validateSkillIdentities(root = process.cwd()) {
-  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence] = await Promise.all([
+  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical] = await Promise.all([
     readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath), readJson(root, hero15GeneralEvidencePath),
+    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath),
   ]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'extraction', 'records', 'claimEvidence', 'fieldMeaningContract', 'interpretation', 'canonical', 'generated', 'productionRuntimeDependency'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail', 'EVIDENCE', 'Evidence owner identity drift');
@@ -194,9 +201,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, and 9 directly referenced Hero 15 general SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 51 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 105 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -262,6 +269,69 @@ export async function validateSkillIdentities(root = process.cwd()) {
     && hero15GeneralEvidence.publicationApproval===false && hero15GeneralEvidence.productionRuntimeDependency===false,
     'HERO15_GENERAL_BOUNDARY','General identity evidence overstated admission or publication');
 
+  exactKeys(hero15FetterEvidence,['schemaVersion','responsibility','scope','source','selectionEvidence','extraction','records','claimEvidence','fieldMeaningContract','interpretation','canonical','generated','publicationApproval','productionRuntimeDependency','limitation'],'Hero15 Fetter SkillInfo Evidence');
+  const fetterSource=hero15FetterEvidence.source;
+  const expectedFetterRecordIndices=Object.fromEntries(hero15FetterExpectedLocators.map(([id,index])=>[String(id),index]));
+  check(hero15FetterEvidence.schemaVersion===1 && hero15FetterEvidence.responsibility==='skill-identity-and-source-detail'
+    && hero15FetterEvidence.scope?.sourceScope===evidence.scope.sourceScope
+    && isDeepStrictEqual(hero15FetterEvidence.scope?.skillIds,hero15FetterSkillIds)
+    && hero15FetterEvidence.scope?.claim==='54 source-native ConfigDataSkillInfo identities selected from pre-existing Hero 15 Fetter SkillInfo endpoint locators; ID/Name/Desc only.'
+    && isDeepStrictEqual(hero15FetterEvidence.scope?.outOfScope,['Fetter level ownership or relation changes','Skill acquisition, equip, activation, or unlock rules','Korean localization','combat/effect semantics or formulas','publication approval','icon or asset meaning']),
+    'HERO15_FETTER_SCOPE','Hero15 Fetter Skill identity evidence scope drift');
+  check(fetterSource?.repository===sourcePin.repository && fetterSource?.commit===sourcePin.commit
+    && fetterSource?.tree===sourcePin.commitTree && fetterSource?.path===sourcePin.path
+    && fetterSource?.gitBlobSha1===sourcePin.gitBlobSha1 && fetterSource?.sha256===sourcePin.sha256
+    && fetterSource?.sizeBytes===sourcePin.sizeBytes && fetterSource?.recordCount===27198
+    && fetterSource?.primaryKey==='ID' && fetterSource?.sourceIndex?.path===sourcePin.sourceIndex.path
+    && fetterSource?.sourceIndex?.gitBlobSha1===sourcePin.sourceIndex.gitBlobSha1
+    && fetterSource?.sourceIndex?.sha256==='8d0af55600bcb0faa0210c26b9cb6ea8caceb2f27baac137f5651776b9ff521b'
+    && fetterSource?.sourceIndex?.recordCount===27198
+    && isDeepStrictEqual(fetterSource?.sourceIndex?.recordIndices,expectedFetterRecordIndices),
+    'HERO15_FETTER_SOURCE_PIN','Hero15 Fetter SkillInfo source/index pin changed');
+  check(hero15FetterReferenceEvidence?.skillEndpoints?.length===54
+    && isDeepStrictEqual(hero15FetterReferenceEvidence.skillEndpoints.map(row=>[row.skillId,row.recordIndex]),hero15FetterExpectedLocators)
+    && hero15FetterReferenceEvidence.skillEndpoints.every(row=>row.recordLocator===`ConfigDataSkillInfo#ID=${row.skillId}`
+      && row.sourceField==='ID' && row.identityAdmission==='NOT_INCLUDED' && row.evidenceClass==='SOURCE_ENDPOINT_PRESENCE_ONLY')
+    && hero15FetterReferenceCanonical?.records?.length===54
+    && new Set(hero15FetterReferenceCanonical.records.map(row=>row.skillId)).size===54
+    && isDeepStrictEqual([...hero15FetterReferenceCanonical.records.map(row=>row.skillId)].sort((a,b)=>a-b),[...hero15FetterSkillIds].sort((a,b)=>a-b)),
+    'HERO15_FETTER_ENDPOINTS','Existing Fetter endpoint-presence evidence or Canonical reference set changed');
+  check(hero15FetterEvidence.selectionEvidence?.path===hero15FetterReferenceEvidencePath
+    && hero15FetterEvidence.selectionEvidence?.claimType===hero15FetterReferenceEvidence.claimType
+    && hero15FetterEvidence.selectionEvidence?.skillEndpointCount===54
+    && hero15FetterEvidence.selectionEvidence?.evidenceClass==='SOURCE_ENDPOINT_PRESENCE_ONLY'
+    && hero15FetterEvidence.selectionEvidence?.identityAdmission==='NOT_INCLUDED'
+    && hero15FetterEvidence.selectionEvidence?.reuse==='Existing endpoint ID/index locators were used as candidate selectors and rechecked against this fixed SkillInfo blob; no duplicate endpoint-presence claim was added.',
+    'HERO15_FETTER_SELECTION','Endpoint evidence reuse boundary changed');
+  check(hero15FetterEvidence.extraction?.rawPinnedBlobRead===true && hero15FetterEvidence.extraction?.blobSha1Verified===true
+    && hero15FetterEvidence.extraction?.blobSha256Recomputed===true && hero15FetterEvidence.extraction?.sourceIndexUsedAsLocatorOnly===true
+    && hero15FetterEvidence.extraction?.existingEndpointLocatorsReused===true,
+    'HERO15_FETTER_EXTRACTION','Pinned Source extraction/hash verification claim drift');
+  check(Array.isArray(hero15FetterEvidence.records) && hero15FetterEvidence.records.length===54,
+    'HERO15_FETTER_SOURCE_RECORDS','Expected exactly 54 Fetter SkillInfo source rows');
+  check(createHash('sha256').update(JSON.stringify(hero15FetterEvidence.records)).digest('hex')===hero15FetterRawRecordsSha256,
+    'HERO15_FETTER_SOURCE_RECORDS','Pinned exact 54-row raw ID/Name/Desc projection digest mismatch');
+  for(let i=0;i<hero15FetterExpectedLocators.length;i++){
+    const [id,index]=hero15FetterExpectedLocators[i], row=hero15FetterEvidence.records[i];
+    exactKeys(row,['sourceRecordIndex','sourceRecordLocator','rawRecord','fieldProvenance'],`Hero15 Fetter raw row ${id}`);
+    exactKeys(row.rawRecord,['ID','Name','Desc'],`Hero15 Fetter SkillInfo ${id}`);
+    exactKeys(row.fieldProvenance,['ID','Name','Desc'],`Hero15 Fetter field provenance ${id}`);
+    check(row.sourceRecordIndex===index && row.sourceRecordLocator===`${sourcePin.path}#ID=${id}`
+      && row.rawRecord.ID===id && Number.isSafeInteger(row.rawRecord.ID)
+      && typeof row.rawRecord.Name==='string' && row.rawRecord.Name.length>0
+      && typeof row.rawRecord.Desc==='string' && row.rawRecord.Desc.length>0
+      && isDeepStrictEqual(row.fieldProvenance,{ID:`${sourcePin.path}#arrayIndex=${index}/ID`,Name:`${sourcePin.path}#arrayIndex=${index}/Name`,Desc:`${sourcePin.path}#arrayIndex=${index}/Desc`}),
+      'HERO15_FETTER_SOURCE_RECORDS',`Source ID/Name/Desc or locator differs for ${id}`);
+  }
+  check(isDeepStrictEqual(hero15FetterEvidence.fieldMeaningContract,hero15GeneralEvidence.fieldMeaningContract)
+    && hero15FetterEvidence.claimEvidence?.sourceIdNameAndDescValues==='A'
+    && hero15FetterEvidence.claimEvidence?.fieldDisplayMeaning==='B'
+    && hero15FetterEvidence.claimEvidence?.sourceSha256==='RECOMPUTED_FOR_THIS_ADMISSION'
+    && hero15FetterEvidence.canonical===false && hero15FetterEvidence.generated===false
+    && hero15FetterEvidence.publicationApproval===false && hero15FetterEvidence.productionRuntimeDependency===false
+    && hero15FetterEvidence.limitation==='This evidence supports Skill Identity fields only. The pre-existing Fetter relation is reused as selection context and remains separately owned; no acquisition, equip, activation, buff, combat, or Fetter gameplay rule is admitted.',
+    'HERO15_FETTER_BOUNDARY','Fetter Skill identity evidence meaning, hash class, or scope boundary drift');
+
   for (let i = 0; i < soldierSkillIds.length; i += 1) {
     const id = soldierSkillIds[i], evidenceRow = soldierEvidence.records[i], record = canonical.records[expected.length + hero15Expected.length + i];
     exactKeys(record, ['skillId', 'nameCn', 'descriptionCn', 'provenance'], `Canonical Skill ${id}`);
@@ -288,9 +358,20 @@ export async function validateSkillIdentities(root = process.cwd()) {
       && record.provenance.description===`${locator}/Desc`,'PROVENANCE',`Hero15 general Skill ${id} field provenance changed`);
     canonicalIds.push(record.skillId);
   }
-  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 42 plus nine source-verified Hero15 IDs');
+  for(let i=0;i<hero15FetterExpectedLocators.length;i++){
+    const [id]=hero15FetterExpectedLocators[i], evidenceRow=hero15FetterEvidence.records[i], record=canonical.records[expected.length+hero15Expected.length+soldierSkillIds.length+hero15GeneralIds.length+i];
+    exactKeys(record,['skillId','nameCn','descriptionCn','provenance'],`Canonical Hero15 Fetter Skill ${id}`);
+    exactKeys(record.provenance,['identity','name','description'],`Hero15 Fetter Skill ${id} provenance`);
+    check(record.skillId===id && record.nameCn===evidenceRow.rawRecord.Name && record.descriptionCn===evidenceRow.rawRecord.Desc,
+      'CANONICAL',`Hero15 Fetter Skill ${id} differs from exact source fields`);
+    const locator=`${hero15FetterEvidencePath}#ID=${id}`;
+    check(record.provenance.identity===locator && record.provenance.name===`${locator}/Name`
+      && record.provenance.description===`${locator}/Desc`,'PROVENANCE',`Hero15 Fetter Skill ${id} field provenance changed`);
+    canonicalIds.push(record.skillId);
+  }
+  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 51 plus 54 source-verified Hero15 Fetter IDs');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId)));
+  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId)));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
@@ -304,7 +385,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; preserved=38; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; preserved=51; Hero15Fetter=54; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

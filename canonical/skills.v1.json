@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, and 9 directly referenced Hero 15 general SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
+  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
   "records": [
     {
       "skillId": 3067,
@@ -511,6 +511,546 @@
         "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786",
         "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786/Name",
         "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786/Desc"
+      }
+    },
+    {
+      "skillId": 70001,
+      "nameCn": "军团羁绊：辉Lv2",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>2%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70001",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70001/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70001/Desc"
+      }
+    },
+    {
+      "skillId": 70002,
+      "nameCn": "军团羁绊：辉Lv3",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>3%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70002",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70002/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70002/Desc"
+      }
+    },
+    {
+      "skillId": 70003,
+      "nameCn": "军团羁绊：辉Lv4",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>4%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70003",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70003/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70003/Desc"
+      }
+    },
+    {
+      "skillId": 70004,
+      "nameCn": "军团羁绊：辉Lv5",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>5%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70004",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70004/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70004/Desc"
+      }
+    },
+    {
+      "skillId": 70005,
+      "nameCn": "军团羁绊：辉Lv6",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>6%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70005",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70005/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70005/Desc"
+      }
+    },
+    {
+      "skillId": 70006,
+      "nameCn": "军团羁绊：辉Lv7",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>7%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70006",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70006/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70006/Desc"
+      }
+    },
+    {
+      "skillId": 70007,
+      "nameCn": "军团羁绊：辉Lv8",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>8%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70007",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70007/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70007/Desc"
+      }
+    },
+    {
+      "skillId": 70008,
+      "nameCn": "军团羁绊：辉Lv9",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>9%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70008",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70008/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70008/Desc"
+      }
+    },
+    {
+      "skillId": 70009,
+      "nameCn": "军团羁绊：辉Lv10",
+      "descriptionCn": "使得携带士兵的所有属性提升<color=#DC143C>10%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70009",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70009/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70009/Desc"
+      }
+    },
+    {
+      "skillId": 70072,
+      "nameCn": "英雄羁绊：光Lv2",
+      "descriptionCn": "英雄全属性<color=#DC143C>+2%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70072",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70072/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70072/Desc"
+      }
+    },
+    {
+      "skillId": 70074,
+      "nameCn": "英雄羁绊：光Lv3",
+      "descriptionCn": "英雄全属性<color=#DC143C>+3%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70074",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70074/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70074/Desc"
+      }
+    },
+    {
+      "skillId": 70076,
+      "nameCn": "英雄羁绊：光Lv4",
+      "descriptionCn": "英雄全属性<color=#DC143C>+4%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70076",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70076/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70076/Desc"
+      }
+    },
+    {
+      "skillId": 70078,
+      "nameCn": "英雄羁绊：光Lv5",
+      "descriptionCn": "英雄全属性<color=#DC143C>+5%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70078",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70078/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70078/Desc"
+      }
+    },
+    {
+      "skillId": 70080,
+      "nameCn": "英雄羁绊：光Lv6",
+      "descriptionCn": "英雄全属性<color=#DC143C>+6%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70080",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70080/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70080/Desc"
+      }
+    },
+    {
+      "skillId": 70082,
+      "nameCn": "英雄羁绊：光Lv7",
+      "descriptionCn": "英雄全属性<color=#DC143C>+7%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70082",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70082/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70082/Desc"
+      }
+    },
+    {
+      "skillId": 70084,
+      "nameCn": "英雄羁绊：光Lv8",
+      "descriptionCn": "英雄全属性<color=#DC143C>+8%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70084",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70084/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70084/Desc"
+      }
+    },
+    {
+      "skillId": 70086,
+      "nameCn": "英雄羁绊：光Lv9",
+      "descriptionCn": "英雄全属性<color=#DC143C>+9%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70086",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70086/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70086/Desc"
+      }
+    },
+    {
+      "skillId": 70088,
+      "nameCn": "英雄羁绊：光Lv10",
+      "descriptionCn": "英雄全属性<color=#DC143C>+10%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70088",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70088/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70088/Desc"
+      }
+    },
+    {
+      "skillId": 70031,
+      "nameCn": "军团羁绊：耀Lv2",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>2%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70031",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70031/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70031/Desc"
+      }
+    },
+    {
+      "skillId": 70032,
+      "nameCn": "军团羁绊：耀Lv3",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>3%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70032",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70032/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70032/Desc"
+      }
+    },
+    {
+      "skillId": 70033,
+      "nameCn": "军团羁绊：耀Lv4",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>4%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70033",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70033/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70033/Desc"
+      }
+    },
+    {
+      "skillId": 70034,
+      "nameCn": "军团羁绊：耀Lv5",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>5%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70034",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70034/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70034/Desc"
+      }
+    },
+    {
+      "skillId": 70035,
+      "nameCn": "军团羁绊：耀Lv6",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>7%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70035",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70035/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70035/Desc"
+      }
+    },
+    {
+      "skillId": 70036,
+      "nameCn": "军团羁绊：耀Lv7",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>9%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70036",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70036/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70036/Desc"
+      }
+    },
+    {
+      "skillId": 70037,
+      "nameCn": "军团羁绊：耀Lv8",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>11%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70037",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70037/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70037/Desc"
+      }
+    },
+    {
+      "skillId": 70038,
+      "nameCn": "军团羁绊：耀Lv9",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>13%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70038",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70038/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70038/Desc"
+      }
+    },
+    {
+      "skillId": 70039,
+      "nameCn": "军团羁绊：耀Lv10",
+      "descriptionCn": "使得携带士兵的生命、魔防各提升<color=#DC143C>15%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70039",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70039/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70039/Desc"
+      }
+    },
+    {
+      "skillId": 70091,
+      "nameCn": "英雄羁绊：韧Lv2",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>2%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70091",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70091/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70091/Desc"
+      }
+    },
+    {
+      "skillId": 70092,
+      "nameCn": "英雄羁绊：韧Lv3",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>3%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70092",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70092/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70092/Desc"
+      }
+    },
+    {
+      "skillId": 70093,
+      "nameCn": "英雄羁绊：韧Lv4",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>4%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70093",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70093/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70093/Desc"
+      }
+    },
+    {
+      "skillId": 70094,
+      "nameCn": "英雄羁绊：韧Lv5",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>5%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70094",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70094/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70094/Desc"
+      }
+    },
+    {
+      "skillId": 70095,
+      "nameCn": "英雄羁绊：韧Lv6",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>7%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70095",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70095/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70095/Desc"
+      }
+    },
+    {
+      "skillId": 70096,
+      "nameCn": "英雄羁绊：韧Lv7",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>9%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70096",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70096/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70096/Desc"
+      }
+    },
+    {
+      "skillId": 70097,
+      "nameCn": "英雄羁绊：韧Lv8",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>11%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70097",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70097/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70097/Desc"
+      }
+    },
+    {
+      "skillId": 70098,
+      "nameCn": "英雄羁绊：韧Lv9",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>13%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70098",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70098/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70098/Desc"
+      }
+    },
+    {
+      "skillId": 70099,
+      "nameCn": "英雄羁绊：韧Lv10",
+      "descriptionCn": "英雄的生命、防御、魔防各提升<color=#DC143C>15%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70099",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70099/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70099/Desc"
+      }
+    },
+    {
+      "skillId": 70101,
+      "nameCn": "英雄羁绊：力Lv2",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>2%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70101",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70101/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70101/Desc"
+      }
+    },
+    {
+      "skillId": 70102,
+      "nameCn": "英雄羁绊：力Lv3",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>3%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70102",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70102/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70102/Desc"
+      }
+    },
+    {
+      "skillId": 70103,
+      "nameCn": "英雄羁绊：力Lv4",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>4%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70103",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70103/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70103/Desc"
+      }
+    },
+    {
+      "skillId": 70104,
+      "nameCn": "英雄羁绊：力Lv5",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>5%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70104",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70104/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70104/Desc"
+      }
+    },
+    {
+      "skillId": 70105,
+      "nameCn": "英雄羁绊：力Lv6",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>7%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70105",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70105/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70105/Desc"
+      }
+    },
+    {
+      "skillId": 70106,
+      "nameCn": "英雄羁绊：力Lv7",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>9%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70106",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70106/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70106/Desc"
+      }
+    },
+    {
+      "skillId": 70107,
+      "nameCn": "英雄羁绊：力Lv8",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>11%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70107",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70107/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70107/Desc"
+      }
+    },
+    {
+      "skillId": 70108,
+      "nameCn": "英雄羁绊：力Lv9",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>13%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70108",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70108/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70108/Desc"
+      }
+    },
+    {
+      "skillId": 70109,
+      "nameCn": "英雄羁绊：力Lv10",
+      "descriptionCn": "英雄的攻击、智力、技巧各提升<color=#DC143C>15%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70109",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70109/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70109/Desc"
+      }
+    },
+    {
+      "skillId": 70462,
+      "nameCn": "心之羁绊：莉亚娜Lv2",
+      "descriptionCn": "英雄的生命<color=#DC143C>+130</color>，防御<color=#DC143C>+8</color>，魔防<color=#DC143C>+10</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70462",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70462/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70462/Desc"
+      }
+    },
+    {
+      "skillId": 70463,
+      "nameCn": "心之羁绊：莉亚娜Lv3",
+      "descriptionCn": "英雄的生命<color=#DC143C>+195</color>，防御<color=#DC143C>+12</color>，魔防<color=#DC143C>+15</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70463",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70463/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70463/Desc"
+      }
+    },
+    {
+      "skillId": 70464,
+      "nameCn": "心之羁绊：莉亚娜Lv4",
+      "descriptionCn": "英雄的生命<color=#DC143C>+260</color>，防御<color=#DC143C>+16</color>，魔防<color=#DC143C>+20</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70464",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70464/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70464/Desc"
+      }
+    },
+    {
+      "skillId": 70465,
+      "nameCn": "心之羁绊：莉亚娜Lv5",
+      "descriptionCn": "英雄的生命<color=#DC143C>+325</color>，防御<color=#DC143C>+20</color>，魔防<color=#DC143C>+25</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70465",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70465/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70465/Desc"
+      }
+    },
+    {
+      "skillId": 70466,
+      "nameCn": "心之羁绊：莉亚娜Lv6",
+      "descriptionCn": "英雄的生命<color=#DC143C>+390</color>，防御<color=#DC143C>+24</color>，魔防<color=#DC143C>+30</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70466",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70466/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70466/Desc"
+      }
+    },
+    {
+      "skillId": 70467,
+      "nameCn": "心之羁绊：莉亚娜Lv7",
+      "descriptionCn": "英雄的生命<color=#DC143C>+455</color>，防御<color=#DC143C>+28</color>，魔防<color=#DC143C>+35</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70467",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70467/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70467/Desc"
+      }
+    },
+    {
+      "skillId": 70468,
+      "nameCn": "心之羁绊：莉亚娜Lv8",
+      "descriptionCn": "英雄的生命<color=#DC143C>+520</color>，防御<color=#DC143C>+32</color>，魔防<color=#DC143C>+40</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70468",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70468/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70468/Desc"
+      }
+    },
+    {
+      "skillId": 70469,
+      "nameCn": "心之羁绊：莉亚娜Lv9",
+      "descriptionCn": "英雄的生命<color=#DC143C>+585</color>，防御<color=#DC143C>+36</color>，魔防<color=#DC143C>+45</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70469",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70469/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70469/Desc"
+      }
+    },
+    {
+      "skillId": 70470,
+      "nameCn": "心之羁绊：莉亚娜Lv10",
+      "descriptionCn": "英雄的生命<color=#DC143C>+650</color>，防御<color=#DC143C>+40</color>，魔防<color=#DC143C>+50</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70470",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70470/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70470/Desc"
       }
     }
   ]

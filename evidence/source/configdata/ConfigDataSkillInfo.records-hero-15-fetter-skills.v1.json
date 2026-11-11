@@ -1,0 +1,949 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "scope": {
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "skillIds": [
+      70001,
+      70002,
+      70003,
+      70004,
+      70005,
+      70006,
+      70007,
+      70008,
+      70009,
+      70072,
+      70074,
+      70076,
+      70078,
+      70080,
+      70082,
+      70084,
+      70086,
+      70088,
+      70031,
+      70032,
+      70033,
+      70034,
+      70035,
+      70036,
+      70037,
+      70038,
+      70039,
+      70091,
+      70092,
+      70093,
+      70094,
+      70095,
+      70096,
+      70097,
+      70098,
+      70099,
+      70101,
+      70102,
+      70103,
+      70104,
+      70105,
+      70106,
+      70107,
+      70108,
+      70109,
+      70462,
+      70463,
+      70464,
+      70465,
+      70466,
+      70467,
+      70468,
+      70469,
+      70470
+    ],
+    "claim": "54 source-native ConfigDataSkillInfo identities selected from pre-existing Hero 15 Fetter SkillInfo endpoint locators; ID/Name/Desc only.",
+    "outOfScope": [
+      "Fetter level ownership or relation changes",
+      "Skill acquisition, equip, activation, or unlock rules",
+      "Korean localization",
+      "combat/effect semantics or formulas",
+      "publication approval",
+      "icon or asset meaning"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "containerPath": "$",
+    "primaryKey": "ID",
+    "recordCount": 27198,
+    "sourceIndex": {
+      "path": "data/index/skill.v1.json",
+      "gitBlobSha1": "7bc7ce0f2ac59224763faf1a70e19e199eecc900",
+      "sha256": "8d0af55600bcb0faa0210c26b9cb6ea8caceb2f27baac137f5651776b9ff521b",
+      "recordCount": 27198,
+      "recordIndices": {
+        "70001": 16200,
+        "70002": 16201,
+        "70003": 16202,
+        "70004": 16203,
+        "70005": 16204,
+        "70006": 16205,
+        "70007": 16206,
+        "70008": 16207,
+        "70009": 16208,
+        "70031": 16230,
+        "70032": 16231,
+        "70033": 16232,
+        "70034": 16233,
+        "70035": 16234,
+        "70036": 16235,
+        "70037": 16236,
+        "70038": 16237,
+        "70039": 16238,
+        "70072": 16270,
+        "70074": 16271,
+        "70076": 16272,
+        "70078": 16273,
+        "70080": 16274,
+        "70082": 16275,
+        "70084": 16276,
+        "70086": 16277,
+        "70088": 16278,
+        "70091": 16280,
+        "70092": 16281,
+        "70093": 16282,
+        "70094": 16283,
+        "70095": 16284,
+        "70096": 16285,
+        "70097": 16286,
+        "70098": 16287,
+        "70099": 16288,
+        "70101": 16290,
+        "70102": 16291,
+        "70103": 16292,
+        "70104": 16293,
+        "70105": 16294,
+        "70106": 16295,
+        "70107": 16296,
+        "70108": 16297,
+        "70109": 16298,
+        "70462": 16653,
+        "70463": 16654,
+        "70464": 16655,
+        "70465": 16656,
+        "70466": 16657,
+        "70467": 16658,
+        "70468": 16659,
+        "70469": 16660,
+        "70470": 16661
+      }
+    }
+  },
+  "selectionEvidence": {
+    "path": "evidence/source/bonds/hero15-fetter-skill-references.v1.json",
+    "claimType": "hero15-fetter-skill-level-locators",
+    "skillEndpointCount": 54,
+    "evidenceClass": "SOURCE_ENDPOINT_PRESENCE_ONLY",
+    "identityAdmission": "NOT_INCLUDED",
+    "reuse": "Existing endpoint ID/index locators were used as candidate selectors and rechecked against this fixed SkillInfo blob; no duplicate endpoint-presence claim was added."
+  },
+  "extraction": {
+    "selection": "Read only the 54 exact top-level array positions specified by existing endpoint evidence; require numeric ID equality and preserve raw Name/Desc strings and markup.",
+    "rawPinnedBlobRead": true,
+    "blobSha1Verified": true,
+    "blobSha256Recomputed": true,
+    "sourceIndexUsedAsLocatorOnly": true,
+    "existingEndpointLocatorsReused": true
+  },
+  "records": [
+    {
+      "sourceRecordIndex": 16200,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70001",
+      "rawRecord": {
+        "ID": 70001,
+        "Name": "军团羁绊：辉Lv2",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>2%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16200/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16200/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16200/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16201,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70002",
+      "rawRecord": {
+        "ID": 70002,
+        "Name": "军团羁绊：辉Lv3",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>3%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16201/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16201/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16201/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16202,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70003",
+      "rawRecord": {
+        "ID": 70003,
+        "Name": "军团羁绊：辉Lv4",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>4%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16202/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16202/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16202/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16203,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70004",
+      "rawRecord": {
+        "ID": 70004,
+        "Name": "军团羁绊：辉Lv5",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>5%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16203/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16203/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16203/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16204,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70005",
+      "rawRecord": {
+        "ID": 70005,
+        "Name": "军团羁绊：辉Lv6",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>6%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16204/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16204/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16204/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16205,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70006",
+      "rawRecord": {
+        "ID": 70006,
+        "Name": "军团羁绊：辉Lv7",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>7%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16205/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16205/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16205/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16206,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70007",
+      "rawRecord": {
+        "ID": 70007,
+        "Name": "军团羁绊：辉Lv8",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>8%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16206/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16206/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16206/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16207,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70008",
+      "rawRecord": {
+        "ID": 70008,
+        "Name": "军团羁绊：辉Lv9",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>9%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16207/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16207/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16207/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16208,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70009",
+      "rawRecord": {
+        "ID": 70009,
+        "Name": "军团羁绊：辉Lv10",
+        "Desc": "使得携带士兵的所有属性提升<color=#DC143C>10%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16208/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16208/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16208/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16270,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70072",
+      "rawRecord": {
+        "ID": 70072,
+        "Name": "英雄羁绊：光Lv2",
+        "Desc": "英雄全属性<color=#DC143C>+2%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16270/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16270/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16270/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16271,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70074",
+      "rawRecord": {
+        "ID": 70074,
+        "Name": "英雄羁绊：光Lv3",
+        "Desc": "英雄全属性<color=#DC143C>+3%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16271/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16271/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16271/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16272,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70076",
+      "rawRecord": {
+        "ID": 70076,
+        "Name": "英雄羁绊：光Lv4",
+        "Desc": "英雄全属性<color=#DC143C>+4%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16272/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16272/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16272/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16273,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70078",
+      "rawRecord": {
+        "ID": 70078,
+        "Name": "英雄羁绊：光Lv5",
+        "Desc": "英雄全属性<color=#DC143C>+5%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16273/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16273/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16273/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16274,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70080",
+      "rawRecord": {
+        "ID": 70080,
+        "Name": "英雄羁绊：光Lv6",
+        "Desc": "英雄全属性<color=#DC143C>+6%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16274/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16274/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16274/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16275,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70082",
+      "rawRecord": {
+        "ID": 70082,
+        "Name": "英雄羁绊：光Lv7",
+        "Desc": "英雄全属性<color=#DC143C>+7%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16275/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16275/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16275/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16276,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70084",
+      "rawRecord": {
+        "ID": 70084,
+        "Name": "英雄羁绊：光Lv8",
+        "Desc": "英雄全属性<color=#DC143C>+8%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16276/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16276/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16276/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16277,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70086",
+      "rawRecord": {
+        "ID": 70086,
+        "Name": "英雄羁绊：光Lv9",
+        "Desc": "英雄全属性<color=#DC143C>+9%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16277/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16277/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16277/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16278,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70088",
+      "rawRecord": {
+        "ID": 70088,
+        "Name": "英雄羁绊：光Lv10",
+        "Desc": "英雄全属性<color=#DC143C>+10%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16278/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16278/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16278/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16230,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70031",
+      "rawRecord": {
+        "ID": 70031,
+        "Name": "军团羁绊：耀Lv2",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>2%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16230/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16230/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16230/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16231,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70032",
+      "rawRecord": {
+        "ID": 70032,
+        "Name": "军团羁绊：耀Lv3",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>3%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16231/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16231/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16231/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16232,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70033",
+      "rawRecord": {
+        "ID": 70033,
+        "Name": "军团羁绊：耀Lv4",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>4%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16232/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16232/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16232/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16233,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70034",
+      "rawRecord": {
+        "ID": 70034,
+        "Name": "军团羁绊：耀Lv5",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>5%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16233/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16233/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16233/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16234,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70035",
+      "rawRecord": {
+        "ID": 70035,
+        "Name": "军团羁绊：耀Lv6",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>7%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16234/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16234/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16234/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16235,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70036",
+      "rawRecord": {
+        "ID": 70036,
+        "Name": "军团羁绊：耀Lv7",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>9%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16235/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16235/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16235/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16236,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70037",
+      "rawRecord": {
+        "ID": 70037,
+        "Name": "军团羁绊：耀Lv8",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>11%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16236/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16236/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16236/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16237,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70038",
+      "rawRecord": {
+        "ID": 70038,
+        "Name": "军团羁绊：耀Lv9",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>13%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16237/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16237/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16237/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16238,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70039",
+      "rawRecord": {
+        "ID": 70039,
+        "Name": "军团羁绊：耀Lv10",
+        "Desc": "使得携带士兵的生命、魔防各提升<color=#DC143C>15%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16238/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16238/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16238/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16280,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70091",
+      "rawRecord": {
+        "ID": 70091,
+        "Name": "英雄羁绊：韧Lv2",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>2%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16280/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16280/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16280/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16281,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70092",
+      "rawRecord": {
+        "ID": 70092,
+        "Name": "英雄羁绊：韧Lv3",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>3%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16281/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16281/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16281/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16282,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70093",
+      "rawRecord": {
+        "ID": 70093,
+        "Name": "英雄羁绊：韧Lv4",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>4%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16282/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16282/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16282/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16283,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70094",
+      "rawRecord": {
+        "ID": 70094,
+        "Name": "英雄羁绊：韧Lv5",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>5%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16283/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16283/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16283/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16284,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70095",
+      "rawRecord": {
+        "ID": 70095,
+        "Name": "英雄羁绊：韧Lv6",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>7%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16284/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16284/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16284/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16285,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70096",
+      "rawRecord": {
+        "ID": 70096,
+        "Name": "英雄羁绊：韧Lv7",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>9%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16285/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16285/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16285/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16286,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70097",
+      "rawRecord": {
+        "ID": 70097,
+        "Name": "英雄羁绊：韧Lv8",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>11%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16286/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16286/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16286/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16287,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70098",
+      "rawRecord": {
+        "ID": 70098,
+        "Name": "英雄羁绊：韧Lv9",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>13%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16287/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16287/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16287/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16288,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70099",
+      "rawRecord": {
+        "ID": 70099,
+        "Name": "英雄羁绊：韧Lv10",
+        "Desc": "英雄的生命、防御、魔防各提升<color=#DC143C>15%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16288/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16288/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16288/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16290,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70101",
+      "rawRecord": {
+        "ID": 70101,
+        "Name": "英雄羁绊：力Lv2",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>2%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16290/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16290/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16290/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16291,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70102",
+      "rawRecord": {
+        "ID": 70102,
+        "Name": "英雄羁绊：力Lv3",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>3%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16291/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16291/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16291/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16292,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70103",
+      "rawRecord": {
+        "ID": 70103,
+        "Name": "英雄羁绊：力Lv4",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>4%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16292/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16292/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16292/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16293,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70104",
+      "rawRecord": {
+        "ID": 70104,
+        "Name": "英雄羁绊：力Lv5",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>5%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16293/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16293/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16293/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16294,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70105",
+      "rawRecord": {
+        "ID": 70105,
+        "Name": "英雄羁绊：力Lv6",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>7%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16294/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16294/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16294/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16295,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70106",
+      "rawRecord": {
+        "ID": 70106,
+        "Name": "英雄羁绊：力Lv7",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>9%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16295/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16295/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16295/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16296,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70107",
+      "rawRecord": {
+        "ID": 70107,
+        "Name": "英雄羁绊：力Lv8",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>11%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16296/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16296/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16296/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16297,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70108",
+      "rawRecord": {
+        "ID": 70108,
+        "Name": "英雄羁绊：力Lv9",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>13%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16297/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16297/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16297/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16298,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70109",
+      "rawRecord": {
+        "ID": 70109,
+        "Name": "英雄羁绊：力Lv10",
+        "Desc": "英雄的攻击、智力、技巧各提升<color=#DC143C>15%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16298/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16298/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16298/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16653,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70462",
+      "rawRecord": {
+        "ID": 70462,
+        "Name": "心之羁绊：莉亚娜Lv2",
+        "Desc": "英雄的生命<color=#DC143C>+130</color>，防御<color=#DC143C>+8</color>，魔防<color=#DC143C>+10</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16653/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16653/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16653/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16654,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70463",
+      "rawRecord": {
+        "ID": 70463,
+        "Name": "心之羁绊：莉亚娜Lv3",
+        "Desc": "英雄的生命<color=#DC143C>+195</color>，防御<color=#DC143C>+12</color>，魔防<color=#DC143C>+15</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16654/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16654/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16654/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16655,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70464",
+      "rawRecord": {
+        "ID": 70464,
+        "Name": "心之羁绊：莉亚娜Lv4",
+        "Desc": "英雄的生命<color=#DC143C>+260</color>，防御<color=#DC143C>+16</color>，魔防<color=#DC143C>+20</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16655/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16655/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16655/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16656,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70465",
+      "rawRecord": {
+        "ID": 70465,
+        "Name": "心之羁绊：莉亚娜Lv5",
+        "Desc": "英雄的生命<color=#DC143C>+325</color>，防御<color=#DC143C>+20</color>，魔防<color=#DC143C>+25</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16656/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16656/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16656/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16657,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70466",
+      "rawRecord": {
+        "ID": 70466,
+        "Name": "心之羁绊：莉亚娜Lv6",
+        "Desc": "英雄的生命<color=#DC143C>+390</color>，防御<color=#DC143C>+24</color>，魔防<color=#DC143C>+30</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16657/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16657/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16657/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16658,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70467",
+      "rawRecord": {
+        "ID": 70467,
+        "Name": "心之羁绊：莉亚娜Lv7",
+        "Desc": "英雄的生命<color=#DC143C>+455</color>，防御<color=#DC143C>+28</color>，魔防<color=#DC143C>+35</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16658/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16658/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16658/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16659,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70468",
+      "rawRecord": {
+        "ID": 70468,
+        "Name": "心之羁绊：莉亚娜Lv8",
+        "Desc": "英雄的生命<color=#DC143C>+520</color>，防御<color=#DC143C>+32</color>，魔防<color=#DC143C>+40</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16659/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16659/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16659/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16660,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70469",
+      "rawRecord": {
+        "ID": 70469,
+        "Name": "心之羁绊：莉亚娜Lv9",
+        "Desc": "英雄的生命<color=#DC143C>+585</color>，防御<color=#DC143C>+36</color>，魔防<color=#DC143C>+45</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16660/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16660/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16660/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 16661,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70470",
+      "rawRecord": {
+        "ID": 70470,
+        "Name": "心之羁绊：莉亚娜Lv10",
+        "Desc": "英雄的生命<color=#DC143C>+650</color>，防御<color=#DC143C>+40</color>，魔防<color=#DC143C>+50</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16661/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16661/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16661/Desc"
+      }
+    }
+  ],
+  "claimEvidence": {
+    "sourceIdNameAndDescValues": "A",
+    "fieldDisplayMeaning": "B",
+    "sourceSha256": "RECOMPUTED_FOR_THIS_ADMISSION"
+  },
+  "fieldMeaningContract": {
+    "evidenceClass": "B",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/hero-skill-acquisition-stage4-4.v1.json",
+    "gitBlobSha1": "afdabed9f82a401f50ed344e5ee4877bbc024f9c",
+    "status": "validated-review",
+    "skillInfoFieldNumbers": {
+      "ID": 2,
+      "Name": 3,
+      "Desc": 5
+    },
+    "supportedMeaning": "SkillInfo IDs are resolved as display metadata only after an explicit HeroInfo or JobLevel reference; this packet uses only ID/Name/Desc as identity facts.",
+    "limitation": "The predecessor Stage 4-4 output is not used as current Source Authority, and does not admit combat semantics or publication."
+  },
+  "interpretation": {
+    "name": "ConfigDataSkillInfo.Name is preserved as the source Chinese name string; no translation or alias is asserted.",
+    "description": "ConfigDataSkillInfo.Desc is preserved as an opaque source Chinese description string, including markup; no structured formula or independent mechanic claim is derived from its text."
+  },
+  "canonical": false,
+  "generated": false,
+  "publicationApproval": false,
+  "productionRuntimeDependency": false,
+  "limitation": "This evidence supports Skill Identity fields only. The pre-existing Fetter relation is reused as selection context and remains separately owned; no acquisition, equip, activation, buff, combat, or Fetter gameplay rule is admitted."
+}

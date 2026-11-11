@@ -64,7 +64,7 @@ export async function validateHero15SkillReferences(root=process.cwd()){
  check(e.canonical===false&&e.generated===false&&e.publicationApproval===false&&e.productionRuntimeDependency===false,'BOUNDARY','Evidence cannot approve/publicize or runtime-depend');
  const idRows=new Map(idEvidence.records.map(r=>[r.rawRecord.ID,r.rawRecord]));
  const skillRows=new Map(skillsCanon.records.map(r=>[r.skillId,r]));
- check(skillsCanon.records.length===51&&skills.length===9,'SKILL_ENDPOINT','Expected Skill Identity endpoint set changed');
+ check(skillsCanon.records.length>=51&&skills.length===9,'SKILL_ENDPOINT','Skill Identity endpoints for the nine existing Hero 15 references are unavailable');
  check(heroJobs.records.filter(r=>r.heroId===15).length===6&&isDeepStrictEqual(heroJobs.records.filter(r=>r.heroId===15).map(r=>r.jobId),[802,803,806,703,811,707]),'HERO_JOB_PARITY','Hero 15 Job membership changed');
  const stats15=rawStats.records.filter(r=>r.heroId===15);
  check(stats15.length===25,'JOBLEVEL_BASELINE','Hero 15 existing JobLevel raw-stat population changed');
