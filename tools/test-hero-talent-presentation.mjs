@@ -37,6 +37,10 @@ rejectTalentSkillProjection('duplicate Skill endpoint rejected', null, (owner) =
 rejectTalentSkillProjection('missing source Name rejected', null, (owner) => { owner.records.find((row) => row.skillId === 3067).nameCn = ''; });
 rejectTalentSkillProjection('missing source Desc rejected', null, (owner) => { owner.records.find((row) => row.skillId === 3067).descriptionCn = ''; });
 const expected = new Map([[6, ['전설의 기사', [3067, 3072, 3077, 3082]]], [8, ['마력 강화', [3196, 3197, 3198, 3199]]]]);
+assert.equal(localization.nameRecords.find(({ heroId }) => heroId === 15)?.talentNameKo, '성결한 수녀', 'Hero 15 Localization is admitted independently');
+assert.deepEqual(localization.descriptionRecords.filter(({ heroId }) => heroId === 15).map(({ star, skillId }) => [star, skillId]),
+  [[3, 3212], [4, 3214], [5, 3216], [6, 3218]], 'Hero 15 Localization is keyed to the existing Skill IDs');
+assert.equal(generated.heroes.find(({ id }) => id === 15)?.talent, undefined, 'Hero 15 Talent remains outside the presentation allowlist');
 for (const hero of generated.heroes) {
   if (!expected.has(hero.id)) {
     assert.equal(hero.talent, undefined, `Hero ${hero.id} must not gain Talent fields`);
@@ -100,4 +104,4 @@ assert.equal(unsafeSource.children.length, 0, 'unsupported Chinese source markup
 assert.throws(() => functions.makeTalentDescription(' ', 3), /missing/);
 assert.throws(() => functions.makeTalentPresentation(6, { nameKo: 'x', starDescriptions: [] }), /malformed/);
 assert.throws(() => functions.makeTalentPresentation(6, { nameKo: 'x', starDescriptions: [{ star: 3, skillId: 3067 }] }), /presentation is malformed/);
-console.log('Hero Talent presentation checks passed (exact Skill ID projection, 8 negative controls, original markup safety)');
+console.log('Hero Talent presentation checks passed (Heroes 6/8 only; Hero 15 Localization remains unpublished; 8 negative controls; original markup safety)');

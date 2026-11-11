@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Project-reviewed Korean normal Talent names for Heroes 6 and 8 and star 3-6 descriptions keyed by exact Hero ID, star, and existing Talent Skill ID; official Korean-server status is unverified.",
+  "scope": "Project-reviewed Korean normal Talent names for Heroes 6, 8, and 15 and star 3-6 descriptions keyed by exact Hero ID, star, and existing Talent Skill ID; official Korean-server status is unverified.",
   "officialKrProvenanceStatus": "unverified",
   "nameRecords": [
     {
@@ -18,6 +18,14 @@
       "reviewRequired": false,
       "evidenceClass": "B",
       "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=8&claim=name"
+    },
+    {
+      "heroId": 15,
+      "talentNameKo": "성결한 수녀",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&claim=name"
     }
   ],
   "descriptionRecords": [
@@ -100,6 +108,46 @@
       "reviewRequired": false,
       "evidenceClass": "B",
       "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=8&star=6&skillId=3199"
+    },
+    {
+      "heroId": 15,
+      "star": 3,
+      "skillId": 3212,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">1칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">1.5배</font>만큼 회복.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&star=3&skillId=3212"
+    },
+    {
+      "heroId": 15,
+      "star": 4,
+      "skillId": 3214,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">2배</font>만큼 회복.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&star=4&skillId=3214"
+    },
+    {
+      "heroId": 15,
+      "star": 5,
+      "skillId": 3216,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">2.5배</font>만큼 회복.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&star=5&skillId=3216"
+    },
+    {
+      "heroId": 15,
+      "star": 6,
+      "skillId": 3218,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">2개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">3배</font>만큼 회복.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&star=6&skillId=3218"
     }
   ]
 }
