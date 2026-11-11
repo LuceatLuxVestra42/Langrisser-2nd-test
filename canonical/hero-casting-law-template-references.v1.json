@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 explicit ConfigDataHeroInfo.CastingLawTemplates_ID source references to ConfigDataCastingLawTemplateInfo.ID only; no cost, equipment, mastery, unlock, effect, or publication claims.",
+  "records": [
+    {
+      "heroId": 15,
+      "sourceField": "ConfigDataHeroInfo.CastingLawTemplates_ID",
+      "sourceArrayIndex": 0,
+      "templateId": 14,
+      "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+      "evidenceProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#heroSource/fields/CastingLawTemplates_ID/0",
+      "endpointProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#templateRecords/1"
+    },
+    {
+      "heroId": 15,
+      "sourceField": "ConfigDataHeroInfo.CastingLawTemplates_ID",
+      "sourceArrayIndex": 1,
+      "templateId": 12,
+      "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+      "evidenceProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#heroSource/fields/CastingLawTemplates_ID/1",
+      "endpointProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#templateRecords/0"
+    },
+    {
+      "heroId": 15,
+      "sourceField": "ConfigDataHeroInfo.CastingLawTemplates_ID",
+      "sourceArrayIndex": 2,
+      "templateId": 37,
+      "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+      "evidenceProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#heroSource/fields/CastingLawTemplates_ID/2",
+      "endpointProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#templateRecords/2"
+    },
+    {
+      "heroId": 15,
+      "sourceField": "ConfigDataHeroInfo.CastingLawTemplates_ID",
+      "sourceArrayIndex": 3,
+      "templateId": 40,
+      "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+      "evidenceProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#heroSource/fields/CastingLawTemplates_ID/3",
+      "endpointProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#templateRecords/3"
+    },
+    {
+      "heroId": 15,
+      "sourceField": "ConfigDataHeroInfo.CastingLawTemplates_ID",
+      "sourceArrayIndex": 4,
+      "templateId": 41,
+      "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+      "evidenceProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#heroSource/fields/CastingLawTemplates_ID/4",
+      "endpointProvenance": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#templateRecords/4"
+    }
+  ]
+}
