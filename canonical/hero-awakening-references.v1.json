@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "scope": "One Hero 15 source-linked Awakening projection. Stage, Skill, and Goods values are source references only; no unlock, completion, consumption, acquisition, equip, combat, or publication semantics.",
+  "records": [
+    {
+      "heroId": 15,
+      "awakenInfoId": 15,
+      "awakeningSourceNamespace": "ConfigDataAwakenInfo.ID",
+      "stage1LevelReference": {
+        "sourceField": "Awaken1LevelID",
+        "levelId": 1015,
+        "endpointNamespace": "ConfigDataAwakenLevelInfo.ID",
+        "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo/fields/Awaken1LevelID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenLevelEndpoints/records/0"
+      },
+      "stage1SourceGoods": [
+        { "sourceIndex": 0, "goodsType": 6, "itemId": 3253, "count": 5, "endpointNamespace": "ConfigDataItemInfo.ID", "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/0" },
+        { "sourceIndex": 1, "goodsType": 6, "itemId": 3249, "count": 8, "endpointNamespace": "ConfigDataItemInfo.ID", "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/1" },
+        { "sourceIndex": 2, "goodsType": 6, "itemId": 3247, "count": 8, "endpointNamespace": "ConfigDataItemInfo.ID", "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/2" }
+      ],
+      "stage2LevelReference": {
+        "sourceField": "Awaken2LevelID",
+        "levelId": 2015,
+        "endpointNamespace": "ConfigDataAwakenLevelInfo.ID",
+        "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo/fields/Awaken2LevelID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenLevelEndpoints/records/1"
+      },
+      "stage2SkillReference": {
+        "sourceField": "Level2SkillID",
+        "skillId": 12350,
+        "endpointNamespace": "ConfigDataSkillInfo.ID",
+        "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo/fields/Level2SkillID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/skillEndpoint/records/0"
+      },
+      "stage2SourceGoods": [
+        { "sourceIndex": 0, "goodsType": 6, "itemId": 3260, "count": 5, "endpointNamespace": "ConfigDataItemInfo.ID", "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/3" },
+        { "sourceIndex": 1, "goodsType": 6, "itemId": 3256, "count": 12, "endpointNamespace": "ConfigDataItemInfo.ID", "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/4" },
+        { "sourceIndex": 2, "goodsType": 6, "itemId": 3254, "count": 12, "endpointNamespace": "ConfigDataItemInfo.ID", "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/5" }
+      ],
+      "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo"
+    }
+  ]
+}
