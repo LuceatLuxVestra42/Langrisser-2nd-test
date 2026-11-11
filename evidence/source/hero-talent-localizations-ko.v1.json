@@ -2,8 +2,17 @@
   "schemaVersion": 1,
   "responsibility": "hero-talent-localization-ko",
   "scope": {
-    "heroIds": [6, 8],
-    "stars": [3, 4, 5, 6],
+    "heroIds": [
+      6,
+      8,
+      15
+    ],
+    "stars": [
+      3,
+      4,
+      5,
+      6
+    ],
     "claim": "Project-reviewed Korean normal Talent display name per Hero and Korean star-specific description keyed by exact Hero ID, star, and already-admitted Skill ID.",
     "outOfScope": [
       "official Korean-server terminology",
@@ -35,12 +44,19 @@
         "heroName": "라나",
         "path": "hero/data/라나.js",
         "gitBlobSha1": "f73a45f2df303788f1dd0ea047ca71ec34bba45e"
+      },
+      {
+        "heroId": 15,
+        "heroName": "리아나",
+        "path": "hero/data/리아나.js",
+        "gitBlobSha1": "139e57339caa0d07d540ed091a208cae6f39ddc3"
       }
-    ]
+    ],
+    "commitTree": "9bc7b5a8c8317a87414c6e8ac8b16bc9df875204"
   },
   "projectReview": {
     "evidenceClass": "B",
-    "claimScope": "Prior project review decision and applicability for the exact Hero 6/8 localization records.",
+    "claimScope": "Prior project review decision and applicability for the exact Hero 6, 8, and 15 localization records.",
     "repository": "LuceatLuxVestra42/langrisser-future-guide",
     "ref": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
     "contract": {
@@ -88,8 +104,41 @@
       "The per-record reuse decision is project-reviewed Korean presentation text, not official Korean-server terminology.",
       "Stage 7 and Stage 8 are limited parity and overlay guards; they do not revalidate the Talent star-selection rule.",
       "The inherited 248 ambiguous Legacy source groups remain outside this two-Hero admission.",
-      "This Evidence does not admit Chinese Skill fields or structured combat mechanics."
-    ]
+      "This Evidence does not admit Chinese Skill fields or structured combat mechanics.",
+      "Hero 15 is admitted only from the exact pinned Korean source record and its per-record DIRECT_REUSE_FINAL review; overall PASS_WITH_REVIEW and parity artifacts do not independently approve this claim."
+    ],
+    "legacyCommitTree": "689a9bd47070be12438be66503096e424d392d42",
+    "stage5Decision": {
+      "path": "data/presentation/hero-talent-stage5-review.v1.json",
+      "gitBlobSha1": "63a5e119340c330038e2e95ae63c79648b524d66",
+      "recordLocator": "data/presentation/hero-talent-stage5-review.v1.json#records[heroId=15]",
+      "heroId": 15,
+      "talentNameKo": "성결한 수녀",
+      "sourceClassification": "DIRECT_REUSE_STRONG",
+      "correctedNumericClassification": "CORRECTED_STRONG",
+      "reason": "STAGE4_STRONG"
+    },
+    "hero15FinalRecord": {
+      "locator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=15]",
+      "heroId": 15,
+      "nameKr": "리아나",
+      "nameCn": "莉亚娜",
+      "talentNameKr": "성결한 수녀",
+      "finalDecision": "DIRECT_REUSE_FINAL",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "stage3KrSheetSourcePaths": [
+        "hero/data/리아나.js"
+      ],
+      "stage5Decision": "data/presentation/hero-talent-stage5-review.v1.json",
+      "stage6Override": null,
+      "skillIdsByStar": {
+        "3": 3212,
+        "4": 3214,
+        "5": 3216,
+        "6": 3218
+      }
+    }
   },
   "records": [
     {
@@ -105,6 +154,14 @@
       "talentNameKo": "마력 강화",
       "nameSourceLocator": "hero/data/라나.js#data[0].Talent[0].TalentName",
       "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8]",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 15,
+      "talentNameKo": "성결한 수녀",
+      "nameSourceLocator": "hero/data/리아나.js#data[0].Talent[0].TalentName",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=15]",
       "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
       "reviewRequired": false
     }
@@ -187,6 +244,46 @@
       "descriptionKoRaw": "전투 진입 시 마법 피해 <font color=\"red\">+30%</font> 스킬 사거리 <font color=\"red\">+1</font>.",
       "sourceLocator": "hero/data/라나.js#data[0].Talent[0].Abilities[5].Desc",
       "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=8].descriptions.star6",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 15,
+      "star": 3,
+      "skillId": 3212,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">1칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">1.5배</font>만큼 회복.",
+      "sourceLocator": "hero/data/리아나.js#data[0].Talent[0].Abilities[2].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=15].descriptions.star3",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 15,
+      "star": 4,
+      "skillId": 3214,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">2배</font>만큼 회복.",
+      "sourceLocator": "hero/data/리아나.js#data[0].Talent[0].Abilities[3].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=15].descriptions.star4",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 15,
+      "star": 5,
+      "skillId": 3216,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">1개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">2.5배</font>만큼 회복.",
+      "sourceLocator": "hero/data/리아나.js#data[0].Talent[0].Abilities[4].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=15].descriptions.star5",
+      "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false
+    },
+    {
+      "heroId": 15,
+      "star": 6,
+      "skillId": 3218,
+      "descriptionKoRaw": "행동 종료 시 주위 <font color=\"red\">2칸</font> 내 다른 아군 부대 디버프 <font color=\"red\">2개</font> 제거<br/> 동시에 자신 지력의 <font color=\"red\">3배</font>만큼 회복.",
+      "sourceLocator": "hero/data/리아나.js#data[0].Talent[0].Abilities[5].Desc",
+      "reviewLocator": "data/presentation/hero-talent-localization-final.v1.json#records[heroId=15].descriptions.star6",
       "reviewStatus": "CONFIRMED_EXISTING_KR_REUSE",
       "reviewRequired": false
     }

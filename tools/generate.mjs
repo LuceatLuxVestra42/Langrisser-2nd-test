@@ -15,6 +15,7 @@ import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_P
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
+const TALENT_SEMANTIC_HERO_IDS = new Set([6, 8, 15]);
 const JOB_LEVEL_STATS_HERO_IDS = new Set([6, 8]);
 const JOB_LEVEL_RAW_STAT_FIELDS = ['HP_INI', 'HP_UP', 'AT_INI', 'AT_UP', 'Magic_INI', 'Magic_UP', 'DF_INI', 'DF_UP', 'MagicDF_INI', 'MagicDF_UP', 'DEX_INI'];
 const TRAINING_TECH_DESCRIPTION_SOURCE = {
@@ -345,13 +346,15 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   const talentSkillTextByKey = resolveTalentSkillText(presentationTalentRelations, skills);
   const talentNameByHeroId = new Map();
   for (const name of talentLocalizations.nameRecords) {
-    if (!Number.isSafeInteger(name.heroId) || !TALENT_HERO_IDS.has(name.heroId) || !heroIds.has(name.heroId)
+    if (!Number.isSafeInteger(name.heroId) || !TALENT_SEMANTIC_HERO_IDS.has(name.heroId) || !heroIdentityIds.has(name.heroId)
       || typeof name.talentNameKo !== 'string' || !name.talentNameKo.trim()
       || name.localizationStatus !== 'CONFIRMED_EXISTING_KR_REUSE' || name.reviewRequired !== false || name.evidenceClass !== 'B') {
       throw new Error(`Hero Talent Korean name is malformed, unreviewed, or out of scope (${name.heroId})`);
     }
-    if (talentNameByHeroId.has(name.heroId)) throw new Error(`Duplicate Hero Talent Korean name for Hero ${name.heroId}`);
-    talentNameByHeroId.set(name.heroId, name.talentNameKo);
+    if (TALENT_HERO_IDS.has(name.heroId)) {
+      if (talentNameByHeroId.has(name.heroId)) throw new Error(`Duplicate Hero Talent Korean name for Hero ${name.heroId}`);
+      talentNameByHeroId.set(name.heroId, name.talentNameKo);
+    }
   }
   if (talentNameByHeroId.size !== TALENT_HERO_IDS.size || [...TALENT_HERO_IDS].some((id) => !talentNameByHeroId.has(id))) {
     throw new Error('Hero Talent Korean names must exactly cover Heroes 6 and 8');
@@ -359,12 +362,14 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   const talentDescriptionByKey = new Map();
   for (const description of talentLocalizations.descriptionRecords) {
     const key = `${description.heroId}:${description.star}:${description.skillId}`;
-    if (!Number.isSafeInteger(description.heroId) || !TALENT_HERO_IDS.has(description.heroId)
+    if (!Number.isSafeInteger(description.heroId) || !TALENT_SEMANTIC_HERO_IDS.has(description.heroId) || !heroIdentityIds.has(description.heroId)
       || !Number.isSafeInteger(description.star) || !TALENT_STARS.includes(description.star)
       || !Number.isSafeInteger(description.skillId) || typeof description.descriptionKoRaw !== 'string'
       || description.localizationStatus !== 'CONFIRMED_EXISTING_KR_REUSE' || description.reviewRequired !== false || description.evidenceClass !== 'B') {
       throw new Error(`Hero Talent description is malformed, unreviewed, or out of scope (${key})`);
     }
+    // Hero 15 Localization is canonically admitted, but this Generator only publishes Talent text for Heroes 6 and 8.
+    if (!TALENT_HERO_IDS.has(description.heroId)) continue;
     if (talentDescriptionByKey.has(key)) throw new Error(`Duplicate Hero Talent description ${key}`);
     const relationKey = `${description.heroId}:${description.star}`;
     if (talentRelationByKey.get(relationKey) !== description.skillId) {
