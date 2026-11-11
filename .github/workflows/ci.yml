@@ -486,6 +486,12 @@ jobs:
       - name: Test Hero 15 Fetter material relation boundaries
         run: node tools/test-hero15-fetter-material-relations.mjs
 
+      - name: Validate Hero 15 Fetter SkillInfo level locators
+        run: node tools/validate-hero15-fetter-skill-references.mjs
+
+      - name: Test Hero 15 Fetter Skill reference boundaries
+        run: node tools/test-hero15-fetter-skill-references.mjs
+
       - name: Validate Hero 15 Talent Publication and Generated Consumer
         run: node tools/validate-hero-15-talent-publication.mjs
 

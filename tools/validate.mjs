@@ -13,6 +13,7 @@ import { validateHero15HeartFetterRawConditions } from './validate-hero15-heart-
 import { validateHero15FetterRawDetails } from './validate-hero15-fetter-raw-details.mjs';
 import { validateHero15HeartFetterRawDetails } from './validate-hero15-heart-fetter-raw-details.mjs';
 import { validateHero15FetterMaterialRelations } from './validate-hero15-fetter-material-relations.mjs';
+import { validateHero15FetterSkillReferences } from './validate-hero15-fetter-skill-references.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 
@@ -761,5 +762,6 @@ await validateHero15HeartFetterRawConditions(root);
 await validateHero15FetterRawDetails(root);
 await validateHero15HeartFetterRawDetails(root);
 await validateHero15FetterMaterialRelations(root);
+await validateHero15FetterSkillReferences(root);
 await validateSkinGenerated(root);
 process.stdout.write('Hero slice, Job advancement, Skill references, Fetter references and raw Heart Fetter conditions, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');
