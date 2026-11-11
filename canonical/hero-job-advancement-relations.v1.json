@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "scope": "Direct prerequisite JobConnection edges for Hero 15 only, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.",
+  "records": [
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 151,
+      "successorJobId": 803,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=151/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 152,
+      "successorJobId": 806,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=152/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 153,
+      "successorJobId": 703,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=153/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 152,
+      "predecessorJobId": 806,
+      "successorConnectionId": 154,
+      "successorJobId": 811,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=154/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 153,
+      "predecessorJobId": 703,
+      "successorConnectionId": 155,
+      "successorJobId": 707,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=155/PreJobConnectionList"
+    }
+  ]
+}

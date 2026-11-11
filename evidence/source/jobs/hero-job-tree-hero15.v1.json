@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 JobConnection source records only; raw predecessor references and Job unlock text, no generalized tree population.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "jobConnectionInfo": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+      "sha256": "990009e6d751920173a7ec5aea47a8c89954aa7dacb7ef13c9ab40bbc6b6bb3a",
+      "bytes": 11498868,
+      "recordCount": 30066,
+      "recordLocatorRule": "zero-based top-level array index and explicit ID"
+    },
+    "jobInfo": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+      "sha256": "2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf",
+      "bytes": 2424034,
+      "recordCount": 3295,
+      "recordLocatorRule": "zero-based top-level array index and explicit ID"
+    },
+    "heroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "hero15RecordIndex": 14,
+      "hero15Locator": "data/configdata/ConfigDataHeroInfo.json#records[14]/ID=15",
+      "fields": {
+        "ID": 15,
+        "JobConnection_ID": 150,
+        "UseableJobConnections_ID": [
+          151,
+          152,
+          153,
+          154,
+          155
+        ]
+      }
+    }
+  },
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "connectionMembership": {
+      "status": "REUSED_EXISTING",
+      "canonicalPath": "canonical/hero-job-relations.v1.json",
+      "heroId": 15,
+      "connections": [
+        {
+          "connectionId": 150,
+          "jobId": 802
+        },
+        {
+          "connectionId": 151,
+          "jobId": 803
+        },
+        {
+          "connectionId": 152,
+          "jobId": 806
+        },
+        {
+          "connectionId": 153,
+          "jobId": 703
+        },
+        {
+          "connectionId": 154,
+          "jobId": 811
+        },
+        {
+          "connectionId": 155,
+          "jobId": 707
+        }
+      ]
+    },
+    "rawPreJobConnectionList": {
+      "evidenceClass": "A",
+      "status": "SOURCE_VERIFIED",
+      "records": [
+        {
+          "connectionId": 150,
+          "recordIndex": 98,
+          "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[98]/ID=150",
+          "fields": {
+            "ID": 150,
+            "Job_ID": 802,
+            "PreJobConnectionListPresent": false,
+            "PreJobConnectionList": null,
+            "PreJobConnectionListType": null,
+            "IsJobOpen": true
+          },
+          "fieldLocators": {
+            "ID": "#records[98]/ID",
+            "Job_ID": "#records[98]/Job_ID",
+            "PreJobConnectionList": null,
+            "IsJobOpen": "#records[98]/IsJobOpen"
+          }
+        },
+        {
+          "connectionId": 151,
+          "recordIndex": 99,
+          "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[99]/ID=151",
+          "fields": {
+            "ID": 151,
+            "Job_ID": 803,
+            "PreJobConnectionListPresent": true,
+            "PreJobConnectionList": [
+              150
+            ],
+            "PreJobConnectionListType": "list",
+            "IsJobOpen": true
+          },
+          "fieldLocators": {
+            "ID": "#records[99]/ID",
+            "Job_ID": "#records[99]/Job_ID",
+            "PreJobConnectionList": "#records[99]/PreJobConnectionList",
+            "IsJobOpen": "#records[99]/IsJobOpen"
+          }
+        },
+        {
+          "connectionId": 152,
+          "recordIndex": 100,
+          "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[100]/ID=152",
+          "fields": {
+            "ID": 152,
+            "Job_ID": 806,
+            "PreJobConnectionListPresent": true,
+            "PreJobConnectionList": [
+              150
+            ],
+            "PreJobConnectionListType": "list",
+            "IsJobOpen": true
+          },
+          "fieldLocators": {
+            "ID": "#records[100]/ID",
+            "Job_ID": "#records[100]/Job_ID",
+            "PreJobConnectionList": "#records[100]/PreJobConnectionList",
+            "IsJobOpen": "#records[100]/IsJobOpen"
+          }
+        },
+        {
+          "connectionId": 153,
+          "recordIndex": 101,
+          "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[101]/ID=153",
+          "fields": {
+            "ID": 153,
+            "Job_ID": 703,
+            "PreJobConnectionListPresent": true,
+            "PreJobConnectionList": [
+              150
+            ],
+            "PreJobConnectionListType": "list",
+            "IsJobOpen": true
+          },
+          "fieldLocators": {
+            "ID": "#records[101]/ID",
+            "Job_ID": "#records[101]/Job_ID",
+            "PreJobConnectionList": "#records[101]/PreJobConnectionList",
+            "IsJobOpen": "#records[101]/IsJobOpen"
+          }
+        },
+        {
+          "connectionId": 154,
+          "recordIndex": 102,
+          "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[102]/ID=154",
+          "fields": {
+            "ID": 154,
+            "Job_ID": 811,
+            "PreJobConnectionListPresent": true,
+            "PreJobConnectionList": [
+              152
+            ],
+            "PreJobConnectionListType": "list",
+            "IsJobOpen": true
+          },
+          "fieldLocators": {
+            "ID": "#records[102]/ID",
+            "Job_ID": "#records[102]/Job_ID",
+            "PreJobConnectionList": "#records[102]/PreJobConnectionList",
+            "IsJobOpen": "#records[102]/IsJobOpen"
+          }
+        },
+        {
+          "connectionId": 155,
+          "recordIndex": 103,
+          "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[103]/ID=155",
+          "fields": {
+            "ID": 155,
+            "Job_ID": 707,
+            "PreJobConnectionListPresent": true,
+            "PreJobConnectionList": [
+              153
+            ],
+            "PreJobConnectionListType": "list",
+            "IsJobOpen": true
+          },
+          "fieldLocators": {
+            "ID": "#records[103]/ID",
+            "Job_ID": "#records[103]/Job_ID",
+            "PreJobConnectionList": "#records[103]/PreJobConnectionList",
+            "IsJobOpen": "#records[103]/IsJobOpen"
+          }
+        }
+      ],
+      "namespaceAssessment": "Every nonempty value resolves by exact ID to one ConfigDataJobConnectionInfo record; those IDs are also explicitly included in HeroInfo#ID=15 JobConnection_ID/UseableJobConnections_ID.",
+      "limitations": [
+        "Connection 150 has no PreJobConnectionList field; this is a record-local observation only.",
+        "No global absence claim is made."
+      ],
+      "referenceNamespace": "ConfigDataJobConnectionInfo.ID",
+      "endpointResolution": "Each referenced ID resolves to exactly one of the six projected JobConnectionInfo records; all are listed in HeroInfo#ID=15 JobConnection_ID or UseableJobConnections_ID."
+    },
+    "unlockText": {
+      "evidenceClass": "A",
+      "status": "RAW_TEXT_VERIFIED_NOT_STRUCTURED",
+      "records": [
+        {
+          "jobId": 802,
+          "recordIndex": 490,
+          "locator": "data/configdata/ConfigDataJobInfo.json#records[490]/ID=802",
+          "fields": {
+            "ID": 802,
+            "Rank": 2,
+            "UnlockText": "精通前置职业后可以转职"
+          },
+          "fieldLocators": {
+            "ID": "#records[490]/ID",
+            "Rank": "#records[490]/Rank",
+            "UnlockText": "#records[490]/UnlockText"
+          }
+        },
+        {
+          "jobId": 803,
+          "recordIndex": 491,
+          "locator": "data/configdata/ConfigDataJobInfo.json#records[491]/ID=803",
+          "fields": {
+            "ID": 803,
+            "Rank": 3,
+            "UnlockText": "精通前置职业后可以转职"
+          },
+          "fieldLocators": {
+            "ID": "#records[491]/ID",
+            "Rank": "#records[491]/Rank",
+            "UnlockText": "#records[491]/UnlockText"
+          }
+        },
+        {
+          "jobId": 806,
+          "recordIndex": 494,
+          "locator": "data/configdata/ConfigDataJobInfo.json#records[494]/ID=806",
+          "fields": {
+            "ID": 806,
+            "Rank": 3,
+            "UnlockText": "精通前置职业后可以转职"
+          },
+          "fieldLocators": {
+            "ID": "#records[494]/ID",
+            "Rank": "#records[494]/Rank",
+            "UnlockText": "#records[494]/UnlockText"
+          }
+        },
+        {
+          "jobId": 703,
+          "recordIndex": 377,
+          "locator": "data/configdata/ConfigDataJobInfo.json#records[377]/ID=703",
+          "fields": {
+            "ID": 703,
+            "Rank": 3,
+            "UnlockText": "精通前置职业后可以转职"
+          },
+          "fieldLocators": {
+            "ID": "#records[377]/ID",
+            "Rank": "#records[377]/Rank",
+            "UnlockText": "#records[377]/UnlockText"
+          }
+        },
+        {
+          "jobId": 811,
+          "recordIndex": 499,
+          "locator": "data/configdata/ConfigDataJobInfo.json#records[499]/ID=811",
+          "fields": {
+            "ID": 811,
+            "Rank": 4,
+            "UnlockText": "精通前置职业后可以转职"
+          },
+          "fieldLocators": {
+            "ID": "#records[499]/ID",
+            "Rank": "#records[499]/Rank",
+            "UnlockText": "#records[499]/UnlockText"
+          }
+        },
+        {
+          "jobId": 707,
+          "recordIndex": 381,
+          "locator": "data/configdata/ConfigDataJobInfo.json#records[381]/ID=707",
+          "fields": {
+            "ID": 707,
+            "Rank": 4,
+            "UnlockText": "精通前置职业后可以转职"
+          },
+          "fieldLocators": {
+            "ID": "#records[381]/ID",
+            "Rank": "#records[381]/Rank",
+            "UnlockText": "#records[381]/UnlockText"
+          }
+        }
+      ],
+      "interpretation": "Source text states that transfer is possible after mastering a prerequisite job. It is generic JobInfo text repeated across the six Job endpoints, not a hero-specific threshold or complete unlock rule.",
+      "exactText": "精通前置职业后可以转职",
+      "limitations": [
+        "No numeric level, material cost, route-selection state, or additional gate is specified in this evidence.",
+        "No structured unlock-condition Canonical is admitted."
+      ]
+    },
+    "directEdges": {
+      "evidenceClass": "A",
+      "status": "ADMITTED",
+      "direction": "PreJobConnectionList value on a successor connection identifies the prerequisite/predecessor JobConnection; canonical edge is predecessorConnection -> successorConnection.",
+      "records": [
+        {
+          "heroId": 15,
+          "predecessorConnectionId": 150,
+          "predecessorJobId": 802,
+          "successorConnectionId": 151,
+          "successorJobId": 803,
+          "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=151/PreJobConnectionList"
+        },
+        {
+          "heroId": 15,
+          "predecessorConnectionId": 150,
+          "predecessorJobId": 802,
+          "successorConnectionId": 152,
+          "successorJobId": 806,
+          "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=152/PreJobConnectionList"
+        },
+        {
+          "heroId": 15,
+          "predecessorConnectionId": 150,
+          "predecessorJobId": 802,
+          "successorConnectionId": 153,
+          "successorJobId": 703,
+          "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=153/PreJobConnectionList"
+        },
+        {
+          "heroId": 15,
+          "predecessorConnectionId": 152,
+          "predecessorJobId": 806,
+          "successorConnectionId": 154,
+          "successorJobId": 811,
+          "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=154/PreJobConnectionList"
+        },
+        {
+          "heroId": 15,
+          "predecessorConnectionId": 153,
+          "predecessorJobId": 703,
+          "successorConnectionId": 155,
+          "successorJobId": 707,
+          "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=155/PreJobConnectionList"
+        }
+      ],
+      "semanticBasis": [
+        "Each listed integer resolves as an exact JobConnectionInfo.ID endpoint.",
+        "Each endpoint is explicitly in HeroInfo ID=15 primary/usable connection membership.",
+        "The corresponding JobInfo.UnlockText states transfer after mastering the prerequisite job.",
+        "The source field is on the successor record and names the referenced prerequisite list; edge direction follows that field/reference and the matching unlock text, not numeric order, UISort, rank, or array order."
+      ],
+      "limitations": [
+        "ConfigData snapshot is version-scoped and does not encode numeric hero-level thresholds or mastery cost.",
+        "No reachability beyond the five direct edges is separately admitted.",
+        "No UI path, Job Tree presentation, mastery values, skill acquisition relation, or final combat calculation is admitted."
+      ]
+    },
+    "officialCorroboration": {
+      "url": "https://us-news.zlongame.com/heroSSR/858.jhtml",
+      "retrieved": "2026-11-11",
+      "scope": "Official Liana profile labels a Class Tree and identifies Liana with Initial Class Sister; it corroborates that this Hero has a class-tree responsibility, but rendered page extraction does not provide machine-verifiable edge topology.",
+      "notUsedAs": "It is not used to assign ConfigData IDs or independently prove each edge."
+    }
+  },
+  "records": {
+    "jobConnections": [
+      {
+        "connectionId": 150,
+        "recordIndex": 98,
+        "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[98]/ID=150",
+        "fields": {
+          "ID": 150,
+          "Job_ID": 802,
+          "PreJobConnectionListPresent": false,
+          "PreJobConnectionList": null,
+          "PreJobConnectionListType": null,
+          "IsJobOpen": true
+        },
+        "fieldLocators": {
+          "ID": "#records[98]/ID",
+          "Job_ID": "#records[98]/Job_ID",
+          "PreJobConnectionList": null,
+          "IsJobOpen": "#records[98]/IsJobOpen"
+        }
+      },
+      {
+        "connectionId": 151,
+        "recordIndex": 99,
+        "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[99]/ID=151",
+        "fields": {
+          "ID": 151,
+          "Job_ID": 803,
+          "PreJobConnectionListPresent": true,
+          "PreJobConnectionList": [
+            150
+          ],
+          "PreJobConnectionListType": "JSON array",
+          "IsJobOpen": true
+        },
+        "fieldLocators": {
+          "ID": "#records[99]/ID",
+          "Job_ID": "#records[99]/Job_ID",
+          "PreJobConnectionList": "#records[99]/PreJobConnectionList",
+          "IsJobOpen": "#records[99]/IsJobOpen"
+        }
+      },
+      {
+        "connectionId": 152,
+        "recordIndex": 100,
+        "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[100]/ID=152",
+        "fields": {
+          "ID": 152,
+          "Job_ID": 806,
+          "PreJobConnectionListPresent": true,
+          "PreJobConnectionList": [
+            150
+          ],
+          "PreJobConnectionListType": "JSON array",
+          "IsJobOpen": true
+        },
+        "fieldLocators": {
+          "ID": "#records[100]/ID",
+          "Job_ID": "#records[100]/Job_ID",
+          "PreJobConnectionList": "#records[100]/PreJobConnectionList",
+          "IsJobOpen": "#records[100]/IsJobOpen"
+        }
+      },
+      {
+        "connectionId": 153,
+        "recordIndex": 101,
+        "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[101]/ID=153",
+        "fields": {
+          "ID": 153,
+          "Job_ID": 703,
+          "PreJobConnectionListPresent": true,
+          "PreJobConnectionList": [
+            150
+          ],
+          "PreJobConnectionListType": "JSON array",
+          "IsJobOpen": true
+        },
+        "fieldLocators": {
+          "ID": "#records[101]/ID",
+          "Job_ID": "#records[101]/Job_ID",
+          "PreJobConnectionList": "#records[101]/PreJobConnectionList",
+          "IsJobOpen": "#records[101]/IsJobOpen"
+        }
+      },
+      {
+        "connectionId": 154,
+        "recordIndex": 102,
+        "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[102]/ID=154",
+        "fields": {
+          "ID": 154,
+          "Job_ID": 811,
+          "PreJobConnectionListPresent": true,
+          "PreJobConnectionList": [
+            152
+          ],
+          "PreJobConnectionListType": "JSON array",
+          "IsJobOpen": true
+        },
+        "fieldLocators": {
+          "ID": "#records[102]/ID",
+          "Job_ID": "#records[102]/Job_ID",
+          "PreJobConnectionList": "#records[102]/PreJobConnectionList",
+          "IsJobOpen": "#records[102]/IsJobOpen"
+        }
+      },
+      {
+        "connectionId": 155,
+        "recordIndex": 103,
+        "locator": "data/configdata/ConfigDataJobConnectionInfo.json#records[103]/ID=155",
+        "fields": {
+          "ID": 155,
+          "Job_ID": 707,
+          "PreJobConnectionListPresent": true,
+          "PreJobConnectionList": [
+            153
+          ],
+          "PreJobConnectionListType": "JSON array",
+          "IsJobOpen": true
+        },
+        "fieldLocators": {
+          "ID": "#records[103]/ID",
+          "Job_ID": "#records[103]/Job_ID",
+          "PreJobConnectionList": "#records[103]/PreJobConnectionList",
+          "IsJobOpen": "#records[103]/IsJobOpen"
+        }
+      }
+    ],
+    "jobs": [
+      {
+        "jobId": 802,
+        "recordIndex": 490,
+        "locator": "data/configdata/ConfigDataJobInfo.json#records[490]/ID=802",
+        "fields": {
+          "ID": 802,
+          "Rank": 2,
+          "UnlockText": "精通前置职业后可以转职"
+        },
+        "fieldLocators": {
+          "ID": "#records[490]/ID",
+          "Rank": "#records[490]/Rank",
+          "UnlockText": "#records[490]/UnlockText"
+        }
+      },
+      {
+        "jobId": 803,
+        "recordIndex": 491,
+        "locator": "data/configdata/ConfigDataJobInfo.json#records[491]/ID=803",
+        "fields": {
+          "ID": 803,
+          "Rank": 3,
+          "UnlockText": "精通前置职业后可以转职"
+        },
+        "fieldLocators": {
+          "ID": "#records[491]/ID",
+          "Rank": "#records[491]/Rank",
+          "UnlockText": "#records[491]/UnlockText"
+        }
+      },
+      {
+        "jobId": 806,
+        "recordIndex": 494,
+        "locator": "data/configdata/ConfigDataJobInfo.json#records[494]/ID=806",
+        "fields": {
+          "ID": 806,
+          "Rank": 3,
+          "UnlockText": "精通前置职业后可以转职"
+        },
+        "fieldLocators": {
+          "ID": "#records[494]/ID",
+          "Rank": "#records[494]/Rank",
+          "UnlockText": "#records[494]/UnlockText"
+        }
+      },
+      {
+        "jobId": 703,
+        "recordIndex": 377,
+        "locator": "data/configdata/ConfigDataJobInfo.json#records[377]/ID=703",
+        "fields": {
+          "ID": 703,
+          "Rank": 3,
+          "UnlockText": "精通前置职业后可以转职"
+        },
+        "fieldLocators": {
+          "ID": "#records[377]/ID",
+          "Rank": "#records[377]/Rank",
+          "UnlockText": "#records[377]/UnlockText"
+        }
+      },
+      {
+        "jobId": 811,
+        "recordIndex": 499,
+        "locator": "data/configdata/ConfigDataJobInfo.json#records[499]/ID=811",
+        "fields": {
+          "ID": 811,
+          "Rank": 4,
+          "UnlockText": "精通前置职业后可以转职"
+        },
+        "fieldLocators": {
+          "ID": "#records[499]/ID",
+          "Rank": "#records[499]/Rank",
+          "UnlockText": "#records[499]/UnlockText"
+        }
+      },
+      {
+        "jobId": 707,
+        "recordIndex": 381,
+        "locator": "data/configdata/ConfigDataJobInfo.json#records[381]/ID=707",
+        "fields": {
+          "ID": 707,
+          "Rank": 4,
+          "UnlockText": "精通前置职业后可以转职"
+        },
+        "fieldLocators": {
+          "ID": "#records[381]/ID",
+          "Rank": "#records[381]/Rank",
+          "UnlockText": "#records[381]/UnlockText"
+        }
+      }
+    ]
+  },
+  "derivedEdgeProjection": [
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 151,
+      "successorJobId": 803,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=151/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 152,
+      "successorJobId": 806,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=152/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 153,
+      "successorJobId": 703,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=153/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 152,
+      "predecessorJobId": 806,
+      "successorConnectionId": 154,
+      "successorJobId": 811,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=154/PreJobConnectionList"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 153,
+      "predecessorJobId": 703,
+      "successorConnectionId": 155,
+      "successorJobId": 707,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=155/PreJobConnectionList"
+    }
+  ],
+  "transformation": {
+    "rule": "For each connection C, for each explicit ID P in C.PreJobConnectionList, emit directed edge P -> C after verifying P and C are unique Connection IDs in Hero 15 explicit membership.",
+    "noFallbacks": [
+      "Do not derive edges from Job rank, Connection ID order, UISort, JobLevel_ID order, or other Hero records."
+    ],
+    "sourceRole": "The JobConnection records provide exact references; corresponding JobInfo.UnlockText supplies the prior-job mastery wording."
+  },
+  "publication": {
+    "status": "NOT_APPROVED",
+    "surfaces": []
+  },
+  "limitations": [
+    "Raw Source Evidence is not general canonical authority outside Hero 15 and this pinned snapshot.",
+    "Only raw source and explicitly referenced direct edges are in scope; Job mastery statistics and Hero-specific unlock thresholds remain separate responsibilities."
+  ]
+}
