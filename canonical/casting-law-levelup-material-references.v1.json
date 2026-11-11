@@ -1,0 +1,1647 @@
+{
+  "schemaVersion": 1,
+  "scope": "Selected Casting Law LevelUp source material rows with GoodsType=6 and direct ConfigDataItemInfo.ID endpoint presence; raw references only, no runtime cost or consumption meaning.",
+  "records": [
+    {
+      "levelUpInfoId": 66,
+      "levelUpSourceArrayIndex": 65,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=66",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3267,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 67,
+      "levelUpSourceArrayIndex": 66,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=67",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3281,
+        "Count": 18
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 67,
+      "levelUpSourceArrayIndex": 66,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=67",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3267,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 68,
+      "levelUpSourceArrayIndex": 67,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=68",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3295,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 68,
+      "levelUpSourceArrayIndex": 67,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=68",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3281,
+        "Count": 24
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 68,
+      "levelUpSourceArrayIndex": 67,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=68",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3267,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 69,
+      "levelUpSourceArrayIndex": 68,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=69",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3295,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 69,
+      "levelUpSourceArrayIndex": 68,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=69",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3281,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 69,
+      "levelUpSourceArrayIndex": 68,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=69",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3267,
+        "Count": 40
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 70,
+      "levelUpSourceArrayIndex": 69,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=70",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3295,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 70,
+      "levelUpSourceArrayIndex": 69,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=70",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3281,
+        "Count": 36
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 70,
+      "levelUpSourceArrayIndex": 69,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=70",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3267,
+        "Count": 50
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10066,
+      "levelUpSourceArrayIndex": 315,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10066",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10067,
+      "levelUpSourceArrayIndex": 316,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10067",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10067,
+      "levelUpSourceArrayIndex": 316,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10067",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10068,
+      "levelUpSourceArrayIndex": 317,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10068",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 6
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10068,
+      "levelUpSourceArrayIndex": 317,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10068",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 12
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10069,
+      "levelUpSourceArrayIndex": 318,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10069",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10069,
+      "levelUpSourceArrayIndex": 318,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10069",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10069,
+      "levelUpSourceArrayIndex": 318,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10069",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10070,
+      "levelUpSourceArrayIndex": 319,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10070",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 5
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10070,
+      "levelUpSourceArrayIndex": 319,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10070",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10070,
+      "levelUpSourceArrayIndex": 319,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10070",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 56,
+      "levelUpSourceArrayIndex": 55,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=56",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3265,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 57,
+      "levelUpSourceArrayIndex": 56,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=57",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3279,
+        "Count": 18
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 57,
+      "levelUpSourceArrayIndex": 56,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=57",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3265,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 58,
+      "levelUpSourceArrayIndex": 57,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=58",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3293,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 58,
+      "levelUpSourceArrayIndex": 57,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=58",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3279,
+        "Count": 24
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 58,
+      "levelUpSourceArrayIndex": 57,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=58",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3265,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 59,
+      "levelUpSourceArrayIndex": 58,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=59",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3293,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 59,
+      "levelUpSourceArrayIndex": 58,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=59",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3279,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 59,
+      "levelUpSourceArrayIndex": 58,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=59",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3265,
+        "Count": 40
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 60,
+      "levelUpSourceArrayIndex": 59,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=60",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3293,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 60,
+      "levelUpSourceArrayIndex": 59,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=60",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3279,
+        "Count": 36
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 60,
+      "levelUpSourceArrayIndex": 59,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=60",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3265,
+        "Count": 50
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10056,
+      "levelUpSourceArrayIndex": 305,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10056",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10057,
+      "levelUpSourceArrayIndex": 306,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10057",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10057,
+      "levelUpSourceArrayIndex": 306,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10057",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10058,
+      "levelUpSourceArrayIndex": 307,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10058",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 6
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10058,
+      "levelUpSourceArrayIndex": 307,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10058",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 12
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10059,
+      "levelUpSourceArrayIndex": 308,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10059",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10059,
+      "levelUpSourceArrayIndex": 308,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10059",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10059,
+      "levelUpSourceArrayIndex": 308,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10059",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10060,
+      "levelUpSourceArrayIndex": 309,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10060",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 5
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10060,
+      "levelUpSourceArrayIndex": 309,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10060",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10060,
+      "levelUpSourceArrayIndex": 309,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10060",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 181,
+      "levelUpSourceArrayIndex": 180,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=181",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3270,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 182,
+      "levelUpSourceArrayIndex": 181,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=182",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3284,
+        "Count": 18
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 182,
+      "levelUpSourceArrayIndex": 181,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=182",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3270,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 183,
+      "levelUpSourceArrayIndex": 182,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=183",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3298,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 183,
+      "levelUpSourceArrayIndex": 182,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=183",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3284,
+        "Count": 24
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 183,
+      "levelUpSourceArrayIndex": 182,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=183",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3270,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 184,
+      "levelUpSourceArrayIndex": 183,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=184",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3298,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 184,
+      "levelUpSourceArrayIndex": 183,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=184",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3284,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 184,
+      "levelUpSourceArrayIndex": 183,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=184",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3270,
+        "Count": 40
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 185,
+      "levelUpSourceArrayIndex": 184,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=185",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3298,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 185,
+      "levelUpSourceArrayIndex": 184,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=185",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3284,
+        "Count": 36
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 185,
+      "levelUpSourceArrayIndex": 184,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=185",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3270,
+        "Count": 50
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10181,
+      "levelUpSourceArrayIndex": 430,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10181",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10182,
+      "levelUpSourceArrayIndex": 431,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10182",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10182,
+      "levelUpSourceArrayIndex": 431,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10182",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10183,
+      "levelUpSourceArrayIndex": 432,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10183",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 6
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10183,
+      "levelUpSourceArrayIndex": 432,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10183",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 12
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10184,
+      "levelUpSourceArrayIndex": 433,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10184",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10184,
+      "levelUpSourceArrayIndex": 433,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10184",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10184,
+      "levelUpSourceArrayIndex": 433,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10184",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10185,
+      "levelUpSourceArrayIndex": 434,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10185",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 5
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10185,
+      "levelUpSourceArrayIndex": 434,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10185",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10185,
+      "levelUpSourceArrayIndex": 434,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10185",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 196,
+      "levelUpSourceArrayIndex": 195,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=196",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3273,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 197,
+      "levelUpSourceArrayIndex": 196,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=197",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3287,
+        "Count": 18
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 197,
+      "levelUpSourceArrayIndex": 196,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=197",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3273,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 198,
+      "levelUpSourceArrayIndex": 197,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=198",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3301,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 198,
+      "levelUpSourceArrayIndex": 197,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=198",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3287,
+        "Count": 24
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 198,
+      "levelUpSourceArrayIndex": 197,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=198",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3273,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 199,
+      "levelUpSourceArrayIndex": 198,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=199",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3301,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 199,
+      "levelUpSourceArrayIndex": 198,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=199",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3287,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 199,
+      "levelUpSourceArrayIndex": 198,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=199",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3273,
+        "Count": 40
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 200,
+      "levelUpSourceArrayIndex": 199,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=200",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3301,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 200,
+      "levelUpSourceArrayIndex": 199,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=200",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3287,
+        "Count": 36
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 200,
+      "levelUpSourceArrayIndex": 199,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=200",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3273,
+        "Count": 50
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10196,
+      "levelUpSourceArrayIndex": 445,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10196",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10197,
+      "levelUpSourceArrayIndex": 446,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10197",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10197,
+      "levelUpSourceArrayIndex": 446,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10197",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10198,
+      "levelUpSourceArrayIndex": 447,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10198",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 6
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10198,
+      "levelUpSourceArrayIndex": 447,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10198",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 12
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10199,
+      "levelUpSourceArrayIndex": 448,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10199",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10199,
+      "levelUpSourceArrayIndex": 448,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10199",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10199,
+      "levelUpSourceArrayIndex": 448,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10199",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10200,
+      "levelUpSourceArrayIndex": 449,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10200",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 5
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10200,
+      "levelUpSourceArrayIndex": 449,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10200",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10200,
+      "levelUpSourceArrayIndex": 449,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10200",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 201,
+      "levelUpSourceArrayIndex": 200,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=201",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3274,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 202,
+      "levelUpSourceArrayIndex": 201,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=202",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3288,
+        "Count": 18
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 202,
+      "levelUpSourceArrayIndex": 201,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=202",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3274,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 203,
+      "levelUpSourceArrayIndex": 202,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=203",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3302,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 203,
+      "levelUpSourceArrayIndex": 202,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=203",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3288,
+        "Count": 24
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 203,
+      "levelUpSourceArrayIndex": 202,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=203",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3274,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 204,
+      "levelUpSourceArrayIndex": 203,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=204",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3302,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 204,
+      "levelUpSourceArrayIndex": 203,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=204",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3288,
+        "Count": 30
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 204,
+      "levelUpSourceArrayIndex": 203,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=204",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3274,
+        "Count": 40
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 205,
+      "levelUpSourceArrayIndex": 204,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=205",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3302,
+        "Count": 25
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 205,
+      "levelUpSourceArrayIndex": 204,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=205",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3288,
+        "Count": 36
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 205,
+      "levelUpSourceArrayIndex": 204,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=205",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3274,
+        "Count": 50
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10201,
+      "levelUpSourceArrayIndex": 450,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10201",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10202,
+      "levelUpSourceArrayIndex": 451,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10202",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10202,
+      "levelUpSourceArrayIndex": 451,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10202",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10203,
+      "levelUpSourceArrayIndex": 452,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10203",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 6
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10203,
+      "levelUpSourceArrayIndex": 452,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10203",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 12
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10204,
+      "levelUpSourceArrayIndex": 453,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10204",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 4
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10204,
+      "levelUpSourceArrayIndex": 453,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10204",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 8
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10204,
+      "levelUpSourceArrayIndex": 453,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10204",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 15
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10205,
+      "levelUpSourceArrayIndex": 454,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10205",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 0,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3310,
+        "Count": 5
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10205,
+      "levelUpSourceArrayIndex": 454,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10205",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 1,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3309,
+        "Count": 10
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    },
+    {
+      "levelUpInfoId": 10205,
+      "levelUpSourceArrayIndex": 454,
+      "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10205",
+      "sourceField": "ConfigDataCastingLawLevelUpInfo.LevelupMaterialsCost",
+      "sourceArrayIndex": 2,
+      "rawMaterial": {
+        "GoodsType": 6,
+        "Id": 3308,
+        "Count": 20
+      },
+      "goodsEndpointNamespace": "ConfigDataItemInfo.ID"
+    }
+  ],
+  "itemEndpoints": [
+    {
+      "itemId": 3267,
+      "sourceArrayIndex": 458,
+      "recordLocator": "ConfigDataItemInfo#ID=3267",
+      "fields": {
+        "ID": 3267
+      }
+    },
+    {
+      "itemId": 3281,
+      "sourceArrayIndex": 472,
+      "recordLocator": "ConfigDataItemInfo#ID=3281",
+      "fields": {
+        "ID": 3281
+      }
+    },
+    {
+      "itemId": 3295,
+      "sourceArrayIndex": 486,
+      "recordLocator": "ConfigDataItemInfo#ID=3295",
+      "fields": {
+        "ID": 3295
+      }
+    },
+    {
+      "itemId": 3308,
+      "sourceArrayIndex": 499,
+      "recordLocator": "ConfigDataItemInfo#ID=3308",
+      "fields": {
+        "ID": 3308
+      }
+    },
+    {
+      "itemId": 3309,
+      "sourceArrayIndex": 500,
+      "recordLocator": "ConfigDataItemInfo#ID=3309",
+      "fields": {
+        "ID": 3309
+      }
+    },
+    {
+      "itemId": 3310,
+      "sourceArrayIndex": 501,
+      "recordLocator": "ConfigDataItemInfo#ID=3310",
+      "fields": {
+        "ID": 3310
+      }
+    },
+    {
+      "itemId": 3265,
+      "sourceArrayIndex": 456,
+      "recordLocator": "ConfigDataItemInfo#ID=3265",
+      "fields": {
+        "ID": 3265
+      }
+    },
+    {
+      "itemId": 3279,
+      "sourceArrayIndex": 470,
+      "recordLocator": "ConfigDataItemInfo#ID=3279",
+      "fields": {
+        "ID": 3279
+      }
+    },
+    {
+      "itemId": 3293,
+      "sourceArrayIndex": 484,
+      "recordLocator": "ConfigDataItemInfo#ID=3293",
+      "fields": {
+        "ID": 3293
+      }
+    },
+    {
+      "itemId": 3270,
+      "sourceArrayIndex": 461,
+      "recordLocator": "ConfigDataItemInfo#ID=3270",
+      "fields": {
+        "ID": 3270
+      }
+    },
+    {
+      "itemId": 3284,
+      "sourceArrayIndex": 475,
+      "recordLocator": "ConfigDataItemInfo#ID=3284",
+      "fields": {
+        "ID": 3284
+      }
+    },
+    {
+      "itemId": 3298,
+      "sourceArrayIndex": 489,
+      "recordLocator": "ConfigDataItemInfo#ID=3298",
+      "fields": {
+        "ID": 3298
+      }
+    },
+    {
+      "itemId": 3273,
+      "sourceArrayIndex": 464,
+      "recordLocator": "ConfigDataItemInfo#ID=3273",
+      "fields": {
+        "ID": 3273
+      }
+    },
+    {
+      "itemId": 3287,
+      "sourceArrayIndex": 478,
+      "recordLocator": "ConfigDataItemInfo#ID=3287",
+      "fields": {
+        "ID": 3287
+      }
+    },
+    {
+      "itemId": 3301,
+      "sourceArrayIndex": 492,
+      "recordLocator": "ConfigDataItemInfo#ID=3301",
+      "fields": {
+        "ID": 3301
+      }
+    },
+    {
+      "itemId": 3274,
+      "sourceArrayIndex": 465,
+      "recordLocator": "ConfigDataItemInfo#ID=3274",
+      "fields": {
+        "ID": 3274
+      }
+    },
+    {
+      "itemId": 3288,
+      "sourceArrayIndex": 479,
+      "recordLocator": "ConfigDataItemInfo#ID=3288",
+      "fields": {
+        "ID": 3288
+      }
+    },
+    {
+      "itemId": 3302,
+      "sourceArrayIndex": 493,
+      "recordLocator": "ConfigDataItemInfo#ID=3302",
+      "fields": {
+        "ID": 3302
+      }
+    }
+  ]
+}
