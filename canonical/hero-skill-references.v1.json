@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 only: direct HeroInfo Skill_ID references and explicit JobLevelInfo GotSkill_ID acquisition references. No equipping, unlock condition, combat effect, or publication claim.",
+  "records": [
+    {
+      "referenceKind": "HERO_DIRECT_SKILL_REFERENCE",
+      "heroId": 15,
+      "skillId": 10801,
+      "sourceField": "ConfigDataHeroInfo.Skills_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/0",
+        "endpoint": "canonical/skills.v1.json#skillId=10801"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 150,
+      "jobId": 802,
+      "jobLevelId": 1502,
+      "skillId": 10816,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/1",
+        "endpoint": "canonical/skills.v1.json#skillId=10816"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 151,
+      "jobId": 803,
+      "jobLevelId": 1512,
+      "skillId": 10805,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/2",
+        "endpoint": "canonical/skills.v1.json#skillId=10805"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 152,
+      "jobId": 806,
+      "jobLevelId": 1522,
+      "skillId": 10707,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/3",
+        "endpoint": "canonical/skills.v1.json#skillId=10707"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 153,
+      "jobId": 703,
+      "jobLevelId": 1532,
+      "skillId": 10705,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/4",
+        "endpoint": "canonical/skills.v1.json#skillId=10705"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1541,
+      "skillId": 10804,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/5",
+        "endpoint": "canonical/skills.v1.json#skillId=10804"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1543,
+      "skillId": 10807,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/6",
+        "endpoint": "canonical/skills.v1.json#skillId=10807"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1551,
+      "skillId": 6009,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/7",
+        "endpoint": "canonical/skills.v1.json#skillId=6009"
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1553,
+      "skillId": 11786,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/8",
+        "endpoint": "canonical/skills.v1.json#skillId=11786"
+      }
+    }
+  ]
+}

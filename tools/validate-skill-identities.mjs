@@ -6,6 +6,7 @@ import { isDeepStrictEqual } from 'node:util';
 const evidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json';
 const soldierEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
 const hero15EvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
+const hero15GeneralEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -24,10 +25,22 @@ const hero15Expected = [
   [3216, 309, '圣洁的修女', '行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>1</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>2.5</color>倍。'],
   [3218, 310, '圣洁的修女', '行动结束时驱散<color=#DC143C>2</color>格内其他友军<color=#DC143C>2</color>个弱化效果并治疗生命值，治疗量为自身智力的<color=#DC143C>3</color>倍。'],
 ];
+const hero15GeneralExpected = [
+  [10801,1913,'治疗术','[治疗]主动使用，恢复单个部队的生命值，恢复量为施法者智力的<color=#DC143C>5</color>倍。并且驱散<color=#DC143C>1</color>个弱化效果。'],
+  [10816,1932,'再行动','[支援]主动使用，可以使<color=#DC143C>1</color>个己方行动完的部队再次行动。并恢复施法者智力<color=#DC143C>2</color>倍的生命。'],
+  [10805,1917,'福音','[支援]主动使用，使得单个部队的攻击、智力、防御提升<color=#DC143C>20%</color>，且免疫所有弱化效果，持续<color=#DC143C>2</color>回合。'],
+  [10707,1896,'风刃','[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「飞兵」有特效。'],
+  [10705,1894,'冰冻','[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「枪兵」有特效。'],
+  [10804,1916,'群体护盾','[支援]主动使用，使得范围内多个部队的防御提升<color=#DC143C>20%</color>，且免疫:“防御、魔防降低”、"无法被治疗“，持续<color=#DC143C>2</color>回合。'],
+  [10807,1921,'圣疗','[治疗]恢复大范围内多个部队的生命，恢复量为施法者智力的<color=#DC143C>4</color>倍，并在行动结束时，恢复<color=#DC143C>20%</color>的生命，持续<color=#DC143C>2</color>回合。'],
+  [6009,1805,'冥想','[被动]当部队生命值高于<color=#DC143C>90%</color>时，智力、魔防提升<color=#DC143C>10%</color>。'],
+  [11786,2028,'召唤天空射手','[召唤]召唤一个天空射手。'],
+];
+const hero15GeneralIds = hero15GeneralExpected.map(([id]) => id);
 const expectedIds = expected.map(([id]) => id);
 const hero15ExpectedIds = hero15Expected.map(([id]) => id);
 const soldierSkillIds = [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675,66957,66958,66959,66960,66961,66962,66963,66964,66965,66966,65110,65111,65112,65113,65114,65115,65116,65117,65118,65119];
-const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds];
+const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds];
 const recordIndices = Object.fromEntries(expected.map(([id, index]) => [String(id), index]));
 const sourcePin = {
   repository: 'LuceatLuxVestra42/langrisser-future-guide',
@@ -61,8 +74,8 @@ const exactKeys = (value, keys, label) => check(value && typeof value === 'objec
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 export async function validateSkillIdentities(root = process.cwd()) {
-  const [evidence, soldierEvidence, canonical, talent, hero15Evidence] = await Promise.all([
-    readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath),
+  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence] = await Promise.all([
+    readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath), readJson(root, hero15GeneralEvidencePath),
   ]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'extraction', 'records', 'claimEvidence', 'fieldMeaningContract', 'interpretation', 'canonical', 'generated', 'productionRuntimeDependency'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail', 'EVIDENCE', 'Evidence owner identity drift');
@@ -181,9 +194,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: pinned Hero Talent identities and 30 explicitly selected SkillInfo records; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, and 9 directly referenced Hero 15 general SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 42 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 51 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -215,6 +228,40 @@ export async function validateSkillIdentities(root = process.cwd()) {
     canonicalIds.push(row.skillId);
   }
 
+  exactKeys(hero15GeneralEvidence,['schemaVersion','responsibility','scope','source','extraction','records','claimEvidence','fieldMeaningContract','interpretation','canonical','generated','publicationApproval','productionRuntimeDependency'],'Hero15 general SkillInfo Evidence');
+  const generalSource=hero15GeneralEvidence.source;
+  check(hero15GeneralEvidence.schemaVersion===1 && hero15GeneralEvidence.responsibility==='skill-identity-and-source-detail'
+    && hero15GeneralEvidence.scope?.sourceScope===evidence.scope.sourceScope
+    && isDeepStrictEqual(hero15GeneralEvidence.scope?.skillIds,hero15GeneralIds)
+    && hero15GeneralEvidence.scope?.claim==='Nine source-native Hero 15 general SkillInfo identities selected only after direct HeroInfo/JobLevel reference verification.'
+    && isDeepStrictEqual(hero15GeneralEvidence.scope?.outOfScope,['Hero/Job/Connection/Level ownership','skill acquisition or unlock rules','Korean localization','combat effect semantics/formulas','publication approval','icon or asset meaning']),
+    'HERO15_GENERAL_SCOPE','Hero15 general identity evidence scope drift');
+  check(generalSource?.repository==='LuceatLuxVestra42/langrisser-future-guide' && generalSource?.commit===sourcePin.commit
+    && generalSource?.tree===sourcePin.commitTree && generalSource?.path===sourcePin.path
+    && generalSource?.gitBlobSha1===sourcePin.gitBlobSha1 && generalSource?.sha256===sourcePin.sha256
+    && generalSource?.sizeBytes===sourcePin.sizeBytes && generalSource?.primaryKey==='ID'
+    && generalSource?.sourceIndex?.path===sourcePin.sourceIndex.path
+    && generalSource?.sourceIndex?.gitBlobSha1===sourcePin.sourceIndex.gitBlobSha1
+    && isDeepStrictEqual(generalSource?.sourceIndex?.recordIndices,Object.fromEntries(hero15GeneralExpected.map(([id,index])=>[String(id),index]))),
+    'HERO15_GENERAL_SOURCE_PIN','Hero15 general SkillInfo source/index pin changed');
+  check(hero15GeneralEvidence.extraction?.sourceBlobSha256Recomputed===true && hero15GeneralEvidence.extraction?.sourceIndexIsLocatorOnly===true,
+    'HERO15_GENERAL_EXTRACTION','Source extraction/hash verification claim drift');
+  check(Array.isArray(hero15GeneralEvidence.records) && hero15GeneralEvidence.records.length===hero15GeneralExpected.length,
+    'HERO15_GENERAL_SOURCE_RECORDS','Expected exactly nine source rows');
+  for(let i=0;i<hero15GeneralExpected.length;i+=1){
+    const [id,index,name,desc]=hero15GeneralExpected[i], row=hero15GeneralEvidence.records[i];
+    exactKeys(row,['sourceRecordIndex','sourceRecordLocator','rawRecord','fieldProvenance'],`Hero15 general row ${id}`);
+    check(row.sourceRecordIndex===index && row.sourceRecordLocator===`${sourcePin.path}#ID=${id}`
+      && isDeepStrictEqual(row.rawRecord,{ID:id,Name:name,Desc:desc})
+      && isDeepStrictEqual(row.fieldProvenance,{ID:`${sourcePin.path}#arrayIndex=${index}/ID`,Name:`${sourcePin.path}#arrayIndex=${index}/Name`,Desc:`${sourcePin.path}#arrayIndex=${index}/Desc`}),
+      'HERO15_GENERAL_SOURCE_RECORDS',`Source fields/locator differ for ${id}`);
+  }
+  check(hero15GeneralEvidence.claimEvidence?.sourceIdNameAndDescValues==='A'
+    && hero15GeneralEvidence.claimEvidence?.fieldDisplayMeaning==='B'
+    && hero15GeneralEvidence.canonical===false && hero15GeneralEvidence.generated===false
+    && hero15GeneralEvidence.publicationApproval===false && hero15GeneralEvidence.productionRuntimeDependency===false,
+    'HERO15_GENERAL_BOUNDARY','General identity evidence overstated admission or publication');
+
   for (let i = 0; i < soldierSkillIds.length; i += 1) {
     const id = soldierSkillIds[i], evidenceRow = soldierEvidence.records[i], record = canonical.records[expected.length + hero15Expected.length + i];
     exactKeys(record, ['skillId', 'nameCn', 'descriptionCn', 'provenance'], `Canonical Skill ${id}`);
@@ -229,9 +276,21 @@ export async function validateSkillIdentities(root = process.cwd()) {
       && record.provenance.description === `${locator}/Desc`, 'PROVENANCE', `Canonical Skill ${id} has an incorrect SD-10 field locator`);
     canonicalIds.push(record.skillId);
   }
-  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from the 8 existing and 30 admitted IDs');
+  for(let i=0;i<hero15GeneralExpected.length;i++){
+    const [id,,name,desc]=hero15GeneralExpected[i], evidenceRow=hero15GeneralEvidence.records[i], record=canonical.records[expected.length+hero15Expected.length+soldierSkillIds.length+i];
+    exactKeys(record,['skillId','nameCn','descriptionCn','provenance'],`Canonical Hero15 general Skill ${id}`);
+    exactKeys(record.provenance,['identity','name','description'],`Hero15 general Skill ${id} provenance`);
+    check(record.skillId===id && record.nameCn===name && record.descriptionCn===desc
+      && evidenceRow.rawRecord.ID===id && evidenceRow.rawRecord.Name===name && evidenceRow.rawRecord.Desc===desc,
+      'CANONICAL',`Hero15 general Skill ${id} differs from exact source fields`);
+    const locator=`${hero15GeneralEvidencePath}#ID=${id}`;
+    check(record.provenance.identity===locator && record.provenance.name===`${locator}/Name`
+      && record.provenance.description===`${locator}/Desc`,'PROVENANCE',`Hero15 general Skill ${id} field provenance changed`);
+    canonicalIds.push(record.skillId);
+  }
+  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 42 plus nine source-verified Hero15 IDs');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId)));
+  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId)));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
@@ -245,7 +304,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; preserved=38; newHero15=4; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; preserved=38; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

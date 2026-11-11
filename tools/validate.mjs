@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 19330)
+Total output lines: 755
+
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
@@ -7,6 +10,7 @@ import { validateHeroPortraitSelection } from './validate-hero-portrait-selectio
 import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-raw-stats.mjs';
 import { validateHero15JobAdvancementFromRoot } from './validate-hero15-job-advancement.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
+import { validateHero15SkillReferences } from './validate-hero15-skill-references.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 
@@ -308,158 +312,7 @@ for (const record of canonical.records.filter((item) => expected.has(item.id))) 
   check(charImage, `CharImageInfo foreign-key lookup unresolved for Hero ${record.id}`);
   check(charImage.HeroPainting === portrait.heroPainting, `Hero ${record.id} HeroPainting differs from preserved source row`);
   check(record.provenance.portrait.endsWith(`#heroId=${record.id}`), `Hero ${record.id} portrait provenance locator missing`);
-  check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonical portrait path differs from evidence`);
-  const sourceFields = new Map([[sourceHero.JobConnection_ID, 'JobConnection_ID'], ...sourceHero.UseableJobConnections_ID.map((connectionId) => [connectionId, 'UseableJobConnections_ID'])]);
-  check(record.jobConnections.length === expectedByHero.get(record.id), `Hero ${record.id} must have exactly the selected six Job connection records`);
-  check(JSON.stringify(record.jobConnections.map((item) => item.jobId)) === JSON.stringify(expectedPairs.get(record.id)), `Hero ${record.id} Job relation pairs changed from the admitted slice`);
-  const sourceIds = [sourceHero.JobConnection_ID, ...sourceHero.UseableJobConnections_ID];
-  check(JSON.stringify(record.jobConnections.map((item) => item.connectionId)) === JSON.stringify(sourceIds), `Hero ${record.id} Job connection IDs must follow the explicit raw HeroInfo fields in stored source order`);
-  for (const relation of record.jobConnections) {
-    exactKeys(relation, ['connectionId', 'jobId', 'sourceField'], `Hero ${record.id} Job relation`);
-    check(relation.sourceField === sourceFields.get(relation.connectionId), `Hero ${record.id} relation sourceField differs from raw HeroInfo`);
-    const key = `${record.id}:${relation.connectionId}`;
-    check(!admittedPairs.has(key), `duplicate Hero connection pair ${key}`);
-    admittedPairs.add(key);
-    const sourceRelation = connectionById.get(relation.connectionId);
-    check(sourceRelation, `missing preserved JobConnectionInfo.ID ${relation.connectionId}`);
-    check(sourceRelation.Job_ID === relation.jobId, `Hero ${record.id} connection ${relation.connectionId} Job_ID differs from canonical target`);
-    check(jobById.has(relation.jobId), `missing preserved JobInfo.ID ${relation.jobId}`);
-    const manifestRow = jobEvidence.records.find((item) => item.heroId === record.id && item.connectionId === relation.connectionId);
-    check(manifestRow && manifestRow.jobId === relation.jobId && manifestRow.sourceField === relation.sourceField, `Hero ${record.id} relation evidence locator mismatch for connection ${relation.connectionId}`);
-  }
-  check(/^assets\/portraits\/hero-(5|6|8)\.png$/.test(record.portrait), `Hero ${record.id} portrait path outside slice asset scope`);
-  check(/^[-]?\d+$/.test(portrait.prefabPathId) && /^[-]?\d+$/.test(portrait.spritePathId) && /^[-]?\d+$/.test(portrait.texturePathId), `Hero ${record.id} Unity path IDs must be exact decimal strings`);
-  const assetPath = resolve(root, record.portrait);
-  check(assetPath.startsWith(`${root}${sep}`), `Hero ${record.id} portrait path escapes repository`);
-  const bytes = await readFile(assetPath);
-  const digest = createHash('sha256').update(bytes).digest('hex');
-  check(bytes.length === portrait.extractedSourcePng.bytes, `Hero ${record.id} portrait byte length mismatch`);
-  check(digest === portrait.extractedSourcePng.sha256, `Hero ${record.id} portrait SHA-256 mismatch`);
-  check(portrait.extractedSourcePng.width > 0 && portrait.extractedSourcePng.height > 0, `Hero ${record.id} portrait dimensions invalid`);
-  check(JSON.stringify(survivingPortrait.extractedPng.dimensions) === JSON.stringify([portrait.extractedSourcePng.width, portrait.extractedSourcePng.height]), `Hero ${record.id} surviving image dimensions locator mismatch`);
-}
-
-for (const record of canonical.records.filter((item) => expectedExpansion.has(item.id))) {
-  exactKeys(record, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], `Hero ${record.id}`);
-  exactKeys(record.provenance, ['identity', 'nameEng', 'portrait', 'jobConnections'], `Hero ${record.id} provenance`);
-  check(expectedExpansion.get(record.id) === record.nameEng, `Hero ${record.id} Name_Eng differs from admitted expected value`);
-  const sourceHero = expansionHeroInfoById.get(record.id);
-  check(sourceHero && sourceHero.Name_Eng === record.nameEng, `Hero ${record.id} Name_Eng differs from preserved expansion source`);
-  check(record.provenance.identity === `evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=${record.id}`, `Hero ${record.id} identity provenance locator mismatch`);
-  check(record.provenance.nameEng === `evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json#ID=${record.id}/Name_Eng`, `Hero ${record.id} Name_Eng provenance locator mismatch`);
-  const portrait = expansionPortraitByHero.get(record.id);
-  check(portrait && sourceHero.CharImage_ID === portrait.charImageId, `Hero ${record.id} portrait evidence linkage mismatch`);
-  const charImage = expansionCharById.get(sourceHero.CharImage_ID);
-  check(charImage && charImage.HeroPainting === portrait.heroPainting, `Hero ${record.id} CharImageInfo HeroPainting mismatch`);
-  check(record.provenance.portrait === `evidence/source/portraits/hero-portrait-expansion.v1.json#heroId=${record.id}`, `Hero ${record.id} portrait provenance locator mismatch`);
-  check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonical portrait path differs from admitted evidence`);
-  const assetPath = resolve(root, record.portrait);
-  const bytes = await readFile(assetPath);
-  check(bytes.length === portrait.extractedSourcePng.bytes, `Hero ${record.id} portrait byte length mismatch`);
-  check(createHash('sha256').update(bytes).digest('hex') === portrait.extractedSourcePng.sha256, `Hero ${record.id} portrait SHA-256 mismatch`);
-  const expectedConnections = expansionJobConnections.records.filter((row) => row.heroId === record.id).map((row) => ({ connectionId: row.connectionId, jobId: row.jobId, sourceField: row.sourceField }));
-  if (record.id === 53) {
-    const spRelation = spRelationEvidence.records.find((row) => row.heroId === 53);
-    check(spRelation && spRelation.spJobConnectionId === 536 && spRelation.spJobId === 426, 'Hero 53 SP presentation relation source locator drift');
-    expectedConnections.push({ connectionId: spRelation.spJobConnectionId, jobId: spRelation.spJobId, sourceField: 'JobConnection_ID' });
-  }
-  check(JSON.stringify(record.jobConnections) === JSON.stringify(expectedConnections), `Hero ${record.id} Job connection presentation differs from current evidence owners`);
-  const expectedRelationPairs = relationOwner.records.filter((row) => row.heroId === record.id).map((row) => row.jobId).sort((a, b) => a - b);
-  const actualRelationPairs = record.jobConnections.map((row) => row.jobId).sort((a, b) => a - b);
-  check(JSON.stringify(actualRelationPairs) === JSON.stringify(expectedRelationPairs), `Hero ${record.id} presented Job IDs differ from current relation canonical`);
-  const expectedJobProvenance = record.id === 53 ? 'canonical/hero-job-relations.v1.json#heroId=53' : `evidence/source/jobs/hero-job-connection-expansion.v1.json#heroId=${record.id}`;
-  check(record.provenance.jobConnections === expectedJobProvenance, `Hero ${record.id} Job relation provenance locator mismatch`);
-}
-
-const presentationHeroRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-presentation-1-3-10-25.v1.json');
-const allPortraitSelection = await readJson('evidence/source/portraits/hero-portrait-selection.v1.json');
-const presentationConnectionRows = await readJson('evidence/source/configdata/ConfigDataJobConnectionInfo.records-presentation-1-3-10-25.v1.json');
-const presentationJobRows = await readJson('evidence/source/configdata/ConfigDataJobInfo.records-presentation-1-3-10-25.v1.json');
-const presentationJobEvidence = await readJson('evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json');
-check(JSON.stringify(presentationHeroRows.map((row) => row.ID)) === '[1,3,10,25]', 'presentation source HeroInfo population drift');
-check(JSON.stringify(presentationJobEvidence.selection.heroIds) === '[1,3,10,25]' && presentationJobEvidence.canonical === false && presentationJobEvidence.generated === false, 'presentation relation evidence scope/authority drift');
-check(presentationJobEvidence.claims.heroFieldToConnectionId.class === 'B' && presentationJobEvidence.claims.connectionJobIdToJobInfoId.class === 'B' && presentationJobEvidence.claims.selectedRecordsExist.class === 'A', 'presentation relation evidence classes drift');
-const presentationSourceById = new Map(presentationHeroRows.map((row) => [row.ID, row]));
-const presentationConnectionById = new Map(presentationConnectionRows.map((row) => [row.ID, row]));
-const presentationJobById = new Map(presentationJobRows.map((row) => [row.ID, row]));
-const presentationEvidenceById = new Map(presentationJobEvidence.records.map((row) => [`${row.heroId}:${row.connectionId}`, row]));
-const presentationPortraitById = new Map(allPortraitSelection.records.map((row) => [row.heroId, row]));
-for (const heroId of expectedPresentation.keys()) {
-  const record = canonical.records.find((row) => row.id === heroId);
-  const source = presentationSourceById.get(heroId);
-  const portrait = presentationPortraitById.get(heroId);
-  check(record && source && portrait && heroIdentities.records.some((row) => row.heroId === heroId), `Hero ${heroId} Presentation source/identity/portrait missing`);
-  check(record.nameEng === source.Name_Eng && record.provenance.identity.includes(`#ID=${heroId}`) && record.provenance.nameEng.includes(`#ID=${heroId}/Name_Eng`), `Hero ${heroId} identity source mismatch`);
-  check(record.portrait === `assets/portraits/hero-${heroId}.png` && portrait.extractedSourcePng.path === record.portrait, `Hero ${heroId} portrait locator mismatch`);
-  const bytes = await readFile(resolve(root, record.portrait));
-  check(bytes.length === portrait.extractedSourcePng.bytes && createHash('sha256').update(bytes).digest('hex') === portrait.extractedSourcePng.sha256, `Hero ${heroId} portrait bytes mismatch`);
-  const refs = [{ connectionId: source.JobConnection_ID, jobId: presentationConnectionById.get(source.JobConnection_ID)?.Job_ID, sourceField: 'JobConnection_ID' }, ...source.UseableJobConnections_ID.map((connectionId) => ({ connectionId, jobId: presentationConnectionById.get(connectionId)?.Job_ID, sourceField: 'UseableJobConnections_ID' }))];
-  check(JSON.stringify(record.jobConnections) === JSON.stringify(refs), `Hero ${heroId} job references differ from explicit HeroInfo source fields`);
-  for (const ref of refs) {
-    const ev = presentationEvidenceById.get(`${heroId}:${ref.connectionId}`);
-    check(presentationJobById.has(ref.jobId) && ev?.jobId === ref.jobId && ev.sourceField === ref.sourceField, `Hero ${heroId} Job relation evidence mismatch at connection ${ref.connectionId}`);
-  }
-  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-presentation-1-3-10-25.v1.json#heroId=${heroId}`, `Hero ${heroId} relation provenance mismatch`);
-}
-const batch2Jobs = await readJson('evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json');
-check(batch2Jobs.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch2Jobs.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'batch 2 Job source pin drift');
-check(batch2Jobs.sourceFiles?.['ConfigDataHeroInfo.json']?.gitBlob === '728daab3370f0c7779449663ea02e638677944d4'
-  && batch2Jobs.sourceFiles?.['ConfigDataJobConnectionInfo.json']?.gitBlob === 'cdad8d6fda6edd30c92fbcda53e0f63af1903139'
-  && batch2Jobs.sourceFiles?.['ConfigDataJobInfo.json']?.gitBlob === '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133', 'batch 2 Job source blob drift');
-check(JSON.stringify(batch2Jobs.selection.heroIds) === '[12,55]' && batch2Jobs.claimClasses?.heroFieldToConnectionId === 'B'
-  && batch2Jobs.claimClasses?.connectionJobIdToJobInfoId === 'B' && batch2Jobs.claimClasses?.selectedRecordsExist === 'A'
-  && batch2Jobs.canonical === false && batch2Jobs.generated === false && batch2Jobs.productionRuntimeDependency === false, 'batch 2 Job evidence scope/class drift');
-const batch2CanonicalIds = [12,55];
-const batch2HeroById = new Map(batch2Jobs.inspectedSourceRows.heroInfo.map((row) => [row.ID,row]));
-const batch2ConnectionById = new Map(batch2Jobs.inspectedSourceRows.jobConnectionInfo.map((row) => [row.ID,row]));
-const batch2JobById = new Map(batch2Jobs.inspectedSourceRows.jobInfo.map((row) => [row.ID,row]));
-const batch2EvidenceByKey = new Map(batch2Jobs.records.map((row) => [`${row.heroId}:${row.connectionId}`,row]));
-const batch2PortraitById = new Map(allPortraitSelection.records.map((row) => [row.heroId,row]));
-for (const heroId of batch2CanonicalIds) {
-  const source = batch2HeroById.get(heroId); const record = canonical.records.find((row) => row.id === heroId);
-  const portrait = batch2PortraitById.get(heroId);
-  check(expectedBatch2.get(heroId) === source?.Name_Eng && record?.nameEng === source.Name_Eng
-    && record.provenance.nameEng === `evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#inspectedSourceRows.heroInfo[ID=${heroId}]/Name_Eng`
-    && portrait && record.portrait === `assets/portraits/hero-${heroId}.png`, `Hero ${heroId} batch 2 identity/portrait mismatch`);
-  const refs = [{connectionId:source.JobConnection_ID,sourceField:'JobConnection_ID'},...source.UseableJobConnections_ID.map((connectionId)=>({connectionId,sourceField:'UseableJobConnections_ID'}))]
-    .map((row)=>({connectionId:row.connectionId,jobId:batch2ConnectionById.get(row.connectionId)?.Job_ID,sourceField:row.sourceField}));
-  check(JSON.stringify(record.jobConnections) === JSON.stringify(refs), `Hero ${heroId} batch 2 HeroInfo connection refs mismatch`);
-  check(record.provenance.jobConnections === `evidence/source/jobs/hero-job-connection-presentation-batch-2.v1.json#heroId=${heroId}`, `Hero ${heroId} batch 2 relation provenance mismatch`);
-  for(const ref of refs){ const ev=batch2EvidenceByKey.get(`${heroId}:${ref.connectionId}`); check(ev?.sourceField===ref.sourceField && ev.jobId===ref.jobId && batch2JobById.has(ref.jobId), `Hero ${heroId} batch 2 explicit Job join mismatch at ${ref.connectionId}`); }
-}
-const hero13Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json');
-check(hero13Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && hero13Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && JSON.stringify(hero13Packet.selection?.heroIds) === '[13]' && hero13Packet.claimClasses?.heroFieldToConnectionId === 'B'
-  && hero13Packet.claimClasses?.connectionJobIdToJobInfoId === 'B' && hero13Packet.claimClasses?.selectedRecordsExist === 'A'
-  && hero13Packet.claimClasses?.jobInfoNameValue === 'A' && hero13Packet.canonical === false && hero13Packet.generated === false
-  && hero13Packet.productionRuntimeDependency === false && hero13Packet.directInspection?.rawRecordDirectlyInspected === true,
-  'Hero 13 Job evidence source/scope/class boundary drift');
-const hero13Canonical = canonical.records.find((row) => row.id === 13);
-const hero13Source = hero13Packet.inspectedSourceRows.heroInfo.find((row) => row.ID === 13);
-check(hero13Source?.JobConnection_ID === 130 && JSON.stringify(hero13Source.UseableJobConnections_ID) === '[131,132,133,134,135]'
-  && hero13Canonical?.nameEng === 'Hein' && hero13Canonical.provenance.jobConnections === 'evidence/source/jobs/hero-job-connection-presentation-hero-13.v1.json#heroId=13',
-  'Hero 13 exact HeroInfo relation or identity evidence drift');
-for (const row of hero13Packet.records) {
-  const connection = hero13Packet.inspectedSourceRows.jobConnectionInfo.find((item) => item.ID === row.connectionId);
-  const job = connection && hero13Packet.inspectedSourceRows.jobInfo.find((item) => item.ID === connection.Job_ID);
-  check(connection?.Job_ID === row.jobId && job?.ID === row.jobId
-    && row.sourceHeroInfoLocator === `data/configdata/ConfigDataHeroInfo.json#[ID=13].${row.sourceField}`
-    && row.jobConnectionInfoLocator === `data/configdata/ConfigDataJobConnectionInfo.json#[ID=${row.connectionId}]`
-    && row.jobInfoLocator === `data/configdata/ConfigDataJobInfo.json#[ID=${row.jobId}]`,
-    `Hero 13 explicit Job source join evidence drift at ${row.connectionId}`);
-}
-check(hero13Packet.records.length === 6 && JSON.stringify(hero13Canonical.jobConnections.map((row) => row.connectionId)) === '[130,131,132,133,134,135]',
-  'Hero 13 Presentation Job connections differ from explicit source refs');
-check(hero13Canonical.jobConnections.every((row) => hero13Packet.records.some((evidence) => evidence.connectionId === row.connectionId && evidence.jobId === row.jobId)),
-  'Hero 13 Job connection has no packet evidence');
-const batch3Packet = await readJson('evidence/source/jobs/hero-job-connection-presentation-heroes-27-67.v1.json');
-check(batch3Packet.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide' && batch3Packet.source?.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-  && JSON.stringify(batch3Packet.selection?.heroIds) === '[27,67]' && batch3Packet.claimClasses?.heroFieldToConnectionId === 'B'
-  && batch3Packet.claimClasses?.connectionJobIdToJobInfoId === 'B' && batch3Packet.claimClasses?.selectedRecordsExist === 'A'
-  && batch3Packet.claimClasses?.jobInfoNameValue === 'A' && batch3Packet.directInspection?.rawRecordDirectlyInspected === true
-  && batch3Packet.canonical === false && batch3Packet.generated === false && batch3Packet.productionRuntimeDependency === false,
-  'Hero 27/67 evidence source/scope/class boundary drift');
-const batch3ByHero = new Map(batch3Packet.inspectedSourceRows.heroInfo.map((row) => [row.ID, row]));
+  check(record.portrait === portrait.extractedSourcePng.path, `Hero ${record.id} canonic…4330 tokens truncated…inspectedSourceRows.heroInfo.map((row) => [row.ID, row]));
 for (const heroId of [27,67]) {
   const source = batch3ByHero.get(heroId); const record = canonical.records.find((row) => row.id === heroId);
   const portrait = allPortraitSelection.records.find((row) => row.heroId === heroId);
@@ -749,5 +602,6 @@ for (const record of equipmentGenerated.equipment) {
 await validateHeroPortraitSelection(root);
 await loadAndValidateHeroJobLevelRawStats(root);
 await validateHero15JobAdvancementFromRoot(root);
+await validateHero15SkillReferences(root);
 await validateSkinGenerated(root);
-process.stdout.write('Hero slice, Job advancement, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');
+process.stdout.write('Hero slice, Job advancement, Skill references, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');

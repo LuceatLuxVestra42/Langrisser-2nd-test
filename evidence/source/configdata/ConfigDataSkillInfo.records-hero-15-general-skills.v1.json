@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "scope": {
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "skillIds": [
+      10801,
+      10816,
+      10805,
+      10707,
+      10705,
+      10804,
+      10807,
+      6009,
+      11786
+    ],
+    "claim": "Nine source-native Hero 15 general SkillInfo identities selected only after direct HeroInfo/JobLevel reference verification.",
+    "outOfScope": [
+      "Hero/Job/Connection/Level ownership",
+      "skill acquisition or unlock rules",
+      "Korean localization",
+      "combat effect semantics/formulas",
+      "publication approval",
+      "icon or asset meaning"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "containerPath": "$",
+    "primaryKey": "ID",
+    "sourceIndex": {
+      "path": "data/index/skill.v1.json",
+      "gitBlobSha1": "7bc7ce0f2ac59224763faf1a70e19e199eecc900",
+      "sha256": "8d0af55600bcb0faa0210c26b9cb6ea8caceb2f27baac137f5651776b9ff521b",
+      "recordCount": 27198,
+      "recordIndices": {
+        "10801": 1913,
+        "10816": 1932,
+        "10805": 1917,
+        "10707": 1896,
+        "10705": 1894,
+        "10804": 1916,
+        "10807": 1921,
+        "6009": 1805,
+        "11786": 2028
+      }
+    },
+    "verification": {
+      "pinnedGitBlobRead": true,
+      "sourceBlobSha256Recomputed": true,
+      "sourceIndexUsedAsLocatorOnly": true
+    }
+  },
+  "extraction": {
+    "selection": "Select only top-level SkillInfo records whose explicit numeric ID is in the declared claim set; preserve exact ID/Name/Desc strings including markup.",
+    "verification": "Read the pinned source Git blob and compare source-index ID locator to each array record ID.",
+    "sourceBlobSha256Recomputed": true,
+    "sourceIndexIsLocatorOnly": true
+  },
+  "records": [
+    {
+      "sourceRecordIndex": 1913,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10801",
+      "rawRecord": {
+        "ID": 10801,
+        "Name": "治疗术",
+        "Desc": "[治疗]主动使用，恢复单个部队的生命值，恢复量为施法者智力的<color=#DC143C>5</color>倍。并且驱散<color=#DC143C>1</color>个弱化效果。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1913/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1913/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1913/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1932,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10816",
+      "rawRecord": {
+        "ID": 10816,
+        "Name": "再行动",
+        "Desc": "[支援]主动使用，可以使<color=#DC143C>1</color>个己方行动完的部队再次行动。并恢复施法者智力<color=#DC143C>2</color>倍的生命。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1932/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1932/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1932/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1917,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10805",
+      "rawRecord": {
+        "ID": 10805,
+        "Name": "福音",
+        "Desc": "[支援]主动使用，使得单个部队的攻击、智力、防御提升<color=#DC143C>20%</color>，且免疫所有弱化效果，持续<color=#DC143C>2</color>回合。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1917/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1917/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1917/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1896,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10707",
+      "rawRecord": {
+        "ID": 10707,
+        "Name": "风刃",
+        "Desc": "[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「飞兵」有特效。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1896/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1896/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1896/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1894,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10705",
+      "rawRecord": {
+        "ID": 10705,
+        "Name": "冰冻",
+        "Desc": "[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「枪兵」有特效。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1894/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1894/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1894/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1916,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10804",
+      "rawRecord": {
+        "ID": 10804,
+        "Name": "群体护盾",
+        "Desc": "[支援]主动使用，使得范围内多个部队的防御提升<color=#DC143C>20%</color>，且免疫:“防御、魔防降低”、\"无法被治疗“，持续<color=#DC143C>2</color>回合。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1916/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1916/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1916/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1921,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=10807",
+      "rawRecord": {
+        "ID": 10807,
+        "Name": "圣疗",
+        "Desc": "[治疗]恢复大范围内多个部队的生命，恢复量为施法者智力的<color=#DC143C>4</color>倍，并在行动结束时，恢复<color=#DC143C>20%</color>的生命，持续<color=#DC143C>2</color>回合。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1921/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1921/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1921/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 1805,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=6009",
+      "rawRecord": {
+        "ID": 6009,
+        "Name": "冥想",
+        "Desc": "[被动]当部队生命值高于<color=#DC143C>90%</color>时，智力、魔防提升<color=#DC143C>10%</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1805/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1805/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=1805/Desc"
+      }
+    },
+    {
+      "sourceRecordIndex": 2028,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=11786",
+      "rawRecord": {
+        "ID": 11786,
+        "Name": "召唤天空射手",
+        "Desc": "[召唤]召唤一个天空射手。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=2028/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=2028/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=2028/Desc"
+      }
+    }
+  ],
+  "claimEvidence": {
+    "sourceIdNameAndDescValues": "A",
+    "fieldDisplayMeaning": "B",
+    "sourceScope": "A"
+  },
+  "fieldMeaningContract": {
+    "evidenceClass": "B",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/hero-skill-acquisition-stage4-4.v1.json",
+    "gitBlobSha1": "afdabed9f82a401f50ed344e5ee4877bbc024f9c",
+    "status": "validated-review",
+    "skillInfoFieldNumbers": {
+      "ID": 2,
+      "Name": 3,
+      "Desc": 5
+    },
+    "supportedMeaning": "SkillInfo IDs are resolved as display metadata only after an explicit HeroInfo or JobLevel reference; this packet uses only ID/Name/Desc as identity facts.",
+    "limitation": "The predecessor Stage 4-4 output is not used as current Source Authority, and does not admit combat semantics or publication."
+  },
+  "interpretation": {
+    "name": "ConfigDataSkillInfo.Name is the exact source Chinese Name string.",
+    "description": "ConfigDataSkillInfo.Desc is preserved as opaque source text, including markup; no combat formula is structured."
+  },
+  "canonical": false,
+  "generated": false,
+  "publicationApproval": false,
+  "productionRuntimeDependency": false
+}

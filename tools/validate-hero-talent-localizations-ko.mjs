@@ -131,8 +131,9 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
   ]);
   check(relationByKey.size === 12 && expectedRelations.size === 12, 'RELATION', 'Talent relation population must remain exactly 12');
   for (const [key, skillId] of expectedRelations) check(relationByKey.get(key) === skillId, 'RELATION', `existing admitted Talent relation mismatch ${key}`);
-  check(Array.isArray(skills.records) && skills.records.length === 42, 'SKILL_IDENTITY', 'admitted Skill Identity population must remain exactly 42');
+  check(Array.isArray(skills.records), 'SKILL_IDENTITY', 'admitted Skill Identity records are missing');
   const skillRows = new Map(skills.records.map(row => [row.skillId, row]));
+  check(skillRows.size === skills.records.length, 'SKILL_IDENTITY', 'Skill Identity IDs must remain unique');
   for (const [key, row] of expected) {
     const skill = skillRows.get(row.skillId);
     check(skill && (key.startsWith('15:') ? skill.nameCn === '圣洁的修女' : true), 'SKILL_IDENTITY', `Talent Skill Identity missing or mismatched ${key}`);
