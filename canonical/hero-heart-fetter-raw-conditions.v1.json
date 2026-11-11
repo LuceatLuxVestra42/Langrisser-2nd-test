@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 Heart Fetter Lv4/Lv7 raw source condition fields only; ConditionType and ConditionParam runtime meaning remains MANUAL_REVIEW; no unlock, reward, job-restriction, stat, effect, or publication admission.",
+  "records": [
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 4,
+      "skillId": 70421,
+      "passiveBuffIds": [
+        70421
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            811
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 0,
+        "skillSourceIndex": 16612,
+        "passiveBuffSourceIndices": [
+          32857
+        ]
+      },
+      "sourceField": "ConfigDataBuffInfo.ConditionType+ConditionParam",
+      "provenance": "evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json#claims[skillId=70421]"
+    },
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 4,
+      "skillId": 70422,
+      "passiveBuffIds": [
+        70422
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            707
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 1,
+        "skillSourceIndex": 16613,
+        "passiveBuffSourceIndices": [
+          32858
+        ]
+      },
+      "sourceField": "ConfigDataBuffInfo.ConditionType+ConditionParam",
+      "provenance": "evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json#claims[skillId=70422]"
+    },
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 7,
+      "skillId": 70423,
+      "passiveBuffIds": [
+        70423
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            811
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 2,
+        "skillSourceIndex": 16614,
+        "passiveBuffSourceIndices": [
+          32859
+        ]
+      },
+      "sourceField": "ConfigDataBuffInfo.ConditionType+ConditionParam",
+      "provenance": "evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json#claims[skillId=70423]"
+    },
+    {
+      "heroId": 15,
+      "heartFetterId": 15,
+      "heartFetterLevel": 7,
+      "skillId": 70424,
+      "passiveBuffIds": [
+        70424,
+        9970424
+      ],
+      "conditions": [
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            707
+          ]
+        },
+        {
+          "conditionType": 7,
+          "conditionParams": [
+            707
+          ]
+        }
+      ],
+      "sourceProvenance": {
+        "heartFetterSourceIndex": 3,
+        "skillSourceIndex": 16615,
+        "passiveBuffSourceIndices": [
+          32860,
+          32861
+        ]
+      },
+      "sourceField": "ConfigDataBuffInfo.ConditionType+ConditionParam",
+      "provenance": "evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json#claims[skillId=70424]"
+    }
+  ]
+}
