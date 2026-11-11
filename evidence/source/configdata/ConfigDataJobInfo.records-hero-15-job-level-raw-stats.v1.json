@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "scope": "JobInfo source-native ID and Rank fields for the six explicitly related Hero 15 Jobs; Rank is preserved as source field only.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataJobInfo.json",
+    "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+    "recordLocator": "top-level array records by ID"
+  },
+  "extraction": {
+    "selectedRecordIds": [
+      703,
+      707,
+      802,
+      803,
+      806,
+      811
+    ],
+    "selectedFields": [
+      "ID",
+      "Rank"
+    ],
+    "rule": "Project exact ID and Rank fields for Job IDs explicitly referenced by Hero 15 JobConnections 150–155."
+  },
+  "records": [
+    {
+      "ID": 703,
+      "Rank": 3
+    },
+    {
+      "ID": 707,
+      "Rank": 4
+    },
+    {
+      "ID": 802,
+      "Rank": 2
+    },
+    {
+      "ID": 803,
+      "Rank": 3
+    },
+    {
+      "ID": 806,
+      "Rank": 3
+    },
+    {
+      "ID": 811,
+      "Rank": 4
+    }
+  ]
+}

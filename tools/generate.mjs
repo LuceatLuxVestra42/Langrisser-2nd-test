@@ -193,6 +193,11 @@ export function projectHeroJobLevelSourceStats(heroes, jobLevelStats) {
     || jobLevelStats?.schemaVersion !== 1 || !Array.isArray(jobLevelStats.records)) {
     throw new Error('Unsupported Hero or raw JobLevel stats owner');
   }
+  const projectionRows = jobLevelStats.records.filter(({ heroId }) => JOB_LEVEL_STATS_HERO_IDS.has(heroId));
+  const nonPublicRows = jobLevelStats.records.filter(({ heroId }) => !JOB_LEVEL_STATS_HERO_IDS.has(heroId));
+  if (nonPublicRows.length && (nonPublicRows.length !== 25 || nonPublicRows.some(({ heroId }) => heroId !== 15))) {
+    throw new Error('Only the separately admitted Hero 15 raw JobLevel scope may remain outside the public Hero 6/8 projection');
+  }
   const selectedHeroes = heroes.records.filter(({ id }) => JOB_LEVEL_STATS_HERO_IDS.has(id));
   if (selectedHeroes.length !== JOB_LEVEL_STATS_HERO_IDS.size) throw new Error('Raw JobLevel stats must resolve the selected Hero endpoints exactly');
   const connectionsByKey = new Map();
@@ -208,11 +213,11 @@ export function projectHeroJobLevelSourceStats(heroes, jobLevelStats) {
     }
   }
   if (connectionsByKey.size !== 12) throw new Error('Raw JobLevel stats must cover the 12 admitted normal Job connections of Heroes 6 and 8');
-  if (jobLevelStats.records.length !== 50) throw new Error('Raw JobLevel stats must contain the 50 admitted source records');
+  if (projectionRows.length !== 50) throw new Error('Public raw JobLevel stats must contain the 50 admitted Hero 6/8 source records');
   const seenLevels = new Set();
   const seenConnections = new Set();
   const rowsByHero = new Map([...JOB_LEVEL_STATS_HERO_IDS].map((id) => [id, []]));
-  for (const row of jobLevelStats.records) {
+  for (const row of projectionRows) {
     const connectionKey = `${row.heroId}:${row.jobConnectionId}`;
     if (!JOB_LEVEL_STATS_HERO_IDS.has(row.heroId) || !connectionsByKey.has(connectionKey)
       || connectionsByKey.get(connectionKey) !== row.jobId || !Number.isSafeInteger(row.jobLevelId)
