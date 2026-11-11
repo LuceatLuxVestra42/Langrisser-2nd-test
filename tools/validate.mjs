@@ -18,6 +18,7 @@ import { validateHero15FetterConditionTypeReferences } from './validate-hero15-f
 import { validateHero15FetterRewardTypeReferences } from './validate-hero15-fetter-reward-type-references.mjs';
 import { validateHero15CastingLawTemplateReferences } from './validate-hero15-casting-law-template-references.mjs';
 import { validateCastingLawTemplateRawDetails } from './validate-casting-law-template-raw-details.mjs';
+import { validateCastingLawTemplateLevelReferences } from './validate-casting-law-template-level-references.mjs';
 import { validateHero15AwakeningReferences } from './validate-hero15-awakening-references.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
@@ -772,6 +773,7 @@ await validateHero15FetterConditionTypeReferences(root);
 await validateHero15FetterRewardTypeReferences(root);
 await validateHero15CastingLawTemplateReferences(root);
 await validateCastingLawTemplateRawDetails(root);
+await validateCastingLawTemplateLevelReferences(root);
 await validateHero15AwakeningReferences(root);
 await validateSkinGenerated(root);
 process.stdout.write('Hero slice, Job advancement, Skill references, Fetter references and raw Heart Fetter conditions, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');

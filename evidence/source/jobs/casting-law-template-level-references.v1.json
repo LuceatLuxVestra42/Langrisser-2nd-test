@@ -1,0 +1,599 @@
+{
+  "schemaVersion": 1,
+  "claimType": "casting-law-template-level-references",
+  "owner": "shared-casting-law-template-level-reference",
+  "scope": {
+    "templateNamespace": "ConfigDataCastingLawTemplateInfo.ID",
+    "templateIds": [
+      14,
+      12,
+      37,
+      40,
+      41
+    ],
+    "selectionBasis": "Existing Hero 15 template references select shared Template records. The Hero is selection context and is not part of Template or relation identity.",
+    "meaning": "Ordered source-native references from template list entries to ConfigDataCastingLawLevelUpInfo.ID endpoints only."
+  },
+  "sourceSnapshot": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc"
+  },
+  "templateSource": {
+    "path": "data/configdata/ConfigDataCastingLawTemplateInfo.json",
+    "blobSha1": "3d3f403120324a258cc1e1d03dd4af3cf56ad10e",
+    "sha256": "8e26a550cfb55757daa5221a674281eebea1a71e0993e30b136b98fcc98c459d",
+    "byteLength": 14036,
+    "recordCount": 50
+  },
+  "levelUpSource": {
+    "path": "data/configdata/ConfigDataCastingLawLevelUpInfo.json",
+    "blobSha1": "83b99ebff9c54523d7f9476b92e8b3d59229179f",
+    "sha256": "07b91384b3dab506d501d74b4e70b6535b84f5d620e0082c3e557afec146e849",
+    "byteLength": 232171,
+    "recordCount": 500
+  },
+  "templateRecords": [
+    {
+      "templateId": 14,
+      "templateSourceArrayIndex": 13,
+      "templateRecordLocator": "ConfigDataCastingLawTemplateInfo#ID=14",
+      "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+      "rawLevelUpInfoIds": [
+        66,
+        67,
+        68,
+        69,
+        70,
+        10066,
+        10067,
+        10068,
+        10069,
+        10070
+      ],
+      "references": [
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 0,
+          "levelUpInfoId": 66,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 65,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=66"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 1,
+          "levelUpInfoId": 67,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 66,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=67"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 2,
+          "levelUpInfoId": 68,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 67,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=68"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 3,
+          "levelUpInfoId": 69,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 68,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=69"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 4,
+          "levelUpInfoId": 70,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 69,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=70"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 5,
+          "levelUpInfoId": 10066,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 315,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10066"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 6,
+          "levelUpInfoId": 10067,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 316,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10067"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 7,
+          "levelUpInfoId": 10068,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 317,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10068"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 8,
+          "levelUpInfoId": 10069,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 318,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10069"
+        },
+        {
+          "templateId": 14,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 9,
+          "levelUpInfoId": 10070,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 319,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10070"
+        }
+      ]
+    },
+    {
+      "templateId": 12,
+      "templateSourceArrayIndex": 11,
+      "templateRecordLocator": "ConfigDataCastingLawTemplateInfo#ID=12",
+      "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+      "rawLevelUpInfoIds": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        10056,
+        10057,
+        10058,
+        10059,
+        10060
+      ],
+      "references": [
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 0,
+          "levelUpInfoId": 56,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 55,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=56"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 1,
+          "levelUpInfoId": 57,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 56,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=57"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 2,
+          "levelUpInfoId": 58,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 57,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=58"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 3,
+          "levelUpInfoId": 59,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 58,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=59"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 4,
+          "levelUpInfoId": 60,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 59,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=60"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 5,
+          "levelUpInfoId": 10056,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 305,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10056"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 6,
+          "levelUpInfoId": 10057,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 306,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10057"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 7,
+          "levelUpInfoId": 10058,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 307,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10058"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 8,
+          "levelUpInfoId": 10059,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 308,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10059"
+        },
+        {
+          "templateId": 12,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 9,
+          "levelUpInfoId": 10060,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 309,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10060"
+        }
+      ]
+    },
+    {
+      "templateId": 37,
+      "templateSourceArrayIndex": 36,
+      "templateRecordLocator": "ConfigDataCastingLawTemplateInfo#ID=37",
+      "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+      "rawLevelUpInfoIds": [
+        181,
+        182,
+        183,
+        184,
+        185,
+        10181,
+        10182,
+        10183,
+        10184,
+        10185
+      ],
+      "references": [
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 0,
+          "levelUpInfoId": 181,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 180,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=181"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 1,
+          "levelUpInfoId": 182,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 181,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=182"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 2,
+          "levelUpInfoId": 183,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 182,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=183"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 3,
+          "levelUpInfoId": 184,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 183,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=184"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 4,
+          "levelUpInfoId": 185,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 184,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=185"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 5,
+          "levelUpInfoId": 10181,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 430,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10181"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 6,
+          "levelUpInfoId": 10182,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 431,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10182"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 7,
+          "levelUpInfoId": 10183,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 432,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10183"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 8,
+          "levelUpInfoId": 10184,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 433,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10184"
+        },
+        {
+          "templateId": 37,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 9,
+          "levelUpInfoId": 10185,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 434,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10185"
+        }
+      ]
+    },
+    {
+      "templateId": 40,
+      "templateSourceArrayIndex": 39,
+      "templateRecordLocator": "ConfigDataCastingLawTemplateInfo#ID=40",
+      "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+      "rawLevelUpInfoIds": [
+        196,
+        197,
+        198,
+        199,
+        200,
+        10196,
+        10197,
+        10198,
+        10199,
+        10200
+      ],
+      "references": [
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 0,
+          "levelUpInfoId": 196,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 195,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=196"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 1,
+          "levelUpInfoId": 197,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 196,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=197"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 2,
+          "levelUpInfoId": 198,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 197,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=198"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 3,
+          "levelUpInfoId": 199,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 198,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=199"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 4,
+          "levelUpInfoId": 200,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 199,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=200"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 5,
+          "levelUpInfoId": 10196,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 445,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10196"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 6,
+          "levelUpInfoId": 10197,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 446,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10197"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 7,
+          "levelUpInfoId": 10198,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 447,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10198"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 8,
+          "levelUpInfoId": 10199,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 448,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10199"
+        },
+        {
+          "templateId": 40,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 9,
+          "levelUpInfoId": 10200,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 449,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10200"
+        }
+      ]
+    },
+    {
+      "templateId": 41,
+      "templateSourceArrayIndex": 40,
+      "templateRecordLocator": "ConfigDataCastingLawTemplateInfo#ID=41",
+      "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+      "rawLevelUpInfoIds": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        10201,
+        10202,
+        10203,
+        10204,
+        10205
+      ],
+      "references": [
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 0,
+          "levelUpInfoId": 201,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 200,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=201"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 1,
+          "levelUpInfoId": 202,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 201,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=202"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 2,
+          "levelUpInfoId": 203,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 202,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=203"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 3,
+          "levelUpInfoId": 204,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 203,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=204"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 4,
+          "levelUpInfoId": 205,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 204,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=205"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 5,
+          "levelUpInfoId": 10201,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 450,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10201"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 6,
+          "levelUpInfoId": 10202,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 451,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10202"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 7,
+          "levelUpInfoId": 10203,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 452,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10203"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 8,
+          "levelUpInfoId": 10204,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 453,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10204"
+        },
+        {
+          "templateId": 41,
+          "sourceField": "ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList",
+          "sourceArrayIndex": 9,
+          "levelUpInfoId": 10205,
+          "levelUpEndpointNamespace": "ConfigDataCastingLawLevelUpInfo.ID",
+          "levelUpSourceArrayIndex": 454,
+          "levelUpRecordLocator": "ConfigDataCastingLawLevelUpInfo#ID=10205"
+        }
+      ]
+    }
+  ],
+  "selectionEvidence": {
+    "templateRawEvidence": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords",
+    "heroReferenceEvidence": "evidence/source/jobs/hero15-casting-law-template-references.v1.json",
+    "templateRawClaimsReused": true
+  },
+  "transformation": "Copied each ordered ID from the source CastingLawLevelUpInfoList into one relation row retaining template list index; directly checked exactly one matching ID endpoint in the pinned LevelUpInfo source records; stored the endpoint source index and locator. No other fields were selected.",
+  "interpretation": {
+    "evidenceClass": "A_DIRECT_SOURCE_REFERENCE_AND_ENDPOINT",
+    "limitation": "Admits only ordered source field references and endpoint existence. Does not assert level progression meaning, cost payment, material consumption, equipment applicability, mastery, unlock, equip/use, stat application, combat effect, acquisition, or publication."
+  }
+}
