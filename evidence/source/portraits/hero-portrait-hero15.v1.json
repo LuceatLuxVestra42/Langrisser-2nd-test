@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "admissionScope": "INTERNAL_HERO_PORTRAIT_ASSET_ONLY",
+  "publicationApproved": false,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "heroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+      "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+      "bytes": 16894185,
+      "recordIndex": 14,
+      "locator": "data/configdata/ConfigDataHeroInfo.json#records[14]/ID=15",
+      "fields": {
+        "ID": 15,
+        "Useable": true,
+        "CharImage_ID": 15
+      },
+      "fieldLocators": {
+        "ID": "#records[14]/ID",
+        "Useable": "#records[14]/Useable",
+        "CharImage_ID": "#records[14]/CharImage_ID"
+      }
+    },
+    "charImageInfo": {
+      "path": "data/configdata/ConfigDataCharImageInfo.json",
+      "gitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+      "sha256": "3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a",
+      "bytes": 1593018,
+      "recordIndex": 13,
+      "locator": "data/configdata/ConfigDataCharImageInfo.json#records[13]/ID=15",
+      "fields": {
+        "ID": 15,
+        "HeroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Riana.prefab"
+      },
+      "fieldLocators": {
+        "ID": "#records[13]/ID",
+        "HeroPainting": "#records[13]/HeroPainting"
+      }
+    }
+  },
+  "predecessorExtraction": {
+    "evidenceClass": "B",
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "manifest": {
+      "path": "data/generated/hero-artwork-h-a5-index.v1/manifest.json",
+      "gitBlobSha1": "dad6692f88b3e50699062b9dd66733a9493785ca",
+      "sha256": "ac08e7a03b033a10269e330f4e60d3b6a72d68ac6c68efed37f48372e4e462f6",
+      "bytes": 4240,
+      "status": "H_A5_BULK_EXTRACTION_INDEX_COMPLETE",
+      "installVersion": "1.1.113",
+      "runId": 33229409769,
+      "artifactId": 9707998242,
+      "artifactZipSha256": "F886686B93F1ACCBFF8D83127BBD7CA5A617A631FE7CB76A3D13F222FAE61A30"
+    },
+    "finalValidation": {
+      "path": "data/validation/hero-artwork-h-a5-final.v1.json",
+      "gitBlobSha1": "7d6af2bf253340f3686c40c5ba768fb1c22722ac",
+      "sha256": "3a2409f973cadea697e3b0e936a1a17c9addae28f19fc8c7b0882bbae0afaa2b",
+      "bytes": 1148,
+      "status": "PASS_H_A5_BULK_EXTRACTION_INDEX_FINAL"
+    },
+    "record": {
+      "path": "data/generated/hero-artwork-h-a5-index.v1/ui_heropainting_ssr_abs-b.json",
+      "gitBlobSha1": "b6cb8f827367fc367af8c544aa6877a85bcfee32",
+      "sha256": "883ddfb5ca4a793798a103e83b5d518d8f8e6d82aca821a3ac98f79155cacbe6",
+      "bytes": 112043,
+      "locator": "heroes[heroId=15]",
+      "heroId": 15,
+      "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Riana.prefab",
+      "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+      "packageName": "InstallPage_1.1.113_61.zip",
+      "bundleName": "ui_heropainting_ssr_abs.b",
+      "bundleMd5": "168B2D54E39D62B98CD1E92BDE9F787B",
+      "bundleSha256": "818942EA601B584D007D97A0E2A388554AFBAF6A83A36302E241601015D87492",
+      "prefabPathId": "-2963065347005416898",
+      "spritePathId": "-8978779352212744004",
+      "texturePathIds": [
+        "5164473921919823217"
+      ],
+      "width": 362,
+      "height": 682,
+      "pngSha256": "2CAAD36DFBC17E3C570B36FCD74E5674822D2A0FB20E6DF6FF72A1640B903073",
+      "rgbaSha256": "E8DC602BF8981D49BFB359E98C40F27C4228D3414F853613BDCB72D9B5B53824",
+      "targetWebPath": "public/images/heroes/cards/15.png"
+    },
+    "limitations": [
+      "Unity object selection and package/bundle mapping are inherited from the pinned Legacy H-A5 extraction artifacts (Evidence Class B), not re-extracted in this slice.",
+      "The H-A5 manifest records the bundle SHA-256 and package name but not a cryptographic hash of the complete package archive.",
+      "The bundle mapping and unique referenced Sprite selection are prior validated claims; this admission does not claim fresh Unity package decoding."
+    ]
+  },
+  "asset": {
+    "path": "assets/portraits/hero-15.png",
+    "sourcePath": "public/images/heroes/cards/15.png",
+    "sourceRepository": "LuceatLuxVestra42/langrisser-future-guide",
+    "sourceCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "sourceGitBlobSha1": "1dbd9386854aa7058de28c164341c6c20059e145",
+    "sha256": "2caad36dfbc17e3c570b36fcd74e5674822d2a0fb20e6df6ff72a1640b903073",
+    "bytes": 183461,
+    "pngSignatureHex": "89504e470d0a1a0a",
+    "width": 362,
+    "height": 682,
+    "reextractionPerformed": false,
+    "transformation": "Byte-for-byte copy from the pinned Legacy PNG path; no decode, recompression, resize, crop, or edit."
+  },
+  "claimAssessment": [
+    {
+      "claim": "HeroInfo.ID=15 -> CharImage_ID=15",
+      "evidenceClass": "A",
+      "status": "ADMITTED_INTERNAL_ASSET_EVIDENCE",
+      "limitation": "Source-scoped explicit FK only."
+    },
+    {
+      "claim": "CharImageInfo.ID=15 -> HeroPainting",
+      "evidenceClass": "A",
+      "status": "ADMITTED_INTERNAL_ASSET_EVIDENCE",
+      "limitation": "Source-scoped explicit field; role as selected base portrait is corroborated by B-class H-A5."
+    },
+    {
+      "claim": "HeroPainting -> Prefab/Sprite/Texture selection",
+      "evidenceClass": "B",
+      "status": "ADMITTED_INHERITED_EXTRACTION_EVIDENCE",
+      "limitation": "Uses pinned validated H-A5 artifact; package not re-decoded here."
+    },
+    {
+      "claim": "Original PNG byte identity and dimensions",
+      "evidenceClass": "A",
+      "status": "ADMITTED_INTERNAL_ASSET_EVIDENCE",
+      "limitation": "Exact bytes at pinned Legacy path match the H-A5 record SHA-256; does not itself prove public eligibility."
+    },
+    {
+      "claim": "Portrait publication",
+      "evidenceClass": "NOT_APPLICABLE",
+      "status": "NOT_APPROVED",
+      "limitation": "No presentation or public build admission."
+    }
+  ],
+  "provenance": {
+    "transformations": [
+      "Directly query the pinned ConfigData source arrays by record index and explicit IDs.",
+      "Join HeroInfo.CharImage_ID=15 to CharImageInfo.ID=15 using explicit source fields.",
+      "Reuse H-A5 Hero15 extraction row for Unity object and bundle/package selection as inherited validated evidence.",
+      "Copy pinned PNG bytes unchanged into the internal Target asset path."
+    ],
+    "sourceIndex": "array indices are zero-based in the pinned JSON arrays",
+    "noInference": [
+      "Hero ID numeric equality is not used to infer CharImage_ID.",
+      "Filename or localized name is not used to establish relation."
+    ],
+    "publicationBoundary": "Asset admission is internal evidence and does not alter Canonical hero presentation, Generated output, or public build allowlist."
+  }
+}
