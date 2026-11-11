@@ -14,6 +14,9 @@ const paths = [
   'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json',
+  'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json',
+  'evidence/source/bonds/hero15-fetter-skill-references.v1.json',
+  'canonical/hero-fetter-skill-references.v1.json',
   'tools/validate-skill-identities.mjs',
 ];
 await Promise.all(paths.map(async (path) => {
@@ -24,7 +27,7 @@ await Promise.all(paths.map(async (path) => {
 const run = () => spawnSync(process.execPath, ['tools/validate-skill-identities.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /records=51/);
+  assert.match(result.stdout, /records=105/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -51,6 +54,9 @@ try {
   const t = 'canonical/hero-talent-star-skills.v1.json';
   const h15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
   const g15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
+  const f15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
+  const fr = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
+  const fc = 'canonical/hero-fetter-skill-references.v1.json';
   await mutateJson(c, (v) => { v.records.pop(); }, 'missing Skill', /\[CANONICAL\]/);
   await mutateJson(c, (v) => { v.records.push({ ...v.records[0], skillId: 99999 }); }, 'unapproved Skill ID', /\[CANONICAL\]/);
   await mutateJson(c, (v) => { v.records[1].skillId = v.records[0].skillId; }, 'duplicate Skill ID', /\[CANONICAL\]/);
@@ -114,7 +120,33 @@ try {
   await mutateJson(g15,v=>{v.records[0].fieldProvenance.Name+='wrong';},'Hero15 general field provenance changed',/\[HERO15_GENERAL_SOURCE_RECORDS\]/);
   await mutateJson(t,v=>{v.records[8].skillId=3214;},'Hero15 Talent relation regression',/\[TALENT_PARITY\]/);
 
-  console.log('Skill identity tests: PASS (normal 51-record fixture and expanded negative controls)');
+  await mutateJson(c,v=>{v.records[51].skillId=70002;},'Fetter identity ID changed or duplicate',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[51].nameCn+='改';},'Fetter identity Name changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[51].descriptionCn+='改';},'Fetter identity Desc changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[51].provenance.description+='wrong';},'Fetter identity field provenance changed',/\[PROVENANCE\]/);
+  await mutateJson(c,v=>{v.records.splice(51,1);},'Fetter identity omitted',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[51].heroId=15;},'Hero relation mixed into Skill Identity',/\[SCHEMA\]/);
+  await mutateJson(c,v=>{v.records[51].acquiredByFetter=true;},'Fetter acquisition semantics added',/\[SCHEMA\]/);
+  await mutateJson(c,v=>{v.records[51].skillNameKo='임의 번역';},'Unapproved Korean Skill localization added',/\[SCHEMA\]/);
+  await mutateJson(c,v=>{v.scope+=' complete game Skill catalog';},'Canonical scope overclaims complete population',/\[CANONICAL\]/);
+  await mutateJson(f15,v=>{v.source.gitBlobSha1='0'.repeat(40);},'Fetter SkillInfo blob pin changed',/\[HERO15_FETTER_SOURCE_PIN\]/);
+  await mutateJson(f15,v=>{v.source.commit='0'.repeat(40);},'Fetter SkillInfo commit changed',/\[HERO15_FETTER_SOURCE_PIN\]/);
+  await mutateJson(f15,v=>{v.source.sha256='0'.repeat(64);},'Fetter SkillInfo SHA-256 changed',/\[HERO15_FETTER_SOURCE_PIN\]/);
+  await mutateJson(f15,v=>{v.records[0].sourceRecordIndex+=1;},'Fetter SkillInfo index mismatches endpoint locator',/\[HERO15_FETTER_SOURCE_RECORDS\]/);
+  await mutateJson(f15,v=>{v.records[0].rawRecord.ID=70002;},'Fetter SkillInfo ID mismatches endpoint',/\[HERO15_FETTER_SOURCE_RECORDS\]/);
+  await mutateJson(f15,v=>{v.records[0].rawRecord.Name='';},'Fetter SkillInfo empty Name rejected',/\[HERO15_FETTER_SOURCE_RECORDS\]/);
+  await mutateJson(f15,v=>{v.records[0].rawRecord.Desc=null;},'Fetter SkillInfo absent/Null Desc rejected',/\[HERO15_FETTER_SOURCE_RECORDS\]/);
+  await mutateJson(f15,v=>{v.records[0].rawRecord.Name=v.records[0].rawRecord.Desc;},'Fetter SkillInfo Name/Desc swapped',/\[HERO15_FETTER_SOURCE_RECORDS\]/);
+  await mutateJson(f15,v=>{v.records.reverse();},'Fetter source record order changed',/\[HERO15_FETTER_SOURCE_RECORDS\]/);
+  await mutateJson(f15,v=>{v.selectionEvidence.identityAdmission='ADMITTED';},'Endpoint Presence promoted to Identity evidence',/\[HERO15_FETTER_SELECTION\]/);
+  await mutateJson(f15,v=>{v.claimEvidence.sourceSha256='REUSED_NOT_RECOMPUTED';},'Fetter source SHA-256 claim misreported',/\[HERO15_FETTER_BOUNDARY\]/);
+  await mutateJson(fr,v=>{v.skillEndpoints[0].recordIndex+=1;},'Existing Fetter endpoint presence/index changed',/\[HERO15_FETTER_ENDPOINTS\]/);
+  await mutateJson(fr,v=>{v.skillEndpoints[0].identityAdmission='ADMITTED';},'Endpoint Evidence identity admission changed',/\[HERO15_FETTER_ENDPOINTS\]/);
+  await mutateJson(fc,v=>{v.records.pop();},'Existing Fetter Skill Reference removed',/\[HERO15_FETTER_ENDPOINTS\]/);
+  await mutateJson(c,v=>{v.records[51].combatFormula='invented';},'Fetter Skill combat formula added',/\[SCHEMA\]/);
+  await mutateJson(c,v=>{v.records[51].unlockCondition='Fetter Lv2';},'Fetter unlock condition added',/\[SCHEMA\]/);
+
+  console.log('Skill identity tests: PASS (normal 105-record fixture; preserves 51 prior Skill identities, 54 Fetter source identities, and existing relation boundary controls)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
