@@ -17,8 +17,10 @@ const paths = [
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json',
+  'evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json',
   'canonical/hero-heart-fetter-raw-details.v1.json',
   'evidence/source/bonds/hero15-fetter-skill-references.v1.json',
+  'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json',
   'canonical/hero-fetter-skill-references.v1.json',
   'canonical/hero-awakening-references.v1.json',
   'tools/validate-skill-identities.mjs',
@@ -31,7 +33,7 @@ await Promise.all(paths.map(async (path) => {
 const run = () => spawnSync(process.execPath, ['tools/validate-skill-identities.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /records=107/);
+  assert.match(result.stdout, /records=108/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -61,6 +63,8 @@ try {
   const f15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
   const a15 = 'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json';
   const hf15 = 'evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json';
+  const hf15Lv10 = 'evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json';
+  const heartConditions = 'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json';
   const fr = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
   const fc = 'canonical/hero-fetter-skill-references.v1.json';
   await mutateJson(c, (v) => { v.records.pop(); }, 'missing Skill', /\[CANONICAL\]/);
@@ -194,7 +198,26 @@ try {
     try { const cv=JSON.parse(canonicalOriginal), ev=JSON.parse(evidenceOriginal); cv.records[106].descriptionCn+='改';ev.records[0].rawRecord.Desc+='改';await writeFile(canonicalPath,JSON.stringify(cv,null,2)+'\n');await writeFile(evidencePath,JSON.stringify(ev,null,2)+'\n');assertReject(run(),'simultaneous Heart Fetter Evidence/Canonical corruption',/\[HERO15_HEART_FETTER_RECORDS\]/); }
     finally { await writeFile(canonicalPath,canonicalOriginal);await writeFile(evidencePath,evidenceOriginal); }
   }
-  console.log('Skill identity tests: PASS (107 records; all prior 106 identities preserved; one source-verified Hero15 Heart Fetter identity added with selector, provenance, inventory, and publication boundary controls)');
+  await mutateJson(c,v=>{v.records.pop();},'Heart Fetter Lv10 Skill 70110 missing',/Canonical must contain exactly the 108/);
+  await mutateJson(c,v=>{v.records[107].skillId=70461;},'Heart Fetter Lv10 Skill substituted or duplicate',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[107].nameCn+='改';},'Heart Fetter Lv10 Skill Name changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[107].descriptionCn+='改';},'Heart Fetter Lv10 Skill Desc changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[107].unlockRule='Fetter Lv10';},'Heart Fetter unlock semantics added',/\[SCHEMA\]/);
+  await mutateJson(hf15Lv10,v=>{v.source.gitBlobSha1='0'.repeat(40);},'Heart Fetter Lv10 Skill source blob changed',/\[HERO15_HEART_FETTER_LV10_PIN\]/);
+  await mutateJson(hf15Lv10,v=>{v.source.sourceIndex.recordIndices['70110']=16300;},'Heart Fetter Lv10 Skill index changed',/\[HERO15_HEART_FETTER_LV10_PIN\]/);
+  await mutateJson(hf15Lv10,v=>{v.records[0].sourceRecordLocator='bad';},'Heart Fetter Lv10 Skill locator changed',/\[HERO15_HEART_FETTER_LV10_RECORDS\]/);
+  await mutateJson(hf15Lv10,v=>{v.records[0].rawRecord.Name='改名';},'Heart Fetter Lv10 Skill source Name changed',/\[HERO15_HEART_FETTER_LV10_RECORDS\]/);
+  await mutateJson(hf15Lv10,v=>{v.records[0].rawRecord.Desc+='改';},'Heart Fetter Lv10 Skill source Desc changed',/\[HERO15_HEART_FETTER_LV10_RECORDS\]/);
+  await mutateJson(hf15Lv10,v=>{v.sourceFieldInventory.pop();},'Heart Fetter Lv10 source inventory field omitted',/\[HERO15_HEART_FETTER_LV10_INVENTORY\]/);
+  await mutateJson(hf15Lv10,v=>{v.admittedFields.push('PassiveBuffs_ID');},'Heart Fetter Lv10 non-admitted field promoted',/\[HERO15_HEART_FETTER_LV10_INVENTORY\]/);
+  await mutateJson(heartConditions,v=>{v.source.heartFetter.fields.UnlockSkills_ID[4].SkillId=70111;},'Heart Fetter Lv10 selector changed',/\[HERO15_HEART_FETTER_LV10_SELECTOR\]/);
+  {
+    const canonicalPath=join(repo,c), evidencePath=join(repo,hf15Lv10);
+    const canonicalOriginal=await readFile(canonicalPath,'utf8'), evidenceOriginal=await readFile(evidencePath,'utf8');
+    try { const cv=JSON.parse(canonicalOriginal), ev=JSON.parse(evidenceOriginal); cv.records[107].descriptionCn+='改';ev.records[0].rawRecord.Desc+='改';await writeFile(canonicalPath,JSON.stringify(cv,null,2)+'\n');await writeFile(evidencePath,JSON.stringify(ev,null,2)+'\n');assertReject(run(),'simultaneous Heart Fetter Lv10 Evidence/Canonical corruption',/\[HERO15_HEART_FETTER_LV10_RECORDS\]/); }
+    finally { await writeFile(canonicalPath,canonicalOriginal);await writeFile(evidencePath,evidenceOriginal); }
+  }
+  console.log('Skill identity tests: PASS (108 records; all prior 107 identities preserved; one source-verified Hero15 Heart Fetter Lv10 identity added with selector, provenance, field inventory, and publication boundary controls)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

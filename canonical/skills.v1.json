@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities, plus 1 directly referenced Hero 15 Awakening SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
+  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, and 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
   "records": [
     {
       "skillId": 3067,
@@ -1071,6 +1071,16 @@
         "identity": "evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json#ID=70461",
         "name": "evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json#ID=70461/Name",
         "description": "evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json#ID=70461/Desc"
+      }
+    },
+    {
+      "skillId": 70110,
+      "nameCn": "心之羁绊：英雄全属性",
+      "descriptionCn": "英雄全属性<color=#DC143C>+5%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json#ID=70110",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json#ID=70110/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json#ID=70110/Desc"
       }
     }
   ]
