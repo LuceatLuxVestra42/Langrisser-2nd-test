@@ -21,6 +21,7 @@ import { validateCastingLawTemplateRawDetails } from './validate-casting-law-tem
 import { validateCastingLawTemplateLevelReferences } from './validate-casting-law-template-level-references.mjs';
 import { validateCastingLawLevelUpMaterialReferences } from './validate-casting-law-levelup-material-references.mjs';
 import { validateCastingLawLevelUpRawDetails } from './validate-casting-law-levelup-raw-details.mjs';
+import { validateCastingLawLevelUpPreviousLevelReferences } from './validate-casting-law-levelup-previous-level-references.mjs';
 import { validateHero15AwakeningReferences } from './validate-hero15-awakening-references.mjs';
 import { validateAwakeningLevelRawDetails } from './validate-awakening-level-raw-details.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
@@ -779,6 +780,7 @@ await validateCastingLawTemplateRawDetails(root);
 await validateCastingLawTemplateLevelReferences(root);
 await validateCastingLawLevelUpMaterialReferences(root);
 await validateCastingLawLevelUpRawDetails(root);
+await validateCastingLawLevelUpPreviousLevelReferences(root);
 await validateHero15AwakeningReferences(root);
 await validateAwakeningLevelRawDetails(root);
 await validateSkinGenerated(root);
