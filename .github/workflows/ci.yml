@@ -552,6 +552,9 @@ jobs:
       - name: Test Hero 15 Awakening reference boundaries
         run: node tools/test-hero15-awakening-references.mjs
 
+      - name: Test Hero 15 Awakening internal consumer failure boundaries
+        run: node tools/test-hero-15-awakening-internal.mjs
+
       - name: Validate Awakening Level raw details
         run: node tools/validate-awakening-level-raw-details.mjs
 
