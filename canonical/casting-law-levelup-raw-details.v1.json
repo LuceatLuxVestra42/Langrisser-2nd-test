@@ -1,0 +1,508 @@
+{
+  "schemaVersion": 1,
+  "scope": "Selected shared Casting Law LevelUp raw fields keyed only by ConfigDataCastingLawLevelUpInfo.ID: ID, Name, LevelUpGoldCost. Source-native values only; no runtime cost/consumption semantics or publication.",
+  "sourceOrder": [
+    66,
+    67,
+    68,
+    69,
+    70,
+    10066,
+    10067,
+    10068,
+    10069,
+    10070,
+    56,
+    57,
+    58,
+    59,
+    60,
+    10056,
+    10057,
+    10058,
+    10059,
+    10060,
+    181,
+    182,
+    183,
+    184,
+    185,
+    10181,
+    10182,
+    10183,
+    10184,
+    10185,
+    196,
+    197,
+    198,
+    199,
+    200,
+    10196,
+    10197,
+    10198,
+    10199,
+    10200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    10201,
+    10202,
+    10203,
+    10204,
+    10205
+  ],
+  "records": [
+    {
+      "levelUpInfoId": 66,
+      "rawFields": {
+        "ID": 66,
+        "Name": "智力杖LV 1",
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=66"
+    },
+    {
+      "levelUpInfoId": 67,
+      "rawFields": {
+        "ID": 67,
+        "Name": "智力杖LV 2",
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=67"
+    },
+    {
+      "levelUpInfoId": 68,
+      "rawFields": {
+        "ID": 68,
+        "Name": "智力杖LV 3",
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=68"
+    },
+    {
+      "levelUpInfoId": 69,
+      "rawFields": {
+        "ID": 69,
+        "Name": "智力杖LV 4",
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=69"
+    },
+    {
+      "levelUpInfoId": 70,
+      "rawFields": {
+        "ID": 70,
+        "Name": "智力杖LV 5",
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=70"
+    },
+    {
+      "levelUpInfoId": 10066,
+      "rawFields": {
+        "ID": 10066,
+        "Name": "智力杖LV6",
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10066"
+    },
+    {
+      "levelUpInfoId": 10067,
+      "rawFields": {
+        "ID": 10067,
+        "Name": "智力杖LV7",
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10067"
+    },
+    {
+      "levelUpInfoId": 10068,
+      "rawFields": {
+        "ID": 10068,
+        "Name": "智力杖LV8",
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10068"
+    },
+    {
+      "levelUpInfoId": 10069,
+      "rawFields": {
+        "ID": 10069,
+        "Name": "智力杖LV9",
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10069"
+    },
+    {
+      "levelUpInfoId": 10070,
+      "rawFields": {
+        "ID": 10070,
+        "Name": "智力杖LV10",
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10070"
+    },
+    {
+      "levelUpInfoId": 56,
+      "rawFields": {
+        "ID": 56,
+        "Name": "智力锤LV 1",
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=56"
+    },
+    {
+      "levelUpInfoId": 57,
+      "rawFields": {
+        "ID": 57,
+        "Name": "智力锤LV 2",
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=57"
+    },
+    {
+      "levelUpInfoId": 58,
+      "rawFields": {
+        "ID": 58,
+        "Name": "智力锤LV 3",
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=58"
+    },
+    {
+      "levelUpInfoId": 59,
+      "rawFields": {
+        "ID": 59,
+        "Name": "智力锤LV 4",
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=59"
+    },
+    {
+      "levelUpInfoId": 60,
+      "rawFields": {
+        "ID": 60,
+        "Name": "智力锤LV 5",
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=60"
+    },
+    {
+      "levelUpInfoId": 10056,
+      "rawFields": {
+        "ID": 10056,
+        "Name": "智力锤LV6",
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10056"
+    },
+    {
+      "levelUpInfoId": 10057,
+      "rawFields": {
+        "ID": 10057,
+        "Name": "智力锤LV7",
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10057"
+    },
+    {
+      "levelUpInfoId": 10058,
+      "rawFields": {
+        "ID": 10058,
+        "Name": "智力锤LV8",
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10058"
+    },
+    {
+      "levelUpInfoId": 10059,
+      "rawFields": {
+        "ID": 10059,
+        "Name": "智力锤LV9",
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10059"
+    },
+    {
+      "levelUpInfoId": 10060,
+      "rawFields": {
+        "ID": 10060,
+        "Name": "智力锤LV10",
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10060"
+    },
+    {
+      "levelUpInfoId": 181,
+      "rawFields": {
+        "ID": 181,
+        "Name": "智力衣服LV 1",
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=181"
+    },
+    {
+      "levelUpInfoId": 182,
+      "rawFields": {
+        "ID": 182,
+        "Name": "智力衣服LV 2",
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=182"
+    },
+    {
+      "levelUpInfoId": 183,
+      "rawFields": {
+        "ID": 183,
+        "Name": "智力衣服LV 3",
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=183"
+    },
+    {
+      "levelUpInfoId": 184,
+      "rawFields": {
+        "ID": 184,
+        "Name": "智力衣服LV 4",
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=184"
+    },
+    {
+      "levelUpInfoId": 185,
+      "rawFields": {
+        "ID": 185,
+        "Name": "智力衣服LV 5",
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=185"
+    },
+    {
+      "levelUpInfoId": 10181,
+      "rawFields": {
+        "ID": 10181,
+        "Name": "智力衣服LV6",
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10181"
+    },
+    {
+      "levelUpInfoId": 10182,
+      "rawFields": {
+        "ID": 10182,
+        "Name": "智力衣服LV7",
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10182"
+    },
+    {
+      "levelUpInfoId": 10183,
+      "rawFields": {
+        "ID": 10183,
+        "Name": "智力衣服LV8",
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10183"
+    },
+    {
+      "levelUpInfoId": 10184,
+      "rawFields": {
+        "ID": 10184,
+        "Name": "智力衣服LV9",
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10184"
+    },
+    {
+      "levelUpInfoId": 10185,
+      "rawFields": {
+        "ID": 10185,
+        "Name": "智力衣服LV10",
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10185"
+    },
+    {
+      "levelUpInfoId": 196,
+      "rawFields": {
+        "ID": 196,
+        "Name": "智力布头盔LV 1",
+        "LevelUpGoldCost": 50000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=196"
+    },
+    {
+      "levelUpInfoId": 197,
+      "rawFields": {
+        "ID": 197,
+        "Name": "智力布头盔LV 2",
+        "LevelUpGoldCost": 70000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=197"
+    },
+    {
+      "levelUpInfoId": 198,
+      "rawFields": {
+        "ID": 198,
+        "Name": "智力布头盔LV 3",
+        "LevelUpGoldCost": 120000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=198"
+    },
+    {
+      "levelUpInfoId": 199,
+      "rawFields": {
+        "ID": 199,
+        "Name": "智力布头盔LV 4",
+        "LevelUpGoldCost": 200000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=199"
+    },
+    {
+      "levelUpInfoId": 200,
+      "rawFields": {
+        "ID": 200,
+        "Name": "智力布头盔LV 5",
+        "LevelUpGoldCost": 300000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=200"
+    },
+    {
+      "levelUpInfoId": 10196,
+      "rawFields": {
+        "ID": 10196,
+        "Name": "智力布头盔LV6",
+        "LevelUpGoldCost": 380000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10196"
+    },
+    {
+      "levelUpInfoId": 10197,
+      "rawFields": {
+        "ID": 10197,
+        "Name": "智力布头盔LV7",
+        "LevelUpGoldCost": 460000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10197"
+    },
+    {
+      "levelUpInfoId": 10198,
+      "rawFields": {
+        "ID": 10198,
+        "Name": "智力布头盔LV8",
+        "LevelUpGoldCost": 560000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10198"
+    },
+    {
+      "levelUpInfoId": 10199,
+      "rawFields": {
+        "ID": 10199,
+        "Name": "智力布头盔LV9",
+        "LevelUpGoldCost": 660000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10199"
+    },
+    {
+      "levelUpInfoId": 10200,
+      "rawFields": {
+        "ID": 10200,
+        "Name": "智力布头盔LV10",
+        "LevelUpGoldCost": 800000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10200"
+    },
+    {
+      "levelUpInfoId": 201,
+      "rawFields": {
+        "ID": 201,
+        "Name": "通用饰品LV 1",
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=201"
+    },
+    {
+      "levelUpInfoId": 202,
+      "rawFields": {
+        "ID": 202,
+        "Name": "通用饰品LV 2",
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=202"
+    },
+    {
+      "levelUpInfoId": 203,
+      "rawFields": {
+        "ID": 203,
+        "Name": "通用饰品LV 3",
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=203"
+    },
+    {
+      "levelUpInfoId": 204,
+      "rawFields": {
+        "ID": 204,
+        "Name": "通用饰品LV 4",
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=204"
+    },
+    {
+      "levelUpInfoId": 205,
+      "rawFields": {
+        "ID": 205,
+        "Name": "通用饰品LV 5",
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=205"
+    },
+    {
+      "levelUpInfoId": 10201,
+      "rawFields": {
+        "ID": 10201,
+        "Name": "通用饰品LV6",
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10201"
+    },
+    {
+      "levelUpInfoId": 10202,
+      "rawFields": {
+        "ID": 10202,
+        "Name": "通用饰品LV7",
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10202"
+    },
+    {
+      "levelUpInfoId": 10203,
+      "rawFields": {
+        "ID": 10203,
+        "Name": "通用饰品LV8",
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10203"
+    },
+    {
+      "levelUpInfoId": 10204,
+      "rawFields": {
+        "ID": 10204,
+        "Name": "通用饰品LV9",
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10204"
+    },
+    {
+      "levelUpInfoId": 10205,
+      "rawFields": {
+        "ID": 10205,
+        "Name": "通用饰品LV10",
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10205"
+    }
+  ]
+}
