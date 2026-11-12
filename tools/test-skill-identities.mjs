@@ -15,8 +15,10 @@ const paths = [
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json',
+  'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json',
   'evidence/source/bonds/hero15-fetter-skill-references.v1.json',
   'canonical/hero-fetter-skill-references.v1.json',
+  'canonical/hero-awakening-references.v1.json',
   'tools/validate-skill-identities.mjs',
 ];
 await Promise.all(paths.map(async (path) => {
@@ -27,7 +29,7 @@ await Promise.all(paths.map(async (path) => {
 const run = () => spawnSync(process.execPath, ['tools/validate-skill-identities.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /records=105/);
+  assert.match(result.stdout, /records=106/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -55,6 +57,7 @@ try {
   const h15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
   const g15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
   const f15 = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
+  const a15 = 'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json';
   const fr = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
   const fc = 'canonical/hero-fetter-skill-references.v1.json';
   await mutateJson(c, (v) => { v.records.pop(); }, 'missing Skill', /\[CANONICAL\]/);
@@ -146,7 +149,31 @@ try {
   await mutateJson(c,v=>{v.records[51].combatFormula='invented';},'Fetter Skill combat formula added',/\[SCHEMA\]/);
   await mutateJson(c,v=>{v.records[51].unlockCondition='Fetter Lv2';},'Fetter unlock condition added',/\[SCHEMA\]/);
 
-  console.log('Skill identity tests: PASS (normal 105-record fixture; preserves 51 prior Skill identities, 54 Fetter source identities, and existing relation boundary controls)');
+  await mutateJson(c,v=>{v.records.pop();},'Awakening Skill 12350 missing',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[105].skillId=12351;},'Awakening Skill ID substituted',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[105].nameCn+='改';},'Awakening Skill Name changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[105].descriptionCn+='改';},'Awakening Skill Desc changed',/\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[105].provenance.description+='wrong';},'Awakening Skill provenance changed',/\[PROVENANCE\]|\[CANONICAL\]/);
+  await mutateJson(c,v=>{v.records[105].unlockRule='guessed';},'Awakening unlock semantic added',/\[SCHEMA\]/);
+  await mutateJson(c,v=>{v.scope+=' acquisition behavior';},'Awakening Canonical scope overclaimed',/\[CANONICAL\]/);
+  await mutateJson(a15,v=>{v.source.sha256='0'.repeat(64);},'Awakening source hash changed',/\[HERO15_AWAKENING_SOURCE_PIN\]/);
+  await mutateJson(a15,v=>{v.source.sourceIndex.recordIndices['12350']=2493;},'Awakening source index changed',/\[HERO15_AWAKENING_SOURCE_PIN\]/);
+  await mutateJson(a15,v=>{v.records[0].sourceRecordLocator='bad';},'Awakening record locator changed',/\[HERO15_AWAKENING_SOURCE_RECORDS\]/);
+  await mutateJson(a15,v=>{v.records[0].rawRecord.ID=12351;},'Awakening source ID changed',/\[HERO15_AWAKENING_SOURCE_RECORDS\]/);
+  await mutateJson(a15,v=>{v.records[0].rawRecord.Name='改名';},'Awakening source Name changed',/\[HERO15_AWAKENING_SOURCE_RECORDS\]/);
+  await mutateJson(a15,v=>{v.records[0].rawRecord.Desc+='改';},'Awakening source Desc changed',/\[HERO15_AWAKENING_SOURCE_RECORDS\]/);
+  await mutateJson(a15,v=>{v.sourceFieldInventory.pop();},'Awakening source field inventory omission',/\[HERO15_AWAKENING_INVENTORY\]/);
+  await mutateJson(a15,v=>{v.admittedFields.push('SkillCost');},'Non-admitted Awakening field promoted',/\[HERO15_AWAKENING_INVENTORY\]/);
+  await mutateJson(a15,v=>{v.nonAdmittedFields.pop();},'Awakening non-admitted source field omitted',/\[HERO15_AWAKENING_INVENTORY\]/);
+  await mutateJson(a15,v=>{v.publicationApproval=true;},'Awakening identity falsely published',/\[HERO15_AWAKENING_BOUNDARY\]/);
+  await mutateJson('canonical/hero-awakening-references.v1.json',v=>{v.records[0].stage2SkillReference.skillId=12351;},'Awakening Reference mismatch',/\[HERO15_AWAKENING_REFERENCE\]/);
+  {
+    const canonicalPath=join(repo,c), evidencePath=join(repo,a15);
+    const canonicalOriginal=await readFile(canonicalPath,'utf8'), evidenceOriginal=await readFile(evidencePath,'utf8');
+    try { const cv=JSON.parse(canonicalOriginal), ev=JSON.parse(evidenceOriginal); cv.records[105].descriptionCn+='改';ev.records[0].rawRecord.Desc+='改';await writeFile(canonicalPath,JSON.stringify(cv,null,2)+'\n');await writeFile(evidencePath,JSON.stringify(ev,null,2)+'\n');assertReject(run(),'simultaneous Awakening Evidence/Canonical corruption',/\[HERO15_AWAKENING_SOURCE_RECORDS\]/); }
+    finally { await writeFile(canonicalPath,canonicalOriginal);await writeFile(evidencePath,evidenceOriginal); }
+  }
+  console.log('Skill identity tests: PASS (normal 106-record fixture; preserves prior 105 Skill identities and adds one Awakening source identity with inventory and publication boundary controls)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

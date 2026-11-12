@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "scope": {
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "claim": "One source-native Hero 15 Awakening SkillInfo identity selected by the pre-existing Awakening Skill endpoint reference; only ID/Name/Desc are admitted.",
+    "skillIds": [
+      12350
+    ],
+    "outOfScope": [
+      "Skill acquisition, equip, activation, or unlock rules",
+      "combat/effect semantics or formulas",
+      "Korean localization",
+      "publication approval",
+      "icon or asset meaning",
+      "all non-admitted ConfigDataSkillInfo fields"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "recordCount": 27198,
+    "primaryKey": "ID",
+    "sourceIndex": {
+      "path": "data/index/skill.v1.json",
+      "gitBlobSha1": "7bc7ce0f2ac59224763faf1a70e19e199eecc900",
+      "recordCount": 27198,
+      "recordIndices": {
+        "12350": 2492
+      }
+    }
+  },
+  "selectionEvidence": {
+    "path": "evidence/source/awakening/hero15-awakening-references.v1.json",
+    "canonicalPath": "canonical/hero-awakening-references.v1.json",
+    "claim": "Existing Hero 15 stage2SkillReference explicitly selects ConfigDataSkillInfo.ID=12350; endpoint existence is reused as a selector, not as acquisition or runtime semantics."
+  },
+  "extraction": {
+    "method": "Pinned Git blob bytes read at the fixed source commit; JSON parsed without field normalization; exact integer ID equality selected one top-level record at zero-based array index 2492.",
+    "rawBytesVerified": true,
+    "gitBlobSha1Recomputed": true,
+    "sha256Recomputed": true,
+    "recordCountVerified": true,
+    "sourceIndexUsedAsLocatorOnly": true,
+    "selectedSourceFields": [
+      "ID",
+      "Name",
+      "Desc"
+    ]
+  },
+  "records": [
+    {
+      "sourceRecordIndex": 2492,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=12350",
+      "rawRecord": {
+        "ID": 12350,
+        "Name": "创生圣颂",
+        "Desc": "[被动]天赋每驱散<color=#DC143C>1</color>个弱化效果后额外附加<color=#DC143C>1</color>个强化效果。\n[支援]主动使用，使得单个部队的\"攻击、智力\"\"防御\"提升<color=#DC143C>20%</color>，且免疫所有弱化效果，行动结束时，对其周围<color=#DC143C>2</color>格范围内的所有友军恢复施加者智力<color=#DC143C>2</color>倍的生命值，并驱散<color=#DC143C>2</color>个弱化效果，持续<color=#DC143C>2</color>回合。同时自身获得“免疫所有弱化效果”，持续<color=#DC143C>1</color>回合。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=2492/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=2492/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=2492/Desc"
+      }
+    }
+  ],
+  "sourceFieldInventory": [
+    {
+      "field": "ID",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Name",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Desc",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "IsMagic",
+      "type": "boolean",
+      "state": "PRESENT"
+    },
+    {
+      "field": "IsActiveSkill",
+      "type": "boolean",
+      "state": "PRESENT"
+    },
+    {
+      "field": "IsSupport",
+      "type": "boolean",
+      "state": "PRESENT"
+    },
+    {
+      "field": "PassiveBuffs_ID",
+      "type": "array",
+      "state": "PRESENT"
+    },
+    {
+      "field": "SelfBuffs_ID",
+      "type": "array",
+      "state": "PRESENT"
+    },
+    {
+      "field": "SkillAIType",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "SkillType",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Time_Sing",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Power",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "HitCountMax",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "AttackCount",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Buffs_ID",
+      "type": "array",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BuffRate",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BuffNum",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "HeroMoveDelay",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Time_EffMagic1",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Time_Hit",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Time_End",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Anim_Cast",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Effect_Sing",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Effect_Magic1",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Effect_PreCast",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "CutsceneType",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BF_Cooldown",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BF_Distance",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BF_Range",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BF_TargetFaction",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BF_TargetType",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "Icon",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "SkillCost",
+      "type": "number",
+      "state": "PRESENT"
+    },
+    {
+      "field": "TypeText",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "CDText",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "DistanceText",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "RangeText",
+      "type": "string",
+      "state": "PRESENT"
+    },
+    {
+      "field": "BattlePower",
+      "type": "number",
+      "state": "PRESENT"
+    }
+  ],
+  "admittedFields": [
+    "ID",
+    "Name",
+    "Desc"
+  ],
+  "nonAdmittedFields": [
+    "IsMagic",
+    "IsActiveSkill",
+    "IsSupport",
+    "PassiveBuffs_ID",
+    "SelfBuffs_ID",
+    "SkillAIType",
+    "SkillType",
+    "Time_Sing",
+    "Power",
+    "HitCountMax",
+    "AttackCount",
+    "Buffs_ID",
+    "BuffRate",
+    "BuffNum",
+    "HeroMoveDelay",
+    "Time_EffMagic1",
+    "Time_Hit",
+    "Time_End",
+    "Anim_Cast",
+    "Effect_Sing",
+    "Effect_Magic1",
+    "Effect_PreCast",
+    "CutsceneType",
+    "BF_Cooldown",
+    "BF_Distance",
+    "BF_Range",
+    "BF_TargetFaction",
+    "BF_TargetType",
+    "Icon",
+    "SkillCost",
+    "TypeText",
+    "CDText",
+    "DistanceText",
+    "RangeText",
+    "BattlePower"
+  ],
+  "canonical": false,
+  "generated": false,
+  "publicationApproval": false,
+  "productionRuntimeDependency": false,
+  "limitation": "This is a selective raw Skill Identity projection. The field inventory records source presence/type/state only; non-admitted values are not promoted. The existing Awakening endpoint does not establish acquisition, equip, activation, unlock, combat, or publication semantics."
+}

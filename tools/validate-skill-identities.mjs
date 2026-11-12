@@ -8,6 +8,7 @@ const soldierEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.reco
 const hero15EvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
 const hero15GeneralEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
 const hero15FetterEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
+const hero15AwakeningEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json';
 const hero15FetterReferenceEvidencePath = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
 const hero15FetterReferenceCanonicalPath = 'canonical/hero-fetter-skill-references.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
@@ -42,10 +43,12 @@ const hero15GeneralExpected = [
 const hero15GeneralIds = hero15GeneralExpected.map(([id]) => id);
 const hero15FetterExpectedLocators = [[70001,16200],[70002,16201],[70003,16202],[70004,16203],[70005,16204],[70006,16205],[70007,16206],[70008,16207],[70009,16208],[70072,16270],[70074,16271],[70076,16272],[70078,16273],[70080,16274],[70082,16275],[70084,16276],[70086,16277],[70088,16278],[70031,16230],[70032,16231],[70033,16232],[70034,16233],[70035,16234],[70036,16235],[70037,16236],[70038,16237],[70039,16238],[70091,16280],[70092,16281],[70093,16282],[70094,16283],[70095,16284],[70096,16285],[70097,16286],[70098,16287],[70099,16288],[70101,16290],[70102,16291],[70103,16292],[70104,16293],[70105,16294],[70106,16295],[70107,16296],[70108,16297],[70109,16298],[70462,16653],[70463,16654],[70464,16655],[70465,16656],[70466,16657],[70467,16658],[70468,16659],[70469,16660],[70470,16661]];
 const hero15FetterSkillIds = hero15FetterExpectedLocators.map(([id]) => id);
+const hero15AwakeningExpected = [12350,2492,'创生圣颂','[被动]天赋每驱散<color=#DC143C>1</color>个弱化效果后额外附加<color=#DC143C>1</color>个强化效果。\n[支援]主动使用，使得单个部队的\"攻击、智力\"\"防御\"提升<color=#DC143C>20%</color>，且免疫所有弱化效果，行动结束时，对其周围<color=#DC143C>2</color>格范围内的所有友军恢复施加者智力<color=#DC143C>2</color>倍的生命值，并驱散<color=#DC143C>2</color>个弱化效果，持续<color=#DC143C>2</color>回合。同时自身获得“免疫所有弱化效果”，持续<color=#DC143C>1</color>回合。'];
+const hero15AwakeningFieldTypes = [['ID','number'],['Name','string'],['Desc','string'],['IsMagic','boolean'],['IsActiveSkill','boolean'],['IsSupport','boolean'],['PassiveBuffs_ID','array'],['SelfBuffs_ID','array'],['SkillAIType','number'],['SkillType','number'],['Time_Sing','number'],['Power','number'],['HitCountMax','number'],['AttackCount','number'],['Buffs_ID','array'],['BuffRate','number'],['BuffNum','number'],['HeroMoveDelay','number'],['Time_EffMagic1','number'],['Time_Hit','number'],['Time_End','number'],['Anim_Cast','string'],['Effect_Sing','string'],['Effect_Magic1','string'],['Effect_PreCast','string'],['CutsceneType','number'],['BF_Cooldown','number'],['BF_Distance','number'],['BF_Range','number'],['BF_TargetFaction','number'],['BF_TargetType','number'],['Icon','string'],['SkillCost','number'],['TypeText','string'],['CDText','string'],['DistanceText','string'],['RangeText','string'],['BattlePower','number']];
 const expectedIds = expected.map(([id]) => id);
 const hero15ExpectedIds = hero15Expected.map(([id]) => id);
 const soldierSkillIds = [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675,66957,66958,66959,66960,66961,66962,66963,66964,66965,66966,65110,65111,65112,65113,65114,65115,65116,65117,65118,65119];
-const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds];
+const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds, 12350];
 const hero15FetterRawRecordsSha256 = 'eefea5b2eddea750cebe0dd1e21b9fd583a9c559d7fd6cb9babcf946f64c1bc2';
 const recordIndices = Object.fromEntries(expected.map(([id, index]) => [String(id), index]));
 const sourcePin = {
@@ -80,9 +83,9 @@ const exactKeys = (value, keys, label) => check(value && typeof value === 'objec
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 export async function validateSkillIdentities(root = process.cwd()) {
-  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical] = await Promise.all([
+  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical, hero15AwakeningEvidence, awakeningReferences] = await Promise.all([
     readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath), readJson(root, hero15GeneralEvidencePath),
-    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath),
+    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath), readJson(root, hero15AwakeningEvidencePath), readJson(root, 'canonical/hero-awakening-references.v1.json'),
   ]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'extraction', 'records', 'claimEvidence', 'fieldMeaningContract', 'interpretation', 'canonical', 'generated', 'productionRuntimeDependency'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail', 'EVIDENCE', 'Evidence owner identity drift');
@@ -201,9 +204,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities, plus 1 directly referenced Hero 15 Awakening SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 105 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 106 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -369,9 +372,49 @@ export async function validateSkillIdentities(root = process.cwd()) {
       && record.provenance.description===`${locator}/Desc`,'PROVENANCE',`Hero15 Fetter Skill ${id} field provenance changed`);
     canonicalIds.push(record.skillId);
   }
-  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 51 plus 54 source-verified Hero15 Fetter IDs');
+  const [awakeningId,awakeningIndex,awakeningName,awakeningDesc]=hero15AwakeningExpected;
+  exactKeys(hero15AwakeningEvidence,['schemaVersion','responsibility','scope','source','selectionEvidence','extraction','records','sourceFieldInventory','admittedFields','nonAdmittedFields','canonical','generated','publicationApproval','productionRuntimeDependency','limitation'],'Hero15 Awakening SkillInfo Evidence');
+  const awakeningSourcePin={repository:sourcePin.repository,commit:sourcePin.commit,tree:sourcePin.commitTree,path:sourcePin.path,gitBlobSha1:sourcePin.gitBlobSha1,sha256:sourcePin.sha256,sizeBytes:sourcePin.sizeBytes,recordCount:27198,primaryKey:'ID',sourceIndex:{path:sourcePin.sourceIndex.path,gitBlobSha1:sourcePin.sourceIndex.gitBlobSha1,recordCount:27198,recordIndices:{'12350':2492}}};
+  check(hero15AwakeningEvidence.schemaVersion===1 && hero15AwakeningEvidence.responsibility==='skill-identity-and-source-detail'
+    && hero15AwakeningEvidence.scope?.sourceScope===evidence.scope.sourceScope && isDeepStrictEqual(hero15AwakeningEvidence.scope?.skillIds,[12350])
+    && hero15AwakeningEvidence.scope?.claim==='One source-native Hero 15 Awakening SkillInfo identity selected by the pre-existing Awakening Skill endpoint reference; only ID/Name/Desc are admitted.'
+    && isDeepStrictEqual(hero15AwakeningEvidence.scope?.outOfScope,['Skill acquisition, equip, activation, or unlock rules','combat/effect semantics or formulas','Korean localization','publication approval','icon or asset meaning','all non-admitted ConfigDataSkillInfo fields']),
+    'HERO15_AWAKENING_SCOPE','Awakening Skill identity scope changed');
+  check(isDeepStrictEqual(hero15AwakeningEvidence.source,awakeningSourcePin),'HERO15_AWAKENING_SOURCE_PIN','Fixed source pin or locator index changed');
+  check(isDeepStrictEqual(hero15AwakeningEvidence.selectionEvidence,{path:'evidence/source/awakening/hero15-awakening-references.v1.json',canonicalPath:'canonical/hero-awakening-references.v1.json',claim:'Existing Hero 15 stage2SkillReference explicitly selects ConfigDataSkillInfo.ID=12350; endpoint existence is reused as a selector, not as acquisition or runtime semantics.'})
+    && awakeningReferences.records?.length===1 && awakeningReferences.records[0]?.stage2SkillReference?.skillId===12350
+    && awakeningReferences.records[0]?.stage2SkillReference?.endpointNamespace==='ConfigDataSkillInfo.ID',
+    'HERO15_AWAKENING_REFERENCE','Existing Awakening Skill endpoint no longer selects ID 12350');
+  check(isDeepStrictEqual(hero15AwakeningEvidence.extraction,{method:'Pinned Git blob bytes read at the fixed source commit; JSON parsed without field normalization; exact integer ID equality selected one top-level record at zero-based array index 2492.',rawBytesVerified:true,gitBlobSha1Recomputed:true,sha256Recomputed:true,recordCountVerified:true,sourceIndexUsedAsLocatorOnly:true,selectedSourceFields:['ID','Name','Desc']}),
+    'HERO15_AWAKENING_EXTRACTION','Awakening extraction provenance changed');
+  check(Array.isArray(hero15AwakeningEvidence.records) && hero15AwakeningEvidence.records.length===1,'HERO15_AWAKENING_SOURCE_RECORDS','Expected one selected Awakening SkillInfo record');
+  const awakeningRow=hero15AwakeningEvidence.records[0];
+  exactKeys(awakeningRow,['sourceRecordIndex','sourceRecordLocator','rawRecord','fieldProvenance'],'Hero15 Awakening SkillInfo row');
+  check(awakeningRow.sourceRecordIndex===awakeningIndex && awakeningRow.sourceRecordLocator===`${sourcePin.path}#ID=${awakeningId}`
+    && isDeepStrictEqual(awakeningRow.rawRecord,{ID:awakeningId,Name:awakeningName,Desc:awakeningDesc})
+    && isDeepStrictEqual(awakeningRow.fieldProvenance,{ID:`${sourcePin.path}#arrayIndex=${awakeningIndex}/ID`,Name:`${sourcePin.path}#arrayIndex=${awakeningIndex}/Name`,Desc:`${sourcePin.path}#arrayIndex=${awakeningIndex}/Desc`}),
+    'HERO15_AWAKENING_SOURCE_RECORDS','Awakening Skill ID/Name/Desc or exact locator differs from pinned source evidence');
+  const expectedInventory=hero15AwakeningFieldTypes.map(([field,type])=>({field,type,state:'PRESENT'}));
+  check(isDeepStrictEqual(hero15AwakeningEvidence.sourceFieldInventory,expectedInventory)
+    && isDeepStrictEqual(hero15AwakeningEvidence.admittedFields,['ID','Name','Desc'])
+    && isDeepStrictEqual(hero15AwakeningEvidence.nonAdmittedFields,hero15AwakeningFieldTypes.map(([field])=>field).filter(field=>!['ID','Name','Desc'].includes(field))),
+    'HERO15_AWAKENING_INVENTORY','Full source field inventory and selective admission set differ');
+  check(hero15AwakeningEvidence.canonical===false && hero15AwakeningEvidence.generated===false
+    && hero15AwakeningEvidence.publicationApproval===false && hero15AwakeningEvidence.productionRuntimeDependency===false
+    && hero15AwakeningEvidence.limitation==='This is a selective raw Skill Identity projection. The field inventory records source presence/type/state only; non-admitted values are not promoted. The existing Awakening endpoint does not establish acquisition, equip, activation, unlock, combat, or publication semantics.',
+    'HERO15_AWAKENING_BOUNDARY','Awakening identity evidence crosses Runtime/Publication boundary');
+  const awakeningCanonical=canonical.records.at(-1);
+  exactKeys(awakeningCanonical,['skillId','nameCn','descriptionCn','provenance'],'Canonical Hero15 Awakening Skill 12350');
+  exactKeys(awakeningCanonical.provenance,['identity','name','description'],'Canonical Hero15 Awakening Skill provenance');
+  const awakeningEvidenceLocator=`${hero15AwakeningEvidencePath}#ID=12350`;
+  check(awakeningCanonical.skillId===awakeningId && Number.isSafeInteger(awakeningCanonical.skillId)
+    && awakeningCanonical.nameCn===awakeningName && awakeningCanonical.descriptionCn===awakeningDesc
+    && isDeepStrictEqual(awakeningCanonical.provenance,{identity:awakeningEvidenceLocator,name:`${awakeningEvidenceLocator}/Name`,description:`${awakeningEvidenceLocator}/Desc`}),
+    'CANONICAL','Awakening Skill 12350 canonical identity or provenance mismatch');
+  canonicalIds.push(awakeningCanonical.skillId);
+  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 105 records plus the appended source-verified Hero15 Awakening Skill');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId)));
+  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
@@ -385,7 +428,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; preserved=51; Hero15Fetter=54; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=105; Hero15Awakening=1; Hero15Fetter=54; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
+  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities, plus 1 directly referenced Hero 15 Awakening SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.",
   "records": [
     {
       "skillId": 3067,
@@ -1051,6 +1051,16 @@
         "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70470",
         "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70470/Name",
         "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json#ID=70470/Desc"
+      }
+    },
+    {
+      "skillId": 12350,
+      "nameCn": "创生圣颂",
+      "descriptionCn": "[被动]天赋每驱散<color=#DC143C>1</color>个弱化效果后额外附加<color=#DC143C>1</color>个强化效果。\n[支援]主动使用，使得单个部队的\"攻击、智力\"\"防御\"提升<color=#DC143C>20%</color>，且免疫所有弱化效果，行动结束时，对其周围<color=#DC143C>2</color>格范围内的所有友军恢复施加者智力<color=#DC143C>2</color>倍的生命值，并驱散<color=#DC143C>2</color>个弱化效果，持续<color=#DC143C>2</color>回合。同时自身获得“免疫所有弱化效果”，持续<color=#DC143C>1</color>回合。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350/Desc"
       }
     }
   ]
