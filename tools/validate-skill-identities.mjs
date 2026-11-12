@@ -10,6 +10,7 @@ const hero15GeneralEvidencePath = 'evidence/source/configdata/ConfigDataSkillInf
 const hero15FetterEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
 const hero15AwakeningEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json';
 const hero15HeartFetterSkillEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json';
+const hero15HeartFetterLv10SkillEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json';
 const hero15FetterReferenceEvidencePath = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
 const hero15FetterReferenceCanonicalPath = 'canonical/hero-fetter-skill-references.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
@@ -45,12 +46,13 @@ const hero15GeneralIds = hero15GeneralExpected.map(([id]) => id);
 const hero15FetterExpectedLocators = [[70001,16200],[70002,16201],[70003,16202],[70004,16203],[70005,16204],[70006,16205],[70007,16206],[70008,16207],[70009,16208],[70072,16270],[70074,16271],[70076,16272],[70078,16273],[70080,16274],[70082,16275],[70084,16276],[70086,16277],[70088,16278],[70031,16230],[70032,16231],[70033,16232],[70034,16233],[70035,16234],[70036,16235],[70037,16236],[70038,16237],[70039,16238],[70091,16280],[70092,16281],[70093,16282],[70094,16283],[70095,16284],[70096,16285],[70097,16286],[70098,16287],[70099,16288],[70101,16290],[70102,16291],[70103,16292],[70104,16293],[70105,16294],[70106,16295],[70107,16296],[70108,16297],[70109,16298],[70462,16653],[70463,16654],[70464,16655],[70465,16656],[70466,16657],[70467,16658],[70468,16659],[70469,16660],[70470,16661]];
 const hero15FetterSkillIds = hero15FetterExpectedLocators.map(([id]) => id);
 const hero15HeartFetterSkillExpected = [70461,16652,'心之羁绊：莉亚娜Lv1','英雄的生命<color=#DC143C>+65</color>，防御<color=#DC143C>+4</color>，魔防<color=#DC143C>+5</color>。'];
+const hero15HeartFetterLv10SkillExpected = [70110,16299,'心之羁绊：英雄全属性','英雄全属性<color=#DC143C>+5%</color>。'];
 const hero15AwakeningExpected = [12350,2492,'创生圣颂','[被动]天赋每驱散<color=#DC143C>1</color>个弱化效果后额外附加<color=#DC143C>1</color>个强化效果。\n[支援]主动使用，使得单个部队的\"攻击、智力\"\"防御\"提升<color=#DC143C>20%</color>，且免疫所有弱化效果，行动结束时，对其周围<color=#DC143C>2</color>格范围内的所有友军恢复施加者智力<color=#DC143C>2</color>倍的生命值，并驱散<color=#DC143C>2</color>个弱化效果，持续<color=#DC143C>2</color>回合。同时自身获得“免疫所有弱化效果”，持续<color=#DC143C>1</color>回合。'];
 const hero15AwakeningFieldTypes = [['ID','number'],['Name','string'],['Desc','string'],['IsMagic','boolean'],['IsActiveSkill','boolean'],['IsSupport','boolean'],['PassiveBuffs_ID','array'],['SelfBuffs_ID','array'],['SkillAIType','number'],['SkillType','number'],['Time_Sing','number'],['Power','number'],['HitCountMax','number'],['AttackCount','number'],['Buffs_ID','array'],['BuffRate','number'],['BuffNum','number'],['HeroMoveDelay','number'],['Time_EffMagic1','number'],['Time_Hit','number'],['Time_End','number'],['Anim_Cast','string'],['Effect_Sing','string'],['Effect_Magic1','string'],['Effect_PreCast','string'],['CutsceneType','number'],['BF_Cooldown','number'],['BF_Distance','number'],['BF_Range','number'],['BF_TargetFaction','number'],['BF_TargetType','number'],['Icon','string'],['SkillCost','number'],['TypeText','string'],['CDText','string'],['DistanceText','string'],['RangeText','string'],['BattlePower','number']];
 const expectedIds = expected.map(([id]) => id);
 const hero15ExpectedIds = hero15Expected.map(([id]) => id);
 const soldierSkillIds = [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675,66957,66958,66959,66960,66961,66962,66963,66964,66965,66966,65110,65111,65112,65113,65114,65115,65116,65117,65118,65119];
-const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds, 12350, 70461];
+const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds, 12350, 70461, 70110];
 const hero15FetterRawRecordsSha256 = 'eefea5b2eddea750cebe0dd1e21b9fd583a9c559d7fd6cb9babcf946f64c1bc2';
 const recordIndices = Object.fromEntries(expected.map(([id, index]) => [String(id), index]));
 const sourcePin = {
@@ -85,9 +87,9 @@ const exactKeys = (value, keys, label) => check(value && typeof value === 'objec
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 export async function validateSkillIdentities(root = process.cwd()) {
-  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical, hero15AwakeningEvidence, awakeningReferences, hero15HeartFetterSkillEvidence, heartFetterRawDetails] = await Promise.all([
+  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical, hero15AwakeningEvidence, awakeningReferences, hero15HeartFetterSkillEvidence, heartFetterRawDetails, hero15HeartFetterLv10SkillEvidence, heartFetterRawConditions] = await Promise.all([
     readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath), readJson(root, hero15GeneralEvidencePath),
-    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath), readJson(root, hero15AwakeningEvidencePath), readJson(root, 'canonical/hero-awakening-references.v1.json'), readJson(root, hero15HeartFetterSkillEvidencePath), readJson(root, 'canonical/hero-heart-fetter-raw-details.v1.json'),
+    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath), readJson(root, hero15AwakeningEvidencePath), readJson(root, 'canonical/hero-awakening-references.v1.json'), readJson(root, hero15HeartFetterSkillEvidencePath), readJson(root, 'canonical/hero-heart-fetter-raw-details.v1.json'), readJson(root, hero15HeartFetterLv10SkillEvidencePath), readJson(root, 'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json'),
   ]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'extraction', 'records', 'claimEvidence', 'fieldMeaningContract', 'interpretation', 'canonical', 'generated', 'productionRuntimeDependency'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail', 'EVIDENCE', 'Evidence owner identity drift');
@@ -206,9 +208,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, and 54 Hero 15 Fetter SkillInfo identities, plus 1 directly referenced Hero 15 Awakening SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, or acquisition model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, and 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 107 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 108 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -451,9 +453,50 @@ export async function validateSkillIdentities(root = process.cwd()) {
     && isDeepStrictEqual(heartCanonical.provenance,{identity:heartLocator,name:`${heartLocator}/Name`,description:`${heartLocator}/Desc`}),
     'CANONICAL','Heart Fetter Skill 70461 identity or provenance mismatch');
   canonicalIds.push(heartCanonical.skillId);
-  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 106 records plus the source-verified Hero15 Heart Fetter Skill');
+  check(isDeepStrictEqual(canonicalIds, allExpectedIds.slice(0, 107)), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 106 records plus the source-verified Hero15 Heart Fetter Skill');
+  const [lv10SkillId,lv10SkillIndex,lv10SkillName,lv10SkillDesc]=hero15HeartFetterLv10SkillExpected;
+  const lv10Pin={repository:sourcePin.repository,commit:sourcePin.commit,tree:sourcePin.commitTree,snapshotDate:'2026-09-02T01:45:21Z',path:sourcePin.path,gitBlobSha1:sourcePin.gitBlobSha1,sha256:sourcePin.sha256,sizeBytes:sourcePin.sizeBytes,recordCount:27198,primaryKey:'ID',sourceIndex:{path:sourcePin.sourceIndex.path,gitBlobSha1:sourcePin.sourceIndex.gitBlobSha1,sha256:'8d0af55600bcb0faa0210c26b9cb6ea8caceb2f27baac137f5651776b9ff521b',recordCount:27198,recordIndices:{'70110':16299}}};
+  exactKeys(hero15HeartFetterLv10SkillEvidence,['schemaVersion','responsibility','scope','source','selectionEvidence','extraction','records','sourceFieldInventory','admittedFields','nonAdmittedFields','canonical','generated','publicationApproval','productionRuntimeDependency','limitation'],'Hero15 Heart Fetter Lv10 SkillInfo Evidence');
+  check(hero15HeartFetterLv10SkillEvidence.schemaVersion===1 && hero15HeartFetterLv10SkillEvidence.responsibility==='skill-identity-and-source-detail'
+    && isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.scope,{sourceScope:evidence.scope.sourceScope,skillIds:[70110],claim:'One source-native Hero 15 Heart Fetter Lv10 referenced SkillInfo identity selected by the explicit ConfigDataHeroHeartFetterInfo.ID=15 UnlockSkills_ID row; only ID/Name/Desc are admitted.',outOfScope:['Fetter level gameplay semantics','skill acquisition, equip, activation, or unlock rules','PassiveBuffs_ID endpoint semantics','combat/effect semantics or formulas','Korean localization','publication approval','icon or asset meaning','all other ConfigDataSkillInfo fields']}),
+    'HERO15_HEART_FETTER_LV10_SCOPE','Heart Fetter Lv10 Skill identity scope changed');
+  check(isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.source,lv10Pin),'HERO15_HEART_FETTER_LV10_PIN','SkillInfo source or index pin changed');
+  const expectedLv10Selection={path:'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json',locator:'source/heartFetter/fields/UnlockSkills_ID[4]',recordLocator:'ConfigDataHeroHeartFetterInfo#ID=15',sourceField:'UnlockSkills_ID',arrayIndex:4,sourceRow:{SkillId:70110,HeartFetterLevel:10},limitation:'Existing source evidence selects the ID only. It does not admit an unlock relation or Fetter runtime rule.'};
+  check(isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.selectionEvidence,expectedLv10Selection)
+    && heartFetterRawConditions.source?.heartFetter?.recordLocator==='ConfigDataHeroHeartFetterInfo#ID=15'
+    && isDeepStrictEqual(heartFetterRawConditions.source?.heartFetter?.fields?.UnlockSkills_ID?.[4],{SkillId:70110,HeartFetterLevel:10})
+    && heartFetterRawConditions.source?.commit==='6475e63ee23d18adf733756c26a14fa9e3ed662c',
+    'HERO15_HEART_FETTER_LV10_SELECTOR','Explicit Lv10 source selector or scope changed');
+  check(isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.extraction,{method:'Read fixed ConfigDataSkillInfo Git blob bytes and parse the top-level JSON array without normalization; select exact numeric ID 70110, preserve ID/Name/Desc only, and inventory all source fields by name/type/state.',rawBytesVerified:true,gitBlobSha1Recomputed:true,sha256Recomputed:true,recordCountVerified:true,sourceIndexUsedAsLocatorOnly:true,selectedSourceFields:['ID','Name','Desc']}),
+    'HERO15_HEART_FETTER_LV10_EXTRACTION','Source extraction/hash verification claim changed');
+  check(hero15HeartFetterLv10SkillEvidence.records?.length===1,'HERO15_HEART_FETTER_LV10_RECORDS','Expected exactly one selected Lv10 SkillInfo record');
+  const lv10Row=hero15HeartFetterLv10SkillEvidence.records[0];
+  exactKeys(lv10Row,['sourceRecordIndex','sourceRecordLocator','rawRecord','fieldProvenance'],'Hero15 Heart Fetter Lv10 SkillInfo row');
+  check(lv10Row.sourceRecordIndex===lv10SkillIndex && lv10Row.sourceRecordLocator===`${sourcePin.path}#ID=${lv10SkillId}`
+    && isDeepStrictEqual(lv10Row.rawRecord,{ID:lv10SkillId,Name:lv10SkillName,Desc:lv10SkillDesc})
+    && isDeepStrictEqual(lv10Row.fieldProvenance,{ID:`${sourcePin.path}#arrayIndex=${lv10SkillIndex}/ID`,Name:`${sourcePin.path}#arrayIndex=${lv10SkillIndex}/Name`,Desc:`${sourcePin.path}#arrayIndex=${lv10SkillIndex}/Desc`}),
+    'HERO15_HEART_FETTER_LV10_RECORDS','Skill 70110 source ID/Name/Desc or locator differs');
+  const expectedLv10Inventory=[['ID','number','ADMITTED'],['Name','string','ADMITTED'],['Desc','string','ADMITTED'],['PassiveBuffs_ID','array','NON_ADMITTED'],['SkillAIType','number','NON_ADMITTED'],['SkillType','number','NON_ADMITTED'],['Icon','string','NON_ADMITTED'],['BattlePower2','number','NON_ADMITTED']].map(([field,jsonType,admission])=>({field,jsonType,state:'PRESENT',admission}));
+  check(isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.sourceFieldInventory,expectedLv10Inventory)
+    && isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.admittedFields,['ID','Name','Desc'])
+    && isDeepStrictEqual(hero15HeartFetterLv10SkillEvidence.nonAdmittedFields,['PassiveBuffs_ID','SkillAIType','SkillType','Icon','BattlePower2']),
+    'HERO15_HEART_FETTER_LV10_INVENTORY','Skill 70110 source inventory or selective admission changed');
+  check(hero15HeartFetterLv10SkillEvidence.canonical===false && hero15HeartFetterLv10SkillEvidence.generated===false
+    && hero15HeartFetterLv10SkillEvidence.publicationApproval===false && hero15HeartFetterLv10SkillEvidence.productionRuntimeDependency===false
+    && hero15HeartFetterLv10SkillEvidence.limitation==='This selective projection admits Skill Identity ID/Name/Desc only. Field inventory records source field names, JSON types, and states without admitting non-admitted values. The selection reference does not approve Skill unlock/acquisition semantics; no Fetter gameplay, buff, combat, localization, or publication semantics are established.',
+    'HERO15_HEART_FETTER_LV10_BOUNDARY','Skill 70110 evidence crosses the Identity or publication boundary');
+  const lv10Canonical=canonical.records[107];
+  exactKeys(lv10Canonical,['skillId','nameCn','descriptionCn','provenance'],'Canonical Hero15 Heart Fetter Lv10 Skill 70110');
+  exactKeys(lv10Canonical.provenance,['identity','name','description'],'Canonical Hero15 Heart Fetter Lv10 Skill provenance');
+  const lv10Locator=`${hero15HeartFetterLv10SkillEvidencePath}#ID=70110`;
+  check(lv10Canonical.skillId===lv10SkillId && Number.isSafeInteger(lv10Canonical.skillId)
+    && lv10Canonical.nameCn===lv10SkillName && lv10Canonical.descriptionCn===lv10SkillDesc
+    && isDeepStrictEqual(lv10Canonical.provenance,{identity:lv10Locator,name:`${lv10Locator}/Name`,description:`${lv10Locator}/Desc`}),
+    'CANONICAL','Heart Fetter Lv10 Skill 70110 identity or provenance mismatch');
+  canonicalIds.push(lv10Canonical.skillId);
+  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 107 records plus source-verified Heart Fetter Lv10 identity');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461));
+  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461 && row.skillId!==70110));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
@@ -467,7 +510,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=106; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=107; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {
