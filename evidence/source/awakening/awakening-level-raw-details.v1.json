@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "claimType": "awakening-level-raw-details",
+  "owner": "shared-awakening-level-raw-detail",
+  "scope": {
+    "namespace": "ConfigDataAwakenLevelInfo.ID",
+    "ids": [1015, 2015],
+    "claim": "Selected source-native Awakening Level records and the six explicitly admitted raw fields only. This is not a complete source-record admission and asserts no runtime or publication meaning."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "configDataSubtree": "b18983f60cb054c2e6e094d64cdb98979211d7fc",
+    "path": "data/configdata/ConfigDataAwakenLevelInfo.json",
+    "gitBlobSha1": "cce2eea928ecfc9e09b03e9f694411af4db69da4",
+    "sha256": "370ea380cb6f78495e7ad327afd8794d5fa44616865c578627175c30aac7be16",
+    "byteLength": 137268,
+    "recordCount": 566,
+    "encoding": "UTF-8 JSON parsed from the exact pinned Git blob."
+  },
+  "selection": {
+    "referenceEvidence": "evidence/source/awakening/hero15-awakening-references.v1.json",
+    "referenceCanonical": "canonical/hero-awakening-references.v1.json",
+    "stage1LevelId": 1015,
+    "stage2LevelId": 2015,
+    "rule": "Select only the two exact ID values already referenced by Hero 15 Stage 1 and Stage 2."
+  },
+  "inspectedFields": ["ID", "Name", "Battle_ID", "MonsterLevel", "Desc", "Image"],
+  "admittedFields": ["ID", "Name", "Battle_ID", "MonsterLevel", "Desc", "Image"],
+  "nonAdmittedFields": [],
+  "records": [
+    {
+      "sourceArrayIndex": 13,
+      "recordLocator": "ConfigDataAwakenLevelInfo#ID=1015",
+      "rawRecord": {
+        "ID": 1015,
+        "Name": "光明之火",
+        "Battle_ID": 42013,
+        "MonsterLevel": 70,
+        "Desc": "艾尔文，你难道没有什么要和我解释吗？",
+        "Image": "UI/BattleThumbnail_ABS/Castle007.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "Battle_ID": "PRESENT",
+        "MonsterLevel": "PRESENT",
+        "Desc": "PRESENT",
+        "Image": "PRESENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 296,
+      "recordLocator": "ConfigDataAwakenLevelInfo#ID=2015",
+      "rawRecord": {
+        "ID": 2015,
+        "Name": "辉光的信标",
+        "Battle_ID": 42616,
+        "MonsterLevel": 70,
+        "Desc": "无论他作何抉择，我都已坚定自己的信仰，愿化身道标，照亮光辉的前路！",
+        "Image": "UI/BattleThumbnail_ABS/Arena003.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "Battle_ID": "PRESENT",
+        "MonsterLevel": "PRESENT",
+        "Desc": "PRESENT",
+        "Image": "PRESENT"
+      }
+    }
+  ],
+  "interpretation": {
+    "evidenceClass": "A_DIRECT_SOURCE_RECORD",
+    "transformation": "Parse the exact pinned UTF-8 JSON bytes and select records by exact integer ID equality. Preserve the selected six fields and source array indices without normalization.",
+    "fieldInventoryBoundary": "The source records contain exactly the six inspected fields listed above. No additional, absent, null, empty, or zero-valued field was observed in either selected record. The admitted field set equals the observed source field set for these two records only.",
+    "limitation": "Raw source values only. No Battle endpoint relation, player-level requirement, Image asset admission, translation, unlock/completion, material consumption, Skill acquisition/equip, combat effect, other Hero, Generated consumer, or publication claim."
+  }
+}
