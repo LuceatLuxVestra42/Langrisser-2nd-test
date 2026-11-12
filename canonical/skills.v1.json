@@ -1062,6 +1062,16 @@
         "name": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350/Name",
         "description": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350/Desc"
       }
+    },
+    {
+      "skillId": 70461,
+      "nameCn": "心之羁绊：莉亚娜Lv1",
+      "descriptionCn": "英雄的生命<color=#DC143C>+65</color>，防御<color=#DC143C>+4</color>，魔防<color=#DC143C>+5</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json#ID=70461",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json#ID=70461/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json#ID=70461/Desc"
+      }
     }
   ]
 }

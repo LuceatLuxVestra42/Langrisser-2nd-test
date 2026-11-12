@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "scope": {
+    "sourceScope": "CN ConfigData snapshot 2026-09-02",
+    "skillIds": [
+      70461
+    ],
+    "claim": "One source-native Hero 15 Heart Fetter SkillInfo identity selected by ConfigDataHeroHeartFetterInfo.ID=15 HeroHeartFetterSkills[0]; only ID/Name/Desc are admitted.",
+    "outOfScope": [
+      "Fetter level gameplay semantics",
+      "skill acquisition, equip, activation, or unlock rules",
+      "PassiveBuffs_ID endpoint semantics",
+      "combat/effect semantics or formulas",
+      "Korean localization",
+      "publication approval",
+      "icon or asset meaning"
+    ]
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "recordCount": 27198,
+    "primaryKey": "ID",
+    "sourceIndex": {
+      "path": "data/index/skill.v1.json",
+      "gitBlobSha1": "7bc7ce0f2ac59224763faf1a70e19e199eecc900",
+      "recordCount": 27198,
+      "recordIndices": {
+        "70461": 16652
+      }
+    }
+  },
+  "selectionEvidence": {
+    "path": "canonical/hero-heart-fetter-raw-details.v1.json",
+    "recordLocator": "ConfigDataHeroHeartFetterInfo#ID=15",
+    "sourceField": "HeroHeartFetterSkills",
+    "arrayIndex": 0,
+    "selectedSkillId": 70461,
+    "limitation": "The existing raw HeroHeartFetterSkills reference is reused as a selector only; it does not establish gameplay acquisition, level semantics, or Skill effects."
+  },
+  "extraction": {
+    "method": "Read pinned ConfigDataSkillInfo Git blob bytes and parse the top-level JSON array without normalization; select exactly numeric ID 70461 and preserve only ID, Name, Desc for Identity admission.",
+    "rawBytesVerified": true,
+    "gitBlobSha1Recomputed": true,
+    "sha256Recomputed": true,
+    "recordCountVerified": true,
+    "sourceIndexUsedAsLocatorOnly": true,
+    "selectedSourceFields": [
+      "ID",
+      "Name",
+      "Desc"
+    ]
+  },
+  "records": [
+    {
+      "sourceRecordIndex": 16652,
+      "sourceRecordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70461",
+      "rawRecord": {
+        "ID": 70461,
+        "Name": "心之羁绊：莉亚娜Lv1",
+        "Desc": "英雄的生命<color=#DC143C>+65</color>，防御<color=#DC143C>+4</color>，魔防<color=#DC143C>+5</color>。"
+      },
+      "fieldProvenance": {
+        "ID": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16652/ID",
+        "Name": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16652/Name",
+        "Desc": "data/configdata/ConfigDataSkillInfo.json#arrayIndex=16652/Desc"
+      }
+    }
+  ],
+  "sourceFieldInventory": [
+    {
+      "field": "ID",
+      "jsonType": "number",
+      "state": "PRESENT",
+      "admission": "ADMITTED"
+    },
+    {
+      "field": "Name",
+      "jsonType": "string",
+      "state": "PRESENT",
+      "admission": "ADMITTED"
+    },
+    {
+      "field": "Desc",
+      "jsonType": "string",
+      "state": "PRESENT",
+      "admission": "ADMITTED"
+    },
+    {
+      "field": "PassiveBuffs_ID",
+      "jsonType": "array",
+      "state": "PRESENT",
+      "admission": "NON_ADMITTED"
+    },
+    {
+      "field": "SkillAIType",
+      "jsonType": "number",
+      "state": "PRESENT",
+      "admission": "NON_ADMITTED"
+    },
+    {
+      "field": "SkillType",
+      "jsonType": "number",
+      "state": "PRESENT",
+      "admission": "NON_ADMITTED"
+    },
+    {
+      "field": "BattlePower2",
+      "jsonType": "number",
+      "state": "PRESENT",
+      "admission": "NON_ADMITTED"
+    }
+  ],
+  "admittedFields": [
+    "ID",
+    "Name",
+    "Desc"
+  ],
+  "nonAdmittedFields": [
+    "PassiveBuffs_ID",
+    "SkillAIType",
+    "SkillType",
+    "BattlePower2"
+  ],
+  "canonical": false,
+  "generated": false,
+  "publicationApproval": false,
+  "productionRuntimeDependency": false,
+  "limitation": "This selective projection admits Skill Identity ID/Name/Desc only. Other source fields are inventoried but not admitted; no Fetter gameplay, buff, combat, acquisition, localization, or publication semantics are established."
+}
