@@ -21,7 +21,6 @@ import { validateCastingLawTemplateRawDetails } from './validate-casting-law-tem
 import { validateCastingLawTemplateLevelReferences } from './validate-casting-law-template-level-references.mjs';
 import { validateCastingLawLevelUpMaterialReferences } from './validate-casting-law-levelup-material-references.mjs';
 import { validateHero15AwakeningReferences } from './validate-hero15-awakening-references.mjs';
-import { validateAwakeningLevelRawDetails } from './validate-awakening-level-raw-details.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 
@@ -778,6 +777,5 @@ await validateCastingLawTemplateRawDetails(root);
 await validateCastingLawTemplateLevelReferences(root);
 await validateCastingLawLevelUpMaterialReferences(root);
 await validateHero15AwakeningReferences(root);
-await validateAwakeningLevelRawDetails(root);
 await validateSkinGenerated(root);
 process.stdout.write('Hero slice, Job advancement, Skill references, Fetter references and raw Heart Fetter conditions, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');

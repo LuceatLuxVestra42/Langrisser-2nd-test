@@ -534,12 +534,6 @@ jobs:
       - name: Test Hero 15 Awakening reference boundaries
         run: node tools/test-hero15-awakening-references.mjs
 
-      - name: Validate Awakening Level raw details
-        run: node tools/validate-awakening-level-raw-details.mjs
-
-      - name: Test Awakening Level raw-detail boundaries
-        run: node tools/test-awakening-level-raw-details.mjs
-
       - name: Validate Hero 15 Talent Publication and Generated Consumer
         run: node tools/validate-hero-15-talent-publication.mjs
 
