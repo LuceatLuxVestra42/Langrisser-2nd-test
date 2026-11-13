@@ -10,6 +10,7 @@ import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-r
 import { validateHero15JobAdvancementFromRoot } from './validate-hero15-job-advancement.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateHero15SkillReferences } from './validate-hero15-skill-references.mjs';
+import { validateHero15SkillDetailInternal } from './hero-15-skill-detail-internal.mjs';
 import { validateHero15FetterReferences } from './validate-hero15-fetter-references.mjs';
 import { validateHero15HeartFetterRawConditions } from './validate-hero15-heart-fetter-raw-conditions.mjs';
 import { validateHero15FetterRawDetails } from './validate-hero15-fetter-raw-details.mjs';
@@ -770,6 +771,7 @@ await validateHeroPortraitSelection(root);
 await loadAndValidateHeroJobLevelRawStats(root);
 await validateHero15JobAdvancementFromRoot(root);
 await validateHero15SkillReferences(root);
+await validateHero15SkillDetailInternal(root);
 await validateHero15FetterReferences(root);
 await validateHero15HeartFetterRawConditions(root);
 await validateHero15FetterRawDetails(root);
