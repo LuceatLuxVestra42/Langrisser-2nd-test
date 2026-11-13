@@ -19,6 +19,7 @@ import { validateHero15FetterMaterialRelations } from './validate-hero15-fetter-
 import { validateHero15FetterSkillReferences } from './validate-hero15-fetter-skill-references.mjs';
 import { validateHero15FetterConditionTypeReferences } from './validate-hero15-fetter-condition-type-references.mjs';
 import { validateHero15FetterRewardTypeReferences } from './validate-hero15-fetter-reward-type-references.mjs';
+import { validateHero15FetterInternal } from './hero-15-fetter-internal.mjs';
 import { validateHero15CastingLawTemplateReferences } from './validate-hero15-casting-law-template-references.mjs';
 import { validateCastingLawTemplateRawDetails } from './validate-casting-law-template-raw-details.mjs';
 import { validateCastingLawTemplateLevelReferences } from './validate-casting-law-template-level-references.mjs';
@@ -780,6 +781,7 @@ await validateHero15FetterMaterialRelations(root);
 await validateHero15FetterSkillReferences(root);
 await validateHero15FetterConditionTypeReferences(root);
 await validateHero15FetterRewardTypeReferences(root);
+await validateHero15FetterInternal(root);
 await validateHero15CastingLawTemplateReferences(root);
 await validateCastingLawTemplateRawDetails(root);
 await validateCastingLawTemplateLevelReferences(root);

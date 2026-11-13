@@ -1181,6 +1181,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await generateHero15JobTreeInternal();
   const { generateHero15SkillDetailInternal } = await import('./hero-15-skill-detail-internal.mjs');
   await generateHero15SkillDetailInternal();
+  const { generateHero15FetterInternal } = await import('./hero-15-fetter-internal.mjs');
+  await generateHero15FetterInternal();
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
   const { loadHero15SoldierInputs, renderHero15SoldierInternal, OUTPUT: HERO15_SOLDIER_INTERNAL_OUTPUT } = await import('./hero-15-soldier-internal-consumer.mjs');

@@ -516,6 +516,9 @@ jobs:
       - name: Test Hero 15 Fetter Reward type boundaries
         run: node tools/test-hero15-fetter-reward-type-references.mjs
 
+      - name: Test Hero 15 Fetter internal Consumer boundaries
+        run: node tools/test-hero15-fetter-internal.mjs
+
       - name: Validate Hero 15 Casting Law template references
         run: node tools/validate-hero15-casting-law-template-references.mjs
 
