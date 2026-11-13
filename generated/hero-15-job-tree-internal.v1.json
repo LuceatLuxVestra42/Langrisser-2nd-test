@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "scope": "Internal Hero 15 Job membership and admitted direct advancement projection only; no inferred edges, runtime unlock rules, mastery cost, skills, stats, or publication.",
+  "heroId": 15,
+  "jobOwner": "canonical/hero-job-relations.v1.json",
+  "advancementOwner": "canonical/hero-job-advancement-relations.v1.json",
+  "limitations": [
+    "Source snapshot is version-scoped and does not encode numeric hero-level thresholds or mastery cost.",
+    "No reachability beyond the five direct edges is separately admitted.",
+    "No UI path, Job Tree presentation, mastery values, skill acquisition relation, or final combat calculation is admitted.",
+    "This internal projection does not approve publication or runtime unlock semantics."
+  ],
+  "jobs": [
+    {
+      "connectionId": 150,
+      "jobId": 802,
+      "heroJobProvenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=150",
+      "connectionEvidence": {
+        "source": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/connectionMembership",
+        "status": "REUSED_EXISTING"
+      },
+      "localization": {
+        "status": "ADMITTED",
+        "nameKo": "시스터",
+        "provenance": "evidence/localization/job-names-ko.hero-4.v1.json#jobId=802"
+      }
+    },
+    {
+      "connectionId": 151,
+      "jobId": 803,
+      "heroJobProvenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=151",
+      "connectionEvidence": {
+        "source": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/connectionMembership",
+        "status": "REUSED_EXISTING"
+      },
+      "localization": {
+        "status": "ADMITTED",
+        "nameKo": "주교",
+        "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=803"
+      }
+    },
+    {
+      "connectionId": 152,
+      "jobId": 806,
+      "heroJobProvenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=152",
+      "connectionEvidence": {
+        "source": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/connectionMembership",
+        "status": "REUSED_EXISTING"
+      },
+      "localization": {
+        "status": "ADMITTED",
+        "nameKo": "프리스트",
+        "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=806"
+      }
+    },
+    {
+      "connectionId": 153,
+      "jobId": 703,
+      "heroJobProvenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=153",
+      "connectionEvidence": {
+        "source": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/connectionMembership",
+        "status": "REUSED_EXISTING"
+      },
+      "localization": {
+        "status": "ADMITTED",
+        "nameKo": "서모너",
+        "provenance": "evidence/localization/job-names-ko.hero-5-6-8.v1.json#jobId=703"
+      }
+    },
+    {
+      "connectionId": 154,
+      "jobId": 811,
+      "heroJobProvenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=154",
+      "connectionEvidence": {
+        "source": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/connectionMembership",
+        "status": "REUSED_EXISTING"
+      },
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "nameKo": null,
+        "provenance": null
+      }
+    },
+    {
+      "connectionId": 155,
+      "jobId": 707,
+      "heroJobProvenance": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId=155",
+      "connectionEvidence": {
+        "source": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/connectionMembership",
+        "status": "REUSED_EXISTING"
+      },
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "nameKo": null,
+        "provenance": null
+      }
+    }
+  ],
+  "directEdges": [
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 151,
+      "successorJobId": 803,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=151/PreJobConnectionList",
+      "evidenceClass": "A",
+      "evidenceProvenance": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/directEdges"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 152,
+      "successorJobId": 806,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=152/PreJobConnectionList",
+      "evidenceClass": "A",
+      "evidenceProvenance": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/directEdges"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 150,
+      "predecessorJobId": 802,
+      "successorConnectionId": 153,
+      "successorJobId": 703,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=153/PreJobConnectionList",
+      "evidenceClass": "A",
+      "evidenceProvenance": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/directEdges"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 152,
+      "predecessorJobId": 806,
+      "successorConnectionId": 154,
+      "successorJobId": 811,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=154/PreJobConnectionList",
+      "evidenceClass": "A",
+      "evidenceProvenance": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/directEdges"
+    },
+    {
+      "heroId": 15,
+      "predecessorConnectionId": 153,
+      "predecessorJobId": 703,
+      "successorConnectionId": 155,
+      "successorJobId": 707,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=155/PreJobConnectionList",
+      "evidenceClass": "A",
+      "evidenceProvenance": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/directEdges"
+    }
+  ]
+}
