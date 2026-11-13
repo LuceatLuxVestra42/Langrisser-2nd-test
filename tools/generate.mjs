@@ -1175,6 +1175,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/skin-hero-relations-m02.v1.json'), 'utf8').then(JSON.parse),
     readFile(resolve('canonical/skin-source-orders-m02.v1.json'), 'utf8').then(JSON.parse),
   ]);
+  const { loadAwakeningInputs, renderAwakeningInternal, OUTPUT: AWAKENING_INTERNAL_OUTPUT } = await import('./hero-15-awakening-internal-consumer.mjs');
+  await writeFile(resolve(AWAKENING_INTERNAL_OUTPUT), renderAwakeningInternal(await loadAwakeningInputs()), 'utf8');
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
   const { loadHero15SoldierInputs, renderHero15SoldierInternal, OUTPUT: HERO15_SOLDIER_INTERNAL_OUTPUT } = await import('./hero-15-soldier-internal-consumer.mjs');
