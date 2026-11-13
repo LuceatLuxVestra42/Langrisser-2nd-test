@@ -151,6 +151,9 @@ jobs:
       - name: Test Hero JobLevel raw stats
         run: node tools/test-hero-job-level-raw-stats.mjs
 
+      - name: Test Hero 15 Job Tree internal boundaries
+        run: node tools/test-hero-15-job-tree-internal.mjs
+
       - name: Validate Hero 15 Job advancement relations
         run: node tools/validate-hero15-job-advancement.mjs
 
@@ -210,6 +213,9 @@ jobs:
 
       - name: Test Hero 15 Skill reference semantic boundaries
         run: node tools/test-hero15-skill-references.mjs
+
+      - name: Test Hero 15 Skill Detail internal projection boundaries
+        run: node tools/test-hero-15-skill-detail-internal.mjs
 
       - name: Validate Hero 15 source-native Fetter references
         run: node tools/validate-hero15-fetter-references.mjs
@@ -323,6 +329,12 @@ jobs:
 
       - name: Test Hero-Soldier direct-source validation
         run: node tools/test-hero-soldier-direct-source.mjs
+
+      - name: Validate Hero 15 Soldier internal projection
+        run: node tools/validate-hero-15-soldier-internal.mjs
+
+      - name: Test Hero 15 Soldier internal projection boundaries
+        run: node tools/test-hero-15-soldier-internal.mjs
 
       - name: Validate Hero-Soldier generated presentation
         run: node tools/validate-hero-soldier-presentation.mjs
@@ -554,6 +566,9 @@ jobs:
 
       - name: Test Hero 15 Awakening reference boundaries
         run: node tools/test-hero15-awakening-references.mjs
+
+      - name: Test Hero 15 Awakening internal consumer failure boundaries
+        run: node tools/test-hero-15-awakening-internal.mjs
 
       - name: Validate Awakening Level raw details
         run: node tools/validate-awakening-level-raw-details.mjs

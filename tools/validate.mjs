@@ -1,3 +1,5 @@
+import { validateFromRoot as validateHero15SoldierInternal } from './validate-hero-15-soldier-internal.mjs';
+import { validateFromRoot as validateHero15AwakeningInternal } from './validate-hero-15-awakening-internal.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
@@ -8,6 +10,7 @@ import { loadAndValidateHeroJobLevelRawStats } from './validate-hero-job-level-r
 import { validateHero15JobAdvancementFromRoot } from './validate-hero15-job-advancement.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
 import { validateHero15SkillReferences } from './validate-hero15-skill-references.mjs';
+import { validateHero15SkillDetailInternal } from './hero-15-skill-detail-internal.mjs';
 import { validateHero15FetterReferences } from './validate-hero15-fetter-references.mjs';
 import { validateHero15HeartFetterRawConditions } from './validate-hero15-heart-fetter-raw-conditions.mjs';
 import { validateHero15FetterRawDetails } from './validate-hero15-fetter-raw-details.mjs';
@@ -769,6 +772,7 @@ await validateHeroPortraitSelection(root);
 await loadAndValidateHeroJobLevelRawStats(root);
 await validateHero15JobAdvancementFromRoot(root);
 await validateHero15SkillReferences(root);
+await validateHero15SkillDetailInternal(root);
 await validateHero15FetterReferences(root);
 await validateHero15HeartFetterRawConditions(root);
 await validateHero15FetterRawDetails(root);
@@ -787,5 +791,11 @@ await validateCastingLawLevelUpPreviousLevelReferences(root);
 await validateCastingLawLevelUpPropertyRawDetails(root);
 await validateHero15AwakeningReferences(root);
 await validateAwakeningLevelRawDetails(root);
+await validateHero15AwakeningInternal(root);
 await validateSkinGenerated(root);
 process.stdout.write('Hero slice, Job advancement, Skill references, Fetter references and raw Heart Fetter conditions, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');
+
+await validateHero15SoldierInternal(root);
+
+const { validateFile: validateHero15JobTreeInternal } = await import('./hero-15-job-tree-internal.mjs');
+await validateHero15JobTreeInternal(root);

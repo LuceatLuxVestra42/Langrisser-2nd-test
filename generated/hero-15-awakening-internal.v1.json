@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "scope": "Internal projection only; source references and raw fields do not establish unlock, completion, consumption, skill acquisition, equip, activation, combat, asset, or publication semantics.",
+  "heroId": 15,
+  "awakenInfoId": 15,
+  "awakeningSourceNamespace": "ConfigDataAwakenInfo.ID",
+  "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo",
+  "stage1": {
+    "reference": {
+      "sourceField": "Awaken1LevelID",
+      "levelId": 1015,
+      "endpointNamespace": "ConfigDataAwakenLevelInfo.ID",
+      "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo/fields/Awaken1LevelID",
+      "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenLevelEndpoints/records/0"
+    },
+    "goods": [
+      {
+        "sourceIndex": 0,
+        "goodsType": 6,
+        "itemId": 3253,
+        "count": 5,
+        "endpointNamespace": "ConfigDataItemInfo.ID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/0"
+      },
+      {
+        "sourceIndex": 1,
+        "goodsType": 6,
+        "itemId": 3249,
+        "count": 8,
+        "endpointNamespace": "ConfigDataItemInfo.ID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/1"
+      },
+      {
+        "sourceIndex": 2,
+        "goodsType": 6,
+        "itemId": 3247,
+        "count": 8,
+        "endpointNamespace": "ConfigDataItemInfo.ID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/2"
+      }
+    ],
+    "detail": {
+      "levelId": 1015,
+      "rawFields": {
+        "ID": 1015,
+        "Name": "光明之火",
+        "Battle_ID": 42013,
+        "MonsterLevel": 70,
+        "Desc": "艾尔文，你难道没有什么要和我解释吗？",
+        "Image": "UI/BattleThumbnail_ABS/Castle007.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "Battle_ID": "PRESENT",
+        "MonsterLevel": "PRESENT",
+        "Desc": "PRESENT",
+        "Image": "PRESENT"
+      },
+      "provenance": "evidence/source/awakening/awakening-level-raw-details.v1.json#records/ID=1015"
+    }
+  },
+  "stage2": {
+    "reference": {
+      "sourceField": "Awaken2LevelID",
+      "levelId": 2015,
+      "endpointNamespace": "ConfigDataAwakenLevelInfo.ID",
+      "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo/fields/Awaken2LevelID",
+      "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenLevelEndpoints/records/1"
+    },
+    "goods": [
+      {
+        "sourceIndex": 0,
+        "goodsType": 6,
+        "itemId": 3260,
+        "count": 5,
+        "endpointNamespace": "ConfigDataItemInfo.ID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/3"
+      },
+      {
+        "sourceIndex": 1,
+        "goodsType": 6,
+        "itemId": 3256,
+        "count": 12,
+        "endpointNamespace": "ConfigDataItemInfo.ID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/4"
+      },
+      {
+        "sourceIndex": 2,
+        "goodsType": 6,
+        "itemId": 3254,
+        "count": 12,
+        "endpointNamespace": "ConfigDataItemInfo.ID",
+        "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/itemEndpoints/records/5"
+      }
+    ],
+    "detail": {
+      "levelId": 2015,
+      "rawFields": {
+        "ID": 2015,
+        "Name": "辉光的信标",
+        "Battle_ID": 42616,
+        "MonsterLevel": 70,
+        "Desc": "无论他作何抉择，我都已坚定自己的信仰，愿化身道标，照亮光辉的前路！",
+        "Image": "UI/BattleThumbnail_ABS/Arena003.png"
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "Name": "PRESENT",
+        "Battle_ID": "PRESENT",
+        "MonsterLevel": "PRESENT",
+        "Desc": "PRESENT",
+        "Image": "PRESENT"
+      },
+      "provenance": "evidence/source/awakening/awakening-level-raw-details.v1.json#records/ID=2015"
+    },
+    "skillReference": {
+      "sourceField": "Level2SkillID",
+      "skillId": 12350,
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "evidenceProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo/fields/Level2SkillID",
+      "endpointProvenance": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/skillEndpoint/records/0"
+    },
+    "skillIdentity": {
+      "skillId": 12350,
+      "nameCn": "创生圣颂",
+      "descriptionCn": "[被动]天赋每驱散<color=#DC143C>1</color>个弱化效果后额外附加<color=#DC143C>1</color>个强化效果。\n[支援]主动使用，使得单个部队的\"攻击、智力\"\"防御\"提升<color=#DC143C>20%</color>，且免疫所有弱化效果，行动结束时，对其周围<color=#DC143C>2</color>格范围内的所有友军恢复施加者智力<color=#DC143C>2</color>倍的生命值，并驱散<color=#DC143C>2</color>个弱化效果，持续<color=#DC143C>2</color>回合。同时自身获得“免疫所有弱化效果”，持续<color=#DC143C>1</color>回合。",
+      "provenance": {
+        "identity": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350",
+        "name": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350/Name",
+        "description": "evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json#ID=12350/Desc"
+      }
+    }
+  }
+}
