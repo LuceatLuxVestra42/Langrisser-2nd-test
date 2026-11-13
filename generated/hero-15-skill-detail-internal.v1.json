@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "scope": "Internal Hero 15 direct and JobLevel skill-reference detail projection only; no Korean localization, equipability, unlock, combat, or publication semantics.",
+  "heroId": 15,
+  "limitations": [
+    "JOB_LEVEL_SKILL_ACQUISITION preserves the admitted source-reference kind and does not establish equipability, availability, or acquisition timing.",
+    "Chinese Name and Desc are preserved as source text; no combat values, cooldowns, range, cost, or structured effects are derived.",
+    "This internal projection does not approve Korean localization, publication, or runtime use.",
+    "Only the nine ordinary Hero 15 references in hero-skill-references.v1.json are included; Talent, Awakening, Fetter, and Heart Fetter references are excluded."
+  ],
+  "references": [
+    {
+      "referenceKind": "HERO_DIRECT_SKILL_REFERENCE",
+      "heroId": 15,
+      "skillId": 10801,
+      "sourceField": "ConfigDataHeroInfo.Skills_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/0",
+        "endpoint": "canonical/skills.v1.json#skillId=10801"
+      },
+      "skillIdentity": {
+        "skillId": 10801,
+        "nameCn": "治疗术",
+        "descriptionCn": "[治疗]主动使用，恢复单个部队的生命值，恢复量为施法者智力的<color=#DC143C>5</color>倍。并且驱散<color=#DC143C>1</color>个弱化效果。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10801",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10801/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10801/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 150,
+      "jobId": 802,
+      "jobLevelId": 1502,
+      "skillId": 10816,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/1",
+        "endpoint": "canonical/skills.v1.json#skillId=10816"
+      },
+      "skillIdentity": {
+        "skillId": 10816,
+        "nameCn": "再行动",
+        "descriptionCn": "[支援]主动使用，可以使<color=#DC143C>1</color>个己方行动完的部队再次行动。并恢复施法者智力<color=#DC143C>2</color>倍的生命。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10816",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10816/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10816/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 151,
+      "jobId": 803,
+      "jobLevelId": 1512,
+      "skillId": 10805,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/2",
+        "endpoint": "canonical/skills.v1.json#skillId=10805"
+      },
+      "skillIdentity": {
+        "skillId": 10805,
+        "nameCn": "福音",
+        "descriptionCn": "[支援]主动使用，使得单个部队的攻击、智力、防御提升<color=#DC143C>20%</color>，且免疫所有弱化效果，持续<color=#DC143C>2</color>回合。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10805",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10805/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10805/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 152,
+      "jobId": 806,
+      "jobLevelId": 1522,
+      "skillId": 10707,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/3",
+        "endpoint": "canonical/skills.v1.json#skillId=10707"
+      },
+      "skillIdentity": {
+        "skillId": 10707,
+        "nameCn": "风刃",
+        "descriptionCn": "[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「飞兵」有特效。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10707",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10707/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10707/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 153,
+      "jobId": 703,
+      "jobLevelId": 1532,
+      "skillId": 10705,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/4",
+        "endpoint": "canonical/skills.v1.json#skillId=10705"
+      },
+      "skillIdentity": {
+        "skillId": 10705,
+        "nameCn": "冰冻",
+        "descriptionCn": "[魔法伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍伤害，对「枪兵」有特效。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10705",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10705/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10705/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1541,
+      "skillId": 10804,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/5",
+        "endpoint": "canonical/skills.v1.json#skillId=10804"
+      },
+      "skillIdentity": {
+        "skillId": 10804,
+        "nameCn": "群体护盾",
+        "descriptionCn": "[支援]主动使用，使得范围内多个部队的防御提升<color=#DC143C>20%</color>，且免疫:“防御、魔防降低”、\"无法被治疗“，持续<color=#DC143C>2</color>回合。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10804",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10804/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10804/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1543,
+      "skillId": 10807,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/6",
+        "endpoint": "canonical/skills.v1.json#skillId=10807"
+      },
+      "skillIdentity": {
+        "skillId": 10807,
+        "nameCn": "圣疗",
+        "descriptionCn": "[治疗]恢复大范围内多个部队的生命，恢复量为施法者智力的<color=#DC143C>4</color>倍，并在行动结束时，恢复<color=#DC143C>20%</color>的生命，持续<color=#DC143C>2</color>回合。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10807",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10807/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=10807/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1551,
+      "skillId": 6009,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/7",
+        "endpoint": "canonical/skills.v1.json#skillId=6009"
+      },
+      "skillIdentity": {
+        "skillId": 6009,
+        "nameCn": "冥想",
+        "descriptionCn": "[被动]当部队生命值高于<color=#DC143C>90%</color>时，智力、魔防提升<color=#DC143C>10%</color>。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=6009",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=6009/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=6009/Desc"
+        }
+      }
+    },
+    {
+      "referenceKind": "JOB_LEVEL_SKILL_ACQUISITION",
+      "heroId": 15,
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1553,
+      "skillId": 11786,
+      "sourceField": "ConfigDataJobLevelInfo.GotSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/8",
+        "endpoint": "canonical/skills.v1.json#skillId=11786"
+      },
+      "skillIdentity": {
+        "skillId": 11786,
+        "nameCn": "召唤天空射手",
+        "descriptionCn": "[召唤]召唤一个天空射手。",
+        "provenance": {
+          "identity": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786",
+          "name": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786/Name",
+          "description": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=11786/Desc"
+        }
+      }
+    }
+  ]
+}

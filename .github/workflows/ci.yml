@@ -211,6 +211,9 @@ jobs:
       - name: Test Hero 15 Skill reference semantic boundaries
         run: node tools/test-hero15-skill-references.mjs
 
+      - name: Test Hero 15 Skill Detail internal projection boundaries
+        run: node tools/test-hero-15-skill-detail-internal.mjs
+
       - name: Validate Hero 15 source-native Fetter references
         run: node tools/validate-hero15-fetter-references.mjs
 

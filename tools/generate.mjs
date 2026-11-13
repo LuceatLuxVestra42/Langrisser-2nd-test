@@ -12,6 +12,7 @@ import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailThirtyBatch } from './hero-minimal-detail-thirty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
+import { generateHero15SkillDetailInternal } from './hero-15-skill-detail-internal.mjs';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
@@ -1177,5 +1178,6 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   ]);
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
-  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH + ', ' + HERO_15_MINIMAL_DETAIL_PATH + ', ' + HERO_16_MINIMAL_DETAIL_PATH + ', ' + HERO_MINIMAL_DETAIL_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TEN_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
+  await generateHero15SkillDetailInternal();
+  process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH + ', ' + HERO_15_MINIMAL_DETAIL_PATH + ', ' + HERO_16_MINIMAL_DETAIL_PATH + ', ' + HERO_MINIMAL_DETAIL_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TEN_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH + ', ' + heroSoldierOutputPath + ', ' + skinOutputPath + ', generated/hero-15-skill-detail-internal.v1.json\n');
 }
