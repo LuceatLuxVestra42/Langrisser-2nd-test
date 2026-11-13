@@ -1179,5 +1179,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await writeFile(resolve(AWAKENING_INTERNAL_OUTPUT), renderAwakeningInternal(await loadAwakeningInputs()), 'utf8');
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
+  const { loadHero15SoldierInputs, renderHero15SoldierInternal, OUTPUT: HERO15_SOLDIER_INTERNAL_OUTPUT } = await import('./hero-15-soldier-internal-consumer.mjs');
+  await writeFile(resolve(HERO15_SOLDIER_INTERNAL_OUTPUT), renderHero15SoldierInternal(await loadHero15SoldierInputs()), 'utf8');
   process.stdout.write('Generated ' + outputPath + ', ' + glossaryPath + ', ' + spOutputPath + ', ' + normalSoldierOutputPath + ', ' + trainingTechDescriptionsOutputPath + ', ' + equipmentOutputPath + ', ' + exclusiveEquipmentOutputPath + ', ' + EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH + ', ' + HERO_15_MINIMAL_DETAIL_PATH + ', ' + HERO_16_MINIMAL_DETAIL_PATH + ', ' + HERO_MINIMAL_DETAIL_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TEN_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH + ', ' + HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH + ', ' + heroSoldierOutputPath + ', and ' + skinOutputPath + '\n');
 }

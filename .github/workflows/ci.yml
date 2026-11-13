@@ -324,6 +324,12 @@ jobs:
       - name: Test Hero-Soldier direct-source validation
         run: node tools/test-hero-soldier-direct-source.mjs
 
+      - name: Validate Hero 15 Soldier internal projection
+        run: node tools/validate-hero-15-soldier-internal.mjs
+
+      - name: Test Hero 15 Soldier internal projection boundaries
+        run: node tools/test-hero-15-soldier-internal.mjs
+
       - name: Validate Hero-Soldier generated presentation
         run: node tools/validate-hero-soldier-presentation.mjs
 
