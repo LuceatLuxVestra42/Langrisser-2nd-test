@@ -789,6 +789,8 @@ await validateCastingLawLevelUpMaterialReferences(root);
 await validateCastingLawLevelUpRawDetails(root);
 await validateCastingLawLevelUpPreviousLevelReferences(root);
 await validateCastingLawLevelUpPropertyRawDetails(root);
+const { validateFromRoot: validateHero15CastingLawInternal } = await import('./validate-hero-15-casting-law-internal.mjs');
+await validateHero15CastingLawInternal(root);
 await validateHero15AwakeningReferences(root);
 await validateAwakeningLevelRawDetails(root);
 await validateHero15AwakeningInternal(root);

@@ -623,3 +623,9 @@ jobs:
 
       - name: Test Forty-Hero Minimal Detail boundaries
         run: node tools/test-hero-minimal-detail-forty-batch.mjs
+
+      - name: Validate Hero 15 Casting Law internal consumer
+        run: node tools/validate-hero-15-casting-law-internal.mjs
+
+      - name: Test Hero 15 Casting Law internal boundaries
+        run: node tools/test-hero-15-casting-law-internal.mjs
