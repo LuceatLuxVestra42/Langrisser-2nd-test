@@ -1179,6 +1179,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await writeFile(resolve(AWAKENING_INTERNAL_OUTPUT), renderAwakeningInternal(await loadAwakeningInputs()), 'utf8');
   const { generate: generateHero15JobTreeInternal } = await import('./hero-15-job-tree-internal.mjs');
   await generateHero15JobTreeInternal();
+  const { generate: generateHero15JobLevelInternal } = await import('./hero-15-job-level-internal.mjs');
+  await generateHero15JobLevelInternal();
   const { generateHero15SkillDetailInternal } = await import('./hero-15-skill-detail-internal.mjs');
   await generateHero15SkillDetailInternal();
   const { generate: generateHero15CastingLawInternal } = await import('./hero-15-casting-law-internal.mjs');

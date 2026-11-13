@@ -629,3 +629,9 @@ jobs:
 
       - name: Test Hero 15 Casting Law internal boundaries
         run: node tools/test-hero-15-casting-law-internal.mjs
+
+      - name: Validate Hero 15 JobLevel internal consumer
+        run: node tools/validate-hero-15-job-level-internal.mjs
+
+      - name: Test Hero 15 JobLevel internal boundaries
+        run: node tools/test-hero-15-job-level-internal.mjs

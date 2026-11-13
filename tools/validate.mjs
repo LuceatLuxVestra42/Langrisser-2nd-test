@@ -801,3 +801,5 @@ await validateHero15SoldierInternal(root);
 
 const { validateFile: validateHero15JobTreeInternal } = await import('./hero-15-job-tree-internal.mjs');
 await validateHero15JobTreeInternal(root);
+const { validateFile: validateHero15JobLevelInternal } = await import('./validate-hero-15-job-level-internal.mjs');
+await validateHero15JobLevelInternal(root);
