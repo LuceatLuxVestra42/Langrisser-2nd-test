@@ -792,3 +792,6 @@ await validateSkinGenerated(root);
 process.stdout.write('Hero slice, Job advancement, Skill references, Fetter references and raw Heart Fetter conditions, General SSR Equipment, and Hero JobLevel raw stats validators: PASS (presentation parity, source locators, admitted Hero 15 direct advancement edges, and scoped raw JobLevel stats; no derived combat stats admitted)\n');
 
 await validateHero15SoldierInternal(root);
+
+const { validateFile: validateHero15JobTreeInternal } = await import('./hero-15-job-tree-internal.mjs');
+await validateHero15JobTreeInternal(root);

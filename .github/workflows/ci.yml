@@ -151,6 +151,9 @@ jobs:
       - name: Test Hero JobLevel raw stats
         run: node tools/test-hero-job-level-raw-stats.mjs
 
+      - name: Test Hero 15 Job Tree internal boundaries
+        run: node tools/test-hero-15-job-tree-internal.mjs
+
       - name: Validate Hero 15 Job advancement relations
         run: node tools/validate-hero15-job-advancement.mjs
 
