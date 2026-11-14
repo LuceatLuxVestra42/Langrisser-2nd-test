@@ -40,15 +40,15 @@
       "limitation": "Not yet applied to canonical/heroes.v1.json; not a Korean localization or Publication Approval."
     },
     "portrait": {
-      "status": "CANDIDATE_FIELD_ADMITTED_INTERNAL_ONLY",
+      "status": "CANONICAL_REFERENCE_ADMITTED_INTERNAL_ONLY",
       "ownerArtifact": "canonical/heroes.v1.json",
       "ownerLocator": "id=15/portrait",
-      "evidenceArtifact": "evidence/source/portraits/hero-portrait-hero15.v1.json",
-      "evidenceLocator": "#source/heroInfo&charImageInfo; #asset/path",
-      "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02",
-      "transformation": "Record the exact internally admitted asset path associated with the explicit HeroInfo.CharImage_ID to CharImageInfo.ID reference in the non-public candidate only.",
-      "scope": "Candidate record Portrait reference; internal asset only.",
-      "limitation": "Evidence remains canonical=false, generated=false, and publicationApproved=false. The candidate is not consumed by public projection or build."
+      "evidenceArtifact": "docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json",
+      "evidenceLocator": "#claim",
+      "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02T01:45:21Z",
+      "transformation": "Record the exact internal asset path admitted for the non-public Full Detail record field from the explicit HeroInfo.CharImage_ID to CharImageInfo.ID relation and verified asset bytes.",
+      "scope": "Hero 15 Full Detail record Portrait reference only; internal asset path.",
+      "limitation": "The Canonical record is absent. The source Asset Evidence remains canonical=false and publicationApproved=false; no Asset Publication or Public Build eligibility is granted."
     },
     "jobConnections": {
       "status": "CANDIDATE_PROJECTION_ADMITTED_INTERNAL_ONLY",
@@ -77,7 +77,7 @@
     "identity": "PASS",
     "requiredFields": "BLOCKED",
     "relations": "PARTIAL",
-    "portraitReferenceAdmission": "MANUAL_REVIEW",
+    "portraitReferenceAdmission": "PASS",
     "provenance": "PARTIAL",
     "canonicalSchema": "PASS",
     "populationContract": "PASS",

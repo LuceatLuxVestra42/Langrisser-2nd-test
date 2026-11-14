@@ -28,7 +28,7 @@
     "provenance": {
       "id": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15",
       "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json#claim",
-      "portrait": "evidence/source/portraits/hero-portrait-hero15.v1.json#source/heroInfo&charImageInfo; #asset",
+      "portrait": "docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json#claim",
       "jobConnections": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#selectedRelations"
     }
   },
@@ -52,13 +52,13 @@
       "limitation": "Not a Korean localization or Publication Approval."
     },
     "portrait": {
-      "status": "ADMITTED_CANDIDATE_FIELD_INTERNAL_ONLY",
-      "evidenceArtifact": "evidence/source/portraits/hero-portrait-hero15.v1.json",
-      "locator": "#source/heroInfo&charImageInfo; #asset/path",
+      "status": "CANONICAL_REFERENCE_ADMITTED_INTERNAL_ONLY",
+      "evidenceArtifact": "docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json",
+      "locator": "#claim",
       "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02",
-      "transformation": "Use the exact internally admitted asset path associated with the explicit HeroInfo.CharImage_ID=15 to CharImageInfo.ID=15 relation.",
-      "scope": "Candidate record reference only; internal asset path.",
-      "limitation": "Portrait evidence remains canonical=false and publicationApproved=false; this candidate is not consumed by public projection or build."
+      "transformation": "Use the exact internal asset path admitted for the non-public Full Detail record field from the explicit HeroInfo.CharImage_ID=15 to CharImageInfo.ID=15 relation and verified asset bytes.",
+      "scope": "Hero 15 Full Detail record field reference only; internal asset path.",
+      "limitation": "The Canonical record is absent. The source Asset Evidence remains canonical=false and publicationApproved=false; this field admission grants no Asset Publication or Public Build eligibility."
     },
     "jobConnections": {
       "status": "ADMITTED_CANDIDATE_PROJECTION_INTERNAL_ONLY",

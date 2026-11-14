@@ -154,6 +154,12 @@ jobs:
       - name: Test Hero Full Detail population migration contract boundaries
         run: node tools/test-hero-full-detail-population-migration.mjs
 
+      - name: Validate Hero 15 Portrait Canonical Reference admission
+        run: node tools/validate-hero-15-portrait-canonical-reference.mjs
+
+      - name: Test Hero 15 Portrait Canonical Reference boundaries
+        run: node tools/test-hero-15-portrait-canonical-reference.mjs
+
       - name: Validate Hero 15 Full Detail record field candidate
         run: node tools/validate-hero-15-full-detail-record-field-candidate.mjs
 

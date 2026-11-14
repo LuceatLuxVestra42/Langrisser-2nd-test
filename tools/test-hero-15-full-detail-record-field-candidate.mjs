@@ -14,6 +14,7 @@ const cases = [
   ['English source locator fabricated', (x) => { x.nameEngEvidence.source.fieldLocator = 'Name'; }],
   ['Pinned source hash changed', (x) => { x.nameEngEvidence.source.sha256 = '0'.repeat(64); }],
   ['Portrait identity changed', (x) => { x.portraitEvidence.source.heroInfo.fields.CharImage_ID = 16; }],
+  ['Portrait Canonical reference Owner Admission removed', (x) => { x.portraitReferenceAdmission.status = 'MANUAL_REVIEW'; }],
   ['Portrait path fallback introduced', (x) => { x.candidate.record.portrait = 'assets/portraits/hero-1.png'; }],
   ['Internal Portrait marked public', (x) => { x.portraitEvidence.publicationApproved = true; }],
   ['Portrait candidate approval promoted', (x) => { x.candidate.effect.portraitPublicationApproved = true; }],
