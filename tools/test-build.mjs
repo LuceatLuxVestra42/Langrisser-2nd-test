@@ -41,6 +41,9 @@ const publicConsumerPath = 'generated/skin-consumer-public-m05-g.v1.json';
 const publicAssetsPath = 'generated/skin-assets-public-m05-g.v1.json';
 const heroIndexPath = 'generated/hero-index.v1.json';
 const heroIndex = JSON.parse(await readFile(heroIndexPath, 'utf8'));
+const fullDetailPublicationDecision = JSON.parse(await readFile('docs/decisions/hero-index-publication.v1.json', 'utf8'));
+const fullDetailGeneratedPath = 'generated/hero-slice.v1.json';
+const fullDetailGenerated = JSON.parse(await readFile(fullDetailGeneratedPath, 'utf8'));
 const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
 const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
 const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
@@ -55,6 +58,13 @@ try {
   assert.equal(built.files.some((file) => file.path === 'generated/hero-15-casting-law-internal.v1.json'), false, 'Casting Law internal consumer must remain outside the public Build');
   assert.equal(built.files.some((file) => file.path === 'assets/portraits/hero-15.png'), false, 'internally admitted Hero 15 portrait must remain outside the public Build');
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
+  const packagedFullDetail = JSON.parse(await readFile(join(output, fullDetailGeneratedPath), 'utf8'));
+  assert.deepEqual(packagedFullDetail, fullDetailGenerated, 'Public Build must package only the validated Full Detail projection');
+  assert.deepEqual(packagedFullDetail.heroes.map(({ id }) => id), fullDetailPublicationDecision.approvedScope.detailHeroIds,
+    'Public Build Full Detail population must follow the approved endpoint ID set');
+  assert.equal(packagedFullDetail.heroes.some(({ id }) => id === 15), false, 'unapproved Hero 15 Full Detail must not enter the Public Build');
+  assert.equal(JSON.stringify(packagedFullDetail).includes('assets/portraits/hero-15.png'), false,
+    'internal Hero 15 Portrait path must not enter the Public Build Full Detail payload');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_15_MINIMAL_DETAIL_PATH), 'approved Hero 15 Minimal Detail must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_15_TALENT_PUBLIC_PATH), 'separately approved Hero 15 Talent consumer must enter the public artifact');

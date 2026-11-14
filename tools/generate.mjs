@@ -13,6 +13,7 @@ import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
 import { projectFullDetailPortraitField } from './full-detail-portrait-projection-contract.mjs';
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
@@ -310,7 +311,7 @@ export function resolveTalentSkillText(talentRelations, skills) {
   return result;
 }
 
-export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats) {
+export function renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats, fullDetailPublicationDecision) {
   if (heroIdentities?.schemaVersion !== 1 || !Array.isArray(heroIdentities.records)) throw new Error('Unsupported Hero identity owner');
   const heroIdentityIds = new Set();
   for (const identity of heroIdentities.records) {
@@ -333,8 +334,9 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   if (talentLocalizations?.schemaVersion !== 1 || !Array.isArray(talentLocalizations.nameRecords)
     || !Array.isArray(talentLocalizations.descriptionRecords)) throw new Error('Unsupported Hero Talent Korean localization owner');
   if (skills?.schemaVersion !== 1 || !Array.isArray(skills.records)) throw new Error('Unsupported Skill identity owner');
-  const jobLevelSourceStatsByHeroId = projectHeroJobLevelSourceStats(canonical, heroJobLevelRawStats);
-  const heroIds = new Set(canonical.records.map(({ id }) => id));
+  const publicCanonical = { ...canonical, records: projectApprovedFullDetailRecords(canonical, fullDetailPublicationDecision) };
+  const jobLevelSourceStatsByHeroId = projectHeroJobLevelSourceStats(publicCanonical, heroJobLevelRawStats);
+  const heroIds = new Set(publicCanonical.records.map(({ id }) => id));
   if (talentLocalizations.officialKrProvenanceStatus !== 'unverified') throw new Error('Hero Talent localization official Korean status must remain unverified');
   const talentRelationByKey = new Map();
   // Hero 15 has semantic admission only; presentation remains restricted to Heroes 6 and 8.
@@ -497,7 +499,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   ];
   const spJobClassificationByPair = new Map();
   for (const target of SP_JOB_CLASSIFIED_ORDINARY_CONNECTIONS) {
-    const targetHero = canonical.records.find((hero) => hero.id === target.heroId);
+    const targetHero = publicCanonical.records.find((hero) => hero.id === target.heroId);
     if (!targetHero) throw new Error(`Missing visible Hero ${target.heroId} for SP Job classification`);
     const ordinaryRows = targetHero.jobConnections.filter((relation) => relation.jobId === target.jobId);
     if (ordinaryRows.length !== 1 || ordinaryRows[0].connectionId !== target.connectionId
@@ -524,7 +526,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     });
   }
   for (const target of SP_JOB_PRESENTATION_TARGETS) {
-    const targetHero = canonical.records.find((hero) => hero.id === target.heroId);
+    const targetHero = publicCanonical.records.find((hero) => hero.id === target.heroId);
     if (!targetHero) throw new Error(`Missing visible Hero ${target.heroId} for SP Job presentation`);
     if (targetHero.jobConnections.some((relation) => relation.jobId === target.jobId)) {
       throw new Error(`SP Job ${target.jobId} must remain separate from Hero ${target.heroId} ordinary Job connections`);
@@ -568,8 +570,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
     }
     localizationByEquipmentId.set(localization.equipmentId, localization);
   }
-  const heroes = [...canonical.records]
-    .sort((a, b) => a.id - b.id)
+  const heroes = [...publicCanonical.records]
     .map(({ id, nameEng, portrait, jobConnections }) => {
       const nameKo = nameByHeroId.get(id);
       if (typeof nameKo !== 'string' || !nameKo) throw new Error(`Missing admitted Korean Hero localization for visible Hero ${id}`);
@@ -1024,7 +1025,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/hero-job-relations.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-job-identities.v1.json'), 'utf8'),
   ]).then(([relations, identities]) => [JSON.parse(relations), JSON.parse(identities)]);
-  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, canonicalSkills, heroJobLevelRawStats), 'utf8');
+  await writeFile(outputPath, renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, canonicalSkills, heroJobLevelRawStats, heroIndexPublication), 'utf8');
   await writeFile(resolve('generated/hero-index.v1.json'), renderHeroIndex(heroIdentities, heroLocalization, heroIndexPublication), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');

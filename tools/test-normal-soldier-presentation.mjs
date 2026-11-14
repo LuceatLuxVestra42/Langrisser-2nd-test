@@ -102,7 +102,9 @@ const producerLibrary = producerSource.slice(0, producerSource.indexOf('const in
   .replace("'./hero-minimal-detail-forty-batch-contract.mjs'",
     JSON.stringify(new URL('./hero-minimal-detail-forty-batch-contract.mjs', import.meta.url).href))
   .replace("'./full-detail-portrait-projection-contract.mjs'",
-    JSON.stringify(new URL('./full-detail-portrait-projection-contract.mjs', import.meta.url).href));
+    JSON.stringify(new URL('./full-detail-portrait-projection-contract.mjs', import.meta.url).href))
+  .replace("'./full-detail-public-population-contract.mjs'",
+    JSON.stringify(new URL('./full-detail-public-population-contract.mjs', import.meta.url).href));
 assert.ok(producerSource.indexOf('const invokedPath =') > 0, 'Producer library boundary must exist');
 for (const field of ['hp', 'attack', 'defense', 'magicDefense']) {
   const original = `baseStats: { hp: values.hp, attack: values.attack, defense: values.defense, magicDefense: values.magicDefense }`;

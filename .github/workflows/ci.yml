@@ -178,6 +178,12 @@ jobs:
       - name: Test Full Detail portrait projection boundaries
         run: node tools/test-full-detail-portrait-projection.mjs
 
+      - name: Validate Full Detail public population projection boundary
+        run: node tools/validate-full-detail-public-population.mjs
+
+      - name: Test Full Detail public population projection boundaries
+        run: node tools/test-full-detail-public-population.mjs
+
       - name: Validate Hero 15 Full Detail Publication contract
         run: node tools/validate-hero-15-full-detail-publication.mjs
 

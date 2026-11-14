@@ -23,6 +23,7 @@ import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyOneBatchPublication, validateHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailFortyBatchPublication, validateHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
 import { FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT } from './full-detail-portrait-projection-contract.mjs';
+import { validateFullDetailPublicPopulation } from './full-detail-public-population-contract.mjs';
 import { HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentDecision, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 const defaultHero15TalentDecision = validateHero15TalentDecision(JSON.parse(readFileSync(resolve(HERO_15_TALENT_PUBLICATION_PATH), 'utf8')));
 
@@ -157,7 +158,8 @@ const heroJobLevelRawStats = await readJson('canonical/hero-job-level-raw-stats.
 await validateSkinGenerated(process.cwd());
 const generatedPath = resolve('generated/hero-slice.v1.json');
 const generatedText = await readFile(generatedPath, 'utf8');
-const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats);
+const fullDetailPublicationDecision = await readJson('docs/decisions/hero-index-publication.v1.json');
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, heroJobRelations, spJobIdentities, skills, heroJobLevelRawStats, fullDetailPublicationDecision);
 if (generatedText !== expectedGenerated) {
   throw new Error('generated consumer is stale or non-deterministic relative to canonical input');
 }
@@ -389,6 +391,7 @@ for (const relation of heroSoldierRelations.relations) {
 const generated = JSON.parse(generatedText);
 exactKeys(generated, ['schemaVersion', 'heroes'], 'generated consumer');
 if (generated.schemaVersion !== 1 || !Array.isArray(generated.heroes)) throw new Error('unsupported generated consumer schema');
+validateFullDetailPublicPopulation({ canonical, generated, publicationDecision: fullDetailPublicationDecision });
 const expectedSpJobsByHeroId = new Map([
   [6, [{ jobId: 377, nameKo: '어둠의 청룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
   [8, [{ jobId: 864, nameKo: '단죄의 성녀', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
