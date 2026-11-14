@@ -15,6 +15,7 @@ const cases = [
   ['Portrait promoted to Canonical', (x) => { x.portraitEvidence.canonical = true; }],
   ['Portrait promoted to public', (x) => { x.portraitEvidence.publicationApproved = true; }],
   ['Portrait readiness promoted', (x) => { x.readiness.fieldAssessments.portrait.status = 'ADMITTED'; }],
+  ['Portrait Owner Admission removed', (x) => { x.portraitReferenceAdmission.status = 'MANUAL_REVIEW'; }],
   ['Portrait publication made a migration prerequisite', (x) => { x.readiness.gates.portraitReferenceAdmission = 'PASS'; x.readiness.gates.requiredFields = 'PASS'; }],
   ['Job membership removed', (x) => { x.jobRelations.records = x.jobRelations.records.filter((row) => row.heroId !== 15); }],
   ['Job endpoint changed', (x) => { x.jobRelations.records.find((row) => row.heroId === 15).jobId = 999; }],
