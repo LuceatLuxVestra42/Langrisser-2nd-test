@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "artifactType": "HERO_15_FULL_DETAIL_RECORD_FIELD_CANDIDATE",
+  "status": "CANDIDATE_RECORD_COMPLETE",
+  "baseline": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "ref": "main",
+    "head": "8ccbcdf62e225ddfbc482382bbbe6c68683f92f6"
+  },
+  "target": {
+    "heroId": 15,
+    "canonicalOwner": "canonical/heroes.v1.json",
+    "currentCanonicalPopulation": 29,
+    "populationApplied": false
+  },
+  "record": {
+    "id": 15,
+    "nameEng": "Riana",
+    "portrait": "assets/portraits/hero-15.png",
+    "jobConnections": [
+      { "connectionId": 150, "jobId": 802, "sourceField": "JobConnection_ID" },
+      { "connectionId": 151, "jobId": 803, "sourceField": "UseableJobConnections_ID" },
+      { "connectionId": 152, "jobId": 806, "sourceField": "UseableJobConnections_ID" },
+      { "connectionId": 153, "jobId": 703, "sourceField": "UseableJobConnections_ID" },
+      { "connectionId": 154, "jobId": 811, "sourceField": "UseableJobConnections_ID" },
+      { "connectionId": 155, "jobId": 707, "sourceField": "UseableJobConnections_ID" }
+    ],
+    "provenance": {
+      "id": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15",
+      "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json#claim",
+      "portrait": "evidence/source/portraits/hero-portrait-hero15.v1.json#source/heroInfo&charImageInfo; #asset",
+      "jobConnections": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#selectedRelations"
+    }
+  },
+  "fieldAssessments": {
+    "id": {
+      "status": "ADMITTED_CANDIDATE_FIELD",
+      "evidenceArtifact": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json",
+      "locator": "#ID=15",
+      "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02",
+      "transformation": "Copy the exact admitted HeroID into this candidate field.",
+      "scope": "HeroID 15 identity field only.",
+      "limitation": "Does not add the record to Canonical Full Detail Population."
+    },
+    "nameEng": {
+      "status": "ADMITTED_CANDIDATE_FIELD",
+      "evidenceArtifact": "evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json",
+      "locator": "#claim/Name_Eng; source records[14]/ID=15/Name_Eng",
+      "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02; source SHA-256 2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+      "transformation": "Exact source-field copy: Name_Eng=Riana.",
+      "scope": "Source-native English name for HeroID 15.",
+      "limitation": "Not a Korean localization or Publication Approval."
+    },
+    "portrait": {
+      "status": "ADMITTED_CANDIDATE_FIELD_INTERNAL_ONLY",
+      "evidenceArtifact": "evidence/source/portraits/hero-portrait-hero15.v1.json",
+      "locator": "#source/heroInfo&charImageInfo; #asset/path",
+      "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02",
+      "transformation": "Use the exact internally admitted asset path associated with the explicit HeroInfo.CharImage_ID=15 to CharImageInfo.ID=15 relation.",
+      "scope": "Candidate record reference only; internal asset path.",
+      "limitation": "Portrait evidence remains canonical=false and publicationApproved=false; this candidate is not consumed by public projection or build."
+    },
+    "jobConnections": {
+      "status": "ADMITTED_CANDIDATE_PROJECTION_INTERNAL_ONLY",
+      "evidenceArtifact": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json",
+      "locator": "#selectedRelations[0..5]",
+      "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02",
+      "transformation": "Project the six already admitted explicit connectionId/jobId/sourceField tuples in source order; require exact parity with the Hero-to-Job Canonical relations.",
+      "scope": "Six Hero 15 Job membership rows only.",
+      "limitation": "No additional Job relation, display name, advancement, unlock, or runtime rule is admitted."
+    },
+    "provenance": {
+      "status": "COMPLETE_FOR_CANDIDATE_FIELDS",
+      "evidenceArtifact": "Field-level Evidence artifacts referenced by record.provenance.",
+      "locator": "#record/provenance",
+      "sourceVersion": "Claim-specific versions are recorded on each field assessment.",
+      "transformation": "Compose field-level provenance references without merging their scopes.",
+      "scope": "The four candidate fields present in record.",
+      "limitation": "Does not authorize Canonical population mutation or publication."
+    }
+  },
+  "effect": {
+    "canonicalPopulationMutation": false,
+    "generatedPopulationMutation": false,
+    "fullDetailPublicationApproved": false,
+    "publicEligibilityApproved": false,
+    "portraitPublicationApproved": false,
+    "publicBuildConsumption": false
+  },
+  "limitations": [
+    "This is a complete non-public record candidate, not a Canonical Full Detail record or population addition.",
+    "The existing 29 Canonical and Generated Full Detail records remain unchanged.",
+    "Portrait reference admission is separate from Asset Publication Approval; the Portrait remains internal-only.",
+    "Migration Approval Authority remains MANUAL_REVIEW and Approval Evidence remains APPROVAL_EVIDENCE_NOT_VERIFIED.",
+    "Full Detail Publication, Public Eligibility, Frontend reachability, and Hosted QA are not approved or verified by this artifact."
+  ]
+}
