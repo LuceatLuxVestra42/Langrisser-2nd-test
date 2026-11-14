@@ -1,0 +1,1432 @@
+{
+  "schemaVersion": 1,
+  "decisionType": "HERO_15_FULL_DETAIL_PUBLICATION",
+  "status": "PROPOSED",
+  "baseline": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baseRef": "feat/hero-full-detail-population-migration",
+    "baseHead": "b399d7bc8e60620d30e6ce0b1ceecd3854e81457",
+    "predecessorPullRequest": 258
+  },
+  "targetSurface": {
+    "surface": "HERO_FULL_DETAIL",
+    "heroId": 15,
+    "fragment": "hero-full-detail-15",
+    "surfaceType": "COMMON_FULL_DETAIL_POPULATION_EXTENSION"
+  },
+  "population": {
+    "currentEffectiveCount": 29,
+    "currentHeroIds": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      25,
+      26,
+      27,
+      28,
+      29,
+      32,
+      33,
+      37,
+      40,
+      52,
+      53,
+      55,
+      56,
+      60,
+      67,
+      89
+    ],
+    "proposedHeroId": 15,
+    "proposedTargetCount": 30,
+    "migrationStatus": "NOT_EFFECTIVE",
+    "canonicalPopulationCount": 29,
+    "generatedPopulationCount": 29,
+    "publicationEligiblePopulationCount": 29,
+    "publicBuildPopulationCount": 29,
+    "frontendFullDetailPopulationCount": 29
+  },
+  "targetFieldSchema": [
+    {
+      "id": "profile",
+      "fields": [
+        "heroId",
+        "nameKo",
+        "rarity.rankId",
+        "rarity.label",
+        "factions[].factionId",
+        "factions[].nameCn",
+        "factions[].nameKo",
+        "origins[].productionId",
+        "origins[].nameCn",
+        "origins[].nameKo",
+        "cv"
+      ]
+    },
+    {
+      "id": "portraitSkin",
+      "fields": [
+        "portrait.assetPath",
+        "skins[].skinId",
+        "skins[].nameKo",
+        "skins[].assetPath",
+        "skins[].acquisitionDescription"
+      ]
+    },
+    {
+      "id": "talent",
+      "fields": [
+        "talent.nameKo",
+        "talent.stars[].star",
+        "talent.stars[].skillId",
+        "talent.stars[].descriptionKo",
+        "talent.stars[].nameCn",
+        "talent.stars[].descriptionCn"
+      ]
+    },
+    {
+      "id": "exclusiveEquipment",
+      "fields": [
+        "equipment.relation.heroId",
+        "equipment.equipmentId",
+        "equipment.nameKo",
+        "equipment.effectDescriptionKo",
+        "equipment.assetPath"
+      ]
+    },
+    {
+      "id": "fetterBond",
+      "fields": [
+        "fetters[].fetterId",
+        "fetters[].conditions",
+        "fetters[].materials",
+        "fetters[].rewards",
+        "heartFetter.fetterId",
+        "heartFetter.conditions",
+        "heartFetter.materials",
+        "heartFetter.rewards"
+      ]
+    },
+    {
+      "id": "soldierCommand",
+      "fields": [
+        "soldierCommand.baseModifiers",
+        "soldierCommand.centralBondContribution",
+        "soldierCommand.finalModifiers"
+      ]
+    },
+    {
+      "id": "centralDiscipline",
+      "fields": [
+        "centralDiscipline.skillId",
+        "centralDiscipline.effects"
+      ]
+    },
+    {
+      "id": "castingLaw",
+      "fields": [
+        "castingLaw.templates[].templateId",
+        "castingLaw.templates[].levels[].levelUpInfoId",
+        "castingLaw.templates[].levels[].materials",
+        "castingLaw.templates[].levels[].rawProperties",
+        "castingLaw.templates[].effects"
+      ]
+    },
+    {
+      "id": "soldier",
+      "fields": [
+        "soldiers[].soldierId",
+        "soldiers[].nameKo",
+        "soldiers[].variant",
+        "soldiers[].card",
+        "soldiers[].details",
+        "soldiers[].availability"
+      ]
+    },
+    {
+      "id": "jobTree",
+      "fields": [
+        "jobs[].connectionId",
+        "jobs[].jobId",
+        "jobs[].nameKo",
+        "jobs[].advancementEdges[]"
+      ]
+    },
+    {
+      "id": "jobLevelStats",
+      "fields": [
+        "jobLevels[].jobLevelId",
+        "jobLevels[].rawStats",
+        "jobLevels[].finalDisplayStats"
+      ]
+    },
+    {
+      "id": "skill",
+      "fields": [
+        "skills[].skillId",
+        "skills[].nameKo",
+        "skills[].descriptionKo",
+        "skills[].nameCn",
+        "skills[].descriptionCn",
+        "skills[].acquisition",
+        "skills[].equipability",
+        "skills[].cooldown",
+        "skills[].range"
+      ]
+    },
+    {
+      "id": "awakening",
+      "fields": [
+        "awakening.stages[].levelId",
+        "awakening.stages[].skillId",
+        "awakening.stages[].materials"
+      ]
+    },
+    {
+      "id": "sp",
+      "fields": [
+        "sp.jobId",
+        "sp.jobNameKo",
+        "sp.talent",
+        "sp.missions",
+        "sp.rewards",
+        "sp.dungeon"
+      ]
+    }
+  ],
+  "fieldGroups": [
+    {
+      "id": "profile",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-identities.v1.json",
+          "locator": "heroId=15",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "ConfigDataHeroInfo.ID copied by exact source ID.",
+          "scope": "Playable Hero identity only.",
+          "limitation": "Not inclusion in Full Detail population."
+        },
+        {
+          "artifact": "canonical/hero-localizations-ko.v1.json",
+          "locator": "heroId=15",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/localization/hero-names-ko.v1.json#heroId=15",
+          "sourceVersion": "Project-qualified display localization; official KR provenance unverified.",
+          "transformation": "Exact HeroID localization.",
+          "scope": "Project display label.",
+          "limitation": "Not official Korean-server provenance."
+        },
+        {
+          "artifact": "canonical/hero-rarities.v1.json",
+          "locator": "heroId=15/Rank",
+          "claimIds": [
+            4
+          ],
+          "evidenceArtifact": "evidence/source/hero-rarity-hero15-inherited.v1.json#records/heroId=15/Rank",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Rank=4 resolved through RankInfo.ID=4/Desc=SSR; Star stays separate.",
+          "scope": "Hero 15 rarity only.",
+          "limitation": "No combat/stat interpretation."
+        },
+        {
+          "artifact": "canonical/hero-faction-relations.v1.json",
+          "locator": "heroId=15",
+          "claimIds": [
+            1,
+            2,
+            6
+          ],
+          "evidenceArtifact": "evidence/source/hero-faction-hero15.v1.json#heroId=15&factionId={1,2,6}",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Explicit HeroTagInfo membership IDs.",
+          "scope": "Hero 15→Faction 1,2,6.",
+          "limitation": "Not a completeness claim."
+        },
+        {
+          "artifact": "canonical/faction-identities.v1.json",
+          "locator": "factionId={1,2,6}",
+          "claimIds": [
+            1,
+            2,
+            6
+          ],
+          "evidenceArtifact": "evidence/source/hero-faction.v1.json#ID={1,2,6}/Name",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Source-native CN labels keyed by FactionID.",
+          "scope": "Names for the three admitted relation endpoints.",
+          "limitation": "No additional relation."
+        },
+        {
+          "artifact": "canonical/faction-localizations-ko.v1.json",
+          "locator": "factionId={1,2,6}",
+          "claimIds": [
+            1,
+            2,
+            6
+          ],
+          "evidenceArtifact": "evidence/localization/faction-names-ko.v1.json#FactionID={1,2,6}",
+          "sourceVersion": "Project-reviewed Faction localization Evidence.",
+          "transformation": "Exact FactionID display strings.",
+          "scope": "No Full Detail approval.",
+          "limitation": "Does not grant Full Detail publication or runtime semantics."
+        },
+        {
+          "artifact": "canonical/hero-production-relations.v1.json",
+          "locator": "heroId=15",
+          "claimIds": [
+            5
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataHeroInfo.hero-production-hero15.v1.json#records/heroId=15",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Explicit HeroInfo→Production relation keyed by IDs.",
+          "scope": "Hero 15→Production 5.",
+          "limitation": "Not population/publication eligibility."
+        },
+        {
+          "artifact": "canonical/production-identities.v1.json",
+          "locator": "productionId=5",
+          "claimIds": [
+            5
+          ],
+          "evidenceArtifact": "evidence/source/hero-origin-dictionary.v1.json#records/productionId=5",
+          "sourceVersion": "Source version and locator recorded in referenced Evidence.",
+          "transformation": "Production identity by exact ProductionID.",
+          "scope": "CN source display name only.",
+          "limitation": "Legacy output is not Semantic authority."
+        },
+        {
+          "artifact": "canonical/production-localizations-ko.v1.json",
+          "locator": "productionId=5",
+          "claimIds": [
+            5
+          ],
+          "evidenceArtifact": "evidence/localization/production-names-ko.v1.json#ProductionID=5",
+          "sourceVersion": "Project-reviewed Production localization Evidence.",
+          "transformation": "Exact ProductionID localization.",
+          "scope": "Display string only.",
+          "limitation": "Official KR provenance not asserted."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-index.v1.json",
+        "generated/hero-minimal-detail.v1.json"
+      ],
+      "validators": [
+        "tools/validate.mjs",
+        "tools/validate-hero-index.mjs",
+        "tools/validate-hero-15-minimal-detail.mjs"
+      ],
+      "localization": {
+        "status": "PARTIAL",
+        "ownerArtifacts": [
+          "canonical/hero-localizations-ko.v1.json",
+          "canonical/faction-localizations-ko.v1.json",
+          "canonical/production-localizations-ko.v1.json"
+        ],
+        "limitation": "Project labels exist; official Korean-server provenance is unverified."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "heroId",
+        "nameKo",
+        "rarity.rankId",
+        "rarity.label",
+        "factions[].factionId",
+        "factions[].nameCn",
+        "factions[].nameKo",
+        "origins[].productionId",
+        "origins[].nameCn",
+        "origins[].nameKo"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "cv"
+      ],
+      "limitations": [
+        "CV is not admitted; existing Minimal Detail fields remain limited to their approved surface."
+      ]
+    },
+    {
+      "id": "portraitSkin",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "evidence/source/portraits/hero-portrait-hero15.v1.json",
+          "locator": "HeroInfo.CharImage_ID=15→CharImageInfo.ID=15",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/source/portraits/hero-portrait-hero15.v1.json#source/heroInfo&charImageInfo",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Pinned explicit source FK and byte-preserving portrait extraction; internal Asset only.",
+          "scope": "Hero 15 Portrait Asset only.",
+          "limitation": "publicationApproved=false; no Skin claims."
+        }
+      ],
+      "consumerArtifacts": [
+        "evidence/source/portraits/hero-portrait-hero15.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-portrait-admission.mjs",
+        "tools/test-hero-15-portrait-admission.mjs"
+      ],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "INTERNAL_ONLY_NOT_PUBLICATION_APPROVED",
+        "ownerArtifacts": [
+          "evidence/source/portraits/hero-portrait-hero15.v1.json"
+        ],
+        "limitation": "Portrait is internal-only; skin IDs/relations/assets are not admitted."
+      },
+      "publicationCandidateFields": [],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "portrait.assetPath",
+        "skins[].skinId",
+        "skins[].nameKo",
+        "skins[].assetPath",
+        "skins[].acquisitionDescription"
+      ],
+      "limitations": [
+        "Portrait public approval false; no Hero 15 Skin Identity/Relation/Asset admitted."
+      ]
+    },
+    {
+      "id": "talent",
+      "admissionStatus": "ADMITTED",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-talent-star-skills.v1.json",
+          "locator": "heroId=15&star=3..6",
+          "claimIds": [
+            3212,
+            3214,
+            3216,
+            3218
+          ],
+          "evidenceArtifact": "evidence/source/hero-talent-star-skills.v1.json#heroId=15&star=3..6",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Inherited B claim keyed by HeroID and star.",
+          "scope": "Talent skill refs for stars 3–6.",
+          "limitation": "No skill acquisition/effect formula."
+        },
+        {
+          "artifact": "canonical/skills.v1.json",
+          "locator": "skillId={3212,3214,3216,3218}",
+          "claimIds": [
+            3212,
+            3214,
+            3216,
+            3218
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json#ID={3212,3214,3216,3218}",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Copy source Name/Desc by exact SkillID.",
+          "scope": "Source text only.",
+          "limitation": "No rule interpretation."
+        },
+        {
+          "artifact": "canonical/hero-talent-localizations-ko.v1.json",
+          "locator": "heroId=15&star=3..6",
+          "claimIds": [
+            3212,
+            3214,
+            3216,
+            3218
+          ],
+          "evidenceArtifact": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&star=3..6",
+          "sourceVersion": "Pinned project localization source; official KR provenance unverified.",
+          "transformation": "Exact HeroID/star/SkillID projection.",
+          "scope": "Talent display strings only.",
+          "limitation": "Current approval remains Minimal Detail only."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-talent-public.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-talent-publication.mjs",
+        "tools/test-hero-15-talent-publication.mjs"
+      ],
+      "localization": {
+        "status": "ADMITTED_OFFICIAL_KR_UNVERIFIED",
+        "ownerArtifacts": [
+          "canonical/hero-talent-localizations-ko.v1.json"
+        ],
+        "limitation": "Project-reviewed Talent data; official KR provenance unverified."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "talent.nameKo",
+        "talent.stars[].star",
+        "talent.stars[].skillId",
+        "talent.stars[].descriptionKo",
+        "talent.stars[].nameCn",
+        "talent.stars[].descriptionCn"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [],
+      "limitations": [
+        "Talent Publication approval is only for hero-minimal-detail-15; not promoted here."
+      ]
+    },
+    {
+      "id": "exclusiveEquipment",
+      "admissionStatus": "ADMITTED",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-exclusive-equipment-relations.v1.json",
+          "locator": "heroId=15&equipmentId=535",
+          "claimIds": [
+            535
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataEquipmentInfo.records-exclusive.v1.json#ID=535/SkillHero",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Explicit SkillHero=15 relation.",
+          "scope": "One Hero→Equipment edge.",
+          "limitation": "No equipment image."
+        },
+        {
+          "artifact": "canonical/exclusive-equipment.v1.json",
+          "locator": "equipmentId=535",
+          "claimIds": [
+            535
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataEquipmentInfo.records-exclusive.v1.json#ID=535",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Source-native EquipmentID.",
+          "scope": "Equipment identity only.",
+          "limitation": "No unadmitted gameplay interpretation."
+        },
+        {
+          "artifact": "canonical/exclusive-equipment-localizations-ko.v1.json",
+          "locator": "equipmentId=535",
+          "claimIds": [
+            535
+          ],
+          "evidenceArtifact": "evidence/localization/exclusive-equipment-ko.v1.json#EquipmentID=535",
+          "sourceVersion": "Project-reviewed localization evidence.",
+          "transformation": "Exact EquipmentID display localization.",
+          "scope": "Existing approved name/effect only.",
+          "limitation": "Approval scope remains Minimal Detail/Navigation."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-minimal-detail.v1.json",
+        "generated/exclusive-equipment-hero-navigation.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-minimal-detail.mjs",
+        "tools/validate-exclusive-equipment-hero-navigation.mjs",
+        "tools/test-build.mjs"
+      ],
+      "localization": {
+        "status": "ADMITTED_EXISTING_SURFACE_ONLY",
+        "ownerArtifacts": [
+          "canonical/exclusive-equipment-localizations-ko.v1.json"
+        ],
+        "limitation": "Existing Korean fields are approved on current Minimal Detail only."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "equipment.relation.heroId",
+        "equipment.equipmentId",
+        "equipment.nameKo",
+        "equipment.effectDescriptionKo"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "equipment.assetPath"
+      ],
+      "limitations": [
+        "No Full Detail or equipment Asset approval."
+      ]
+    },
+    {
+      "id": "fetterBond",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-fetter-references.v1.json",
+          "locator": "heroId=15/fetterId={66..70};heartFetterId=15",
+          "claimIds": [
+            66,
+            67,
+            68,
+            69,
+            70,
+            15
+          ],
+          "evidenceArtifact": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences,heroHeartFetterReference",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Explicit Fetter IDs and separately scoped Heart Fetter ID.",
+          "scope": "Five Fetter endpoints, one Heart Fetter endpoint.",
+          "limitation": "References only."
+        },
+        {
+          "artifact": "canonical/hero-fetter-raw-details.v1.json",
+          "locator": "heroId=15&endpointId={66..70}",
+          "claimIds": [
+            66,
+            67,
+            68,
+            69,
+            70
+          ],
+          "evidenceArtifact": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/endpointId={66..70}",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve selected raw fields and presence states.",
+          "scope": "Raw records only.",
+          "limitation": "No predicate/payout/consumption/effect meaning."
+        },
+        {
+          "artifact": "canonical/hero-heart-fetter-raw-details.v1.json",
+          "locator": "heroId=15&endpointId=15",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/source/bonds/hero15-heart-fetter-raw-details.v1.json#selection/records/endpointId=15",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve raw fields and presence states.",
+          "scope": "Heart Fetter raw record.",
+          "limitation": "No runtime interpretation."
+        },
+        {
+          "artifact": "canonical/hero-fetter-material-relations.v1.json",
+          "locator": "heroId=15&ordered source material rows",
+          "claimIds": [
+            66,
+            67,
+            68,
+            69,
+            70
+          ],
+          "evidenceArtifact": "evidence/source/bonds/hero15-fetter-material-relations.v1.json#records/heroId=15",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve material references and original order.",
+          "scope": "Endpoints only.",
+          "limitation": "No spending/deduction semantics."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-fetter-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero15-fetter-internal.mjs",
+        "tools/test-hero15-fetter-internal.mjs"
+      ],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "fetters[].fetterId",
+        "heartFetter.fetterId"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "fetters[].conditions",
+        "fetters[].materials",
+        "fetters[].rewards",
+        "heartFetter.conditions",
+        "heartFetter.materials",
+        "heartFetter.rewards"
+      ],
+      "limitations": [
+        "Raw conditions, reward codes, materials, gold, and localized display are not approved."
+      ]
+    },
+    {
+      "id": "soldierCommand",
+      "admissionStatus": "NOT_ADMITTED",
+      "canonicalClaims": [],
+      "consumerArtifacts": [],
+      "validators": [],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "soldierCommand.baseModifiers",
+        "soldierCommand.centralBondContribution",
+        "soldierCommand.finalModifiers"
+      ],
+      "limitations": [
+        "No admitted source-backed formula or final modifier claim; do not derive from Legacy UI."
+      ]
+    },
+    {
+      "id": "centralDiscipline",
+      "admissionStatus": "NOT_ADMITTED",
+      "canonicalClaims": [],
+      "consumerArtifacts": [],
+      "validators": [],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "centralDiscipline.skillId",
+        "centralDiscipline.effects"
+      ],
+      "limitations": [
+        "No Hero 15 Central Discipline relation is admitted; SkillID 90089 remains outside Canonical scope."
+      ]
+    },
+    {
+      "id": "castingLaw",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-casting-law-template-references.v1.json",
+          "locator": "heroId=15&sourceArrayIndex=0..4",
+          "claimIds": [
+            14,
+            12,
+            37,
+            40,
+            41
+          ],
+          "evidenceArtifact": "evidence/source/jobs/hero15-casting-law-template-references.v1.json#heroSource/fields/CastingLawTemplates_ID/0..4",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve explicit source-array IDs and order.",
+          "scope": "Five Template references only.",
+          "limitation": "No unlock/cost/effect semantics."
+        },
+        {
+          "artifact": "canonical/casting-law-template-level-references.v1.json",
+          "locator": "templateId={14,12,37,40,41}/source order",
+          "claimIds": [
+            66,
+            67,
+            68,
+            69,
+            70,
+            10066,
+            10067,
+            10068,
+            10069,
+            10070,
+            56,
+            57,
+            58,
+            59,
+            60,
+            10056,
+            10057,
+            10058,
+            10059,
+            10060,
+            181,
+            182,
+            183,
+            184,
+            185,
+            10181,
+            10182,
+            10183,
+            10184,
+            10185,
+            196,
+            197,
+            198,
+            199,
+            200,
+            10196,
+            10197,
+            10198,
+            10199,
+            10200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            10201,
+            10202,
+            10203,
+            10204,
+            10205
+          ],
+          "evidenceArtifact": "evidence/source/jobs/casting-law-template-level-references.v1.json#templateRecords/selected IDs",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve each LevelUp reference in source order.",
+          "scope": "Selected shared Template levels only.",
+          "limitation": "No progression rule."
+        },
+        {
+          "artifact": "canonical/casting-law-levelup-raw-details.v1.json",
+          "locator": "levelUpInfoId=selected references",
+          "claimIds": [
+            66,
+            67,
+            68,
+            69,
+            70,
+            10066,
+            10067,
+            10068,
+            10069,
+            10070,
+            56,
+            57,
+            58,
+            59,
+            60,
+            10056,
+            10057,
+            10058,
+            10059,
+            10060,
+            181,
+            182,
+            183,
+            184,
+            185,
+            10181,
+            10182,
+            10183,
+            10184,
+            10185,
+            196,
+            197,
+            198,
+            199,
+            200,
+            10196,
+            10197,
+            10198,
+            10199,
+            10200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            10201,
+            10202,
+            10203,
+            10204,
+            10205
+          ],
+          "evidenceArtifact": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/selected LevelUp IDs",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Project raw fields and presence states only.",
+          "scope": "50 LevelUp raw records.",
+          "limitation": "Property meaning/formula unadmitted."
+        },
+        {
+          "artifact": "canonical/casting-law-levelup-material-references.v1.json",
+          "locator": "levelUpInfoId=selected references",
+          "claimIds": [
+            66,
+            67,
+            68,
+            69,
+            70,
+            10066,
+            10067,
+            10068,
+            10069,
+            10070,
+            56,
+            57,
+            58,
+            59,
+            60,
+            10056,
+            10057,
+            10058,
+            10059,
+            10060,
+            181,
+            182,
+            183,
+            184,
+            185,
+            10181,
+            10182,
+            10183,
+            10184,
+            10185,
+            196,
+            197,
+            198,
+            199,
+            200,
+            10196,
+            10197,
+            10198,
+            10199,
+            10200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            10201,
+            10202,
+            10203,
+            10204,
+            10205
+          ],
+          "evidenceArtifact": "evidence/source/jobs/casting-law-levelup-material-references.v1.json#records/selected LevelUp IDs",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve original row order and Item endpoints.",
+          "scope": "115 rows/18 endpoints within selected records.",
+          "limitation": "No cost/payment/consumption rule."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-casting-law-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-casting-law-internal.mjs",
+        "tools/test-hero-15-casting-law-internal.mjs"
+      ],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "castingLaw.templates[].templateId",
+        "castingLaw.templates[].levels[].levelUpInfoId"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "castingLaw.templates[].levels[].materials",
+        "castingLaw.templates[].levels[].rawProperties",
+        "castingLaw.templates[].effects"
+      ],
+      "limitations": [
+        "Unlock, progression, material/gold use, property meaning/formula, and Skill behavior remain MANUAL_REVIEW."
+      ]
+    },
+    {
+      "id": "soldier",
+      "admissionStatus": "ADMITTED",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-soldier-relations.v1.json",
+          "locator": "heroId=15&soldierId={210,326,602,621,802,811,815,5210,5326,5602,5621,5802,5811,5815}",
+          "claimIds": [
+            210,
+            326,
+            602,
+            621,
+            802,
+            811,
+            815,
+            5210,
+            5326,
+            5602,
+            5621,
+            5802,
+            5811,
+            5815
+          ],
+          "evidenceArtifact": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=15&soldierId=each listed ID",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve direct A/inherited B relations by explicit IDs.",
+          "scope": "14 current Hero 15 relations; no completeness claim.",
+          "limitation": "No per-Job availability or unlock."
+        },
+        {
+          "artifact": "canonical/soldiers.v1.json",
+          "locator": "soldierId={14 explicit endpoints}",
+          "claimIds": [
+            210,
+            326,
+            602,
+            621,
+            802,
+            811,
+            815,
+            5210,
+            5326,
+            5602,
+            5621,
+            5802,
+            5811,
+            5815
+          ],
+          "evidenceArtifact": "canonical/soldiers.v1.json#id=each referenced SoldierID",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Use explicit relation-local SoldierID endpoint.",
+          "scope": "14 selected Soldier identity endpoints.",
+          "limitation": "No relation inferred from names."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-soldier-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-soldier-internal.mjs",
+        "tools/test-hero-15-soldier-internal.mjs"
+      ],
+      "localization": {
+        "status": "ADMITTED_14_DISPLAY_LABELS",
+        "ownerArtifacts": [
+          "canonical/normal-soldier-localizations-ko.v1.json",
+          "canonical/sp-soldier-localizations-ko.v1.json"
+        ],
+        "limitation": "Project labels keyed to these IDs exist; official KR and Full Detail approval remain separate."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "soldiers[].soldierId",
+        "soldiers[].nameKo",
+        "soldiers[].variant"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "soldiers[].card",
+        "soldiers[].details",
+        "soldiers[].availability"
+      ],
+      "limitations": [
+        "Relation/identity do not prove deployment, Job availability, or unlock."
+      ]
+    },
+    {
+      "id": "jobTree",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-job-relations.v1.json",
+          "locator": "heroId=15&connectionId={150..155}",
+          "claimIds": [
+            802,
+            803,
+            806,
+            703,
+            811,
+            707
+          ],
+          "evidenceArtifact": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#heroId=15&connectionId={150..155}",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Reuse explicit ConnectionID→JobID.",
+          "scope": "Six admitted Job membership rows.",
+          "limitation": "No inferred edges."
+        },
+        {
+          "artifact": "canonical/hero-job-advancement-relations.v1.json",
+          "locator": "heroId=15&PreJobConnectionList",
+          "claimIds": [
+            150,
+            151,
+            152,
+            153,
+            154,
+            155
+          ],
+          "evidenceArtifact": "evidence/source/jobs/hero-job-tree-hero15.v1.json#claims/directEdges",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Use five explicit prerequisite edges only.",
+          "scope": "No reachability claim.",
+          "limitation": "No unlock or gameplay semantics."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-job-tree-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero15-job-advancement.mjs",
+        "tools/test-hero15-job-advancement.mjs",
+        "tools/test-hero-15-job-tree-internal.mjs"
+      ],
+      "localization": {
+        "status": "PARTIAL_4_OF_6",
+        "ownerArtifacts": [
+          "canonical/job-localizations-ko.v1.json"
+        ],
+        "limitation": "Job IDs 802,803,806,703 localized; 811 and 707 remain REVIEW/NOT_ADMITTED."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "jobs[].connectionId",
+        "jobs[].jobId",
+        "jobs[].advancementEdges[]"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "jobs[].nameKo for jobId=811",
+        "jobs[].nameKo for jobId=707"
+      ],
+      "limitations": [
+        "No inferred paths, reachability, level threshold, mastery cost, or unlock rule."
+      ]
+    },
+    {
+      "id": "jobLevelStats",
+      "admissionStatus": "ADMITTED",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-job-level-raw-stats.v1.json",
+          "locator": "heroId=15&jobLevelId=selected 25 records",
+          "claimIds": [
+            1501,
+            1502,
+            1503,
+            1511,
+            1512,
+            1513,
+            1514,
+            1521,
+            1522,
+            1523,
+            1524,
+            1531,
+            1532,
+            1533,
+            1534,
+            1541,
+            1542,
+            1543,
+            1544,
+            1545,
+            1551,
+            1552,
+            1553,
+            1554,
+            1555
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataJobLevelInfo.records-hero-15-raw-stats.v1.json#ID=each selected jobLevelId",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve source rows and 11 present raw fields; no DEX_UP is present.",
+          "scope": "Raw JobLevel fields only.",
+          "limitation": "No derived/final Stats formula or unlock interpretation."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-job-level-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-job-level-internal.mjs",
+        "tools/test-hero-15-job-level-internal.mjs"
+      ],
+      "localization": {
+        "status": "PARTIAL",
+        "ownerArtifacts": [
+          "canonical/job-localizations-ko.v1.json"
+        ],
+        "limitation": "Job IDs 811/707 labels remain NOT_ADMITTED; stats remain raw values."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "jobLevels[].jobLevelId",
+        "jobLevels[].rawStats"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "jobLevels[].finalDisplayStats"
+      ],
+      "limitations": [
+        "jobLevelUpHeroLevel/rankCode do not establish unlock/progression; no calculated combat values."
+      ]
+    },
+    {
+      "id": "skill",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-skill-references.v1.json",
+          "locator": "heroId=15&reference rows",
+          "claimIds": [
+            10801,
+            10816,
+            10805,
+            10707,
+            10705,
+            10804,
+            10807,
+            6009,
+            11786
+          ],
+          "evidenceArtifact": "evidence/source/jobs/hero15-job-skill-references.v1.json#references/heroId=15",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve explicit reference kind, source field, and SkillID.",
+          "scope": "Nine refs only.",
+          "limitation": "No equipability, timing, availability, or unlock rule."
+        },
+        {
+          "artifact": "canonical/skills.v1.json",
+          "locator": "skillId=referenced endpoints",
+          "claimIds": [
+            10801,
+            10816,
+            10805,
+            10707,
+            10705,
+            10804,
+            10807,
+            6009,
+            11786
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json#ID=referenced SkillIDs",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Copy source Name/Desc by exact SkillID.",
+          "scope": "CN source text only.",
+          "limitation": "No Korean loc or rule inference."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-skill-detail-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero15-skill-references.mjs",
+        "tools/test-hero15-skill-references.mjs",
+        "tools/test-hero-15-skill-detail-internal.mjs"
+      ],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "skills[].skillId",
+        "skills[].nameCn",
+        "skills[].descriptionCn"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "skills[].nameKo",
+        "skills[].descriptionKo",
+        "skills[].acquisition",
+        "skills[].equipability",
+        "skills[].cooldown",
+        "skills[].range"
+      ],
+      "limitations": [
+        "Skill refs and CN text do not establish activation, acquisition, cooldown, range, or equipability."
+      ]
+    },
+    {
+      "id": "awakening",
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-awakening-references.v1.json",
+          "locator": "heroId=15&awakenInfoId=15",
+          "claimIds": [
+            15,
+            1015,
+            2015,
+            12350,
+            3253,
+            3249,
+            3247,
+            3260,
+            3256,
+            3254
+          ],
+          "evidenceArtifact": "evidence/source/awakening/hero15-awakening-references.v1.json#sourceRecords/awakenInfo&levels&skill&orderedGoods",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Preserve level/Skill references and ordered raw Goods endpoints.",
+          "scope": "One Hero ref, two stage levels, one Skill endpoint, ordered items.",
+          "limitation": "No unlock/completion/consumption/equip/combat semantics."
+        },
+        {
+          "artifact": "canonical/awakening-level-raw-details.v1.json",
+          "locator": "levelId={1015,2015}",
+          "claimIds": [
+            1015,
+            2015
+          ],
+          "evidenceArtifact": "evidence/source/awakening/hero15-awakening-level-raw-details.v1.json#levelId={1015,2015}",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02",
+          "transformation": "Project selected raw fields and presence states only.",
+          "scope": "Two raw endpoints.",
+          "limitation": "No runtime semantics."
+        }
+      ],
+      "consumerArtifacts": [
+        "generated/hero-15-awakening-internal.v1.json"
+      ],
+      "validators": [
+        "tools/validate-hero-15-awakening-internal.mjs",
+        "tools/test-hero-15-awakening-internal.mjs"
+      ],
+      "localization": {
+        "status": "NOT_ADMITTED",
+        "ownerArtifacts": [],
+        "limitation": "No Korean Full Detail localization is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [
+        "awakening.stages[].levelId",
+        "awakening.stages[].skillId",
+        "awakening.stages[].materials"
+      ],
+      "publicationApprovedFields": [],
+      "withheldFields": [],
+      "limitations": [
+        "Raw stage/Skill/Goods references do not establish unlock, completion, acquisition, equip, activation, or combat."
+      ]
+    },
+    {
+      "id": "sp",
+      "admissionStatus": "NOT_VERIFIED",
+      "canonicalClaims": [],
+      "consumerArtifacts": [],
+      "validators": [],
+      "localization": {
+        "status": "NOT_VERIFIED",
+        "ownerArtifacts": [],
+        "limitation": "No current 신규 Repo SP status Claim is admitted."
+      },
+      "asset": {
+        "status": "NOT_REQUIRED",
+        "ownerArtifacts": [],
+        "limitation": "No image Asset is required for these fields."
+      },
+      "publicationCandidateFields": [],
+      "publicationApprovedFields": [],
+      "withheldFields": [
+        "sp.jobId",
+        "sp.jobNameKo",
+        "sp.talent",
+        "sp.missions",
+        "sp.rewards",
+        "sp.dungeon"
+      ],
+      "limitations": [
+        "Do not copy Legacy NOT_RELEASED as current status; no SP Canonical relation is included."
+      ]
+    }
+  ],
+  "publication": {
+    "fullDetailStatus": "NOT_APPROVED",
+    "publicEligibilityStatus": "NOT_APPROVED",
+    "populationAdditionStatus": "NOT_EFFECTIVE",
+    "approvedFields": [],
+    "candidatePolicy": "Candidate fields are review inputs only; they do not authorize Full Detail output, eligibility, Public Build inclusion, or Frontend reachability."
+  },
+  "approval": {
+    "status": "NOT_CONFIRMED",
+    "authorityStatus": "MANUAL_REVIEW",
+    "evidenceStatus": "APPROVAL_EVIDENCE_NOT_VERIFIED",
+    "source": {
+      "kind": "USER_SUPPLIED_EXECUTION_INSTRUCTION_SUMMARY",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE"
+    },
+    "scope": "No Full Detail field scope is approved. Method-B approval provenance and the Repository Approval Owner remain unverified."
+  },
+  "preservedDecisions": {
+    "populationMigration": "docs/decisions/hero-full-detail-population-migration.v1.json",
+    "hero15Integrated": "docs/decisions/hero-15-integrated-publication.v1.json",
+    "hero15Talent": "docs/decisions/hero-15-talent-publication.v1.json",
+    "heroIndex": "docs/decisions/hero-index-publication.v1.json",
+    "currentPopulation": {
+      "heroIndex": 267,
+      "fullHeroDetail": 29,
+      "exclusiveEquipmentNavigation": 167
+    },
+    "hero15CurrentMinimalDetailFragment": "hero-minimal-detail-15"
+  },
+  "exclusions": [
+    "New Canonical Admission",
+    "Canonical or Evidence mutation",
+    "Generated population change",
+    "Public Build allowlist mutation",
+    "Frontend or Route mutation",
+    "Full Detail Publication approval",
+    "Portrait/Skin Publication approval",
+    "JobID 811/707 Korean localization admission",
+    "CV admission",
+    "Soldier Command calculations",
+    "Central Discipline Skill 90089 admission",
+    "final JobLevel Stats calculation",
+    "Skill acquisition/equip/activation rules",
+    "Fetter/Casting Law/Awakening runtime semantics",
+    "Hero 15 SP status claim",
+    "other Hero population expansion"
+  ],
+  "effect": {
+    "effective": false,
+    "condition": "No Hero 15 Full Detail fields, population, public eligibility, Public Build, or Frontend reachability become effective from this Decision.",
+    "reviewWhen": "Re-review when Approval Owner/evidence is confirmed, migration prerequisites are resolved, an explicit Field Publication approval is recorded, or supporting Canonical/Provenance scope changes."
+  }
+}
