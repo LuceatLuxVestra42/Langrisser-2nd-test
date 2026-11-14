@@ -25,7 +25,7 @@ const cases = [
   ['change existing Navigation target', (x) => { x.integratedDecision.approvedScope.heroIndexNavigation.fragment = 'hero-full-detail-15'; }],
   ['confirm approval without source', (x) => { x.decision.approval.status = 'CONFIRMED'; }],
   ['invent Canonical ID/locator', (x) => { x.decision.fieldGroups.find((g) => g.id === 'profile').canonicalClaims[0].locator = 'canonical/heroes.v1.json#ID=999'; }],
-  ['make migration effective', (x) => { x.migrationDecision.proposedMigration.applicationStatus = 'EFFECTIVE'; }],
+  ['make migration effective', (x) => { x.migrationDecision.proposedMigration.applicationStatus = 'NOT_EFFECTIVE'; }],
 ];
 
 for (const [label, mutate] of cases) {

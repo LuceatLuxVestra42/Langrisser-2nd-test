@@ -1,3 +1,4 @@
+import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
@@ -35,6 +36,8 @@ export async function validateHero15PortraitAdmission(root = process.cwd(), over
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
   const ev = overrides.evidence ?? await readJson('evidence/source/portraits/hero-portrait-hero15.v1.json');
   const canonical = overrides.canonical ?? await readJson('canonical/heroes.v1.json');
+  const migration = await readJson('docs/decisions/hero-full-detail-population-migration.v1.json');
+  const candidate = await readJson('docs/decisions/hero-15-full-detail-record-field-candidate.v1.json');
   const generated = overrides.generated ?? await readJson('generated/hero-slice.v1.json');
   const integratedDecision = overrides.integratedDecision ?? await readJson('docs/decisions/hero-15-integrated-publication.v1.json');
   const talentDecision = overrides.talentDecision ?? await readJson('docs/decisions/hero-15-talent-publication.v1.json');
@@ -67,9 +70,8 @@ export async function validateHero15PortraitAdmission(root = process.cwd(), over
   check(gitBlobSha1(bytes) === a.sourceGitBlobSha1 && gitBlobSha1(bytes) === EXPECTED.pngGitBlob, 'PNG Git blob SHA-1');
   check(bytes.length >= 24 && bytes.subarray(0, 8).toString('hex') === '89504e470d0a1a0a', 'PNG signature');
   check(bytes.readUInt32BE(16) === a.width && bytes.readUInt32BE(20) === a.height, 'PNG dimensions');
-  check(JSON.stringify(canonical.records.map((r) => r.id)) === JSON.stringify(presentationIds), 'Hero presentation canonical 29 population changed');
+  validateHero15CanonicalPopulation(canonical, migration, candidate.record);
   check(JSON.stringify(generated.heroes.map((r) => r.id)) === JSON.stringify(presentationIds), 'generated Hero presentation 29 population changed');
-  check(!canonical.records.some((r) => r.id === 15 && r.portrait === a.path), 'Hero 15 portrait added to presentation canonical');
   check(integratedDecision.status === 'APPROVED' && !JSON.stringify(integratedDecision).includes(a.path), 'existing integrated publication decision changed');
   check(talentDecision.status === 'APPROVED' && !JSON.stringify(talentDecision).includes(a.path), 'talent publication decision changed');
   check(ev.claimAssessment.find((x) => x.claim === 'Portrait publication')?.status === 'NOT_APPROVED', 'portrait publication boundary claim');

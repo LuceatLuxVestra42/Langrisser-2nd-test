@@ -51,7 +51,7 @@ await rejects((e, b) => { const changed = Buffer.from(b); changed[30] ^= 0xff; r
 await rejects((e, b) => ({ evidence: e, assetBytes: Buffer.concat([b, Buffer.from([0])]) }), 'PNG trailing byte mutation');
 const canonical = JSON.parse(await readFile('canonical/heroes.v1.json', 'utf8'));
 const expanded = structuredClone(canonical); expanded.records.push({ id: 15, portrait: 'assets/portraits/hero-15.png' });
-await assert.rejects(validateHero15PortraitAdmission(process.cwd(), { evidence, assetBytes, canonical: expanded }), /29 population/); count++;
+await assert.rejects(validateHero15PortraitAdmission(process.cwd(), { evidence, assetBytes, canonical: expanded }), /duplicate IDs|Canonical IDs/); count++;
 const generated = JSON.parse(await readFile('generated/hero-slice.v1.json', 'utf8'));
 const expandedGenerated = structuredClone(generated); expandedGenerated.heroes.push({ id: 15 });
 await assert.rejects(validateHero15PortraitAdmission(process.cwd(), { evidence, assetBytes, generated: expandedGenerated }), /29 population/); count++;

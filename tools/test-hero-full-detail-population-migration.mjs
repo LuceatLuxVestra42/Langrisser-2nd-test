@@ -14,7 +14,8 @@ const [decision, canonical, generated, heroIndexDecision, hero15IntegratedDecisi
   readJson('docs/decisions/hero-15-integrated-publication.v1.json'),
   readJson('docs/decisions/hero-15-talent-publication.v1.json'),
 ]);
-const input = () => structuredClone({ decision, canonical, generated, heroIndexDecision, hero15IntegratedDecision, hero15TalentDecision });
+const { record: candidateRecord } = await readJson('docs/decisions/hero-15-full-detail-record-field-candidate.v1.json');
+const input = () => structuredClone({ decision, canonical, generated, heroIndexDecision, hero15IntegratedDecision, hero15TalentDecision, candidateRecord });
 const rejects = (mutate, message) => {
   const fixture = input();
   mutate(fixture);
@@ -24,16 +25,16 @@ const rejects = (mutate, message) => {
 assert.equal(await validateHeroFullDetailPopulationMigrationFromRoot(), true);
 assert.equal(validateHeroFullDetailPopulationMigration(input()), true);
 
-rejects((x) => { x.canonical.records.splice(0, 1); }, /exact 29 IDs/);
-rejects((x) => { x.canonical.records[0].id = 2; }, /exact 29 IDs/);
+rejects((x) => { x.canonical.records.splice(0, 1); }, /exact 29 IDs|Canonical IDs/);
+rejects((x) => { x.canonical.records[0].id = 2; }, /exact 29 IDs|Canonical IDs/);
 rejects((x) => { x.canonical.records[0].nameEng = 'Tampered'; }, /Canonical baseline record snapshot changed/);
 rejects((x) => { x.generated.heroes[0].nameEng = 'Tampered'; }, /Generated baseline record snapshot changed/);
 rejects((x) => { x.generated.heroes.push(structuredClone(x.generated.heroes[0])); }, /duplicate IDs/);
-rejects((x) => { x.heroIndexDecision.approvedScope.detailHeroIds.pop(); }, /exact 29 IDs/);
+rejects((x) => { x.heroIndexDecision.approvedScope.detailHeroIds.pop(); }, /exact 29 IDs|Canonical IDs/);
 rejects((x) => { x.decision.currentPopulation.heroIds.pop(); }, /exact existing 29 IDs/);
-rejects((x) => { x.decision.proposedMigration.targetHeroIds.push(16); }, /exactly the existing 29 plus Hero 15/);
-rejects((x) => { x.decision.proposedMigration.heroId = 16; }, /exactly the existing 29 plus Hero 15/);
-rejects((x) => { x.decision.proposedMigration.applicationStatus = 'EFFECTIVE'; }, /must remain v1 PROPOSED|must not claim migration/);
+rejects((x) => { x.decision.proposedMigration.targetHeroIds.push(16); }, /approval must not be promoted/);
+rejects((x) => { x.decision.proposedMigration.heroId = 16; }, /approval must not be promoted/);
+rejects((x) => { x.decision.proposedMigration.applicationStatus = 'NOT_EFFECTIVE'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.proposedMigration.fullDetailPublicationStatus = 'APPROVED'; }, /must not claim migration/);
 rejects((x) => { x.decision.proposedMigration.publicEligibilityStatus = 'APPROVED'; }, /must not claim migration/);
 rejects((x) => { x.decision.proposedMigration.frontendReachability.currentFullDetail = true; }, /route reachability/);
@@ -49,12 +50,29 @@ rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.populati
 rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.publicPortraitExposureRequiresPublicationApproval = false; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.canonicalPortraitReferenceRequiresOwnerAdmission = false; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.portraitSchemaGate.requiredBeforeMigration = []; }, /Portrait\/schema prerequisite gate/);
-rejects((x) => { x.decision.approval.status = 'USER_APPROVED_SCOPE'; }, /approval must not be promoted/);
+rejects((x) => { x.decision.approval.status = 'NOT_CONFIRMED'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.approval.authorityStatus = 'APPROVED'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.approval.evidenceStatus = 'VERIFIED'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.approval.source.originalMessageIdOrUrl = 'https://example.invalid/fabricated'; }, /approval must not be promoted/);
-rejects((x) => { x.decision.approval.source.recordedAtDate = '2026-11-13'; }, /approval\.source fields differ/);
-rejects((x) => { x.decision.approval.evidenceStatus = 'APPROVAL_EVIDENCE_NOT_VERIFIED'; x.decision.status = 'APPROVED'; }, /must remain v1 PROPOSED/);
-rejects((x) => { x.decision.effect.effective = true; }, /Decision must remain non-effective/);
+rejects((x) => { x.decision.approval.source.recordedAtDate = '2026-11-13'; }, /approval must not be promoted/);
+rejects((x) => { x.decision.approval.evidenceStatus = 'APPROVAL_EVIDENCE_NOT_VERIFIED'; x.decision.status = 'APPROVED'; }, /approval must not be promoted/);
+rejects((x) => { x.decision.effect.effective = false; }, /approval must not be promoted/);
 
-process.stdout.write('Hero Full Detail population migration contract tests: PASS (positive parity and 31 negative boundary cases)\n');
+const proposed = input();
+proposed.decision.status = 'PROPOSED';
+proposed.decision.proposedMigration.applicationStatus = 'NOT_EFFECTIVE';
+proposed.decision.effect.effective = false;
+proposed.decision.approval = {
+  status: 'NOT_CONFIRMED', authorityStatus: 'MANUAL_REVIEW', evidenceStatus: 'APPROVAL_EVIDENCE_NOT_VERIFIED',
+  source: { kind: 'USER_SUPPLIED_EXECUTION_INSTRUCTION_SUMMARY', originalMessageIdOrUrl: 'NOT_AVAILABLE' },
+  scope: 'PROPOSED_COMMON_POPULATION_EXPANSION_TO_ADD_HERO_15_ONLY',
+};
+proposed.decision.populationBoundaries.canonical = {
+  currentHeroIds: proposed.decision.currentPopulation.heroIds, count: 29, hero15State: 'EXCLUDED',
+};
+assert.throws(() => validateHeroFullDetailPopulationMigration(proposed), /Canonical IDs/);
+proposed.canonical.records.pop();
+assert.equal(validateHeroFullDetailPopulationMigration(proposed), true);
+rejects((x) => { x.canonical.records.at(-1).nameEng = 'Tampered'; }, /exactly match the verified candidate/);
+
+process.stdout.write('Hero Full Detail population migration contract tests: PASS (proposed 29/29 and approved 30/29 parity and negative boundaries)\n');

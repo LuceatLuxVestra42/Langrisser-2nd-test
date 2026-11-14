@@ -1,3 +1,4 @@
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
@@ -15,6 +16,8 @@ export async function validateHeroPortraitExpansion(root = process.cwd()) {
   const charRows = charDoc.records;
   const heroRows = await readJson('evidence/source/configdata/ConfigDataHeroInfo.records-hero-expansion.v1.json');
   const canonical = await readJson('canonical/heroes.v1.json');
+  const publication = await readJson('docs/decisions/hero-index-publication.v1.json');
+  const publicRecords = projectApprovedFullDetailRecords(canonical, publication);
   const slice = await readJson('evidence/source/portraits/hero-portrait-slice.v1.json');
   const prior = await readJson('evidence/source/portraits/hero-portrait-prior-validation.v1.json');
   const generated = await readJson('generated/hero-slice.v1.json');
@@ -24,7 +27,7 @@ export async function validateHeroPortraitExpansion(root = process.cwd()) {
   check(Array.isArray(evidence.records) && JSON.stringify(evidence.records.map((r) => r.heroId)) === JSON.stringify(targets), 'portrait evidence population must contain exactly [28,32,52,53] in stable order');
   check(Array.isArray(charRows) && JSON.stringify(charRows.map((r) => r.ID)) === JSON.stringify(targets) && new Set(charRows.map((r) => r.ID)).size === 4, 'preserved CharImageInfo ID population drift');
   check(Array.isArray(heroRows) && targets.every((id) => heroRows.filter((r) => r.ID === id).length === 1), 'HeroInfo target ID resolution is not unique');
-  check(JSON.stringify(canonical.records.map((r) => r.id)) === JSON.stringify(presentationIds), 'presentation canonical population must be exactly the admitted 29-Hero set');
+  check(JSON.stringify(publicRecords.map((r) => r.id)) === JSON.stringify(presentationIds), 'presentation canonical population must be exactly the admitted 29-Hero set');
   check(JSON.stringify(generated.heroes.map((r) => r.id)) === JSON.stringify(presentationIds), 'generated presentation population must be exactly the admitted 29-Hero set');
   check(JSON.stringify(slice.scope.heroes) === JSON.stringify(legacyPortraitIds) && slice.records.length === 3 && prior.records.length === 3, 'existing Hero 5/6/8 evidence scope changed');
   const sourceHeroes = new Map(heroRows.map((row) => [row.ID, row]));
@@ -56,6 +59,6 @@ export async function validateHeroPortraitExpansion(root = process.cwd()) {
   }
   const union = [...new Set([...legacyPortraitIds, ...evidence.records.map((r) => r.heroId)])].sort((a, b) => a - b);
   check(JSON.stringify(union) === JSON.stringify([5,6,8,28,32,52,53]), 'portrait evidence population union must be exactly [5,6,8,28,32,52,53]');
-  process.stdout.write('Hero portrait expansion: PASS (7 portrait evidence IDs; 29 presentation canonical IDs; exact source and PNG blob parity)\n');
+  process.stdout.write('Hero portrait expansion: PASS (7 portrait evidence IDs; 29 approved presentation IDs; exact source and PNG blob parity)\n');
 }
 await validateHeroPortraitExpansion();

@@ -1,3 +1,4 @@
+import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -90,7 +91,7 @@ const ensureGroup = (group, expectedId) => {
   }
 };
 
-export function validateHero15FullDetailPublication({ decision, canonical, generated, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence }) {
+export function validateHero15FullDetailPublication({ decision, canonical, generated, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence, candidate }) {
   exactKeys(decision, ['schemaVersion', 'decisionType', 'status', 'baseline', 'targetSurface', 'population', 'targetFieldSchema', 'fieldGroups', 'publication', 'approval', 'preservedDecisions', 'exclusions', 'effect'], 'decision');
   if (decision.schemaVersion !== 1 || decision.decisionType !== 'HERO_15_FULL_DETAIL_PUBLICATION' || decision.status !== 'PROPOSED') fail('decision must remain v1 PROPOSED');
   exactKeys(decision.baseline, ['repository', 'baseRef', 'baseHead', 'predecessorPullRequest'], 'baseline');
@@ -101,18 +102,14 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
     || decision.targetSurface.surfaceType !== 'COMMON_FULL_DETAIL_POPULATION_EXTENSION') fail('Hero 15 Full Detail surface identity drift');
   exactKeys(decision.population, ['currentEffectiveCount', 'currentHeroIds', 'proposedHeroId', 'proposedTargetCount', 'migrationStatus', 'canonicalPopulationCount', 'generatedPopulationCount', 'publicationEligiblePopulationCount', 'publicBuildPopulationCount', 'frontendFullDetailPopulationCount'], 'population');
   const expectedCurrentIds = [1,3,4,5,6,7,8,9,10,11,12,13,14,25,26,27,28,29,32,33,37,40,52,53,55,56,60,67,89];
-  const canonicalIds = canonical?.heroes?.records?.map((row) => row.id);
+  const applied = validateHero15CanonicalPopulation(canonical?.heroes, migrationDecision, candidate?.record);
   const generatedIds = generated?.heroes?.map((row) => row.id);
-  if (!equal(decision.population.currentHeroIds, expectedCurrentIds) || !equal(canonicalIds, expectedCurrentIds) || !equal(generatedIds, expectedCurrentIds)
+  if (!equal(decision.population.currentHeroIds, expectedCurrentIds) || !equal(generatedIds, expectedCurrentIds)
     || decision.population.currentEffectiveCount !== 29 || decision.population.proposedHeroId !== 15 || decision.population.proposedTargetCount !== 30
-    || decision.population.migrationStatus !== 'NOT_EFFECTIVE' || decision.population.canonicalPopulationCount !== 29
+    || decision.population.migrationStatus !== (applied ? 'EFFECTIVE' : 'NOT_EFFECTIVE')
+    || decision.population.canonicalPopulationCount !== (applied ? 30 : 29)
     || decision.population.generatedPopulationCount !== 29 || decision.population.publicationEligiblePopulationCount !== 29
     || decision.population.publicBuildPopulationCount !== 29 || decision.population.frontendFullDetailPopulationCount !== 29) fail('current 29 populations or proposed-only Hero 15 boundary drift');
-  if (canonicalIds.includes(15) || generatedIds.includes(15)) fail('Hero 15 must not be represented as current Full Detail');
-  if (migrationDecision?.status !== 'PROPOSED' || migrationDecision?.proposedMigration?.heroId !== 15
-    || migrationDecision?.proposedMigration?.applicationStatus !== 'NOT_EFFECTIVE'
-    || migrationDecision?.approval?.evidenceStatus !== 'APPROVAL_EVIDENCE_NOT_VERIFIED'
-    || migrationDecision?.approval?.authorityStatus !== 'MANUAL_REVIEW') fail('predecessor Migration Decision is effective or its unresolved approval boundary drifted');
 
   if (!equal(decision.targetFieldSchema, HERO_15_FULL_DETAIL_TARGET_SCHEMA)) fail('the complete target Field Schema differs from the contract');
   const groupIds = decision.fieldGroups?.map((group) => group.id);
@@ -264,6 +261,7 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
   const paths = {
     decision: HERO_15_FULL_DETAIL_PUBLICATION_PATH,
     migrationDecision: HERO_15_FULL_DETAIL_POPULATION_MIGRATION_PATH,
+    candidate: 'docs/decisions/hero-15-full-detail-record-field-candidate.v1.json',
     integratedDecision: 'docs/decisions/hero-15-integrated-publication.v1.json',
     talentDecision: 'docs/decisions/hero-15-talent-publication.v1.json',
     heroIndexDecision: 'docs/decisions/hero-index-publication.v1.json',
@@ -327,9 +325,9 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
   };
   const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) => [key, await readJson(path)]));
   const data = Object.fromEntries(entries);
-  const { decision, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence } = data;
+  const { decision, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence, candidate } = data;
   return {
-    decision, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence,
+    decision, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence, candidate,
     canonical: {
       heroes: data['canonical.heroes'], heroIdentities: data['canonical.heroIdentities'], heroProfileCv: data['canonical.heroProfileCv'], heroLocalizations: data['canonical.heroLocalizations'], heroRarities: data['canonical.heroRarities'],
       heroFactionRelations: data['canonical.heroFactionRelations'], heroProductionRelations: data['canonical.heroProductionRelations'],

@@ -47,7 +47,7 @@ assert.deepEqual(approvedIds, baselineGenerated.heroes.map(({ id }) => id));
 assert.deepEqual(projectApprovedFullDetailRecords(canonical, publicationDecision).map(({ id }) => id), approvedIds);
 assert.equal(render(canonical), baselineGeneratedText, 'current 29-record public output must remain byte-identical');
 
-const futureCanonical = structuredClone(canonical);
+const futureCanonical = { ...canonical, records: canonical.records.filter(({ id }) => id !== 15) };
 futureCanonical.records.push(structuredClone(candidate.record));
 const futureGeneratedText = render(futureCanonical);
 const futureGenerated = JSON.parse(futureGeneratedText);

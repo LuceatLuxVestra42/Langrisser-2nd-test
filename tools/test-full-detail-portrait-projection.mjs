@@ -13,7 +13,8 @@ const [canonical, generated, publicationDecision] = await Promise.all([
   readJson('generated/hero-slice.v1.json'),
   readJson(HERO_INDEX_PUBLICATION_PATH),
 ]);
-assert.equal(validateFullDetailPortraitProjection({ canonical, generated, publicationDecision }), true);
+const baselineCanonical = { ...canonical, records: canonical.records.filter(({ id }) => id !== 15) };
+assert.equal(validateFullDetailPortraitProjection({ canonical: baselineCanonical, generated, publicationDecision }), true);
 assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.populationMigrationRequiresPortraitPublicationApproval, false,
   'Portrait public approval must not be coupled to Population Migration approval');
 assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.publicPortraitExposureRequiresPublicationApproval, true,
@@ -21,7 +22,7 @@ assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.publicPortraitExposureRequ
 assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.canonicalPortraitReferenceRequiresOwnerAdmission, true,
   'decoupling publication must not bypass Canonical field admission');
 
-const futureFixture = structuredClone({ canonical, generated, publicationDecision });
+const futureFixture = structuredClone({ canonical: baselineCanonical, generated, publicationDecision });
 futureFixture.canonical.records.push({ id: 15, portrait: 'assets/portraits/hero-15.png' });
 assert.equal(futureFixture.canonical.records.length, 30);
 assert.equal(futureFixture.generated.heroes.length, 29);
@@ -50,7 +51,7 @@ const cases = [
 ];
 
 for (const [label, mutate] of cases) {
-  const fixture = structuredClone({ canonical, generated, publicationDecision });
+  const fixture = structuredClone({ canonical: baselineCanonical, generated, publicationDecision });
   mutate(fixture);
   assert.throws(() => validateFullDetailPortraitProjection({ ...fixture, allowPopulationExtension: true }), undefined, label);
 }

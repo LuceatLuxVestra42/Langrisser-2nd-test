@@ -1,3 +1,4 @@
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -54,7 +55,7 @@ function parseProductionReference(referenceBytes) {
 }
 
 
-export function validateProductionKoLocalization({ identities, relations, heroes, evidence, localization, referenceBytes }) {
+export function validateProductionKoLocalization({ identities, relations, heroes, evidence, localization, referenceBytes, publication }) {
   const sourceById = parseProductionReference(referenceBytes);
   check(identities.schemaVersion === 1 && Array.isArray(identities.records), 'Production identity owner schema mismatch');
   const identityIds = identities.records.map(({ productionId }) => productionId);
@@ -119,7 +120,7 @@ export function validateProductionKoLocalization({ identities, relations, heroes
   }
   check(isDeepStrictEqual([...localizationById.keys()], EXPECTED_IDS), 'Canonical localization ID set/order mismatch');
   check(EXPECTED_IDS.every((id) => identityById.has(id)), 'localization target missing from Production identity owner');
-  const presentationHeroIds = heroes.records.map((row) => row.id);
+  const presentationHeroIds = projectApprovedFullDetailRecords(heroes, publication).map((row) => row.id);
   check(presentationHeroIds.every(Number.isSafeInteger) && new Set(presentationHeroIds).size === presentationHeroIds.length,
     'presentation Hero IDs are malformed or duplicated');
   for (const heroId of presentationHeroIds) {
@@ -138,15 +139,16 @@ export function validateProductionKoLocalization({ identities, relations, heroes
 
 export async function loadProductionKoLocalizationInputs(root = process.cwd()) {
   const read = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [identities, relations, heroes, evidence, localization, referenceBytes] = await Promise.all([
+  const [identities, relations, heroes, evidence, localization, referenceBytes, publication] = await Promise.all([
     read('canonical/production-identities.v1.json'),
     read('canonical/hero-production-relations.v1.json'),
     read('canonical/heroes.v1.json'),
     read(EVIDENCE_PATH),
     read(CANONICAL_PATH),
     readFile(resolve(root, REFERENCE_PATH)),
+    read('docs/decisions/hero-index-publication.v1.json'),
   ]);
-  return { identities, relations, heroes, evidence, localization, referenceBytes };
+  return { identities, relations, heroes, evidence, localization, referenceBytes, publication };
 }
 
 export async function validateProductionKoLocalizationFromDisk(root = process.cwd()) {

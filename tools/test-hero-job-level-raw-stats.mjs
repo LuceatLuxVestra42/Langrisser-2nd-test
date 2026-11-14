@@ -81,10 +81,10 @@ for (const heroId of [6, 8]) {
   }));
   assert.deepEqual(projected.get(heroId), expectedRows, `Hero ${heroId} projection preserves the exact admitted raw fields`);
 }
-for (const hero of base.heroes.records) {
-  const renderedHero = (await json('generated/hero-slice.v1.json')).heroes.find((row) => row.id === hero.id);
-  if ([6, 8].includes(hero.id)) assert.deepEqual(renderedHero.jobLevelSourceStats, projected.get(hero.id));
-  else assert.equal(renderedHero.jobLevelSourceStats, undefined, `Hero ${hero.id} remains outside the admitted raw JobLevel scope`);
+const publicHeroes = (await json('generated/hero-slice.v1.json')).heroes;
+assert.equal(publicHeroes.some(({ id }) => id === 15), false);
+for (const hero of publicHeroes) {
+  assert.deepEqual(hero.jobLevelSourceStats, projected.get(hero.id), `Hero ${hero.id} must follow the admitted raw JobLevel scope`);
 }
 const rejectProjection = (label, mutateHeroes, mutateStats) => {
   const heroes = structuredClone(base.heroes);

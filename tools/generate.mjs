@@ -1059,7 +1059,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await writeFile(trainingTechDescriptionsOutputPath, renderSoldierTrainingTechDescriptions(trainingTechDescriptions, trainingTechDecisionRecord), 'utf8');
   const heroSoldierRelationOwner = JSON.parse(await readFile(resolve('canonical/hero-soldier-relations.v1.json'), 'utf8'));
   const heroSoldierOutputPath = resolve('generated/hero-soldier-relations.v1.json');
-  await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(canonical, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');
+  const publicHeroPresentation = { ...canonical, records: projectApprovedFullDetailRecords(canonical, heroIndexPublication) };
+  await writeFile(heroSoldierOutputPath, renderHeroSoldierRelations(publicHeroPresentation, heroSoldierRelationOwner, JSON.parse(normalSoldierIdentities)), 'utf8');
   const equipmentIdentity = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment.v1.json'), 'utf8'));
   const equipmentLocalization = JSON.parse(await readFile(resolve('canonical/general-ssr-equipment-localizations-ko.v1.json'), 'utf8'));
   const equipmentOutputPath = resolve('generated/general-ssr-equipment.v1.json');

@@ -55,7 +55,6 @@ export function validateHero15ProfileCvInternal({ evidence, canonical, identitie
   check(fullDetailDecision.status === 'PROPOSED' && fullDetailDecision.publication.fullDetailStatus === 'NOT_APPROVED'
     && fullDetailDecision.publication.publicEligibilityStatus === 'NOT_APPROVED'
     && fullDetailDecision.population.currentEffectiveCount === 29
-    && fullDetailDecision.population.canonicalPopulationCount === 29
     && fullDetailDecision.population.generatedPopulationCount === 29, 'Full Detail publication/population boundary');
   const profile = fullDetailDecision.fieldGroups.find((group) => group.id === 'profile');
   check(profile && profile.publicationApprovedFields.length === 0

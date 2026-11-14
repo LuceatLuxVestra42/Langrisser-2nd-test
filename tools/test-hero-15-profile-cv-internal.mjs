@@ -26,7 +26,7 @@ const cases = [
   ['portrait FK relation changed', (x) => { x.portraitEvidence.source.heroInfo.fields.CharImage_ID = 16; }],
   ['public Full Detail approved', (x) => { x.fullDetailDecision.publication.fullDetailStatus = 'APPROVED'; }],
   ['CV published in Full Detail', (x) => { x.fullDetailDecision.fieldGroups.find((g) => g.id === 'profile').publicationApprovedFields.push('cv'); }],
-  ['population expanded', (x) => { x.fullDetailDecision.population.canonicalPopulationCount = 30; }],
+  ['public population expanded', (x) => { x.fullDetailDecision.population.generatedPopulationCount = 30; }],
   ['Generated value changed', (x) => { x.generatedText = x.generatedText.replace('小清水亚美', 'changed'); }],
 ];
 for (const [label, mutate] of cases) {

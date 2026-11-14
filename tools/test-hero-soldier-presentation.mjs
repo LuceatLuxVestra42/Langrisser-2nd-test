@@ -1,15 +1,18 @@
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { validateHeroSoldierPresentation } from './validate-hero-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-const [heroPresentation, relationOwner, soldierIdentities, generatedText] = await Promise.all([
+const [canonical, relationOwner, soldierIdentities, generatedText, publication] = await Promise.all([
   readJson('canonical/heroes.v1.json'),
   readJson('canonical/hero-soldier-relations.v1.json'),
   readJson('canonical/soldiers.v1.json'),
   readFile(resolve('generated/hero-soldier-relations.v1.json'), 'utf8'),
+  readJson('docs/decisions/hero-index-publication.v1.json'),
 ]);
+const heroPresentation = { ...canonical, records: projectApprovedFullDetailRecords(canonical, publication) };
 const result = validateHeroSoldierPresentation(heroPresentation, relationOwner, soldierIdentities, generatedText);
 assert.equal(result.rows, 379);
 assert.equal(result.distinctSoldiers, 112);

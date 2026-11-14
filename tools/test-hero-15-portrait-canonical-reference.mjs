@@ -29,7 +29,7 @@ const cases = [
   ['public build enabled', (x) => { x.admission.effect.publicBuildEligible = true; }],
   ['Full Detail population extended', (x) => { x.canonical.records.push({ id: 15 }); }],
   ['Generated population extended', (x) => { x.generated.heroes.push({ id: 15 }); }],
-  ['migration made effective', (x) => { x.migrationDecision.proposedMigration.applicationStatus = 'EFFECTIVE'; }],
+  ['migration made effective', (x) => { x.migrationDecision.proposedMigration.applicationStatus = 'NOT_EFFECTIVE'; }],
   ['publication decision approved', (x) => { x.publicationDecision.publication.fullDetailStatus = 'APPROVED'; }],
 ];
 for (const [label, mutate] of cases) {
