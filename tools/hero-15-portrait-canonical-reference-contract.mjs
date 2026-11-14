@@ -1,3 +1,4 @@
+import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -74,17 +75,15 @@ export function validateHero15PortraitCanonicalReference(input) {
   if (c?.record?.provenance?.portrait !== `${HERO_15_PORTRAIT_CANONICAL_REFERENCE_PATH}#claim`) fail('candidate record provenance does not point to this Owner Admission claim');
   if (c?.fieldAssessments?.portrait?.status !== 'CANONICAL_REFERENCE_ADMITTED_INTERNAL_ONLY'
     || c?.fieldAssessments?.portrait?.evidenceArtifact !== HERO_15_PORTRAIT_CANONICAL_REFERENCE_PATH
-    || c?.fieldAssessments?.portrait?.limitation !== 'The Canonical record is absent. The source Asset Evidence remains canonical=false and publicationApproved=false; this field admission grants no Asset Publication or Public Build eligibility.') fail('candidate field assessment is not synchronized to this scoped admission');
-  if (!equal(canonical?.records?.map(({ id }) => id), FULL_DETAIL_IDS) || !equal(generated?.heroes?.map(({ id }) => id), FULL_DETAIL_IDS)
-    || canonical.records.some(({ id }) => id === 15) || generated.heroes.some(({ id }) => id === 15)) fail('Full Detail Population changed or Hero 15 was applied');
+    || c?.fieldAssessments?.portrait?.limitation !== 'The source Asset Evidence remains canonical=false and publicationApproved=false; this field admission grants no Asset Publication or Public Build eligibility.') fail('candidate field assessment is not synchronized to this scoped admission');
+  validateHero15CanonicalPopulation(canonical, migrationDecision, c.record);
+  if (!equal(generated?.heroes?.map(({ id }) => id), FULL_DETAIL_IDS)) fail('public Full Detail population changed');
   if (!publicProjectionContract?.includes("canonicalField: 'portrait'")
     || !publicProjectionContract.includes('canonicalPortraitReferenceRequiresOwnerAdmission: true')
     || !publicProjectionContract.includes("newHeroPortraitDefault: 'WITHHELD_UNTIL_FIELD_SPECIFIC_ASSET_PUBLICATION_APPROVAL'")
     || !publicProjectionContract.includes('populationMigrationRequiresPortraitPublicationApproval: false')
     || !publicProjectionContract.includes('publicPortraitExposureRequiresPublicationApproval: true')) fail('Full Detail Portrait Projection owner contract changed');
-  if (migrationDecision?.status !== 'PROPOSED' || migrationDecision?.effect?.effective !== false
-    || migrationDecision?.proposedMigration?.applicationStatus !== 'NOT_EFFECTIVE'
-    || publicationDecision?.status !== 'PROPOSED' || publicationDecision?.publication?.fullDetailStatus !== 'NOT_APPROVED'
+  if (publicationDecision?.status !== 'PROPOSED' || publicationDecision?.publication?.fullDetailStatus !== 'NOT_APPROVED'
     || publicationDecision?.publication?.publicEligibilityStatus !== 'NOT_APPROVED') fail('Migration or Publication gate was promoted');
   if (!equal(a.effect, {
     candidatePortraitReferenceAdmitted: true, canonicalRecordPopulationChanged: false, generatedPopulationChanged: false,

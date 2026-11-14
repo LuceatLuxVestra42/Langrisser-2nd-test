@@ -1,3 +1,4 @@
+import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -134,21 +135,15 @@ export function validateHero15FullDetailRecordFieldCandidate(input) {
     || !equal(jobTreeEvidence?.claims?.connectionMembership?.connections?.map(({ connectionId, jobId }) => ({ connectionId, jobId })), EXPECTED_CONNECTIONS.map(({ connectionId, jobId }) => ({ connectionId, jobId })))
     || !equal(jobTree?.jobs?.map(({ connectionId, jobId }) => ({ connectionId, jobId })), EXPECTED_CONNECTIONS.map(({ connectionId, jobId }) => ({ connectionId, jobId })))) fail('Hero 15 Job Tree relation projection drift');
 
-  if (!equal(fullDetailCanonical?.records?.map((row) => row.id), CURRENT_FULL_DETAIL_IDS)
-    || !equal(fullDetailGenerated?.heroes?.map((row) => row.id), CURRENT_FULL_DETAIL_IDS)
-    || fullDetailCanonical.records.some((row) => row.id === 15)
-    || fullDetailGenerated.heroes.some((row) => row.id === 15)) fail('current Full Detail Canonical/Generated population changed');
+  const applied = validateHero15CanonicalPopulation(fullDetailCanonical, migrationDecision, c.record);
+  if (!equal(fullDetailGenerated?.heroes?.map((row) => row.id), CURRENT_FULL_DETAIL_IDS)) fail('public Full Detail population changed');
   if (heroIndexDecision?.approvedScope?.heroIds?.length !== 267 || equipmentRelations?.records?.length !== 167) fail('Hero Index or Equipment Navigation population changed');
-  if (migrationDecision?.status !== 'PROPOSED' || migrationDecision?.proposedMigration?.applicationStatus !== 'NOT_EFFECTIVE'
-    || migrationDecision?.proposedMigration?.fullDetailPublicationStatus !== 'NOT_APPROVED'
-    || migrationDecision?.proposedMigration?.publicEligibilityStatus !== 'NOT_APPROVED'
-    || migrationDecision?.approval?.authorityStatus !== 'MANUAL_REVIEW'
-    || migrationDecision?.approval?.evidenceStatus !== 'APPROVAL_EVIDENCE_NOT_VERIFIED'
-    || migrationDecision?.effect?.effective !== false) fail('Migration approval or effect was promoted');
+  if (migrationDecision.proposedMigration.fullDetailPublicationStatus !== 'NOT_APPROVED'
+    || migrationDecision.proposedMigration.publicEligibilityStatus !== 'NOT_APPROVED') fail('Migration widened publication scope');
   if (publicationDecision?.status !== 'PROPOSED'
     || publicationDecision?.publication?.fullDetailStatus !== 'NOT_APPROVED'
     || publicationDecision?.publication?.publicEligibilityStatus !== 'NOT_APPROVED'
-    || publicationDecision?.population?.migrationStatus !== 'NOT_EFFECTIVE') fail('Full Detail publication state was promoted');
+    || publicationDecision?.population?.migrationStatus !== (applied ? 'EFFECTIVE' : 'NOT_EFFECTIVE')) fail('Full Detail publication state was promoted');
 
   exactKeys(c.fieldAssessments, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], 'fieldAssessments');
   for (const assessment of Object.values(c.fieldAssessments)) {
@@ -164,9 +159,9 @@ export function validateHero15FullDetailRecordFieldCandidate(input) {
   if (!equal(c.effect, { canonicalPopulationMutation: false, generatedPopulationMutation: false, fullDetailPublicationApproved: false, publicEligibilityApproved: false, portraitPublicationApproved: false, publicBuildConsumption: false })) fail('candidate has an unauthorized Canonical or public effect');
   if (!equal(c.limitations, [
     'This is a complete non-public record candidate, not a Canonical Full Detail record or population addition.',
-    'The existing 29 Canonical and Generated Full Detail records remain unchanged.',
+    'The Candidate itself preserves the 29 baseline Canonical and Generated records.',
     'Portrait reference admission is separate from Asset Publication Approval; the Portrait remains internal-only.',
-    'Migration Approval Authority remains MANUAL_REVIEW and Approval Evidence remains APPROVAL_EVIDENCE_NOT_VERIFIED.',
+    'The separate Migration Decision governs active Canonical admission and approval evidence.',
     'Full Detail Publication, Public Eligibility, Frontend reachability, and Hosted QA are not approved or verified by this artifact.',
   ])) fail('candidate limitations changed');
   return true;

@@ -150,6 +150,7 @@ try {
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
   await validate();
   const expandedCanonical = structuredClone(heroes);
+  expandedCanonical.records = expandedCanonical.records.filter(({ id }) => id !== 15);
   expandedCanonical.records.push({ id: 15, portrait: 'assets/portraits/hero-15.png' });
   assert.deepEqual(await validate(decision, expandedCanonical), built.files,
     'an internal Hero 15 must leave the approved public file list and hashes unchanged');

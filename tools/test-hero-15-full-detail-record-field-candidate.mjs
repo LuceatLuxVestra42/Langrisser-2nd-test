@@ -30,7 +30,7 @@ const cases = [
   ['Generated Full Detail population extended', (x) => { x.fullDetailGenerated.heroes.push({ id: 15 }); }],
   ['Index count changed', (x) => { x.heroIndexDecision.approvedScope.heroIds.pop(); }],
   ['Equipment Navigation count changed', (x) => { x.equipmentRelations.records.pop(); }],
-  ['Migration made effective', (x) => { x.migrationDecision.proposedMigration.applicationStatus = 'EFFECTIVE'; }],
+  ['Migration made effective', (x) => { x.migrationDecision.proposedMigration.applicationStatus = 'NOT_EFFECTIVE'; }],
   ['Full Detail Publication approved', (x) => { x.publicationDecision.publication.fullDetailStatus = 'APPROVED'; }],
 ];
 

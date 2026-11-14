@@ -1,3 +1,4 @@
+import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -14,10 +15,10 @@ export const HERO_15_JOB_CONNECTIONS = Object.freeze([
 ]);
 const EXPECTED_FIELD_ASSESSMENTS = {
   id: { status: 'IDENTITY_ADMITTED', ownerArtifact: 'canonical/hero-identities.v1.json', ownerLocator: 'heroId=15', evidenceArtifact: 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json', evidenceLocator: '#ID=15', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02', transformation: 'Copy the exact ConfigDataHeroInfo ID into the Hero Identity owner.', scope: 'Playable Hero identity only; not Full Detail population or publication eligibility.', limitation: 'Does not establish any other required Full Detail field.' },
-  nameEng: { status: 'CANDIDATE_FIELD_ADMITTED', ownerArtifact: 'canonical/heroes.v1.json', ownerLocator: 'id=15/nameEng', evidenceArtifact: 'evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json', evidenceLocator: '#claim/Name_Eng; source records[14]/ID=15/Name_Eng', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02; source SHA-256 2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b', transformation: 'Exact source-field copy: Name_Eng=Riana, recorded only in the non-public record candidate.', scope: 'Source-native English name for HeroID 15 in the candidate record.', limitation: 'Not yet applied to canonical/heroes.v1.json; not a Korean localization or Publication Approval.' },
-  portrait: { status: 'CANONICAL_REFERENCE_ADMITTED_INTERNAL_ONLY', ownerArtifact: 'canonical/heroes.v1.json', ownerLocator: 'id=15/portrait', evidenceArtifact: 'docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json', evidenceLocator: '#claim', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02T01:45:21Z', transformation: 'Record the exact internal asset path admitted for the non-public Full Detail record field from the explicit HeroInfo.CharImage_ID to CharImageInfo.ID relation and verified asset bytes.', scope: 'Hero 15 Full Detail record Portrait reference only; internal asset path.', limitation: 'The Canonical record is absent. The source Asset Evidence remains canonical=false and publicationApproved=false; no Asset Publication or Public Build eligibility is granted.' },
-  jobConnections: { status: 'CANDIDATE_PROJECTION_ADMITTED_INTERNAL_ONLY', ownerArtifact: 'canonical/hero-job-relations.v1.json', ownerLocator: 'heroId=15; jobId={802,803,806,703,811,707}', evidenceArtifact: 'evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json', evidenceLocator: '#selectedRelations[0..5]', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02', transformation: 'Project the six explicit connectionId/jobId/sourceField tuples in inherited source order and require exact parity with the already admitted Hero-to-Job Canonical relations.', scope: 'Six Hero 15 Job membership rows in the candidate only.', limitation: 'Candidate projection only; no additional relation, display name, advancement, unlock, or runtime rule is admitted. The projected values are not applied to canonical/heroes.v1.json.' },
-  provenance: { status: 'COMPLETE_FOR_CANDIDATE_FIELDS', ownerArtifact: 'canonical/heroes.v1.json', ownerLocator: 'id=15/provenance', evidenceArtifact: 'docs/decisions/hero-15-full-detail-record-field-candidate.v1.json', evidenceLocator: '#record/provenance', sourceVersion: 'Claim-specific source versions are recorded on each candidate field assessment.', transformation: 'Compose field-level provenance references without merging their source scopes.', scope: 'All fields present in the complete non-public candidate record.', limitation: 'Candidate provenance is complete; the Canonical record and population remain unchanged.' },
+  nameEng: { status: 'CANDIDATE_FIELD_ADMITTED', ownerArtifact: 'canonical/heroes.v1.json', ownerLocator: 'id=15/nameEng', evidenceArtifact: 'evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json', evidenceLocator: '#claim/Name_Eng; source records[14]/ID=15/Name_Eng', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02; source SHA-256 2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b', transformation: 'Exact source-field copy: Name_Eng=Riana, recorded only in the non-public record candidate.', scope: 'Source-native English name for HeroID 15 in the candidate record.', limitation: 'This field assessment grants neither Korean localization nor Publication Approval.' },
+  portrait: { status: 'CANONICAL_REFERENCE_ADMITTED_INTERNAL_ONLY', ownerArtifact: 'canonical/heroes.v1.json', ownerLocator: 'id=15/portrait', evidenceArtifact: 'docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json', evidenceLocator: '#claim', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02T01:45:21Z', transformation: 'Record the exact internal asset path admitted for the non-public Full Detail record field from the explicit HeroInfo.CharImage_ID to CharImageInfo.ID relation and verified asset bytes.', scope: 'Hero 15 Full Detail record Portrait reference only; internal asset path.', limitation: 'The source Asset Evidence remains canonical=false and publicationApproved=false; no Asset Publication or Public Build eligibility is granted.' },
+  jobConnections: { status: 'CANDIDATE_PROJECTION_ADMITTED_INTERNAL_ONLY', ownerArtifact: 'canonical/hero-job-relations.v1.json', ownerLocator: 'heroId=15; jobId={802,803,806,703,811,707}', evidenceArtifact: 'evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json', evidenceLocator: '#selectedRelations[0..5]', sourceVersion: 'LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02', transformation: 'Project the six explicit connectionId/jobId/sourceField tuples in inherited source order and require exact parity with the already admitted Hero-to-Job Canonical relations.', scope: 'Six Hero 15 Job membership rows in the candidate only.', limitation: 'Candidate projection only; no additional relation, display name, advancement, unlock, or runtime rule is admitted. The Migration Decision governs application to Canonical.' },
+  provenance: { status: 'COMPLETE_FOR_CANDIDATE_FIELDS', ownerArtifact: 'canonical/heroes.v1.json', ownerLocator: 'id=15/provenance', evidenceArtifact: 'docs/decisions/hero-15-full-detail-record-field-candidate.v1.json', evidenceLocator: '#record/provenance', sourceVersion: 'Claim-specific source versions are recorded on each candidate field assessment.', transformation: 'Compose field-level provenance references without merging their source scopes.', scope: 'All fields present in the complete non-public candidate record.', limitation: 'The Migration Decision governs application of this provenance to Canonical.' },
 };
 
 const fail = (message) => { throw new Error(`Hero 15 Full Detail migration readiness: ${message}`); };
@@ -52,24 +53,28 @@ export function validateHero15FullDetailMigrationReadiness(input) {
   const { readiness: r, fullDetailCanonical, fullDetailGenerated, identities, identityEvidence,
     jobRelations, jobRelationEvidence, jobTree, portraitEvidence, portraitReferenceAdmission, migrationDecision,
     heroIndexDecision, equipmentRelations, recordFieldCandidate } = input ?? {};
+  const applied = validateHero15CanonicalPopulation(fullDetailCanonical, migrationDecision, recordFieldCandidate?.record);
+  const status = applied ? 'CANONICAL_RECORD_ADMITTED' : 'RECORD_DATA_NOT_READY';
+  const authority = applied ? 'USER_CONFIRMED' : 'MANUAL_REVIEW';
+  const evidence = applied ? 'VERIFIED_DIRECT_USER_MESSAGE' : 'NOT_VERIFIED';
   exactKeys(r, ['schemaVersion', 'artifactType', 'status', 'statusMeaning', 'baseline', 'target', 'fieldAssessments', 'gates', 'readinessBreakdown', 'migrationExecutionReady', 'publicationReady', 'populationInvariant', 'approval', 'limitations'], 'artifact');
-  if (r.schemaVersion !== 1 || r.artifactType !== 'HERO_15_FULL_DETAIL_MIGRATION_READINESS' || r.status !== 'RECORD_DATA_NOT_READY'
-    || r.statusMeaning !== 'The non-public Hero 15 candidate is complete, but no Hero 15 record has been admitted into the active Full Detail Canonical population.') fail('must remain a v1 readiness record with an explicit population-level status meaning');
+  if (r.schemaVersion !== 1 || r.artifactType !== 'HERO_15_FULL_DETAIL_MIGRATION_READINESS' || r.status !== status
+    || r.statusMeaning !== (applied
+      ? 'The verified non-public Hero 15 candidate has been admitted into active Full Detail Canonical. Public Full Detail remains at 29.'
+      : 'The non-public Hero 15 candidate is complete, but no Hero 15 record has been admitted into the active Full Detail Canonical population.')) fail('must remain a v1 readiness record with an explicit population-level status meaning');
   exactKeys(r.baseline, ['repository', 'baseRef', 'baseHead', 'mainHead', 'predecessorPullRequest'], 'baseline');
   if (r.baseline.repository !== 'LuceatLuxVestra42/Langrisser-2nd-test' || r.baseline.baseRef !== 'feat/hero15-population-portrait-gate-separation'
     || r.baseline.baseHead !== HERO_15_FULL_DETAIL_MIGRATION_READINESS_BASE || r.baseline.mainHead !== '6c46d8602ea5f4729e6fcabe6a07eaa222c52c3d' || r.baseline.predecessorPullRequest !== 261) fail('baseline or predecessor drift');
   exactKeys(r.target, ['heroId', 'desiredPopulationCount', 'effectivePopulationCount', 'recordSchemaOwner', 'requiredFields'], 'target');
-  if (r.target.heroId !== 15 || r.target.desiredPopulationCount !== 30 || r.target.effectivePopulationCount !== 29 || r.target.recordSchemaOwner !== 'canonical/heroes.v1.json'
+  if (r.target.heroId !== 15 || r.target.desiredPopulationCount !== 30 || r.target.effectivePopulationCount !== (applied ? 30 : 29) || r.target.recordSchemaOwner !== 'canonical/heroes.v1.json'
     || !equal(r.target.requiredFields, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'])) fail('target or required Full Detail schema drift');
 
-  const canonicalIds = fullDetailCanonical?.records?.map((row) => row.id);
   const generatedIds = fullDetailGenerated?.heroes?.map((row) => row.id);
-  if (!equal(canonicalIds, HERO_15_FULL_DETAIL_CURRENT_IDS) || !equal(generatedIds, HERO_15_FULL_DETAIL_CURRENT_IDS)) fail('current Canonical/Generated 29-record population drift');
+  if (!equal(generatedIds, HERO_15_FULL_DETAIL_CURRENT_IDS)) fail('current Canonical/Generated 29-record population drift');
   const identity = identities?.records?.filter((row) => row.heroId === 15);
   const identitySource = identityEvidence?.records?.filter((row) => row.ID === 15);
   if (identity?.length !== 1 || identity[0].provenance !== 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15'
     || identitySource?.length !== 1 || identitySource[0].Useable !== true || Object.hasOwn(identity[0], 'nameEng') || Object.hasOwn(identitySource[0], 'Name_Eng')) fail('Hero Identity evidence/field scope drift');
-  if (fullDetailCanonical.records.some((row) => row.id === 15) || fullDetailGenerated.heroes.some((row) => row.id === 15)) fail('Hero 15 must remain outside current Full Detail');
   if (recordFieldCandidate?.status !== 'CANDIDATE_RECORD_COMPLETE' || recordFieldCandidate?.target?.heroId !== 15
     || recordFieldCandidate?.target?.populationApplied !== false || recordFieldCandidate?.record?.id !== 15
     || recordFieldCandidate?.record?.nameEng !== 'Riana'
@@ -100,31 +105,24 @@ export function validateHero15FullDetailMigrationReadiness(input) {
     || portraitReferenceAdmission?.claim?.canonicalRecordApplied !== false
     || portraitReferenceAdmission?.effect?.portraitPublicationApproved !== false
     || portraitReferenceAdmission?.effect?.publicBuildEligible !== false) fail('Portrait Canonical reference admission or public boundary drift');
-  if (migrationDecision?.status !== 'PROPOSED' || migrationDecision?.approval?.authorityStatus !== 'MANUAL_REVIEW'
-    || migrationDecision?.approval?.evidenceStatus !== 'APPROVAL_EVIDENCE_NOT_VERIFIED' || migrationDecision?.effect?.effective !== false
-    || migrationDecision?.proposedMigration?.applicationStatus !== 'NOT_EFFECTIVE') fail('migration authority/effect state was promoted');
-
-  exactKeys(r.fieldAssessments, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'], 'fieldAssessments');
-  const fieldKeys = ['status', 'ownerArtifact', 'ownerLocator', 'evidenceArtifact', 'evidenceLocator', 'sourceVersion', 'transformation', 'scope', 'limitation'];
-  for (const [field, assessment] of Object.entries(r.fieldAssessments)) exactKeys(assessment, fieldKeys, `fieldAssessments.${field}`);
   if (!equal(r.fieldAssessments, EXPECTED_FIELD_ASSESSMENTS)) fail('field evidence, provenance, or readiness classification drift');
   exactKeys(r.gates, ['identity', 'requiredFields', 'relations', 'portraitReferenceAdmission', 'provenance', 'canonicalSchema', 'populationContract', 'migrationApprovalAuthority', 'migrationApprovalEvidence', 'fullDetailFieldPublication', 'publicEligibility', 'frontend', 'hostedQa'], 'gates');
   if (r.gates?.identity !== 'PASS' || r.gates?.requiredFields !== 'PASS' || r.gates?.relations !== 'PASS'
     || r.gates?.portraitReferenceAdmission !== 'PASS' || r.gates?.provenance !== 'PASS'
     || r.gates?.canonicalSchema !== 'PASS' || r.gates?.populationContract !== 'PASS'
-    || r.gates?.migrationApprovalAuthority !== 'MANUAL_REVIEW' || r.gates?.migrationApprovalEvidence !== 'NOT_VERIFIED'
+    || r.gates?.migrationApprovalAuthority !== authority || r.gates?.migrationApprovalEvidence !== evidence
     || r.gates?.fullDetailFieldPublication !== 'NOT_APPROVED' || r.gates?.publicEligibility !== 'NOT_APPROVED'
     || r.gates?.frontend !== 'NOT_READY' || r.gates?.hostedQa !== 'NOT_VERIFIED'
-    || r.migrationExecutionReady !== false || r.publicationReady !== false) fail('gate status is inconsistent or overclaims readiness');
+    || r.migrationExecutionReady !== applied || r.publicationReady !== false) fail('gate status is inconsistent or overclaims readiness');
 
   exactKeys(r.readinessBreakdown, ['fieldSourceAdmission', 'candidateRecordCompleteness', 'canonicalRecordOwnerAdmission', 'migrationApprovalAuthority', 'migrationApprovalEvidence', 'populationMutation', 'fullDetailPublication', 'portraitPublication', 'publicEligibility', 'publicBuild', 'frontend', 'hostedQa'], 'readinessBreakdown');
   if (!equal(r.readinessBreakdown, {
     fieldSourceAdmission: 'PASS',
     candidateRecordCompleteness: 'PASS',
-    canonicalRecordOwnerAdmission: 'NOT_READY',
-    migrationApprovalAuthority: 'MANUAL_REVIEW',
-    migrationApprovalEvidence: 'NOT_VERIFIED',
-    populationMutation: 'NOT_EFFECTIVE',
+    canonicalRecordOwnerAdmission: applied ? 'PASS' : 'NOT_READY',
+    migrationApprovalAuthority: authority,
+    migrationApprovalEvidence: evidence,
+    populationMutation: migrationDecision.proposedMigration.applicationStatus,
     fullDetailPublication: 'NOT_APPROVED',
     portraitPublication: 'NOT_APPROVED',
     publicEligibility: 'NOT_APPROVED',
@@ -135,16 +133,16 @@ export function validateHero15FullDetailMigrationReadiness(input) {
 
   const indexIds = heroIndexDecision?.approvedScope?.heroIds;
   if (!Array.isArray(indexIds) || indexIds.length !== 267 || equipmentRelations?.records?.length !== 167) fail('Hero Index or Equipment Navigation preserved population mismatch');
-  exactKeys(r.populationInvariant, ['currentCanonicalAndGeneratedHeroIds', 'hero15PresentInCanonicalFullDetail', 'hero15PresentInGeneratedFullDetail', 'heroIndexCount', 'equipmentNavigationCount'], 'populationInvariant');
-  if (!equal(r.populationInvariant.currentCanonicalAndGeneratedHeroIds, HERO_15_FULL_DETAIL_CURRENT_IDS)
-    || r.populationInvariant.hero15PresentInCanonicalFullDetail !== false || r.populationInvariant.hero15PresentInGeneratedFullDetail !== false
+  exactKeys(r.populationInvariant, ['publicGeneratedHeroIds', 'hero15PresentInCanonicalFullDetail', 'hero15PresentInGeneratedFullDetail', 'heroIndexCount', 'equipmentNavigationCount'], 'populationInvariant');
+  if (!equal(r.populationInvariant.publicGeneratedHeroIds, HERO_15_FULL_DETAIL_CURRENT_IDS)
+    || r.populationInvariant.hero15PresentInCanonicalFullDetail !== applied || r.populationInvariant.hero15PresentInGeneratedFullDetail !== false
     || r.populationInvariant.heroIndexCount !== 267 || r.populationInvariant.equipmentNavigationCount !== 167) fail('population invariant declaration drift');
   if (r.approval?.populationMigrationDecision !== 'docs/decisions/hero-full-detail-population-migration.v1.json'
-    || r.approval?.status !== 'PROPOSED' || r.approval?.authorityStatus !== 'MANUAL_REVIEW'
-    || r.approval?.evidenceStatus !== 'APPROVAL_EVIDENCE_NOT_VERIFIED' || r.approval?.effectEffective !== false) fail('approval provenance was promoted or changed');
+    || r.approval?.status !== migrationDecision.status || r.approval?.authorityStatus !== authority
+    || r.approval?.evidenceStatus !== migrationDecision.approval.evidenceStatus || r.approval?.effectEffective !== applied) fail('approval provenance was promoted or changed');
   if (!equal(r.limitations, [
-    'The non-public Hero 15 candidate records complete field-level claims; it does not add a Canonical record, approve publication, or change population.',
-    'The existing 29 Full Detail records and their generated counterparts remain unchanged.',
+    'The Migration Decision governs Canonical admission of the complete non-public candidate.',
+    'The 29 baseline records and public Generated output are preserved.',
     'The candidate Portrait reference is internal-only; Asset Publication Approval remains independent from Population Migration.',
     'Hero 15 Full Detail Field Publication, Public Eligibility, Frontend reachability, and Hosted QA are not approved or verified by this artifact.',
   ])) fail('explicit readiness limitations drift');

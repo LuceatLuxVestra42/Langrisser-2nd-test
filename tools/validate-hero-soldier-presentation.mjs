@@ -1,3 +1,4 @@
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
@@ -84,12 +85,14 @@ export function validateHeroSoldierPresentation(heroPresentation, relationOwner,
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-  const [heroPresentation, relationOwner, soldierIdentities, generatedText] = await Promise.all([
+  const [canonical, relationOwner, soldierIdentities, generatedText, publication] = await Promise.all([
     readJson('canonical/heroes.v1.json'),
     readJson('canonical/hero-soldier-relations.v1.json'),
     readJson('canonical/soldiers.v1.json'),
     readFile(resolve('generated/hero-soldier-relations.v1.json'), 'utf8'),
+    readJson('docs/decisions/hero-index-publication.v1.json'),
   ]);
+  const heroPresentation = { ...canonical, records: projectApprovedFullDetailRecords(canonical, publication) };
   const result = validateHeroSoldierPresentation(heroPresentation, relationOwner, soldierIdentities, generatedText);
   process.stdout.write(
     `Hero-Soldier presentation: PASS (${result.rows} owner-derived rows; ${result.distinctSoldiers} distinct Soldier IDs; exact subset, endpoints, determinism and freshness)\n`,

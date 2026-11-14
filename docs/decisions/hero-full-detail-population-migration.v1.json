@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "decisionType": "HERO_FULL_DETAIL_POPULATION_MIGRATION",
-  "status": "PROPOSED",
+  "status": "APPLIED",
   "baseline": {
     "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
     "baseRef": "main",
@@ -79,7 +79,7 @@
       15
     ],
     "targetCount": 30,
-    "applicationStatus": "NOT_EFFECTIVE",
+    "applicationStatus": "EFFECTIVE",
     "fullDetailPublicationStatus": "NOT_APPROVED",
     "publicEligibilityStatus": "NOT_APPROVED",
     "frontendReachability": {
@@ -119,10 +119,11 @@
         56,
         60,
         67,
-        89
+        89,
+        15
       ],
-      "count": 29,
-      "hero15State": "EXCLUDED"
+      "count": 30,
+      "hero15State": "INCLUDED"
     },
     "generated": {
       "currentHeroIds": [
@@ -298,17 +299,20 @@
     ]
   },
   "approval": {
-    "status": "NOT_CONFIRMED",
-    "authorityStatus": "MANUAL_REVIEW",
-    "evidenceStatus": "APPROVAL_EVIDENCE_NOT_VERIFIED",
+    "status": "USER_APPROVED_SCOPE",
+    "authorityStatus": "USER_CONFIRMED",
+    "evidenceStatus": "VERIFIED_DIRECT_USER_MESSAGE",
     "source": {
-      "kind": "USER_SUPPLIED_EXECUTION_INSTRUCTION_SUMMARY",
-      "originalMessageIdOrUrl": "NOT_AVAILABLE"
+      "kind": "DIRECT_USER_MESSAGE",
+      "originalMessageIdOrUrl": "NOT_AVAILABLE",
+      "quote": "작업 직접 승인해",
+      "recordedAtDate": "2026-11-14",
+      "context": "Direct reply in the execution conversation to the request for approval of Hero 15 internal Full Detail Canonical admission, 29 to 30. Existing Canonical and public 29 preserved. No Full Detail publication, Portrait publication or Public Eligibility expansion."
     },
-    "scope": "PROPOSED_COMMON_POPULATION_EXPANSION_TO_ADD_HERO_15_ONLY"
+    "scope": "HERO_15_INTERNAL_CANONICAL_29_TO_30_ONLY"
   },
   "effect": {
-    "effective": false,
+    "effective": true,
     "condition": "Canonical or Generated population changes require verified Population Migration authority/evidence and Owner-admitted required Canonical fields. Public Build and Frontend inclusion require separate Full Detail publication and Public Eligibility decisions. Portrait field, asset inclusion, and visibility require separate field-specific Portrait publication approval; otherwise the public projection omits portrait.",
     "reviewWhen": "Re-review if the current 29-ID population or its baseline records change, the approval evidence/authority is established, the portrait/schema gate changes, or any Full Detail field/publication scope is proposed."
   }

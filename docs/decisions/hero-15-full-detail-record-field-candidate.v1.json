@@ -58,7 +58,7 @@
       "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02",
       "transformation": "Use the exact internal asset path admitted for the non-public Full Detail record field from the explicit HeroInfo.CharImage_ID=15 to CharImageInfo.ID=15 relation and verified asset bytes.",
       "scope": "Hero 15 Full Detail record field reference only; internal asset path.",
-      "limitation": "The Canonical record is absent. The source Asset Evidence remains canonical=false and publicationApproved=false; this field admission grants no Asset Publication or Public Build eligibility."
+      "limitation": "The source Asset Evidence remains canonical=false and publicationApproved=false; this field admission grants no Asset Publication or Public Build eligibility."
     },
     "jobConnections": {
       "status": "ADMITTED_CANDIDATE_PROJECTION_INTERNAL_ONLY",
@@ -89,9 +89,9 @@
   },
   "limitations": [
     "This is a complete non-public record candidate, not a Canonical Full Detail record or population addition.",
-    "The existing 29 Canonical and Generated Full Detail records remain unchanged.",
+    "The Candidate itself preserves the 29 baseline Canonical and Generated records.",
     "Portrait reference admission is separate from Asset Publication Approval; the Portrait remains internal-only.",
-    "Migration Approval Authority remains MANUAL_REVIEW and Approval Evidence remains APPROVAL_EVIDENCE_NOT_VERIFIED.",
+    "The separate Migration Decision governs active Canonical admission and approval evidence.",
     "Full Detail Publication, Public Eligibility, Frontend reachability, and Hosted QA are not approved or verified by this artifact."
   ]
 }

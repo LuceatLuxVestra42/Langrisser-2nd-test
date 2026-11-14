@@ -1,3 +1,4 @@
+import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { validateFromRoot as validateHero15SoldierInternal } from './validate-hero-15-soldier-internal.mjs';
 import { validateFromRoot as validateHero15AwakeningInternal } from './validate-hero-15-awakening-internal.mjs';
 import { createHash } from 'node:crypto';
@@ -84,11 +85,9 @@ const expectedHero26 = new Map([[26, 'Luna']]);
 const expectedHero60 = new Map([[60, 'Sigma']]);
 const expectedHero4 = new Map([[4, 'Aimeeda']]);
 const expectedBatch5 = new Map([[9, 'Bozel'], [29, 'Tialice'], [33, 'Freya'], [37, 'Zillagod'], [40, 'Rune'], [56, 'Rachel'], [89, 'Yulia']]);
-const expectedIds = new Set([...expected.keys(), ...expectedExpansion.keys(), ...expectedPresentation.keys(), ...expectedBatch2.keys(), ...expectedHero13.keys(), ...expectedBatch3.keys(), ...expectedHero14.keys(), ...expectedHero11.keys(), ...expectedHero7.keys(), ...expectedHero26.keys(), ...expectedHero60.keys(), ...expectedHero4.keys(), ...expectedBatch5.keys()]);
-check(canonical.records.length === expectedIds.size, 'canonical population differs from admitted Hero set');
-const ids = canonical.records.map((record) => record.id);
-check(new Set(ids).size === ids.length, 'duplicate canonical Hero ID');
-check(JSON.stringify([...ids].sort((a, b) => a - b)) === '[1,3,4,5,6,7,8,9,10,11,12,13,14,25,26,27,28,29,32,33,37,40,52,53,55,56,60,67,89]', 'canonical Hero IDs differ from exact presentation population');
+const migrationDecision = await readJson('docs/decisions/hero-full-detail-population-migration.v1.json');
+const candidate = await readJson('docs/decisions/hero-15-full-detail-record-field-candidate.v1.json');
+const allowPopulationExtension = validateHero15CanonicalPopulation(canonical, migrationDecision, candidate.record);
 
 const rarityTargets = [5, 6, 8, 28, 32, 52, 53, ...[1, 3, 4, 7, 9, 10, 11, 12, 13, 14, 25, 26, 27, 29, 33, 37, 40, 55, 56, 60, 67, 89]];
 const independentlyAdmittedRarityTargets = [15];
@@ -651,7 +650,7 @@ validateHero15TalentPublic({ generatedText: hero15TalentGenerated, inputs: { dec
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
 validateFullDetailPublicPopulation({ canonical, generated: generatedJson, publicationDecision: fullDetailPublicationDecision });
-validateFullDetailPortraitProjection({ canonical, generated: generatedJson, publicationDecision: fullDetailPublicationDecision });
+validateFullDetailPortraitProjection({ canonical, generated: generatedJson, publicationDecision: fullDetailPublicationDecision, allowPopulationExtension });
 check(generatedJson.heroes.every((hero) => {
   const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'rarity', 'spJobConnections'];
   if (FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds.includes(hero.id)) expectedKeys.push('portrait');

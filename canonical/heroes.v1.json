@@ -1283,6 +1283,49 @@
         "portrait": "evidence/source/portraits/hero-portrait-selection.v1.json#heroId=89",
         "jobConnections": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=89"
       }
+    },
+    {
+      "id": 15,
+      "nameEng": "Riana",
+      "portrait": "assets/portraits/hero-15.png",
+      "jobConnections": [
+        {
+          "connectionId": 150,
+          "jobId": 802,
+          "sourceField": "JobConnection_ID"
+        },
+        {
+          "connectionId": 151,
+          "jobId": 803,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 152,
+          "jobId": 806,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 153,
+          "jobId": 703,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 154,
+          "jobId": 811,
+          "sourceField": "UseableJobConnections_ID"
+        },
+        {
+          "connectionId": 155,
+          "jobId": 707,
+          "sourceField": "UseableJobConnections_ID"
+        }
+      ],
+      "provenance": {
+        "id": "evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15",
+        "nameEng": "evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json#claim",
+        "portrait": "docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json#claim",
+        "jobConnections": "evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#selectedRelations"
+      }
     }
   ]
 }

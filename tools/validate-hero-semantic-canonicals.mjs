@@ -1,3 +1,4 @@
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -621,10 +622,12 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     check(relationByPair.has(key), `evidence relation ${key} is missing from the general owner`);
   }
 
-  const selectedIds = new Set(selected.records.map((row) => row.id));
+  const publication = await readJson('docs/decisions/hero-index-publication.v1.json');
+  const publicRecords = projectApprovedFullDetailRecords(selected, publication);
+  const selectedIds = new Set(publicRecords.map((row) => row.id));
   for (const heroId of selectedIds) check(identityById.has(heroId), `selected Hero ${heroId} is absent from the general identity owner`);
   const selectedPairs = new Set();
-  for (const hero of selected.records) {
+  for (const hero of publicRecords) {
     for (const relation of hero.jobConnections) {
       const key = `${hero.id}:${relation.jobId}`;
       check(!selectedPairs.has(key), `duplicate selected slice relation ${key}`);

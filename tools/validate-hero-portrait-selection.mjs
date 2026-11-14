@@ -1,3 +1,4 @@
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
@@ -693,6 +694,8 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
   const slice = await readJson('evidence/source/portraits/hero-portrait-slice.v1.json');
   const expansion = await readJson('evidence/source/portraits/hero-portrait-expansion.v1.json');
   const canonical = await readJson('canonical/heroes.v1.json');
+  const publication = await readJson('docs/decisions/hero-index-publication.v1.json');
+  const publicRecords = projectApprovedFullDetailRecords(canonical, publication);
   const generatedPath = resolve(root, 'generated/hero-slice.v1.json');
   const generatedBytes = await readFile(generatedPath);
   const generated = JSON.parse(generatedBytes.toString('utf8'));
@@ -731,7 +734,7 @@ export async function validateHeroPortraitSelection(root = process.cwd()) {
   check(JSON.stringify(slice.scope.heroes) === JSON.stringify([5, 6, 8]) && slice.records.length === 3
     && JSON.stringify(expansion.scope.heroIds) === JSON.stringify([28, 32, 52, 53]) && expansion.records.length === 4,
   'existing slice or expansion population changed');
-  check(JSON.stringify(canonical.records.map((r) => r.id)) === JSON.stringify(presentationIds)
+  check(JSON.stringify(publicRecords.map((r) => r.id)) === JSON.stringify(presentationIds)
     && JSON.stringify(generated.heroes.map((r) => r.id)) === JSON.stringify(presentationIds), 'Hero Presentation population changed');
   for (const [heroId, expectedSha256] of priorPresentationRecordSha256) {
     const row = generated.heroes.find((hero) => hero.id === heroId);
