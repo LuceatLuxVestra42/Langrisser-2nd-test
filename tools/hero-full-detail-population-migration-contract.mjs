@@ -64,11 +64,18 @@ export function validateHeroFullDetailPopulationMigration({ decision, canonical,
     || hero15TalentDecision?.status !== 'APPROVED' || hero15TalentDecision?.approvedScope?.surface !== 'hero-minimal-detail-15'
     || !hero15TalentDecision?.approvedScope?.excluded?.includes('Hero Full Detail')) fail('existing Hero 15 approval scope was changed or widened');
 
-  exactKeys(decision.portraitSchemaGate, ['status', 'canonicalHeroSchemaFields', 'hero15PortraitPublicationApproved', 'requiredBeforeMigration'], 'portraitSchemaGate');
-  if (decision.portraitSchemaGate.status !== 'BLOCKED_PENDING_SEPARATE_SCHEMA_AND_ASSET_APPROVAL'
+  exactKeys(decision.portraitSchemaGate, ['status', 'canonicalHeroSchemaFields', 'publicProjectionContract', 'hero15PortraitPublicationApproved', 'requiredBeforeMigration'], 'portraitSchemaGate');
+  exactKeys(decision.portraitSchemaGate.publicProjectionContract, ['artifact', 'generatedField', 'absenceRepresentation', 'preservedExistingPublicPortraitHeroCount', 'unapprovedNewHeroPortraitDefault', 'canonicalSchemaChanged'], 'portraitSchemaGate.publicProjectionContract');
+  if (decision.portraitSchemaGate.status !== 'PUBLIC_PROJECTION_OPTIONAL_PORTRAIT_CONTRACT_IMPLEMENTED'
     || !equal(decision.portraitSchemaGate.canonicalHeroSchemaFields, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'])
+    || decision.portraitSchemaGate.publicProjectionContract.artifact !== 'tools/full-detail-portrait-projection-contract.mjs'
+    || decision.portraitSchemaGate.publicProjectionContract.generatedField !== 'portrait'
+    || decision.portraitSchemaGate.publicProjectionContract.absenceRepresentation !== 'OMIT_FIELD'
+    || decision.portraitSchemaGate.publicProjectionContract.preservedExistingPublicPortraitHeroCount !== 29
+    || decision.portraitSchemaGate.publicProjectionContract.unapprovedNewHeroPortraitDefault !== 'WITHHELD_UNTIL_FIELD_SPECIFIC_ASSET_PUBLICATION_APPROVAL'
+    || decision.portraitSchemaGate.publicProjectionContract.canonicalSchemaChanged !== false
     || decision.portraitSchemaGate.hero15PortraitPublicationApproved !== false
-    || !equal(decision.portraitSchemaGate.requiredBeforeMigration, ['decide how the common schema represents absent/unapproved public portrait fields', 'separate Hero 15 portrait Asset publication approval'])) fail('Portrait/schema prerequisite gate was weakened');
+    || !equal(decision.portraitSchemaGate.requiredBeforeMigration, ['separate Hero 15 portrait Asset publication approval'])) fail('Portrait/schema prerequisite gate was weakened');
 
   exactKeys(decision.approval, ['status', 'authorityStatus', 'evidenceStatus', 'source', 'scope'], 'approval');
   exactKeys(decision.approval.source, ['kind', 'originalMessageIdOrUrl'], 'approval.source');

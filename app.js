@@ -560,11 +560,15 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
   article.className = 'hero-card';
   article.id = `hero-${hero.id}`;
 
-  const image = document.createElement('img');
-  image.className = 'hero-portrait';
-  image.src = new URL(hero.portrait, document.baseURI).href;
-  image.alt = `${hero.nameKo} 초상화`;
-  image.loading = 'lazy';
+  const image = typeof hero.portrait === 'string' && hero.portrait.length > 0
+    ? document.createElement('img')
+    : null;
+  if (image) {
+    image.className = 'hero-portrait';
+    image.src = new URL(hero.portrait, document.baseURI).href;
+    image.alt = `${hero.nameKo} 초상화`;
+    image.loading = 'lazy';
+  }
 
   const details = document.createElement('div');
   details.className = 'hero-details';
@@ -587,7 +591,8 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
     connections.append(item);
   }
   const jobLevelSourceStats = makeJobLevelSourceStatsPresentation(hero);
-  article.append(image, details);
+  if (image) article.append(image);
+  article.append(details);
   const skinPresentation = makeSkinFullartPresentation(skinsByHero.get(hero.id) ?? []);
   if (skinPresentation) article.append(skinPresentation);
   article.append(makeFactionPresentation(hero.factions));

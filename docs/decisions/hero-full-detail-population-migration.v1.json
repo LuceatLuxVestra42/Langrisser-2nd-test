@@ -273,7 +273,7 @@
     "existingFullDetailPopulation": 29
   },
   "portraitSchemaGate": {
-    "status": "BLOCKED_PENDING_SEPARATE_SCHEMA_AND_ASSET_APPROVAL",
+    "status": "PUBLIC_PROJECTION_OPTIONAL_PORTRAIT_CONTRACT_IMPLEMENTED",
     "canonicalHeroSchemaFields": [
       "id",
       "nameEng",
@@ -281,9 +281,16 @@
       "jobConnections",
       "provenance"
     ],
+    "publicProjectionContract": {
+      "artifact": "tools/full-detail-portrait-projection-contract.mjs",
+      "generatedField": "portrait",
+      "absenceRepresentation": "OMIT_FIELD",
+      "preservedExistingPublicPortraitHeroCount": 29,
+      "unapprovedNewHeroPortraitDefault": "WITHHELD_UNTIL_FIELD_SPECIFIC_ASSET_PUBLICATION_APPROVAL",
+      "canonicalSchemaChanged": false
+    },
     "hero15PortraitPublicationApproved": false,
     "requiredBeforeMigration": [
-      "decide how the common schema represents absent/unapproved public portrait fields",
       "separate Hero 15 portrait Asset publication approval"
     ]
   },
