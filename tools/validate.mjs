@@ -651,7 +651,7 @@ validateHero15TalentPublic({ generatedText: hero15TalentGenerated, inputs: { dec
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
 validateFullDetailPublicPopulation({ canonical, generated: generatedJson, publicationDecision: fullDetailPublicationDecision });
-validateFullDetailPortraitProjection({ canonical, generated: generatedJson });
+validateFullDetailPortraitProjection({ canonical, generated: generatedJson, publicationDecision: fullDetailPublicationDecision });
 check(generatedJson.heroes.every((hero) => {
   const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'rarity', 'spJobConnections'];
   if (FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds.includes(hero.id)) expectedKeys.push('portrait');
