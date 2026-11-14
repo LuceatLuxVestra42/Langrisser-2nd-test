@@ -287,11 +287,14 @@
       "absenceRepresentation": "OMIT_FIELD",
       "preservedExistingPublicPortraitHeroCount": 29,
       "unapprovedNewHeroPortraitDefault": "WITHHELD_UNTIL_FIELD_SPECIFIC_ASSET_PUBLICATION_APPROVAL",
-      "canonicalSchemaChanged": false
+      "canonicalSchemaChanged": false,
+      "populationMigrationRequiresPortraitPublicationApproval": false,
+      "publicPortraitExposureRequiresPublicationApproval": true,
+      "canonicalPortraitReferenceRequiresOwnerAdmission": true
     },
     "hero15PortraitPublicationApproved": false,
     "requiredBeforeMigration": [
-      "separate Hero 15 portrait Asset publication approval"
+      "Hero 15 Canonical Full Detail record must satisfy required fields through Owner-admitted claims, including any required portrait reference; this is separate from Portrait public publication approval"
     ]
   },
   "approval": {
@@ -306,7 +309,7 @@
   },
   "effect": {
     "effective": false,
-    "condition": "No Canonical, Generated, Public Build, or Frontend population changes occur until approval authority/evidence and portrait/schema gates are resolved.",
+    "condition": "Canonical or Generated population changes require verified Population Migration authority/evidence and Owner-admitted required Canonical fields. Public Build and Frontend inclusion require separate Full Detail publication and Public Eligibility decisions. Portrait field, asset inclusion, and visibility require separate field-specific Portrait publication approval; otherwise the public projection omits portrait.",
     "reviewWhen": "Re-review if the current 29-ID population or its baseline records change, the approval evidence/authority is established, the portrait/schema gate changes, or any Full Detail field/publication scope is proposed."
   }
 }

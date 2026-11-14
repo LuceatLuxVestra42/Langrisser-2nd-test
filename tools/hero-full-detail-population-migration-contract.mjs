@@ -65,7 +65,7 @@ export function validateHeroFullDetailPopulationMigration({ decision, canonical,
     || !hero15TalentDecision?.approvedScope?.excluded?.includes('Hero Full Detail')) fail('existing Hero 15 approval scope was changed or widened');
 
   exactKeys(decision.portraitSchemaGate, ['status', 'canonicalHeroSchemaFields', 'publicProjectionContract', 'hero15PortraitPublicationApproved', 'requiredBeforeMigration'], 'portraitSchemaGate');
-  exactKeys(decision.portraitSchemaGate.publicProjectionContract, ['artifact', 'generatedField', 'absenceRepresentation', 'preservedExistingPublicPortraitHeroCount', 'unapprovedNewHeroPortraitDefault', 'canonicalSchemaChanged'], 'portraitSchemaGate.publicProjectionContract');
+  exactKeys(decision.portraitSchemaGate.publicProjectionContract, ['artifact', 'generatedField', 'absenceRepresentation', 'preservedExistingPublicPortraitHeroCount', 'unapprovedNewHeroPortraitDefault', 'canonicalSchemaChanged', 'populationMigrationRequiresPortraitPublicationApproval', 'publicPortraitExposureRequiresPublicationApproval', 'canonicalPortraitReferenceRequiresOwnerAdmission'], 'portraitSchemaGate.publicProjectionContract');
   if (decision.portraitSchemaGate.status !== 'PUBLIC_PROJECTION_OPTIONAL_PORTRAIT_CONTRACT_IMPLEMENTED'
     || !equal(decision.portraitSchemaGate.canonicalHeroSchemaFields, ['id', 'nameEng', 'portrait', 'jobConnections', 'provenance'])
     || decision.portraitSchemaGate.publicProjectionContract.artifact !== 'tools/full-detail-portrait-projection-contract.mjs'
@@ -74,8 +74,11 @@ export function validateHeroFullDetailPopulationMigration({ decision, canonical,
     || decision.portraitSchemaGate.publicProjectionContract.preservedExistingPublicPortraitHeroCount !== 29
     || decision.portraitSchemaGate.publicProjectionContract.unapprovedNewHeroPortraitDefault !== 'WITHHELD_UNTIL_FIELD_SPECIFIC_ASSET_PUBLICATION_APPROVAL'
     || decision.portraitSchemaGate.publicProjectionContract.canonicalSchemaChanged !== false
+    || decision.portraitSchemaGate.publicProjectionContract.populationMigrationRequiresPortraitPublicationApproval !== false
+    || decision.portraitSchemaGate.publicProjectionContract.publicPortraitExposureRequiresPublicationApproval !== true
+    || decision.portraitSchemaGate.publicProjectionContract.canonicalPortraitReferenceRequiresOwnerAdmission !== true
     || decision.portraitSchemaGate.hero15PortraitPublicationApproved !== false
-    || !equal(decision.portraitSchemaGate.requiredBeforeMigration, ['separate Hero 15 portrait Asset publication approval'])) fail('Portrait/schema prerequisite gate was weakened');
+    || !equal(decision.portraitSchemaGate.requiredBeforeMigration, ['Hero 15 Canonical Full Detail record must satisfy required fields through Owner-admitted claims, including any required portrait reference; this is separate from Portrait public publication approval'])) fail('Portrait/schema prerequisite gate was weakened');
 
   exactKeys(decision.approval, ['status', 'authorityStatus', 'evidenceStatus', 'source', 'scope'], 'approval');
   exactKeys(decision.approval.source, ['kind', 'originalMessageIdOrUrl'], 'approval.source');
@@ -83,7 +86,7 @@ export function validateHeroFullDetailPopulationMigration({ decision, canonical,
     || decision.approval.source?.kind !== 'USER_SUPPLIED_EXECUTION_INSTRUCTION_SUMMARY'
     || decision.approval.source?.originalMessageIdOrUrl !== 'NOT_AVAILABLE'
     || decision.approval.scope !== 'PROPOSED_COMMON_POPULATION_EXPANSION_TO_ADD_HERO_15_ONLY') fail('approval must not be promoted without independently verified source and authority');
-  if (decision.effect?.effective !== false || decision.effect?.condition !== 'No Canonical, Generated, Public Build, or Frontend population changes occur until approval authority/evidence and portrait/schema gates are resolved.') fail('Decision must remain non-effective');
+  if (decision.effect?.effective !== false || decision.effect?.condition !== 'Canonical or Generated population changes require verified Population Migration authority/evidence and Owner-admitted required Canonical fields. Public Build and Frontend inclusion require separate Full Detail publication and Public Eligibility decisions. Portrait field, asset inclusion, and visibility require separate field-specific Portrait publication approval; otherwise the public projection omits portrait.') fail('Decision must remain non-effective and preserve independent population/publication gates');
   exactKeys(decision.effect, ['effective', 'condition', 'reviewWhen'], 'effect');
   return true;
 }

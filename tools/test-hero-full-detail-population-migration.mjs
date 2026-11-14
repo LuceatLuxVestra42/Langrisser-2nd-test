@@ -45,6 +45,9 @@ rejects((x) => { x.hero15TalentDecision.approvedScope.surface = 'HERO_FULL_DETAI
 rejects((x) => { x.decision.portraitSchemaGate.hero15PortraitPublicationApproved = true; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.absenceRepresentation = 'EMPTY_STRING'; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.canonicalSchemaChanged = true; }, /Portrait\/schema prerequisite gate/);
+rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.populationMigrationRequiresPortraitPublicationApproval = true; }, /Portrait\/schema prerequisite gate/);
+rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.publicPortraitExposureRequiresPublicationApproval = false; }, /Portrait\/schema prerequisite gate/);
+rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.canonicalPortraitReferenceRequiresOwnerAdmission = false; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.portraitSchemaGate.requiredBeforeMigration = []; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.approval.status = 'USER_APPROVED_SCOPE'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.approval.authorityStatus = 'APPROVED'; }, /approval must not be promoted/);
@@ -54,4 +57,4 @@ rejects((x) => { x.decision.approval.source.recordedAtDate = '2026-11-13'; }, /a
 rejects((x) => { x.decision.approval.evidenceStatus = 'APPROVAL_EVIDENCE_NOT_VERIFIED'; x.decision.status = 'APPROVED'; }, /must remain v1 PROPOSED/);
 rejects((x) => { x.decision.effect.effective = true; }, /Decision must remain non-effective/);
 
-process.stdout.write('Hero Full Detail population migration contract tests: PASS (positive parity and 28 negative boundary cases)\n');
+process.stdout.write('Hero Full Detail population migration contract tests: PASS (positive parity and 31 negative boundary cases)\n');

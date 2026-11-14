@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import {
+  FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT,
   projectFullDetailPortraitField,
   validateFullDetailPortraitProjection,
 } from './full-detail-portrait-projection-contract.mjs';
@@ -11,6 +12,12 @@ const [canonical, generated] = await Promise.all([
   readJson('generated/hero-slice.v1.json'),
 ]);
 assert.equal(validateFullDetailPortraitProjection({ canonical, generated }), true);
+assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.populationMigrationRequiresPortraitPublicationApproval, false,
+  'Portrait public approval must not be coupled to Population Migration approval');
+assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.publicPortraitExposureRequiresPublicationApproval, true,
+  'public Portrait exposure remains gated by its own approval');
+assert.equal(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.canonicalPortraitReferenceRequiresOwnerAdmission, true,
+  'decoupling publication must not bypass Canonical field admission');
 
 const futureFixture = structuredClone({ canonical, generated });
 futureFixture.canonical.records.push({ id: 15, portrait: 'assets/portraits/hero-15.png' });

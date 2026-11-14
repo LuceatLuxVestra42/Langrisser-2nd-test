@@ -7,6 +7,9 @@ export const FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT = Object.freeze({
   publicAssetPathPattern: /^assets\/portraits\/[^/]+\.png$/,
   preservedCurrentPublicHeroIds: Object.freeze([...HERO_FULL_DETAIL_CURRENT_IDS]),
   newHeroPortraitDefault: 'WITHHELD_UNTIL_FIELD_SPECIFIC_ASSET_PUBLICATION_APPROVAL',
+  populationMigrationRequiresPortraitPublicationApproval: false,
+  publicPortraitExposureRequiresPublicationApproval: true,
+  canonicalPortraitReferenceRequiresOwnerAdmission: true,
 });
 
 const preservedIds = new Set(FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds);
