@@ -52,8 +52,9 @@ export function validateHero15FullDetailMigrationReadiness(input) {
   const { readiness: r, fullDetailCanonical, fullDetailGenerated, identities, identityEvidence,
     jobRelations, jobRelationEvidence, jobTree, portraitEvidence, portraitReferenceAdmission, migrationDecision,
     heroIndexDecision, equipmentRelations, recordFieldCandidate } = input ?? {};
-  exactKeys(r, ['schemaVersion', 'artifactType', 'status', 'baseline', 'target', 'fieldAssessments', 'gates', 'migrationExecutionReady', 'publicationReady', 'populationInvariant', 'approval', 'limitations'], 'artifact');
-  if (r.schemaVersion !== 1 || r.artifactType !== 'HERO_15_FULL_DETAIL_MIGRATION_READINESS' || r.status !== 'RECORD_DATA_NOT_READY') fail('must remain a v1 readiness record, not an admission or approval');
+  exactKeys(r, ['schemaVersion', 'artifactType', 'status', 'statusMeaning', 'baseline', 'target', 'fieldAssessments', 'gates', 'readinessBreakdown', 'migrationExecutionReady', 'publicationReady', 'populationInvariant', 'approval', 'limitations'], 'artifact');
+  if (r.schemaVersion !== 1 || r.artifactType !== 'HERO_15_FULL_DETAIL_MIGRATION_READINESS' || r.status !== 'RECORD_DATA_NOT_READY'
+    || r.statusMeaning !== 'The non-public Hero 15 candidate is complete, but no Hero 15 record has been admitted into the active Full Detail Canonical population.') fail('must remain a v1 readiness record with an explicit population-level status meaning');
   exactKeys(r.baseline, ['repository', 'baseRef', 'baseHead', 'mainHead', 'predecessorPullRequest'], 'baseline');
   if (r.baseline.repository !== 'LuceatLuxVestra42/Langrisser-2nd-test' || r.baseline.baseRef !== 'feat/hero15-population-portrait-gate-separation'
     || r.baseline.baseHead !== HERO_15_FULL_DETAIL_MIGRATION_READINESS_BASE || r.baseline.mainHead !== '6c46d8602ea5f4729e6fcabe6a07eaa222c52c3d' || r.baseline.predecessorPullRequest !== 261) fail('baseline or predecessor drift');
@@ -107,13 +108,30 @@ export function validateHero15FullDetailMigrationReadiness(input) {
   const fieldKeys = ['status', 'ownerArtifact', 'ownerLocator', 'evidenceArtifact', 'evidenceLocator', 'sourceVersion', 'transformation', 'scope', 'limitation'];
   for (const [field, assessment] of Object.entries(r.fieldAssessments)) exactKeys(assessment, fieldKeys, `fieldAssessments.${field}`);
   if (!equal(r.fieldAssessments, EXPECTED_FIELD_ASSESSMENTS)) fail('field evidence, provenance, or readiness classification drift');
-  if (r.gates?.identity !== 'PASS' || r.gates?.requiredFields !== 'BLOCKED' || r.gates?.relations !== 'PARTIAL'
-    || r.gates?.portraitReferenceAdmission !== 'PASS' || r.gates?.provenance !== 'PARTIAL'
+  exactKeys(r.gates, ['identity', 'requiredFields', 'relations', 'portraitReferenceAdmission', 'provenance', 'canonicalSchema', 'populationContract', 'migrationApprovalAuthority', 'migrationApprovalEvidence', 'fullDetailFieldPublication', 'publicEligibility', 'frontend', 'hostedQa'], 'gates');
+  if (r.gates?.identity !== 'PASS' || r.gates?.requiredFields !== 'PASS' || r.gates?.relations !== 'PASS'
+    || r.gates?.portraitReferenceAdmission !== 'PASS' || r.gates?.provenance !== 'PASS'
     || r.gates?.canonicalSchema !== 'PASS' || r.gates?.populationContract !== 'PASS'
     || r.gates?.migrationApprovalAuthority !== 'MANUAL_REVIEW' || r.gates?.migrationApprovalEvidence !== 'NOT_VERIFIED'
     || r.gates?.fullDetailFieldPublication !== 'NOT_APPROVED' || r.gates?.publicEligibility !== 'NOT_APPROVED'
     || r.gates?.frontend !== 'NOT_READY' || r.gates?.hostedQa !== 'NOT_VERIFIED'
     || r.migrationExecutionReady !== false || r.publicationReady !== false) fail('gate status is inconsistent or overclaims readiness');
+
+  exactKeys(r.readinessBreakdown, ['fieldSourceAdmission', 'candidateRecordCompleteness', 'canonicalRecordOwnerAdmission', 'migrationApprovalAuthority', 'migrationApprovalEvidence', 'populationMutation', 'fullDetailPublication', 'portraitPublication', 'publicEligibility', 'publicBuild', 'frontend', 'hostedQa'], 'readinessBreakdown');
+  if (!equal(r.readinessBreakdown, {
+    fieldSourceAdmission: 'PASS',
+    candidateRecordCompleteness: 'PASS',
+    canonicalRecordOwnerAdmission: 'NOT_READY',
+    migrationApprovalAuthority: 'MANUAL_REVIEW',
+    migrationApprovalEvidence: 'NOT_VERIFIED',
+    populationMutation: 'NOT_EFFECTIVE',
+    fullDetailPublication: 'NOT_APPROVED',
+    portraitPublication: 'NOT_APPROVED',
+    publicEligibility: 'NOT_APPROVED',
+    publicBuild: 'NOT_READY',
+    frontend: 'NOT_READY',
+    hostedQa: 'NOT_VERIFIED',
+  })) fail('readiness stage separation is inconsistent or overclaims a downstream gate');
 
   const indexIds = heroIndexDecision?.approvedScope?.heroIds;
   if (!Array.isArray(indexIds) || indexIds.length !== 267 || equipmentRelations?.records?.length !== 167) fail('Hero Index or Equipment Navigation preserved population mismatch');
