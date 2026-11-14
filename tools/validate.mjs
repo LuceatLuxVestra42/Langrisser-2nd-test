@@ -31,6 +31,7 @@ import { validateHero15AwakeningReferences } from './validate-hero15-awakening-r
 import { validateAwakeningLevelRawDetails } from './validate-awakening-level-raw-details.mjs';
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
+import { FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT, validateFullDetailPortraitProjection } from './full-detail-portrait-projection-contract.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -647,8 +648,10 @@ const hero15TalentGenerated = await readFile(resolve(root, HERO_15_TALENT_PUBLIC
 validateHero15TalentPublic({ generatedText: hero15TalentGenerated, inputs: { decision: hero15TalentDecision, talentRelations, skills, localizations: talentLocalizations } });
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
+validateFullDetailPortraitProjection({ canonical, generated: generatedJson });
 check(generatedJson.heroes.every((hero) => {
-  const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'portrait', 'rarity', 'spJobConnections'];
+  const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'rarity', 'spJobConnections'];
+  if (FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds.includes(hero.id)) expectedKeys.push('portrait');
   if (talentRelations.records.some((row) => row.heroId === hero.id)) expectedKeys.push('talent');
   if ([6, 8].includes(hero.id)) expectedKeys.push('jobLevelSourceStats');
   return JSON.stringify(Object.keys(hero).sort()) === JSON.stringify(expectedKeys.sort());

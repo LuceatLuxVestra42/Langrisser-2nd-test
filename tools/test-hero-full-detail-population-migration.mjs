@@ -43,6 +43,9 @@ rejects((x) => { x.decision.preservedDecisions.heroIndexPopulation = 268; }, /pr
 rejects((x) => { x.hero15IntegratedDecision.approvedScope.preservedPopulations.fullHeroDetail = 30; }, /existing Hero 15 approval scope/);
 rejects((x) => { x.hero15TalentDecision.approvedScope.surface = 'HERO_FULL_DETAIL'; }, /existing Hero 15 approval scope/);
 rejects((x) => { x.decision.portraitSchemaGate.hero15PortraitPublicationApproved = true; }, /Portrait\/schema prerequisite gate/);
+rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.absenceRepresentation = 'EMPTY_STRING'; }, /Portrait\/schema prerequisite gate/);
+rejects((x) => { x.decision.portraitSchemaGate.publicProjectionContract.canonicalSchemaChanged = true; }, /Portrait\/schema prerequisite gate/);
+rejects((x) => { x.decision.portraitSchemaGate.requiredBeforeMigration = []; }, /Portrait\/schema prerequisite gate/);
 rejects((x) => { x.decision.approval.status = 'USER_APPROVED_SCOPE'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.approval.authorityStatus = 'APPROVED'; }, /approval must not be promoted/);
 rejects((x) => { x.decision.approval.evidenceStatus = 'VERIFIED'; }, /approval must not be promoted/);
@@ -51,4 +54,4 @@ rejects((x) => { x.decision.approval.source.recordedAtDate = '2026-11-13'; }, /a
 rejects((x) => { x.decision.approval.evidenceStatus = 'APPROVAL_EVIDENCE_NOT_VERIFIED'; x.decision.status = 'APPROVED'; }, /must remain v1 PROPOSED/);
 rejects((x) => { x.decision.effect.effective = true; }, /Decision must remain non-effective/);
 
-process.stdout.write('Hero Full Detail population migration contract tests: PASS (positive parity and 25 negative boundary cases)\n');
+process.stdout.write('Hero Full Detail population migration contract tests: PASS (positive parity and 28 negative boundary cases)\n');

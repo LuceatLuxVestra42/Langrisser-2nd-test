@@ -22,6 +22,7 @@ import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyBatchPublication, validateHeroMinimalDetailThirtyBatch } from './hero-minimal-detail-thirty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyOneBatchPublication, validateHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailFortyBatchPublication, validateHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
+import { FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT } from './full-detail-portrait-projection-contract.mjs';
 import { HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentDecision, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 const defaultHero15TalentDecision = validateHero15TalentDecision(JSON.parse(readFileSync(resolve(HERO_15_TALENT_PUBLICATION_PATH), 'utf8')));
 
@@ -84,7 +85,9 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   if (heroMinimalDetailFortyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH);
   if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
   for (const hero of heroPresentation.records) {
-    if (typeof hero.portrait !== 'string' || !/^assets\/portraits\/[^/]+\.png$/.test(hero.portrait)) {
+    if (hero.portrait === undefined) continue;
+    if (!FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds.includes(hero.id)
+      || typeof hero.portrait !== 'string' || !FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.publicAssetPathPattern.test(hero.portrait)) {
       throw new Error('Unsupported public portrait path');
     }
     files.push(hero.portrait);
@@ -395,7 +398,14 @@ const expectedSpJobsByHeroId = new Map([
   [25, [{ jobId: 414, nameKo: '천공의 마룡', classification: 'SP Job', localizationClassification: 'PROJECT_REVIEWED_LOCALIZATION', officialKrProvenanceStatus: 'UNVERIFIED' }]],
 ]);
 for (const hero of generated.heroes) {
-  const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'portrait', 'jobConnections', 'spJobConnections', 'exclusiveEquipment', 'factions', 'origins'];
+  const heroKeys = ['id', 'nameEng', 'nameKo', 'rarity', 'jobConnections', 'spJobConnections', 'exclusiveEquipment', 'factions', 'origins'];
+  if (hero.portrait !== undefined) {
+    if (!FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds.includes(hero.id)
+      || typeof hero.portrait !== 'string' || !FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.publicAssetPathPattern.test(hero.portrait)) {
+      throw new Error(`unsupported or unapproved portrait field for Hero ${hero.id}`);
+    }
+    heroKeys.push('portrait');
+  }
   if (talentRelations.records.some((row) => row.heroId === hero.id)) heroKeys.push('talent');
   if ([6, 8].includes(hero.id)) heroKeys.push('jobLevelSourceStats');
   exactKeys(hero, heroKeys, `generated Hero ${hero.id}`);
@@ -478,7 +488,7 @@ for (const hero of generated.heroes) {
     }
   }
 }
-const portraitPaths = [...new Set(generated.heroes.map((hero) => hero.portrait))];
+const portraitPaths = [...new Set(generated.heroes.filter((hero) => hero.portrait !== undefined).map((hero) => hero.portrait))];
 
 const output = selectedOutput ? resolve(selectedOutput) : await mkdtemp(join(tmpdir(), 'langrisser-hero-slice-build-'));
 if (outputDir) await mkdir(output, { recursive: false }); // Never overwrite a previous output.

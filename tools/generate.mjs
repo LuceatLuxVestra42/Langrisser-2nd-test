@@ -12,6 +12,7 @@ import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH
 import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailThirtyBatch } from './hero-minimal-detail-thirty-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
+import { projectFullDetailPortraitField } from './full-detail-portrait-projection-contract.mjs';
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
@@ -614,7 +615,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
       origins,
       ...(talent ? { talent } : {}),
       ...(jobLevelSourceStatsByHeroId.has(id) ? { jobLevelSourceStats: jobLevelSourceStatsByHeroId.get(id) } : {}),
-      portrait,
+      ...projectFullDetailPortraitField({ id, portrait }),
       exclusiveEquipment: { equipmentId, equipmentNameKo: localization.nameKo, effectDescriptionKo: localization.effectDescriptionKo },
       spJobConnections: spJobPresentationByHeroId.get(id) ?? [],
       jobConnections: jobConnections.map((relation) => {
