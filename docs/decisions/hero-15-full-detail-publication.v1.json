@@ -322,16 +322,30 @@
           "transformation": "Exact ProductionID localization.",
           "scope": "Display string only.",
           "limitation": "Official KR provenance not asserted."
+        },
+        {
+          "artifact": "canonical/hero-profile-cv-names.v1.json",
+          "locator": "heroId=15/charImageId=15/CVName",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#claim",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02T01:45:21Z; ConfigDataCharImageInfo blob 397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+          "transformation": "Exact source string copy of ConfigDataCharImageInfo.CVName; no trim, transliteration, translation, or normalization.",
+          "scope": "Hero 15 source-native CVName field only, linked through the explicit HeroInfo.CharImage_ID to CharImageInfo.ID relation.",
+          "limitation": "Does not establish Korean-server localization, credit formatting, Full Detail public eligibility, or publication approval."
         }
       ],
       "consumerArtifacts": [
         "generated/hero-index.v1.json",
-        "generated/hero-minimal-detail.v1.json"
+        "generated/hero-minimal-detail.v1.json",
+        "generated/hero-15-profile-cv-internal.v1.json"
       ],
       "validators": [
         "tools/validate.mjs",
         "tools/validate-hero-index.mjs",
-        "tools/validate-hero-15-minimal-detail.mjs"
+        "tools/validate-hero-15-minimal-detail.mjs",
+        "tools/validate-hero-15-profile-cv-internal.mjs"
       ],
       "localization": {
         "status": "PARTIAL",
@@ -364,7 +378,7 @@
         "cv"
       ],
       "limitations": [
-        "CV is not admitted; existing Minimal Detail fields remain limited to their approved surface."
+        "The source-native CVName claim is admitted for internal use only. The Full Detail cv field remains withheld and unapproved; existing Minimal Detail fields remain limited to their approved surface."
       ]
     },
     {

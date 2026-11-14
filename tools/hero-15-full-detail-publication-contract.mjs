@@ -147,7 +147,14 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
     || !equal(claimIds(profile, 'canonical/faction-identities.v1.json'), factionIds)
     || !equal(claimIds(profile, 'canonical/faction-localizations-ko.v1.json'), factionIds)
     || !equal(claimIds(profile, 'canonical/production-identities.v1.json'), [5])
-    || !equal(claimIds(profile, 'canonical/production-localizations-ko.v1.json'), [5])) fail('Profile Claim references are incomplete or out of scope');
+    || !equal(claimIds(profile, 'canonical/production-localizations-ko.v1.json'), [5])
+    || !equal(claimIds(profile, 'canonical/hero-profile-cv-names.v1.json'), [15])) fail('Profile Claim references are incomplete or out of scope');
+  const cvClaim = profile.canonicalClaims.find((claim) => claim.artifact === 'canonical/hero-profile-cv-names.v1.json');
+  if (cvClaim.locator !== 'heroId=15/charImageId=15/CVName'
+    || cvClaim.evidenceArtifact !== 'evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#claim'
+    || !cvClaim.sourceVersion.includes('397afb3e76c0fe4f3e424c04ba68459ff48d74c5')
+    || !cvClaim.limitation.includes('Does not establish Korean-server localization')
+    || !profile.withheldFields.includes('cv') || profile.publicationCandidateFields.includes('cv')) fail('CV internal claim must remain withheld from Full Detail publication');
   const heroIdentityClaim = profile.canonicalClaims.find((claim) => claim.artifact === 'canonical/hero-identities.v1.json');
   if (heroIdentityClaim.locator !== 'heroId=15' || !heroIdentityClaim.sourceVersion.includes('6475e63ee23d18adf733756c26a14fa9e3ed662c')
     || !heroIdentityClaim.evidenceArtifact.includes('ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15')) fail('Hero Identity source locator/provenance changed');
@@ -262,6 +269,7 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
     heroIndexDecision: 'docs/decisions/hero-index-publication.v1.json',
     portraitEvidence: 'evidence/source/portraits/hero-portrait-hero15.v1.json',
     'canonical.heroIdentities': 'canonical/hero-identities.v1.json',
+    'canonical.heroProfileCv': 'canonical/hero-profile-cv-names.v1.json',
     'canonical.heroes': 'canonical/heroes.v1.json',
     'canonical.heroLocalizations': 'canonical/hero-localizations-ko.v1.json',
     'canonical.heroRarities': 'canonical/hero-rarities.v1.json',
@@ -323,7 +331,7 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
   return {
     decision, migrationDecision, integratedDecision, talentDecision, heroIndexDecision, portraitEvidence,
     canonical: {
-      heroes: data['canonical.heroes'], heroIdentities: data['canonical.heroIdentities'], heroLocalizations: data['canonical.heroLocalizations'], heroRarities: data['canonical.heroRarities'],
+      heroes: data['canonical.heroes'], heroIdentities: data['canonical.heroIdentities'], heroProfileCv: data['canonical.heroProfileCv'], heroLocalizations: data['canonical.heroLocalizations'], heroRarities: data['canonical.heroRarities'],
       heroFactionRelations: data['canonical.heroFactionRelations'], heroProductionRelations: data['canonical.heroProductionRelations'],
       talentRelations: data['canonical.talentRelations'], equipmentRelations: data['canonical.equipmentRelations'], equipmentLocalizations: data['canonical.equipmentLocalizations'],
       factionIdentities: data['canonical.factionIdentities'], factionLocalizations: data['canonical.factionLocalizations'], productionIdentities: data['canonical.productionIdentities'], productionLocalizations: data['canonical.productionLocalizations'],

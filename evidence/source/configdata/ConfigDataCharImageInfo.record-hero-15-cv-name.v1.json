@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "CONFIGDATA_FIELD_CLAIM",
+  "admissionScope": "HERO_15_SOURCE_NATIVE_CVNAME_FIELD_ONLY",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "path": "data/configdata/ConfigDataCharImageInfo.json",
+    "gitBlobSha1": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+    "sha256": "3a412fa72f8e4626bc5a723b8bede6a5b0f9032711bc3922f4234ea322b8582a",
+    "bytes": 1593018,
+    "recordCount": 1378,
+    "recordIndex": 13,
+    "locator": "data/configdata/ConfigDataCharImageInfo.json#records[13]/ID=15",
+    "fields": {
+      "ID": 15,
+      "CVName": "小清水亚美"
+    },
+    "fieldLocators": {
+      "ID": "#records[13]/ID",
+      "CVName": "#records[13]/CVName"
+    }
+  },
+  "relation": {
+    "sourcePath": "data/configdata/ConfigDataHeroInfo.json",
+    "sourceGitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sourceSha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "sourceBytes": 16894185,
+    "heroRecordIndex": 14,
+    "heroLocator": "data/configdata/ConfigDataHeroInfo.json#records[14]/ID=15",
+    "heroId": 15,
+    "foreignKeyField": "CharImage_ID",
+    "foreignKeyLocator": "#records[14]/CharImage_ID",
+    "charImageId": 15,
+    "endpointField": "ID",
+    "endpointLocator": "data/configdata/ConfigDataCharImageInfo.json#records[13]/ID=15",
+    "joinRule": "Exact equality of the explicit HeroInfo.CharImage_ID value and CharImageInfo.ID."
+  },
+  "claim": {
+    "heroId": 15,
+    "charImageId": 15,
+    "sourceField": "ConfigDataCharImageInfo.CVName",
+    "cvNameRaw": "小清水亚美",
+    "transformation": "Exact source string copy; no trim, transliteration, translation, or normalization.",
+    "scope": "The source-native CVName field on the CharImageInfo record explicitly referenced by HeroID 15.",
+    "limitation": "Does not establish Korean-server localization, pronunciation, credit formatting, public eligibility, or Full Detail publication approval."
+  }
+}
