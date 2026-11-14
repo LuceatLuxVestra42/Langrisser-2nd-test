@@ -154,6 +154,12 @@ jobs:
       - name: Test Hero Full Detail population migration contract boundaries
         run: node tools/test-hero-full-detail-population-migration.mjs
 
+      - name: Validate Hero 15 Full Detail Publication contract
+        run: node tools/validate-hero-15-full-detail-publication.mjs
+
+      - name: Test Hero 15 Full Detail Publication contract boundaries
+        run: node tools/test-hero-15-full-detail-publication.mjs
+
       - name: Test Hero JobLevel raw stats
         run: node tools/test-hero-job-level-raw-stats.mjs
 
