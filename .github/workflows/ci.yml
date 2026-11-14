@@ -190,6 +190,12 @@ jobs:
       - name: Test Hero 15 Full Detail Publication contract boundaries
         run: node tools/test-hero-15-full-detail-publication.mjs
 
+      - name: Validate Hero 15 source-native profile CV internal claim
+        run: node tools/validate-hero-15-profile-cv-internal.mjs
+
+      - name: Test Hero 15 profile CV internal claim boundaries
+        run: node tools/test-hero-15-profile-cv-internal.mjs
+
       - name: Test Hero JobLevel raw stats
         run: node tools/test-hero-job-level-raw-stats.mjs
 

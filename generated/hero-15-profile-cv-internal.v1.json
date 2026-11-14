@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "Internal-only projection of the source-native CVName field; no Korean localization, public eligibility, or Full Detail publication is implied.",
+  "heroId": 15,
+  "charImageId": 15,
+  "cvNameRaw": "小清水亚美",
+  "provenance": {
+    "cvNameRaw": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#claim/CVName",
+    "heroToCharImageRelation": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#relation"
+  }
+}

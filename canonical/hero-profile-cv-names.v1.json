@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "hero-profile-source-cv-name",
+  "scope": {
+    "sourceScope": "Pinned CN ConfigData at 6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "claim": "Preserve the source-native ConfigDataCharImageInfo.CVName value for explicitly related Hero records.",
+    "excluded": [
+      "Korean-server localization",
+      "voice actor identity beyond the source-native CVName field",
+      "Full Detail publication eligibility",
+      "Public population membership",
+      "Portrait asset publication",
+      "Frontend presentation"
+    ]
+  },
+  "records": [
+    {
+      "heroId": 15,
+      "charImageId": 15,
+      "cvNameRaw": "小清水亚美",
+      "provenance": {
+        "cvNameRaw": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#claim/CVName",
+        "heroToCharImageRelation": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#relation"
+      }
+    }
+  ]
+}
