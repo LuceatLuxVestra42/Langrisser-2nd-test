@@ -54,7 +54,7 @@ try {
   const excludedEquipmentIds = [265, 266, 267, 268, 288, 289, 290, 291];
   assert.equal(publicEquipment.equipment.length, 198, 'public General SSR Equipment must contain the approved 198 IDs');
   assert.equal(publicEquipment.equipment.some(({ equipmentId }) => excludedEquipmentIds.includes(equipmentId)), false, 'excluded General SSR Equipment IDs must not enter Build output');
-  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision));
+  assert.deepEqual(built.files.map(file => file.path), publicSitePaths(heroes, fullDetailPublicationDecision, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision));
   assert.equal(built.files.some((file) => file.path === 'generated/hero-15-casting-law-internal.v1.json'), false, 'Casting Law internal consumer must remain outside the public Build');
   assert.equal(built.files.some((file) => file.path === 'assets/portraits/hero-15.png'), false, 'internally admitted Hero 15 portrait must remain outside the public Build');
   assert.ok(built.files.some((file) => file.path === heroIndexPath), 'approved Hero Index must enter the public artifact');
@@ -80,13 +80,13 @@ try {
   assert.deepEqual(heroMinimalDetailThirtyBatchConsumer.heroes.map(({ heroId }) => heroId), [101,102,103,104,105,106,108,109,110,111,112,113,114,115,116,118,119,120,121,122,123,124,125,126,127,129,130,99161,99162,99163]);
   assert.deepEqual(heroMinimalDetailTenBatchConsumer.heroes.map(({ heroId }) => heroId), [31,34,35,36,38,39,49,51,54,57]);
   assert.deepEqual(heroMinimalDetailTwentyBatchConsumer.heroes.map(({ heroId }) => heroId), [58,59,61,62,63,64,65,66,87,88,91,92,93,94,95,96,97,98,99,100]);
-  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
+  assert.ok(publicSitePaths(heroes, fullDetailPublicationDecision, decision, skinAssetPaths, exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision).includes(heroIndexPath), 'Hero Index must be explicitly allowlisted');
   assert.deepEqual(JSON.parse(await readFile(join(output, heroIndexPath), 'utf8')), heroIndex, 'packaged Hero Index must match the validated consumer');
   assert.equal(heroIndex.heroes.length, 267);
   assert.ok(heroIndex.heroes.every((row) => JSON.stringify(Object.keys(row).sort()) === '["heroId","nameKo"]'));
   assert.ok(built.files.some(file => file.path === skinConsumerPath), 'approved Skin Generated consumer must enter the public artifact');
-  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(skinConsumerPath), 'Frozen M03 consumer compatibility artifact must remain published');
-  assert.ok(publicSitePaths(heroes, decision, skinAssetPaths).includes(publicConsumerPath), 'approved generic Skin consumer must be published');
+  assert.ok(publicSitePaths(heroes, fullDetailPublicationDecision, decision, skinAssetPaths).includes(skinConsumerPath), 'Frozen M03 consumer compatibility artifact must remain published');
+  assert.ok(publicSitePaths(heroes, fullDetailPublicationDecision, decision, skinAssetPaths).includes(publicConsumerPath), 'approved generic Skin consumer must be published');
   assert.ok(built.files.some((file) => file.path === HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH), 'approved forty-Hero consumer must be included in the public artifact');
   assert.deepEqual(JSON.parse(await readFile(join(output, HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH), 'utf8')).heroes.map(({ heroId }) => heroId), HERO_MINIMAL_DETAIL_FORTY_BATCH.map(({ heroId }) => heroId), 'published forty-Hero consumer must preserve the exact approved population');
   const skinConsumer = JSON.parse(await readFile(skinConsumerPath, 'utf8'));
@@ -111,7 +111,7 @@ try {
     assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published M06 Skin ${id} bytes must match admitted Asset`);
   }
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
-  const validate = (record = decision) => validatePublicSiteDirectory(output, heroes, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision);
+  const validate = (record = decision, canonical = heroes) => validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision);
   await rm(join(output, skinConsumerPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
@@ -149,9 +149,14 @@ try {
   await assert.rejects(validate(), /bytes differ.*generated\/skin-consumer\.v1\.json/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));
   await validate();
+  const expandedCanonical = structuredClone(heroes);
+  expandedCanonical.records.push({ id: 15, portrait: 'assets/portraits/hero-15.png' });
+  assert.deepEqual(await validate(decision, expandedCanonical), built.files,
+    'an internal Hero 15 must leave the approved public file list and hashes unchanged');
   await mkdir(join(output, 'assets/portraits'), { recursive: true });
   await copyFile('assets/portraits/hero-15.png', join(output, 'assets/portraits/hero-15.png'));
-  await assert.rejects(validate(), /allowlist mismatch/, 'public Build validator must reject an unapproved Hero 15 portrait');
+  await assert.rejects(validate(decision, expandedCanonical), /allowlist mismatch/,
+    'public Build validator must reject an unapproved Hero 15 portrait even when present in Canonical');
   await rm(join(output, 'assets/portraits/hero-15.png'));
   await validate();
   const server = createServer(async (request, response) => {
@@ -232,7 +237,7 @@ try {
       disabled.decisionA.status = 'NOT_APPROVED';
       disabled.decisionB.status = 'NOT_APPROVED';
     }
-    assert.ok(!publicSitePaths(heroes, disabled, skinAssetPaths, exclusiveHeroDecision).includes(trainingPath));
+    assert.ok(!publicSitePaths(heroes, fullDetailPublicationDecision, disabled, skinAssetPaths, exclusiveHeroDecision).includes(trainingPath));
     await assert.rejects(validate(disabled), /allowlist mismatch/);
     await rm(join(output, trainingPath));
     await validate(disabled);
@@ -240,7 +245,7 @@ try {
   }
   const invalid = structuredClone(decision);
   invalid.contract.version = 999;
-  assert.throws(() => publicSitePaths(heroes, invalid), /contract approval\/effectiveness state mismatch/);
+  assert.throws(() => publicSitePaths(heroes, fullDetailPublicationDecision, invalid), /contract approval\/effectiveness state mismatch/);
   await validate();
   await buildSite({ verifyDir: output });
   console.log('Public Build checks: PASS (generic approved Skin projections, registry WebP URLs, byte parity, private Evidence and allowlist negatives)');

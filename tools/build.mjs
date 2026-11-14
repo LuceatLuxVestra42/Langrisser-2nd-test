@@ -23,7 +23,7 @@ import { HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_BATCH
 import { HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH, HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailThirtyOneBatchPublication, validateHeroMinimalDetailThirtyOneBatch } from './hero-minimal-detail-thirty-one-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailFortyBatchPublication, validateHeroMinimalDetailFortyBatch } from './hero-minimal-detail-forty-batch-contract.mjs';
 import { FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT } from './full-detail-portrait-projection-contract.mjs';
-import { validateFullDetailPublicPopulation } from './full-detail-public-population-contract.mjs';
+import { projectApprovedFullDetailRecords, validateFullDetailPublicPopulation } from './full-detail-public-population-contract.mjs';
 import { HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentDecision, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 const defaultHero15TalentDecision = validateHero15TalentDecision(JSON.parse(readFileSync(resolve(HERO_15_TALENT_PUBLICATION_PATH), 'utf8')));
 
@@ -52,7 +52,7 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
 }
 
 // Publication packaging only: this list does not admit semantic populations.
-export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision) {
+export function publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision) {
   if (!Array.isArray(skinFullartPaths) || skinFullartPaths.some((path) => !isAllowedSkinAssetPath(path))
     || new Set(skinFullartPaths).size !== skinFullartPaths.length) {
     throw new Error('Skin Fullart Build paths must be unique approved Asset paths');
@@ -84,8 +84,7 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   if (heroMinimalDetailThirtyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_THIRTY_BATCH_PATH);
   if (heroMinimalDetailThirtyOneBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_THIRTY_ONE_BATCH_PATH);
   if (heroMinimalDetailFortyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH);
-  if (!Array.isArray(heroPresentation?.records)) throw new Error('Missing Hero presentation owner for public assets');
-  for (const hero of heroPresentation.records) {
+  for (const hero of projectApprovedFullDetailRecords(canonical, publicationDecision)) {
     if (hero.portrait === undefined) continue;
     if (!FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds.includes(hero.id)
       || typeof hero.portrait !== 'string' || !FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.publicAssetPathPattern.test(hero.portrait)) {
@@ -96,9 +95,9 @@ export function publicSitePaths(heroPresentation, decisionRecord, skinFullartPat
   return [...new Set(files)].sort();
 }
 
-export async function validatePublicSiteDirectory(output, heroPresentation, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision) {
+export async function validatePublicSiteDirectory(output, canonical, publicationDecision, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision) {
   const skinFullartPaths = await readApprovedSkinAssetPaths(sourceRoot);
-  const expected = publicSitePaths(heroPresentation, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication);
+  const expected = publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication);
   const allowedDirectories = new Set(expected.flatMap(file => {
     const parts = file.split('/');
     return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
@@ -638,7 +637,7 @@ try {
   if (packagedExclusiveHeroNavigation.records.length !== 167) throw new Error('packaged Exclusive Equipment Hero Navigation population mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  const files = await validatePublicSiteDirectory(output, canonical, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication);
+  const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');

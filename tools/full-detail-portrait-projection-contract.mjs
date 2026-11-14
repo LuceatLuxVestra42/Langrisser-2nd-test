@@ -1,5 +1,7 @@
 import { HERO_FULL_DETAIL_CURRENT_IDS } from './hero-full-detail-population-migration-contract.mjs';
 
+import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
+
 export const FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT = Object.freeze({
   canonicalField: 'portrait',
   publicGeneratedField: 'portrait',
@@ -24,12 +26,14 @@ export function projectFullDetailPortraitField(record) {
   }
   return { portrait: record.portrait };
 }
-export function validateFullDetailPortraitProjection({ canonical, generated, allowPopulationExtension = false }) {
+export function validateFullDetailPortraitProjection({ canonical, generated, publicationDecision, allowPopulationExtension = false }) {
   if (!Array.isArray(canonical?.records) || !Array.isArray(generated?.heroes)) fail('Canonical and Generated records must be arrays');
+  const publicRecords = projectApprovedFullDetailRecords(canonical, publicationDecision);
   const canonicalIds = canonical.records.map(({ id }) => id);
   const generatedIds = generated.heroes.map(({ id }) => id);
-  if (new Set(canonicalIds).size !== canonicalIds.length || new Set(generatedIds).size !== generatedIds.length
-    || !equal(generatedIds, canonicalIds)) fail('Canonical and Generated Hero IDs must remain unique and in exact parity');
+  if (!equal(generatedIds, publicRecords.map(({ id }) => id))) {
+    fail('Public Generated Hero IDs must exactly follow the approved endpoint population and order');
+  }
   const preservedIdsInCanonical = canonicalIds.filter((id) => preservedIds.has(id));
   if (!equal(preservedIdsInCanonical, FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds)) {
     fail('the existing 29 public Full Detail Hero IDs and their relative order must be preserved');
@@ -37,10 +41,8 @@ export function validateFullDetailPortraitProjection({ canonical, generated, all
   if (!allowPopulationExtension && !equal(canonicalIds, FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT.preservedCurrentPublicHeroIds)) {
     fail('current Full Detail population must remain exactly 29 until the Population Migration is effective');
   }
-  const canonicalById = new Map(canonical.records.map((row) => [row.id, row]));
-  for (const hero of generated.heroes) {
-    const source = canonicalById.get(hero.id);
-    const expected = projectFullDetailPortraitField(source);
+  for (const [index, hero] of generated.heroes.entries()) {
+    const expected = projectFullDetailPortraitField(publicRecords[index]);
     const hasExpectedPortrait = Object.hasOwn(expected, 'portrait');
     if (Object.hasOwn(hero, 'portrait') !== hasExpectedPortrait
       || (hasExpectedPortrait && !equal({ portrait: hero.portrait }, expected))) {
