@@ -16,7 +16,7 @@ const cases = [
   ['Portrait promoted to public', (x) => { x.portraitEvidence.publicationApproved = true; }],
   ['Portrait readiness promoted', (x) => { x.readiness.fieldAssessments.portrait.status = 'ADMITTED'; }],
   ['Portrait Owner Admission removed', (x) => { x.portraitReferenceAdmission.status = 'MANUAL_REVIEW'; }],
-  ['Portrait publication made a migration prerequisite', (x) => { x.readiness.gates.portraitReferenceAdmission = 'PASS'; x.readiness.gates.requiredFields = 'PASS'; }],
+  ['Portrait publication conflated with canonical reference admission', (x) => { x.readiness.readinessBreakdown.portraitPublication = 'PASS'; }],
   ['Job membership removed', (x) => { x.jobRelations.records = x.jobRelations.records.filter((row) => row.heroId !== 15); }],
   ['Job endpoint changed', (x) => { x.jobRelations.records.find((row) => row.heroId === 15).jobId = 999; }],
   ['Job connection evidence order changed', (x) => { x.jobTree.jobs.reverse(); }],
@@ -29,6 +29,13 @@ const cases = [
   ['Index population changed', (x) => { x.readiness.populationInvariant.heroIndexCount = 268; }],
   ['Equipment navigation population changed', (x) => { x.equipmentRelations.records.pop(); }],
   ['Portrait assumption used as fallback', (x) => { x.readiness.fieldAssessments.portrait.transformation = 'fallback'; }],
+  ['candidate completeness downgraded despite complete Candidate', (x) => { x.readiness.readinessBreakdown.candidateRecordCompleteness = 'NOT_READY'; }],
+  ['Canonical Record Owner Admission inferred from candidate readiness', (x) => { x.readiness.readinessBreakdown.canonicalRecordOwnerAdmission = 'PASS'; }],
+  ['Migration Authority promoted without owner confirmation', (x) => { x.readiness.readinessBreakdown.migrationApprovalAuthority = 'PASS'; }],
+  ['Migration Approval Evidence promoted without source record', (x) => { x.readiness.readinessBreakdown.migrationApprovalEvidence = 'PASS'; }],
+  ['Population Mutation marked effective without applying migration', (x) => { x.readiness.readinessBreakdown.populationMutation = 'EFFECTIVE'; }],
+  ['Public Build made ready by internal Candidate', (x) => { x.readiness.readinessBreakdown.publicBuild = 'READY'; }],
+  ['record data status meaning obscured', (x) => { x.readiness.statusMeaning = 'candidate incomplete'; }],
 ];
 
 for (const [label, mutate] of cases) {
