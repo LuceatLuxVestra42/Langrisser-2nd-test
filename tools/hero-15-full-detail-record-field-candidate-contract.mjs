@@ -21,7 +21,7 @@ const EXPECTED_RECORD = {
   provenance: {
     id: 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=15',
     nameEng: 'evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json#claim',
-    portrait: 'evidence/source/portraits/hero-portrait-hero15.v1.json#source/heroInfo&charImageInfo; #asset',
+    portrait: 'docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json#claim',
     jobConnections: 'evidence/source/jobs/hero-job-connection-hero-15-inherited.v1.json#selectedRelations',
   },
 };
@@ -37,6 +37,7 @@ const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, p
 export async function loadHero15FullDetailRecordFieldCandidateInputs(root = process.cwd()) {
   const paths = {
     candidate: HERO_15_FULL_DETAIL_RECORD_FIELD_CANDIDATE_PATH,
+    portraitReferenceAdmission: 'docs/decisions/hero-15-portrait-canonical-reference-admission.v1.json',
     nameEngEvidence: 'evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json',
     identities: 'canonical/hero-identities.v1.json',
     identityEvidence: 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json',
@@ -57,7 +58,7 @@ export async function loadHero15FullDetailRecordFieldCandidateInputs(root = proc
 
 export function validateHero15FullDetailRecordFieldCandidate(input) {
   const {
-    candidate: c, nameEngEvidence, identities, identityEvidence, portraitEvidence,
+    candidate: c, portraitReferenceAdmission, nameEngEvidence, identities, identityEvidence, portraitEvidence,
     jobRelations, jobRelationEvidence, jobTreeEvidence, jobTree, fullDetailCanonical,
     fullDetailGenerated, heroIndexDecision, equipmentRelations, migrationDecision,
     publicationDecision,
@@ -109,6 +110,12 @@ export function validateHero15FullDetailRecordFieldCandidate(input) {
     || portraitEvidence?.asset?.path !== EXPECTED_RECORD.portrait
     || portraitEvidence?.asset?.sourceGitBlobSha1 !== '1dbd9386854aa7058de28c164341c6c20059e145'
     || portraitEvidence?.asset?.sha256 !== '2caad36dfbc17e3c570b36fcd74e5674822d2a0fb20e6df6ff72a1640b903073') fail('Portrait candidate reference is not the explicit internal asset relation');
+  if (portraitReferenceAdmission?.status !== 'ADMITTED_INTERNAL_ONLY'
+    || portraitReferenceAdmission?.claim?.heroId !== 15 || portraitReferenceAdmission?.claim?.field !== 'portrait'
+    || portraitReferenceAdmission?.claim?.value !== EXPECTED_RECORD.portrait
+    || portraitReferenceAdmission?.claim?.canonicalRecordApplied !== false
+    || portraitReferenceAdmission?.effect?.portraitPublicationApproved !== false
+    || portraitReferenceAdmission?.effect?.publicBuildEligible !== false) fail('Portrait reference lacks the separate internal-only Owner Admission');
 
   const selected = jobRelationEvidence?.selectedRelations?.map(({ connectionId, jobId, sourceField }) => ({ connectionId, jobId, sourceField }));
   const canonicalHeroJobs = jobRelations?.records?.filter((row) => row.heroId === 15) ?? [];
@@ -150,7 +157,7 @@ export function validateHero15FullDetailRecordFieldCandidate(input) {
   }
   if (c.fieldAssessments.id.status !== 'ADMITTED_CANDIDATE_FIELD'
     || c.fieldAssessments.nameEng.status !== 'ADMITTED_CANDIDATE_FIELD'
-    || c.fieldAssessments.portrait.status !== 'ADMITTED_CANDIDATE_FIELD_INTERNAL_ONLY'
+    || c.fieldAssessments.portrait.status !== 'CANONICAL_REFERENCE_ADMITTED_INTERNAL_ONLY'
     || c.fieldAssessments.jobConnections.status !== 'ADMITTED_CANDIDATE_PROJECTION_INTERNAL_ONLY'
     || c.fieldAssessments.provenance.status !== 'COMPLETE_FOR_CANDIDATE_FIELDS') fail('candidate field status overstates or omits an admission boundary');
   exactKeys(c.effect, ['canonicalPopulationMutation', 'generatedPopulationMutation', 'fullDetailPublicationApproved', 'publicEligibilityApproved', 'portraitPublicationApproved', 'publicBuildConsumption'], 'effect');

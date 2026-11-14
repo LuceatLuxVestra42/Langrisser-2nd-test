@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "artifactType": "HERO_15_FULL_DETAIL_PORTRAIT_CANONICAL_REFERENCE_ADMISSION",
+  "status": "ADMITTED_INTERNAL_ONLY",
+  "baseline": {
+    "repository": "LuceatLuxVestra42/Langrisser-2nd-test",
+    "baseRef": "feat/hero15-full-detail-field-admission",
+    "baseHead": "1e505f11a55806618b476eb2c979c9a79a1f4035",
+    "predecessorPullRequest": 263
+  },
+  "claim": {
+    "heroId": 15,
+    "field": "portrait",
+    "canonicalOwner": "canonical/heroes.v1.json",
+    "ownerLocator": "id=15/portrait",
+    "value": "assets/portraits/hero-15.png",
+    "scope": "The exact Portrait reference for a non-public Hero 15 Full Detail record candidate.",
+    "admissionStatus": "ADMITTED_INTERNAL_ONLY",
+    "canonicalRecordApplied": false
+  },
+  "support": {
+    "sourceEvidenceArtifact": "evidence/source/portraits/hero-portrait-hero15.v1.json",
+    "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; ConfigData snapshot 2026-09-02T01:45:21Z",
+    "sourceRelation": {
+      "heroInfoArtifact": "data/configdata/ConfigDataHeroInfo.json",
+      "heroInfoVersion": "commit 6475e63ee23d18adf733756c26a14fa9e3ed662c; tree 08e1e6c2773730e60b258940e31494f68d65f86a",
+      "heroInfoLocator": "records[14]/ID=15",
+      "heroIdFieldLocator": "records[14]/ID",
+      "portraitReferenceFieldLocator": "records[14]/CharImage_ID",
+      "heroId": 15,
+      "charImageId": 15,
+      "charImageInfoArtifact": "data/configdata/ConfigDataCharImageInfo.json",
+      "charImageInfoVersion": "commit 6475e63ee23d18adf733756c26a14fa9e3ed662c; tree 08e1e6c2773730e60b258940e31494f68d65f86a",
+      "charImageInfoLocator": "records[13]/ID=15",
+      "endpointIdFieldLocator": "records[13]/ID",
+      "artworkFieldLocator": "records[13]/HeroPainting",
+      "heroPainting": "UI/HeroPainting/SSR_ABS/Prefab/Riana.prefab",
+      "evidenceClass": "A"
+    },
+    "assetReference": {
+      "evidenceLocator": "#asset",
+      "internalPath": "assets/portraits/hero-15.png",
+      "sourcePath": "public/images/heroes/cards/15.png",
+      "sourceGitBlobSha1": "1dbd9386854aa7058de28c164341c6c20059e145",
+      "sha256": "2caad36dfbc17e3c570b36fcd74e5674822d2a0fb20e6df6ff72a1640b903073",
+      "bytes": 183461,
+      "width": 362,
+      "height": 682,
+      "transformation": "Byte-for-byte copy from the pinned Legacy PNG path; no decode, recompression, resize, crop, or edit.",
+      "evidenceClass": "A"
+    },
+    "roleSupport": {
+      "evidenceLocator": "#predecessorExtraction/record; heroes[heroId=15]",
+      "sourceArtworkPath": "UI/HeroPainting/SSR_ABS/Prefab/Riana.prefab",
+      "selectionStatus": "UNIQUE_REFERENCED_SPRITE",
+      "evidenceClass": "B",
+      "limitation": "Unity package and bundle were not re-decoded in this slice; the pinned predecessor extraction and validation chain is reused with its recorded limits."
+    }
+  },
+  "effect": {
+    "candidatePortraitReferenceAdmitted": true,
+    "canonicalRecordPopulationChanged": false,
+    "generatedPopulationChanged": false,
+    "portraitPublicationApproved": false,
+    "fullDetailPublicationApproved": false,
+    "publicEligibilityApproved": false,
+    "publicBuildEligible": false
+  },
+  "limitations": [
+    "This admission is limited to the exact internal Portrait reference for the non-public Hero 15 Full Detail candidate; it does not add Hero 15 to canonical/heroes.v1.json.",
+    "The source Asset Evidence remains canonical=false and publicationApproved=false because its scope is internal asset evidence, not this separate record-field claim.",
+    "The inherited Unity extraction role support is Evidence Class B and retains its package re-decoding limitation.",
+    "Portrait Asset Publication, Full Detail Publication, Public Eligibility, Generated population, and Public Build inclusion remain unapproved and unchanged."
+  ]
+}
