@@ -32,6 +32,7 @@ import { validateAwakeningLevelRawDetails } from './validate-awakening-level-raw
 import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-publication.mjs';
 import { validateHero15TalentDecision, HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
 import { FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT, validateFullDetailPortraitProjection } from './full-detail-portrait-projection-contract.mjs';
+import { validateFullDetailPublicPopulation } from './full-detail-public-population-contract.mjs';
 
 const root = process.cwd();
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -48,6 +49,7 @@ const hero15TalentDecision = validateHero15TalentDecision(await readJson(HERO_15
 const jobLocalization = await readJson('canonical/job-localizations-ko.v1.json');
 const heroLocalization = await readJson('canonical/hero-localizations-ko.v1.json');
 const canonical = await readJson('canonical/heroes.v1.json');
+const fullDetailPublicationDecision = await readJson('docs/decisions/hero-index-publication.v1.json');
 const heroIdentities = await readJson('canonical/hero-identities.v1.json');
 const exclusiveRelations = await readJson('canonical/hero-exclusive-equipment-relations.v1.json');
 const exclusiveLocalizations = await readJson('canonical/exclusive-equipment-localizations-ko.v1.json');
@@ -641,13 +643,14 @@ check(JSON.stringify(hero60JobInfoRows.map((row) => row.ID)) === '[213,214]'
   && hero60JobInfoRows.find((row) => row.ID === 214)?.Name === '剑斗统帅', 'Hero 60 pinned JobInfo ID/name set drift');
 check(talentRelations.records.every((row) => [6,8,15].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6, 8 and 15');
 
-const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities, skills, heroJobLevelRawStats);
+const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities, skills, heroJobLevelRawStats, fullDetailPublicationDecision);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
 const hero15TalentGenerated = await readFile(resolve(root, HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 validateHero15TalentPublic({ generatedText: hero15TalentGenerated, inputs: { decision: hero15TalentDecision, talentRelations, skills, localizations: talentLocalizations } });
 const generatedJson = JSON.parse(generated);
 exactKeys(generatedJson, ['schemaVersion', 'heroes'], 'generated consumer');
+validateFullDetailPublicPopulation({ canonical, generated: generatedJson, publicationDecision: fullDetailPublicationDecision });
 validateFullDetailPortraitProjection({ canonical, generated: generatedJson });
 check(generatedJson.heroes.every((hero) => {
   const expectedKeys = ['exclusiveEquipment', 'factions', 'id', 'jobConnections', 'nameEng', 'nameKo', 'origins', 'rarity', 'spJobConnections'];
