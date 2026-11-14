@@ -154,6 +154,12 @@ jobs:
       - name: Test Hero Full Detail population migration contract boundaries
         run: node tools/test-hero-full-detail-population-migration.mjs
 
+      - name: Validate Hero 15 Full Detail migration readiness
+        run: node tools/validate-hero-15-full-detail-migration-readiness.mjs
+
+      - name: Test Hero 15 Full Detail migration readiness boundaries
+        run: node tools/test-hero-15-full-detail-migration-readiness.mjs
+
       - name: Validate Full Detail portrait projection contract
         run: node tools/validate-full-detail-portrait-projection.mjs
 
