@@ -245,6 +245,36 @@ try {
   expectFailure(run(localizationValidator), 'duplicate canonical Job ID', /canonical Job localization must contain expected complete record population/);
   await restore();
 
+  restore = await editJson('evidence/localization/job-names-ko.hero-15.v1.json', (evidence) => {
+    evidence.records.find((row) => row.jobId === 811).nameKo = '잘못된값';
+  });
+  expectFailure(run(localizationValidator), 'Hero 15 Job 811 localization mismatch', /Hero 15 Job 811 localization source\/JobInfo parity mismatch/);
+  await restore();
+
+  restore = await editJson('evidence/source/configdata/ConfigDataJobInfo.records-localization-hero-15.v1.json', (evidence) => {
+    evidence.records.find((row) => row.ID === 707).Name = '잘못된값';
+  });
+  expectFailure(run(localizationValidator), 'Hero 15 JobInfo ID/name mismatch', /Hero 15 Job 707 localization source\/JobInfo parity mismatch/);
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.find((row) => row.jobId === 811).nameKo = '잘못된값';
+  });
+  expectFailure(run(localizationValidator), 'Hero 15 canonical Korean label mismatch', /Hero 15 localization provenance drift for Job 811/);
+  await restore();
+
+  restore = await editJson('canonical/job-localizations-ko.v1.json', (canonical) => {
+    canonical.records.splice(canonical.records.findIndex((row) => row.jobId === 707), 1);
+  });
+  expectFailure(run(localizationValidator), 'Hero 15 canonical localization omission', /canonical Job localization must contain expected complete record population/);
+  await restore();
+
+  restore = await editJson('evidence/localization/job-names-ko.hero-15.v1.json', (evidence) => {
+    evidence.records.reverse();
+  });
+  expectFailure(run(localizationValidator), 'Hero 15 localization scope order drift', /Hero 15 localization evidence scope, authority, or limitation drift/);
+  await restore();
+
   const clean = run(localizationValidator);
   expectSuccess(clean, 'clean Job localization validation', /Job localization: PASS/);
   process.stdout.write('Job localization validator cases: PASS (legacy, expansion, and batch 5 localization negatives; SP mapping/provenance and status-only admission)\n');
