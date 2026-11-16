@@ -76,9 +76,9 @@
         "status": "REUSED_EXISTING"
       },
       "localization": {
-        "status": "NOT_ADMITTED",
-        "nameKo": null,
-        "provenance": null
+        "status": "ADMITTED",
+        "nameKo": "프로핏",
+        "provenance": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=811"
       }
     },
     {
@@ -90,9 +90,9 @@
         "status": "REUSED_EXISTING"
       },
       "localization": {
-        "status": "NOT_ADMITTED",
-        "nameKo": null,
-        "provenance": null
+        "status": "ADMITTED",
+        "nameKo": "허미트",
+        "provenance": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=707"
       }
     }
   ],
