@@ -11,6 +11,8 @@ const mutations=[
  x=>x.evidence.claims.connectionMembership.connections[0].jobId=803,
  x=>x.evidence.claims.directEdges.records[0].sourceLocator='tampered',
  x=>x.localizations.records.push({jobId:811,nameKo:'guess',provenance:'invented'}),
+ x=>x.localizations.records=x.localizations.records.filter(r=>r.jobId!==811),
+ x=>x.localizations.records.find(r=>r.jobId===707).nameKo='잘못된값',
 ];
 for(const [i,mutate] of mutations.entries()){const copy=structuredClone(inputs);mutate(copy);assert.throws(()=>validate(copy,text),undefined,`negative ${i+1}`);}
 const bad=JSON.parse(text);bad.directEdges[0].runtimeUnlock=true;assert.throws(()=>validate(inputs,JSON.stringify(bad,null,2)+'\n'));
