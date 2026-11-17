@@ -691,10 +691,25 @@
     },
     {
       "id": "soldierCommand",
-      "admissionStatus": "NOT_ADMITTED",
-      "canonicalClaims": [],
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-soldier-command-base.v1.json",
+          "locator": "heroId=15/raw and base: hp, magicDf",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/source/configdata/hero-15-soldier-command-base.v1.json",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02T01:45:21Z",
+          "transformation": "Copy the two explicit integers and divide each by 100 without rounding for base percentages.",
+          "scope": "Hero 15 troop HP and magic defense base modifier metadata only.",
+          "limitation": "Attack and defense are absent from the pinned JSON. No runtime rules, final values, or publication approval."
+        }
+      ],
       "consumerArtifacts": [],
-      "validators": [],
+      "validators": [
+        "tools/validate-hero-15-soldier-command-base.mjs"
+      ],
       "localization": {
         "status": "NOT_ADMITTED",
         "ownerArtifacts": [],
@@ -713,7 +728,7 @@
         "soldierCommand.finalModifiers"
       ],
       "limitations": [
-        "No admitted source-backed formula or final modifier claim; do not derive from Legacy UI."
+        "Only the explicit HP and magic defense base modifiers are admitted. Attack and defense values, class or Soldier form applicability, bond contribution, and final modifiers remain unverified. All Soldier Command fields remain withheld from Full Detail publication."
       ]
     },
     {
