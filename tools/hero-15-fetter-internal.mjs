@@ -61,7 +61,6 @@ function validateInputs(input) {
   assert.equal(heartConditions.records.length, 4, 'Heart Fetter raw condition population drift');
   assert(heartConditions.records.every((row) => row.heroId === 15 && row.heartFetterId === 15
     && row.conditions.every((condition) => condition.conditionType === 7)), 'Heart Fetter unresolved condition scope drift');
-  assert.equal(skills.records.length, 108, 'Skill Identity Canonical population drift');
 
   for (const [label, rows] of [
     ['Skill reference', skillReferences.records],

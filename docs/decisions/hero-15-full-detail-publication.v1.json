@@ -718,10 +718,38 @@
     },
     {
       "id": "centralDiscipline",
-      "admissionStatus": "NOT_ADMITTED",
-      "canonicalClaims": [],
+      "admissionStatus": "PARTIAL",
+      "canonicalClaims": [
+        {
+          "artifact": "canonical/hero-skill-references.v1.json",
+          "locator": "heroId=15&referenceKind=HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE",
+          "claimIds": [
+            90089
+          ],
+          "evidenceArtifact": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json#heroInfo/rawRecord/CastingLawSkill_ID",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02T01:45:21Z",
+          "transformation": "Copy the explicit CastingLawSkill_ID from HeroInfo ID 15 and resolve it by exact SkillInfo.ID.",
+          "scope": "Hero 15 Central Discipline Skill reference only.",
+          "limitation": "No release, unlock, acquisition, equip, or effect rule is admitted."
+        },
+        {
+          "artifact": "canonical/skills.v1.json",
+          "locator": "skillId=90089",
+          "claimIds": [
+            90089
+          ],
+          "evidenceArtifact": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json#skillInfo/rawRecord",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02T01:45:21Z",
+          "transformation": "Preserve SkillInfo ID, Name, and Desc exactly.",
+          "scope": "Source-native identity and Chinese text only.",
+          "limitation": "The description is not structured effect data or Korean localization."
+        }
+      ],
       "consumerArtifacts": [],
-      "validators": [],
+      "validators": [
+        "tools/validate-hero15-skill-references.mjs",
+        "tools/validate-skill-identities.mjs"
+      ],
       "localization": {
         "status": "NOT_ADMITTED",
         "ownerArtifacts": [],
@@ -739,7 +767,7 @@
         "centralDiscipline.effects"
       ],
       "limitations": [
-        "No Hero 15 Central Discipline relation is admitted; SkillID 90089 remains outside Canonical scope."
+        "Skill 90089 is admitted as a source reference and source-native identity. Both Central Discipline fields remain withheld from Full Detail publication."
       ]
     },
     {
@@ -1431,7 +1459,7 @@
     "JobID 811/707 Korean localization admission",
     "CV admission",
     "Soldier Command calculations",
-    "Central Discipline Skill 90089 admission",
+    "Central Discipline structured effects and runtime rules",
     "final JobLevel Stats calculation",
     "Skill acquisition/equip/activation rules",
     "Fetter/Casting Law/Awakening runtime semantics",

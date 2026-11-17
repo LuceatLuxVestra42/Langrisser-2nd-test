@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 export const HERO_15_FULL_DETAIL_PUBLICATION_PATH = 'docs/decisions/hero-15-full-detail-publication.v1.json';
 export const HERO_15_FULL_DETAIL_POPULATION_MIGRATION_PATH = 'docs/decisions/hero-full-detail-population-migration.v1.json';
 export const HERO_15_FULL_DETAIL_BASE_HEAD = 'b399d7bc8e60620d30e6ce0b1ceecd3854e81457';
+const CENTRAL_DISCIPLINE_KIND = 'HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE';
 const JOB_LOCALIZATION_OWNER_PATH = 'canonical/job-localizations-ko.v1.json';
 export const HERO_15_FULL_DETAIL_GROUP_IDS = [
   'profile', 'portraitSkin', 'talent', 'exclusiveEquipment', 'fetterBond', 'soldierCommand',
@@ -37,7 +38,7 @@ const GROUP_GATE_STATUS = {
   profile: ['PARTIAL','PARTIAL','NOT_REQUIRED'], portraitSkin: ['PARTIAL','NOT_ADMITTED','INTERNAL_ONLY_NOT_PUBLICATION_APPROVED'],
   talent: ['ADMITTED','ADMITTED_OFFICIAL_KR_UNVERIFIED','NOT_REQUIRED'], exclusiveEquipment: ['ADMITTED','ADMITTED_EXISTING_SURFACE_ONLY','NOT_REQUIRED'],
   fetterBond: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'], soldierCommand: ['NOT_ADMITTED','NOT_ADMITTED','NOT_REQUIRED'],
-  centralDiscipline: ['NOT_ADMITTED','NOT_ADMITTED','NOT_REQUIRED'], castingLaw: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'],
+  centralDiscipline: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'], castingLaw: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'],
   soldier: ['ADMITTED','ADMITTED_14_DISPLAY_LABELS','NOT_REQUIRED'], jobTree: ['PARTIAL','ADMITTED_6_DISPLAY_LABELS','NOT_REQUIRED'],
   jobLevelStats: ['ADMITTED','ADMITTED_6_DISPLAY_LABELS','NOT_REQUIRED'], skill: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'],
   awakening: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'], sp: ['NOT_VERIFIED','NOT_VERIFIED','NOT_REQUIRED'],
@@ -225,7 +226,14 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
   if (!equal(claimIds(jobLevelGroup, 'canonical/hero-job-level-raw-stats.v1.json'), jobLevels.map((row) => row.jobLevelId))) fail('JobLevel source trace IDs/order drift');
   if (jobLevels.some((row) => Object.keys(row.rawStats).length !== 11 || 'DEX_UP' in row.rawStats)) fail('JobLevel raw field presence/absence boundary changed');
 
-  const skillReferences = canonical.skillReferences.records.filter((row) => row.heroId === 15);
+  const heroSkillReferences = canonical.skillReferences.records.filter((row) => row.heroId === 15);
+  const centralReference = findOne(heroSkillReferences, (row) => row.referenceKind === CENTRAL_DISCIPLINE_KIND, 'Hero 15 Central Discipline Skill reference');
+  const centralGroup = decision.fieldGroups.find((group) => group.id === 'centralDiscipline');
+  if (centralReference.skillId !== 90089
+    || !canonical.skills.records.some((row) => row.skillId === centralReference.skillId)
+    || !equal(claimIds(centralGroup, 'canonical/hero-skill-references.v1.json'), [centralReference.skillId])
+    || !equal(claimIds(centralGroup, 'canonical/skills.v1.json'), [centralReference.skillId])) fail('Central Discipline Skill trace or endpoint drift');
+  const skillReferences = heroSkillReferences.filter((row) => row.referenceKind !== CENTRAL_DISCIPLINE_KIND);
   if (skillReferences.length !== 9 || !equal(skillReferences.map((row) => row.skillId), [10801,10816,10805,10707,10705,10804,10807,6009,11786])
     || !equal(generated.hero15SkillDetail.references.map((row) => row.skillId), skillReferences.map((row) => row.skillId))) fail('Skill reference/consumer parity failed');
   const skillGroup = decision.fieldGroups.find((group) => group.id === 'skill');

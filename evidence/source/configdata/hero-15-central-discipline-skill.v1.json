@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z"
+  },
+  "heroInfo": {
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "sourceRecordIndex": 14,
+    "recordLocator": "data/configdata/ConfigDataHeroInfo.json#ID=15",
+    "fieldLocator": "data/configdata/ConfigDataHeroInfo.json#ID=15/CastingLawSkill_ID",
+    "rawRecord": {
+      "ID": 15,
+      "CastingLawSkill_ID": 90089
+    }
+  },
+  "skillInfo": {
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sourceRecordIndex": 20257,
+    "recordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=90089",
+    "rawRecord": {
+      "ID": 90089,
+      "Name": "辉耀祝祈",
+      "Desc": "[再行动]射程<color=#DC143C>+1</color>；使用[再行动]后，对目标施加[增援]与[免疫]，持续<color=#DC143C>2</color>回合。"
+    }
+  },
+  "fieldContract": {
+    "path": "data/metadata/dump.cs",
+    "gitBlobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+    "heroInfoCastingLawSkillIdFieldNumber": 39,
+    "skillInfoIdFieldNumber": 2
+  },
+  "predecessorResolver": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "scripts/build_hero_stage5_2_exclusive_central.cjs",
+    "gitBlobSha1": "6b2937145f44e10a36435572be0385d76bae0c8d",
+    "locator": "centralDiscipline.resolver",
+    "namespace": "ConfigDataHeroInfo.CastingLawSkill_ID -> ConfigDataSkillInfo.ID"
+  },
+  "claimEvidence": {
+    "sourceFields": "A",
+    "endpointNamespace": "B"
+  },
+  "transformation": "Verify the original Git blob SHA-1 and SHA-256 for both JSON arrays. Select unique numeric IDs 15 and 90089 and preserve the five selected values without normalization. Resolve the reference by exact numeric equality.",
+  "scope": "Hero 15 Central Discipline Skill reference and source-native SkillInfo ID, Name, and Desc for Skill 90089.",
+  "limitation": "The predecessor resolver corroborates the namespace. The stored text does not admit structured effects, a release state, unlock, acquisition, equip, or combat rules. No publication approval.",
+  "productionRuntimeDependency": false
+}

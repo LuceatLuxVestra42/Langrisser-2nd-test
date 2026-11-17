@@ -4,6 +4,7 @@ import { isDeepStrictEqual } from 'node:util';
 
 const evidencePath='evidence/source/jobs/hero15-job-skill-references.v1.json';
 const identityEvidencePath='evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
+const centralEvidencePath='evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
 const canonicalPath='canonical/hero-skill-references.v1.json';
 const check=(v,code,msg)=>{if(!v)throw new Error(`Hero 15 Skill reference validation failed [${code}]: ${msg}`)};
 const exact=(v,keys,label)=>check(v&&typeof v==='object'&&!Array.isArray(v)&&isDeepStrictEqual(Object.keys(v).sort(),[...keys].sort()),'SCHEMA',`${label} fields drift`);
@@ -15,8 +16,9 @@ const jobRefs=[
 const connections=[[150,802,[1501,1502,1503]],[151,803,[1511,1512,1513,1514]],[152,806,[1521,1522,1523,1524]],[153,703,[1531,1532,1533,1534]],[154,811,[1541,1542,1543,1544,1545]],[155,707,[1551,1552,1553,1554,1555]]];
 const skills=[10801,10816,10805,10707,10705,10804,10807,6009,11786];
 export async function validateHero15SkillReferences(root=process.cwd()){
- const [e,idEvidence,canonical,skillsCanon,heroJobs,rawStats,advancement,talent]=await Promise.all([
-  read(root,evidencePath),read(root,identityEvidencePath),read(root,canonicalPath),read(root,'canonical/skills.v1.json'),read(root,'canonical/hero-job-relations.v1.json'),read(root,'canonical/hero-job-level-raw-stats.v1.json'),read(root,'canonical/hero-job-advancement-relations.v1.json'),read(root,'canonical/hero-talent-star-skills.v1.json')
+ const [e,idEvidence,canonical,skillsCanon,heroJobs,rawStats,advancement,talent,centralEvidence,heroIdentities]=await Promise.all([
+  read(root,evidencePath),read(root,identityEvidencePath),read(root,canonicalPath),read(root,'canonical/skills.v1.json'),read(root,'canonical/hero-job-relations.v1.json'),read(root,'canonical/hero-job-level-raw-stats.v1.json'),read(root,'canonical/hero-job-advancement-relations.v1.json'),read(root,'canonical/hero-talent-star-skills.v1.json'),
+  read(root,centralEvidencePath),read(root,'canonical/hero-identities.v1.json')
  ]);
  exact(e,['schemaVersion','responsibility','scope','sourceSnapshot','protobufFieldContract','meaningEvidence','heroInfoSource','jobConnectionEndpointSource','jobLevelSource','references','endpointNamespace','endpointEvidencePath','claimEvidence','canonical','generated','publicationApproval','productionRuntimeDependency'],'Evidence');
  check(e.schemaVersion===1&&e.responsibility==='hero15-skill-source-references','EVIDENCE','Evidence owner/scope drift');
@@ -77,8 +79,35 @@ export async function validateHero15SkillReferences(root=process.cwd()){
   const [cid,jid,lid,sid]=jobRefs[i];
   expectedCanonical.push({referenceKind:'JOB_LEVEL_SKILL_ACQUISITION',heroId:15,jobConnectionId:cid,jobId:jid,jobLevelId:lid,skillId:sid,sourceField:'ConfigDataJobLevelInfo.GotSkill_ID',endpointNamespace:'ConfigDataSkillInfo.ID',provenance:{reference:`${evidencePath}#references/${i+1}`,endpoint:`canonical/skills.v1.json#skillId=${sid}`}});
  }
+ exact(centralEvidence,['schemaVersion','source','heroInfo','skillInfo','fieldContract','predecessorResolver','claimEvidence','transformation','scope','limitation','productionRuntimeDependency'],'Central Discipline Evidence');
+ const { heroInfo, skillInfo, fieldContract, predecessorResolver } = centralEvidence;
+ check(centralEvidence.schemaVersion===1
+  && isDeepStrictEqual(centralEvidence.source,{repository:hp.repository,commit:hp.commit,tree:hp.tree,snapshotDate:'2026-09-02T01:45:21Z'})
+  && isDeepStrictEqual(heroInfo,{
+   path:hp.path,gitBlobSha1:hp.gitBlobSha1,sha256:hp.sha256,sourceRecordIndex:14,recordLocator:hp.recordLocator,
+   fieldLocator:`${hp.recordLocator}/CastingLawSkill_ID`,rawRecord:{ID:15,CastingLawSkill_ID:90089}
+  }),'CENTRAL_SOURCE','HeroInfo CastingLawSkill_ID evidence or source pin changed');
+ check(isDeepStrictEqual(fieldContract,{
+  path:e.protobufFieldContract.path,gitBlobSha1:e.protobufFieldContract.gitBlobSha1,sha256:e.protobufFieldContract.sha256,
+  heroInfoCastingLawSkillIdFieldNumber:39,skillInfoIdFieldNumber:e.protobufFieldContract.skillInfoIdFieldNumber
+ }) && isDeepStrictEqual(predecessorResolver,{
+  commit:'57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff',path:'scripts/build_hero_stage5_2_exclusive_central.cjs',
+  gitBlobSha1:'6b2937145f44e10a36435572be0385d76bae0c8d',locator:'centralDiscipline.resolver',
+  namespace:'ConfigDataHeroInfo.CastingLawSkill_ID -> ConfigDataSkillInfo.ID'
+ }) && isDeepStrictEqual(centralEvidence.claimEvidence,{sourceFields:'A',endpointNamespace:'B'})
+  && centralEvidence.productionRuntimeDependency===false,'CENTRAL_NAMESPACE','Field or resolver contract changed');
+ const { ID: heroId, CastingLawSkill_ID: centralSkillId } = heroInfo.rawRecord;
+ check(heroIdentities.records.filter((row)=>row.heroId===heroId).length===1
+  && skillInfo.rawRecord.ID===centralSkillId
+  && skillsCanon.records.filter((row)=>row.skillId===centralSkillId).length===1,
+  'CENTRAL_ENDPOINT','Hero or Skill Identity endpoint missing, duplicated, or mismatched');
+ expectedCanonical.push({
+  referenceKind:'HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE',heroId,skillId:centralSkillId,
+  sourceField:'ConfigDataHeroInfo.CastingLawSkill_ID',endpointNamespace:'ConfigDataSkillInfo.ID',
+  provenance:{reference:`${centralEvidencePath}#heroInfo/rawRecord/CastingLawSkill_ID`,endpoint:`canonical/skills.v1.json#skillId=${centralSkillId}`}
+ });
  exact(canonical,['schemaVersion','scope','records'],'Canonical');
- check(canonical.schemaVersion===1&&canonical.scope==='Hero 15 only: direct HeroInfo Skill_ID references and explicit JobLevelInfo GotSkill_ID acquisition references. No equipping, unlock condition, combat effect, or publication claim.'
+ check(canonical.schemaVersion===1&&canonical.scope==='Hero 15 only: direct HeroInfo Skills_ID, JobLevelInfo GotSkill_ID, and HeroInfo CastingLawSkill_ID references. No equipping, unlock condition, combat effect, or publication claim.'
   &&isDeepStrictEqual(canonical.records,expectedCanonical),'CANONICAL','Canonical references differ from independently pinned source references');
  for(const id of skills){check(idRows.has(id)&&skillRows.has(id),'SKILL_ENDPOINT',`SkillInfo endpoint ${id} missing`)}
  for(const r of expectedCanonical){
@@ -88,6 +117,6 @@ export async function validateHero15SkillReferences(root=process.cwd()){
    check(s?.jobConnectionId===r.jobConnectionId&&s?.jobId===r.jobId,'JOBLEVEL_CONTEXT',`JobLevel ${r.jobLevelId} maps to wrong Hero/Connection/Job context`);
   }
  }
- console.log(`Hero 15 Skill reference validation: PASS (references=9; HeroDirect=1; JobLevelGotSkill=8; SkillIdentityEndpoints=9; no publication)`);
+ console.log('Hero 15 Skill reference validation: PASS (references=10; HeroDirect=1; JobLevelGotSkill=8; CentralDiscipline=1; no publication)');
 }
 if(process.argv[1]&&resolve(process.argv[1])===resolve('tools/validate-hero15-skill-references.mjs')) await validateHero15SkillReferences();
