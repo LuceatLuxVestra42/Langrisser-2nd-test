@@ -276,7 +276,7 @@ assert.equal(functions.makeJobConnectionLabel(classifiedConnections[0]),
 assert.equal(functions.makeJobConnectionLabel(hero53.jobConnections[0]), '연결 530 → 나이트 (전직 ID 301)');
 assert.deepEqual(heroData.heroes.filter(({ id }) => id !== 53).flatMap(({ jobConnections }) =>
   jobConnections.filter(({ classification }) => classification !== undefined)), [], 'SP classification stays within Hero 53:426');
-assert.match(frontend, /makeSpJobPresentation\(hero\.spJobConnections\)/);
+assert.match(frontend, /makeSpJobPresentation\(hero\.spJobConnections, jobGlossaryById\)/);
 assert.match(frontend, /article\.append\(spJobPresentation\)/);
 
 const expectedOrigins = new Map([
