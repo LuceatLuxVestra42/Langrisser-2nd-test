@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sourceManifest": "evidence/localization/source/job-names-ko.source-manifest.v1.json",
+  "sourceScope": "Project Korean display text for Hero 15 Jobs 811 and 707; source version unknown and official Korean-server provenance unverified.",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "claims": {
+    "rowValues": "A: preserved source rows directly contain keyed Job ID, Chinese text, and Korean project-review display text.",
+    "jobInfoIdentityLinkage": "B: explicit numeric ID equality with pinned ConfigDataJobInfo.ID; Chinese name is consistency only.",
+    "officialKrName": "unverified"
+  },
+  "records": [
+    {
+      "jobId": 811,
+      "nameCn": "先知",
+      "nameKo": "프로핏",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=811",
+      "evidenceClass": "A"
+    },
+    {
+      "jobId": 707,
+      "nameCn": "隐士",
+      "nameKo": "허미트",
+      "sourceLocator": "job-names-ko.v1.txt#전직ID=707",
+      "evidenceClass": "A"
+    }
+  ]
+}

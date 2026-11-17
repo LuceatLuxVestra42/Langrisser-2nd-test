@@ -207,7 +207,11 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
   if (!equal(claimIds(jobGroup, 'canonical/hero-job-relations.v1.json'), expectedJobs)
     || !equal(claimIds(jobGroup, 'canonical/hero-job-advancement-relations.v1.json'), expectedConnections)) fail('Job source trace ID set drift');
   const jobNames = canonical.jobLocalizations.records.filter((row) => expectedJobs.includes(row.jobId)).map((row) => row.jobId);
-  if (!equal(jobNames, [806,803,703,802])) fail('Job Localization admitted/missing ID set changed (811/707 must remain NOT_ADMITTED)');
+  if (!equal(jobNames, [806,803,703,802,811,707])) fail('Job Localization admitted/missing ID set changed');
+  const jobLocalizationById = new Map(canonical.jobLocalizations.records.map((row) => [row.jobId, row]));
+  if (jobLocalizationById.get(811)?.nameKo !== '프로핏' || jobLocalizationById.get(707)?.nameKo !== '허미트') {
+    fail('Project-reviewed Job 811/707 localization labels changed');
+  }
 
   const jobLevels = canonical.jobLevelRawStats.records.filter((row) => row.heroId === 15);
   if (jobLevels.length !== 25 || !equal(jobLevels.map((row) => row.jobLevelId), generated.hero15JobLevel.jobs.flatMap((job) => job.jobLevels.map((level) => level.jobLevelId)))) fail('JobLevel Raw Stats ID/value projection parity failed');

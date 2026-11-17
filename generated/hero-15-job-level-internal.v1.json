@@ -8,7 +8,7 @@
     "jobLevelUpHeroLevel and rankCode are preserved source fields; their presence does not establish unlock, promotion, or progression rules.",
     "RawStats values are preserved verbatim; no growth, rank, mastery, or final-stat formula is inferred.",
     "Job membership and Connection-to-Job mapping are reused from the existing internal Job Tree; no new Job identity or relation is admitted.",
-    "Job Korean names 811 and 707 remain NOT_ADMITTED and are outside this consumer."
+    "Job Korean names 811 and 707 are project-reviewed localizations; official Korean-server provenance remains unverified."
   ],
   "jobs": [
     {
@@ -489,9 +489,9 @@
         "status": "REUSED_EXISTING"
       },
       "localization": {
-        "status": "NOT_ADMITTED",
-        "nameKo": null,
-        "provenance": null
+        "status": "ADMITTED",
+        "nameKo": "프로핏",
+        "provenance": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=811"
       },
       "jobLevels": [
         {
@@ -640,9 +640,9 @@
         "status": "REUSED_EXISTING"
       },
       "localization": {
-        "status": "NOT_ADMITTED",
-        "nameKo": null,
-        "provenance": null
+        "status": "ADMITTED",
+        "nameKo": "허미트",
+        "provenance": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=707"
       },
       "jobLevels": [
         {

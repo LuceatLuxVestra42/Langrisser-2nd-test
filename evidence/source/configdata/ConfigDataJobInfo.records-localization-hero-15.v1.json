@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "scope": "Source-native JobInfo ID and Name fields used only to verify Hero 15 Job localization labels.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataJobInfo.json",
+    "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+    "recordLocator": "top-level array records by ID"
+  },
+  "extraction": {
+    "selectedRecordIds": [
+      707,
+      811
+    ],
+    "selectedFields": [
+      "ID",
+      "Name"
+    ],
+    "rule": "Select only the exact JobInfo records matching the already-admitted Hero 15 Job IDs 707 and 811; do not infer other relations or ordering."
+  },
+  "records": [
+    {
+      "ID": 707,
+      "Name": "隐士"
+    },
+    {
+      "ID": 811,
+      "Name": "先知"
+    }
+  ]
+}

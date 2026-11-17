@@ -638,6 +638,18 @@
       "nameKo": "바하무트",
       "evidenceClass": "A",
       "provenance": "evidence/localization/job-names-ko.presentation-batch-5.v1.json#jobId=1207"
+    },
+    {
+      "jobId": 811,
+      "nameKo": "프로핏",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=811"
+    },
+    {
+      "jobId": 707,
+      "nameKo": "허미트",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=707"
     }
   ]
 }
