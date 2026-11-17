@@ -5,6 +5,7 @@ import { isDeepStrictEqual } from 'node:util';
 
 export const OUTPUT = 'generated/hero-15-skill-detail-internal.v1.json';
 const REFERENCES = 'canonical/hero-skill-references.v1.json';
+const CENTRAL_DISCIPLINE_KIND = 'HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE';
 const SKILLS = 'canonical/skills.v1.json';
 const SCOPE = 'Internal Hero 15 direct and JobLevel skill-reference detail projection only; no Korean localization, equipability, unlock, combat, or publication semantics.';
 const LIMITATIONS = [
@@ -32,14 +33,16 @@ const refKeys = (row) => row.referenceKind === 'HERO_DIRECT_SKILL_REFERENCE'
 function validateCanonicalInputs(references, skills) {
   exactKeys(references, ['schemaVersion', 'scope', 'records'], 'Hero Skill Reference Canonical');
   assert.equal(references.schemaVersion, 1);
-  assert.equal(references.scope, 'Hero 15 only: direct HeroInfo Skill_ID references and explicit JobLevelInfo GotSkill_ID acquisition references. No equipping, unlock condition, combat effect, or publication claim.');
+  assert.equal(references.scope, 'Hero 15 only: direct HeroInfo Skills_ID, JobLevelInfo GotSkill_ID, and HeroInfo CastingLawSkill_ID references. No equipping, unlock condition, combat effect, or publication claim.');
   exactKeys(skills, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Skill Identity Canonical');
   assert.equal(skills.schemaVersion, 1);
-  assert(Array.isArray(references.records) && references.records.length === 9, 'Expected exactly nine Hero 15 Skill references');
+  assert(Array.isArray(references.records), 'Hero Skill references must be an array');
+  const ordinaryReferences = references.records.filter((row) => row.referenceKind !== CENTRAL_DISCIPLINE_KIND);
+  assert.equal(ordinaryReferences.length, 9, 'Expected exactly nine ordinary Hero 15 Skill references');
   assert(Array.isArray(skills.records), 'Skill Identity Canonical records must be an array');
   const referenceIdentities = new Set();
   const selectedSkillIds = new Set();
-  for (const row of references.records) {
+  for (const row of ordinaryReferences) {
     const keys = refKeys(row);
     assert(keys, `Unsupported Skill reference kind ${row.referenceKind}`);
     exactKeys(row, keys, `Skill reference ${row.skillId}`);
@@ -65,11 +68,12 @@ function validateCanonicalInputs(references, skills) {
     exactKeys(identity.provenance, ['identity', 'name', 'description'], `Skill Identity provenance ${skillId}`);
     assert(Object.values(identity.provenance).every((value) => typeof value === 'string' && value.length > 0));
   }
+  return ordinaryReferences;
 }
 
-function generationProjection(references, skills) {
+function generationProjection(ordinaryReferences, skills) {
   const byId = new Map(skills.records.map((row) => [row.skillId, row]));
-  const records = references.records.map((reference) => {
+  const records = ordinaryReferences.map((reference) => {
     const identity = byId.get(reference.skillId);
     if (!identity) throw new Error(`Missing Skill Identity ${reference.skillId}`);
     return {
@@ -88,7 +92,7 @@ function generationProjection(references, skills) {
 // This verification path independently rebuilds the expectation from the two Canonicals.
 // It intentionally does not call generationProjection or read Generated values as expected input.
 export function validateSkillDetailProjection(references, skills, generatedText) {
-  validateCanonicalInputs(references, skills);
+  const ordinaryReferences = validateCanonicalInputs(references, skills);
   const generated = JSON.parse(generatedText);
   exactKeys(generated, ['schemaVersion', 'scope', 'heroId', 'limitations', 'references'], 'Generated Skill Detail Consumer');
   assert.equal(generated.schemaVersion, 1);
@@ -96,7 +100,7 @@ export function validateSkillDetailProjection(references, skills, generatedText)
   assert.equal(generated.heroId, 15);
   assert(isDeepStrictEqual(generated.limitations, LIMITATIONS), 'Generated limitations drift');
 
-  const expectedReferences = references.records.map((canonicalReference) => {
+  const expectedReferences = ordinaryReferences.map((canonicalReference) => {
     const identityRows = skills.records.filter((row) => row.skillId === canonicalReference.skillId);
     assert.equal(identityRows.length, 1, `Skill Identity ${canonicalReference.skillId} is missing or duplicated`);
     const identity = identityRows[0];
@@ -133,8 +137,8 @@ export function validateSkillDetailProjection(references, skills, generatedText)
 
 export async function generateHero15SkillDetailInternal(root = process.cwd()) {
   const { references, skills } = await loadInputs(root);
-  validateCanonicalInputs(references, skills);
-  const generatedText = `${JSON.stringify(generationProjection(references, skills), null, 2)}\n`;
+  const ordinaryReferences = validateCanonicalInputs(references, skills);
+  const generatedText = `${JSON.stringify(generationProjection(ordinaryReferences, skills), null, 2)}\n`;
   await writeFile(resolve(root, OUTPUT), generatedText, 'utf8');
   return generatedText;
 }

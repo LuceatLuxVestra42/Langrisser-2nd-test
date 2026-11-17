@@ -13,6 +13,8 @@ const cases = [
   ['remove field group', (x) => { x.decision.fieldGroups.pop(); }],
   ['approve internal consumer fields', (x) => { x.decision.fieldGroups.find((g) => g.id === 'jobTree').publicationApprovedFields.push('jobs[].jobId'); }],
   ['promote Minimal Detail Talent', (x) => { x.decision.publication.approvedFields.push('talent.nameKo'); }],
+  ['publish the newly admitted Central Discipline reference', (x) => { x.decision.fieldGroups.find((g) => g.id === 'centralDiscipline').publicationApprovedFields.push('centralDiscipline.skillId'); }],
+  ['substitute a different Central Discipline claim', (x) => { x.decision.fieldGroups.find((g) => g.id === 'centralDiscipline').canonicalClaims[0].claimIds = [90085]; }],
   ['expand Equipment fields', (x) => { x.decision.fieldGroups.find((g) => g.id === 'exclusiveEquipment').publicationCandidateFields.push('equipment.assetPath'); }],
   ['approve Portrait', (x) => { x.portraitEvidence.publicationApproved = true; }],
   ['add unadmitted Skin relation', (x) => { x.decision.fieldGroups.find((g) => g.id === 'portraitSkin').canonicalClaims[0].claimIds.push(999); }],

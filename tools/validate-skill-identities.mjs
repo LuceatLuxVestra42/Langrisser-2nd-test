@@ -13,6 +13,7 @@ const hero15HeartFetterSkillEvidencePath = 'evidence/source/configdata/ConfigDat
 const hero15HeartFetterLv10SkillEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-70110-hero-15-heart-fetter-skill.v1.json';
 const hero15FetterReferenceEvidencePath = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
 const hero15FetterReferenceCanonicalPath = 'canonical/hero-fetter-skill-references.v1.json';
+const centralSkillEvidencePath = 'evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -52,7 +53,7 @@ const hero15AwakeningFieldTypes = [['ID','number'],['Name','string'],['Desc','st
 const expectedIds = expected.map(([id]) => id);
 const hero15ExpectedIds = hero15Expected.map(([id]) => id);
 const soldierSkillIds = [60666,60667,60668,60669,60670,60671,60672,60673,60674,60675,66957,66958,66959,66960,66961,66962,66963,66964,66965,66966,65110,65111,65112,65113,65114,65115,65116,65117,65118,65119];
-const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds, 12350, 70461, 70110];
+const allExpectedIds = [...expectedIds, ...hero15ExpectedIds, ...soldierSkillIds, ...hero15GeneralIds, ...hero15FetterSkillIds, 12350, 70461, 70110, 90089];
 const hero15FetterRawRecordsSha256 = 'eefea5b2eddea750cebe0dd1e21b9fd583a9c559d7fd6cb9babcf946f64c1bc2';
 const recordIndices = Object.fromEntries(expected.map(([id, index]) => [String(id), index]));
 const sourcePin = {
@@ -87,9 +88,9 @@ const exactKeys = (value, keys, label) => check(value && typeof value === 'objec
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 
 export async function validateSkillIdentities(root = process.cwd()) {
-  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical, hero15AwakeningEvidence, awakeningReferences, hero15HeartFetterSkillEvidence, heartFetterRawDetails, hero15HeartFetterLv10SkillEvidence, heartFetterRawConditions] = await Promise.all([
+  const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical, hero15AwakeningEvidence, awakeningReferences, hero15HeartFetterSkillEvidence, heartFetterRawDetails, hero15HeartFetterLv10SkillEvidence, heartFetterRawConditions, centralSkillEvidence] = await Promise.all([
     readJson(root, evidencePath), readJson(root, soldierEvidencePath), readJson(root, canonicalPath), readJson(root, talentPath), readJson(root, hero15EvidencePath), readJson(root, hero15GeneralEvidencePath),
-    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath), readJson(root, hero15AwakeningEvidencePath), readJson(root, 'canonical/hero-awakening-references.v1.json'), readJson(root, hero15HeartFetterSkillEvidencePath), readJson(root, 'canonical/hero-heart-fetter-raw-details.v1.json'), readJson(root, hero15HeartFetterLv10SkillEvidencePath), readJson(root, 'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json'),
+    readJson(root, hero15FetterEvidencePath), readJson(root, hero15FetterReferenceEvidencePath), readJson(root, hero15FetterReferenceCanonicalPath), readJson(root, hero15AwakeningEvidencePath), readJson(root, 'canonical/hero-awakening-references.v1.json'), readJson(root, hero15HeartFetterSkillEvidencePath), readJson(root, 'canonical/hero-heart-fetter-raw-details.v1.json'), readJson(root, hero15HeartFetterLv10SkillEvidencePath), readJson(root, 'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json'), readJson(root, centralSkillEvidencePath),
   ]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'extraction', 'records', 'claimEvidence', 'fieldMeaningContract', 'interpretation', 'canonical', 'generated', 'productionRuntimeDependency'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail', 'EVIDENCE', 'Evidence owner identity drift');
@@ -208,9 +209,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, and 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 108 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 109 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -494,9 +495,29 @@ export async function validateSkillIdentities(root = process.cwd()) {
     && isDeepStrictEqual(lv10Canonical.provenance,{identity:lv10Locator,name:`${lv10Locator}/Name`,description:`${lv10Locator}/Desc`}),
     'CANONICAL','Heart Fetter Lv10 Skill 70110 identity or provenance mismatch');
   canonicalIds.push(lv10Canonical.skillId);
-  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 107 records plus source-verified Heart Fetter Lv10 identity');
+  const centralRaw = {
+    ID: 90089,
+    Name: '辉耀祝祈',
+    Desc: '[再行动]射程<color=#DC143C>+1</color>；使用[再行动]后，对目标施加[增援]与[免疫]，持续<color=#DC143C>2</color>回合。',
+  };
+  check(centralSkillEvidence.schemaVersion === 1
+    && isDeepStrictEqual(centralSkillEvidence.source, {
+      repository: sourcePin.repository, commit: sourcePin.commit, tree: sourcePin.commitTree, snapshotDate: lv10Pin.snapshotDate,
+    })
+    && isDeepStrictEqual(centralSkillEvidence.skillInfo, {
+      path: sourcePin.path, gitBlobSha1: sourcePin.gitBlobSha1, sha256: sourcePin.sha256,
+      sourceRecordIndex: 20257, recordLocator: `${sourcePin.path}#ID=90089`, rawRecord: centralRaw,
+    }), 'CENTRAL_EVIDENCE', 'SkillInfo 90089 source pin, locator, or raw ID/Name/Desc differs');
+  const centralRow = canonical.records[108];
+  const locator = `${centralSkillEvidencePath}#skillInfo/rawRecord`;
+  check(isDeepStrictEqual(centralRow, {
+    skillId: centralRaw.ID, nameCn: centralRaw.Name, descriptionCn: centralRaw.Desc,
+    provenance: { identity: `${locator}/ID`, name: `${locator}/Name`, description: `${locator}/Desc` },
+  }), 'CANONICAL', 'Central Discipline Skill 90089 identity or provenance mismatch');
+  canonicalIds.push(centralRow.skillId);
+  check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 108 records plus source-verified Skill 90089');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461 && row.skillId!==70110));
+  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461 && row.skillId!==70110 && row.skillId!==90089));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
@@ -510,7 +531,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=107; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

@@ -7,7 +7,9 @@ import { dirname, join, resolve } from 'node:path';
 const source = process.cwd();
 const temp = await mkdtemp(join(tmpdir(), 'skill-identities-'));
 const repo = join(temp, 'repo');
+const centralEvidence = 'evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
 const paths = [
+  centralEvidence,
   'canonical/skills.v1.json',
   'canonical/hero-talent-star-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json',
@@ -33,7 +35,7 @@ await Promise.all(paths.map(async (path) => {
 const run = () => spawnSync(process.execPath, ['tools/validate-skill-identities.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /records=108/);
+  assert.match(result.stdout, /records=109/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -53,7 +55,7 @@ async function mutateJson(path, mutate, label, pattern) {
 }
 
 try {
-  assertPass(run(), 'normal 107-record fixture');
+  assertPass(run(), 'normal 109-record fixture');
   const c = 'canonical/skills.v1.json';
   const e = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json';
   const se = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
@@ -198,7 +200,7 @@ try {
     try { const cv=JSON.parse(canonicalOriginal), ev=JSON.parse(evidenceOriginal); cv.records[106].descriptionCn+='改';ev.records[0].rawRecord.Desc+='改';await writeFile(canonicalPath,JSON.stringify(cv,null,2)+'\n');await writeFile(evidencePath,JSON.stringify(ev,null,2)+'\n');assertReject(run(),'simultaneous Heart Fetter Evidence/Canonical corruption',/\[HERO15_HEART_FETTER_RECORDS\]/); }
     finally { await writeFile(canonicalPath,canonicalOriginal);await writeFile(evidencePath,evidenceOriginal); }
   }
-  await mutateJson(c,v=>{v.records.pop();},'Heart Fetter Lv10 Skill 70110 missing',/Canonical must contain exactly the 108/);
+  await mutateJson(c,v=>{v.records.splice(107,1);},'Heart Fetter Lv10 Skill 70110 missing',/Canonical must contain exactly the 109/);
   await mutateJson(c,v=>{v.records[107].skillId=70461;},'Heart Fetter Lv10 Skill substituted or duplicate',/\[CANONICAL\]/);
   await mutateJson(c,v=>{v.records[107].nameCn+='改';},'Heart Fetter Lv10 Skill Name changed',/\[CANONICAL\]/);
   await mutateJson(c,v=>{v.records[107].descriptionCn+='改';},'Heart Fetter Lv10 Skill Desc changed',/\[CANONICAL\]/);
@@ -217,7 +219,9 @@ try {
     try { const cv=JSON.parse(canonicalOriginal), ev=JSON.parse(evidenceOriginal); cv.records[107].descriptionCn+='改';ev.records[0].rawRecord.Desc+='改';await writeFile(canonicalPath,JSON.stringify(cv,null,2)+'\n');await writeFile(evidencePath,JSON.stringify(ev,null,2)+'\n');assertReject(run(),'simultaneous Heart Fetter Lv10 Evidence/Canonical corruption',/\[HERO15_HEART_FETTER_LV10_RECORDS\]/); }
     finally { await writeFile(canonicalPath,canonicalOriginal);await writeFile(evidencePath,evidenceOriginal); }
   }
-  console.log('Skill identity tests: PASS (108 records; all prior 107 identities preserved; one source-verified Hero15 Heart Fetter Lv10 identity added with selector, provenance, field inventory, and publication boundary controls)');
+  await mutateJson(centralEvidence,v=>{v.skillInfo.rawRecord.Name+='改';},'changed Central Discipline source Name',/\[CENTRAL_EVIDENCE\]/);
+  await mutateJson(c,v=>{v.records.at(-1).effectFormula='guess';},'structured effect added to Central Discipline identity',/\[CANONICAL\]/);
+  console.log('Skill identity tests: PASS (109 records; prior 108 identities preserved; Central Discipline source text and scope checked)');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
