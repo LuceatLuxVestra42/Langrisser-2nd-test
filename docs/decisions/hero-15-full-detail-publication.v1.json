@@ -704,11 +704,24 @@
           "transformation": "Copy the two explicit integers and divide each by 100 without rounding for base percentages.",
           "scope": "Hero 15 troop HP and magic defense base modifier metadata only.",
           "limitation": "Attack and defense are absent from the pinned JSON. No runtime rules, final values, or publication approval."
+        },
+        {
+          "artifact": "canonical/hero-soldier-command-bond-contributions.v1.json",
+          "locator": "heroId=15/raw and contribution",
+          "claimIds": [
+            15
+          ],
+          "evidenceArtifact": "evidence/source/configdata/hero-15-soldier-command-bond-contribution.v1.json",
+          "sourceVersion": "LuceatLuxVestra42/langrisser-future-guide@6475e63ee23d18adf733756c26a14fa9e3ed662c; CN ConfigData snapshot 2026-09-02T01:45:21Z",
+          "transformation": "Follow the five explicit regular Fetter references to their max-level Skill and Buff endpoints. Sum property types 93–96 and divide by 100.",
+          "scope": "Hero 15 maximum-level regular Fetter Soldier Command contribution only.",
+          "limitation": "No active level, form applicability, base composition, final modifier, or publication claim."
         }
       ],
       "consumerArtifacts": [],
       "validators": [
-        "tools/validate-hero-15-soldier-command-base.mjs"
+        "tools/validate-hero-15-soldier-command-base.mjs",
+        "tools/validate-hero-15-soldier-command-bond-contribution.mjs"
       ],
       "localization": {
         "status": "NOT_ADMITTED",
@@ -728,7 +741,7 @@
         "soldierCommand.finalModifiers"
       ],
       "limitations": [
-        "Only the explicit HP and magic defense base modifiers are admitted. Attack and defense values, class or Soldier form applicability, bond contribution, and final modifiers remain unverified. All Soldier Command fields remain withheld from Full Detail publication."
+        "Explicit HP and magic defense base modifiers and the maximum-level regular Fetter contribution are admitted. Attack and defense base values, activation conditions, class or Soldier form applicability, and final modifiers remain unverified. All Soldier Command fields remain withheld from Full Detail publication."
       ]
     },
     {

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 maximum-level regular Fetter Soldier Command contribution (Hero3). Percent contribution only, without base composition or runtime applicability.",
+  "records": [
+    {
+      "heroId": 15,
+      "raw": {
+        "hp": 2500,
+        "at": 1000,
+        "df": 1000,
+        "magicDf": 2500
+      },
+      "contribution": {
+        "hp": 25,
+        "at": 10,
+        "df": 10,
+        "magicDf": 25
+      },
+      "provenance": {
+        "source": "evidence/source/configdata/hero-15-soldier-command-bond-contribution.v1.json#records",
+        "propertyNamespace": "evidence/source/configdata/hero-15-soldier-command-bond-contribution.v1.json#propertyNamespace",
+        "transformation": "evidence/source/configdata/hero-15-soldier-command-bond-contribution.v1.json#transformation"
+      }
+    }
+  ]
+}

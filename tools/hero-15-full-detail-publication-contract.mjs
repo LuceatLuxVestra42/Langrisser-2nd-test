@@ -2,6 +2,10 @@ import { validateHero15CanonicalPopulation } from './hero-full-detail-population
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { CANONICAL as SOLDIER_COMMAND_BASE_PATH, EVIDENCE as SOLDIER_COMMAND_EVIDENCE_PATH } from './validate-hero-15-soldier-command-base.mjs';
+import {
+  CANONICAL as SOLDIER_COMMAND_BOND_PATH,
+  EVIDENCE as SOLDIER_COMMAND_BOND_EVIDENCE_PATH,
+} from './validate-hero-15-soldier-command-bond-contribution.mjs';
 
 export const HERO_15_FULL_DETAIL_PUBLICATION_PATH = 'docs/decisions/hero-15-full-detail-publication.v1.json';
 export const HERO_15_FULL_DETAIL_POPULATION_MIGRATION_PATH = 'docs/decisions/hero-full-detail-population-migration.v1.json';
@@ -191,9 +195,12 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
 
   const soldierCommand = decision.fieldGroups.find((group) => group.id === 'soldierCommand');
   const command = findOne(canonical.soldierCommandBase.records, (row) => row.heroId === 15, 'Hero 15 Soldier Command base');
+  const contribution = findOne(canonical.soldierCommandBond.records, (row) => row.heroId === 15, 'Hero 15 Soldier Command bond contribution');
   if (!equal(claimIds(soldierCommand, SOLDIER_COMMAND_BASE_PATH), [command.heroId])
-    || soldierCommand.canonicalClaims.length !== 1
-    || soldierCommand.canonicalClaims[0].evidenceArtifact !== SOLDIER_COMMAND_EVIDENCE_PATH
+    || !equal(claimIds(soldierCommand, SOLDIER_COMMAND_BOND_PATH), [contribution.heroId])
+    || soldierCommand.canonicalClaims.length !== 2
+    || soldierCommand.canonicalClaims.find((claim) => claim.artifact === SOLDIER_COMMAND_BASE_PATH).evidenceArtifact !== SOLDIER_COMMAND_EVIDENCE_PATH
+    || soldierCommand.canonicalClaims.find((claim) => claim.artifact === SOLDIER_COMMAND_BOND_PATH).evidenceArtifact !== SOLDIER_COMMAND_BOND_EVIDENCE_PATH
     || soldierCommand.consumerArtifacts.length !== 0) fail('Soldier Command source trace or internal-only scope drift');
 
   const soldierRelations = canonical.soldierRelations.records.filter((row) => row.heroId === 15);
@@ -320,6 +327,7 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
     'canonical.castingMaterialReferences': 'canonical/casting-law-levelup-material-references.v1.json',
     'canonical.soldierRelations': 'canonical/hero-soldier-relations.v1.json',
     'canonical.soldierCommandBase': SOLDIER_COMMAND_BASE_PATH,
+    'canonical.soldierCommandBond': SOLDIER_COMMAND_BOND_PATH,
     'canonical.soldiers': 'canonical/soldiers.v1.json',
     'canonical.normalSoldierLocalizations': 'canonical/normal-soldier-localizations-ko.v1.json',
     'canonical.spSoldierLocalizations': 'canonical/sp-soldier-localizations-ko.v1.json',
@@ -366,6 +374,7 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
       castingReferences: data['canonical.castingReferences'], castingTemplateLevelReferences: data['canonical.castingTemplateLevelReferences'], castingLevelRawDetails: data['canonical.castingLevelRawDetails'], castingMaterialReferences: data['canonical.castingMaterialReferences'], soldierRelations: data['canonical.soldierRelations'],
       soldiers: data['canonical.soldiers'], normalSoldierLocalizations: data['canonical.normalSoldierLocalizations'], spSoldierLocalizations: data['canonical.spSoldierLocalizations'],
       soldierCommandBase: data['canonical.soldierCommandBase'],
+      soldierCommandBond: data['canonical.soldierCommandBond'],
       jobRelations: data['canonical.jobRelations'], jobAdvancementRelations: data['canonical.jobAdvancementRelations'], jobLevelRawStats: data['canonical.jobLevelRawStats'],
       jobLocalizations: data['canonical.jobLocalizations'], skillReferences: data['canonical.skillReferences'], awakeningReferences: data['canonical.awakeningReferences'],
     },

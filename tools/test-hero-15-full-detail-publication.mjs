@@ -27,6 +27,8 @@ const cases = [
   ['publish calculated final Stats', (x) => { x.decision.fieldGroups.find((g) => g.id === 'jobLevelStats').publicationCandidateFields.push('jobLevels[].finalDisplayStats'); }],
   ['publish Soldier Command calculation', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').publicationCandidateFields.push('soldierCommand.finalModifiers'); }],
   ['publish admitted Soldier Command base modifiers', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').publicationApprovedFields.push('soldierCommand.baseModifiers'); }],
+  ['publish admitted Hero3 contribution', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').publicationApprovedFields.push('soldierCommand.centralBondContribution'); }],
+  ['drop the Hero3 source trace', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').canonicalClaims.pop(); }],
   ['lose the Soldier Command source trace', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').canonicalClaims[0].evidenceArtifact = 'other.json'; }],
   ['infer Skill acquisition', (x) => { x.decision.fieldGroups.find((g) => g.id === 'skill').publicationCandidateFields.push('skills[].acquisition'); }],
   ['apply Population expansion', (x) => { x.decision.population.currentEffectiveCount = 30; }],
