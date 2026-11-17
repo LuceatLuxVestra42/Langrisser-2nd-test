@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 export const HERO_15_FULL_DETAIL_PUBLICATION_PATH = 'docs/decisions/hero-15-full-detail-publication.v1.json';
 export const HERO_15_FULL_DETAIL_POPULATION_MIGRATION_PATH = 'docs/decisions/hero-full-detail-population-migration.v1.json';
 export const HERO_15_FULL_DETAIL_BASE_HEAD = 'b399d7bc8e60620d30e6ce0b1ceecd3854e81457';
+const JOB_LOCALIZATION_OWNER_PATH = 'canonical/job-localizations-ko.v1.json';
 export const HERO_15_FULL_DETAIL_GROUP_IDS = [
   'profile', 'portraitSkin', 'talent', 'exclusiveEquipment', 'fetterBond', 'soldierCommand',
   'centralDiscipline', 'castingLaw', 'soldier', 'jobTree', 'jobLevelStats', 'skill', 'awakening', 'sp',
@@ -37,8 +38,8 @@ const GROUP_GATE_STATUS = {
   talent: ['ADMITTED','ADMITTED_OFFICIAL_KR_UNVERIFIED','NOT_REQUIRED'], exclusiveEquipment: ['ADMITTED','ADMITTED_EXISTING_SURFACE_ONLY','NOT_REQUIRED'],
   fetterBond: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'], soldierCommand: ['NOT_ADMITTED','NOT_ADMITTED','NOT_REQUIRED'],
   centralDiscipline: ['NOT_ADMITTED','NOT_ADMITTED','NOT_REQUIRED'], castingLaw: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'],
-  soldier: ['ADMITTED','ADMITTED_14_DISPLAY_LABELS','NOT_REQUIRED'], jobTree: ['PARTIAL','PARTIAL_4_OF_6','NOT_REQUIRED'],
-  jobLevelStats: ['ADMITTED','PARTIAL','NOT_REQUIRED'], skill: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'],
+  soldier: ['ADMITTED','ADMITTED_14_DISPLAY_LABELS','NOT_REQUIRED'], jobTree: ['PARTIAL','ADMITTED_6_DISPLAY_LABELS','NOT_REQUIRED'],
+  jobLevelStats: ['ADMITTED','ADMITTED_6_DISPLAY_LABELS','NOT_REQUIRED'], skill: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'],
   awakening: ['PARTIAL','NOT_ADMITTED','NOT_REQUIRED'], sp: ['NOT_VERIFIED','NOT_VERIFIED','NOT_REQUIRED'],
 };
 
@@ -204,18 +205,24 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
     || !equal(jobTree.jobs.map((row) => row.jobId), expectedJobs)
     || !equal(canonical.jobAdvancementRelations.records.map((row) => [row.predecessorConnectionId,row.successorConnectionId]), [[150,151],[150,152],[150,153],[152,154],[153,155]])) fail('Job membership/Advancement relation parity failed');
   const jobGroup = decision.fieldGroups.find((group) => group.id === 'jobTree');
+  const jobLevelGroup = decision.fieldGroups.find((group) => group.id === 'jobLevelStats');
   if (!equal(claimIds(jobGroup, 'canonical/hero-job-relations.v1.json'), expectedJobs)
     || !equal(claimIds(jobGroup, 'canonical/hero-job-advancement-relations.v1.json'), expectedConnections)) fail('Job source trace ID set drift');
-  const jobNames = canonical.jobLocalizations.records.filter((row) => expectedJobs.includes(row.jobId)).map((row) => row.jobId);
-  if (!equal(jobNames, [806,803,703,802,811,707])) fail('Job Localization admitted/missing ID set changed');
+  if ([jobGroup, jobLevelGroup].some((group) => !equal(group.localization.ownerArtifacts, [JOB_LOCALIZATION_OWNER_PATH]))) {
+    fail('Job Localization must reference its Canonical owner');
+  }
   const jobLocalizationById = new Map(canonical.jobLocalizations.records.map((row) => [row.jobId, row]));
+  const localizedJobIds = canonical.jobLocalizations.records.filter((row) => expectedJobs.includes(row.jobId)).map((row) => row.jobId);
+  if (localizedJobIds.length !== expectedJobs.length || expectedJobs.some((jobId) => !jobLocalizationById.get(jobId)?.nameKo?.trim())) {
+    fail('Job Localization requires one admitted display label for each of the six Job IDs');
+  }
   if (jobLocalizationById.get(811)?.nameKo !== '프로핏' || jobLocalizationById.get(707)?.nameKo !== '허미트') {
     fail('Project-reviewed Job 811/707 localization labels changed');
   }
 
   const jobLevels = canonical.jobLevelRawStats.records.filter((row) => row.heroId === 15);
   if (jobLevels.length !== 25 || !equal(jobLevels.map((row) => row.jobLevelId), generated.hero15JobLevel.jobs.flatMap((job) => job.jobLevels.map((level) => level.jobLevelId)))) fail('JobLevel Raw Stats ID/value projection parity failed');
-  if (!equal(claimIds(decision.fieldGroups.find((group) => group.id === 'jobLevelStats'), 'canonical/hero-job-level-raw-stats.v1.json'), jobLevels.map((row) => row.jobLevelId))) fail('JobLevel source trace IDs/order drift');
+  if (!equal(claimIds(jobLevelGroup, 'canonical/hero-job-level-raw-stats.v1.json'), jobLevels.map((row) => row.jobLevelId))) fail('JobLevel source trace IDs/order drift');
   if (jobLevels.some((row) => Object.keys(row.rawStats).length !== 11 || 'DEX_UP' in row.rawStats)) fail('JobLevel raw field presence/absence boundary changed');
 
   const skillReferences = canonical.skillReferences.records.filter((row) => row.heroId === 15);
@@ -302,7 +309,7 @@ export async function loadHero15FullDetailPublicationInputs(root = process.cwd()
     'canonical.jobRelations': 'canonical/hero-job-relations.v1.json',
     'canonical.jobAdvancementRelations': 'canonical/hero-job-advancement-relations.v1.json',
     'canonical.jobLevelRawStats': 'canonical/hero-job-level-raw-stats.v1.json',
-    'canonical.jobLocalizations': 'canonical/job-localizations-ko.v1.json',
+    'canonical.jobLocalizations': JOB_LOCALIZATION_OWNER_PATH,
     'canonical.skillReferences': 'canonical/hero-skill-references.v1.json',
     'canonical.awakeningReferences': 'canonical/hero-awakening-references.v1.json',
     'canonical.factionIdentities': 'canonical/faction-identities.v1.json',

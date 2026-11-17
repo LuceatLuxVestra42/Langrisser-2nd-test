@@ -1115,11 +1115,11 @@
         "tools/test-hero-15-job-tree-internal.mjs"
       ],
       "localization": {
-        "status": "PARTIAL_4_OF_6",
+        "status": "ADMITTED_6_DISPLAY_LABELS",
         "ownerArtifacts": [
           "canonical/job-localizations-ko.v1.json"
         ],
-        "limitation": "Job IDs 802,803,806,703 localized; 811 and 707 remain REVIEW/NOT_ADMITTED."
+        "limitation": "Job IDs 802, 803, 806, 703, 811, and 707 have admitted project display labels. The localization source version is unknown, source provenance is incomplete, and official Korean-server provenance is unverified. The Korean labels for Jobs 811 and 707 remain withheld on the Full Detail surface pending publication approval."
       },
       "asset": {
         "status": "NOT_REQUIRED",
@@ -1189,11 +1189,11 @@
         "tools/test-hero-15-job-level-internal.mjs"
       ],
       "localization": {
-        "status": "PARTIAL",
+        "status": "ADMITTED_6_DISPLAY_LABELS",
         "ownerArtifacts": [
           "canonical/job-localizations-ko.v1.json"
         ],
-        "limitation": "Job IDs 811/707 labels remain NOT_ADMITTED; stats remain raw values."
+        "limitation": "The internal JobLevel projection reuses the six admitted Job display labels. Official Korean-server provenance is unverified. JobLevel stats remain raw values."
       },
       "asset": {
         "status": "NOT_REQUIRED",
