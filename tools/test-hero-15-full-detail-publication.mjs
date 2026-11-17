@@ -26,6 +26,8 @@ const cases = [
   ['change Job 707 project-reviewed localization', (x) => { x.canonical.jobLocalizations.records.find((row) => row.jobId === 707).nameKo = '임의 명칭'; }],
   ['publish calculated final Stats', (x) => { x.decision.fieldGroups.find((g) => g.id === 'jobLevelStats').publicationCandidateFields.push('jobLevels[].finalDisplayStats'); }],
   ['publish Soldier Command calculation', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').publicationCandidateFields.push('soldierCommand.finalModifiers'); }],
+  ['publish admitted Soldier Command base modifiers', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').publicationApprovedFields.push('soldierCommand.baseModifiers'); }],
+  ['lose the Soldier Command source trace', (x) => { x.decision.fieldGroups.find((g) => g.id === 'soldierCommand').canonicalClaims[0].evidenceArtifact = 'other.json'; }],
   ['infer Skill acquisition', (x) => { x.decision.fieldGroups.find((g) => g.id === 'skill').publicationCandidateFields.push('skills[].acquisition'); }],
   ['apply Population expansion', (x) => { x.decision.population.currentEffectiveCount = 30; }],
   ['approve Public Eligibility', (x) => { x.decision.publication.publicEligibilityStatus = 'APPROVED'; }],

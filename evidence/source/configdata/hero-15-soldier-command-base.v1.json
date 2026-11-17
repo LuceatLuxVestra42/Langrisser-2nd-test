@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "recordIndex": 14,
+    "recordLocator": "data/configdata/ConfigDataHeroInfo.json#ID=15"
+  },
+  "rawRecord": {
+    "ID": 15,
+    "HPCmd_INI": 1500,
+    "MagicDFCmd_INI": 1500
+  },
+  "absentFields": [
+    "ATCmd_INI",
+    "DFCmd_INI"
+  ],
+  "fieldContract": {
+    "path": "data/metadata/dump.cs",
+    "gitBlobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+    "message": "ConfigDataHeroInfo",
+    "descriptorType": "int",
+    "fieldNumbers": {
+      "ID": 2,
+      "HPCmd_INI": 21,
+      "DFCmd_INI": 22,
+      "ATCmd_INI": 23,
+      "MagicDFCmd_INI": 24
+    }
+  },
+  "heroIdentity": "canonical/hero-identities.v1.json#heroId=15",
+  "transformationEvidence": {
+    "commit": "a490ba76da27095f3ef9dfe6ad66b0450cc7b24d",
+    "contract": {
+      "path": "data/hero-basic-combat-stage4-5.v1.json",
+      "gitBlobSha1": "0566bfc26c54694f089fd765a9aefbe83208ca41",
+      "locator": "#semanticGates/id=heroSoldierModifiers"
+    },
+    "validation": {
+      "path": "data/validation/hero-basic-combat-stage4-5-summary.v1.json",
+      "gitBlobSha1": "1ea45f081238ff41995c4e444bc6f953c73c5e64",
+      "locator": "#semanticGates/id=heroSoldierModifiers"
+    },
+    "producer": {
+      "path": "scripts/prepare_hero_basic_combat_stage45.cjs",
+      "gitBlobSha1": "5e998a5621950072ed59440a20de551b8b51e676",
+      "locator": "#soldierModifiers"
+    },
+    "comparison": {
+      "path": "data/generated/hero-basic-combat.v1.json",
+      "gitBlobSha1": "01246ee5da8e988f0e95b6a29d20e6e5caa2c1e6",
+      "locator": "#heroId=15/soldierModifiers",
+      "raw": {
+        "hp": 1500,
+        "at": 0,
+        "df": 0,
+        "magicDf": 1500
+      },
+      "base": {
+        "hp": 15,
+        "at": 0,
+        "df": 0,
+        "magicDf": 15
+      }
+    },
+    "rule": "raw / 100 = percent",
+    "appliesTo": "Hero-owned troop stat base metadata"
+  },
+  "scope": "Hero 15 only. Preserve explicit HP and magic defense source integers. Apply the inherited percentage conversion to present fields only.",
+  "limitation": "The pinned JSON omits ATCmd_INI and DFCmd_INI. The predecessor producer supplies zero for missing values, so its zero output is excluded. No Soldier membership, applicability by form/class, bond contribution, final stat calculation, runtime, or publication claim.",
+  "claimEvidence": {
+    "rawValuesAndHeroIdentity": "A",
+    "percentageScaleAndTroopMetadata": "B"
+  },
+  "productionRuntimeDependency": false
+}

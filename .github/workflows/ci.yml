@@ -184,6 +184,12 @@ jobs:
       - name: Test Full Detail public population projection boundaries
         run: node tools/test-full-detail-public-population.mjs
 
+      - name: Validate Hero 15 Soldier Command base modifiers
+        run: node tools/validate-hero-15-soldier-command-base.mjs
+
+      - name: Test Hero 15 Soldier Command base boundaries
+        run: node tools/test-hero-15-soldier-command-base.mjs
+
       - name: Validate Hero 15 Full Detail Publication contract
         run: node tools/validate-hero-15-full-detail-publication.mjs
 
