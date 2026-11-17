@@ -555,7 +555,49 @@ function makeSkinFullartPresentation(rows) {
   return section;
 }
 
-function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
+function renderJobGlossaryRows(jobs) {
+  const byId = new Map();
+  const rows = jobs.map(({ jobId, nameKo }) => {
+    if (!Number.isSafeInteger(jobId) || jobId <= 0 || byId.has(jobId)
+      || typeof nameKo !== 'string' || !nameKo.trim()) {
+      throw new Error('Malformed or duplicate Job glossary entry');
+    }
+    byId.set(jobId, nameKo);
+    const row = document.createElement('tr');
+    row.id = `job-glossary-${jobId}`;
+    const id = document.createElement('td');
+    id.className = 'job-glossary-id';
+    id.textContent = String(jobId);
+    const name = document.createElement('td');
+    name.textContent = nameKo;
+    row.append(id, name);
+    return row;
+  });
+  jobGlossaryContainer.replaceChildren(...rows);
+  return byId;
+}
+
+async function loadJobGlossary() {
+  try {
+    const response = await fetch('./generated/job-glossary.v1.json');
+    if (!response.ok) throw new Error(`Generated Job glossary request failed (${response.status})`);
+    const data = await response.json();
+    if (data.schemaVersion !== 1 || !Array.isArray(data.jobs)) throw new Error('Unsupported Job glossary data');
+    return renderJobGlossaryRows(data.jobs);
+  } catch (error) {
+    const row = document.createElement('tr');
+    const status = document.createElement('td');
+    status.colSpan = 2;
+    status.className = 'status status-error';
+    status.textContent = '전직명 사전을 불러오지 못했습니다.';
+    row.append(status);
+    jobGlossaryContainer.replaceChildren(row);
+    console.error(error);
+    return new Map();
+  }
+}
+
+function addHero(hero, relationsByHero, soldiersById, skinsByHero, jobGlossaryById = new Map()) {
   const article = document.createElement('article');
   article.className = 'hero-card';
   article.id = `hero-${hero.id}`;
@@ -587,7 +629,12 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
   connections.setAttribute('aria-label', `${hero.nameKo}의 전직 연결과 한국어 표시명`);
   for (const relation of hero.jobConnections) {
     const item = document.createElement('li');
-    item.textContent = makeJobConnectionLabel(relation);
+    const label = makeJobConnectionLabel(relation);
+    if (jobGlossaryById.has(relation.jobId) && jobGlossaryById.get(relation.jobId) === relation.jobNameKo) {
+      item.append(makeAnchor(label, `job-glossary-${relation.jobId}`));
+    } else {
+      item.textContent = label;
+    }
     connections.append(item);
   }
   const jobLevelSourceStats = makeJobLevelSourceStatsPresentation(hero);
@@ -653,6 +700,8 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero) {
   }
   container.append(article);
 }
+
+const jobGlossaryReady = loadJobGlossary();
 
 try {
   const [heroResponse, relationResponse, normalResponse, spResponse, skinResponse, skinAssetResponse] = await Promise.all([
@@ -729,7 +778,8 @@ try {
     const rows = selectSkinFullarts(skinConsumer, hero.id, skinPublicAssets);
     if (rows.length) skinsByHero.set(hero.id, rows);
   }
-  for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById, skinsByHero);
+  const jobGlossaryById = await jobGlossaryReady;
+  for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById, skinsByHero, jobGlossaryById);
   heroNavigation = renderHeroSearch({
     heroes: data.heroes, input: heroSearch, clearButton: heroSearchClear,
     factionFilter: heroFactionFilter, count: heroSearchCount, emptyState: heroSearchEmpty,
@@ -955,33 +1005,6 @@ try {
   status.className = 'status status-error';
   status.textContent = '영웅 전체 목록을 불러오지 못했습니다.';
   heroIndexContainer.replaceChildren(status);
-  console.error(error);
-}
-
-try {
-  const response = await fetch('./generated/job-glossary.v1.json');
-  if (!response.ok) throw new Error(`Generated Job glossary request failed (${response.status})`);
-  const data = await response.json();
-  if (data.schemaVersion !== 1 || !Array.isArray(data.jobs)) throw new Error('Unsupported Job glossary data');
-  const rows = data.jobs.map((job) => {
-    const row = document.createElement('tr');
-    const id = document.createElement('td');
-    id.className = 'job-glossary-id';
-    id.textContent = String(job.jobId);
-    const name = document.createElement('td');
-    name.textContent = job.nameKo;
-    row.append(id, name);
-    return row;
-  });
-  jobGlossaryContainer.replaceChildren(...rows);
-} catch (error) {
-  const row = document.createElement('tr');
-  const status = document.createElement('td');
-  status.colSpan = 2;
-  status.className = 'status status-error';
-  status.textContent = '전직명 사전을 불러오지 못했습니다.';
-  row.append(status);
-  jobGlossaryContainer.replaceChildren(row);
   console.error(error);
 }
 

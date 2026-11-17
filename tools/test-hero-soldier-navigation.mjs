@@ -1,15 +1,18 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { approvedFullDetailPublicHeroIds } from './full-detail-public-population-contract.mjs';
 import { extractFunction } from './test-app-function-source.mjs';
 import { runInNewContext } from 'node:vm';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [frontend, heroData, relationData, normalData, spData] = await Promise.all([
+const [frontend, heroData, relationData, normalData, spData, glossary, publicationDecision] = await Promise.all([
   readFile('app.js', 'utf8'),
   readJson('generated/hero-slice.v1.json'),
   readJson('generated/hero-soldier-relations.v1.json'),
   readJson('generated/normal-soldiers.v1.json'),
   readJson('generated/sp-soldiers.v1.json'),
+  readJson('generated/job-glossary.v1.json'),
+  readJson('docs/decisions/hero-index-publication.v1.json'),
 ]);
 
 const normalById = new Map(normalData.soldiers.map((soldier) => [soldier.normalSoldierId, {
@@ -38,6 +41,7 @@ const makeElement = () => ({
 });
 const elementsById = new Map();
 const cards = [];
+let glossaryRows = [];
 const animationFrames = [];
 const sandbox = {
   URL,
@@ -49,6 +53,10 @@ const sandbox = {
   },
   window: { location: { hash: '' }, requestAnimationFrame(callback) { animationFrames.push(callback); } },
   container: { append(card) { cards.push(card); elementsById.set(card.id, card); } },
+  jobGlossaryContainer: { replaceChildren(...rows) {
+    glossaryRows = rows;
+    for (const row of rows) elementsById.set(row.id, row);
+  } },
   exclusiveEquipmentHeroById: new Map(),
   exclusiveEquipmentNavigation: null,
   normalSoldierNavigation: null,
@@ -66,9 +74,10 @@ const runtime = [
   extractFunction(frontend, 'makeJobConnectionLabel'),
   extractFunction(frontend, 'makeJobLevelSourceStatsPresentation'),
   extractFunction(frontend, 'makeAnchor'),
+  extractFunction(frontend, 'renderJobGlossaryRows'),
   extractFunction(frontend, 'addHero'),
 ].join('\n');
-const functions = runInNewContext(`(() => { ${runtime}; return { makeAnchor, addHero }; })()`, sandbox);
+const functions = runInNewContext(`(() => { ${runtime}; return { renderJobGlossaryRows, addHero }; })()`, sandbox);
 
 const soldiersById = new Map([...normalById, ...spById]);
 const relationsByHero = new Map();
@@ -77,7 +86,52 @@ for (const { heroId, soldierId } of generatedApprovedPairs) {
   ids.push(soldierId);
   relationsByHero.set(heroId, ids);
 }
-for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById, new Map());
+const jobGlossaryById = functions.renderJobGlossaryRows(glossary.jobs);
+assert.deepEqual(glossaryRows.map(({ id }) => id), glossary.jobs.map(({ jobId }) => `job-glossary-${jobId}`));
+assert.equal(new Set(glossaryRows.map(({ id }) => id)).size, glossary.jobs.length, 'glossary targets must be unique');
+assert.throws(() => functions.renderJobGlossaryRows([glossary.jobs[0], glossary.jobs[0]]), /duplicate Job glossary entry/);
+for (const hero of heroData.heroes) functions.addHero(hero, relationsByHero, soldiersById, new Map(), jobGlossaryById);
+assert.deepEqual(cards.map(({ id }) => id), approvedFullDetailPublicHeroIds(publicationDecision).map((id) => `hero-${id}`));
+assert.equal(elementsById.has('hero-15'), false, 'Hero 15 must not gain a Full Detail card');
+
+let jobLinkCount = 0;
+for (const hero of heroData.heroes) {
+  const card = elementsById.get(`hero-${hero.id}`);
+  const list = card.children.find(({ className }) => className === 'job-connections');
+  assert.equal(list.children.length, hero.jobConnections.length);
+  hero.jobConnections.forEach(({ jobId, jobNameKo, connectionId, classification }, index) => {
+    const item = list.children[index];
+    const target = elementsById.get(`job-glossary-${jobId}`);
+    assert.ok(target, `Hero ${hero.id}, Job ${jobId} must have a rendered glossary row`);
+    assert.deepEqual(target.children.map(({ textContent }) => textContent), [String(jobId), jobNameKo]);
+    assert.equal(item.children.length, 1, 'a connection should render exactly one link');
+    const [link] = item.children;
+    assert.equal(link.href, `#job-glossary-${jobId}`);
+    assert.equal(link.textContent, classification === 'SP Job'
+      ? `SP Job · ${jobNameKo} (전직 ID ${jobId}) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인`
+      : `연결 ${connectionId} → ${jobNameKo} (전직 ID ${jobId})`);
+    target.scrolled = false;
+    link.listeners.click({ preventDefault() { assert.fail('a rendered glossary row must allow native navigation'); } });
+    animationFrames.shift()();
+    assert.equal(target.scrolled, true, 'navigation must scroll the exact Job glossary row');
+    jobLinkCount += 1;
+  });
+}
+assert.equal(jobLinkCount, 181, 'all current Full Detail Job connections should have links');
+
+const heroWithJob = heroData.heroes[0];
+const firstJob = heroWithJob.jobConnections[0];
+for (const targets of [
+  new Map([[999999, firstJob.jobNameKo]]),
+  new Map([[firstJob.jobId, '다른 전직명']]),
+]) {
+  functions.addHero(heroWithJob, relationsByHero, soldiersById, new Map(), targets);
+  const card = cards.pop();
+  const firstItem = card.children.find(({ className }) => className === 'job-connections').children[0];
+  assert.equal(firstItem.children.length, 0, 'missing and mismatched targets must stay as text');
+  assert.ok(firstItem.textContent.includes(firstJob.jobNameKo));
+}
+process.stdout.write(`Hero → Job glossary navigation PASS (${jobLinkCount} links; approved Hero scope, Korean labels, exact rows and missing-target cases)\n`);
 
 const actualPairs = [];
 const displayedLabels = new Map();
