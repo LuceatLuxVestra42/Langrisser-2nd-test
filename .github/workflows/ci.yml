@@ -190,6 +190,12 @@ jobs:
       - name: Test Hero 15 Soldier Command base boundaries
         run: node tools/test-hero-15-soldier-command-base.mjs
 
+      - name: Validate Hero 15 Soldier Command bond contribution
+        run: node tools/validate-hero-15-soldier-command-bond-contribution.mjs
+
+      - name: Test Hero 15 Soldier Command bond contribution boundaries
+        run: node tools/test-hero-15-soldier-command-bond-contribution.mjs
+
       - name: Validate Hero 15 Full Detail Publication contract
         run: node tools/validate-hero-15-full-detail-publication.mjs
 

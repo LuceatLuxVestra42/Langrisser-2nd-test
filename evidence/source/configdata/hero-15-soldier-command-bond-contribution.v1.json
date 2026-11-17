@@ -1,0 +1,413 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "artifacts": {
+      "ConfigDataHeroInfo": {
+        "path": "data/configdata/ConfigDataHeroInfo.json",
+        "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+        "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b"
+      },
+      "ConfigDataHeroInformationInfo": {
+        "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+        "gitBlobSha1": "49aef6be8ea1a65d5725c16a05dab94fffa73f92",
+        "sha256": "ee9f81f161f79939e771b16db97329bfaa45872edad0ecbf9dd9285587ebad7e"
+      },
+      "ConfigDataHeroFetterInfo": {
+        "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+        "gitBlobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+        "sha256": "1c058ddd7ad2fd038e8fae73391aafa85b3dea4fe49868a2c834a490497172a6"
+      },
+      "ConfigDataSkillInfo": {
+        "path": "data/configdata/ConfigDataSkillInfo.json",
+        "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+        "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741"
+      },
+      "ConfigDataBuffInfo": {
+        "path": "data/configdata/ConfigDataBuffInfo.json",
+        "gitBlobSha1": "bc7d5c7e5b4ac68b5192955a76cd21b810f36982",
+        "sha256": "ce84692846e4306dc15270ad959d9a258b5e599df5aaef352bc35992f5095225"
+      },
+      "ConfigDataPropertyModifyInfo": {
+        "path": "data/configdata/ConfigDataPropertyModifyInfo.json",
+        "gitBlobSha1": "a445111130e9110fe330f5869e4e9fe27da1a010",
+        "sha256": "50138a56ffa9f9ac2986682c162bf7ec95d910847481cf64fb618fd556ac0c2b"
+      }
+    }
+  },
+  "records": {
+    "ConfigDataHeroInfo": [
+      {
+        "recordIndex": 14,
+        "recordLocator": "data/configdata/ConfigDataHeroInfo.json#ID=15",
+        "rawRecord": {
+          "ID": 15,
+          "HeroInformation_ID": 15
+        }
+      }
+    ],
+    "ConfigDataHeroInformationInfo": [
+      {
+        "recordIndex": 14,
+        "recordLocator": "data/configdata/ConfigDataHeroInformationInfo.json#ID=15",
+        "rawRecord": {
+          "ID": 15,
+          "HeroFetters_ID": [
+            66,
+            67,
+            68,
+            69,
+            70
+          ]
+        }
+      }
+    ],
+    "ConfigDataHeroFetterInfo": [
+      {
+        "recordIndex": 65,
+        "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#ID=66",
+        "rawRecord": {
+          "ID": 66,
+          "MaxLevel": 10,
+          "GotSkills_ID": [
+            70000,
+            70001,
+            70002,
+            70003,
+            70004,
+            70005,
+            70006,
+            70007,
+            70008,
+            70009
+          ]
+        }
+      },
+      {
+        "recordIndex": 66,
+        "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#ID=67",
+        "rawRecord": {
+          "ID": 67,
+          "MaxLevel": 10,
+          "GotSkills_ID": [
+            70070,
+            70072,
+            70074,
+            70076,
+            70078,
+            70080,
+            70082,
+            70084,
+            70086,
+            70088
+          ]
+        }
+      },
+      {
+        "recordIndex": 67,
+        "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#ID=68",
+        "rawRecord": {
+          "ID": 68,
+          "MaxLevel": 10,
+          "GotSkills_ID": [
+            70030,
+            70031,
+            70032,
+            70033,
+            70034,
+            70035,
+            70036,
+            70037,
+            70038,
+            70039
+          ]
+        }
+      },
+      {
+        "recordIndex": 68,
+        "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#ID=69",
+        "rawRecord": {
+          "ID": 69,
+          "MaxLevel": 10,
+          "GotSkills_ID": [
+            70090,
+            70091,
+            70092,
+            70093,
+            70094,
+            70095,
+            70096,
+            70097,
+            70098,
+            70099
+          ]
+        }
+      },
+      {
+        "recordIndex": 69,
+        "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#ID=70",
+        "rawRecord": {
+          "ID": 70,
+          "MaxLevel": 10,
+          "GotSkills_ID": [
+            70100,
+            70101,
+            70102,
+            70103,
+            70104,
+            70105,
+            70106,
+            70107,
+            70108,
+            70109
+          ]
+        }
+      }
+    ],
+    "ConfigDataSkillInfo": [
+      {
+        "recordIndex": 16208,
+        "recordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70009",
+        "rawRecord": {
+          "ID": 70009,
+          "PassiveBuffs_ID": [
+            70009
+          ]
+        }
+      },
+      {
+        "recordIndex": 16278,
+        "recordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70088",
+        "rawRecord": {
+          "ID": 70088,
+          "PassiveBuffs_ID": [
+            70088,
+            70089
+          ]
+        }
+      },
+      {
+        "recordIndex": 16238,
+        "recordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70039",
+        "rawRecord": {
+          "ID": 70039,
+          "PassiveBuffs_ID": [
+            70039
+          ]
+        }
+      },
+      {
+        "recordIndex": 16288,
+        "recordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70099",
+        "rawRecord": {
+          "ID": 70099,
+          "PassiveBuffs_ID": [
+            70099
+          ]
+        }
+      },
+      {
+        "recordIndex": 16298,
+        "recordLocator": "data/configdata/ConfigDataSkillInfo.json#ID=70109",
+        "rawRecord": {
+          "ID": 70109,
+          "PassiveBuffs_ID": [
+            70109
+          ]
+        }
+      }
+    ],
+    "ConfigDataBuffInfo": [
+      {
+        "recordIndex": 32406,
+        "recordLocator": "data/configdata/ConfigDataBuffInfo.json#ID=70009",
+        "rawRecord": {
+          "ID": 70009,
+          "Property1_ID": 93,
+          "Property1_Value": 1000,
+          "Property2_ID": 94,
+          "Property2_Value": 1000,
+          "Property3_ID": 95,
+          "Property3_Value": 1000,
+          "Property4_ID": 96,
+          "Property4_Value": 1000
+        }
+      },
+      {
+        "recordIndex": 32485,
+        "recordLocator": "data/configdata/ConfigDataBuffInfo.json#ID=70088",
+        "rawRecord": {
+          "ID": 70088,
+          "Property1_ID": 99,
+          "Property1_Value": 1000,
+          "Property2_ID": 101,
+          "Property2_Value": 1000,
+          "Property3_ID": 103,
+          "Property3_Value": 1000
+        }
+      },
+      {
+        "recordIndex": 32486,
+        "recordLocator": "data/configdata/ConfigDataBuffInfo.json#ID=70089",
+        "rawRecord": {
+          "ID": 70089,
+          "Property1_ID": 100,
+          "Property1_Value": 1000,
+          "Property2_ID": 102,
+          "Property2_Value": 1000,
+          "Property3_ID": 104,
+          "Property3_Value": 1000
+        }
+      },
+      {
+        "recordIndex": 32436,
+        "recordLocator": "data/configdata/ConfigDataBuffInfo.json#ID=70039",
+        "rawRecord": {
+          "ID": 70039,
+          "Property1_ID": 93,
+          "Property1_Value": 1500,
+          "Property2_ID": 96,
+          "Property2_Value": 1500
+        }
+      },
+      {
+        "recordIndex": 32496,
+        "recordLocator": "data/configdata/ConfigDataBuffInfo.json#ID=70099",
+        "rawRecord": {
+          "ID": 70099,
+          "Property1_ID": 99,
+          "Property1_Value": 1500,
+          "Property2_ID": 101,
+          "Property2_Value": 1500,
+          "Property3_ID": 103,
+          "Property3_Value": 1500
+        }
+      },
+      {
+        "recordIndex": 32506,
+        "recordLocator": "data/configdata/ConfigDataBuffInfo.json#ID=70109",
+        "rawRecord": {
+          "ID": 70109,
+          "Property1_ID": 100,
+          "Property1_Value": 1500,
+          "Property2_ID": 102,
+          "Property2_Value": 1500,
+          "Property3_ID": 104,
+          "Property3_Value": 1500
+        }
+      }
+    ],
+    "ConfigDataPropertyModifyInfo": [
+      {
+        "recordIndex": 93,
+        "recordLocator": "data/configdata/ConfigDataPropertyModifyInfo.json#ID=93",
+        "rawRecord": {
+          "ID": 93,
+          "PropertyModifyType": 93,
+          "Name": "生命指挥",
+          "IsAddType": true
+        }
+      },
+      {
+        "recordIndex": 94,
+        "recordLocator": "data/configdata/ConfigDataPropertyModifyInfo.json#ID=94",
+        "rawRecord": {
+          "ID": 94,
+          "PropertyModifyType": 94,
+          "Name": "攻击指挥",
+          "IsAddType": true
+        }
+      },
+      {
+        "recordIndex": 95,
+        "recordLocator": "data/configdata/ConfigDataPropertyModifyInfo.json#ID=95",
+        "rawRecord": {
+          "ID": 95,
+          "PropertyModifyType": 95,
+          "Name": "防御指挥",
+          "IsAddType": true
+        }
+      },
+      {
+        "recordIndex": 96,
+        "recordLocator": "data/configdata/ConfigDataPropertyModifyInfo.json#ID=96",
+        "rawRecord": {
+          "ID": 96,
+          "PropertyModifyType": 96,
+          "Name": "魔防指挥",
+          "IsAddType": true
+        }
+      }
+    ]
+  },
+  "propertyNamespace": {
+    "path": "data/metadata/dump.cs",
+    "gitBlobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+    "enum": "PropertyModifyType",
+    "members": {
+      "93": "PropertyModifyType_Hero3_HPCmdAdd",
+      "94": "PropertyModifyType_Hero3_ATCmdAdd",
+      "95": "PropertyModifyType_Hero3_DFCmdAdd",
+      "96": "PropertyModifyType_Hero3_MagicDFCmdAdd"
+    }
+  },
+  "predecessor": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "validation": {
+      "path": "data/validation/hero-soldier-bond-command-contribution-r5-d.v1.json",
+      "gitBlobSha1": "00d0a82761b63847f464f4f66a26ffead6775eb1"
+    },
+    "contract": {
+      "path": "data/validation/hero-soldier-bond-command-contribution-r5-f.v1.json",
+      "gitBlobSha1": "5b22c27b0850023895dc9cf5a65cbb37bd954b71",
+      "locator": "#frozenSemantics"
+    },
+    "comparison": {
+      "path": "data/generated/hero-soldier-bond-command-contribution.v1.json",
+      "gitBlobSha1": "7999cc42be629edbf9e8755699dd969cb7b9ac8a",
+      "locator": "#heroId=15",
+      "record": {
+        "heroId": 15,
+        "raw": {
+          "hp": 2500,
+          "at": 1000,
+          "df": 1000,
+          "magicDf": 2500
+        },
+        "contribution": {
+          "hp": 25,
+          "at": 10,
+          "df": 10,
+          "magicDf": 25
+        }
+      }
+    },
+    "terminology": {
+      "path": "src/components/hero-soldier-command-section.tsx",
+      "gitBlobSha1": "e73bd8f28ffadcca4023030109fdd07765ded96b",
+      "binding": "중앙 유대 → hero3Contribution",
+      "scope": "Label cross-reference only."
+    }
+  },
+  "transformation": {
+    "selector": "Select the MaxLevel-th entry of each explicit regular Fetter GotSkills_ID array. Follow exact SkillInfo.PassiveBuffs_ID → BuffInfo.ID links.",
+    "propertyComponents": {
+      "93": "hp",
+      "94": "at",
+      "95": "df",
+      "96": "magicDf"
+    },
+    "aggregation": "Sum all selected property occurrences by component before dividing by 100. No rounding.",
+    "unit": "percent contribution to Soldier Command"
+  },
+  "claimEvidence": {
+    "sourceRecordsAndCommandProperties": "A",
+    "maxLevelSelectionAggregationAndScale": "B"
+  },
+  "limitation": "Hero 15 regular Fetter maximum-level contribution only. Heart Fetter is outside the regular Fetter selector. No actual unlock or active level, form applicability, base composition, final combat calculation, or publication claim.",
+  "productionRuntimeDependency": false
+}
