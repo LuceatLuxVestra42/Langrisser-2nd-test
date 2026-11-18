@@ -77,7 +77,7 @@ const runtime = [
   extractFunction(frontend, 'renderJobGlossaryRows'),
   extractFunction(frontend, 'addHero'),
 ].join('\n');
-const functions = runInNewContext(`(() => { ${runtime}; return { renderJobGlossaryRows, addHero }; })()`, sandbox);
+const functions = runInNewContext(`(() => { ${runtime}; return { renderJobGlossaryRows, addHero, makeSpJobPresentation }; })()`, sandbox);
 
 const soldiersById = new Map([...normalById, ...spById]);
 const relationsByHero = new Map();
@@ -118,6 +118,46 @@ for (const hero of heroData.heroes) {
   });
 }
 assert.equal(jobLinkCount, 181, 'all current Full Detail Job connections should have links');
+
+let spJobLinkCount = 0;
+for (const hero of heroData.heroes) {
+  const section = elementsById.get(`hero-${hero.id}`).children.find(({ className }) => className === 'sp-job-presentation');
+  if (!hero.spJobConnections.length) {
+    assert.equal(section, undefined, `Hero ${hero.id} must not gain an SP Job section`);
+    continue;
+  }
+  assert.ok(section, `Hero ${hero.id} must retain its existing SP Job section`);
+  const [list] = section.children;
+  assert.equal(list.children.length, hero.spJobConnections.length);
+  for (const [index, spJob] of hero.spJobConnections.entries()) {
+    const item = list.children[index];
+    const glossaryName = jobGlossaryById.get(spJob.jobId);
+    assert.equal(glossaryName, spJob.nameKo, `SP Job ${spJob.jobId} must match the approved glossary label`);
+    assert.equal(item.children.length, 1, 'a matched SP Job must render one glossary link');
+    const [link] = item.children;
+    assert.equal(link.href, `#job-glossary-${spJob.jobId}`);
+    assert.equal(link.textContent, `${spJob.classification} · ${spJob.nameKo} (전직 ID ${spJob.jobId}) · 프로젝트 검수 표시명 · 공식 KR 출처 미확인`);
+    const target = elementsById.get(`job-glossary-${spJob.jobId}`);
+    assert.ok(target, `SP Job ${spJob.jobId} must target an existing glossary row`);
+    target.scrolled = false;
+    link.listeners.click({ preventDefault() { assert.fail('a rendered SP glossary row must allow native navigation'); } });
+    animationFrames.shift()();
+    assert.equal(target.scrolled, true, 'SP Job navigation must scroll to the exact glossary row');
+    spJobLinkCount += 1;
+  }
+}
+assert.equal(spJobLinkCount, 6, 'all currently public SP Job entries should have links');
+
+const firstSpJob = heroData.heroes.flatMap(({ spJobConnections }) => spJobConnections)[0];
+for (const targets of [
+  new Map(),
+  new Map([[firstSpJob.jobId, '다른 전직명']]),
+]) {
+  const section = functions.makeSpJobPresentation([firstSpJob], targets);
+  const item = section.children[0].children[0];
+  assert.equal(item.children.length, 0, 'missing or mismatched SP glossary targets must stay as text');
+  assert.ok(item.textContent.includes(firstSpJob.nameKo), 'link omission must preserve the approved SP Job label');
+}
 
 const heroWithJob = heroData.heroes[0];
 const firstJob = heroWithJob.jobConnections[0];
