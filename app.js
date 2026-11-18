@@ -297,9 +297,17 @@ function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, em
     update();
     return true;
   };
+  const showFaction = (factionId) => {
+    if (!factions.has(factionId)) return false;
+    input.value = '';
+    factionFilter.value = String(factionId);
+    update();
+    factionFilter.focus();
+    return true;
+  };
   clearButton.addEventListener('click', () => showAll());
   update();
-  return { showAll, showTarget };
+  return { showAll, showTarget, showFaction };
 }
 
 function makeHeroRarityLabel(rarity) {
@@ -311,7 +319,7 @@ function makeHeroRarityLabel(rarity) {
   return label;
 }
 
-function makeFactionPresentation(factions) {
+function makeFactionPresentation(factions, onFactionSelect = () => {}) {
   if (!Array.isArray(factions) || factions.length === 0) throw new Error('Generated Hero Faction presentation is missing');
   const section = document.createElement('section');
   section.className = 'hero-factions';
@@ -328,7 +336,13 @@ function makeFactionPresentation(factions) {
       || Object.keys(faction).sort().join('|') !== expectedKeys.sort().join('|') || seen.has(faction.factionId)) throw new Error('Generated Hero Faction presentation is malformed');
     seen.add(faction.factionId);
     const item = document.createElement('li');
-    item.textContent = localized ? `${faction.nameKo} (${faction.nameCn})` : `미번역 · ${faction.nameCn}`;
+    const link = document.createElement('button');
+    link.type = 'button';
+    link.className = 'hero-faction-filter-link';
+    link.textContent = localized ? `${faction.nameKo} (${faction.nameCn})` : `미번역 · ${faction.nameCn}`;
+    link.setAttribute('aria-label', `${link.textContent} 진영 영웅 보기`);
+    link.addEventListener('click', () => onFactionSelect(faction.factionId));
+    item.append(link);
     list.append(item);
   }
   section.append(heading, list);
@@ -647,7 +661,7 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero, jobGlossaryBy
   article.append(details);
   const skinPresentation = makeSkinFullartPresentation(skinsByHero.get(hero.id) ?? []);
   if (skinPresentation) article.append(skinPresentation);
-  article.append(makeFactionPresentation(hero.factions));
+  article.append(makeFactionPresentation(hero.factions, (factionId) => heroNavigation?.showFaction(factionId)));
   article.append(makeOriginPresentation(hero.origins));
   if (hero.talent) article.append(makeTalentPresentation(hero.id, hero.talent));
   article.append(connections);

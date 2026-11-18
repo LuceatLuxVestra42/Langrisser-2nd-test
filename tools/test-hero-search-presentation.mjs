@@ -152,6 +152,7 @@ const functions = runInNewContext(`(() => {
 })()`, { ...sandbox, input, clearButton, factionFilter, count, emptyState, container });
 
 const navigation = functions.startSearch(heroData.heroes);
+assert.equal(typeof navigation.showFaction, 'function', 'Hero detail faction navigation is exposed by the existing search controller');
 assert.equal(factionFilter.value, 'all');
 assert.equal(factionFilter.children.length, new Set(heroData.heroes.flatMap(({ factions }) => factions.map(({ factionId }) => factionId))).size + 1);
 assert.equal(new Set(factionFilter.children.map(({ value }) => value)).size, factionFilter.children.length, 'Faction options are unique by ID');
@@ -195,6 +196,18 @@ for (const { factionId } of multiFactionHero.factions) {
 factionFilter.value = 'all';
 factionFilter.listeners.change();
 
+const selectedFaction = heroData.heroes[0].factions[0];
+input.value = 'a search that hides the faction results';
+const factionNavigation = navigation.showFaction(selectedFaction.factionId);
+assert.equal(factionNavigation, true);
+assert.equal(input.value, '', 'selecting a faction clears an incompatible text query');
+assert.equal(factionFilter.value, String(selectedFaction.factionId));
+assert.equal(factionFilter.focused, true, 'keyboard focus moves to the active filter');
+assert.deepEqual(heroData.heroes.filter(({ id }) => !elements.get(`hero-${id}`).hidden).map(({ id }) => id).sort((a, b) => a - b),
+  heroData.heroes.filter(({ factions }) => factions.some(({ factionId }) => factionId === selectedFaction.factionId)).map(({ id }) => id).sort((a, b) => a - b),
+  'faction navigation shows only matching approved Hero cards');
+assert.equal(navigation.showFaction(999999), false, 'unknown faction IDs do not create a filter option');
+
 for (const hero of heroData.heroes) {
   const label = functions.makeHeroRarityLabel(hero.rarity);
   assert.equal(label.className, 'hero-rarity');
@@ -204,7 +217,7 @@ for (const hero of heroData.heroes) {
 assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\)\)/);
 assert.match(html, /진영 한국어명과 출전작 프로젝트 검수 한국어명·중국어 원문/);
 assert.match(html, /공식 한국 서버 표기는 확인되지 않았습니다/);
-assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions\)\)/);
+assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions, \(factionId\) => heroNavigation\?\.showFaction\(factionId\)\)\)/);
 assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
 assert.match(frontend, /heading\.textContent = '출전작 · 프로젝트 검수 한국어명'/);
@@ -218,10 +231,19 @@ for (const hero of heroData.heroes) {
     assert.equal(faction.nameKo, expectedFactionNames.get(faction.factionId));
     assert.equal(faction.localizationStatus, 'PROJECT_REVIEWED');
   }
-  const section = functions.makeFactionPresentation(hero.factions);
+  const selectedIds = [];
+  const section = functions.makeFactionPresentation(hero.factions, (factionId) => selectedIds.push(factionId));
   assert.equal(section.className, 'hero-factions');
   assert.equal(section.children[0].textContent, '진영 · 한국어명');
-  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.factions.map((faction) => `${faction.nameKo} (${faction.nameCn})`));
+  const buttons = section.children[1].children.map(({ children }) => children[0]);
+  assert.deepEqual(buttons.map(({ textContent }) => textContent), hero.factions.map((faction) => `${faction.nameKo} (${faction.nameCn})`));
+  buttons.forEach((button, index) => {
+    assert.equal(button.type, 'button', 'Faction navigation uses a native keyboard-accessible button');
+    assert.equal(button.className, 'hero-faction-filter-link');
+    assert.equal(button.attributes['aria-label'], `${hero.factions[index].nameKo} (${hero.factions[index].nameCn}) 진영 영웅 보기`);
+    button.listeners.click();
+  });
+  assert.deepEqual(selectedIds, hero.factions.map(({ factionId }) => factionId), 'buttons pass only their approved Faction IDs');
 }
 const expectedSpJobsByHeroId = new Map([
   [6, [{
