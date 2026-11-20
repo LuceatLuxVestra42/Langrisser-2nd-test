@@ -81,6 +81,8 @@ h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
 .hero-factions h3, .hero-origins h3 { margin: 0 0 7px; color: #aab9cc; font-size: .76rem; letter-spacing: .04em; }
 .hero-faction-list, .hero-origin-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .hero-faction-list li, .hero-origin-list li { max-width: 100%; padding: 4px 8px; border: 1px solid #344050; border-radius: 8px; color: #d4dce7; font-size: .78rem; line-height: 1.4; overflow-wrap: anywhere; }
+.hero-faction-filter-link { padding: 0; border: 0; color: inherit; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.hero-faction-filter-link:hover, .hero-faction-filter-link:focus-visible { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
 .hero-talent { min-width: 0; margin: 0 16px 14px; padding: 12px; border: 1px solid #3c4b5e; border-radius: 10px; background: #151b24; }
 .hero-talent h3 { margin: 0 0 7px; color: #aab9cc; font-size: .76rem; line-height: 1.4; }
 .talent-name { margin: 0 0 9px; font-weight: 700; overflow-wrap: anywhere; }
