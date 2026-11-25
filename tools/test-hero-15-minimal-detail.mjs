@@ -421,13 +421,23 @@ for (const cost of [null, 0, '1', 1.5]) {
 }
 const soldierSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '용병');
 const soldierLinks = soldierSection.children[1].children.map(({ children }) => children[0]);
-const soldierLabels = soldierLinks.map(({ textContent }) => textContent);
-assert.equal(soldierLabels.length, 14);
-assert.ok(soldierLabels.includes('NORMAL · 하이랜더'));
-assert.ok(soldierLabels.includes('SP · 하이랜더'));
-assert.equal(soldierLinks.find(({ textContent }) => textContent === 'NORMAL · 하이랜더').href, '#normal-soldier-210');
-assert.equal(soldierLinks.find(({ textContent }) => textContent === 'SP · 하이랜더').href, '#sp-soldier-5210');
-assert.equal(new Set(soldierLinks.map(({ href }) => href)).size, 14);
+const expectedSoldierNames = ['하이랜더', '템플러', '하이엘프', '마법사', '신관', '퇴마사', '영종의 투승'];
+const expectedSoldierLinks = [
+  ['NORMAL', [210, 326, 602, 621, 802, 811, 815]],
+  ['SP', [5210, 5326, 5602, 5621, 5802, 5811, 5815]],
+].flatMap(([namespace, ids]) => ids.map((id, index) => [namespace, id, expectedSoldierNames[index]]));
+assert.deepEqual(soldierLinks.map(({ textContent, href }) => [textContent, href]),
+  expectedSoldierLinks.map(([namespace, id, name]) => [`${namespace} · ${name}`, `#${namespace.toLowerCase()}-soldier-${id}`]));
+for (const [namespace, id, nameKo] of expectedSoldierLinks) {
+  const { soldiers } = namespace === 'NORMAL' ? inputs.soldierInputs.normalPresentation : inputs.soldierInputs.spPresentation;
+  const idKey = namespace === 'NORMAL' ? 'normalSoldierId' : 'spSoldierId';
+  assert.deepEqual(soldiers.filter(row => row[idKey] === id).map(row => row.nameKo), [nameKo]);
+}
+const unpublishedSoldierLink = structuredClone(generated);
+unpublishedSoldierLink.heroes[0].soldiers[0].fragment = 'normal-soldier-999999';
+assert.throws(() => validateHero15MinimalDetail({
+  generatedText: JSON.stringify(unpublishedSoldierLink, null, 2) + '\n', inputs,
+}), /stale or non-deterministic/);
 fails((x) => { x.soldierInputs.approval.navigation.status = 'NOT_APPROVED'; }, /Soldier navigation publication scope/);
 fails((x) => { x.soldierInputs.spPresentation.soldiers.find(({ spSoldierId }) => spSoldierId === 5210).spSoldierId = 210; }, /Soldier navigation target/);
 const wrongSoldierNamespace = structuredClone(generated);

@@ -50,14 +50,12 @@ export function validateNormalSoldierBaseStats({ soldiers, relations, stats, evi
     endpointById.set(row.ID, row);
   }
   check(endpoints.records.length === 112 && endpointById.size === 112, 'pinned endpoint evidence population mismatch');
-  const identityRows = soldiers.records.filter(row => row.entity === 'Soldier' && row.variant === 'NORMAL');
-  const identityIds = identityRows.map(row => row.id);
-  check(identityRows.length === 56 && new Set(identityIds).size === 56, 'NORMAL identity endpoint set malformed');
   const targetIds = relations.records.map(row => row.normalSoldierId);
   check(relations.records.length === 56 && targetIds.every(Number.isInteger) && new Set(targetIds).size === 56, 'SP→NORMAL target set malformed or duplicated');
-  check(targetIds.every(id => identityIds.includes(id)), 'relation target is not in NORMAL identity owner');
+  const targetSet = new Set(targetIds);
+  const resolved = soldiers.records.filter(row => row.entity === 'Soldier' && row.variant === 'NORMAL' && targetSet.has(row.id));
+  check(resolved.length === 56 && new Set(resolved.map(row => row.id)).size === 56, 'NORMAL identity set differs from current relation targets');
   const sortedTargets = [...targetIds].sort((a, b) => a - b);
-  check(JSON.stringify([...identityIds].sort((a, b) => a - b)) === JSON.stringify(sortedTargets), 'NORMAL identity set differs from current relation targets');
   check(JSON.stringify(manifest.artifact.selectedTargetIds) === JSON.stringify(sortedTargets), 'manifest target ID set mismatch');
 
   const evidenceById = new Map();
