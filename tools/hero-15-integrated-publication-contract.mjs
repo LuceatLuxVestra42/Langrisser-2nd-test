@@ -1,3 +1,4 @@
+import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
 
@@ -78,7 +79,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -86,8 +87,10 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-source-names-publication.v1.json'),
     readJson('evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json'),
     readJson('evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-cv-publication.v1.json'),
+    readJson(HERO_CV_CANONICAL),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -121,7 +124,17 @@ function renderHero15Profile(inputs = {}) {
     || JSON.stringify(approval.profile) !== JSON.stringify(expected)) {
     throw new Error('Hero 15 profile must match exact approved Canonical rank, factions and names');
   }
-  return { ...profile, sourceNames: renderHero15SourceNames(inputs) };
+  return { ...profile, sourceNames: renderHero15SourceNames(inputs), cvNameKo: renderHero15CvName(inputs) };
+}
+
+function renderHero15CvName({ cvDecision, cvCanonical }) {
+  const { heroId, charImageId, cvNameRaw } = JSON.parse(renderHero15ProfileCvInternal(cvCanonical));
+  if (cvDecision?.status !== 'APPROVED' || cvDecision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || cvDecision.heroId !== heroId || cvDecision.charImageId !== charImageId || cvDecision.cvNameRaw !== cvNameRaw
+    || cvDecision.displayAuthority !== 'PROJECT_DISPLAY_ONLY' || cvDecision.nameKo !== '코시미즈 아미') {
+    throw new Error('Hero 15 CV publication scope or Korean display name mismatch');
+  }
+  return cvDecision.nameKo;
 }
 
 function renderHero15SourceNames({ sourceNamesApproval, nameMaster, englishNameEvidence }) {
