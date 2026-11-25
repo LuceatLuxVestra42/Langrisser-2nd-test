@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "heroId": 15,
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "recordCount": 27198
+  },
+  "extraction": "Strict UTF-8 JSON with duplicate object keys rejected. All top-level numeric IDs are unique. Select by explicit ID and preserve CDText verbatim. Index is a locator only.",
+  "limitation": "Native display string only. No BF_Cooldown, number derivation, cooldown semantics, or publication permission.",
+  "records": [
+    {
+      "sourceRecordIndex": 1913,
+      "fieldLocator": "/1913/CDText",
+      "rawRecord": {
+        "ID": 10801,
+        "CDText": "无"
+      }
+    },
+    {
+      "sourceRecordIndex": 1932,
+      "fieldLocator": "/1932/CDText",
+      "rawRecord": {
+        "ID": 10816,
+        "CDText": "2回合"
+      }
+    },
+    {
+      "sourceRecordIndex": 1917,
+      "fieldLocator": "/1917/CDText",
+      "rawRecord": {
+        "ID": 10805,
+        "CDText": "2回合"
+      }
+    },
+    {
+      "sourceRecordIndex": 1896,
+      "fieldLocator": "/1896/CDText",
+      "rawRecord": {
+        "ID": 10707,
+        "CDText": "1回合"
+      }
+    },
+    {
+      "sourceRecordIndex": 1894,
+      "fieldLocator": "/1894/CDText",
+      "rawRecord": {
+        "ID": 10705,
+        "CDText": "1回合"
+      }
+    },
+    {
+      "sourceRecordIndex": 1916,
+      "fieldLocator": "/1916/CDText",
+      "rawRecord": {
+        "ID": 10804,
+        "CDText": "2回合"
+      }
+    },
+    {
+      "sourceRecordIndex": 1921,
+      "fieldLocator": "/1921/CDText",
+      "rawRecord": {
+        "ID": 10807,
+        "CDText": "3回合"
+      }
+    },
+    {
+      "sourceRecordIndex": 1805,
+      "fieldLocator": "/1805/CDText",
+      "rawRecord": {
+        "ID": 6009,
+        "CDText": "-"
+      }
+    },
+    {
+      "sourceRecordIndex": 2028,
+      "fieldLocator": "/2028/CDText",
+      "rawRecord": {
+        "ID": 11786,
+        "CDText": "4回合"
+      }
+    }
+  ]
+}
