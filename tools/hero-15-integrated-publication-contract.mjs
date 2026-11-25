@@ -74,7 +74,50 @@ export function validateHero15IntegratedPublication(decision) {
   return decision;
 }
 
-export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes }) {
+export async function readHero15ProfileInputs(readJson) {
+  const [approval, rarities, relations, names] = await Promise.all([
+    readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
+    readJson('canonical/hero-rarities.v1.json'),
+    readJson('canonical/hero-faction-relations.v1.json'),
+    readJson('canonical/faction-localizations-ko.v1.json'),
+  ]);
+  return { approval, rarities, relations, names };
+}
+
+function renderHero15Profile({ approval, rarities, relations, names } = {}) {
+  exactKeys(approval, ['status', 'heroId', 'surface', 'approval', 'profile', 'display'], 'Hero 15 profile decision');
+  exactKeys(approval.approval, ['source', 'date', 'quote'], 'Hero 15 profile approval');
+  if (approval.status !== 'APPROVED' || approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || approval.display !== 'PROJECT_REVIEWED_KOREAN_TEXT_ONLY' || approval.approval.source !== 'CURRENT_USER_MESSAGE'
+    || approval.approval.date !== '2026-11-25'
+    || approval.approval.quote !== '리아나의 기존 상세에 SSR과 시대의 주역·빛의 군단·공주 연맹만 추가 공개하는 것을 승인해. 출전작은 제외하고 구현·검증·PR 생성까지 진행해. 병합은 하지 마.') {
+    throw new Error('Hero 15 profile approval or scope mismatch');
+  }
+  const expected = {
+    rarity: { rankId: 4, label: 'SSR' },
+    factions: [
+      { factionId: 1, nameKo: '시대의 주역' },
+      { factionId: 2, nameKo: '빛의 군단' },
+      { factionId: 6, nameKo: '공주 연맹' },
+    ],
+  };
+  const rank = rarities.records.filter(({ heroId }) => heroId === 15);
+  const factionIds = relations.records.filter(({ heroId }) => heroId === 15)
+    .map(({ factionId }) => factionId).sort((a, b) => a - b);
+  const factions = factionIds.map((factionId) => {
+    const labels = names.records.filter((row) => row.factionId === factionId);
+    if (labels.length !== 1) throw new Error('Hero 15 profile faction label must resolve exactly once');
+    return { factionId, nameKo: labels[0].nameKo };
+  });
+  const profile = { rarity: { rankId: rank[0]?.rankId, label: rank[0]?.label }, factions };
+  if (rank.length !== 1 || JSON.stringify(profile) !== JSON.stringify(expected)
+    || JSON.stringify(approval.profile) !== JSON.stringify(expected)) {
+    throw new Error('Hero 15 profile must match exact approved Canonical rank, factions and names');
+  }
+  return profile;
+}
+
+export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
   for (const key of Object.keys(sourceHashes)) {
@@ -101,6 +144,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
     heroes: [{
       heroId: 15,
       nameKo: heroName[0].nameKo,
+      profile: renderHero15Profile(profileInputs),
       exclusiveEquipment: {
         equipmentId: 535,
         nameKo: equipmentName[0].nameKo,
@@ -117,7 +161,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;

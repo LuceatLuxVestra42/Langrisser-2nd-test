@@ -189,7 +189,7 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
   return { showAll, showTarget, update };
 }
 
-function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }, talent = null) {
+function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }, talent = null, profile = null) {
   const expectedHeroId = heroId;
   if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== 1) {
     throw new Error(`Unsupported Hero ${heroId} minimal detail consumer`);
@@ -214,7 +214,15 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
   const effect = document.createElement('p');
   effect.className = 'hero-minimal-detail-effect';
   effect.textContent = hero.exclusiveEquipment.effectDescriptionKo.replace(/\\n/g, '\n');
-  article.append(name, id, nameStatus, equipment, effect);
+  article.append(name, id, nameStatus);
+  if (profile) {
+    const rarity = document.createElement('p');
+    rarity.textContent = `등급 · ${profile.rarity.label}`;
+    const factions = document.createElement('p');
+    factions.textContent = `진영 · ${profile.factions.map(({ nameKo }) => nameKo).join(' · ')}`;
+    article.append(rarity, factions);
+  }
+  article.append(equipment, effect);
   if (talent) article.append(makeTalentPresentation(heroId, talent));
   container.replaceChildren(article);
   return {
@@ -239,7 +247,20 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       throw new Error('Hero 15 Talent consumer contains an unapproved field');
     }
   }
-  return renderHeroMinimalDetailView(data, container, { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent);
+  const hero = data?.heroes?.[0];
+  const { profile, ...baseHero } = hero ?? {};
+  if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
+    || !Array.isArray(data.heroes) || data.heroes.length !== 1
+    || Object.keys(profile ?? {}).sort().join(',') !== 'factions,rarity'
+    || Object.keys(profile.rarity ?? {}).sort().join(',') !== 'label,rankId'
+    || profile.rarity.rankId !== 4 || profile.rarity.label !== 'SSR'
+    || !Array.isArray(profile.factions)
+    || !profile.factions.every((row) => Object.keys(row ?? {}).sort().join(',') === 'factionId,nameKo')
+    || JSON.stringify(profile.factions.map(({ factionId, nameKo }) => [factionId, nameKo])) !== '[[1,"시대의 주역"],[2,"빛의 군단"],[6,"공주 연맹"]]') {
+    throw new Error('Hero 15 profile consumer is malformed or outside its approved publication scope');
+  }
+  return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile);
 }
 
 function renderHero16MinimalDetailView(data, container) {

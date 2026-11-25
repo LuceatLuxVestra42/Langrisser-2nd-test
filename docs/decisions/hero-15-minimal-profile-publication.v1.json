@@ -1,0 +1,31 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "source": "CURRENT_USER_MESSAGE",
+    "date": "2026-11-25",
+    "quote": "리아나의 기존 상세에 SSR과 시대의 주역·빛의 군단·공주 연맹만 추가 공개하는 것을 승인해. 출전작은 제외하고 구현·검증·PR 생성까지 진행해. 병합은 하지 마."
+  },
+  "profile": {
+    "rarity": {
+      "rankId": 4,
+      "label": "SSR"
+    },
+    "factions": [
+      {
+        "factionId": 1,
+        "nameKo": "시대의 주역"
+      },
+      {
+        "factionId": 2,
+        "nameKo": "빛의 군단"
+      },
+      {
+        "factionId": 6,
+        "nameKo": "공주 연맹"
+      }
+    ]
+  },
+  "display": "PROJECT_REVIEWED_KOREAN_TEXT_ONLY"
+}
