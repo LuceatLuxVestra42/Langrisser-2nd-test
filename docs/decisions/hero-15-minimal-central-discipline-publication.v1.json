@@ -1,0 +1,26 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "skillId": 90089,
+  "displayAuthority": "PROJECT_DISPLAY_ONLY",
+  "approval": "Standing user approval bbb2164c-5198-4732-b08a-22ac1ef252a2, Hero 15 existing detail only.",
+  "effectTextKo": "어게인 스킬의 사거리 +1\n어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동",
+  "sourceDescSha256": "ed326ed4b8e22a9a1bcf61e379330c786c44500ddb4a327cc82fc1c15d1e36ea",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/presentation/hero-central-discipline-ko/part-04.v1.json",
+    "gitBlobSha1": "d6113b7279d840f832165ee5b2d7bc412a8040b0",
+    "locator": "records[8]/heroId=15&castingLawSkillId=90089",
+    "sheet": "출시된 율정",
+    "effectRow": 178,
+    "heroRow": 179,
+    "shard": "data/generated/hero-detail/by-id/15.json#centralDiscipline",
+    "shardGitBlobSha1": "7cc3f9e79395e79b08d99c79905f69a0bba9b1bb",
+    "canonicalEvidence": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json",
+    "canonicalCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "comparison": "Act Again range +1; after use, Reinforcement and Immunity are applied to the target for a duration of 2. The project display uses 2행동 for 2回合 in this effect text; does not establish duration ticking rules.",
+    "transformation": "Copy the scoped Korean display text as two plain-text lines."
+  }
+}
