@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "workId": "6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716",
+    "originalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c"
+  },
+  "baselineHead": "65c82ca565a6aeb6e7a545b5d8306fec12817ce2",
+  "field": "centralDisciplineGoldTotal",
+  "levels": [
+    1,
+    10
+  ],
+  "unit": "gold",
+  "canonicalSources": {
+    "hero": "canonical/hero-casting-law-template-references.v1.json",
+    "levels": "canonical/casting-law-template-level-references.v1.json",
+    "raw": "canonical/casting-law-levelup-raw-details.v1.json"
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataCastingLawLevelUpInfo.json",
+    "blobSha1": "83b99ebff9c54523d7f9476b92e8b3d59229179f",
+    "sha256": "07b91384b3dab506d501d74b4e70b6535b84f5d620e0082c3e557afec146e849",
+    "field": "LevelUpGoldCost",
+    "recordLocator": "Zero-based source array index from the admitted LevelUp ref, cross-checked by explicit ConfigDataCastingLawLevelUpInfo.ID.",
+    "orderedProjectionSha256": "007f15969a64646a3b73d99af091453dae0d530e1988bbe6d1b825907491ef8d",
+    "orderedProjectionColumns": [
+      "templateId",
+      "sourceArrayIndex",
+      "levelUpInfoId",
+      "levelUpSourceArrayIndex",
+      "LevelUpGoldCost"
+    ]
+  },
+  "legacyComparison": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-casting-law-by-hero.v1.json",
+    "blobSha1": "d5e08e12823bc5a53c728cf4accfe0cf4ce79674",
+    "sha256": "a3284d247b33661cff24e741bea716cba583018141a0b4d8a74b2ca28edb8b2b",
+    "heroPointer": "/records/13/heroId",
+    "goldPointer": "/records/13/totals/level1to10/gold",
+    "pageUrl": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "htmlSha256": "25e81252961161081899c84e93fe84cee7ee63956f8f5586679989a588789ff1",
+    "badgeSelector": "[data-casting-law-hero-total=\"true\"] [data-casting-law-gold=\"10800000\"]",
+    "badgeText": "×10,800,000"
+  },
+  "templates": [
+    {
+      "templateId": 14,
+      "levelUpInfoIds": [
+        66,
+        67,
+        68,
+        69,
+        70,
+        10066,
+        10067,
+        10068,
+        10069,
+        10070
+      ],
+      "subtotalGold": 1800000
+    },
+    {
+      "templateId": 12,
+      "levelUpInfoIds": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        10056,
+        10057,
+        10058,
+        10059,
+        10060
+      ],
+      "subtotalGold": 1800000
+    },
+    {
+      "templateId": 37,
+      "levelUpInfoIds": [
+        181,
+        182,
+        183,
+        184,
+        185,
+        10181,
+        10182,
+        10183,
+        10184,
+        10185
+      ],
+      "subtotalGold": 1800000
+    },
+    {
+      "templateId": 40,
+      "levelUpInfoIds": [
+        196,
+        197,
+        198,
+        199,
+        200,
+        10196,
+        10197,
+        10198,
+        10199,
+        10200
+      ],
+      "subtotalGold": 3600000
+    },
+    {
+      "templateId": 41,
+      "levelUpInfoIds": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        10201,
+        10202,
+        10203,
+        10204,
+        10205
+      ],
+      "subtotalGold": 1800000
+    }
+  ],
+  "totalGold": 10800000,
+  "displayTextKo": "Lv.1~10 합계 골드 10,800,000",
+  "scope": "One display-only sum of 50 admitted LevelUpGoldCost values. Legacy corroborates the display. No materials, internal detail or consumption rules are published."
+}
