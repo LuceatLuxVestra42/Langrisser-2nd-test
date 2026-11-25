@@ -193,6 +193,254 @@
       "bond3DescriptionKo": "프로핏으로 전직",
       "bond4DescriptionKo": "헤인과 함께 운명의문 5 클리어",
       "bond5DescriptionKo": "엘윈과 함께 운명의문 7 클리어",
+      "fetterGold": [
+        {
+          "labelKo": "유대 1",
+          "rows": [
+            {
+              "level": 2,
+              "gold": 1500
+            },
+            {
+              "level": 3,
+              "gold": 2300
+            },
+            {
+              "level": 4,
+              "gold": 3500
+            },
+            {
+              "level": 5,
+              "gold": 5300
+            },
+            {
+              "level": 6,
+              "gold": 8000
+            },
+            {
+              "level": 7,
+              "gold": 12000
+            },
+            {
+              "level": 8,
+              "gold": 18000
+            },
+            {
+              "level": 9,
+              "gold": 27000
+            },
+            {
+              "level": 10,
+              "gold": 41000
+            }
+          ]
+        },
+        {
+          "labelKo": "유대 2",
+          "rows": [
+            {
+              "level": 2,
+              "gold": 5000
+            },
+            {
+              "level": 3,
+              "gold": 7500
+            },
+            {
+              "level": 4,
+              "gold": 11000
+            },
+            {
+              "level": 5,
+              "gold": 17000
+            },
+            {
+              "level": 6,
+              "gold": 26000
+            },
+            {
+              "level": 7,
+              "gold": 39000
+            },
+            {
+              "level": 8,
+              "gold": 59000
+            },
+            {
+              "level": 9,
+              "gold": 89000
+            },
+            {
+              "level": 10,
+              "gold": 130000
+            }
+          ]
+        },
+        {
+          "labelKo": "유대 3",
+          "rows": [
+            {
+              "level": 2,
+              "gold": 9000
+            },
+            {
+              "level": 3,
+              "gold": 14000
+            },
+            {
+              "level": 4,
+              "gold": 21000
+            },
+            {
+              "level": 5,
+              "gold": 32000
+            },
+            {
+              "level": 6,
+              "gold": 48000
+            },
+            {
+              "level": 7,
+              "gold": 72000
+            },
+            {
+              "level": 8,
+              "gold": 110000
+            },
+            {
+              "level": 9,
+              "gold": 170000
+            },
+            {
+              "level": 10,
+              "gold": 260000
+            }
+          ]
+        },
+        {
+          "labelKo": "유대 4",
+          "rows": [
+            {
+              "level": 2,
+              "gold": 15000
+            },
+            {
+              "level": 3,
+              "gold": 23000
+            },
+            {
+              "level": 4,
+              "gold": 35000
+            },
+            {
+              "level": 5,
+              "gold": 53000
+            },
+            {
+              "level": 6,
+              "gold": 80000
+            },
+            {
+              "level": 7,
+              "gold": 120000
+            },
+            {
+              "level": 8,
+              "gold": 180000
+            },
+            {
+              "level": 9,
+              "gold": 270000
+            },
+            {
+              "level": 10,
+              "gold": 410000
+            }
+          ]
+        },
+        {
+          "labelKo": "유대 5",
+          "rows": [
+            {
+              "level": 2,
+              "gold": 20000
+            },
+            {
+              "level": 3,
+              "gold": 30000
+            },
+            {
+              "level": 4,
+              "gold": 45000
+            },
+            {
+              "level": 5,
+              "gold": 68000
+            },
+            {
+              "level": 6,
+              "gold": 100000
+            },
+            {
+              "level": 7,
+              "gold": 150000
+            },
+            {
+              "level": 8,
+              "gold": 230000
+            },
+            {
+              "level": 9,
+              "gold": 350000
+            },
+            {
+              "level": 10,
+              "gold": 530000
+            }
+          ]
+        },
+        {
+          "labelKo": "마음의 유대",
+          "rows": [
+            {
+              "level": 2,
+              "gold": 10000
+            },
+            {
+              "level": 3,
+              "gold": 15000
+            },
+            {
+              "level": 4,
+              "gold": 23000
+            },
+            {
+              "level": 5,
+              "gold": 35000
+            },
+            {
+              "level": 6,
+              "gold": 53000
+            },
+            {
+              "level": 7,
+              "gold": 74000
+            },
+            {
+              "level": 8,
+              "gold": 100000
+            },
+            {
+              "level": 9,
+              "gold": 140000
+            },
+            {
+              "level": 10,
+              "gold": 200000
+            }
+          ]
+        }
+      ],
       "ordinarySkills": [
         {
           "skillId": 10801,

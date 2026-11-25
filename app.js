@@ -253,7 +253,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, soldiers, soldierCommandLinesKo, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, bond2DescriptionKo, bond3DescriptionKo, bond4DescriptionKo, bond5DescriptionKo, ...baseHero } = hero ?? {};
+  const { profile, soldiers, soldierCommandLinesKo, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, bond2DescriptionKo, bond3DescriptionKo, bond4DescriptionKo, bond5DescriptionKo, fetterGold, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'cvNameKo,factions,rarity,sourceNames'
@@ -362,8 +362,24 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const bond3Section = renderMinimalDetailList('유대 3', [bond3DescriptionKo]);
   const bond4Section = renderMinimalDetailList('유대 4', [bond4DescriptionKo]);
   const bond5Section = renderMinimalDetailList('유대 5', [bond5DescriptionKo]);
+  const goldGroups = ['유대 1', '유대 2', '유대 3', '유대 4', '유대 5', '마음의 유대'];
+  if (!Array.isArray(fetterGold) || fetterGold.length !== goldGroups.length
+    || !fetterGold.every((group, groupIndex) => Object.keys(group ?? {}).sort().join(',') === 'labelKo,rows'
+      && group.labelKo === goldGroups[groupIndex] && Array.isArray(group.rows) && group.rows.length === 9
+      && group.rows.every((row, levelIndex) => Object.keys(row ?? {}).sort().join(',') === 'gold,level'
+        && row.level === levelIndex + 2 && Number.isSafeInteger(row.gold) && row.gold > 0))) {
+    throw new Error('Hero 15 Fetter Gold consumer is malformed');
+  }
+  const goldSection = document.createElement('details');
+  const goldSummary = document.createElement('summary');
+  goldSummary.textContent = '유대 강화 골드';
+  goldSection.append(goldSummary);
+  for (const { labelKo, rows } of fetterGold) {
+    goldSection.append(renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
+      `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`)));
+  }
   return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
-    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, soldierCommandSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond2Section, bond3Section, bond4Section, bond5Section]);
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, soldierCommandSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond2Section, bond3Section, bond4Section, bond5Section, goldSection]);
 }
 
 function renderMinimalDetailList(title, labels) {

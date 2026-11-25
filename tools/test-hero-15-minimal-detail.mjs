@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldierCommandLinesKo', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'fetterGold', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldierCommandLinesKo', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -205,6 +205,19 @@ fails((x) => { x.profileInputs.commandBond.records[0].contribution.hp = 40; }, /
 const leakedCommand = structuredClone(generated);
 leakedCommand.heroes[0].soldierCommandLinesKo.push('최종 · 생명 +40%');
 assert.throws(() => render(leakedCommand, talent, element()), /Soldier Command consumer/);
+const goldSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '유대 강화 골드');
+const goldGroups = goldSection.children.slice(1);
+assert.equal(goldGroups.length, 6);
+assert.ok(goldGroups.every(({ children }) => children[1].children.length === 9));
+assert.equal(goldGroups[0].children[1].children[0].textContent, 'Lv.2 · 1,500 골드');
+assert.equal(goldGroups[5].children[1].children[8].textContent, 'Lv.10 · 200,000 골드');
+fails((x) => { x.profileInputs.goldDecision.status = 'NOT_APPROVED'; }, /Fetter Gold publication/);
+fails((x) => { x.profileInputs.goldOwner.goldLocators[0].heroId = 16; }, /Fetter Gold level locator/);
+fails((x) => { x.profileInputs.goldOwner.goldLocators[0].sourceArrayIndex = 1; }, /Fetter Gold level locator/);
+fails((x) => { x.profileInputs.goldDecision.groups[0].gold[0] = 1501; }, /Fetter Gold values/);
+const leakedGold = structuredClone(generated);
+leakedGold.heroes[0].fetterGold[0].rows[0].itemId = 3200;
+assert.throws(() => render(leakedGold, talent, element()), /Fetter Gold consumer/);
 const jobSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '전직');
 assert.deepEqual(jobSection.children[1].children.map(({ textContent }) => textContent), [
   '시스터 → 주교', '시스터 → 프리스트', '시스터 → 서모너',
