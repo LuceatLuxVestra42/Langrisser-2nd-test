@@ -32,59 +32,73 @@
       "soldiers": [
         {
           "namespace": "NORMAL",
-          "nameKo": "하이랜더"
+          "nameKo": "하이랜더",
+          "fragment": "normal-soldier-210"
         },
         {
           "namespace": "NORMAL",
-          "nameKo": "템플러"
+          "nameKo": "템플러",
+          "fragment": "normal-soldier-326"
         },
         {
           "namespace": "NORMAL",
-          "nameKo": "하이엘프"
+          "nameKo": "하이엘프",
+          "fragment": "normal-soldier-602"
         },
         {
           "namespace": "NORMAL",
-          "nameKo": "마법사"
+          "nameKo": "마법사",
+          "fragment": "normal-soldier-621"
         },
         {
           "namespace": "NORMAL",
-          "nameKo": "신관"
+          "nameKo": "신관",
+          "fragment": "normal-soldier-802"
         },
         {
           "namespace": "NORMAL",
-          "nameKo": "퇴마사"
+          "nameKo": "퇴마사",
+          "fragment": "normal-soldier-811"
         },
         {
           "namespace": "NORMAL",
-          "nameKo": "영종의 투승"
+          "nameKo": "영종의 투승",
+          "fragment": "normal-soldier-815"
         },
         {
           "namespace": "SP",
-          "nameKo": "하이랜더"
+          "nameKo": "하이랜더",
+          "fragment": "sp-soldier-5210"
         },
         {
           "namespace": "SP",
-          "nameKo": "템플러"
+          "nameKo": "템플러",
+          "fragment": "sp-soldier-5326"
         },
         {
           "namespace": "SP",
-          "nameKo": "하이엘프"
+          "nameKo": "하이엘프",
+          "fragment": "sp-soldier-5602"
         },
         {
           "namespace": "SP",
-          "nameKo": "마법사"
+          "nameKo": "마법사",
+          "fragment": "sp-soldier-5621"
         },
         {
           "namespace": "SP",
-          "nameKo": "신관"
+          "nameKo": "신관",
+          "fragment": "sp-soldier-5802"
         },
         {
           "namespace": "SP",
-          "nameKo": "퇴마사"
+          "nameKo": "퇴마사",
+          "fragment": "sp-soldier-5811"
         },
         {
           "namespace": "SP",
-          "nameKo": "영종의 투승"
+          "nameKo": "영종의 투승",
+          "fragment": "sp-soldier-5815"
         }
       ],
       "soldierCommandLinesKo": [
