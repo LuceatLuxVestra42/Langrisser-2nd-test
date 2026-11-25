@@ -81,7 +81,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -97,8 +97,11 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-central-discipline-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-awakening-materials-publication.v1.json'),
     loadAwakeningInputs(),
+    readJson('docs/decisions/hero-15-minimal-bond3-description-publication.v1.json'),
+    readJson('canonical/hero-fetter-references.v1.json'),
+    readJson('canonical/hero-fetter-raw-details.v1.json'),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -291,6 +294,23 @@ function renderHero15AwakeningMaterials({ awakeningDecision: decision, awakening
   return { noticeKo: decision.noticeKo, stages };
 }
 
+function renderHero15Bond3Description({ bond3Decision: decision, fetterReferences, fetterDetails }) {
+  const references = fetterReferences.records.filter(({ fetterId }) => fetterId === 68);
+  const details = fetterDetails.records.filter(({ detailKind, endpointId }) =>
+    detailKind === 'FETTER_RAW_DETAIL' && endpointId === 68);
+  const conditions = details[0]?.fields?.CompletionConditions;
+  const missionReferences = conditions?.filter(({ ConditionType }) => ConditionType === 2);
+  if (decision?.status !== 'APPROVED' || decision.heroId !== 15 || decision.fetterId !== 68 || decision.missionId !== 5050
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.scope !== 'PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY'
+    || decision.source?.desc !== '莉亚娜转职成为先知' || decision.descriptionKo !== '프로핏으로 전직'
+    || references.length !== 1 || references[0].heroId !== 15 || references[0].referenceKind !== 'HERO_FETTER_ID_REFERENCE'
+    || details.length !== 1 || details[0].heroId !== 15 || missionReferences?.length !== 1
+    || missionReferences[0].Parm1 !== 5050) {
+    throw new Error('Hero 15 Bond 3 description publication scope or source mismatch');
+  }
+  return decision.descriptionKo;
+}
+
 export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs, jobInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
@@ -323,6 +343,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       jobPaths: renderHero15JobPaths(jobInputs),
       centralDisciplineEffectKo: renderHero15CentralDiscipline(profileInputs),
       awakeningMaterials: renderHero15AwakeningMaterials(profileInputs),
+      bond3DescriptionKo: renderHero15Bond3Description(profileInputs),
       ordinarySkills: renderHero15OrdinarySkills(profileInputs),
       exclusiveEquipment: {
         equipmentId: 535,
@@ -340,7 +361,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials', 'bond3DescriptionKo'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;
