@@ -253,7 +253,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, soldiers, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, bond2DescriptionKo, bond3DescriptionKo, bond4DescriptionKo, bond5DescriptionKo, ...baseHero } = hero ?? {};
+  const { profile, soldiers, soldierCommandLinesKo, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, bond2DescriptionKo, bond3DescriptionKo, bond4DescriptionKo, bond5DescriptionKo, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'cvNameKo,factions,rarity,sourceNames'
@@ -304,6 +304,13 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo }) =>
     descriptionKo === undefined ? nameKo : `${nameKo} · ${descriptionKo}`));
   const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
+  if (JSON.stringify(soldierCommandLinesKo) !== JSON.stringify([
+    '기본 지휘 · 생명 +15% · 마방 +15%',
+    '최대 레벨 일반 유대 · 생명 +25% · 공격 +10% · 방어 +10% · 마방 +25%',
+  ])) {
+    throw new Error('Hero 15 Soldier Command consumer is malformed');
+  }
+  const soldierCommandSection = renderMinimalDetailList('병사 지휘 보정', soldierCommandLinesKo);
   const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo, baseAttributesKo }) =>
     baseAttributesKo === undefined ? `${fromNameKo} → ${toNameKo}` : `${fromNameKo} → ${toNameKo} · ${baseAttributesKo}`));
   const jobRows = jobSection.children[1].children;
@@ -342,7 +349,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const bond4Section = renderMinimalDetailList('유대 4', [bond4DescriptionKo]);
   const bond5Section = renderMinimalDetailList('유대 5', [bond5DescriptionKo]);
   return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
-    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond2Section, bond3Section, bond4Section, bond5Section]);
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, soldierCommandSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond2Section, bond3Section, bond4Section, bond5Section]);
 }
 
 function renderMinimalDetailList(title, labels) {

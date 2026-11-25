@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldierCommandLinesKo', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -182,6 +182,18 @@ const soldierLabels = soldierSection.children[1].children.map(({ textContent }) 
 assert.equal(soldierLabels.length, 14);
 assert.ok(soldierLabels.includes('NORMAL · 하이랜더'));
 assert.ok(soldierLabels.includes('SP · 하이랜더'));
+const commandSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '병사 지휘 보정');
+assert.deepEqual(commandSection.children[1].children.map(({ textContent }) => textContent), [
+  '기본 지휘 · 생명 +15% · 마방 +15%',
+  '최대 레벨 일반 유대 · 생명 +25% · 공격 +10% · 방어 +10% · 마방 +25%',
+]);
+fails((x) => { x.profileInputs.commandDecision.status = 'NOT_APPROVED'; }, /Soldier Command publication scope/);
+fails((x) => { x.profileInputs.commandBase.records[0].heroId = 16; }, /Soldier Command owner values/);
+fails((x) => { x.profileInputs.commandBase.records[0].base.at = 0; }, /Soldier Command owner values/);
+fails((x) => { x.profileInputs.commandBond.records[0].contribution.hp = 40; }, /Soldier Command owner values/);
+const leakedCommand = structuredClone(generated);
+leakedCommand.heroes[0].soldierCommandLinesKo.push('최종 · 생명 +40%');
+assert.throws(() => render(leakedCommand, talent, element()), /Soldier Command consumer/);
 const jobSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '전직');
 assert.deepEqual(jobSection.children[1].children.map(({ textContent }) => textContent), [
   '시스터 → 주교', '시스터 → 프리스트', '시스터 → 서모너',
