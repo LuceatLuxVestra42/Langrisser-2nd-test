@@ -249,7 +249,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, soldiers, ...baseHero } = hero ?? {};
+  const { profile, soldiers, jobPaths, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'factions,rarity'
@@ -265,18 +265,30 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       && ['NORMAL', 'SP'].includes(row.namespace) && typeof row.nameKo === 'string' && row.nameKo.trim())) {
     throw new Error('Hero 15 Soldier consumer is malformed');
   }
+  if (!Array.isArray(jobPaths) || jobPaths.length !== 5 || !jobPaths.every((row) =>
+    Object.keys(row ?? {}).sort().join(',') === 'fromNameKo,toNameKo'
+      && typeof row.fromNameKo === 'string' && row.fromNameKo.trim()
+      && typeof row.toNameKo === 'string' && row.toNameKo.trim())) {
+    throw new Error('Hero 15 Job consumer is malformed');
+  }
+  const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
+  const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo }) => `${fromNameKo} → ${toNameKo}`));
+  return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, jobSection]);
+}
+
+function renderMinimalDetailList(title, labels) {
   const section = document.createElement('section');
   const heading = document.createElement('h4');
-  heading.textContent = '용병';
+  heading.textContent = title;
   const list = document.createElement('ul');
-  for (const { namespace, nameKo } of soldiers) {
+  for (const label of labels) {
     const item = document.createElement('li');
-    item.textContent = `${namespace} · ${nameKo}`;
+    item.textContent = label;
     list.append(item);
   }
   section.append(heading, list);
-  return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
-    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [section]);
+  return section;
 }
 
 function renderHero16MinimalDetailView(data, container) {

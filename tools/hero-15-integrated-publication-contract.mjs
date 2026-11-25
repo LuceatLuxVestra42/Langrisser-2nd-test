@@ -1,3 +1,4 @@
+import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
 
 const decisionKeys = ['schemaVersion', 'decisionType', 'status', 'approval', 'approvedScope', 'effect'];
@@ -148,7 +149,32 @@ function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, 
   return rows.map(({ namespace, nameKo }) => ({ namespace, nameKo }));
 }
 
-export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs }) {
+export async function readHero15JobPublicationInputs(readJson) {
+  const [approval, tree] = await Promise.all([
+    readJson('docs/decisions/hero-15-minimal-job-publication.v1.json'),
+    loadJobTree(),
+  ]);
+  return { approval, tree };
+}
+
+function renderHero15JobPaths({ approval, tree }) {
+  if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || approval.status !== 'APPROVED') throw new Error('Hero 15 Job publication scope mismatch');
+  const { jobs, directEdges } = JSON.parse(renderJobTree(tree));
+  if (jobs.some(({ localization }) => localization.status !== 'ADMITTED' || !localization.nameKo?.trim())) {
+    throw new Error('Hero 15 Job Korean name is absent');
+  }
+  const names = new Map(jobs.map(({ jobId, localization }) => [jobId, localization.nameKo]));
+  const paths = directEdges.map(({ predecessorJobId, successorJobId }) => [
+    predecessorJobId, successorJobId, names.get(predecessorJobId), names.get(successorJobId),
+  ]);
+  if (JSON.stringify(paths) !== JSON.stringify(approval.paths)) {
+    throw new Error('Hero 15 Job paths differ from the approved direct edges');
+  }
+  return paths.map(([, , fromNameKo, toNameKo]) => ({ fromNameKo, toNameKo }));
+}
+
+export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs, jobInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
   for (const key of Object.keys(sourceHashes)) {
@@ -177,6 +203,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       nameKo: heroName[0].nameKo,
       profile: renderHero15Profile(profileInputs),
       soldiers: renderHero15SoldierNames(soldierInputs),
+      jobPaths: renderHero15JobPaths(jobInputs),
       exclusiveEquipment: {
         equipmentId: 535,
         nameKo: equipmentName[0].nameKo,
@@ -193,7 +220,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;

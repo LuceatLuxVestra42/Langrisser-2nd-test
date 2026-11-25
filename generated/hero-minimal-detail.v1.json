@@ -82,6 +82,28 @@
           "nameKo": "영종의 투승"
         }
       ],
+      "jobPaths": [
+        {
+          "fromNameKo": "시스터",
+          "toNameKo": "주교"
+        },
+        {
+          "fromNameKo": "시스터",
+          "toNameKo": "프리스트"
+        },
+        {
+          "fromNameKo": "시스터",
+          "toNameKo": "서모너"
+        },
+        {
+          "fromNameKo": "프리스트",
+          "toNameKo": "프로핏"
+        },
+        {
+          "fromNameKo": "서모너",
+          "toNameKo": "허미트"
+        }
+      ],
       "exclusiveEquipment": {
         "equipmentId": 535,
         "nameKo": "완벽한 찬사",

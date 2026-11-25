@@ -1,0 +1,40 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": "Direct user standing approval in 이전 Work on 2026-11-25 for existing Hero 15 detail, with source, Korean display and publication conditions verified.",
+  "legacyDisplay": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15",
+  "scope": "Five direct connections by existing Canonical endpoints, displayed with six admitted Korean Job names. Excludes stats, costs, unlock thresholds and skills.",
+  "paths": [
+    [
+      802,
+      803,
+      "시스터",
+      "주교"
+    ],
+    [
+      802,
+      806,
+      "시스터",
+      "프리스트"
+    ],
+    [
+      802,
+      703,
+      "시스터",
+      "서모너"
+    ],
+    [
+      806,
+      811,
+      "프리스트",
+      "프로핏"
+    ],
+    [
+      703,
+      707,
+      "서모너",
+      "허미트"
+    ]
+  ]
+}
