@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "provenance": "docs/decisions/hero-15-minimal-final-job-movement-publication.v1.json",
+  "records": [
+    {
+      "heroId": 15,
+      "connectionId": 154,
+      "jobId": 811,
+      "BF_AttackDistance": 2,
+      "MoveType": 2,
+      "BF_MovePoint": 3
+    },
+    {
+      "heroId": 15,
+      "connectionId": 155,
+      "jobId": 707,
+      "BF_AttackDistance": 2,
+      "MoveType": 2,
+      "BF_MovePoint": 3
+    }
+  ]
+}

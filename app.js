@@ -272,10 +272,15 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       && ['NORMAL', 'SP'].includes(row.namespace) && typeof row.nameKo === 'string' && row.nameKo.trim())) {
     throw new Error('Hero 15 Soldier consumer is malformed');
   }
-  if (!Array.isArray(jobPaths) || jobPaths.length !== 5 || !jobPaths.every((row) =>
-    Object.keys(row ?? {}).sort().join(',') === 'fromNameKo,toNameKo'
-      && typeof row.fromNameKo === 'string' && row.fromNameKo.trim()
-      && typeof row.toNameKo === 'string' && row.toNameKo.trim())) {
+  const expectedJobPaths = [
+    ['시스터', '주교'], ['시스터', '프리스트'], ['시스터', '서모너'],
+    ['프리스트', '프로핏', '기본 사거리 2 · 보행 · 이동력 3'],
+    ['서모너', '허미트', '기본 사거리 2 · 보행 · 이동력 3'],
+  ];
+  if (!Array.isArray(jobPaths) || jobPaths.length !== expectedJobPaths.length
+    || !expectedJobPaths.every(([from, to, attributes]) => jobPaths.filter((row) =>
+      Object.keys(row ?? {}).sort().join(',') === (attributes ? 'baseAttributesKo,fromNameKo,toNameKo' : 'fromNameKo,toNameKo')
+        && row.fromNameKo === from && row.toNameKo === to && row.baseAttributesKo === attributes).length === 1)) {
     throw new Error('Hero 15 Job consumer is malformed');
   }
   const expectedSkillIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
@@ -294,7 +299,8 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo }) =>
     descriptionKo === undefined ? nameKo : `${nameKo} · ${descriptionKo}`));
   const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
-  const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo }) => `${fromNameKo} → ${toNameKo}`));
+  const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo, baseAttributesKo }) =>
+    baseAttributesKo === undefined ? `${fromNameKo} → ${toNameKo}` : `${fromNameKo} → ${toNameKo} · ${baseAttributesKo}`));
   const expectedAwakeningMaterials = {
     noticeKo: '현재 검증된 각성 재료 6개를 표시합니다.',
     stages: [

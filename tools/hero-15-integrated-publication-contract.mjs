@@ -198,15 +198,19 @@ function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, 
   return rows.map(({ namespace, nameKo }) => ({ namespace, nameKo }));
 }
 
+const finalJobMovementDecisionPath = 'docs/decisions/hero-15-minimal-final-job-movement-publication.v1.json';
+
 export async function readHero15JobPublicationInputs(readJson) {
-  const [approval, tree] = await Promise.all([
+  const [approval, tree, movementDecision, movement] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-job-publication.v1.json'),
     loadJobTree(),
+    readJson(finalJobMovementDecisionPath),
+    readJson('canonical/hero-15-final-job-movement.v1.json'),
   ]);
-  return { approval, tree };
+  return { approval, tree, movementDecision, movement };
 }
 
-function renderHero15JobPaths({ approval, tree }) {
+function renderHero15JobPaths({ approval, tree, movementDecision, movement }) {
   if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || approval.status !== 'APPROVED') throw new Error('Hero 15 Job publication scope mismatch');
   const { jobs, directEdges } = JSON.parse(renderJobTree(tree));
@@ -220,7 +224,41 @@ function renderHero15JobPaths({ approval, tree }) {
   if (JSON.stringify(paths) !== JSON.stringify(approval.paths)) {
     throw new Error('Hero 15 Job paths differ from the approved direct edges');
   }
-  return paths.map(([, , fromNameKo, toNameKo]) => ({ fromNameKo, toNameKo }));
+  const approvedEndpoints = new Map([[154, 811], [155, 707]]);
+  const label = movementDecision?.movementLabel;
+  const source = movementDecision?.source;
+  if (movementDecision?.schemaVersion !== 1 || movementDecision.status !== 'APPROVED'
+    || movementDecision.heroId !== 15 || movementDecision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || movementDecision.approval?.originalMessageId !== 'bbb2164c-5198-4732-b08a-22ac1ef252a2'
+    || movement?.schemaVersion !== 1 || movement.provenance !== finalJobMovementDecisionPath
+    || movement.records?.length !== approvedEndpoints.size || source?.records?.length !== approvedEndpoints.size
+    || source.gitBlobSha1 !== '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133'
+    || source.sha256 !== '2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf'
+    || label?.gitBlobSha1 !== '422078f935ec57a66b4763514fa2da8f2d3fccda'
+    || label.id !== 2 || label.key !== 'WALK' || label.sourceNameKr !== '보행 이동' || label.displayNameKo !== '보행') {
+    throw new Error('Hero 15 final Job movement publication scope or source mismatch');
+  }
+  const attributes = new Map();
+  for (const [connectionId, jobId] of approvedEndpoints) {
+    const rows = movement.records.filter((row) => row.connectionId === connectionId);
+    const sourceRows = source.records.filter((row) => row.connectionId === connectionId);
+    const row = rows[0];
+    const native = sourceRows[0]?.fields;
+    if (rows.length !== 1 || sourceRows.length !== 1 || row.heroId !== 15 || row.jobId !== jobId || native?.ID !== jobId
+      || jobs.filter((job) => job.connectionId === connectionId && job.jobId === jobId).length !== 1
+      || directEdges.filter((edge) => edge.successorConnectionId === connectionId && edge.successorJobId === jobId).length !== 1
+      || row.BF_AttackDistance !== native.BF_AttackDistance || row.BF_MovePoint !== native.BF_MovePoint
+      || row.MoveType !== native.MoveType || row.MoveType !== label.id
+      || !Number.isInteger(row.BF_AttackDistance) || !Number.isInteger(row.BF_MovePoint)) {
+      throw new Error('Hero 15 final Job movement row or endpoint mismatch');
+    }
+    attributes.set(connectionId, `기본 사거리 ${row.BF_AttackDistance} · ${label.displayNameKo} · 이동력 ${row.BF_MovePoint}`);
+  }
+  return directEdges.map(({ predecessorJobId, successorJobId, successorConnectionId }) => {
+    const path = { fromNameKo: names.get(predecessorJobId), toNameKo: names.get(successorJobId) };
+    const baseAttributesKo = attributes.get(successorConnectionId);
+    return baseAttributesKo === undefined ? path : { ...path, baseAttributesKo };
+  });
 }
 
 function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdentities }) {

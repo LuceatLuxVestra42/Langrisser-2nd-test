@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "work": "이전",
+    "originalMessageId": "bbb2164c-5198-4732-b08a-22ac1ef252a2"
+  },
+  "baselineHead": "1d8900c0030dc965ed34e920873eb5ee1cd1947a",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataJobInfo.json",
+    "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+    "sha256": "2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf",
+    "records": [
+      {
+        "connectionId": 154,
+        "recordLocator": "/499 (ID=811)",
+        "fields": {
+          "ID": 811,
+          "BF_AttackDistance": 2,
+          "MoveType": 2,
+          "BF_MovePoint": 3
+        }
+      },
+      {
+        "connectionId": 155,
+        "recordLocator": "/381 (ID=707)",
+        "fields": {
+          "ID": 707,
+          "BF_AttackDistance": 2,
+          "MoveType": 2,
+          "BF_MovePoint": 3
+        }
+      }
+    ]
+  },
+  "movementLabel": {
+    "commit": "214e759b46741a534f0ffb297dd7265deb4bd5ca",
+    "path": "data/contracts/hero-soldier-movement-type-presentation.v1.json",
+    "gitBlobSha1": "422078f935ec57a66b4763514fa2da8f2d3fccda",
+    "locator": "/definitions/1 (id=2)",
+    "id": 2,
+    "key": "WALK",
+    "sourceNameKr": "보행 이동",
+    "displayNameKo": "보행"
+  },
+  "corroboration": [
+    {
+      "pr": 955,
+      "commit": "6ec4ef7f5a2d927962dccfa4b86eafb3f7006b13",
+      "path": "data/generated/hero-final-job-attack-range.v1.json",
+      "gitBlobSha1": "2d4d9beda04a75e63e85c2a2ac7886307e16e544",
+      "locators": [
+        "/byJobId/811",
+        "/byJobId/707"
+      ]
+    },
+    {
+      "pr": 961,
+      "commit": "214e759b46741a534f0ffb297dd7265deb4bd5ca",
+      "path": "data/generated/shared-movement-type-index.v1.json",
+      "gitBlobSha1": "1bba8293c096b149d1d3b2301df2cf39872e3cda",
+      "locators": [
+        "/heroJobsById/811",
+        "/heroJobsById/707",
+        "/definitions/1"
+      ]
+    },
+    {
+      "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+      "scope": "Rendered display precedent for both final jobs."
+    }
+  ],
+  "transformation": "Extract native fields by unique Job ID. Resolve each approved connection and its Korean job name through the admitted Hero 15 job tree. Format BF_AttackDistance as 기본 사거리 and BF_MovePoint as 이동력. Resolve the independently sourced MoveType 2 label, shortening 보행 이동 to 보행.",
+  "limitation": "Hero 15 connections 154 and 155 only. Base job values from the pinned snapshot. No conditional combat range, unlock calculation, official Korean wording claim, or publication beyond the labels and numbers."
+}

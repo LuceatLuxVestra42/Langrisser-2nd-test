@@ -184,9 +184,28 @@ assert.ok(soldierLabels.includes('NORMAL · 하이랜더'));
 assert.ok(soldierLabels.includes('SP · 하이랜더'));
 const jobSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '전직');
 assert.deepEqual(jobSection.children[1].children.map(({ textContent }) => textContent), [
-  '시스터 → 주교', '시스터 → 프리스트', '시스터 → 서모너', '프리스트 → 프로핏', '서모너 → 허미트',
+  '시스터 → 주교', '시스터 → 프리스트', '시스터 → 서모너',
+  '프리스트 → 프로핏 · 기본 사거리 2 · 보행 · 이동력 3',
+  '서모너 → 허미트 · 기본 사거리 2 · 보행 · 이동력 3',
 ]);
 fails((x) => { x.jobInputs.approval.paths.pop(); }, /approved direct edges/);
+assert.doesNotMatch(generatedText, /BF_AttackDistance|BF_MovePoint|MoveType|connectionId|jobId|4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133/);
+fails((x) => { x.jobInputs.movement.records[0].jobId = 806; }, /final Job movement row/);
+fails((x) => { x.jobInputs.movement.records[1].heroId = 16; }, /final Job movement row/);
+fails((x) => { x.jobInputs.movement.records[1].connectionId = 154; }, /final Job movement row/);
+fails((x) => { x.jobInputs.movement.records[1].BF_AttackDistance = 1; }, /final Job movement row/);
+fails((x) => { x.jobInputs.movement.records[0].BF_MovePoint = 5; }, /final Job movement row/);
+fails((x) => { delete x.jobInputs.movement.records[0].MoveType; }, /final Job movement row/);
+fails((x) => {
+  x.jobInputs.movement.records[0].MoveType = 3;
+  x.jobInputs.movementDecision.source.records[0].fields.MoveType = 3;
+}, /final Job movement row/);
+const invalidJob = structuredClone(generated);
+invalidJob.heroes[0].jobPaths.find(({ toNameKo }) => toNameKo === '프리스트').baseAttributesKo = '기본 사거리 2 · 보행 · 이동력 3';
+assert.throws(() => render(invalidJob, talent, element()), /Job consumer/);
+const leakedJob = structuredClone(generated);
+leakedJob.heroes[0].jobPaths.find(({ toNameKo }) => toNameKo === '허미트').jobId = 707;
+assert.throws(() => render(leakedJob, talent, element()), /Job consumer/);
 fails((x) => { x.soldierInputs.approval.soldiers.pop(); }, /approved subset/);
 assert.equal(navigation.showTarget(15), true);
 assert.equal(target.scrolled, true);
