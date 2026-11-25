@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -125,6 +125,20 @@ fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage2Sourc
 const leakedAwakening = structuredClone(generated);
 leakedAwakening.heroes[0].awakeningMaterials.stages[0].materials[0].itemId = 3247;
 assert.throws(() => render(leakedAwakening, talent, element()), /Awakening material consumer/);
+const bond2Sections = container.children[0].children.filter(({ children }) => children?.[0]?.textContent === '유대 2');
+assert.equal(bond2Sections.length, 1);
+assert.deepEqual(bond2Sections[0].children[1].children.map(({ textContent }) => textContent), [
+  '리아나를 출전시켜 시공의 균열 3-6 클리어',
+]);
+assert.doesNotMatch(generatedText, /5049|使用莉亚娜完成时空裂缝/);
+fails((x) => { x.profileInputs.bond2Decision.heroId = 16; }, /Bond 2 description publication scope/);
+fails((x) => { x.profileInputs.bond2Decision.fetterId = 68; }, /Bond 2 description publication scope/);
+fails((x) => { x.profileInputs.bond2Decision.missionId = 5050; }, /Bond 2 description publication scope/);
+fails((x) => { x.profileInputs.fetterDetails.records.find(({ endpointId }) => endpointId === 67)
+  .fields.CompletionConditions.find(({ ConditionType }) => ConditionType === 2).Parm1 = 5050; }, /Bond 2 description publication scope/);
+const leakedBond2 = structuredClone(generated);
+leakedBond2.heroes[0].bond2DescriptionKo = { text: '리아나를 출전시켜 시공의 균열 3-6 클리어', missionId: 5049 };
+assert.throws(() => render(leakedBond2, talent, element()), /Bond 2 description consumer/);
 const bond3Section = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '유대 3');
 assert.deepEqual(bond3Section.children[1].children.map(({ textContent }) => textContent), ['프로핏으로 전직']);
 assert.doesNotMatch(generatedText, /5050|莉亚娜转职成为先知|fetterId|Parm1|Param2/);

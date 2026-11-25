@@ -81,7 +81,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -101,8 +101,9 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('canonical/hero-fetter-references.v1.json'),
     readJson('canonical/hero-fetter-raw-details.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond45-description-publication.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-bond2-description-publication.v1.json'),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -324,6 +325,18 @@ function renderHero15Bond45Descriptions(inputs, heroLocalizations) {
   });
 }
 
+function renderHero15Bond2Description(inputs, nameKo) {
+  const { bond2Decision: decision } = inputs;
+  if (decision?.status !== 'APPROVED' || decision.heroId !== 15 || decision.fetterId !== 67 || decision.missionId !== 5049
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.scope !== 'PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY'
+    || decision.source?.desc !== '使用莉亚娜完成时空裂缝3-6'
+    || decision.descriptionKo !== `${nameKo}를 출전시켜 시공의 균열 3-6 클리어`
+    || !hasHero15FetterMissionReference(inputs, 67, 5049)) {
+    throw new Error('Hero 15 Bond 2 description publication scope or source mismatch');
+  }
+  return decision.descriptionKo;
+}
+
 function renderHero15Bond3Description(inputs) {
   const { bond3Decision: decision } = inputs;
   if (decision?.status !== 'APPROVED' || decision.heroId !== 15 || decision.fetterId !== 68 || decision.missionId !== 5050
@@ -368,6 +381,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       jobPaths: renderHero15JobPaths(jobInputs),
       centralDisciplineEffectKo: renderHero15CentralDiscipline(profileInputs),
       awakeningMaterials: renderHero15AwakeningMaterials(profileInputs),
+      bond2DescriptionKo: renderHero15Bond2Description(profileInputs, heroName[0].nameKo),
       bond3DescriptionKo: renderHero15Bond3Description(profileInputs),
       bond4DescriptionKo,
       bond5DescriptionKo,
@@ -388,7 +402,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;
