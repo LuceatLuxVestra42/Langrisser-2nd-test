@@ -1,0 +1,60 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "scope": "PROJECT_BOND_DESCRIPTION_ONLY",
+  "approval": "Standing user authorization bbb2164c-5198-4732-b08a-22ac1ef252a2, scoped to Hero 15 existing detail.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "files": {
+      "MissionInfo": {
+        "path": "data/configdata/ConfigDataMissionInfo.json",
+        "gitBlobSha1": "72c62b297a0664844c3c53dc10452a1b0ca4704d",
+        "sha256": "ae8807de12d09c79eb5a4f0c60cbd5c0580484b567a823ee59f7dba6797f6adb"
+      },
+      "HeroInformationInfo": {
+        "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+        "gitBlobSha1": "49aef6be8ea1a65d5725c16a05dab94fffa73f92",
+        "sha256": "ee9f81f161f79939e771b16db97329bfaa45872edad0ecbf9dd9285587ebad7e"
+      },
+      "HeroDungeonLevelInfo": {
+        "path": "data/configdata/ConfigDataHeroDungeonLevelInfo.json",
+        "gitBlobSha1": "3b4282a1a8707f4f83545138eb052c594055bfb7",
+        "sha256": "07f2923ed34aa2aa7c483079458dba184913f2fe816c5840f436b03533d20677"
+      }
+    },
+    "locators": {
+      "ownership": "HeroInformationInfo.ID=15/DungeonLevels_ID and HeroFetters_ID",
+      "missions": "MissionInfo.ID={5051,5052}/MissionType,Param1,Param2,Param3,Desc",
+      "ordinals": "HeroDungeonLevelInfo.ID={155,157}/NameNum"
+    },
+    "relationAuthority": "9231b22b2176440161a10b14ab13131cfb99c107:data/validation/hero-page-stage5-1-retrace-semantic.v1.json#relationRules",
+    "ordinalCrossCheck": "c5f2f5cafea63874f99f0b05caddf40520e8cca9:data/generated/hero-dungeon-supplemental-part-0001.v1.json#heroId=15; blob 5b8b344b91483f27eb9ae572bb7bfc7eab992e84",
+    "liveDisplay": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/"
+  },
+  "rows": [
+    {
+      "bondNumber": 4,
+      "fetterId": 69,
+      "missionId": 5051,
+      "companionHeroId": 13,
+      "dungeonOwnerHeroId": 15,
+      "stageId": 155,
+      "stageNameNum": "5",
+      "descriptionKo": "헤인과 함께 운명의문 5 클리어"
+    },
+    {
+      "bondNumber": 5,
+      "fetterId": 70,
+      "missionId": 5052,
+      "companionHeroId": 12,
+      "dungeonOwnerHeroId": 15,
+      "stageId": 157,
+      "stageNameNum": "7",
+      "descriptionKo": "엘윈과 함께 운명의문 7 클리어"
+    }
+  ],
+  "transformation": "Verify the two Type 5 / Param2=6 rows against the frozen relation rule. The explicit dungeon owner is Hero 15; subtract Hero 15 to identify the single remaining companion. Read NameNum on the exact dungeon endpoint and use admitted Korean Hero display names. Publish only the two verified rendered descriptions.",
+  "limitation": "Project display only. No runtime mission join, unlock/completion evaluation, other conditions, or official Korean localization claim."
+}
