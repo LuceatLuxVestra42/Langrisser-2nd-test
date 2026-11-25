@@ -20,6 +20,8 @@ const hero15FetterReferenceCanonicalPath = 'canonical/hero-fetter-skill-referenc
 const centralSkillEvidencePath = 'evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
 const hero15DistanceEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json';
 const hero15DistanceCanonicalPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
+export const hero15AreaEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json';
+export const hero15AreaCanonicalPath = 'canonical/hero-15-ordinary-skill-areas.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -131,10 +133,9 @@ async function validateHero15OrdinarySkillCosts(root) {
   }
 }
 
-async function validateHero15OrdinarySkillText(root, {
-  evidenceFile, canonicalFile, rawField, ownerField, claim, sourceTexts,
+function validateHero15OrdinarySkillText(evidence, canonical, {
+  evidenceFile, rawField, ownerField, claim, sourceTexts,
 }) {
-  const [evidence, canonical] = await Promise.all([readJson(root, evidenceFile), readJson(root, canonicalFile)]);
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'heroId', 'sourceScope', 'source', 'extraction', 'limitation', 'records'], `Hero 15 ${rawField} evidence`);
   exactKeys(canonical, ['schemaVersion', 'scope', 'records'], `Hero 15 ${rawField} Canonical`);
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail' && evidence.heroId === 15
@@ -159,27 +160,45 @@ async function validateHero15OrdinarySkillText(root, {
   }
 }
 
-function validateHero15OrdinarySkillCooldowns(root) {
+async function validateHero15OrdinarySkillCooldowns(root) {
   // Exact CDText values read by explicit Skill ID from the pinned raw JSON.
   const sourceTexts = new Map([
     [10801, '无'], [10816, '2回合'], [10805, '2回合'], [10707, '1回合'], [10705, '1回合'],
     [10804, '2回合'], [10807, '3回合'], [6009, '-'], [11786, '4回合'],
   ]);
-  return validateHero15OrdinarySkillText(root, {
-    evidenceFile: hero15CooldownEvidencePath, canonicalFile: hero15CooldownCanonicalPath,
+  const [evidence, canonical] = await Promise.all([
+    readJson(root, hero15CooldownEvidencePath), readJson(root, hero15CooldownCanonicalPath),
+  ]);
+  validateHero15OrdinarySkillText(evidence, canonical, {
+    evidenceFile: hero15CooldownEvidencePath,
     rawField: 'CDText', ownerField: 'cdText', claim: 'CD', sourceTexts,
   });
 }
 
-function validateHero15OrdinarySkillDistances(root) {
+async function validateHero15OrdinarySkillDistances(root) {
   // Exact DistanceText values read by explicit skill ID from the pinned raw JSON.
   const sourceTexts = new Map([
     [10801, '2格'], [10816, '2格'], [10805, '3格'], [10707, '2格'], [10705, '2格'],
     [10804, '3格'], [10807, '3格'], [6009, '-'], [11786, '3格'],
   ]);
-  return validateHero15OrdinarySkillText(root, {
-    evidenceFile: hero15DistanceEvidencePath, canonicalFile: hero15DistanceCanonicalPath,
+  const [evidence, canonical] = await Promise.all([
+    readJson(root, hero15DistanceEvidencePath), readJson(root, hero15DistanceCanonicalPath),
+  ]);
+  validateHero15OrdinarySkillText(evidence, canonical, {
+    evidenceFile: hero15DistanceEvidencePath,
     rawField: 'DistanceText', ownerField: 'distanceText', claim: 'DISTANCE', sourceTexts,
+  });
+}
+
+export function validateHero15OrdinarySkillAreas(evidence, canonical) {
+  // Exact RangeText values read by explicit Skill ID from the pinned raw JSON.
+  const sourceTexts = new Map([
+    [10801, '单体'], [10816, '单体'], [10805, '单体'], [10707, '单体'], [10705, '单体'],
+    [10804, '3格'], [10807, '6格'], [6009, '-'], [11786, '单体'],
+  ]);
+  validateHero15OrdinarySkillText(evidence, canonical, {
+    evidenceFile: hero15AreaEvidencePath,
+    rawField: 'RangeText', ownerField: 'rangeText', claim: 'AREA', sourceTexts,
   });
 }
 
@@ -630,10 +649,15 @@ export async function validateSkillIdentities(root = process.cwd()) {
   await validateHero15OrdinarySkillCosts(root);
   await validateHero15OrdinarySkillCooldowns(root);
   await validateHero15OrdinarySkillDistances(root);
+  const [areaEvidence, areas] = await Promise.all([
+    readJson(root, hero15AreaEvidencePath), readJson(root, hero15AreaCanonicalPath),
+  ]);
+  validateHero15OrdinarySkillAreas(areaEvidence, areas);
   console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
   console.log('Hero 15 ordinary SkillCost validation: PASS (9 exact source-native rows)');
   console.log('Hero 15 ordinary CDText validation: PASS (9 exact source-native strings)');
   console.log('Hero 15 ordinary DistanceText validation: PASS (9 exact source-native strings)');
+  console.log('Hero 15 ordinary RangeText validation: PASS (9 exact source-native strings)');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

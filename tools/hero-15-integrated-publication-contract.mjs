@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
+import { hero15AreaCanonicalPath, hero15AreaEvidencePath, validateHero15OrdinarySkillAreas } from './validate-skill-identities.mjs';
 
 const decisionKeys = ['schemaVersion', 'decisionType', 'status', 'approval', 'approvedScope', 'effect'];
 const approvalKeys = ['approverRole', 'source', 'recordedAtDate'];
@@ -85,7 +86,7 @@ const ordinarySkillCooldownOwnerPath = 'canonical/hero-15-ordinary-skill-cooldow
 const ordinarySkillDistanceOwnerPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -118,8 +119,11 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(ordinarySkillCooldownOwnerPath),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-distance-publication.v1.json'),
     readJson(ordinarySkillDistanceOwnerPath),
+    readJson('docs/decisions/hero-15-minimal-ordinary-skill-area-publication.v1.json'),
+    readJson(hero15AreaEvidencePath),
+    readJson(hero15AreaCanonicalPath),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -466,6 +470,7 @@ function projectOrdinarySkillLabels(decision, owner, approvedIds, {
 function renderHero15OrdinarySkills({
   skillDecision, skillReferences, skillIdentities, ordinarySkillCostDecision, ordinarySkillCosts,
   ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances,
+  ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas,
 }) {
   const approvedIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
   const namesOnly = new Set([10705, 10804, 6009]);
@@ -491,6 +496,13 @@ function renderHero15OrdinarySkills({
     hiddenTexts: new Map([[6009, '-']]),
     labels: new Map([['2格', '사거리 2칸'], ['3格', '사거리 3칸']]),
   });
+  validateHero15OrdinarySkillAreas(ordinarySkillAreaEvidence, ordinarySkillAreas);
+  const areas = projectOrdinarySkillLabels(ordinarySkillAreaDecision, ordinarySkillAreas, approvedIds, {
+    field: 'RangeText', ownerPath: hero15AreaCanonicalPath, ownerField: 'rangeText', shardField: 'areaOrTarget',
+    pointerKey: 'shardAreaPointer', comparisonKey: 'shardAreaText', labelKey: 'legacyAreaLabelKo',
+    hiddenTexts: new Map([[6009, '-']]),
+    labels: new Map([['单体', '범위 단일'], ['3格', '범위 3칸'], ['6格', '범위 6칸']]),
+  });
   return skillDecision.skills.map(({ skillId, sourceNameCn, sourceDescSha256, nameKo, descriptionKo }) => {
     const identities = skillIdentities.records.filter((row) => row.skillId === skillId);
     const identity = identities[0];
@@ -505,6 +517,7 @@ function renderHero15OrdinarySkills({
     if (costs.has(skillId)) display.cost = costs.get(skillId);
     if (cooldowns.has(skillId)) display.cooldownLabelKo = cooldowns.get(skillId);
     if (distances.has(skillId)) display.distanceLabelKo = distances.get(skillId);
+    if (areas.has(skillId)) display.areaLabelKo = areas.get(skillId);
     return display;
   });
 }
