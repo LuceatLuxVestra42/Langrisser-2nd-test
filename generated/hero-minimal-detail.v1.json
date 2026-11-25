@@ -108,19 +108,27 @@
       "jobPaths": [
         {
           "fromNameKo": "시스터",
-          "toNameKo": "주교"
+          "fromRank": 2,
+          "toNameKo": "주교",
+          "toRank": 3
         },
         {
           "fromNameKo": "시스터",
-          "toNameKo": "프리스트"
+          "fromRank": 2,
+          "toNameKo": "프리스트",
+          "toRank": 3
         },
         {
           "fromNameKo": "시스터",
-          "toNameKo": "서모너"
+          "fromRank": 2,
+          "toNameKo": "서모너",
+          "toRank": 3
         },
         {
           "fromNameKo": "프리스트",
+          "fromRank": 3,
           "toNameKo": "프로핏",
+          "toRank": 4,
           "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3",
           "heartFetterEffects": [
             {
@@ -135,7 +143,9 @@
         },
         {
           "fromNameKo": "서모너",
+          "fromRank": 3,
           "toNameKo": "허미트",
+          "toRank": 4,
           "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3",
           "heartFetterEffects": [
             {

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "work": "이전",
+    "date": "2026-11-25",
+    "quote": "리아나(Hero 15) 기존 상세를 마무리하는 데 필요한 모든 후속 작업을 포괄 승인해."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataJobInfo.json",
+    "blobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+    "sha256": "2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf",
+    "locator": "ID / Rank",
+    "owner": "canonical/hero-job-level-raw-stats.v1.json#records[heroId=15]",
+    "legacyPage": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "legacyLocator": "Job article data-job-id and h3"
+  },
+  "scope": "Display the exact Legacy T2/T3/T4 labels on the five existing Hero 15 Job paths. No job level, unlocked state, stats, requirements or battle computation.",
+  "rows": [
+    {
+      "connectionId": 150,
+      "jobId": 802,
+      "sourceIndex": 490,
+      "rank": 2,
+      "labelKo": "T2 시스터"
+    },
+    {
+      "connectionId": 151,
+      "jobId": 803,
+      "sourceIndex": 491,
+      "rank": 3,
+      "labelKo": "T3 주교"
+    },
+    {
+      "connectionId": 152,
+      "jobId": 806,
+      "sourceIndex": 494,
+      "rank": 3,
+      "labelKo": "T3 프리스트"
+    },
+    {
+      "connectionId": 153,
+      "jobId": 703,
+      "sourceIndex": 377,
+      "rank": 3,
+      "labelKo": "T3 서모너"
+    },
+    {
+      "connectionId": 154,
+      "jobId": 811,
+      "sourceIndex": 499,
+      "rank": 4,
+      "labelKo": "T4 프로핏"
+    },
+    {
+      "connectionId": 155,
+      "jobId": 707,
+      "sourceIndex": 381,
+      "rank": 4,
+      "labelKo": "T4 허미트"
+    }
+  ]
+}

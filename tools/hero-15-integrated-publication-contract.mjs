@@ -223,15 +223,17 @@ function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, 
 const finalJobMovementDecisionPath = 'docs/decisions/hero-15-minimal-final-job-movement-publication.v1.json';
 
 export async function readHero15JobPublicationInputs(readJson) {
-  const [approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels] = await Promise.all([
+  const [approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels, rankDecision, jobLevelStats] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-job-publication.v1.json'),
     loadJobTree(),
     readJson(finalJobMovementDecisionPath),
     readJson('canonical/hero-15-final-job-movement.v1.json'),
     readJson('docs/decisions/hero-15-minimal-heart-fetter-effects-publication.v1.json'),
     readJson('canonical/hero-heart-fetter-raw-conditions.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-job-rank-publication.v1.json'),
+    readJson('canonical/hero-job-level-raw-stats.v1.json'),
   ]);
-  return { approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels };
+  return { approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels, rankDecision, jobLevelStats };
 }
 
 function renderHero15SoldierCommand({ commandDecision, commandBase, commandBond }) {
@@ -298,7 +300,28 @@ function projectHeartFetterEffects(decision, heartFetterLevels, directEdges) {
   return byConnection;
 }
 
-function renderHero15JobPaths({ approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels }) {
+function projectHero15JobRanks(decision, jobLevelStats, jobs) {
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED'
+    || decision.heroId !== 15 || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || decision.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL'
+    || decision.source?.blobSha1 !== '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133'
+    || decision.rows?.length !== jobs.length) {
+    throw new Error('Hero 15 Job rank publication scope mismatch');
+  }
+  return new Map(jobs.map(({ connectionId, jobId, localization: { nameKo } }) => {
+    const rows = decision.rows.filter((row) => row.connectionId === connectionId && row.jobId === jobId);
+    const levels = jobLevelStats.records.filter((row) => row.heroId === 15
+      && row.jobConnectionId === connectionId && row.jobId === jobId);
+    const [row] = rows;
+    if (rows.length !== 1 || levels.length === 0 || ![2, 3, 4].includes(row.rank)
+      || levels.some((level) => level.jobRank !== row.rank) || row.labelKo !== `T${row.rank} ${nameKo}`) {
+      throw new Error(`Hero 15 Job rank display mismatch for Connection ${connectionId}`);
+    }
+    return [connectionId, row.rank];
+  }));
+}
+
+function renderHero15JobPaths({ approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels, rankDecision, jobLevelStats }) {
   if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || approval.status !== 'APPROVED') throw new Error('Hero 15 Job publication scope mismatch');
   const { jobs, directEdges } = JSON.parse(renderJobTree(tree));
@@ -343,8 +366,12 @@ function renderHero15JobPaths({ approval, tree, movementDecision, movement, effe
     attributes.set(connectionId, `기본 사거리 ${row.BF_AttackDistance} · ${label.displayNameKo} · 이동력 ${row.BF_MovePoint}`);
   }
   const effects = projectHeartFetterEffects(effectsDecision, heartFetterLevels, directEdges);
-  return directEdges.map(({ predecessorJobId, successorJobId, successorConnectionId }) => {
-    const path = { fromNameKo: names.get(predecessorJobId), toNameKo: names.get(successorJobId) };
+  const ranks = projectHero15JobRanks(rankDecision, jobLevelStats, jobs);
+  return directEdges.map(({ predecessorJobId, predecessorConnectionId, successorJobId, successorConnectionId }) => {
+    const path = {
+      fromNameKo: names.get(predecessorJobId), fromRank: ranks.get(predecessorConnectionId),
+      toNameKo: names.get(successorJobId), toRank: ranks.get(successorConnectionId),
+    };
     const baseAttributesKo = attributes.get(successorConnectionId);
     return baseAttributesKo === undefined ? path : {
       ...path, baseAttributesKo, heartFetterEffects: effects.get(successorConnectionId),

@@ -276,14 +276,15 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     throw new Error('Hero 15 Soldier consumer is malformed');
   }
   const expectedJobPaths = [
-    ['시스터', '주교'], ['시스터', '프리스트'], ['시스터', '서모너'],
-    ['프리스트', '프로핏', '기본 사거리 2 · 보행 · 이동력 3'],
-    ['서모너', '허미트', '기본 사거리 2 · 보행 · 이동력 3'],
+    ['시스터', 2, '주교', 3], ['시스터', 2, '프리스트', 3], ['시스터', 2, '서모너', 3],
+    ['프리스트', 3, '프로핏', 4, '기본 사거리 2 · 보행 · 이동력 3'],
+    ['서모너', 3, '허미트', 4, '기본 사거리 2 · 보행 · 이동력 3'],
   ];
   if (!Array.isArray(jobPaths) || jobPaths.length !== expectedJobPaths.length
-    || !expectedJobPaths.every(([from, to, attributes]) => jobPaths.filter((row) =>
-      Object.keys(row ?? {}).sort().join(',') === (attributes ? 'baseAttributesKo,fromNameKo,heartFetterEffects,toNameKo' : 'fromNameKo,toNameKo')
-        && row.fromNameKo === from && row.toNameKo === to && row.baseAttributesKo === attributes).length === 1)
+    || !expectedJobPaths.every(([from, fromRank, to, toRank, attributes]) => jobPaths.filter((row) =>
+      Object.keys(row ?? {}).sort().join(',') === (attributes ? 'baseAttributesKo,fromNameKo,fromRank,heartFetterEffects,toNameKo,toRank' : 'fromNameKo,fromRank,toNameKo,toRank')
+        && row.fromNameKo === from && row.fromRank === fromRank && row.toNameKo === to && row.toRank === toRank
+        && row.baseAttributesKo === attributes).length === 1)
     || !jobPaths.filter(({ baseAttributesKo }) => baseAttributesKo).every(({ heartFetterEffects }) =>
       Array.isArray(heartFetterEffects) && heartFetterEffects.length === 2
       && heartFetterEffects.every((effect, index) =>
@@ -325,8 +326,10 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     throw new Error('Hero 15 Soldier Command consumer is malformed');
   }
   const soldierCommandSection = renderMinimalDetailList('병사 지휘 보정', soldierCommandLinesKo);
-  const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo, baseAttributesKo }) =>
-    baseAttributesKo === undefined ? `${fromNameKo} → ${toNameKo}` : `${fromNameKo} → ${toNameKo} · ${baseAttributesKo}`));
+  const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, fromRank, toNameKo, toRank, baseAttributesKo }) => {
+    const label = `T${fromRank} ${fromNameKo} → T${toRank} ${toNameKo}`;
+    return baseAttributesKo === undefined ? label : `${label} · ${baseAttributesKo}`;
+  }));
   const jobRows = jobSection.children[1].children;
   jobPaths.forEach(({ heartFetterEffects }, index) => {
     if (!heartFetterEffects) return;
