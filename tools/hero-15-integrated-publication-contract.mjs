@@ -82,9 +82,10 @@ export function validateHero15IntegratedPublication(decision) {
 
 const ordinarySkillCostOwnerPath = 'canonical/hero-15-ordinary-skill-costs.v1.json';
 const ordinarySkillCooldownOwnerPath = 'canonical/hero-15-ordinary-skill-cooldowns.v1.json';
+const ordinarySkillDistanceOwnerPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -115,8 +116,10 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(ordinarySkillCostOwnerPath),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cooldown-publication.v1.json'),
     readJson(ordinarySkillCooldownOwnerPath),
+    readJson('docs/decisions/hero-15-minimal-ordinary-skill-distance-publication.v1.json'),
+    readJson(ordinarySkillDistanceOwnerPath),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -414,18 +417,17 @@ function projectOrdinarySkillCosts(decision, owner, approvedIds) {
   return costs;
 }
 
-function projectOrdinarySkillCooldowns(decision, owner, approvedIds) {
-  const labels = new Map([
-    ['1回合', '쿨 1턴'], ['2回合', '쿨 2턴'], ['3回合', '쿨 3턴'], ['4回合', '쿨 4턴'],
-  ]);
-  const hiddenTexts = new Map([[10801, '无'], [6009, '-']]);
-  const shardPaths = new Map([
-    [10801, 'heroDirectSkills/0'], [10816, 'jobLevelAcquisitions/0/skill'], [10805, 'jobLevelAcquisitions/1/skill'],
-    [10707, 'jobLevelAcquisitions/2/skill'], [10705, 'jobLevelAcquisitions/3/skill'], [10804, 'jobLevelAcquisitions/4/skill'],
-    [10807, 'jobLevelAcquisitions/5/skill'], [6009, 'jobLevelAcquisitions/6/skill'], [11786, 'jobLevelAcquisitions/7/skill'],
-  ]);
+const ordinarySkillShardPaths = new Map([
+  [10801, 'heroDirectSkills/0'], [10816, 'jobLevelAcquisitions/0/skill'], [10805, 'jobLevelAcquisitions/1/skill'],
+  [10707, 'jobLevelAcquisitions/2/skill'], [10705, 'jobLevelAcquisitions/3/skill'], [10804, 'jobLevelAcquisitions/4/skill'],
+  [10807, 'jobLevelAcquisitions/5/skill'], [6009, 'jobLevelAcquisitions/6/skill'], [11786, 'jobLevelAcquisitions/7/skill'],
+]);
+
+function projectOrdinarySkillLabels(decision, owner, approvedIds, {
+  field, ownerPath, ownerField, shardField, pointerKey, comparisonKey, labelKey, hiddenTexts, labels,
+}) {
   if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 15
-    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.owner !== ordinarySkillCooldownOwnerPath
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.owner !== ownerPath
     || decision.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL'
     || decision.approval.workId !== '6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716'
     || decision.approval.originalMessageId !== '48a8bc75-6dbb-42c3-83b9-a185c0d0d25c'
@@ -434,36 +436,36 @@ function projectOrdinarySkillCooldowns(decision, owner, approvedIds) {
     || owner?.schemaVersion !== 1 || !Array.isArray(owner.records)
     || new Set(owner.records.map(({ skillId }) => skillId)).size !== owner.records.length
     || owner.records.some(({ heroId, skillId }) => heroId !== 15 || !approvedIds.includes(skillId))) {
-    throw new Error('Hero 15 ordinary CDText publication scope mismatch');
+    throw new Error(`Hero 15 ordinary ${field} publication scope mismatch`);
   }
-  const cooldowns = new Map();
+  const projected = new Map();
   for (const skillId of approvedIds) {
     const rows = decision.rows.filter((row) => row.skillId === skillId);
-    if (rows.length !== 1) throw new Error(`Hero 15 ordinary CDText decision coverage mismatch for ${skillId}`);
+    if (rows.length !== 1) throw new Error(`Hero 15 ordinary ${field} decision coverage mismatch for ${skillId}`);
     const [row] = rows;
     if (row.status === 'MANUAL_REVIEW' && typeof row.reason === 'string' && row.reason.trim()) continue;
-    const cdText = owner.records.find((record) => record.skillId === skillId)?.cdText;
-    if (row.shardCooldownPointer !== `/normal/skills/${shardPaths.get(skillId)}/cooldown` || row.shardCooldown !== cdText) {
-      throw new Error(`Hero 15 ordinary CDText shard mismatch for ${skillId}`);
+    const sourceText = owner.records.find((record) => record.skillId === skillId)?.[ownerField];
+    if (row[pointerKey] !== `/normal/skills/${ordinarySkillShardPaths.get(skillId)}/${shardField}` || row[comparisonKey] !== sourceText) {
+      throw new Error(`Hero 15 ordinary ${field} shard mismatch for ${skillId}`);
     }
     if (hiddenTexts.has(skillId)) {
-      if (row.status !== 'HIDDEN' || cdText !== hiddenTexts.get(skillId) || Object.hasOwn(row, 'legacyCooldownLabelKo')) {
-        throw new Error(`Hero 15 ordinary CDText hidden row mismatch for ${skillId}`);
+      if (row.status !== 'HIDDEN' || sourceText !== hiddenTexts.get(skillId) || Object.hasOwn(row, labelKey)) {
+        throw new Error(`Hero 15 ordinary ${field} hidden row mismatch for ${skillId}`);
       }
       continue;
     }
-    const label = labels.get(cdText);
-    if (row.status !== 'APPROVED' || label === undefined || row.legacyCooldownLabelKo !== label) {
-      throw new Error(`Hero 15 ordinary CDText source or display mismatch for ${skillId}`);
+    const label = labels.get(sourceText);
+    if (row.status !== 'APPROVED' || label === undefined || row[labelKey] !== label) {
+      throw new Error(`Hero 15 ordinary ${field} source or display mismatch for ${skillId}`);
     }
-    cooldowns.set(skillId, label);
+    projected.set(skillId, label);
   }
-  return cooldowns;
+  return projected;
 }
 
 function renderHero15OrdinarySkills({
   skillDecision, skillReferences, skillIdentities, ordinarySkillCostDecision, ordinarySkillCosts,
-  ordinarySkillCooldownDecision, ordinarySkillCooldowns,
+  ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances,
 }) {
   const approvedIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
   const namesOnly = new Set([10705, 10804, 6009]);
@@ -477,7 +479,18 @@ function renderHero15OrdinarySkills({
     throw new Error('Hero 15 ordinary Skill publication scope mismatch');
   }
   const costs = projectOrdinarySkillCosts(ordinarySkillCostDecision, ordinarySkillCosts, approvedIds);
-  const cooldowns = projectOrdinarySkillCooldowns(ordinarySkillCooldownDecision, ordinarySkillCooldowns, approvedIds);
+  const cooldowns = projectOrdinarySkillLabels(ordinarySkillCooldownDecision, ordinarySkillCooldowns, approvedIds, {
+    field: 'CDText', ownerPath: ordinarySkillCooldownOwnerPath, ownerField: 'cdText', shardField: 'cooldown',
+    pointerKey: 'shardCooldownPointer', comparisonKey: 'shardCooldown', labelKey: 'legacyCooldownLabelKo',
+    hiddenTexts: new Map([[10801, '无'], [6009, '-']]),
+    labels: new Map([['1回合', '쿨 1턴'], ['2回合', '쿨 2턴'], ['3回合', '쿨 3턴'], ['4回合', '쿨 4턴']]),
+  });
+  const distances = projectOrdinarySkillLabels(ordinarySkillDistanceDecision, ordinarySkillDistances, approvedIds, {
+    field: 'DistanceText', ownerPath: ordinarySkillDistanceOwnerPath, ownerField: 'distanceText', shardField: 'range',
+    pointerKey: 'shardDistancePointer', comparisonKey: 'shardDistanceText', labelKey: 'legacyDistanceLabelKo',
+    hiddenTexts: new Map([[6009, '-']]),
+    labels: new Map([['2格', '사거리 2칸'], ['3格', '사거리 3칸']]),
+  });
   return skillDecision.skills.map(({ skillId, sourceNameCn, sourceDescSha256, nameKo, descriptionKo }) => {
     const identities = skillIdentities.records.filter((row) => row.skillId === skillId);
     const identity = identities[0];
@@ -491,6 +504,7 @@ function renderHero15OrdinarySkills({
     if (descriptionKo !== undefined) display.descriptionKo = descriptionKo;
     if (costs.has(skillId)) display.cost = costs.get(skillId);
     if (cooldowns.has(skillId)) display.cooldownLabelKo = cooldowns.get(skillId);
+    if (distances.has(skillId)) display.distanceLabelKo = distances.get(skillId);
     return display;
   });
 }

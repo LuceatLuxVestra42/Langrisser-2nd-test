@@ -18,6 +18,8 @@ const hero15HeartFetterLv10SkillEvidencePath = 'evidence/source/configdata/Confi
 const hero15FetterReferenceEvidencePath = 'evidence/source/bonds/hero15-fetter-skill-references.v1.json';
 const hero15FetterReferenceCanonicalPath = 'canonical/hero-fetter-skill-references.v1.json';
 const centralSkillEvidencePath = 'evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
+const hero15DistanceEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json';
+const hero15DistanceCanonicalPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -129,38 +131,56 @@ async function validateHero15OrdinarySkillCosts(root) {
   }
 }
 
-async function validateHero15OrdinarySkillCooldowns(root) {
-  const [evidence, canonical] = await Promise.all([
-    readJson(root, hero15CooldownEvidencePath),
-    readJson(root, hero15CooldownCanonicalPath),
-  ]);
-  // Exact CDText values read by explicit Skill ID from the pinned raw JSON.
-  const sourceTexts = new Map([
-    [10801, '无'], [10816, '2回合'], [10805, '2回合'], [10707, '1回合'], [10705, '1回合'],
-    [10804, '2回合'], [10807, '3回合'], [6009, '-'], [11786, '4回合'],
-  ]);
-  exactKeys(evidence, ['schemaVersion', 'responsibility', 'heroId', 'sourceScope', 'source', 'extraction', 'limitation', 'records'], 'Hero 15 CDText evidence');
-  exactKeys(canonical, ['schemaVersion', 'scope', 'records'], 'Hero 15 CDText Canonical');
+async function validateHero15OrdinarySkillText(root, {
+  evidenceFile, canonicalFile, rawField, ownerField, claim, sourceTexts,
+}) {
+  const [evidence, canonical] = await Promise.all([readJson(root, evidenceFile), readJson(root, canonicalFile)]);
+  exactKeys(evidence, ['schemaVersion', 'responsibility', 'heroId', 'sourceScope', 'source', 'extraction', 'limitation', 'records'], `Hero 15 ${rawField} evidence`);
+  exactKeys(canonical, ['schemaVersion', 'scope', 'records'], `Hero 15 ${rawField} Canonical`);
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail' && evidence.heroId === 15
     && evidence.sourceScope === 'CN ConfigData snapshot 2026-09-02'
     && isDeepStrictEqual(evidence.source, {
       repository: sourcePin.repository, commit: sourcePin.commit, commitTree: sourcePin.commitTree, path: sourcePin.path,
       gitBlobSha1: sourcePin.gitBlobSha1, sha256: sourcePin.sha256, sizeBytes: sourcePin.sizeBytes, recordCount: sourcePin.sourceIndex.recordCount,
-    }), 'HERO15_CD_SOURCE', 'Hero 15 CDText source pin or scope drift');
+    }), `HERO15_${claim}_SOURCE`, `Hero 15 ${rawField} source pin or scope drift`);
   check(canonical.schemaVersion === 1 && Array.isArray(canonical.records) && canonical.records.length === sourceTexts.size
     && Array.isArray(evidence.records) && evidence.records.length === sourceTexts.size,
-  'HERO15_CD_SCOPE', 'Hero 15 CDText record population drift');
+  `HERO15_${claim}_SCOPE`, `Hero 15 ${rawField} record population drift`);
   for (const [i, [skillId, index]] of hero15GeneralExpected.entries()) {
     const row = evidence.records[i];
-    exactKeys(row, ['sourceRecordIndex', 'fieldLocator', 'rawRecord'], 'Hero 15 CDText evidence row');
-    check(row.sourceRecordIndex === index && row.fieldLocator === `/${index}/CDText`
-      && isDeepStrictEqual(row.rawRecord, { ID: skillId, CDText: sourceTexts.get(skillId) }),
-    'HERO15_CD_RECORD', `Pinned CDText or locator mismatch for ${skillId}`);
+    exactKeys(row, ['sourceRecordIndex', 'fieldLocator', 'rawRecord'], `Hero 15 ${rawField} evidence row`);
+    check(row.sourceRecordIndex === index && row.fieldLocator === `/${index}/${rawField}`
+      && isDeepStrictEqual(row.rawRecord, { ID: skillId, [rawField]: sourceTexts.get(skillId) }),
+    `HERO15_${claim}_RECORD`, `Pinned ${rawField} or locator mismatch for ${skillId}`);
     check(isDeepStrictEqual(canonical.records[i], {
-      heroId: 15, skillId, cdText: row.rawRecord.CDText,
-      provenance: `${hero15CooldownEvidencePath}#records[ID=${skillId}]/rawRecord/CDText`,
-    }), 'HERO15_CD_CANONICAL', `Hero 15 Canonical CDText mismatch for ${skillId}`);
+      heroId: 15, skillId, [ownerField]: row.rawRecord[rawField],
+      provenance: `${evidenceFile}#records[ID=${skillId}]/rawRecord/${rawField}`,
+    }), `HERO15_${claim}_CANONICAL`, `Hero 15 Canonical ${rawField} mismatch for ${skillId}`);
   }
+}
+
+function validateHero15OrdinarySkillCooldowns(root) {
+  // Exact CDText values read by explicit Skill ID from the pinned raw JSON.
+  const sourceTexts = new Map([
+    [10801, '无'], [10816, '2回合'], [10805, '2回合'], [10707, '1回合'], [10705, '1回合'],
+    [10804, '2回合'], [10807, '3回合'], [6009, '-'], [11786, '4回合'],
+  ]);
+  return validateHero15OrdinarySkillText(root, {
+    evidenceFile: hero15CooldownEvidencePath, canonicalFile: hero15CooldownCanonicalPath,
+    rawField: 'CDText', ownerField: 'cdText', claim: 'CD', sourceTexts,
+  });
+}
+
+function validateHero15OrdinarySkillDistances(root) {
+  // Exact DistanceText values read by explicit skill ID from the pinned raw JSON.
+  const sourceTexts = new Map([
+    [10801, '2格'], [10816, '2格'], [10805, '3格'], [10707, '2格'], [10705, '2格'],
+    [10804, '3格'], [10807, '3格'], [6009, '-'], [11786, '3格'],
+  ]);
+  return validateHero15OrdinarySkillText(root, {
+    evidenceFile: hero15DistanceEvidencePath, canonicalFile: hero15DistanceCanonicalPath,
+    rawField: 'DistanceText', ownerField: 'distanceText', claim: 'DISTANCE', sourceTexts,
+  });
 }
 
 export async function validateSkillIdentities(root = process.cwd()) {
@@ -609,9 +629,11 @@ export async function validateSkillIdentities(root = process.cwd()) {
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
   await validateHero15OrdinarySkillCosts(root);
   await validateHero15OrdinarySkillCooldowns(root);
+  await validateHero15OrdinarySkillDistances(root);
   console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
   console.log('Hero 15 ordinary SkillCost validation: PASS (9 exact source-native rows)');
   console.log('Hero 15 ordinary CDText validation: PASS (9 exact source-native strings)');
+  console.log('Hero 15 ordinary DistanceText validation: PASS (9 exact source-native strings)');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

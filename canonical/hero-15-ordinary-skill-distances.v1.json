@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 ordinary Skills only. Exact source-native DistanceText strings. No target, area, battle calculation, or publication authority.",
+  "records": [
+    {
+      "heroId": 15,
+      "skillId": 10801,
+      "distanceText": "2格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10801]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10816,
+      "distanceText": "2格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10816]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10805,
+      "distanceText": "3格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10805]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10707,
+      "distanceText": "2格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10707]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10705,
+      "distanceText": "2格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10705]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10804,
+      "distanceText": "3格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10804]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10807,
+      "distanceText": "3格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=10807]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 6009,
+      "distanceText": "-",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=6009]/rawRecord/DistanceText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 11786,
+      "distanceText": "3格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json#records[ID=11786]/rawRecord/DistanceText"
+    }
+  ]
+}
