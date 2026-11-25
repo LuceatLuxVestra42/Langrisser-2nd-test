@@ -81,7 +81,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -105,8 +105,11 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-soldier-command-publication.v1.json'),
     readJson('canonical/hero-soldier-command-base.v1.json'),
     readJson('canonical/hero-soldier-command-bond-contributions.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-fetter-gold-publication.v1.json'),
+    readJson('canonical/hero-fetter-material-relations.v1.json'),
+    readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -512,6 +515,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       bond3DescriptionKo: renderHero15Bond3Description(profileInputs),
       bond4DescriptionKo,
       bond5DescriptionKo,
+      fetterGold: renderHero15FetterGold(profileInputs),
       ordinarySkills: renderHero15OrdinarySkills(profileInputs),
       exclusiveEquipment: {
         equipmentId: 535,
@@ -523,13 +527,54 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
   return `${JSON.stringify(consumer, null, 2)}\n`;
 }
 
+function renderHero15FetterGold({ goldDecision, goldOwner, fetterDetails, heartFetterDetails }) {
+  const groups = [
+    [66, '유대 1'], [67, '유대 2'], [68, '유대 3'], [69, '유대 4'], [70, '유대 5'], [15, '마음의 유대'],
+  ];
+  const levels = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+  if (goldDecision?.status !== 'APPROVED' || goldDecision.schemaVersion !== 1
+    || goldDecision.heroId !== 15 || goldDecision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || goldDecision.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL'
+    || goldDecision.groups?.length !== groups.length || goldOwner.goldLocators?.length !== groups.length * levels.length
+    || JSON.stringify(goldDecision.targetLevels) !== JSON.stringify(levels)) {
+    throw new Error('Hero 15 Fetter Gold publication scope mismatch');
+  }
+  return groups.map(([endpointId, labelKo]) => {
+    const isHeart = endpointId === 15;
+    const endpointKind = isHeart ? 'HEART_FETTER' : 'FETTER';
+    const owner = isHeart ? heartFetterDetails : fetterDetails;
+    const matchingDetails = owner.records.filter((row) => row.heroId === 15 && row.endpointId === endpointId);
+    const matchingDecisions = goldDecision.groups.filter((row) => row.endpointKind === endpointKind && row.endpointId === endpointId);
+    if (matchingDetails.length !== 1 || matchingDecisions.length !== 1 || matchingDecisions[0].labelKo !== labelKo) {
+      throw new Error('Hero 15 Fetter Gold endpoint mismatch');
+    }
+    const [detail] = matchingDetails;
+    const rows = levels.map((level) => {
+      const matchingLocators = goldOwner.goldLocators.filter((row) => row.heroId === 15
+        && row.endpointKind === endpointKind && row.endpointId === endpointId && row.targetLevel === level);
+      const [locator] = matchingLocators;
+      const gold = detail.fields.LevelUpGold?.[locator?.sourceArrayIndex];
+      if (matchingLocators.length !== 1 || locator.sourceField !== 'LevelUpGold'
+        || locator.sourceRecordLocator !== detail.sourceRecordLocator
+        || locator.sourceArrayIndex !== level - 2 || !Number.isSafeInteger(gold) || gold <= 0) {
+        throw new Error('Hero 15 Fetter Gold level locator mismatch');
+      }
+      return { level, gold };
+    });
+    if (JSON.stringify(rows.map(({ gold }) => gold)) !== JSON.stringify(matchingDecisions[0].gold)) {
+      throw new Error('Hero 15 Fetter Gold values differ from the verified Legacy display');
+    }
+    return { labelKo, rows };
+  });
+}
+
 export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const expected = renderHero15MinimalDetail(inputs);
   if (generatedText !== expected) throw new Error('Generated Hero 15 minimal detail is stale or non-deterministic');
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'soldierCommandLinesKo', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'soldierCommandLinesKo', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'fetterGold'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;

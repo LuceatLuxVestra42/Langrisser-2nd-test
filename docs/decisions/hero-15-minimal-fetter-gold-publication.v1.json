@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "work": "이전",
+    "date": "2026-11-25",
+    "quote": "리아나(Hero 15) 기존 상세를 마무리하는 데 필요한 모든 후속 작업을 포괄 승인해."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "raw": {
+      "FETTER": {
+        "canonical": "canonical/hero-fetter-raw-details.v1.json",
+        "blobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+        "sha256": "1c058ddd7ad2fd038e8fae73391aafa85b3dea4fe49868a2c834a490497172a6"
+      },
+      "HEART_FETTER": {
+        "canonical": "canonical/hero-heart-fetter-raw-details.v1.json",
+        "blobSha1": "be61dd6fb14662d70335e833c4c857dda5105f74",
+        "sha256": "7a150f7fd0658ffc9b05d68b8131a677290ab67710f97a22c4e4c4d78ea42b8a"
+      }
+    },
+    "goldLocators": "canonical/hero-fetter-material-relations.v1.json#goldLocators",
+    "legacyPage": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "legacyLocator": "유대 강화 재료 / 목표 레벨 and 골드 columns"
+  },
+  "scope": "Source-native Gold rows for target levels 2–10. Excludes items, totals, unlocks, effect levels, and runtime cost calculation.",
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "groups": [
+    {
+      "endpointKind": "FETTER",
+      "endpointId": 66,
+      "labelKo": "유대 1",
+      "gold": [
+        1500,
+        2300,
+        3500,
+        5300,
+        8000,
+        12000,
+        18000,
+        27000,
+        41000
+      ]
+    },
+    {
+      "endpointKind": "FETTER",
+      "endpointId": 67,
+      "labelKo": "유대 2",
+      "gold": [
+        5000,
+        7500,
+        11000,
+        17000,
+        26000,
+        39000,
+        59000,
+        89000,
+        130000
+      ]
+    },
+    {
+      "endpointKind": "FETTER",
+      "endpointId": 68,
+      "labelKo": "유대 3",
+      "gold": [
+        9000,
+        14000,
+        21000,
+        32000,
+        48000,
+        72000,
+        110000,
+        170000,
+        260000
+      ]
+    },
+    {
+      "endpointKind": "FETTER",
+      "endpointId": 69,
+      "labelKo": "유대 4",
+      "gold": [
+        15000,
+        23000,
+        35000,
+        53000,
+        80000,
+        120000,
+        180000,
+        270000,
+        410000
+      ]
+    },
+    {
+      "endpointKind": "FETTER",
+      "endpointId": 70,
+      "labelKo": "유대 5",
+      "gold": [
+        20000,
+        30000,
+        45000,
+        68000,
+        100000,
+        150000,
+        230000,
+        350000,
+        530000
+      ]
+    },
+    {
+      "endpointKind": "HEART_FETTER",
+      "endpointId": 15,
+      "labelKo": "마음의 유대",
+      "gold": [
+        10000,
+        15000,
+        23000,
+        35000,
+        53000,
+        74000,
+        100000,
+        140000,
+        200000
+      ]
+    }
+  ]
+}
