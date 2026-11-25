@@ -296,10 +296,10 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
   const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo }) => `${fromNameKo} → ${toNameKo}`));
   const expectedAwakeningMaterials = {
-    noticeKo: '검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.',
+    noticeKo: '현재 검증된 각성 재료 6개를 표시합니다.',
     stages: [
-      { stageLabelKo: '1단계', materials: [{ nameKo: '생령의 수정', count: 8 }, { nameKo: '심연의 수정', count: 8 }] },
-      { stageLabelKo: '2단계', materials: [{ nameKo: '계절풍의 마음', count: 12 }, { nameKo: '대륙의 마음', count: 12 }] },
+      { stageLabelKo: '1단계', materials: [{ nameKo: '생령의 수정', count: 8 }, { nameKo: '심연의 수정', count: 8 }, { nameKo: '빛나는 별의 조각', count: 5 }] },
+      { stageLabelKo: '2단계', materials: [{ nameKo: '계절풍의 마음', count: 12 }, { nameKo: '대륙의 마음', count: 12 }, { nameKo: '영원한 달의 빛', count: 5 }] },
     ],
   };
   if (JSON.stringify(awakeningMaterials) !== JSON.stringify(expectedAwakeningMaterials)) {
