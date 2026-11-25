@@ -135,7 +135,12 @@ function renderHero15SourceNames({ sourceNamesApproval, nameMaster, englishNameE
     || english.heroId !== 15 || english.field !== 'Name_Eng' || english.value !== sourceNamesApproval.nameEn) {
     throw new Error('Hero 15 source names do not match approved source fields');
   }
-  return { nameCn: chineseRows[0].nameCn, nameEn: english.value };
+  const display = sourceNamesApproval.officialEnglishDisplay;
+  if (display?.value !== 'Liana' || JSON.stringify(display.sources?.map(({ url }) => url)) !== JSON.stringify([
+    'https://us-news.zlongame.com/heroSSR/858.jhtml',
+    'https://sea-news.zlongame.com/jx/ggb/20220704/5274.html',
+  ])) throw new Error('Hero 15 official English display provenance is invalid');
+  return { nameCn: chineseRows[0].nameCn, nameEn: display.value };
 }
 
 export async function readHero15SoldierPublicationInputs(readJson) {

@@ -256,7 +256,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'factions,rarity,sourceNames'
     || Object.keys(profile.sourceNames ?? {}).sort().join(',') !== 'nameCn,nameEn'
-    || profile.sourceNames.nameCn !== '莉亚娜' || profile.sourceNames.nameEn !== 'Riana'
+    || profile.sourceNames.nameCn !== '莉亚娜' || profile.sourceNames.nameEn !== 'Liana'
     || Object.keys(profile.rarity ?? {}).sort().join(',') !== 'label,rankId'
     || profile.rarity.rankId !== 4 || profile.rarity.label !== 'SSR'
     || !Array.isArray(profile.factions)

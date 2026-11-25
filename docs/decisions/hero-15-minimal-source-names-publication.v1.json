@@ -13,5 +13,21 @@
     "locator": "ID=15/Name,Name_Eng"
   },
   "nameCn": "莉亚娜",
-  "nameEn": "Riana"
+  "nameEn": "Riana",
+  "officialEnglishDisplay": {
+    "value": "Liana",
+    "sources": [
+      {
+        "url": "https://us-news.zlongame.com/heroSSR/858.jhtml",
+        "locator": "Hero name heading",
+        "region": "Global English"
+      },
+      {
+        "url": "https://sea-news.zlongame.com/jx/ggb/20220704/5274.html",
+        "locator": "New Level 2 Awakening Skills / SSR: Liana",
+        "region": "SEA English"
+      }
+    ],
+    "supersedesDisplayFromPr": 282
+  }
 }
