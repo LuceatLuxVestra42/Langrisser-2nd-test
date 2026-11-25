@@ -173,17 +173,19 @@ function renderHero15SourceNames({ sourceNamesApproval, nameMaster, englishNameE
 }
 
 export async function readHero15SoldierPublicationInputs(readJson) {
-  const [approval, relations, soldiers, normalNames, spNames] = await Promise.all([
+  const [approval, relations, soldiers, normalNames, spNames, normalPresentation, spPresentation] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-soldier-publication.v1.json'),
     readJson('canonical/hero-soldier-relations.v1.json'),
     readJson('canonical/soldiers.v1.json'),
     readJson('canonical/normal-soldier-localizations-ko.v1.json'),
     readJson('canonical/sp-soldier-localizations-ko.v1.json'),
+    readJson('generated/normal-soldiers.v1.json'),
+    readJson('generated/sp-soldiers.v1.json'),
   ]);
-  return { approval, relations, soldiers, normalNames, spNames };
+  return { approval, relations, soldiers, normalNames, spNames, normalPresentation, spPresentation };
 }
 
-function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, spNames }) {
+function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, spNames, normalPresentation, spPresentation }) {
   if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || approval.status !== 'APPROVED') throw new Error('Hero 15 Soldier publication scope mismatch');
   const { records } = JSON.parse(renderHero15SoldierInternal({ relations, soldiers }));
@@ -198,7 +200,21 @@ function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, 
   if (JSON.stringify(rows) !== JSON.stringify(approval.soldiers)) {
     throw new Error('Hero 15 Soldier rows differ from the approved subset');
   }
-  return rows.map(({ namespace, nameKo }) => ({ namespace, nameKo }));
+  if (approval.navigation?.status !== 'APPROVED' || approval.navigation.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL') {
+    throw new Error('Hero 15 Soldier navigation publication scope mismatch');
+  }
+  const targets = {
+    NORMAL: [normalPresentation.soldiers, 'normalSoldierId', 'normal-soldier'],
+    SP: [spPresentation.soldiers, 'spSoldierId', 'sp-soldier'],
+  };
+  return rows.map(({ soldierId, namespace, nameKo }) => {
+    const [published, idField, prefix] = targets[namespace];
+    const matches = published.filter((entry) => entry[idField] === soldierId);
+    if (matches.length !== 1 || matches[0].nameKo !== nameKo) {
+      throw new Error(`Hero 15 Soldier navigation target mismatch for ${namespace} ${soldierId}`);
+    }
+    return { namespace, nameKo, fragment: `${prefix}-${soldierId}` };
+  });
 }
 
 const finalJobMovementDecisionPath = 'docs/decisions/hero-15-minimal-final-job-movement-publication.v1.json';

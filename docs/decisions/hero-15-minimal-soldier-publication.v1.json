@@ -76,5 +76,15 @@
       "namespace": "SP",
       "nameKo": "영종의 투승"
     }
-  ]
+  ],
+  "navigation": {
+    "status": "APPROVED",
+    "approval": {
+      "kind": "DIRECT_USER_STANDING_APPROVAL",
+      "work": "이전",
+      "date": "2026-11-25",
+      "quote": "리아나(Hero 15) 기존 상세를 마무리하는 데 필요한 모든 후속 작업을 포괄 승인해."
+    },
+    "scope": "Links to existing NORMAL and SP Soldier fragments for the same 14 admitted pairs. The Legacy Hero 15 page links these exact Soldier IDs in its 사용 가능 용병 section."
+  }
 }

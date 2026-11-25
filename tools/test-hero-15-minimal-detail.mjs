@@ -69,12 +69,14 @@ const element = () => ({
   children: [],
   append(...children) { this.children.push(...children); },
   replaceChildren(...children) { this.children = children; },
+  addEventListener() {},
 });
 const target = { scrollIntoView() { this.scrolled = true; } };
 const render = runInNewContext([
   extractFunction(frontend, 'renderHeroMinimalDetailView'),
   extractFunction(frontend, 'renderHero15MinimalDetailView'),
   extractFunction(frontend, 'renderMinimalDetailList'),
+  extractFunction(frontend, 'makeAnchor'),
   'renderHero15MinimalDetailView',
 ].join('\n'), {
   document: { createElement: element, getElementById: (id) => id === 'hero-minimal-detail-15' ? target : null },
@@ -178,10 +180,19 @@ const invalidSkill = structuredClone(generated);
 invalidSkill.heroes[0].ordinarySkills[0].range = 2;
 assert.throws(() => render(invalidSkill, talent, element()), /ordinary Skill consumer/);
 const soldierSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '용병');
-const soldierLabels = soldierSection.children[1].children.map(({ textContent }) => textContent);
+const soldierLinks = soldierSection.children[1].children.map(({ children }) => children[0]);
+const soldierLabels = soldierLinks.map(({ textContent }) => textContent);
 assert.equal(soldierLabels.length, 14);
 assert.ok(soldierLabels.includes('NORMAL · 하이랜더'));
 assert.ok(soldierLabels.includes('SP · 하이랜더'));
+assert.equal(soldierLinks.find(({ textContent }) => textContent === 'NORMAL · 하이랜더').href, '#normal-soldier-210');
+assert.equal(soldierLinks.find(({ textContent }) => textContent === 'SP · 하이랜더').href, '#sp-soldier-5210');
+assert.equal(new Set(soldierLinks.map(({ href }) => href)).size, 14);
+fails((x) => { x.soldierInputs.approval.navigation.status = 'NOT_APPROVED'; }, /Soldier navigation publication scope/);
+fails((x) => { x.soldierInputs.spPresentation.soldiers.find(({ spSoldierId }) => spSoldierId === 5210).spSoldierId = 210; }, /Soldier navigation target/);
+const wrongSoldierNamespace = structuredClone(generated);
+wrongSoldierNamespace.heroes[0].soldiers[0].fragment = 'sp-soldier-5210';
+assert.throws(() => render(wrongSoldierNamespace, talent, element()), /Soldier consumer/);
 const commandSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '병사 지휘 보정');
 assert.deepEqual(commandSection.children[1].children.map(({ textContent }) => textContent), [
   '기본 지휘 · 생명 +15% · 마방 +15%',

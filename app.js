@@ -268,8 +268,11 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     throw new Error('Hero 15 profile consumer is malformed or outside its approved publication scope');
   }
   if (!Array.isArray(soldiers) || soldiers.length !== 14 || !soldiers.every((row) =>
-    Object.keys(row ?? {}).sort().join(',') === 'nameKo,namespace'
-      && ['NORMAL', 'SP'].includes(row.namespace) && typeof row.nameKo === 'string' && row.nameKo.trim())) {
+    Object.keys(row ?? {}).sort().join(',') === 'fragment,nameKo,namespace'
+      && ['NORMAL', 'SP'].includes(row.namespace) && typeof row.nameKo === 'string' && row.nameKo.trim()
+      && typeof row.fragment === 'string'
+      && row.fragment.match(/^(normal|sp)-soldier-[1-9]\d*$/)?.[1] === row.namespace.toLowerCase())
+    || new Set(soldiers.map(({ fragment }) => fragment)).size !== soldiers.length) {
     throw new Error('Hero 15 Soldier consumer is malformed');
   }
   const expectedJobPaths = [
@@ -303,7 +306,18 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const centralDisciplineSection = renderMinimalDetailList('중앙율정', centralDisciplineEffectKo.split('\n'));
   const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo }) =>
     descriptionKo === undefined ? nameKo : `${nameKo} · ${descriptionKo}`));
-  const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
+  const soldierSection = renderMinimalDetailList('용병', []);
+  const soldierList = soldierSection.children[1];
+  for (const { namespace, nameKo, fragment } of soldiers) {
+    const item = document.createElement('li');
+    const link = makeAnchor(`${namespace} · ${nameKo}`, fragment, () => {
+      const navigation = namespace === 'NORMAL' ? normalSoldierNavigation : spSoldierNavigation;
+      navigation?.showAll(false);
+    }, true);
+    link.className = 'soldier-navigation-link';
+    item.append(link);
+    soldierList.append(item);
+  }
   if (JSON.stringify(soldierCommandLinesKo) !== JSON.stringify([
     '기본 지휘 · 생명 +15% · 마방 +15%',
     '최대 레벨 일반 유대 · 생명 +25% · 공격 +10% · 방어 +10% · 마방 +25%',
