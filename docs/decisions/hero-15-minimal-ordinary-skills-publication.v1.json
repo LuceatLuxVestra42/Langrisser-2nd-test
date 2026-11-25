@@ -1,0 +1,106 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "displayAuthority": "PROJECT_DISPLAY_ONLY",
+  "approval": "Direct standing approval in this 이전 Work (bbb2164c-5198-4732-b08a-22ac1ef252a2).",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "canonicalSnapshot": "CN ConfigData snapshot 2026-09-02",
+    "canonicalEvidence": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json",
+    "shard": {
+      "path": "data/generated/hero-detail/by-id/15.json",
+      "gitBlobSha1": "7cc3f9e79395e79b08d99c79905f69a0bba9b1bb"
+    },
+    "catalog": {
+      "path": "src/lib/hero-skill-localization.data.ts",
+      "gitBlobSha1": "95f789c504394aee305e21bfab0d2be2612e205d"
+    },
+    "route": {
+      "path": "src/routes/heroes_.$heroId.tsx",
+      "gitBlobSha1": "fd31e42653c377ea6b2e21ae84eff8e211d27f44"
+    },
+    "transformation": "Union normal.skills.heroDirectSkills and jobLevelAcquisitions by SkillID, keeping the first row. Match current CN Name and Desc exactly, and match the catalog by SkillID and sourceNameCn. Copy accepted Korean strings as plain text; omit withheld descriptions.",
+    "canonicalRaw": {
+      "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+      "path": "data/configdata/ConfigDataSkillInfo.json",
+      "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+      "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741"
+    }
+  },
+  "skills": [
+    {
+      "skillId": 10801,
+      "sourceNameCn": "治疗术",
+      "sourceDescSha256": "eff9a4c4b63d4bb40c25fbd2e68d6b586581e6d7cb939a6fd53b3996ea8d363c",
+      "catalogLine": 1264,
+      "nameKo": "힐",
+      "descriptionKo": "단일 아군의 생명을 시전자 지력의 5배만큼 회복하고 디버프 1개를 제거한다."
+    },
+    {
+      "skillId": 10816,
+      "sourceNameCn": "再行动",
+      "sourceDescSha256": "d76bed7db99ae65fb75965ac484104fb9e2ddedd0b6e724033e09bddd53b2d10",
+      "catalogLine": 1672,
+      "nameKo": "어게인",
+      "descriptionKo": "행동을 마친 아군 1부대를 다시 행동할 수 있게 하고 시전자 지력 2배만큼 생명을 회복시킨다."
+    },
+    {
+      "skillId": 10805,
+      "sourceNameCn": "福音",
+      "sourceDescSha256": "b084236147b8a3268d93df573e38cab756a4c7dce658dd38b4d1256424941532",
+      "catalogLine": 1416,
+      "nameKo": "복음",
+      "descriptionKo": "[지원] 단일 부대의 공격, 지력, 방어 +20% 및 모든 디버프 면역, 2턴 지속."
+    },
+    {
+      "skillId": 10707,
+      "sourceNameCn": "风刃",
+      "sourceDescSha256": "39b88965a99e757b5edb85b7b1e33646ac0ef1bdbe5e74fbfe7520d9376fcc6c",
+      "catalogLine": 264,
+      "nameKo": "윈드 커터",
+      "descriptionKo": "단일 적 부대를 공격해 1.5배의 마법 피해를 준다. 비병에게 더 큰 피해를 준다."
+    },
+    {
+      "skillId": 10705,
+      "sourceNameCn": "冰冻",
+      "sourceDescSha256": "a11ce8611ae970f3fffbcd1dd800806051e41db262796f9a1aa0c78cfbb7cc60",
+      "catalogLine": 776,
+      "nameKo": "빙결",
+      "withheldDescriptionReason": "The Korean text omits the enemy target and magic damage qualifier explicitly given by the source."
+    },
+    {
+      "skillId": 10804,
+      "sourceNameCn": "群体护盾",
+      "sourceDescSha256": "fe19924ab21210493da02b2d8a63c21f7fe569034bdfdf79d00671d067edda37",
+      "catalogLine": 1000,
+      "nameKo": "광역 실드",
+      "withheldDescriptionReason": "The Korean text labels two actions as cooldown, while source Desc specifies a two-turn duration."
+    },
+    {
+      "skillId": 10807,
+      "sourceNameCn": "圣疗",
+      "sourceDescSha256": "fd40e14891c449da9ddeafb38118f4a459cf2372931d21a18877bbd62627c73a",
+      "catalogLine": 984,
+      "nameKo": "홀리 힐",
+      "descriptionKo": "[지원]광범위 부대에게 지력 4배만큼 생명을 회복한다. 그리고 행동 종료 시 생명을 20% 회복한다. 2행동 지속."
+    },
+    {
+      "skillId": 6009,
+      "sourceNameCn": "冥想",
+      "sourceDescSha256": "0755c714089a02a8e1068ea4aacac7281789b05941d17a72063acb7457b1e561",
+      "catalogLine": 1352,
+      "nameKo": "명상",
+      "withheldDescriptionReason": "The Korean threshold includes exactly 90%, while source Desc says strictly above 90%."
+    },
+    {
+      "skillId": 11786,
+      "sourceNameCn": "召唤天空射手",
+      "sourceDescSha256": "dad14f5c19b18aee595b019f23043cd406da42e1759c078f42e46b4f0730118f",
+      "catalogLine": 2016,
+      "nameKo": "천공사수 소환",
+      "descriptionKo": "[소환] 천공사수 1기 소환"
+    }
+  ]
+}

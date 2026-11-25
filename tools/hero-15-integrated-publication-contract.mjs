@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
@@ -79,7 +80,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -89,8 +90,11 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json'),
     readJson('docs/decisions/hero-15-minimal-cv-publication.v1.json'),
     readJson(HERO_CV_CANONICAL),
+    readJson('docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json'),
+    readJson('canonical/hero-skill-references.v1.json'),
+    readJson('canonical/skills.v1.json'),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -210,6 +214,31 @@ function renderHero15JobPaths({ approval, tree }) {
   return paths.map(([, , fromNameKo, toNameKo]) => ({ fromNameKo, toNameKo }));
 }
 
+function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdentities }) {
+  const approvedIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
+  const namesOnly = new Set([10705, 10804, 6009]);
+  const ordinaryKinds = new Set(['HERO_DIRECT_SKILL_REFERENCE', 'JOB_LEVEL_SKILL_ACQUISITION']);
+  const references = skillReferences.records.filter(({ heroId, referenceKind }) => heroId === 15 && ordinaryKinds.has(referenceKind));
+  if (skillDecision?.status !== 'APPROVED' || skillDecision.heroId !== 15
+    || skillDecision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || skillDecision.displayAuthority !== 'PROJECT_DISPLAY_ONLY'
+    || skillDecision.source?.canonicalSnapshot !== skillIdentities.sourceScope
+    || JSON.stringify(skillDecision.skills?.map(({ skillId }) => skillId)) !== JSON.stringify(approvedIds)
+    || JSON.stringify(references.map(({ skillId }) => skillId)) !== JSON.stringify(approvedIds)) {
+    throw new Error('Hero 15 ordinary Skill publication scope mismatch');
+  }
+  return skillDecision.skills.map(({ skillId, sourceNameCn, sourceDescSha256, nameKo, descriptionKo }) => {
+    const identities = skillIdentities.records.filter((row) => row.skillId === skillId);
+    const identity = identities[0];
+    if (identities.length !== 1 || identity.nameCn !== sourceNameCn
+      || createHash('sha256').update(identity.descriptionCn).digest('hex') !== sourceDescSha256
+      || typeof nameKo !== 'string' || !nameKo.trim()
+      || (namesOnly.has(skillId) ? descriptionKo !== undefined : typeof descriptionKo !== 'string' || !descriptionKo.trim())) {
+      throw new Error(`Hero 15 ordinary Skill source or Korean display fields mismatch: ${skillId}`);
+    }
+    return descriptionKo === undefined ? { skillId, nameKo } : { skillId, nameKo, descriptionKo };
+  });
+}
+
 export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs, jobInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
@@ -240,6 +269,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       profile: renderHero15Profile(profileInputs),
       soldiers: renderHero15SoldierNames(soldierInputs),
       jobPaths: renderHero15JobPaths(jobInputs),
+      ordinarySkills: renderHero15OrdinarySkills(profileInputs),
       exclusiveEquipment: {
         equipmentId: 535,
         nameKo: equipmentName[0].nameKo,
@@ -256,7 +286,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;

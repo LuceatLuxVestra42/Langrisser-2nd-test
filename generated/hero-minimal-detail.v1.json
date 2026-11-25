@@ -109,6 +109,50 @@
           "toNameKo": "허미트"
         }
       ],
+      "ordinarySkills": [
+        {
+          "skillId": 10801,
+          "nameKo": "힐",
+          "descriptionKo": "단일 아군의 생명을 시전자 지력의 5배만큼 회복하고 디버프 1개를 제거한다."
+        },
+        {
+          "skillId": 10816,
+          "nameKo": "어게인",
+          "descriptionKo": "행동을 마친 아군 1부대를 다시 행동할 수 있게 하고 시전자 지력 2배만큼 생명을 회복시킨다."
+        },
+        {
+          "skillId": 10805,
+          "nameKo": "복음",
+          "descriptionKo": "[지원] 단일 부대의 공격, 지력, 방어 +20% 및 모든 디버프 면역, 2턴 지속."
+        },
+        {
+          "skillId": 10707,
+          "nameKo": "윈드 커터",
+          "descriptionKo": "단일 적 부대를 공격해 1.5배의 마법 피해를 준다. 비병에게 더 큰 피해를 준다."
+        },
+        {
+          "skillId": 10705,
+          "nameKo": "빙결"
+        },
+        {
+          "skillId": 10804,
+          "nameKo": "광역 실드"
+        },
+        {
+          "skillId": 10807,
+          "nameKo": "홀리 힐",
+          "descriptionKo": "[지원]광범위 부대에게 지력 4배만큼 생명을 회복한다. 그리고 행동 종료 시 생명을 20% 회복한다. 2행동 지속."
+        },
+        {
+          "skillId": 6009,
+          "nameKo": "명상"
+        },
+        {
+          "skillId": 11786,
+          "nameKo": "천공사수 소환",
+          "descriptionKo": "[소환] 천공사수 1기 소환"
+        }
+      ],
       "exclusiveEquipment": {
         "equipmentId": 535,
         "nameKo": "완벽한 찬사",
