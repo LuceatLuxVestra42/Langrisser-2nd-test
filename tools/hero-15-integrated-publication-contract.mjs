@@ -262,12 +262,12 @@ function renderHero15CentralDiscipline({ centralDisciplineDecision: decision, sk
 
 function renderHero15AwakeningMaterials({ awakeningDecision: decision, awakeningInputs }) {
   const expected = [
-    [1015, [[3247, '생령의 수정', 8], [3249, '심연의 수정', 8]]],
-    [2015, [[3254, '계절풍의 마음', 12], [3256, '대륙의 마음', 12]]],
+    [1015, [[3247, '생령의 수정', 8], [3249, '심연의 수정', 8], [3253, '빛나는 별의 조각', 5]]],
+    [2015, [[3254, '계절풍의 마음', 12], [3256, '대륙의 마음', 12], [3260, '영원한 달의 빛', 5]]],
   ];
   if (decision?.status !== 'APPROVED' || decision.heroId !== 15 || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
-    || decision.scope !== 'PARTIAL_PROJECT_DISPLAY_ONLY'
-    || decision.noticeKo !== '검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.'
+    || decision.scope !== 'SIX_VERIFIED_PROJECT_DISPLAY_ROWS'
+    || decision.noticeKo !== '현재 검증된 각성 재료 6개를 표시합니다.'
     || JSON.stringify(decision.stages?.map(({ levelId, materials }) =>
       [levelId, materials.map(({ itemId, nameKo, count }) => [itemId, nameKo, count])])) !== JSON.stringify(expected)) {
     throw new Error('Hero 15 Awakening material publication scope mismatch');

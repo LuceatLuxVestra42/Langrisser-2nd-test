@@ -109,16 +109,19 @@ fails((x) => { x.profileInputs.centralDisciplineDecision.skillId = 10816; }, /Ce
 fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 90089).descriptionCn += 'x'; }, /Central Discipline publication scope/);
 const awakeningSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '각성 재료');
 assert.deepEqual(awakeningSection.children[1].children.map(({ textContent }) => textContent), [
-  '1단계 · 생령의 수정 × 8', '1단계 · 심연의 수정 × 8',
-  '2단계 · 계절풍의 마음 × 12', '2단계 · 대륙의 마음 × 12',
+  '1단계 · 생령의 수정 × 8', '1단계 · 심연의 수정 × 8', '1단계 · 빛나는 별의 조각 × 5',
+  '2단계 · 계절풍의 마음 × 12', '2단계 · 대륙의 마음 × 12', '2단계 · 영원한 달의 빛 × 5',
 ]);
-assert.equal(awakeningSection.children[2].textContent, '검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.');
+assert.equal(awakeningSection.children[2].textContent, '현재 검증된 각성 재료 6개를 표시합니다.');
 assert.doesNotMatch(generatedText, /1015|2015|3247|3249|3253|3254|3256|3260|sheetBlob|driveFile/);
 fails((x) => { delete x.profileInputs.awakeningDecision.noticeKo; }, /Awakening material publication scope/);
 fails((x) => { x.profileInputs.awakeningDecision.stages[0].materials[0].itemId = 3253; }, /Awakening material publication scope/);
 fails((x) => { x.profileInputs.awakeningDecision.stages[0].materials[0].nameKo = '다른 이름'; }, /Awakening material publication scope/);
 fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage1LevelReference.levelId = 2015; }, /Awakening material stage/);
 fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage1SourceGoods[1].count = 9; }, /Awakening material row/);
+fails((x) => { x.profileInputs.awakeningDecision.stages[0].materials.pop(); }, /Awakening material publication scope/);
+fails((x) => { x.profileInputs.awakeningDecision.stages[1].materials[2].itemId = 3253; }, /Awakening material publication scope/);
+fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage2SourceGoods[0].count = 6; }, /Awakening material row/);
 const leakedAwakening = structuredClone(generated);
 leakedAwakening.heroes[0].awakeningMaterials.stages[0].materials[0].itemId = 3247;
 assert.throws(() => render(leakedAwakening, talent, element()), /Awakening material consumer/);

@@ -2,9 +2,9 @@
   "status": "APPROVED",
   "heroId": 15,
   "surface": "hero-minimal-detail-15",
-  "scope": "PARTIAL_PROJECT_DISPLAY_ONLY",
-  "approval": "Standing authorization bbb2164c-5198-4732-b08a-22ac1ef252a2, applied to the four validated rows only.",
-  "noticeKo": "검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.",
+  "scope": "SIX_VERIFIED_PROJECT_DISPLAY_ROWS",
+  "approval": "Standing authorization bbb2164c-5198-4732-b08a-22ac1ef252a2, applied to the six validated rows only.",
+  "noticeKo": "현재 검증된 각성 재료 6개를 표시합니다.",
   "source": {
     "sheetCommit": "a69cadac65ae13c2a6d9f9fa9fb7f33f8c2d3e85",
     "sheetPath": "classup.html",
@@ -21,13 +21,26 @@
       "data/configdata/ConfigDataItemInfo.json#ID={3247,3249,3254,3256}/Icon"
     ],
     "driveFolder": "1fVm9JVJlOiswiTezoRWFJQmUZWof8db8",
-    "comparison": "All six Gem and six Heart PNGs checked against each named sheet PNG. Per-family uniform Lanczos scaling and translation, RGB mean absolute error on alpha >=250 foreground. Candidate-specific alignment and dense fixed transforms both agree. Gem: 127px with (-3,0) relative to center; Heart: 109px centered. Independent unordered co-occurrence intersection of HeroIDs 26,27,29 agrees; Hero 15 held out."
+    "comparison": "All six Gem and six Heart PNGs checked against each named sheet PNG. Per-family uniform Lanczos scaling and translation, RGB mean absolute error on alpha >=250 foreground. Candidate-specific alignment and dense fixed transforms both agree. Gem: 127px with (-3,0) relative to center; Heart: 109px centered. Independent unordered co-occurrence intersection of HeroIDs 26,27,29 agrees; Hero 15 held out.",
+    "starMoon": {
+      "sheetRepository": "redpanda7301/langrisser",
+      "sheetCommit": "311c5e44f39c6938c78031bb2af3206e39ea270b",
+      "sheetBlob": "bcf366cb8a7402015976cb1c5c120e4ac1744c45",
+      "configItemBlob": "fd34c0a83bd403c1fd01d34f3439e4c24a794f5e",
+      "configLocators": [
+        "L14583–14590",
+        "L14819–14826"
+      ],
+      "independentKoreanLabels": "https://lunavenia.tistory.com/518",
+      "transformation": "Match exact ItemInfo.ID and Icon to Drive bytes, compare both event WebP foregrounds against both PNGs, and read the Korean label from the same reward row. Drop the shop quantity suffix; awakening counts come from the existing internal projection.",
+      "comparison": "Uniform Lanczos scaling 81–171 px and centered offsets −5…5 px, RGB MAE where source alpha >=250. Select alignment using sampled foreground and measure all eligible foreground pixels at that alignment. Each row scores its same item clearly lower than the other candidate. No byte-identity, official KR, or complete cost claim."
+    }
   },
   "limitations": [
     "Project display text only; official Korean client strings unverified.",
     "Sheet PNGs are not byte-identical to Drive originals. Same-family sheet mirrors are not independent.",
     "Historical mismatches include both stages for Imelda, Sonya, Almeda and Elasta, and stage 2 for Grenier.",
-    "No localization for 3253 or 3260. No complete cost, activation, or unlock claim."
+    "Six verified display rows; no complete cost, activation, or unlock claim."
   ],
   "stages": [
     {
@@ -57,6 +70,27 @@
           "scores": [
             11.3,
             67.83
+          ]
+        },
+        {
+          "itemId": 3253,
+          "nameKo": "빛나는 별의 조각",
+          "count": 5,
+          "icon": "Awaken_Stardust.png",
+          "driveFile": "1U0FoBxa3fhEc68dJEit4Jt6oqvhPPjHQ",
+          "driveSha256": "88e9ddc9e826b231b4f4208f6e8f68b24ecaa3ef7e808ad25acb57306fb8cd15",
+          "sheetPath": "img/item/Awaken_Stardust.webp",
+          "sheetBlob": "4d226a90a581108ba1ef8f263bfa417ffb20b7bb",
+          "sheetLocator": "event3.html#L7457–7458",
+          "scores": [
+            7.78,
+            85.89
+          ],
+          "matchedTransformSizeDxDyAndForegroundPixels": [
+            120,
+            1,
+            1,
+            5800
           ]
         }
       ]
@@ -88,6 +122,27 @@
           "scores": [
             9.92,
             49.54
+          ]
+        },
+        {
+          "itemId": 3260,
+          "nameKo": "영원한 달의 빛",
+          "count": 5,
+          "icon": "Awaken_MoonBrillance.png",
+          "driveFile": "1x4mDoJOlzC-DPJjVudQJ0RY0r3cv_XnS",
+          "driveSha256": "24052660d6269c0af65dcf086303790d3fd0ad4d59a1636dbe63e29981aab2a7",
+          "sheetPath": "img/item/Awaken_MoonBrillance.webp",
+          "sheetBlob": "43c404a9163cee8adcfaaa12cc97ee2fdcb82a22",
+          "sheetLocator": "event3.html#L7560–7561",
+          "scores": [
+            10.89,
+            79.61
+          ],
+          "matchedTransformSizeDxDyAndForegroundPixels": [
+            120,
+            1,
+            0,
+            6710
           ]
         }
       ]
