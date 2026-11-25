@@ -78,16 +78,20 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
     readJson('canonical/faction-localizations-ko.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-source-names-publication.v1.json'),
+    readJson('evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json'),
+    readJson('evidence/source/configdata/ConfigDataHeroInfo.record-hero-15-name-eng.v1.json'),
   ]);
-  return { approval, rarities, relations, names };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence };
 }
 
-function renderHero15Profile({ approval, rarities, relations, names } = {}) {
+function renderHero15Profile(inputs = {}) {
+  const { approval, rarities, relations, names } = inputs;
   exactKeys(approval, ['status', 'heroId', 'surface', 'approval', 'profile', 'display'], 'Hero 15 profile decision');
   exactKeys(approval.approval, ['source', 'date', 'quote'], 'Hero 15 profile approval');
   if (approval.status !== 'APPROVED' || approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
@@ -117,7 +121,21 @@ function renderHero15Profile({ approval, rarities, relations, names } = {}) {
     || JSON.stringify(approval.profile) !== JSON.stringify(expected)) {
     throw new Error('Hero 15 profile must match exact approved Canonical rank, factions and names');
   }
-  return profile;
+  return { ...profile, sourceNames: renderHero15SourceNames(inputs) };
+}
+
+function renderHero15SourceNames({ sourceNamesApproval, nameMaster, englishNameEvidence }) {
+  const chineseRows = nameMaster.records.filter(({ heroId }) => heroId === 15);
+  const english = englishNameEvidence.claim;
+  if (sourceNamesApproval.status !== 'APPROVED' || sourceNamesApproval.heroId !== 15
+    || sourceNamesApproval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || sourceNamesApproval.source.gitBlobSha1 !== nameMaster.source.sourceBlobSha1
+    || sourceNamesApproval.source.commit !== nameMaster.source.sourceCommit
+    || chineseRows.length !== 1 || chineseRows[0].nameCn !== sourceNamesApproval.nameCn
+    || english.heroId !== 15 || english.field !== 'Name_Eng' || english.value !== sourceNamesApproval.nameEn) {
+    throw new Error('Hero 15 source names do not match approved source fields');
+  }
+  return { nameCn: chineseRows[0].nameCn, nameEn: english.value };
 }
 
 export async function readHero15SoldierPublicationInputs(readJson) {

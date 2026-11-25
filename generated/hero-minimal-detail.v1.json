@@ -22,7 +22,11 @@
             "factionId": 6,
             "nameKo": "공주 연맹"
           }
-        ]
+        ],
+        "sourceNames": {
+          "nameCn": "莉亚娜",
+          "nameEn": "Riana"
+        }
       },
       "soldiers": [
         {

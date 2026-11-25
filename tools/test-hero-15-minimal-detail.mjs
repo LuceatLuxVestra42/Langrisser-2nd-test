@@ -83,6 +83,8 @@ const render = runInNewContext([
 const container = element();
 const navigation = render(generated, talent, container);
 const paragraphs = container.children[0].children.map(({ textContent }) => textContent);
+assert.ok(paragraphs.includes('중국어명 · 莉亚娜 / 영문명 · Riana'));
+fails((x) => { x.profileInputs.sourceNamesApproval.nameEn = 'Liana'; }, /approved source fields/);
 assert.ok(paragraphs.includes('등급 · SSR'));
 assert.ok(paragraphs.includes('진영 · 시대의 주역 · 빛의 군단 · 공주 연맹'));
 assert.ok(paragraphs.includes('완벽한 찬사 (Equipment ID 535)'));
