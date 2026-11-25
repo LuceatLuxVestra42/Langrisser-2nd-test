@@ -10,10 +10,14 @@ const repo = join(temp, 'repo');
 const centralEvidence = 'evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
 const costEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json';
 const costOwner = 'canonical/hero-15-ordinary-skill-costs.v1.json';
+const cooldownEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json';
+const cooldownOwner = 'canonical/hero-15-ordinary-skill-cooldowns.v1.json';
 const paths = [
   centralEvidence,
   costEvidence,
   costOwner,
+  cooldownEvidence,
+  cooldownOwner,
   'canonical/hero-skill-references.v1.json',
   'canonical/skills.v1.json',
   'canonical/hero-talent-star-skills.v1.json',
@@ -63,6 +67,16 @@ try {
   const baseline = run();
   assertPass(baseline, 'normal 109-record fixture');
   assert.match(baseline.stdout, /ordinary SkillCost validation: PASS \(9 exact source-native rows\)/);
+  assert.match(baseline.stdout, /ordinary CDText validation: PASS \(9 exact source-native strings\)/);
+  await mutateJson(cooldownEvidence, (x) => { x.records[1].fieldLocator = '/1917/CDText'; }, 'wrong CDText locator', /HERO15_CD_RECORD/);
+  await mutateJson(cooldownEvidence, (x) => { x.records[1].rawRecord.ID = 10805; }, 'duplicate CDText evidence ID', /HERO15_CD_RECORD/);
+  await mutateJson(cooldownEvidence, (x) => { delete x.records[1].rawRecord.CDText; }, 'missing CDText', /HERO15_CD_RECORD/);
+  for (const cdText of ['', null, 0, '0回合', '2回合 ']) {
+    await mutateJson(cooldownEvidence, (x) => { x.records[1].rawRecord.CDText = cdText; }, `wrong raw CDText ${JSON.stringify(cdText)}`, /HERO15_CD_RECORD/);
+  }
+  await mutateJson(cooldownEvidence, (x) => { x.records[0].rawRecord.CDText = '-'; }, 'merged hidden CDText sentinels', /HERO15_CD_RECORD/);
+  await mutateJson(cooldownOwner, (x) => { x.records[0].heroId = 16; }, 'wrong CDText Hero', /HERO15_CD_CANONICAL/);
+  await mutateJson(cooldownOwner, (x) => { x.records[1].cdText = '1回合'; }, 'changed Canonical CDText', /HERO15_CD_CANONICAL/);
   await mutateJson(costEvidence, (x) => { x.records[0].fieldLocator = '/1917/SkillCost'; }, 'wrong cost locator', /HERO15_COST_RECORD/);
   await mutateJson(costEvidence, (x) => { x.records[0].rawRecord.ID = 10816; }, 'duplicate cost evidence ID', /HERO15_COST_RECORD/);
   await mutateJson(costEvidence, (x) => { delete x.records[0].rawRecord.SkillCost; }, 'missing cost', /HERO15_COST_RECORD/);

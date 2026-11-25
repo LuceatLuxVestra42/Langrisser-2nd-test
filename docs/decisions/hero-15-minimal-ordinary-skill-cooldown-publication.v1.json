@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "workId": "6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716",
+    "originalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c"
+  },
+  "baselineHead": "fef798b2d1b3557f9c4e6689e59dc7b692910fc6",
+  "owner": "canonical/hero-15-ordinary-skill-cooldowns.v1.json",
+  "legacyComparison": {
+    "role": "Display corroboration only",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "shardPath": "data/generated/hero-detail/by-id/15.json",
+    "shardBlobSha1": "7cc3f9e79395e79b08d99c79905f69a0bba9b1bb",
+    "shardSha256": "4f8898695db8424ee8a86e035560fa93b2c9ded8aaa01f2164be66e0462e8ba7",
+    "routePath": "src/routes/heroes_.$heroId.tsx",
+    "routeBlobSha1": "fd31e42653c377ea6b2e21ae84eff8e211d27f44",
+    "pageUrl": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "htmlSha256": "25e81252961161081899c84e93fe84cee7ee63956f8f5586679989a588789ff1",
+    "cardIdentification": "Only articles in the Skill section under data-hero-equipable-skills=true; exact unique icon basename from the explicitly ID-keyed shard identifies the DOM article for corroboration. The admitted Korean heading and the sole cooldown badge or its absence were cross-checked. No name, file or position establishes the source claim or Hero relation."
+  },
+  "scope": "Only Hero 15 ordinary Skill cooldownLabelKo. CDText is display text, and the four exact approved strings map to Korean labels. 无 and - remain distinct and have no label. Unresolved rows have no public cooldown key.",
+  "rows": [
+    {
+      "skillId": 10801,
+      "status": "HIDDEN",
+      "shardCooldownPointer": "/normal/skills/heroDirectSkills/0/cooldown",
+      "shardCooldown": "无",
+      "legacyCardIcon": "Skill_Heal.png",
+      "reason": "The exact 无 source string has no cooldown badge on the Legacy ordinary card."
+    },
+    {
+      "skillId": 10816,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/0/skill/cooldown",
+      "shardCooldown": "2回合",
+      "legacyCardIcon": "Skill_NewTurn.png",
+      "legacyCooldownLabelKo": "쿨 2턴"
+    },
+    {
+      "skillId": 10805,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/1/skill/cooldown",
+      "shardCooldown": "2回合",
+      "legacyCardIcon": "Skill_Bless.png",
+      "legacyCooldownLabelKo": "쿨 2턴"
+    },
+    {
+      "skillId": 10707,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/2/skill/cooldown",
+      "shardCooldown": "1回合",
+      "legacyCardIcon": "Skill_WindStrike.png",
+      "legacyCooldownLabelKo": "쿨 1턴"
+    },
+    {
+      "skillId": 10705,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/3/skill/cooldown",
+      "shardCooldown": "1回合",
+      "legacyCardIcon": "Skill_IceBolt.png",
+      "legacyCooldownLabelKo": "쿨 1턴"
+    },
+    {
+      "skillId": 10804,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/4/skill/cooldown",
+      "shardCooldown": "2回合",
+      "legacyCardIcon": "Skill_MassDefup.png",
+      "legacyCooldownLabelKo": "쿨 2턴"
+    },
+    {
+      "skillId": 10807,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/5/skill/cooldown",
+      "shardCooldown": "3回合",
+      "legacyCardIcon": "Skill_HealSuper.png",
+      "legacyCooldownLabelKo": "쿨 3턴"
+    },
+    {
+      "skillId": 6009,
+      "status": "HIDDEN",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/6/skill/cooldown",
+      "shardCooldown": "-",
+      "legacyCardIcon": "Skill_Meditation.png",
+      "reason": "The exact - source string has no cooldown badge on the Legacy ordinary card."
+    },
+    {
+      "skillId": 11786,
+      "status": "APPROVED",
+      "shardCooldownPointer": "/normal/skills/jobLevelAcquisitions/7/skill/cooldown",
+      "shardCooldown": "4回合",
+      "legacyCardIcon": "Skill_SkyArcher01.png",
+      "legacyCooldownLabelKo": "쿨 4턴"
+    }
+  ]
+}

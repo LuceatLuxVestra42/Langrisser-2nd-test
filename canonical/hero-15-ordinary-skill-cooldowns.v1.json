@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 ordinary Skills only. Exact source-native CDText strings. No battle cooldown calculations or publication authority.",
+  "records": [
+    {
+      "heroId": 15,
+      "skillId": 10801,
+      "cdText": "无",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10801]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10816,
+      "cdText": "2回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10816]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10805,
+      "cdText": "2回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10805]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10707,
+      "cdText": "1回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10707]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10705,
+      "cdText": "1回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10705]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10804,
+      "cdText": "2回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10804]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10807,
+      "cdText": "3回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=10807]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 6009,
+      "cdText": "-",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=6009]/rawRecord/CDText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 11786,
+      "cdText": "4回合",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-cooldowns.v1.json#records[ID=11786]/rawRecord/CDText"
+    }
+  ]
+}

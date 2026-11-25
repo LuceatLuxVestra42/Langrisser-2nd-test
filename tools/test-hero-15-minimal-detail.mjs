@@ -168,17 +168,23 @@ assert.throws(() => render(leakedBond45, talent, element()), /Bond 4\/5 descript
 const skillSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
 const skillLabels = skillSection.children[1].children.map(({ textContent }) => textContent);
 const expectedCosts = [1, 2, 2, 1, 1, 2, 2, 1, 2];
+const expectedCooldownLabels = [undefined, '쿨 2턴', '쿨 2턴', '쿨 1턴', '쿨 1턴', '쿨 2턴', '쿨 3턴', undefined, '쿨 4턴'];
 const existingSkills = inputs.profileInputs.skillDecision.skills.map(({ skillId, nameKo, descriptionKo }) =>
   descriptionKo === undefined ? { skillId, nameKo } : { skillId, nameKo, descriptionKo });
-assert.deepEqual(generated.heroes[0].ordinarySkills, existingSkills.map((row, index) => ({ ...row, cost: expectedCosts[index] })));
+assert.deepEqual(generated.heroes[0].ordinarySkills, existingSkills.map((row, index) => {
+  const result = { ...row, cost: expectedCosts[index] };
+  const cooldownLabelKo = expectedCooldownLabels[index];
+  if (cooldownLabelKo !== undefined) result.cooldownLabelKo = cooldownLabelKo;
+  return result;
+}));
 const expectedSkillLabels = existingSkills.map(({ nameKo, descriptionKo }, index) => [
-  nameKo, `${expectedCosts[index]}코스트`, descriptionKo,
+  nameKo, `${expectedCosts[index]}코스트`, expectedCooldownLabels[index], descriptionKo,
 ].filter(Boolean).join(' · '));
 assert.deepEqual(skillLabels, expectedSkillLabels);
-assert.equal(skillLabels[4], '빙결 · 1코스트');
-assert.equal(skillLabels[5], '광역 실드 · 2코스트');
+assert.equal(skillLabels[4], '빙결 · 1코스트 · 쿨 1턴');
+assert.equal(skillLabels[5], '광역 실드 · 2코스트 · 쿨 2턴');
 assert.equal(skillLabels[7], '명상 · 1코스트');
-assert.doesNotMatch(generatedText, /SkillCost|shardCost|legacyCostLabel|sourceDescSha256|catalogLine|withheldDescriptionReason/);
+assert.doesNotMatch(generatedText, /SkillCost|shardCost|legacyCostLabel|sourceDescSha256|catalogLine|withheldDescriptionReason|CDText|cdText|shardCooldown|legacyCooldown|BF_Cooldown|回合/);
 fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].shardCost = 2; }, /SkillCost source or display/);
 fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].legacyCostLabel = '2코스트'; }, /SkillCost source or display/);
 fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].skillId = 10816; }, /SkillCost decision coverage/);
@@ -201,6 +207,43 @@ assert.deepEqual(partialSkillSection.children[1].children.map(({ textContent }) 
 ]);
 assert.throws(() => validateHero15MinimalDetail({ generatedText, inputs: partialCostInputs }), /stale or non-deterministic/);
 assert.throws(() => validateHero15MinimalDetail({ generatedText: partialCostText, inputs }), /stale or non-deterministic/);
+const partialVisibleCostInputs = structuredClone(inputs);
+partialVisibleCostInputs.profileInputs.ordinarySkillCostDecision.rows[1] = {
+  skillId: 10816, status: 'MANUAL_REVIEW', reason: 'Legacy cost label missing',
+};
+assert.deepEqual(JSON.parse(renderHero15MinimalDetail(partialVisibleCostInputs)).heroes[0].ordinarySkills[1], {
+  ...existingSkills[1], cooldownLabelKo: '쿨 2턴',
+});
+fails((x) => { x.profileInputs.ordinarySkillCooldownDecision.approval.originalMessageId = 'another-approval'; }, /CDText publication scope/);
+fails((x) => { x.profileInputs.ordinarySkillCooldownDecision.rows[1].shardCooldownPointer = '/normal/skills/jobLevelAcquisitions/1/skill/cooldown'; }, /CDText shard mismatch/);
+fails((x) => { x.profileInputs.ordinarySkillCooldownDecision.rows[1].shardCooldown = '1回合'; }, /CDText shard mismatch/);
+fails((x) => { x.profileInputs.ordinarySkillCooldownDecision.rows[1].skillId = 10805; }, /CDText decision coverage/);
+fails((x) => { x.profileInputs.ordinarySkillCooldownDecision.rows[1].legacyCooldownLabelKo = '쿨 1턴'; }, /CDText source or display/);
+fails((x) => { delete x.profileInputs.ordinarySkillCooldownDecision.rows[1].legacyCooldownLabelKo; }, /CDText source or display/);
+fails((x) => { x.profileInputs.ordinarySkillCooldownDecision.rows[0].legacyCooldownLabelKo = '쿨 1턴'; }, /CDText hidden row mismatch/);
+const partialCooldownInputs = structuredClone(inputs);
+partialCooldownInputs.profileInputs.ordinarySkillCooldownDecision.rows[1] = {
+  skillId: 10816, status: 'MANUAL_REVIEW', reason: 'Legacy cooldown label differs',
+};
+const partialCooldownText = renderHero15MinimalDetail(partialCooldownInputs);
+const partialCooldownData = validateHero15MinimalDetail({ generatedText: partialCooldownText, inputs: partialCooldownInputs });
+const expectedPartialCooldownRows = structuredClone(generated.heroes[0].ordinarySkills);
+delete expectedPartialCooldownRows[1].cooldownLabelKo;
+assert.deepEqual(partialCooldownData.heroes[0].ordinarySkills, expectedPartialCooldownRows);
+const partialCooldownContainer = element();
+render(partialCooldownData, talent, partialCooldownContainer);
+const partialCooldownSection = partialCooldownContainer.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
+const partialCooldownLabels = [...expectedSkillLabels];
+partialCooldownLabels[1] = `${existingSkills[1].nameKo} · 2코스트 · ${existingSkills[1].descriptionKo}`;
+assert.deepEqual(partialCooldownSection.children[1].children.map(({ textContent }) => textContent), partialCooldownLabels);
+assert.throws(() => validateHero15MinimalDetail({ generatedText, inputs: partialCooldownInputs }), /stale or non-deterministic/);
+assert.throws(() => validateHero15MinimalDetail({ generatedText: partialCooldownText, inputs }), /stale or non-deterministic/);
+const hiddenCooldownLeak = structuredClone(generated);
+hiddenCooldownLeak.heroes[0].ordinarySkills[7].cooldownLabelKo = '쿨 1턴';
+assert.throws(() => render(hiddenCooldownLeak, talent, element()), /ordinary Skill consumer/);
+const malformedCooldown = structuredClone(generated);
+malformedCooldown.heroes[0].ordinarySkills[1].cooldownLabelKo = '쿨 0턴';
+assert.throws(() => render(malformedCooldown, talent, element()), /ordinary Skill consumer/);
 fails((x) => { x.profileInputs.skillDecision.skills[0].skillId = 12350; }, /Skill publication scope/);
 fails((x) => { x.profileInputs.skillDecision.skills[4].descriptionKo = '미검증 설명'; }, /Skill source or Korean display/);
 fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 10801).descriptionCn += 'x'; }, /Skill source or Korean display/);
