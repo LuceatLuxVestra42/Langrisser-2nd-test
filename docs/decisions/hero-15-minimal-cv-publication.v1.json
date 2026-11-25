@@ -1,0 +1,29 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": "Direct user standing approval in this 이전 Work (bbb2164c-5198-4732-b08a-22ac1ef252a2), applied to the Hero 15 CV display slice.",
+  "charImageId": 15,
+  "cvNameRaw": "小清水亚美",
+  "nameKo": "코시미즈 아미",
+  "displayAuthority": "PROJECT_DISPLAY_ONLY",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "records": [
+      {
+        "path": "data/presentation/hero-cv-localization-stage4-freeze.v1.json",
+        "locator": "records[32]/sourceValue=小清水亚美",
+        "gitBlobSha1": "1b599f4aa49268ea5723bbc59c1a72d7fb1257ba",
+        "sha256": "aebc7b7f044739ad2ad5394c149a7059eeac79744b23676f14591ded827e1b37"
+      },
+      {
+        "path": "data/validation/hero-page-stage5-5-2-cv.v1.json",
+        "locator": "heroes[13]/heroId=15",
+        "gitBlobSha1": "67c21e9097ac95110a5ff53b8889f677e4f34d17",
+        "sha256": "7bf444d23c86d05b642baafdedba4fe15b9201a86c2ecebcd8426e526eeb9a71"
+      }
+    ],
+    "transformation": "Resolve Hero 15 validation row by HeroID and CharImageID, then match its exact CVName to the scoped Legacy Korean mapping."
+  }
+}
