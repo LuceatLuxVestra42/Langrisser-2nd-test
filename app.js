@@ -189,7 +189,7 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
   return { showAll, showTarget, update };
 }
 
-function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }, talent = null, profile = null) {
+function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }, talent = null, profile = null, extraSections = []) {
   const expectedHeroId = heroId;
   if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== 1) {
     throw new Error(`Unsupported Hero ${heroId} minimal detail consumer`);
@@ -224,6 +224,7 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
   }
   article.append(equipment, effect);
   if (talent) article.append(makeTalentPresentation(heroId, talent));
+  article.append(...extraSections);
   container.replaceChildren(article);
   return {
     showTarget(heroId) {
@@ -264,8 +265,6 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       && ['NORMAL', 'SP'].includes(row.namespace) && typeof row.nameKo === 'string' && row.nameKo.trim())) {
     throw new Error('Hero 15 Soldier consumer is malformed');
   }
-  const navigation = renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
-    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile);
   const section = document.createElement('section');
   const heading = document.createElement('h4');
   heading.textContent = '용병';
@@ -276,8 +275,8 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     list.append(item);
   }
   section.append(heading, list);
-  container.firstElementChild.append(section);
-  return navigation;
+  return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [section]);
 }
 
 function renderHero16MinimalDetailView(data, container) {

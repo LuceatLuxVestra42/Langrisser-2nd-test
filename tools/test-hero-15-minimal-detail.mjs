@@ -67,7 +67,6 @@ assert.deepEqual(equipmentNavigation.records.find(({ equipmentId }) => equipment
 
 const element = () => ({
   children: [],
-  get firstElementChild() { return this.children[0]; },
   append(...children) { this.children.push(...children); },
   replaceChildren(...children) { this.children = children; },
 });
