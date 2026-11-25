@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'fetterGold', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldierCommandLinesKo', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'centralDisciplineGoldTotal', 'exclusiveEquipment', 'fetterGold', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldierCommandLinesKo', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -105,10 +105,60 @@ assert.ok(paragraphs.includes('성결한 수녀'));
 const castingSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '중앙율정');
 assert.deepEqual(castingSection.children[1].children.map(({ textContent }) => textContent), [
   '어게인 스킬의 사거리 +1', '어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동',
+  'Lv.1~10 합계 골드 10,800,000',
 ]);
 assert.doesNotMatch(generatedText, /90089|辉耀祝祈|effectRow/);
 fails((x) => { x.profileInputs.centralDisciplineDecision.skillId = 10816; }, /Central Discipline publication scope/);
 fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 90089).descriptionCn += 'x'; }, /Central Discipline publication scope/);
+const expectedCastingLawGroups = [
+  [14, [66, 67, 68, 69, 70, 10066, 10067, 10068, 10069, 10070], 1800000],
+  [12, [56, 57, 58, 59, 60, 10056, 10057, 10058, 10059, 10060], 1800000],
+  [37, [181, 182, 183, 184, 185, 10181, 10182, 10183, 10184, 10185], 1800000],
+  [40, [196, 197, 198, 199, 200, 10196, 10197, 10198, 10199, 10200], 3600000],
+  [41, [201, 202, 203, 204, 205, 10201, 10202, 10203, 10204, 10205], 1800000],
+];
+const { castingLawHero, castingLawLevels, castingLawRaw } = inputs.profileInputs;
+assert.deepEqual(castingLawHero.records.map(row => [row.heroId, row.templateId]), expectedCastingLawGroups.map(([id]) => [15, id]));
+assert.deepEqual(castingLawLevels.records.map(row => [row.templateId, row.sourceArrayIndex, row.levelUpInfoId]),
+  expectedCastingLawGroups.flatMap(([id, levels]) => levels.map((levelId, index) => [id, index, levelId])));
+const costsByLevelUp = new Map(castingLawRaw.records.map(({ levelUpInfoId, rawFields }) => [levelUpInfoId, rawFields.LevelUpGoldCost]));
+assert.equal(costsByLevelUp.size, 50);
+assert.deepEqual(expectedCastingLawGroups.map(([, ids]) =>
+  ids.reduce((subtotal, id) => subtotal + costsByLevelUp.get(id), 0)), expectedCastingLawGroups.map(([, , subtotal]) => subtotal));
+assert.equal(generated.heroes[0].centralDisciplineGoldTotal, 10800000);
+assert.doesNotMatch(generatedText, /LevelUpGoldCost|castingLawTemplate|levelUpInfoId|LevelupMaterialsCost|subtotalGold/);
+fails((x) => { x.profileInputs.centralDisciplineGoldDecision.approval.originalMessageId = 'other'; }, /Gold publication scope/);
+fails((x) => { x.profileInputs.centralDisciplineGoldDecision.unit = 'material'; }, /Gold publication scope/);
+fails((x) => { x.profileInputs.centralDisciplineGoldDecision.source.field = 'LevelupMaterialsCost'; }, /Gold publication scope/);
+fails((x) => { x.profileInputs.centralDisciplineGoldDecision.levels = [1, 11]; }, /Gold publication scope/);
+fails((x) => { x.profileInputs.centralDisciplineGoldDecision.templates[3].subtotalGold = 1800000; }, /Gold source projection or subtotal/);
+fails((x) => { x.profileInputs.centralDisciplineGoldDecision.totalGold = 10000000; }, /Gold approved total/);
+fails((x) => { x.profileInputs.castingLawHero.records[0].heroId = 16; }, /Gold Hero–Template/);
+fails((x) => { x.profileInputs.castingLawHero.records[0].templateId = 12; }, /Gold Hero–Template/);
+fails((x) => { x.profileInputs.castingLawLevels.records[0].templateId = 12; }, /Gold Template–LevelUp/);
+fails((x) => { x.profileInputs.castingLawLevels.records[0].levelUpInfoId = 67; }, /Gold LevelUp order or uniqueness/);
+fails((x) => { x.profileInputs.castingLawLevels.records.pop(); }, /Gold Canonical population/);
+fails((x) => { x.profileInputs.castingLawLevels.records.push({ ...x.profileInputs.castingLawLevels.records[9], sourceArrayIndex: 10 }); }, /Gold Canonical population/);
+fails((x) => { x.profileInputs.castingLawLevels.records[9].sourceArrayIndex = 10; }, /Gold Template–LevelUp/);
+fails((x) => { x.profileInputs.castingLawLevels.records[0].levelUpEndpointNamespace = 'ConfigDataItemInfo.ID'; }, /Gold Template–LevelUp/);
+fails((x) => { x.profileInputs.castingLawLevels.records[0].levelUpSourceArrayIndex = 66; }, /Gold source projection or subtotal/);
+fails((x) => { x.profileInputs.castingLawRaw.records[0].rawFields.ID = 67; }, /Gold endpoint or value/);
+fails((x) => { x.profileInputs.castingLawRaw.records[0].rawFields.LevelupMaterialsCost = 25000; }, /Gold raw fields/);
+fails((x) => { delete x.profileInputs.castingLawRaw.records[0].rawFields.LevelUpGoldCost; }, /Gold raw fields/);
+fails((x) => {
+  const [a, b] = x.profileInputs.castingLawRaw.records;
+  [a.rawFields.LevelUpGoldCost, b.rawFields.LevelUpGoldCost] = [b.rawFields.LevelUpGoldCost, a.rawFields.LevelUpGoldCost];
+}, /Gold source projection or subtotal/);
+for (const value of ['25000', null, 0, -1, 1.5]) {
+  fails((x) => { x.profileInputs.castingLawRaw.records[0].rawFields.LevelUpGoldCost = value; }, /Gold endpoint or value/);
+}
+for (const value of [undefined, '10800000', null, 0, { gold: 10800000, materials: [] }]) {
+  const invalid = structuredClone(generated);
+  invalid.heroes[0].centralDisciplineGoldTotal = value;
+  assert.throws(() => render(invalid, talent, element()), /Central Discipline Gold consumer/);
+  assert.throws(() => validateHero15MinimalDetail({ generatedText: JSON.stringify(invalid, null, 2) + '\n', inputs }), /stale or non-deterministic/);
+}
+assert.throws(() => validateHero15MinimalDetail({ generatedText: generatedText.replace('"centralDisciplineGoldTotal": 10800000', '"centralDisciplineGoldTotal": 10800001'), inputs }), /stale or non-deterministic/);
 const awakeningSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '각성 재료');
 assert.deepEqual(awakeningSection.children[1].children.map(({ textContent }) => textContent), [
   '1단계 · 생령의 수정 × 8', '1단계 · 심연의 수정 × 8', '1단계 · 빛나는 별의 조각 × 5',

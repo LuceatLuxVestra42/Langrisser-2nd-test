@@ -253,7 +253,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, soldiers, soldierCommandLinesKo, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, bond2DescriptionKo, bond3DescriptionKo, bond4DescriptionKo, bond5DescriptionKo, fetterGold, ...baseHero } = hero ?? {};
+  const { profile, soldiers, soldierCommandLinesKo, jobPaths, ordinarySkills, centralDisciplineEffectKo, centralDisciplineGoldTotal, awakeningMaterials, bond2DescriptionKo, bond3DescriptionKo, bond4DescriptionKo, bond5DescriptionKo, fetterGold, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'cvNameKo,factions,rarity,sourceNames'
@@ -314,7 +314,13 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   if (typeof centralDisciplineEffectKo !== 'string' || !centralDisciplineEffectKo.trim()) {
     throw new Error('Hero 15 Central Discipline consumer is malformed');
   }
-  const centralDisciplineSection = renderMinimalDetailList('중앙율정', centralDisciplineEffectKo.split('\n'));
+  if (!Number.isSafeInteger(centralDisciplineGoldTotal) || centralDisciplineGoldTotal <= 0) {
+    throw new Error('Hero 15 Central Discipline Gold consumer is malformed');
+  }
+  const centralDisciplineSection = renderMinimalDetailList('중앙율정', [
+    ...centralDisciplineEffectKo.split('\n'),
+    `Lv.1~10 합계 골드 ${centralDisciplineGoldTotal.toLocaleString('ko-KR')}`,
+  ]);
   const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo }) =>
     [nameKo, typeLabelKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, descriptionKo]
       .filter((part) => part !== undefined).join(' · ')));

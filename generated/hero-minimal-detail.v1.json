@@ -160,6 +160,7 @@
         }
       ],
       "centralDisciplineEffectKo": "어게인 스킬의 사거리 +1\n어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동",
+      "centralDisciplineGoldTotal": 10800000,
       "awakeningMaterials": {
         "noticeKo": "현재 검증된 각성 재료 6개를 표시합니다.",
         "stages": [

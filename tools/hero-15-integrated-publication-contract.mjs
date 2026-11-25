@@ -1,5 +1,6 @@
 import { loadAwakeningInputs, renderAwakeningInternal } from './hero-15-awakening-internal-consumer.mjs';
 import { createHash } from 'node:crypto';
+import { isDeepStrictEqual } from 'node:util';
 import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
@@ -88,8 +89,14 @@ const ordinarySkillCostOwnerPath = 'canonical/hero-15-ordinary-skill-costs.v1.js
 const ordinarySkillCooldownOwnerPath = 'canonical/hero-15-ordinary-skill-cooldowns.v1.json';
 const ordinarySkillDistanceOwnerPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 
+const centralDisciplineGoldPaths = {
+  hero: 'canonical/hero-casting-law-template-references.v1.json',
+  levels: 'canonical/casting-law-template-level-references.v1.json',
+  raw: 'canonical/casting-law-levelup-raw-details.v1.json',
+};
+
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -128,8 +135,13 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-type-publication.v1.json'),
     readJson(hero15TypeEvidencePath),
     readJson(hero15TypeCanonicalPath),
+    readJson('docs/decisions/hero-15-minimal-central-discipline-gold-publication.v1.json'),
+    readJson(centralDisciplineGoldPaths.hero),
+    readJson(centralDisciplineGoldPaths.levels),
+    readJson(centralDisciplineGoldPaths.raw),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
+    centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -557,6 +569,71 @@ function renderHero15CentralDiscipline({ centralDisciplineDecision: decision, sk
   return decision.effectTextKo;
 }
 
+function renderHero15CentralDisciplineGold({ centralDisciplineGoldDecision: decision, castingLawHero, castingLawLevels, castingLawRaw }) {
+  const templateIds = [14, 12, 37, 40, 41];
+  const range = [1, 10];
+  // Ordered [template ID, list index, explicit LevelUp ID, raw row index, gold] tuples
+  // independently verified against the pinned ConfigData snapshots.
+  const projectionSha256 = '007f15969a64646a3b73d99af091453dae0d530e1988bbe6d1b825907491ef8d';
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 15
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.field !== 'centralDisciplineGoldTotal'
+    || decision.unit !== 'gold' || !isDeepStrictEqual(decision.levels, range)
+    || decision.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL'
+    || decision.approval.workId !== '6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716'
+    || decision.approval.originalMessageId !== '48a8bc75-6dbb-42c3-83b9-a185c0d0d25c'
+    || !isDeepStrictEqual(decision.canonicalSources, centralDisciplineGoldPaths)
+    || decision.source?.field !== 'LevelUpGoldCost' || decision.source.orderedProjectionSha256 !== projectionSha256
+    || !Array.isArray(decision.templates) || !isDeepStrictEqual(decision.templates.map(row => row.templateId), templateIds)) {
+    throw new Error('Hero 15 Central Discipline Gold publication scope mismatch');
+  }
+  for (const [owner, count] of [[castingLawHero, 5], [castingLawLevels, 50], [castingLawRaw, 50]]) {
+    if (owner?.schemaVersion !== 1 || !Array.isArray(owner.records) || owner.records.length !== count) {
+      throw new Error('Hero 15 Central Discipline Gold Canonical population mismatch');
+    }
+  }
+  if (!isDeepStrictEqual(castingLawLevels.sourceOrder, templateIds)
+    || !castingLawHero.records.every((row, index) => row.heroId === 15 && row.templateId === templateIds[index]
+      && row.sourceArrayIndex === index && row.sourceField === 'ConfigDataHeroInfo.CastingLawTemplates_ID'
+      && row.templateNamespace === 'ConfigDataCastingLawTemplateInfo.ID')) {
+    throw new Error('Hero 15 Central Discipline Gold Hero–Template references mismatch');
+  }
+
+  const levelUpIds = castingLawLevels.records.map(row => row.levelUpInfoId);
+  if (new Set(levelUpIds).size !== 50 || !isDeepStrictEqual(castingLawRaw.sourceOrder, levelUpIds)) {
+    throw new Error('Hero 15 Central Discipline Gold LevelUp order or uniqueness mismatch');
+  }
+  const subtotals = new Map(templateIds.map(id => [id, 0]));
+  const tuples = castingLawLevels.records.map((row, index) => {
+    const { templateId, sourceArrayIndex, levelUpInfoId, levelUpSourceArrayIndex } = row;
+    const template = decision.templates[Math.floor(index / 10)];
+    exactKeys(row, ['templateId', 'sourceField', 'sourceArrayIndex', 'levelUpInfoId', 'levelUpEndpointNamespace', 'levelUpSourceArrayIndex', 'levelUpRecordLocator'], 'Central Discipline Gold level reference');
+    if (template.levelUpInfoIds?.length !== 10 || template.templateId !== templateId
+      || sourceArrayIndex !== index % 10 || template.levelUpInfoIds[sourceArrayIndex] !== levelUpInfoId
+      || row.sourceField !== 'ConfigDataCastingLawTemplateInfo.CastingLawLevelUpInfoList'
+      || row.levelUpEndpointNamespace !== 'ConfigDataCastingLawLevelUpInfo.ID'
+      || row.levelUpRecordLocator !== `ConfigDataCastingLawLevelUpInfo#ID=${levelUpInfoId}`) {
+      throw new Error('Hero 15 Central Discipline Gold Template–LevelUp reference mismatch');
+    }
+    const detail = castingLawRaw.records[index];
+    exactKeys(detail, ['levelUpInfoId', 'rawFields', 'provenance'], 'Central Discipline Gold LevelUp detail');
+    exactKeys(detail.rawFields, ['ID', 'Name', 'LevelUpGoldCost'], 'Central Discipline Gold raw fields');
+    const { ID, LevelUpGoldCost } = detail.rawFields;
+    if (detail.levelUpInfoId !== levelUpInfoId || ID !== levelUpInfoId
+      || !Number.isSafeInteger(LevelUpGoldCost) || LevelUpGoldCost <= 0) {
+      throw new Error('Hero 15 Central Discipline Gold endpoint or value mismatch');
+    }
+    subtotals.set(templateId, subtotals.get(templateId) + LevelUpGoldCost);
+    return [templateId, sourceArrayIndex, levelUpInfoId, levelUpSourceArrayIndex, LevelUpGoldCost];
+  });
+  if (createHash('sha256').update(JSON.stringify(tuples)).digest('hex') !== projectionSha256
+    || !decision.templates.every(row => subtotals.get(row.templateId) === row.subtotalGold)) {
+    throw new Error('Hero 15 Central Discipline Gold source projection or subtotal mismatch');
+  }
+  const total = [...subtotals.values()].reduce((sum, gold) => sum + gold, 0);
+  if (total !== decision.totalGold) throw new Error('Hero 15 Central Discipline Gold approved total mismatch');
+  return total;
+}
+
 function renderHero15AwakeningMaterials({ awakeningDecision: decision, awakeningInputs }) {
   const expected = [
     [1015, [[3247, '생령의 수정', 8], [3249, '심연의 수정', 8], [3253, '빛나는 별의 조각', 5]]],
@@ -673,6 +750,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       soldierCommandLinesKo: renderHero15SoldierCommand(profileInputs),
       jobPaths: renderHero15JobPaths(jobInputs),
       centralDisciplineEffectKo: renderHero15CentralDiscipline(profileInputs),
+      centralDisciplineGoldTotal: renderHero15CentralDisciplineGold(profileInputs),
       awakeningMaterials: renderHero15AwakeningMaterials(profileInputs),
       bond2DescriptionKo: renderHero15Bond2Description(profileInputs, heroName[0].nameKo),
       bond3DescriptionKo: renderHero15Bond3Description(profileInputs),
@@ -737,7 +815,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'soldierCommandLinesKo', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'fetterGold'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'soldierCommandLinesKo', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'centralDisciplineGoldTotal', 'awakeningMaterials', 'bond2DescriptionKo', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'fetterGold'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;
