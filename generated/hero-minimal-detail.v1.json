@@ -24,6 +24,64 @@
           }
         ]
       },
+      "soldiers": [
+        {
+          "namespace": "NORMAL",
+          "nameKo": "하이랜더"
+        },
+        {
+          "namespace": "NORMAL",
+          "nameKo": "템플러"
+        },
+        {
+          "namespace": "NORMAL",
+          "nameKo": "하이엘프"
+        },
+        {
+          "namespace": "NORMAL",
+          "nameKo": "마법사"
+        },
+        {
+          "namespace": "NORMAL",
+          "nameKo": "신관"
+        },
+        {
+          "namespace": "NORMAL",
+          "nameKo": "퇴마사"
+        },
+        {
+          "namespace": "NORMAL",
+          "nameKo": "영종의 투승"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "하이랜더"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "템플러"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "하이엘프"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "마법사"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "신관"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "퇴마사"
+        },
+        {
+          "namespace": "SP",
+          "nameKo": "영종의 투승"
+        }
+      ],
       "exclusiveEquipment": {
         "equipmentId": 535,
         "nameKo": "완벽한 찬사",

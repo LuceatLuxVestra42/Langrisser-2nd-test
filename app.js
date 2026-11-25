@@ -248,7 +248,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, ...baseHero } = hero ?? {};
+  const { profile, soldiers, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'factions,rarity'
@@ -259,8 +259,25 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     || JSON.stringify(profile.factions.map(({ factionId, nameKo }) => [factionId, nameKo])) !== '[[1,"시대의 주역"],[2,"빛의 군단"],[6,"공주 연맹"]]') {
     throw new Error('Hero 15 profile consumer is malformed or outside its approved publication scope');
   }
-  return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
+  if (!Array.isArray(soldiers) || soldiers.length !== 14 || !soldiers.every((row) =>
+    Object.keys(row ?? {}).sort().join(',') === 'nameKo,namespace'
+      && ['NORMAL', 'SP'].includes(row.namespace) && typeof row.nameKo === 'string' && row.nameKo.trim())) {
+    throw new Error('Hero 15 Soldier consumer is malformed');
+  }
+  const navigation = renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
     { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile);
+  const section = document.createElement('section');
+  const heading = document.createElement('h4');
+  heading.textContent = '용병';
+  const list = document.createElement('ul');
+  for (const { namespace, nameKo } of soldiers) {
+    const item = document.createElement('li');
+    item.textContent = `${namespace} · ${nameKo}`;
+    list.append(item);
+  }
+  section.append(heading, list);
+  container.firstElementChild.append(section);
+  return navigation;
 }
 
 function renderHero16MinimalDetailView(data, container) {

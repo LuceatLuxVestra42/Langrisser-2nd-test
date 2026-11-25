@@ -3,7 +3,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -19,10 +19,10 @@ const sourceHashes = Object.fromEntries(await Promise.all([
   ['equipmentIdentity', 'canonical/exclusive-equipment.v1.json'],
   ['equipmentLocalization', 'canonical/exclusive-equipment-localizations-ko.v1.json'],
 ].map(async ([key, path]) => [key, createHash('sha256').update(await readFile(path)).digest('hex')])));
-const inputs = { profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
+const inputs = { soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['exclusiveEquipment', 'heroId', 'nameKo', 'profile']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['exclusiveEquipment', 'heroId', 'nameKo', 'profile', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -67,6 +67,7 @@ assert.deepEqual(equipmentNavigation.records.find(({ equipmentId }) => equipment
 
 const element = () => ({
   children: [],
+  get firstElementChild() { return this.children[0]; },
   append(...children) { this.children.push(...children); },
   replaceChildren(...children) { this.children = children; },
 });
@@ -86,6 +87,12 @@ assert.ok(paragraphs.includes('등급 · SSR'));
 assert.ok(paragraphs.includes('진영 · 시대의 주역 · 빛의 군단 · 공주 연맹'));
 assert.ok(paragraphs.includes('완벽한 찬사 (Equipment ID 535)'));
 assert.ok(paragraphs.includes('성결한 수녀'));
+const soldierSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '용병');
+const soldierLabels = soldierSection.children[1].children.map(({ textContent }) => textContent);
+assert.equal(soldierLabels.length, 14);
+assert.ok(soldierLabels.includes('NORMAL · 하이랜더'));
+assert.ok(soldierLabels.includes('SP · 하이랜더'));
+fails((x) => { x.soldierInputs.approval.soldiers.pop(); }, /approved subset/);
 assert.equal(navigation.showTarget(15), true);
 assert.equal(target.scrolled, true);
 assert.equal(navigation.showTarget(16), false);
