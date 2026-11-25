@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "workId": "6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716",
+    "originalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c"
+  },
+  "baselineHead": "0dba2e1065a5ab1c56fa5a73c20f790aa646e5f5",
+  "owner": "canonical/hero-15-ordinary-skill-types.v1.json",
+  "legacyComparison": {
+    "role": "Display corroboration only",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "shardPath": "data/generated/hero-detail/by-id/15.json",
+    "shardBlobSha1": "7cc3f9e79395e79b08d99c79905f69a0bba9b1bb",
+    "shardSha256": "4f8898695db8424ee8a86e035560fa93b2c9ded8aaa01f2164be66e0462e8ba7",
+    "routePath": "src/routes/heroes_.$heroId.tsx",
+    "routeBlobSha1": "fd31e42653c377ea6b2e21ae84eff8e211d27f44",
+    "pageUrl": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "htmlSha256": "25e81252961161081899c84e93fe84cee7ee63956f8f5586679989a588789ff1",
+    "cardIdentification": "Only ordinary skill articles under data-hero-equipable-skills=true. Match the fixed skillId-to-shard mapping, the card icon and exact Korean h4, then compare the type badge in data-hero-skill-metadata. The pinned Legacy renderer maps displayType via the pinned Korean mapping. Icons and UI corroborate display only.",
+    "mappingPath": "src/lib/hero-skill-display-type-presentation.ts",
+    "mappingBlobSha1": "c88dc1a8dca4bfe0591c1b3d32b511c3a97a7e36"
+  },
+  "scope": "Only Hero 15 ordinary Skill typeLabelKo. Allow exactly the five verified Korean labels. Row-level display holds require all nine raw TypeText records to pass Skill Owner validation first.",
+  "rows": [
+    {
+      "skillId": 10801,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/heroDirectSkills/0/displayType",
+      "shardTypeText": "治疗",
+      "legacyCardIcon": "Skill_Heal.png",
+      "legacyTypeLabelKo": "치료"
+    },
+    {
+      "skillId": 10816,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/0/skill/displayType",
+      "shardTypeText": "支援",
+      "legacyCardIcon": "Skill_NewTurn.png",
+      "legacyTypeLabelKo": "지원"
+    },
+    {
+      "skillId": 10805,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/1/skill/displayType",
+      "shardTypeText": "支援",
+      "legacyCardIcon": "Skill_Bless.png",
+      "legacyTypeLabelKo": "지원"
+    },
+    {
+      "skillId": 10707,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/2/skill/displayType",
+      "shardTypeText": "魔法伤害",
+      "legacyCardIcon": "Skill_WindStrike.png",
+      "legacyTypeLabelKo": "마법 피해"
+    },
+    {
+      "skillId": 10705,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/3/skill/displayType",
+      "shardTypeText": "魔法伤害",
+      "legacyCardIcon": "Skill_IceBolt.png",
+      "legacyTypeLabelKo": "마법 피해"
+    },
+    {
+      "skillId": 10804,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/4/skill/displayType",
+      "shardTypeText": "支援",
+      "legacyCardIcon": "Skill_MassDefup.png",
+      "legacyTypeLabelKo": "지원"
+    },
+    {
+      "skillId": 10807,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/5/skill/displayType",
+      "shardTypeText": "治疗",
+      "legacyCardIcon": "Skill_HealSuper.png",
+      "legacyTypeLabelKo": "치료"
+    },
+    {
+      "skillId": 6009,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/6/skill/displayType",
+      "shardTypeText": "被动",
+      "legacyCardIcon": "Skill_Meditation.png",
+      "legacyTypeLabelKo": "패시브"
+    },
+    {
+      "skillId": 11786,
+      "status": "APPROVED",
+      "shardTypePointer": "/normal/skills/jobLevelAcquisitions/7/skill/displayType",
+      "shardTypeText": "召唤",
+      "legacyCardIcon": "Skill_SkyArcher01.png",
+      "legacyTypeLabelKo": "소환"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 ordinary Skills only. Exact source-native TypeText strings. No numeric SkillType, battle semantics, or publication authority.",
+  "records": [
+    {
+      "heroId": 15,
+      "skillId": 10801,
+      "typeText": "治疗",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10801]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10816,
+      "typeText": "支援",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10816]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10805,
+      "typeText": "支援",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10805]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10707,
+      "typeText": "魔法伤害",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10707]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10705,
+      "typeText": "魔法伤害",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10705]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10804,
+      "typeText": "支援",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10804]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10807,
+      "typeText": "治疗",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=10807]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 6009,
+      "typeText": "被动",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=6009]/rawRecord/TypeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 11786,
+      "typeText": "召唤",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json#records[ID=11786]/rawRecord/TypeText"
+    }
+  ]
+}

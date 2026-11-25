@@ -22,6 +22,8 @@ const hero15DistanceEvidencePath = 'evidence/source/configdata/ConfigDataSkillIn
 const hero15DistanceCanonicalPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 export const hero15AreaEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json';
 export const hero15AreaCanonicalPath = 'canonical/hero-15-ordinary-skill-areas.v1.json';
+export const hero15TypeEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json';
+export const hero15TypeCanonicalPath = 'canonical/hero-15-ordinary-skill-types.v1.json';
 const canonicalPath = 'canonical/skills.v1.json';
 const talentPath = 'canonical/hero-talent-star-skills.v1.json';
 const expected = [
@@ -199,6 +201,18 @@ export function validateHero15OrdinarySkillAreas(evidence, canonical) {
   validateHero15OrdinarySkillText(evidence, canonical, {
     evidenceFile: hero15AreaEvidencePath,
     rawField: 'RangeText', ownerField: 'rangeText', claim: 'AREA', sourceTexts,
+  });
+}
+
+export function validateHero15OrdinarySkillTypes(evidence, canonical) {
+  // Exact TypeText values read by explicit Skill ID from the pinned raw JSON.
+  const sourceTexts = new Map([
+    [10801, '治疗'], [10816, '支援'], [10805, '支援'], [10707, '魔法伤害'], [10705, '魔法伤害'],
+    [10804, '支援'], [10807, '治疗'], [6009, '被动'], [11786, '召唤'],
+  ]);
+  validateHero15OrdinarySkillText(evidence, canonical, {
+    evidenceFile: hero15TypeEvidencePath,
+    rawField: 'TypeText', ownerField: 'typeText', claim: 'TYPE', sourceTexts,
   });
 }
 
@@ -653,11 +667,16 @@ export async function validateSkillIdentities(root = process.cwd()) {
     readJson(root, hero15AreaEvidencePath), readJson(root, hero15AreaCanonicalPath),
   ]);
   validateHero15OrdinarySkillAreas(areaEvidence, areas);
+  const [typeEvidence, types] = await Promise.all([
+    readJson(root, hero15TypeEvidencePath), readJson(root, hero15TypeCanonicalPath),
+  ]);
+  validateHero15OrdinarySkillTypes(typeEvidence, types);
   console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
   console.log('Hero 15 ordinary SkillCost validation: PASS (9 exact source-native rows)');
   console.log('Hero 15 ordinary CDText validation: PASS (9 exact source-native strings)');
   console.log('Hero 15 ordinary DistanceText validation: PASS (9 exact source-native strings)');
   console.log('Hero 15 ordinary RangeText validation: PASS (9 exact source-native strings)');
+  console.log('Hero 15 ordinary TypeText validation: PASS (9 exact source-native strings)');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

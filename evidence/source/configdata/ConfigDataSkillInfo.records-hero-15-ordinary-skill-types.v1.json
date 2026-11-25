@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "responsibility": "skill-identity-and-source-detail",
+  "heroId": 15,
+  "sourceScope": "CN ConfigData snapshot 2026-09-02",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "commitTree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "sizeBytes": 20948140,
+    "recordCount": 27198
+  },
+  "extraction": "Strict UTF-8 JSON with duplicate object keys rejected. All 27,198 top-level numeric IDs are unique. Select the nine explicit Hero 15 ordinary Skill IDs and preserve TypeText verbatim. Array index is a locator only.",
+  "limitation": "Verify all nine exact TypeText strings together. TypeText is a source-native display field. SkillType codes, tags, battle semantics and publication permission are outside this claim.",
+  "records": [
+    {
+      "sourceRecordIndex": 1913,
+      "fieldLocator": "/1913/TypeText",
+      "rawRecord": {
+        "ID": 10801,
+        "TypeText": "治疗"
+      }
+    },
+    {
+      "sourceRecordIndex": 1932,
+      "fieldLocator": "/1932/TypeText",
+      "rawRecord": {
+        "ID": 10816,
+        "TypeText": "支援"
+      }
+    },
+    {
+      "sourceRecordIndex": 1917,
+      "fieldLocator": "/1917/TypeText",
+      "rawRecord": {
+        "ID": 10805,
+        "TypeText": "支援"
+      }
+    },
+    {
+      "sourceRecordIndex": 1896,
+      "fieldLocator": "/1896/TypeText",
+      "rawRecord": {
+        "ID": 10707,
+        "TypeText": "魔法伤害"
+      }
+    },
+    {
+      "sourceRecordIndex": 1894,
+      "fieldLocator": "/1894/TypeText",
+      "rawRecord": {
+        "ID": 10705,
+        "TypeText": "魔法伤害"
+      }
+    },
+    {
+      "sourceRecordIndex": 1916,
+      "fieldLocator": "/1916/TypeText",
+      "rawRecord": {
+        "ID": 10804,
+        "TypeText": "支援"
+      }
+    },
+    {
+      "sourceRecordIndex": 1921,
+      "fieldLocator": "/1921/TypeText",
+      "rawRecord": {
+        "ID": 10807,
+        "TypeText": "治疗"
+      }
+    },
+    {
+      "sourceRecordIndex": 1805,
+      "fieldLocator": "/1805/TypeText",
+      "rawRecord": {
+        "ID": 6009,
+        "TypeText": "被动"
+      }
+    },
+    {
+      "sourceRecordIndex": 2028,
+      "fieldLocator": "/2028/TypeText",
+      "rawRecord": {
+        "ID": 11786,
+        "TypeText": "召唤"
+      }
+    }
+  ]
+}
