@@ -253,7 +253,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, soldiers, jobPaths, ...baseHero } = hero ?? {};
+  const { profile, soldiers, jobPaths, ordinarySkills, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'cvNameKo,factions,rarity,sourceNames'
@@ -278,10 +278,21 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       && typeof row.toNameKo === 'string' && row.toNameKo.trim())) {
     throw new Error('Hero 15 Job consumer is malformed');
   }
+  const expectedSkillIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
+  const namesOnly = new Set([10705, 10804, 6009]);
+  if (!Array.isArray(ordinarySkills)
+    || JSON.stringify(ordinarySkills.map((row) => row?.skillId)) !== JSON.stringify(expectedSkillIds)
+    || !ordinarySkills.every(({ skillId, nameKo, descriptionKo, ...fields }) =>
+      Object.keys(fields).length === 0 && typeof nameKo === 'string' && nameKo.trim()
+      && (namesOnly.has(skillId) ? descriptionKo === undefined : typeof descriptionKo === 'string' && descriptionKo.trim()))) {
+    throw new Error('Hero 15 ordinary Skill consumer is malformed');
+  }
+  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo }) =>
+    descriptionKo === undefined ? nameKo : `${nameKo} · ${descriptionKo}`));
   const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
   const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo }) => `${fromNameKo} → ${toNameKo}`));
   return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
-    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, jobSection]);
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, jobSection, skillSection]);
 }
 
 function renderMinimalDetailList(title, labels) {
