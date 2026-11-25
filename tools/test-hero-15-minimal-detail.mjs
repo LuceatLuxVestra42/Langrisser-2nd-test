@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond3DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -125,6 +125,17 @@ fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage2Sourc
 const leakedAwakening = structuredClone(generated);
 leakedAwakening.heroes[0].awakeningMaterials.stages[0].materials[0].itemId = 3247;
 assert.throws(() => render(leakedAwakening, talent, element()), /Awakening material consumer/);
+const bond3Section = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '유대 3');
+assert.deepEqual(bond3Section.children[1].children.map(({ textContent }) => textContent), ['프로핏으로 전직']);
+assert.doesNotMatch(generatedText, /5050|莉亚娜转职成为先知|fetterId|Parm1|Param2/);
+fails((x) => { x.profileInputs.bond3Decision.missionId = 5051; }, /Bond 3 description publication scope/);
+fails((x) => { x.profileInputs.bond3Decision.heroId = 16; }, /Bond 3 description publication scope/);
+fails((x) => { x.profileInputs.bond3Decision.fetterId = 69; }, /Bond 3 description publication scope/);
+fails((x) => { x.profileInputs.fetterDetails.records.find(({ endpointId }) => endpointId === 68)
+  .fields.CompletionConditions.find(({ ConditionType }) => ConditionType === 2).Parm1 = 5051; }, /Bond 3 description publication scope/);
+const leakedBond = structuredClone(generated);
+leakedBond.heroes[0].bond3DescriptionKo = { text: '프로핏으로 전직', missionId: 5050 };
+assert.throws(() => render(leakedBond, talent, element()), /Bond 3 description consumer/);
 const skillSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
 const skillLabels = skillSection.children[1].children.map(({ textContent }) => textContent);
 assert.equal(skillLabels.length, 9);

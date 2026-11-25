@@ -253,7 +253,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   const hero = data?.heroes?.[0];
-  const { profile, soldiers, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, ...baseHero } = hero ?? {};
+  const { profile, soldiers, jobPaths, ordinarySkills, centralDisciplineEffectKo, awakeningMaterials, bond3DescriptionKo, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
     || Object.keys(profile ?? {}).sort().join(',') !== 'cvNameKo,factions,rarity,sourceNames'
@@ -311,8 +311,12 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const notice = document.createElement('p');
   notice.textContent = awakeningMaterials.noticeKo;
   awakeningSection.append(notice);
+  if (bond3DescriptionKo !== '프로핏으로 전직') {
+    throw new Error('Hero 15 Bond 3 description consumer is malformed');
+  }
+  const bond3Section = renderMinimalDetailList('유대 3', [bond3DescriptionKo]);
   return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
-    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, jobSection, skillSection, centralDisciplineSection, awakeningSection]);
+    { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond3Section]);
 }
 
 function renderMinimalDetailList(title, labels) {

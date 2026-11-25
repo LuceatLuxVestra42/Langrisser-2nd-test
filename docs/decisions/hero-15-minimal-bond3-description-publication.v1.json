@@ -1,0 +1,29 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "fetterId": 68,
+  "missionId": 5050,
+  "scope": "PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY",
+  "approval": "Standing user authorization bbb2164c-5198-4732-b08a-22ac1ef252a2, scoped to one existing Hero 15 detail display.",
+  "descriptionKo": "프로핏으로 전직",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataMissionInfo.json",
+    "gitBlobSha1": "72c62b297a0664844c3c53dc10452a1b0ca4704d",
+    "sha256": "ae8807de12d09c79eb5a4f0c60cbd5c0580484b567a823ee59f7dba6797f6adb",
+    "locator": "[367]/ID=5050/Desc",
+    "desc": "莉亚娜转职成为先知"
+  },
+  "relationEvidence": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/2",
+  "localizationEvidence": "evidence/localization/job-names-ko.hero-15.v1.json#jobId=811",
+  "crossChecks": [
+    "https://langrisser.fandom.com/wiki/Liana",
+    "https://sites.google.com/view/wikigrisser/heroes/ssr-hero/liana",
+    "https://wiki.biligame.com/langrisser/莉亚娜",
+    "https://github.com/LuceatLuxVestra42/langrisser-future-guide/blob/57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff/data/generated/hero-detail/by-id/15.json"
+  ],
+  "transformation": "Translate only the exact Mission 5050 Desc as a requirement description. The Hero detail already supplies the subject. Use the admitted Korean job label for 先知.",
+  "limitation": "Project translation only. No interpretation of MissionInfo Param values, no additional requirement, condition evaluation, unlock, completion, grouping, or official Korean text claim."
+}
