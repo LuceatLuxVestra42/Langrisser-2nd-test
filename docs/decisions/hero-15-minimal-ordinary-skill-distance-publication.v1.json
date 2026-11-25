@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "workId": "6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716",
+    "originalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c"
+  },
+  "baselineHead": "73bcbf435de39de6ab954319cea18025fb056d0f",
+  "owner": "canonical/hero-15-ordinary-skill-distances.v1.json",
+  "legacyComparison": {
+    "role": "Display corroboration only",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "shardPath": "data/generated/hero-detail/by-id/15.json",
+    "shardBlobSha1": "7cc3f9e79395e79b08d99c79905f69a0bba9b1bb",
+    "shardSha256": "4f8898695db8424ee8a86e035560fa93b2c9ded8aaa01f2164be66e0462e8ba7",
+    "routePath": "src/routes/heroes_.$heroId.tsx",
+    "routeBlobSha1": "fd31e42653c377ea6b2e21ae84eff8e211d27f44",
+    "pageUrl": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "htmlSha256": "25e81252961161081899c84e93fe84cee7ee63956f8f5586679989a588789ff1",
+    "cardIdentification": "Only articles in the Skill section under data-hero-equipable-skills=true; exact unique icon basename from the explicitly ID-keyed shard identifies the DOM article for corroboration. The admitted Korean heading and the sole distance badge or its absence were cross-checked. No name, file or position establishes the source claim or Hero relation."
+  },
+  "scope": "Only Hero 15 ordinary Skill distanceLabelKo. The exact 2格 and 3格 DistanceText strings map to Korean labels. Skill 6009 keeps - internally with no public label. RangeText and BF_Distance are outside this decision. Unresolved rows have no public distance key.",
+  "rows": [
+    {
+      "skillId": 10801,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/heroDirectSkills/0/range",
+      "shardDistanceText": "2格",
+      "legacyCardIcon": "Skill_Heal.png",
+      "legacyDistanceLabelKo": "사거리 2칸"
+    },
+    {
+      "skillId": 10816,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/0/skill/range",
+      "shardDistanceText": "2格",
+      "legacyCardIcon": "Skill_NewTurn.png",
+      "legacyDistanceLabelKo": "사거리 2칸"
+    },
+    {
+      "skillId": 10805,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/1/skill/range",
+      "shardDistanceText": "3格",
+      "legacyCardIcon": "Skill_Bless.png",
+      "legacyDistanceLabelKo": "사거리 3칸"
+    },
+    {
+      "skillId": 10707,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/2/skill/range",
+      "shardDistanceText": "2格",
+      "legacyCardIcon": "Skill_WindStrike.png",
+      "legacyDistanceLabelKo": "사거리 2칸"
+    },
+    {
+      "skillId": 10705,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/3/skill/range",
+      "shardDistanceText": "2格",
+      "legacyCardIcon": "Skill_IceBolt.png",
+      "legacyDistanceLabelKo": "사거리 2칸"
+    },
+    {
+      "skillId": 10804,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/4/skill/range",
+      "shardDistanceText": "3格",
+      "legacyCardIcon": "Skill_MassDefup.png",
+      "legacyDistanceLabelKo": "사거리 3칸"
+    },
+    {
+      "skillId": 10807,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/5/skill/range",
+      "shardDistanceText": "3格",
+      "legacyCardIcon": "Skill_HealSuper.png",
+      "legacyDistanceLabelKo": "사거리 3칸"
+    },
+    {
+      "skillId": 6009,
+      "status": "HIDDEN",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/6/skill/range",
+      "shardDistanceText": "-",
+      "legacyCardIcon": "Skill_Meditation.png",
+      "reason": "The exact - source string has no distance badge on the Legacy ordinary card."
+    },
+    {
+      "skillId": 11786,
+      "status": "APPROVED",
+      "shardDistancePointer": "/normal/skills/jobLevelAcquisitions/7/skill/range",
+      "shardDistanceText": "3格",
+      "legacyCardIcon": "Skill_SkyArcher01.png",
+      "legacyDistanceLabelKo": "사거리 3칸"
+    }
+  ]
+}
