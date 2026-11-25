@@ -150,6 +150,8 @@
         ]
       },
       "bond3DescriptionKo": "프로핏으로 전직",
+      "bond4DescriptionKo": "헤인과 함께 운명의문 5 클리어",
+      "bond5DescriptionKo": "엘윈과 함께 운명의문 7 클리어",
       "ordinarySkills": [
         {
           "skillId": 10801,

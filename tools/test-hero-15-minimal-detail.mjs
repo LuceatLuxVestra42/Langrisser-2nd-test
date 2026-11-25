@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond3DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'bond3DescriptionKo', 'bond4DescriptionKo', 'bond5DescriptionKo', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -136,6 +136,19 @@ fails((x) => { x.profileInputs.fetterDetails.records.find(({ endpointId }) => en
 const leakedBond = structuredClone(generated);
 leakedBond.heroes[0].bond3DescriptionKo = { text: '프로핏으로 전직', missionId: 5050 };
 assert.throws(() => render(leakedBond, talent, element()), /Bond 3 description consumer/);
+for (const [title, expected] of [['유대 4', '헤인과 함께 운명의문 5 클리어'], ['유대 5', '엘윈과 함께 운명의문 7 클리어']]) {
+  const section = container.children[0].children.find(({ children }) => children?.[0]?.textContent === title);
+  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), [expected]);
+}
+assert.doesNotMatch(generatedText, /5051|5052|companionHeroId|stageNameNum|dungeonOwnerHeroId|Param3/);
+fails((x) => { x.profileInputs.bond45Decision.rows[0].stageNameNum = '7'; }, /Bond 4\/5 description publication scope/);
+fails((x) => { x.profileInputs.bond45Decision.rows[0].companionHeroId = 12; }, /Bond 4\/5 description publication scope/);
+fails((x) => { x.profileInputs.bond45Decision.rows[1].missionId = 5051; }, /Bond 4\/5 description publication scope/);
+fails((x) => { x.profileInputs.bond45Decision.rows.pop(); }, /Bond 4\/5 description publication scope/);
+fails((x) => { x.profileInputs.bond45Decision.rows[0].descriptionKo = '헤인과 함께 운명의문 7 클리어'; }, /Bond 4\/5 description source mismatch/);
+const leakedBond45 = structuredClone(generated);
+leakedBond45.heroes[0].bond4DescriptionKo = { text: '헤인과 함께 운명의문 5 클리어', stageId: 155 };
+assert.throws(() => render(leakedBond45, talent, element()), /Bond 4\/5 description consumer/);
 const skillSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
 const skillLabels = skillSection.children[1].children.map(({ textContent }) => textContent);
 assert.equal(skillLabels.length, 9);
