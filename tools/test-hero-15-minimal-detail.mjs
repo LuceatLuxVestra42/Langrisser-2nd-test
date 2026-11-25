@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['awakeningMaterials', 'centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -107,6 +107,21 @@ assert.deepEqual(castingSection.children[1].children.map(({ textContent }) => te
 assert.doesNotMatch(generatedText, /90089|辉耀祝祈|effectRow/);
 fails((x) => { x.profileInputs.centralDisciplineDecision.skillId = 10816; }, /Central Discipline publication scope/);
 fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 90089).descriptionCn += 'x'; }, /Central Discipline publication scope/);
+const awakeningSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '각성 재료');
+assert.deepEqual(awakeningSection.children[1].children.map(({ textContent }) => textContent), [
+  '1단계 · 생령의 수정 × 8', '1단계 · 심연의 수정 × 8',
+  '2단계 · 계절풍의 마음 × 12', '2단계 · 대륙의 마음 × 12',
+]);
+assert.equal(awakeningSection.children[2].textContent, '검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.');
+assert.doesNotMatch(generatedText, /1015|2015|3247|3249|3253|3254|3256|3260|sheetBlob|driveFile/);
+fails((x) => { delete x.profileInputs.awakeningDecision.noticeKo; }, /Awakening material publication scope/);
+fails((x) => { x.profileInputs.awakeningDecision.stages[0].materials[0].itemId = 3253; }, /Awakening material publication scope/);
+fails((x) => { x.profileInputs.awakeningDecision.stages[0].materials[0].nameKo = '다른 이름'; }, /Awakening material publication scope/);
+fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage1LevelReference.levelId = 2015; }, /Awakening material stage/);
+fails((x) => { x.profileInputs.awakeningInputs.references.records[0].stage1SourceGoods[1].count = 9; }, /Awakening material row/);
+const leakedAwakening = structuredClone(generated);
+leakedAwakening.heroes[0].awakeningMaterials.stages[0].materials[0].itemId = 3247;
+assert.throws(() => render(leakedAwakening, talent, element()), /Awakening material consumer/);
 const skillSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
 const skillLabels = skillSection.children[1].children.map(({ textContent }) => textContent);
 assert.equal(skillLabels.length, 9);
