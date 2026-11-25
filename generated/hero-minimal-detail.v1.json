@@ -103,12 +103,32 @@
         {
           "fromNameKo": "프리스트",
           "toNameKo": "프로핏",
-          "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3"
+          "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3",
+          "heartFetterEffects": [
+            {
+              "level": 4,
+              "descriptionKo": "부대 생명이 50% 미만일 시, 받는 피해 -10%"
+            },
+            {
+              "level": 7,
+              "descriptionKo": "공격하여 전투 진입 시, 주는 피해 +10%"
+            }
+          ]
         },
         {
           "fromNameKo": "서모너",
           "toNameKo": "허미트",
-          "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3"
+          "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3",
+          "heartFetterEffects": [
+            {
+              "level": 4,
+              "descriptionKo": "원거리 공격을 받을 시, 받는 마법 피해 -10%"
+            },
+            {
+              "level": 7,
+              "descriptionKo": "물리 공격을 받아 전투 진입 시, 주는 피해 +10%"
+            }
+          ]
         }
       ],
       "centralDisciplineEffectKo": "어게인 스킬의 사거리 +1\n어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동",

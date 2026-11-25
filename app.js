@@ -279,8 +279,13 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   ];
   if (!Array.isArray(jobPaths) || jobPaths.length !== expectedJobPaths.length
     || !expectedJobPaths.every(([from, to, attributes]) => jobPaths.filter((row) =>
-      Object.keys(row ?? {}).sort().join(',') === (attributes ? 'baseAttributesKo,fromNameKo,toNameKo' : 'fromNameKo,toNameKo')
-        && row.fromNameKo === from && row.toNameKo === to && row.baseAttributesKo === attributes).length === 1)) {
+      Object.keys(row ?? {}).sort().join(',') === (attributes ? 'baseAttributesKo,fromNameKo,heartFetterEffects,toNameKo' : 'fromNameKo,toNameKo')
+        && row.fromNameKo === from && row.toNameKo === to && row.baseAttributesKo === attributes).length === 1)
+    || !jobPaths.filter(({ baseAttributesKo }) => baseAttributesKo).every(({ heartFetterEffects }) =>
+      Array.isArray(heartFetterEffects) && heartFetterEffects.length === 2
+      && heartFetterEffects.every((effect, index) =>
+        Object.keys(effect ?? {}).sort().join(',') === 'descriptionKo,level'
+        && effect.level === [4, 7][index] && typeof effect.descriptionKo === 'string' && effect.descriptionKo.trim()))) {
     throw new Error('Hero 15 Job consumer is malformed');
   }
   const expectedSkillIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
@@ -301,6 +306,12 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const soldierSection = renderMinimalDetailList('용병', soldiers.map(({ namespace, nameKo }) => `${namespace} · ${nameKo}`));
   const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, toNameKo, baseAttributesKo }) =>
     baseAttributesKo === undefined ? `${fromNameKo} → ${toNameKo}` : `${fromNameKo} → ${toNameKo} · ${baseAttributesKo}`));
+  const jobRows = jobSection.children[1].children;
+  jobPaths.forEach(({ heartFetterEffects }, index) => {
+    if (!heartFetterEffects) return;
+    jobRows[index].append(renderMinimalDetailList('마음의 유대', heartFetterEffects.map(({ level, descriptionKo }) =>
+      `Lv.${level} · ${descriptionKo}`)));
+  });
   const expectedAwakeningMaterials = {
     noticeKo: '현재 검증된 각성 재료 6개를 표시합니다.',
     stages: [
