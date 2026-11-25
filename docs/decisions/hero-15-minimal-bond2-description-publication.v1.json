@@ -1,0 +1,31 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "fetterId": 67,
+  "missionId": 5049,
+  "scope": "PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY",
+  "approval": "Standing user authorization bbb2164c-5198-4732-b08a-22ac1ef252a2, scoped to Hero 15 existing detail.",
+  "descriptionKo": "리아나를 출전시켜 시공의 균열 3-6 클리어",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataMissionInfo.json",
+    "gitBlobSha1": "72c62b297a0664844c3c53dc10452a1b0ca4704d",
+    "sha256": "ae8807de12d09c79eb5a4f0c60cbd5c0580484b567a823ee59f7dba6797f6adb",
+    "locator": "[366]/ID=5049/Desc",
+    "desc": "使用莉亚娜完成时空裂缝3-6"
+  },
+  "relationEvidence": {
+    "path": "evidence/source/bonds/hero15-fetter-raw-details.v1.json",
+    "gitBlobSha1": "64ae6fe351fb57fd9e79a234aa7286c9f1b2a8bc",
+    "locator": "selection/records/1; ConfigDataHeroFetterInfo#ID=67/CompletionConditions[1]"
+  },
+  "heroNameEvidence": "evidence/localization/hero-names-ko.v1.json#heroId=15",
+  "crossChecks": [
+    "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "https://github.com/LuceatLuxVestra42/langrisser-future-guide/blob/57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff/data/generated/hero-detail/by-id/15.json"
+  ],
+  "transformation": "Reuse the Korean display translation of the exact source Desc, with the admitted Korean Hero name. The notation 3-6 is copied from Desc.",
+  "limitation": "Project display only. No interpretation of MissionInfo Param values, dungeon-stage join, difficulty, grouping, unlock/completion evaluation or official Korean string claim."
+}
