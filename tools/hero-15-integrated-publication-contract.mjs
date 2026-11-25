@@ -80,7 +80,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -93,8 +93,9 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json'),
     readJson('canonical/hero-skill-references.v1.json'),
     readJson('canonical/skills.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-central-discipline-publication.v1.json'),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -239,6 +240,23 @@ function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdent
   });
 }
 
+function renderHero15CentralDiscipline({ centralDisciplineDecision: decision, skillReferences, skillIdentities }) {
+  const references = skillReferences.records.filter(({ heroId, referenceKind }) =>
+    heroId === 15 && referenceKind === 'HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE');
+  const identities = skillIdentities.records.filter(({ skillId }) => skillId === 90089);
+  if (decision?.status !== 'APPROVED' || decision.heroId !== 15 || decision.skillId !== 90089
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.displayAuthority !== 'PROJECT_DISPLAY_ONLY'
+    || references.length !== 1 || references[0].skillId !== 90089
+    || references[0].sourceField !== 'ConfigDataHeroInfo.CastingLawSkill_ID'
+    || references[0].endpointNamespace !== 'ConfigDataSkillInfo.ID'
+    || identities.length !== 1
+    || createHash('sha256').update(identities[0].descriptionCn).digest('hex') !== decision.sourceDescSha256
+    || typeof decision.effectTextKo !== 'string' || !decision.effectTextKo.trim()) {
+    throw new Error('Hero 15 Central Discipline publication scope or source mismatch');
+  }
+  return decision.effectTextKo;
+}
+
 export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs, jobInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
@@ -269,6 +287,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       profile: renderHero15Profile(profileInputs),
       soldiers: renderHero15SoldierNames(soldierInputs),
       jobPaths: renderHero15JobPaths(jobInputs),
+      centralDisciplineEffectKo: renderHero15CentralDiscipline(profileInputs),
       ordinarySkills: renderHero15OrdinarySkills(profileInputs),
       exclusiveEquipment: {
         equipmentId: 535,
@@ -286,7 +305,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;

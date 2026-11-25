@@ -22,7 +22,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
 const inputs = { jobInputs: await readHero15JobPublicationInputs(read), soldierInputs: await readHero15SoldierPublicationInputs(read), profileInputs: await readHero15ProfileInputs(read), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 assert.deepEqual(generated.heroes.map(({ heroId }) => heroId), [15]);
-assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
+assert.deepEqual(Object.keys(generated.heroes[0]).sort(), ['centralDisciplineEffectKo', 'exclusiveEquipment', 'heroId', 'jobPaths', 'nameKo', 'ordinarySkills', 'profile', 'soldiers']);
 assert.deepEqual(Object.keys(generated.heroes[0].exclusiveEquipment).sort(), ['effectDescriptionKo', 'equipmentId', 'nameKo']);
 assert.equal(generated.heroes[0].exclusiveEquipment.equipmentId, 535);
 assert.equal(generated.heroes[0].nameKo, '리아나');
@@ -100,6 +100,13 @@ assert.ok(paragraphs.includes('등급 · SSR'));
 assert.ok(paragraphs.includes('진영 · 시대의 주역 · 빛의 군단 · 공주 연맹'));
 assert.ok(paragraphs.includes('완벽한 찬사 (Equipment ID 535)'));
 assert.ok(paragraphs.includes('성결한 수녀'));
+const castingSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '중앙율정');
+assert.deepEqual(castingSection.children[1].children.map(({ textContent }) => textContent), [
+  '어게인 스킬의 사거리 +1', '어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동',
+]);
+assert.doesNotMatch(generatedText, /90089|辉耀祝祈|effectRow/);
+fails((x) => { x.profileInputs.centralDisciplineDecision.skillId = 10816; }, /Central Discipline publication scope/);
+fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 90089).descriptionCn += 'x'; }, /Central Discipline publication scope/);
 const skillSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
 const skillLabels = skillSection.children[1].children.map(({ textContent }) => textContent);
 assert.equal(skillLabels.length, 9);
