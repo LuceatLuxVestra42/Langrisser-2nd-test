@@ -1,0 +1,17 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": "Direct user standing approval in 이전 Work on 2026-11-25 for existing Hero 15 detail, with source, Korean display and publication conditions verified.",
+  "legacyDisplay": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "locator": "ID=15/Name,Name_Eng"
+  },
+  "nameCn": "莉亚娜",
+  "nameEn": "Riana"
+}

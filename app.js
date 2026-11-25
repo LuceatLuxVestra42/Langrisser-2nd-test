@@ -220,7 +220,9 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
     rarity.textContent = `등급 · ${profile.rarity.label}`;
     const factions = document.createElement('p');
     factions.textContent = `진영 · ${profile.factions.map(({ nameKo }) => nameKo).join(' · ')}`;
-    article.append(rarity, factions);
+    const sourceNames = document.createElement('p');
+    sourceNames.textContent = `중국어명 · ${profile.sourceNames.nameCn} / 영문명 · ${profile.sourceNames.nameEn}`;
+    article.append(sourceNames, rarity, factions);
   }
   article.append(equipment, effect);
   if (talent) article.append(makeTalentPresentation(heroId, talent));
@@ -252,7 +254,9 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const { profile, soldiers, jobPaths, ...baseHero } = hero ?? {};
   if (Object.keys(data ?? {}).sort().join(',') !== 'heroes,schemaVersion'
     || !Array.isArray(data.heroes) || data.heroes.length !== 1
-    || Object.keys(profile ?? {}).sort().join(',') !== 'factions,rarity'
+    || Object.keys(profile ?? {}).sort().join(',') !== 'factions,rarity,sourceNames'
+    || Object.keys(profile.sourceNames ?? {}).sort().join(',') !== 'nameCn,nameEn'
+    || profile.sourceNames.nameCn !== '莉亚娜' || profile.sourceNames.nameEn !== 'Riana'
     || Object.keys(profile.rarity ?? {}).sort().join(',') !== 'label,rankId'
     || profile.rarity.rankId !== 4 || profile.rarity.label !== 'SSR'
     || !Array.isArray(profile.factions)
