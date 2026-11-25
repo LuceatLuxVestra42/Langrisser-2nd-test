@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 ordinary Skills only. Exact source-native RangeText strings. No battle area computation, target selection, geometry, or publication authority.",
+  "records": [
+    {
+      "heroId": 15,
+      "skillId": 10801,
+      "rangeText": "单体",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10801]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10816,
+      "rangeText": "单体",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10816]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10805,
+      "rangeText": "单体",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10805]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10707,
+      "rangeText": "单体",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10707]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10705,
+      "rangeText": "单体",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10705]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10804,
+      "rangeText": "3格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10804]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10807,
+      "rangeText": "6格",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=10807]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 6009,
+      "rangeText": "-",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=6009]/rawRecord/RangeText"
+    },
+    {
+      "heroId": 15,
+      "skillId": 11786,
+      "rangeText": "单体",
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json#records[ID=11786]/rawRecord/RangeText"
+    }
+  ]
+}

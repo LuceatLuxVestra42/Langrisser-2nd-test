@@ -14,6 +14,8 @@ const cooldownEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records
 const cooldownOwner = 'canonical/hero-15-ordinary-skill-cooldowns.v1.json';
 const distanceEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-distances.v1.json';
 const distanceOwner = 'canonical/hero-15-ordinary-skill-distances.v1.json';
+const areaEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json';
+const areaOwner = 'canonical/hero-15-ordinary-skill-areas.v1.json';
 const paths = [
   centralEvidence,
   costEvidence,
@@ -22,6 +24,8 @@ const paths = [
   cooldownOwner,
   distanceEvidence,
   distanceOwner,
+  areaEvidence,
+  areaOwner,
   'canonical/hero-skill-references.v1.json',
   'canonical/skills.v1.json',
   'canonical/hero-talent-star-skills.v1.json',
@@ -73,6 +77,23 @@ try {
   assert.match(baseline.stdout, /ordinary SkillCost validation: PASS \(9 exact source-native rows\)/);
   assert.match(baseline.stdout, /ordinary CDText validation: PASS \(9 exact source-native strings\)/);
   assert.match(baseline.stdout, /ordinary DistanceText validation: PASS \(9 exact source-native strings\)/);
+  assert.match(baseline.stdout, /ordinary RangeText validation: PASS \(9 exact source-native strings\)/);
+  await mutateJson(areaEvidence, (x) => { x.records.pop(); }, 'partial RangeText evidence', /HERO15_AREA_SCOPE/);
+  await mutateJson(areaOwner, (x) => { x.records.pop(); }, 'partial RangeText admission', /HERO15_AREA_SCOPE/);
+  await mutateJson(areaEvidence, (x) => { x.records[0].fieldLocator = '/1932/RangeText'; }, 'wrong RangeText locator', /HERO15_AREA_RECORD/);
+  await mutateJson(areaEvidence, (x) => { x.records[0].rawRecord.ID = 10816; }, 'duplicate RangeText ID', /HERO15_AREA_RECORD/);
+  await mutateJson(areaEvidence, (x) => { delete x.records[0].rawRecord.RangeText; }, 'missing RangeText', /HERO15_AREA_RECORD/);
+  for (const value of ['', null, 0, '0格', '1格', '单体 ', '-']) {
+    await mutateJson(areaEvidence, (x) => { x.records[0].rawRecord.RangeText = value; }, `invalid RangeText ${JSON.stringify(value)}`, /HERO15_AREA_RECORD/);
+  }
+  await mutateJson(areaEvidence, (x) => {
+    x.records[5].fieldLocator = '/1916/DistanceText';
+    x.records[5].rawRecord.DistanceText = x.records[5].rawRecord.RangeText;
+    delete x.records[5].rawRecord.RangeText;
+  }, 'equal-valued Shield distance substituted for area', /HERO15_AREA_RECORD/);
+  await mutateJson(areaEvidence, (x) => { x.records[6].rawRecord.RangeText = '3格'; }, 'Holy Heal distance value substituted for area', /HERO15_AREA_RECORD/);
+  await mutateJson(areaOwner, (x) => { x.records[0].heroId = 16; }, 'wrong RangeText Hero', /HERO15_AREA_CANONICAL/);
+  await mutateJson(areaOwner, (x) => { x.records[0].skillId = 12350; }, 'wrong RangeText skill ID', /HERO15_AREA_CANONICAL/);
   await mutateJson(distanceEvidence, (x) => { x.records[0].fieldLocator = '/1932/DistanceText'; }, 'wrong DistanceText locator', /HERO15_DISTANCE_RECORD/);
   await mutateJson(distanceEvidence, (x) => { x.records[0].rawRecord.ID = 10816; }, 'duplicate DistanceText ID', /HERO15_DISTANCE_RECORD/);
   await mutateJson(distanceEvidence, (x) => { delete x.records[0].rawRecord.DistanceText; }, 'missing DistanceText', /HERO15_DISTANCE_RECORD/);

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "kind": "DIRECT_USER_STANDING_APPROVAL",
+    "workId": "6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716",
+    "originalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c"
+  },
+  "baselineHead": "4a0cd89e156cedb61d23e58d0829b92d5c7caf7d",
+  "owner": "canonical/hero-15-ordinary-skill-areas.v1.json",
+  "legacyComparison": {
+    "role": "Display corroboration only",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "shardPath": "data/generated/hero-detail/by-id/15.json",
+    "shardBlobSha1": "7cc3f9e79395e79b08d99c79905f69a0bba9b1bb",
+    "shardSha256": "4f8898695db8424ee8a86e035560fa93b2c9ded8aaa01f2164be66e0462e8ba7",
+    "routePath": "src/routes/heroes_.$heroId.tsx",
+    "routeBlobSha1": "fd31e42653c377ea6b2e21ae84eff8e211d27f44",
+    "pageUrl": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "htmlSha256": "25e81252961161081899c84e93fe84cee7ee63956f8f5586679989a588789ff1",
+    "cardIdentification": "Only ordinary skill articles under data-hero-equipable-skills=true. Within the fixed ID-to-shard mapping, compare the card icon, exact Korean h4, and the area badge or its absence within data-hero-skill-metadata. The Legacy route renders areaOrTarget as 범위 and range as 사거리. Icons and UI corroborate display only."
+  },
+  "scope": "Only Hero 15 ordinary Skill areaLabelKo. Exact 单体, 3格 and 6格 strings map to labels without converting 单体 to a number. Skill 6009 keeps - internally with no public key. Admit all nine raw strings together; row-level publication holds apply only after complete admission.",
+  "rows": [
+    {
+      "skillId": 10801,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/heroDirectSkills/0/areaOrTarget",
+      "shardAreaText": "单体",
+      "legacyCardIcon": "Skill_Heal.png",
+      "legacyAreaLabelKo": "범위 단일"
+    },
+    {
+      "skillId": 10816,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/0/skill/areaOrTarget",
+      "shardAreaText": "单体",
+      "legacyCardIcon": "Skill_NewTurn.png",
+      "legacyAreaLabelKo": "범위 단일"
+    },
+    {
+      "skillId": 10805,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/1/skill/areaOrTarget",
+      "shardAreaText": "单体",
+      "legacyCardIcon": "Skill_Bless.png",
+      "legacyAreaLabelKo": "범위 단일"
+    },
+    {
+      "skillId": 10707,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/2/skill/areaOrTarget",
+      "shardAreaText": "单体",
+      "legacyCardIcon": "Skill_WindStrike.png",
+      "legacyAreaLabelKo": "범위 단일"
+    },
+    {
+      "skillId": 10705,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/3/skill/areaOrTarget",
+      "shardAreaText": "单体",
+      "legacyCardIcon": "Skill_IceBolt.png",
+      "legacyAreaLabelKo": "범위 단일"
+    },
+    {
+      "skillId": 10804,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/4/skill/areaOrTarget",
+      "shardAreaText": "3格",
+      "legacyCardIcon": "Skill_MassDefup.png",
+      "legacyAreaLabelKo": "범위 3칸"
+    },
+    {
+      "skillId": 10807,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/5/skill/areaOrTarget",
+      "shardAreaText": "6格",
+      "legacyCardIcon": "Skill_HealSuper.png",
+      "legacyAreaLabelKo": "범위 6칸"
+    },
+    {
+      "skillId": 6009,
+      "status": "HIDDEN",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/6/skill/areaOrTarget",
+      "shardAreaText": "-",
+      "legacyCardIcon": "Skill_Meditation.png",
+      "reason": "The exact - source string has no area badge on the Legacy ordinary card."
+    },
+    {
+      "skillId": 11786,
+      "status": "APPROVED",
+      "shardAreaPointer": "/normal/skills/jobLevelAcquisitions/7/skill/areaOrTarget",
+      "shardAreaText": "单体",
+      "legacyCardIcon": "Skill_SkyArcher01.png",
+      "legacyAreaLabelKo": "범위 단일"
+    }
+  ]
+}
