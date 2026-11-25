@@ -102,11 +102,13 @@
         },
         {
           "fromNameKo": "프리스트",
-          "toNameKo": "프로핏"
+          "toNameKo": "프로핏",
+          "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3"
         },
         {
           "fromNameKo": "서모너",
-          "toNameKo": "허미트"
+          "toNameKo": "허미트",
+          "baseAttributesKo": "기본 사거리 2 · 보행 · 이동력 3"
         }
       ],
       "centralDisciplineEffectKo": "어게인 스킬의 사거리 +1\n어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동",
