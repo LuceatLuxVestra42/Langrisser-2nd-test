@@ -80,8 +80,10 @@ export function validateHero15IntegratedPublication(decision) {
   return decision;
 }
 
+const ordinarySkillCostOwnerPath = 'canonical/hero-15-ordinary-skill-costs.v1.json';
+
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -108,8 +110,10 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-fetter-gold-publication.v1.json'),
     readJson('canonical/hero-fetter-material-relations.v1.json'),
     readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
+    readJson(ordinarySkillCostOwnerPath),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -379,7 +383,35 @@ function renderHero15JobPaths({ approval, tree, movementDecision, movement, effe
   });
 }
 
-function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdentities }) {
+function projectOrdinarySkillCosts(decision, owner, approvedIds) {
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 15
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || decision.owner !== ordinarySkillCostOwnerPath
+    || decision.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL'
+    || decision.approval.workId !== '6b06c8ec-d3c0-83ee-a8dd-73f2f9aca716'
+    || decision.approval.originalMessageId !== '48a8bc75-6dbb-42c3-83b9-a185c0d0d25c'
+    || !Array.isArray(decision.rows) || decision.rows.length !== approvedIds.length
+    || owner?.schemaVersion !== 1 || !Array.isArray(owner.records)
+    || new Set(owner.records.map(({ skillId }) => skillId)).size !== owner.records.length
+    || owner.records.some(({ heroId, skillId, skillCost }) =>
+      heroId !== 15 || !approvedIds.includes(skillId) || ![1, 2].includes(skillCost))) {
+    throw new Error('Hero 15 ordinary SkillCost publication scope mismatch');
+  }
+  const costs = new Map();
+  for (const skillId of approvedIds) {
+    const rows = decision.rows.filter((row) => row.skillId === skillId);
+    if (rows.length !== 1) throw new Error(`Hero 15 ordinary SkillCost decision coverage mismatch for ${skillId}`);
+    const [row] = rows;
+    if (row.status === 'MANUAL_REVIEW' && typeof row.reason === 'string' && row.reason.trim()) continue;
+    const cost = owner.records.find((record) => record.skillId === skillId)?.skillCost;
+    if (row.status !== 'APPROVED' || cost === undefined || row.shardCost !== cost || row.legacyCostLabel !== `${cost}코스트`) {
+      throw new Error(`Hero 15 ordinary SkillCost source or display mismatch for ${skillId}`);
+    }
+    costs.set(skillId, cost);
+  }
+  return costs;
+}
+
+function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdentities, ordinarySkillCostDecision, ordinarySkillCosts }) {
   const approvedIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
   const namesOnly = new Set([10705, 10804, 6009]);
   const ordinaryKinds = new Set(['HERO_DIRECT_SKILL_REFERENCE', 'JOB_LEVEL_SKILL_ACQUISITION']);
@@ -391,6 +423,7 @@ function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdent
     || JSON.stringify(references.map(({ skillId }) => skillId)) !== JSON.stringify(approvedIds)) {
     throw new Error('Hero 15 ordinary Skill publication scope mismatch');
   }
+  const costs = projectOrdinarySkillCosts(ordinarySkillCostDecision, ordinarySkillCosts, approvedIds);
   return skillDecision.skills.map(({ skillId, sourceNameCn, sourceDescSha256, nameKo, descriptionKo }) => {
     const identities = skillIdentities.records.filter((row) => row.skillId === skillId);
     const identity = identities[0];
@@ -400,7 +433,8 @@ function renderHero15OrdinarySkills({ skillDecision, skillReferences, skillIdent
       || (namesOnly.has(skillId) ? descriptionKo !== undefined : typeof descriptionKo !== 'string' || !descriptionKo.trim())) {
       throw new Error(`Hero 15 ordinary Skill source or Korean display fields mismatch: ${skillId}`);
     }
-    return descriptionKo === undefined ? { skillId, nameKo } : { skillId, nameKo, descriptionKo };
+    const display = descriptionKo === undefined ? { skillId, nameKo } : { skillId, nameKo, descriptionKo };
+    return costs.has(skillId) ? { ...display, cost: costs.get(skillId) } : display;
   });
 }
 

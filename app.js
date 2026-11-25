@@ -296,8 +296,9 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const namesOnly = new Set([10705, 10804, 6009]);
   if (!Array.isArray(ordinarySkills)
     || JSON.stringify(ordinarySkills.map((row) => row?.skillId)) !== JSON.stringify(expectedSkillIds)
-    || !ordinarySkills.every(({ skillId, nameKo, descriptionKo, ...fields }) =>
+    || !ordinarySkills.every(({ skillId, nameKo, descriptionKo, cost, ...fields }) =>
       Object.keys(fields).length === 0 && typeof nameKo === 'string' && nameKo.trim()
+      && (cost === undefined || [1, 2].includes(cost))
       && (namesOnly.has(skillId) ? descriptionKo === undefined : typeof descriptionKo === 'string' && descriptionKo.trim()))) {
     throw new Error('Hero 15 ordinary Skill consumer is malformed');
   }
@@ -305,8 +306,10 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     throw new Error('Hero 15 Central Discipline consumer is malformed');
   }
   const centralDisciplineSection = renderMinimalDetailList('중앙율정', centralDisciplineEffectKo.split('\n'));
-  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo }) =>
-    descriptionKo === undefined ? nameKo : `${nameKo} · ${descriptionKo}`));
+  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo, cost }) => {
+    const label = cost === undefined ? nameKo : `${nameKo} · ${cost}코스트`;
+    return descriptionKo === undefined ? label : `${label} · ${descriptionKo}`;
+  }));
   const soldierSection = renderMinimalDetailList('용병', []);
   const soldierList = soldierSection.children[1];
   for (const { namespace, nameKo, fragment } of soldiers) {

@@ -7,6 +7,8 @@ const evidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-her
 const soldierEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
 const hero15EvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-talent-skills.v1.json';
 const hero15GeneralEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json';
+const hero15CostEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json';
+const hero15CostCanonicalPath = 'canonical/hero-15-ordinary-skill-costs.v1.json';
 const hero15FetterEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-fetter-skills.v1.json';
 const hero15AwakeningEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-12350-awakening-skill.v1.json';
 const hero15HeartFetterSkillEvidencePath = 'evidence/source/configdata/ConfigDataSkillInfo.record-70461-hero-15-heart-fetter-skill.v1.json';
@@ -86,6 +88,44 @@ const check = (condition, code, message) => { if (!condition) throw new Error(`S
 const exactKeys = (value, keys, label) => check(value && typeof value === 'object' && !Array.isArray(value)
   && isDeepStrictEqual(Object.keys(value).sort(), [...keys].sort()), 'SCHEMA', `${label} fields drift`);
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+
+async function validateHero15OrdinarySkillCosts(root) {
+  const [evidence, canonical, references] = await Promise.all([
+    readJson(root, hero15CostEvidencePath),
+    readJson(root, hero15CostCanonicalPath),
+    readJson(root, 'canonical/hero-skill-references.v1.json'),
+  ]);
+  const ordinaryReferences = references.records.filter(({ heroId, referenceKind }) =>
+    heroId === 15 && ['HERO_DIRECT_SKILL_REFERENCE', 'JOB_LEVEL_SKILL_ACQUISITION'].includes(referenceKind));
+  // SkillCost values independently extracted by explicit IDs from the pinned raw JSON.
+  const sourceCosts = new Map([
+    [10801, 1], [10816, 2], [10805, 2], [10707, 1], [10705, 1],
+    [10804, 2], [10807, 2], [6009, 1], [11786, 2],
+  ]);
+  exactKeys(evidence, ['schemaVersion', 'responsibility', 'heroId', 'sourceScope', 'source', 'extraction', 'limitation', 'records'], 'Hero 15 SkillCost evidence');
+  exactKeys(canonical, ['schemaVersion', 'scope', 'records'], 'Hero 15 SkillCost Canonical');
+  check(evidence.schemaVersion === 1 && evidence.responsibility === 'skill-identity-and-source-detail' && evidence.heroId === 15
+    && evidence.sourceScope === 'CN ConfigData snapshot 2026-09-02'
+    && isDeepStrictEqual(evidence.source, {
+      repository: sourcePin.repository, commit: sourcePin.commit, commitTree: sourcePin.commitTree, path: sourcePin.path,
+      gitBlobSha1: sourcePin.gitBlobSha1, sha256: sourcePin.sha256, sizeBytes: sourcePin.sizeBytes, recordCount: sourcePin.sourceIndex.recordCount,
+    }), 'HERO15_COST_SOURCE', 'Hero 15 SkillCost source pin or scope drift');
+  check(canonical.schemaVersion === 1 && Array.isArray(canonical.records) && canonical.records.length === sourceCosts.size
+    && Array.isArray(evidence.records) && evidence.records.length === sourceCosts.size
+    && isDeepStrictEqual(ordinaryReferences.map(({ skillId }) => skillId), hero15GeneralIds),
+  'HERO15_COST_SCOPE', 'Hero 15 SkillCost record population or ordinary references drift');
+  for (const [i, [skillId, index]] of hero15GeneralExpected.entries()) {
+    const row = evidence.records[i];
+    exactKeys(row, ['sourceRecordIndex', 'fieldLocator', 'rawRecord'], 'Hero 15 SkillCost evidence row');
+    check(row.sourceRecordIndex === index && row.fieldLocator === `/${index}/SkillCost`
+      && isDeepStrictEqual(row.rawRecord, { ID: skillId, SkillCost: sourceCosts.get(skillId) }),
+    'HERO15_COST_RECORD', `Pinned SkillCost or locator mismatch for ${skillId}`);
+    check(isDeepStrictEqual(canonical.records[i], {
+      heroId: 15, skillId, skillCost: row.rawRecord.SkillCost,
+      provenance: `${hero15CostEvidencePath}#records[ID=${skillId}]/rawRecord/SkillCost`,
+    }), 'HERO15_COST_CANONICAL', `Hero 15 Canonical SkillCost mismatch for ${skillId}`);
+  }
+}
 
 export async function validateSkillIdentities(root = process.cwd()) {
   const [evidence, soldierEvidence, canonical, talent, hero15Evidence, hero15GeneralEvidence, hero15FetterEvidence, hero15FetterReferenceEvidence, hero15FetterReferenceCanonical, hero15AwakeningEvidence, awakeningReferences, hero15HeartFetterSkillEvidence, heartFetterRawDetails, hero15HeartFetterLv10SkillEvidence, heartFetterRawConditions, centralSkillEvidence] = await Promise.all([
@@ -531,7 +571,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
+  await validateHero15OrdinarySkillCosts(root);
   console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log('Hero 15 ordinary SkillCost validation: PASS (9 exact source-native rows)');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-skill-identities.mjs')) {

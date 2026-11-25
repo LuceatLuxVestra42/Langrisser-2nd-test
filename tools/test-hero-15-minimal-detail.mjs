@@ -167,18 +167,51 @@ leakedBond45.heroes[0].bond4DescriptionKo = { text: '헤인과 함께 운명의�
 assert.throws(() => render(leakedBond45, talent, element()), /Bond 4\/5 description consumer/);
 const skillSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
 const skillLabels = skillSection.children[1].children.map(({ textContent }) => textContent);
-assert.equal(skillLabels.length, 9);
-assert.ok(skillLabels[0].startsWith('힐 · '));
-assert.equal(skillLabels[4], '빙결');
-assert.equal(skillLabels[5], '광역 실드');
-assert.equal(skillLabels[7], '명상');
-assert.doesNotMatch(generatedText, /sourceDescSha256|catalogLine|withheldDescriptionReason/);
+const expectedCosts = [1, 2, 2, 1, 1, 2, 2, 1, 2];
+const existingSkills = inputs.profileInputs.skillDecision.skills.map(({ skillId, nameKo, descriptionKo }) =>
+  descriptionKo === undefined ? { skillId, nameKo } : { skillId, nameKo, descriptionKo });
+assert.deepEqual(generated.heroes[0].ordinarySkills, existingSkills.map((row, index) => ({ ...row, cost: expectedCosts[index] })));
+const expectedSkillLabels = existingSkills.map(({ nameKo, descriptionKo }, index) => [
+  nameKo, `${expectedCosts[index]}코스트`, descriptionKo,
+].filter(Boolean).join(' · '));
+assert.deepEqual(skillLabels, expectedSkillLabels);
+assert.equal(skillLabels[4], '빙결 · 1코스트');
+assert.equal(skillLabels[5], '광역 실드 · 2코스트');
+assert.equal(skillLabels[7], '명상 · 1코스트');
+assert.doesNotMatch(generatedText, /SkillCost|shardCost|legacyCostLabel|sourceDescSha256|catalogLine|withheldDescriptionReason/);
+fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].shardCost = 2; }, /SkillCost source or display/);
+fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].legacyCostLabel = '2코스트'; }, /SkillCost source or display/);
+fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].skillId = 10816; }, /SkillCost decision coverage/);
+fails((x) => { x.profileInputs.ordinarySkillCosts.records.shift(); }, /SkillCost source or display/);
+fails((x) => { x.profileInputs.ordinarySkillCostDecision.approval.originalMessageId = 'another-approval'; }, /SkillCost publication scope/);
+const partialCostInputs = structuredClone(inputs);
+partialCostInputs.profileInputs.ordinarySkillCostDecision.rows[0] = {
+  skillId: 10801, status: 'MANUAL_REVIEW', reason: 'Legacy cost label missing',
+};
+const partialCostText = renderHero15MinimalDetail(partialCostInputs);
+const partialCostData = validateHero15MinimalDetail({ generatedText: partialCostText, inputs: partialCostInputs });
+assert.deepEqual(partialCostData.heroes[0].ordinarySkills, [
+  existingSkills[0], ...generated.heroes[0].ordinarySkills.slice(1),
+]);
+const partialContainer = element();
+render(partialCostData, talent, partialContainer);
+const partialSkillSection = partialContainer.children[0].children.find(({ children }) => children?.[0]?.textContent === '일반 스킬');
+assert.deepEqual(partialSkillSection.children[1].children.map(({ textContent }) => textContent), [
+  `${existingSkills[0].nameKo} · ${existingSkills[0].descriptionKo}`, ...expectedSkillLabels.slice(1),
+]);
+assert.throws(() => validateHero15MinimalDetail({ generatedText, inputs: partialCostInputs }), /stale or non-deterministic/);
+assert.throws(() => validateHero15MinimalDetail({ generatedText: partialCostText, inputs }), /stale or non-deterministic/);
 fails((x) => { x.profileInputs.skillDecision.skills[0].skillId = 12350; }, /Skill publication scope/);
 fails((x) => { x.profileInputs.skillDecision.skills[4].descriptionKo = '미검증 설명'; }, /Skill source or Korean display/);
 fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 10801).descriptionCn += 'x'; }, /Skill source or Korean display/);
 const invalidSkill = structuredClone(generated);
 invalidSkill.heroes[0].ordinarySkills[0].range = 2;
 assert.throws(() => render(invalidSkill, talent, element()), /ordinary Skill consumer/);
+for (const cost of [null, 0, '1', 1.5]) {
+  const malformedCost = structuredClone(generated);
+  malformedCost.heroes[0].ordinarySkills[0].cost = cost;
+  assert.throws(() => render(malformedCost, talent, element()), /ordinary Skill consumer/);
+}
 const soldierSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '용병');
 const soldierLinks = soldierSection.children[1].children.map(({ children }) => children[0]);
 const soldierLabels = soldierLinks.map(({ textContent }) => textContent);

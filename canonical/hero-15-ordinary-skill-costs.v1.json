@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scope": "Hero 15 ordinary Skill references only. Source-native SkillCost; no gameplay or publication assertions.",
+  "records": [
+    {
+      "heroId": 15,
+      "skillId": 10801,
+      "skillCost": 1,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10801]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10816,
+      "skillCost": 2,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10816]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10805,
+      "skillCost": 2,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10805]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10707,
+      "skillCost": 1,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10707]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10705,
+      "skillCost": 1,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10705]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10804,
+      "skillCost": 2,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10804]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 10807,
+      "skillCost": 2,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=10807]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 6009,
+      "skillCost": 1,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=6009]/rawRecord/SkillCost"
+    },
+    {
+      "heroId": 15,
+      "skillId": 11786,
+      "skillCost": 2,
+      "provenance": "evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json#records[ID=11786]/rawRecord/SkillCost"
+    }
+  ]
+}
