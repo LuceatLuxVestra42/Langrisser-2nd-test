@@ -1,0 +1,96 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "scope": "PARTIAL_PROJECT_DISPLAY_ONLY",
+  "approval": "Standing authorization bbb2164c-5198-4732-b08a-22ac1ef252a2, applied to the four validated rows only.",
+  "noticeKo": "검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.",
+  "source": {
+    "sheetCommit": "a69cadac65ae13c2a6d9f9fa9fb7f33f8c2d3e85",
+    "sheetPath": "classup.html",
+    "sheetBlob": "739ab03668a0f3cd46e1f64f5b114ba3a3616406",
+    "sheetLocators": [
+      "L6147–6149",
+      "L6180–6182",
+      "L6415–6442"
+    ],
+    "repository": "redpanda7301/langrisser",
+    "configCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "configPaths": [
+      "data/configdata/ConfigDataAwakenInfo.json#ID=15",
+      "data/configdata/ConfigDataItemInfo.json#ID={3247,3249,3254,3256}/Icon"
+    ],
+    "driveFolder": "1fVm9JVJlOiswiTezoRWFJQmUZWof8db8",
+    "comparison": "All six Gem and six Heart PNGs checked against each named sheet PNG. Per-family uniform Lanczos scaling and translation, RGB mean absolute error on alpha >=250 foreground. Candidate-specific alignment and dense fixed transforms both agree. Gem: 127px with (-3,0) relative to center; Heart: 109px centered. Independent unordered co-occurrence intersection of HeroIDs 26,27,29 agrees; Hero 15 held out."
+  },
+  "limitations": [
+    "Project display text only; official Korean client strings unverified.",
+    "Sheet PNGs are not byte-identical to Drive originals. Same-family sheet mirrors are not independent.",
+    "Historical mismatches include both stages for Imelda, Sonya, Almeda and Elasta, and stage 2 for Grenier.",
+    "No localization for 3253 or 3260. No complete cost, activation, or unlock claim."
+  ],
+  "stages": [
+    {
+      "levelId": 1015,
+      "materials": [
+        {
+          "itemId": 3247,
+          "nameKo": "생령의 수정",
+          "count": 8,
+          "key": "a11",
+          "sheetBlob": "f76541dbca0dc275d7dd69a3480e40522f7c3ec4",
+          "icon": "Awaken_Gem1.png",
+          "driveFile": "1X_Aj7jBLS9D_lYineEjEyn8vB2RWIRbN",
+          "scores": [
+            9.9,
+            62.42
+          ]
+        },
+        {
+          "itemId": 3249,
+          "nameKo": "심연의 수정",
+          "count": 8,
+          "key": "a13",
+          "sheetBlob": "279af67265b557c88727f0c1dbf040ebd5ffea40",
+          "icon": "Awaken_Gem3.png",
+          "driveFile": "12_yMAzBRfUdw6OsExO11egIflVreVrmt",
+          "scores": [
+            11.3,
+            67.83
+          ]
+        }
+      ]
+    },
+    {
+      "levelId": 2015,
+      "materials": [
+        {
+          "itemId": 3254,
+          "nameKo": "계절풍의 마음",
+          "count": 12,
+          "key": "a21",
+          "sheetBlob": "fe261b6922a860a273e36315d9ce5981e78b47c0",
+          "icon": "Awaken_Heart1.png",
+          "driveFile": "1ORJg8SXtxJojhLxlVS0HluawwwRmU2Rn",
+          "scores": [
+            16.99,
+            69.13
+          ]
+        },
+        {
+          "itemId": 3256,
+          "nameKo": "대륙의 마음",
+          "count": 12,
+          "key": "a23",
+          "sheetBlob": "231c024422f81cb09dcb5531b748ae8155425dc6",
+          "icon": "Awaken_Heart3.png",
+          "driveFile": "1UgUMxo-MiSlW5V71pyd_NNUJgfalaSSU",
+          "scores": [
+            9.92,
+            49.54
+          ]
+        }
+      ]
+    }
+  ]
+}

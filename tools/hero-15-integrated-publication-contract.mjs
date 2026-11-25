@@ -1,3 +1,4 @@
+import { loadAwakeningInputs, renderAwakeningInternal } from './hero-15-awakening-internal-consumer.mjs';
 import { createHash } from 'node:crypto';
 import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
@@ -80,7 +81,7 @@ export function validateHero15IntegratedPublication(decision) {
 }
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -94,8 +95,10 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('canonical/hero-skill-references.v1.json'),
     readJson('canonical/skills.v1.json'),
     readJson('docs/decisions/hero-15-minimal-central-discipline-publication.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-awakening-materials-publication.v1.json'),
+    loadAwakeningInputs(),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -257,6 +260,37 @@ function renderHero15CentralDiscipline({ centralDisciplineDecision: decision, sk
   return decision.effectTextKo;
 }
 
+function renderHero15AwakeningMaterials({ awakeningDecision: decision, awakeningInputs }) {
+  const expected = [
+    [1015, [[3247, '생령의 수정', 8], [3249, '심연의 수정', 8]]],
+    [2015, [[3254, '계절풍의 마음', 12], [3256, '대륙의 마음', 12]]],
+  ];
+  if (decision?.status !== 'APPROVED' || decision.heroId !== 15 || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || decision.scope !== 'PARTIAL_PROJECT_DISPLAY_ONLY'
+    || decision.noticeKo !== '검수된 각성 재료 일부만 표시하며, 전체 각성 비용 목록이 아닙니다.'
+    || JSON.stringify(decision.stages?.map(({ levelId, materials }) =>
+      [levelId, materials.map(({ itemId, nameKo, count }) => [itemId, nameKo, count])])) !== JSON.stringify(expected)) {
+    throw new Error('Hero 15 Awakening material publication scope mismatch');
+  }
+  const { stage1, stage2 } = JSON.parse(renderAwakeningInternal(awakeningInputs));
+  const stages = decision.stages.map(({ levelId, materials }, index) => {
+    const stage = [stage1, stage2][index];
+    if (stage.reference.levelId !== levelId) throw new Error('Hero 15 Awakening material stage mismatch');
+    return {
+      stageLabelKo: `${index + 1}단계`,
+      materials: materials.map(({ itemId, nameKo, count }) => {
+        const matches = stage.goods.filter((row) => row.itemId === itemId);
+        if (matches.length !== 1 || matches[0].goodsType !== 6 || matches[0].count !== count
+          || matches[0].endpointNamespace !== 'ConfigDataItemInfo.ID') {
+          throw new Error('Hero 15 Awakening material row mismatch');
+        }
+        return { nameKo, count };
+      }),
+    };
+  });
+  return { noticeKo: decision.noticeKo, stages };
+}
+
 export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs, jobInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
@@ -288,6 +322,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       soldiers: renderHero15SoldierNames(soldierInputs),
       jobPaths: renderHero15JobPaths(jobInputs),
       centralDisciplineEffectKo: renderHero15CentralDiscipline(profileInputs),
+      awakeningMaterials: renderHero15AwakeningMaterials(profileInputs),
       ordinarySkills: renderHero15OrdinarySkills(profileInputs),
       exclusiveEquipment: {
         equipmentId: 535,
@@ -305,7 +340,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers', 'jobPaths', 'ordinarySkills', 'centralDisciplineEffectKo', 'awakeningMaterials'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;
