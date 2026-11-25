@@ -17,6 +17,7 @@ const heroMinimalDetailThirtyOneBatchContainers = new Map([99164, 99165, 99166, 
 const heroMinimalDetailFortyBatchContainers = new Map([99198, 99199, 99203, 99204, 99205, 99206, 99207, 99208, 99212, 99213, 99214, 99215, 99216, 99217, 99218, 99219, 99220, 99221, 99225, 99226, 99227, 99228, 99229, 99230, 99231, 99233, 99234, 99238, 99239, 99240, 99241, 99243, 99244, 99249, 99250, 99252, 99253, 99254, 99255, 99259].map((heroId) => [heroId, document.querySelector(`#hero-minimal-detail-${heroId}-content`)]));
 const heroSearch = document.querySelector('#hero-search');
 const heroSearchClear = document.querySelector('#hero-search-clear');
+const heroProductionFilter = document.querySelector('#hero-production-filter');
 const heroFactionFilter = document.querySelector('#hero-faction-filter');
 const heroSearchCount = document.querySelector('#hero-search-count');
 const heroSearchEmpty = document.querySelector('#hero-search-empty');
@@ -245,8 +246,9 @@ function renderHero16MinimalDetailView(data, container) {
   return renderHeroMinimalDetailView(data, container, { heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관' });
 }
 
-function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, emptyState }) {
+function renderHeroSearch({ heroes, input, clearButton, factionFilter, productionFilter, count, emptyState }) {
   const factions = new Map();
+  const productions = new Map();
   for (const hero of heroes) {
     for (const faction of hero.factions) {
       const label = faction.localizationStatus === 'PROJECT_REVIEWED'
@@ -256,6 +258,12 @@ function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, em
       if (previous && previous !== label) throw new Error(`Conflicting presentation labels for Faction ID ${faction.factionId}`);
       factions.set(faction.factionId, label);
     }
+    for (const { productionId, nameKo, nameCn } of hero.origins) {
+      const label = `${nameKo} (${nameCn})`;
+      const previous = productions.get(productionId);
+      if (previous && previous !== label) throw new Error(`Conflicting presentation labels for Production ID ${productionId}`);
+      productions.set(productionId, label);
+    }
   }
   for (const [factionId, label] of [...factions].sort(([left], [right]) => left - right)) {
     const option = document.createElement('option');
@@ -263,11 +271,19 @@ function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, em
     option.textContent = label;
     factionFilter.append(option);
   }
+  for (const [productionId, label] of [...productions].sort(([left], [right]) => left - right)) {
+    const option = document.createElement('option');
+    option.value = String(productionId);
+    option.textContent = label;
+    productionFilter.append(option);
+  }
+  const matchesProduction = (hero) => productionFilter.value === 'all'
+    || hero.origins.some(({ productionId }) => String(productionId) === productionFilter.value);
   const update = () => {
     const searchMatches = filterHeroes(heroes, input.value);
     const selectedFactionId = factionFilter.value === 'all' ? null : Number(factionFilter.value);
-    const matches = searchMatches.filter((hero) => selectedFactionId === null
-      || hero.factions.some(({ factionId }) => factionId === selectedFactionId));
+    const matches = searchMatches.filter((hero) => matchesProduction(hero) && (selectedFactionId === null
+      || hero.factions.some(({ factionId }) => factionId === selectedFactionId)));
     const visibleIds = new Set(matches.map(({ id }) => id));
     for (const hero of heroes) {
       const card = document.getElementById(`hero-${hero.id}`);
@@ -280,6 +296,7 @@ function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, em
   };
   input.addEventListener('input', update);
   factionFilter.addEventListener('change', update);
+  productionFilter.addEventListener('change', update);
   const showAll = (focus = true) => {
     input.value = '';
     update();
@@ -294,6 +311,7 @@ function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, em
       && !target.factions.some(({ factionId }) => factionId === selectedFactionId);
     if (searchHidesTarget) input.value = '';
     if (factionHidesTarget) factionFilter.value = 'all';
+    if (!matchesProduction(target)) productionFilter.value = 'all';
     update();
     return true;
   };
@@ -305,9 +323,17 @@ function renderHeroSearch({ heroes, input, clearButton, factionFilter, count, em
     factionFilter.focus();
     return true;
   };
+  const showProduction = (productionId) => {
+    if (!productions.has(productionId)) return false;
+    input.value = '';
+    productionFilter.value = String(productionId);
+    update();
+    productionFilter.focus();
+    return true;
+  };
   clearButton.addEventListener('click', () => showAll());
   update();
-  return { showAll, showTarget, showFaction };
+  return { showAll, showTarget, showFaction, showProduction };
 }
 
 function makeHeroRarityLabel(rarity) {
@@ -349,7 +375,7 @@ function makeFactionPresentation(factions, onFactionSelect = () => {}) {
   return section;
 }
 
-function makeOriginPresentation(origins) {
+function makeOriginPresentation(origins, onProductionSelect = () => {}) {
   if (!Array.isArray(origins) || origins.length === 0) throw new Error('Generated Hero Production presentation is missing');
   const section = document.createElement('section');
   section.className = 'hero-origins';
@@ -365,7 +391,13 @@ function makeOriginPresentation(origins) {
       || seen.has(origin.productionId)) throw new Error('Generated Hero Production presentation is malformed');
     seen.add(origin.productionId);
     const item = document.createElement('li');
-    item.textContent = origin.nameKo + ' (' + origin.nameCn + ')';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'hero-production-filter-link';
+    button.textContent = `${origin.nameKo} (${origin.nameCn})`;
+    button.setAttribute('aria-label', `${button.textContent} 출전 영웅 보기`);
+    button.addEventListener('click', () => onProductionSelect(origin.productionId));
+    item.append(button);
     list.append(item);
   }
   section.append(heading, list);
@@ -662,7 +694,7 @@ function addHero(hero, relationsByHero, soldiersById, skinsByHero, jobGlossaryBy
   const skinPresentation = makeSkinFullartPresentation(skinsByHero.get(hero.id) ?? []);
   if (skinPresentation) article.append(skinPresentation);
   article.append(makeFactionPresentation(hero.factions, (factionId) => heroNavigation?.showFaction(factionId)));
-  article.append(makeOriginPresentation(hero.origins));
+  article.append(makeOriginPresentation(hero.origins, (productionId) => heroNavigation?.showProduction(productionId)));
   if (hero.talent) article.append(makeTalentPresentation(hero.id, hero.talent));
   article.append(connections);
   if (jobLevelSourceStats) article.append(jobLevelSourceStats);
@@ -801,7 +833,7 @@ try {
   for (const hero of data.heroes) addHero(hero, relationsByHero, soldiersById, skinsByHero, jobGlossaryById);
   heroNavigation = renderHeroSearch({
     heroes: data.heroes, input: heroSearch, clearButton: heroSearchClear,
-    factionFilter: heroFactionFilter, count: heroSearchCount, emptyState: heroSearchEmpty,
+    factionFilter: heroFactionFilter, productionFilter: heroProductionFilter, count: heroSearchCount, emptyState: heroSearchEmpty,
   });
   revealInitialHeroFragment();
 } catch (error) {
