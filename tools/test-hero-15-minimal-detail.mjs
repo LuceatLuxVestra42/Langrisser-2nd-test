@@ -188,6 +188,33 @@ assert.deepEqual(jobSection.children[1].children.map(({ textContent }) => textCo
   '프리스트 → 프로핏 · 기본 사거리 2 · 보행 · 이동력 3',
   '서모너 → 허미트 · 기본 사거리 2 · 보행 · 이동력 3',
 ]);
+const expectedHeartFetterLabels = [
+  ['Lv.4 · 부대 생명이 50% 미만일 시, 받는 피해 -10%', 'Lv.7 · 공격하여 전투 진입 시, 주는 피해 +10%'],
+  ['Lv.4 · 원거리 공격을 받을 시, 받는 마법 피해 -10%', 'Lv.7 · 물리 공격을 받아 전투 진입 시, 주는 피해 +10%'],
+];
+const jobRows = jobSection.children[1].children;
+assert.ok(jobRows.slice(0, 3).every(({ children }) => children.length === 0));
+for (const [index, labels] of expectedHeartFetterLabels.entries()) {
+  const [effectsSection] = jobRows[index + 3].children;
+  assert.equal(effectsSection.children[0].textContent, '마음의 유대');
+  assert.deepEqual(effectsSection.children[1].children.map(({ textContent }) => textContent), labels);
+}
+assert.doesNotMatch(generatedText, /7042[1-4]|conditionParams|conditionType|职业为/);
+fails((x) => { x.jobInputs.effectsDecision.status = 'NOT_APPROVED'; }, /Heart Fetter display scope/);
+fails((x) => { x.jobInputs.effectsDecision.heroId = 16; }, /Heart Fetter display scope/);
+fails((x) => { x.jobInputs.effectsDecision.rows[0].connectionId = 155; }, /Heart Fetter display row/);
+fails((x) => { x.jobInputs.effectsDecision.rows[0].jobId = 707; }, /Heart Fetter display row/);
+fails((x) => { x.jobInputs.effectsDecision.rows[0].level = 10; }, /Heart Fetter display row/);
+fails((x) => { x.jobInputs.effectsDecision.rows[0].skillId = 70422; }, /Heart Fetter display row/);
+fails((x) => { x.jobInputs.effectsDecision.rows[0].descriptionKo = '부대 생명이 50% 미만일 시, 받는 피해 +10%'; }, /Heart Fetter display row/);
+fails((x) => { x.jobInputs.effectsDecision.rows[2].descriptionKo = '원거리 공격을 받을 시, 받는 물리 피해 -10%'; }, /Heart Fetter display row/);
+fails((x) => { x.jobInputs.heartFetterLevels.records.find(({ skillId }) => skillId === 70421).heartFetterLevel = 7; }, /Heart Fetter display row/);
+const invalidEffect = structuredClone(generated);
+invalidEffect.heroes[0].jobPaths[3].heartFetterEffects[0].level = 10;
+assert.throws(() => render(invalidEffect, talent, element()), /Job consumer/);
+const leakedEffect = structuredClone(generated);
+leakedEffect.heroes[0].jobPaths[4].heartFetterEffects[0].skillId = 70422;
+assert.throws(() => render(leakedEffect, talent, element()), /Job consumer/);
 fails((x) => { x.jobInputs.approval.paths.pop(); }, /approved direct edges/);
 assert.doesNotMatch(generatedText, /BF_AttackDistance|BF_MovePoint|MoveType|connectionId|jobId|4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133/);
 fails((x) => { x.jobInputs.movement.records[0].jobId = 806; }, /final Job movement row/);

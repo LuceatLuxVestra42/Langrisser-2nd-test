@@ -201,16 +201,57 @@ function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, 
 const finalJobMovementDecisionPath = 'docs/decisions/hero-15-minimal-final-job-movement-publication.v1.json';
 
 export async function readHero15JobPublicationInputs(readJson) {
-  const [approval, tree, movementDecision, movement] = await Promise.all([
+  const [approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-job-publication.v1.json'),
     loadJobTree(),
     readJson(finalJobMovementDecisionPath),
     readJson('canonical/hero-15-final-job-movement.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-heart-fetter-effects-publication.v1.json'),
+    readJson('canonical/hero-heart-fetter-raw-conditions.v1.json'),
   ]);
-  return { approval, tree, movementDecision, movement };
+  return { approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels };
 }
 
-function renderHero15JobPaths({ approval, tree, movementDecision, movement }) {
+function projectHeartFetterEffects(decision, heartFetterLevels, directEdges) {
+  // Exact display tuples and UTF-8 source and translation digests verified against the pinned sources.
+  const expected = [
+    [154, 811, 4, 70421, '先知', '64624ce0f83ebc05770eaa8da912f01097470baa82ea31d837aac610851f32da'],
+    [154, 811, 7, 70423, '先知', 'be46b705c0c66b451900d35830a77a804565c555fc97dd9ee92c24c9aa6bf67a'],
+    [155, 707, 4, 70422, '隐士', '5adeb50b0f01b3294926599d45149bd921ad761fd94cd8c035533d6482e555d9'],
+    [155, 707, 7, 70424, '隐士', 'd6500e1a37e73346475d2fe37370c7c8490383d7d6de96ad6987db072e9fbd7b'],
+  ];
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED_FOR_PR'
+    || decision.heroId !== 15 || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || decision.source?.gitBlobSha1 !== 'dbd7f8f94702bb43d2ceb0091e9755c9aebaed19'
+    || decision.source.sha256 !== '2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741'
+    || decision.koreanOverlay?.gitBlobSha1 !== 'b884f7594636800233aea40566918487d919a4d9'
+    || decision.koreanOverlay.officialKrProvenanceStatus !== 'NOT_VERIFIED'
+    || decision.rows?.length !== expected.length) {
+    throw new Error('Hero 15 Heart Fetter display scope or source mismatch');
+  }
+  const byConnection = new Map();
+  for (const [connectionId, jobId, level, skillId, jobNameCn, descriptionHash] of expected) {
+    const rows = decision.rows.filter((row) => row.skillId === skillId);
+    const levels = heartFetterLevels.records.filter((entry) => entry.heroId === 15
+      && entry.heartFetterId === 15 && entry.heartFetterLevel === level && entry.skillId === skillId);
+    const [row] = rows;
+    if (rows.length !== 1 || levels.length !== 1
+      || row.connectionId !== connectionId || row.jobId !== jobId || row.level !== level
+      || row.sourceIndex !== levels[0].sourceProvenance.skillSourceIndex
+      || directEdges.filter((edge) => edge.successorConnectionId === connectionId && edge.successorJobId === jobId).length !== 1
+      || !row.descriptionCn?.startsWith(`职业为${jobNameCn}生效:`)
+      || typeof row.descriptionKo !== 'string'
+      || createHash('sha256').update(row.descriptionCn).update('\n').update(row.descriptionKo).digest('hex') !== descriptionHash) {
+      throw new Error(`Hero 15 Heart Fetter display row mismatch for Skill ${skillId}`);
+    }
+    exactKeys(row, ['connectionId', 'jobId', 'level', 'skillId', 'sourceIndex', 'descriptionCn', 'descriptionKo'], 'Hero 15 Heart Fetter display row');
+    if (!byConnection.has(connectionId)) byConnection.set(connectionId, []);
+    byConnection.get(connectionId).push({ level, descriptionKo: row.descriptionKo });
+  }
+  return byConnection;
+}
+
+function renderHero15JobPaths({ approval, tree, movementDecision, movement, effectsDecision, heartFetterLevels }) {
   if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || approval.status !== 'APPROVED') throw new Error('Hero 15 Job publication scope mismatch');
   const { jobs, directEdges } = JSON.parse(renderJobTree(tree));
@@ -254,10 +295,13 @@ function renderHero15JobPaths({ approval, tree, movementDecision, movement }) {
     }
     attributes.set(connectionId, `기본 사거리 ${row.BF_AttackDistance} · ${label.displayNameKo} · 이동력 ${row.BF_MovePoint}`);
   }
+  const effects = projectHeartFetterEffects(effectsDecision, heartFetterLevels, directEdges);
   return directEdges.map(({ predecessorJobId, successorJobId, successorConnectionId }) => {
     const path = { fromNameKo: names.get(predecessorJobId), toNameKo: names.get(successorJobId) };
     const baseAttributesKo = attributes.get(successorConnectionId);
-    return baseAttributesKo === undefined ? path : { ...path, baseAttributesKo };
+    return baseAttributesKo === undefined ? path : {
+      ...path, baseAttributesKo, heartFetterEffects: effects.get(successorConnectionId),
+    };
   });
 }
 

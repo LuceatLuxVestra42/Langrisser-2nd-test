@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED_FOR_PR",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": {
+    "scope": "Implementation, verification, and PR for these four display rows in the designated 이전 Work.",
+    "kind": "WORK_EXECUTION_REQUEST_WITH_RELAYED_CONTEXT",
+    "reportedSourceMessageIds": [
+      "Sentinel_0762298c6ff08191974fc87c58dc6236",
+      "Sentinel_cffb79d5083881919a012fe94984742d"
+    ],
+    "limitation": "Relayed context. Original messages were not independently available to this Work. This record does not establish merge authority."
+  },
+  "baselineHead": "7b48a5ff0bc5e6b32fc06bcc6ce9b290e8f7ead5",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "locator": "Unique ID; sourceIndex/Desc"
+  },
+  "levelAuthority": {
+    "path": "canonical/hero-heart-fetter-raw-conditions.v1.json",
+    "gitBlobSha1": "c508ab478aee936428006e80cf3d8cae09e2793a",
+    "locator": "records[heroId=15,heartFetterId=15,heartFetterLevel,skillId] from ConfigDataHeroHeartFetterInfo[ID=15].UnlockSkills_ID"
+  },
+  "jobAuthority": {
+    "path": "canonical/hero-job-advancement-relations.v1.json",
+    "locator": "records[heroId=15,successorConnectionId,successorJobId]",
+    "nameEvidence": "evidence/localization/job-names-ko.hero-15.v1.json"
+  },
+  "koreanOverlay": {
+    "commit": "2cba99fdf3d86b98544c65d15b3e6ffeb2d25d3b",
+    "path": "data/presentation/hero-heart-fetter-effect-kr.v1.json",
+    "gitBlobSha1": "b884f7594636800233aea40566918487d919a4d9",
+    "locator": "skills[skillId].descriptionCn and descriptionKr",
+    "officialKrProvenanceStatus": "NOT_VERIFIED"
+  },
+  "corroboration": {
+    "commit": "32eb9be2a0cacbdcc3d528819272dd02cbff6a76",
+    "path": "data/generated/hero-heart-fetter-site-consumer/hero-map-001.json",
+    "gitBlobSha1": "a7941ba92b6a91bd752d7791cdcd39ebc9c5af27",
+    "locator": "heroes.15 [level, jobId, skillId]",
+    "legacySurface": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/"
+  },
+  "transformation": "Select by explicit Hero, Connection, Job, Level and Skill IDs. Cross-check the exact Chinese Desc and its job prefix against the Job evidence; publish only the corresponding project-translated Korean description and level on the existing edge.",
+  "limitation": "Display text only. ConditionType 7 and ConditionParam runtime meaning remain MANUAL_REVIEW. No official KR, combat inference, unlock logic, new Job relation, or Lv10.",
+  "rows": [
+    {
+      "connectionId": 154,
+      "jobId": 811,
+      "level": 4,
+      "skillId": 70421,
+      "sourceIndex": 16612,
+      "descriptionCn": "职业为先知生效:部队血量低于<color=#DC143C>50%</color>时，遭受伤害降低<color=#DC143C>10%</color>。",
+      "descriptionKo": "부대 생명이 50% 미만일 시, 받는 피해 -10%"
+    },
+    {
+      "connectionId": 154,
+      "jobId": 811,
+      "level": 7,
+      "skillId": 70423,
+      "sourceIndex": 16614,
+      "descriptionCn": "职业为先知生效:主动攻击进入战斗时，伤害提升<color=#DC143C>10%</color>。",
+      "descriptionKo": "공격하여 전투 진입 시, 주는 피해 +10%"
+    },
+    {
+      "connectionId": 155,
+      "jobId": 707,
+      "level": 4,
+      "skillId": 70422,
+      "sourceIndex": 16613,
+      "descriptionCn": "职业为隐士生效:受到远程攻击时，遭受魔法伤害降低<color=#DC143C>10%</color>。",
+      "descriptionKo": "원거리 공격을 받을 시, 받는 마법 피해 -10%"
+    },
+    {
+      "connectionId": 155,
+      "jobId": 707,
+      "level": 7,
+      "skillId": 70424,
+      "sourceIndex": 16615,
+      "descriptionCn": "职业为隐士生效:受到物理攻击进入战斗时，伤害提升<color=#DC143C>10%</color>。",
+      "descriptionKo": "물리 공격을 받아 전투 진입 시, 주는 피해 +10%"
+    }
+  ]
+}
