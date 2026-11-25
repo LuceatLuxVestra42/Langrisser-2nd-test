@@ -4,6 +4,26 @@
     {
       "heroId": 15,
       "nameKo": "리아나",
+      "profile": {
+        "rarity": {
+          "rankId": 4,
+          "label": "SSR"
+        },
+        "factions": [
+          {
+            "factionId": 1,
+            "nameKo": "시대의 주역"
+          },
+          {
+            "factionId": 2,
+            "nameKo": "빛의 군단"
+          },
+          {
+            "factionId": 6,
+            "nameKo": "공주 연맹"
+          }
+        ]
+      },
       "exclusiveEquipment": {
         "equipmentId": 535,
         "nameKo": "완벽한 찬사",

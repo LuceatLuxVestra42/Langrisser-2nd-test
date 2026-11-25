@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { TRAINING_TECH_DECISION_RECORD_PATH, makeTrainingTechContractEnvelope } from './soldier-training-tech-presentation-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, renderExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, renderHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, renderHeroMinimalDetailBatch as renderHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -1096,6 +1096,7 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     readFile(resolve('canonical/exclusive-equipment-localizations-ko.v1.json')),
   ]);
   const hero15MinimalDetail = renderHero15MinimalDetail({
+    profileInputs: await readHero15ProfileInputs(async (path) => JSON.parse(await readFile(resolve(path), 'utf8'))),
     decision: hero15IntegratedPublication,
     heroIdentities: exclusiveHeroIdentities,
     heroLocalizations: exclusiveHeroLocalizations,

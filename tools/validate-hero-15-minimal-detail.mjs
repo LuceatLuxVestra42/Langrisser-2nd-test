@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
-import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -23,7 +23,7 @@ const sourceHashes = Object.fromEntries(await Promise.all([
   ['equipmentLocalization', 'canonical/exclusive-equipment-localizations-ko.v1.json'],
 ].map(async ([key, path]) => [key, createHash('sha256').update(await readFile(resolve(path))).digest('hex')])));
 validateHero15IntegratedPublication(decision);
-const inputs = { decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
+const inputs = { profileInputs: await readHero15ProfileInputs(readJson), decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes };
 const generated = validateHero15MinimalDetail({ generatedText, inputs });
 if (heroIndex.heroes.length !== 267 || heroSlice.heroes.length !== 29 || generated.heroes.length !== 1) {
   throw new Error('Hero Index, Full Detail, or Minimal Detail population changed outside the approved scope');
