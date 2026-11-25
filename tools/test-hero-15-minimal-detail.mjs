@@ -220,10 +220,17 @@ leakedGold.heroes[0].fetterGold[0].rows[0].itemId = 3200;
 assert.throws(() => render(leakedGold, talent, element()), /Fetter Gold consumer/);
 const jobSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '전직');
 assert.deepEqual(jobSection.children[1].children.map(({ textContent }) => textContent), [
-  '시스터 → 주교', '시스터 → 프리스트', '시스터 → 서모너',
-  '프리스트 → 프로핏 · 기본 사거리 2 · 보행 · 이동력 3',
-  '서모너 → 허미트 · 기본 사거리 2 · 보행 · 이동력 3',
+  'T2 시스터 → T3 주교', 'T2 시스터 → T3 프리스트', 'T2 시스터 → T3 서모너',
+  'T3 프리스트 → T4 프로핏 · 기본 사거리 2 · 보행 · 이동력 3',
+  'T3 서모너 → T4 허미트 · 기본 사거리 2 · 보행 · 이동력 3',
 ]);
+fails((x) => { x.jobInputs.rankDecision.status = 'NOT_APPROVED'; }, /Job rank publication scope/);
+fails((x) => { x.jobInputs.rankDecision.rows[0].connectionId = 151; }, /Job rank display mismatch/);
+fails((x) => { x.jobInputs.rankDecision.rows[0].rank = 3; }, /Job rank display mismatch/);
+fails((x) => { x.jobInputs.jobLevelStats.records.find(({ heroId }) => heroId === 15).jobRank = 4; }, /Job rank display mismatch/);
+const wrongRank = structuredClone(generated);
+wrongRank.heroes[0].jobPaths[0].fromRank = 3;
+assert.throws(() => render(wrongRank, talent, element()), /Job consumer/);
 const expectedHeartFetterLabels = [
   ['Lv.4 · 부대 생명이 50% 미만일 시, 받는 피해 -10%', 'Lv.7 · 공격하여 전투 진입 시, 주는 피해 +10%'],
   ['Lv.4 · 원거리 공격을 받을 시, 받는 마법 피해 -10%', 'Lv.7 · 물리 공격을 받아 전투 진입 시, 주는 피해 +10%'],
