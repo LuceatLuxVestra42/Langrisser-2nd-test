@@ -458,7 +458,8 @@
           "descriptionKo": "단일 아군의 생명을 시전자 지력의 5배만큼 회복하고 디버프 1개를 제거한다.",
           "cost": 1,
           "distanceLabelKo": "사거리 2칸",
-          "areaLabelKo": "범위 단일"
+          "areaLabelKo": "범위 단일",
+          "typeLabelKo": "치료"
         },
         {
           "skillId": 10816,
@@ -467,7 +468,8 @@
           "cost": 2,
           "cooldownLabelKo": "쿨 2턴",
           "distanceLabelKo": "사거리 2칸",
-          "areaLabelKo": "범위 단일"
+          "areaLabelKo": "범위 단일",
+          "typeLabelKo": "지원"
         },
         {
           "skillId": 10805,
@@ -476,7 +478,8 @@
           "cost": 2,
           "cooldownLabelKo": "쿨 2턴",
           "distanceLabelKo": "사거리 3칸",
-          "areaLabelKo": "범위 단일"
+          "areaLabelKo": "범위 단일",
+          "typeLabelKo": "지원"
         },
         {
           "skillId": 10707,
@@ -485,7 +488,8 @@
           "cost": 1,
           "cooldownLabelKo": "쿨 1턴",
           "distanceLabelKo": "사거리 2칸",
-          "areaLabelKo": "범위 단일"
+          "areaLabelKo": "범위 단일",
+          "typeLabelKo": "마법 피해"
         },
         {
           "skillId": 10705,
@@ -493,7 +497,8 @@
           "cost": 1,
           "cooldownLabelKo": "쿨 1턴",
           "distanceLabelKo": "사거리 2칸",
-          "areaLabelKo": "범위 단일"
+          "areaLabelKo": "범위 단일",
+          "typeLabelKo": "마법 피해"
         },
         {
           "skillId": 10804,
@@ -501,7 +506,8 @@
           "cost": 2,
           "cooldownLabelKo": "쿨 2턴",
           "distanceLabelKo": "사거리 3칸",
-          "areaLabelKo": "범위 3칸"
+          "areaLabelKo": "범위 3칸",
+          "typeLabelKo": "지원"
         },
         {
           "skillId": 10807,
@@ -510,12 +516,14 @@
           "cost": 2,
           "cooldownLabelKo": "쿨 3턴",
           "distanceLabelKo": "사거리 3칸",
-          "areaLabelKo": "범위 6칸"
+          "areaLabelKo": "범위 6칸",
+          "typeLabelKo": "치료"
         },
         {
           "skillId": 6009,
           "nameKo": "명상",
-          "cost": 1
+          "cost": 1,
+          "typeLabelKo": "패시브"
         },
         {
           "skillId": 11786,
@@ -524,7 +532,8 @@
           "cost": 2,
           "cooldownLabelKo": "쿨 4턴",
           "distanceLabelKo": "사거리 3칸",
-          "areaLabelKo": "범위 단일"
+          "areaLabelKo": "범위 단일",
+          "typeLabelKo": "소환"
         }
       ],
       "exclusiveEquipment": {

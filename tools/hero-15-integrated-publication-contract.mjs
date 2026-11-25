@@ -3,7 +3,10 @@ import { createHash } from 'node:crypto';
 import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
-import { hero15AreaCanonicalPath, hero15AreaEvidencePath, validateHero15OrdinarySkillAreas } from './validate-skill-identities.mjs';
+import {
+  hero15AreaCanonicalPath, hero15AreaEvidencePath, validateHero15OrdinarySkillAreas,
+  hero15TypeCanonicalPath, hero15TypeEvidencePath, validateHero15OrdinarySkillTypes,
+} from './validate-skill-identities.mjs';
 
 const decisionKeys = ['schemaVersion', 'decisionType', 'status', 'approval', 'approvedScope', 'effect'];
 const approvalKeys = ['approverRole', 'source', 'recordedAtDate'];
@@ -86,7 +89,7 @@ const ordinarySkillCooldownOwnerPath = 'canonical/hero-15-ordinary-skill-cooldow
 const ordinarySkillDistanceOwnerPath = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -122,8 +125,11 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-area-publication.v1.json'),
     readJson(hero15AreaEvidencePath),
     readJson(hero15AreaCanonicalPath),
+    readJson('docs/decisions/hero-15-minimal-ordinary-skill-type-publication.v1.json'),
+    readJson(hero15TypeEvidencePath),
+    readJson(hero15TypeCanonicalPath),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas };
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes };
 }
 
 function renderHero15Profile(inputs = {}) {
@@ -471,6 +477,7 @@ function renderHero15OrdinarySkills({
   skillDecision, skillReferences, skillIdentities, ordinarySkillCostDecision, ordinarySkillCosts,
   ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances,
   ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas,
+  ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
 }) {
   const approvedIds = [10801, 10816, 10805, 10707, 10705, 10804, 10807, 6009, 11786];
   const namesOnly = new Set([10705, 10804, 6009]);
@@ -503,6 +510,16 @@ function renderHero15OrdinarySkills({
     hiddenTexts: new Map([[6009, '-']]),
     labels: new Map([['单体', '범위 단일'], ['3格', '범위 3칸'], ['6格', '범위 6칸']]),
   });
+  validateHero15OrdinarySkillTypes(ordinarySkillTypeEvidence, ordinarySkillTypes);
+  if (ordinarySkillTypeDecision?.legacyComparison?.mappingBlobSha1 !== 'c88dc1a8dca4bfe0591c1b3d32b511c3a97a7e36') {
+    throw new Error('Hero 15 ordinary TypeText Korean mapping pin mismatch');
+  }
+  const types = projectOrdinarySkillLabels(ordinarySkillTypeDecision, ordinarySkillTypes, approvedIds, {
+    field: 'TypeText', ownerPath: hero15TypeCanonicalPath, ownerField: 'typeText', shardField: 'displayType',
+    pointerKey: 'shardTypePointer', comparisonKey: 'shardTypeText', labelKey: 'legacyTypeLabelKo',
+    hiddenTexts: new Map(),
+    labels: new Map([['治疗', '치료'], ['支援', '지원'], ['魔法伤害', '마법 피해'], ['被动', '패시브'], ['召唤', '소환']]),
+  });
   return skillDecision.skills.map(({ skillId, sourceNameCn, sourceDescSha256, nameKo, descriptionKo }) => {
     const identities = skillIdentities.records.filter((row) => row.skillId === skillId);
     const identity = identities[0];
@@ -518,6 +535,7 @@ function renderHero15OrdinarySkills({
     if (cooldowns.has(skillId)) display.cooldownLabelKo = cooldowns.get(skillId);
     if (distances.has(skillId)) display.distanceLabelKo = distances.get(skillId);
     if (areas.has(skillId)) display.areaLabelKo = areas.get(skillId);
+    if (types.has(skillId)) display.typeLabelKo = types.get(skillId);
     return display;
   });
 }

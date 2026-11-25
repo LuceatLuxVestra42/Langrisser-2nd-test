@@ -298,14 +298,16 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const cooldownLabelsKo = new Set(['쿨 1턴', '쿨 2턴', '쿨 3턴', '쿨 4턴']);
   const distanceLabelsKo = new Set(['사거리 2칸', '사거리 3칸']);
   const areaLabelsKo = new Set(['범위 단일', '범위 3칸', '범위 6칸']);
+  const typeLabelsKo = new Set(['치료', '지원', '마법 피해', '패시브', '소환']);
   if (!Array.isArray(ordinarySkills)
     || JSON.stringify(ordinarySkills.map((row) => row?.skillId)) !== JSON.stringify(expectedSkillIds)
-    || !ordinarySkills.every(({ skillId, nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, ...fields }) =>
+    || !ordinarySkills.every(({ skillId, nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo, ...fields }) =>
       Object.keys(fields).length === 0 && typeof nameKo === 'string' && nameKo.trim()
       && (cost === undefined || [1, 2].includes(cost))
       && (cooldownLabelKo === undefined || (!noCooldownLabel.has(skillId) && cooldownLabelsKo.has(cooldownLabelKo)))
       && (distanceLabelKo === undefined || (skillId !== 6009 && distanceLabelsKo.has(distanceLabelKo)))
       && (areaLabelKo === undefined || (skillId !== 6009 && areaLabelsKo.has(areaLabelKo)))
+      && (typeLabelKo === undefined || typeLabelsKo.has(typeLabelKo))
       && (namesOnly.has(skillId) ? descriptionKo === undefined : typeof descriptionKo === 'string' && descriptionKo.trim()))) {
     throw new Error('Hero 15 ordinary Skill consumer is malformed');
   }
@@ -313,8 +315,8 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     throw new Error('Hero 15 Central Discipline consumer is malformed');
   }
   const centralDisciplineSection = renderMinimalDetailList('중앙율정', centralDisciplineEffectKo.split('\n'));
-  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo }) =>
-    [nameKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, descriptionKo]
+  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo }) =>
+    [nameKo, typeLabelKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, descriptionKo]
       .filter((part) => part !== undefined).join(' · ')));
   const soldierSection = renderMinimalDetailList('용병', []);
   const soldierList = soldierSection.children[1];

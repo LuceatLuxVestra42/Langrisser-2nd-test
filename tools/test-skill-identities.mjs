@@ -16,6 +16,8 @@ const distanceEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records
 const distanceOwner = 'canonical/hero-15-ordinary-skill-distances.v1.json';
 const areaEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-areas.v1.json';
 const areaOwner = 'canonical/hero-15-ordinary-skill-areas.v1.json';
+const typeEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-types.v1.json';
+const typeOwner = 'canonical/hero-15-ordinary-skill-types.v1.json';
 const paths = [
   centralEvidence,
   costEvidence,
@@ -26,6 +28,8 @@ const paths = [
   distanceOwner,
   areaEvidence,
   areaOwner,
+  typeEvidence,
+  typeOwner,
   'canonical/hero-skill-references.v1.json',
   'canonical/skills.v1.json',
   'canonical/hero-talent-star-skills.v1.json',
@@ -78,6 +82,29 @@ try {
   assert.match(baseline.stdout, /ordinary CDText validation: PASS \(9 exact source-native strings\)/);
   assert.match(baseline.stdout, /ordinary DistanceText validation: PASS \(9 exact source-native strings\)/);
   assert.match(baseline.stdout, /ordinary RangeText validation: PASS \(9 exact source-native strings\)/);
+  assert.match(baseline.stdout, /ordinary TypeText validation: PASS \(9 exact source-native strings\)/);
+  await mutateJson(typeEvidence, (x) => { x.records.pop(); }, 'partial TypeText evidence', /HERO15_TYPE_SCOPE/);
+  await mutateJson(typeOwner, (x) => { x.records.pop(); }, 'partial TypeText admission', /HERO15_TYPE_SCOPE/);
+  await mutateJson(typeEvidence, (x) => {
+    x.records[1].sourceRecordIndex = 1917;
+    x.records[1].fieldLocator = '/1917/TypeText';
+  }, 'same-text different TypeText record', /HERO15_TYPE_RECORD/);
+  for (const id of [10805, 12350]) {
+    await mutateJson(typeEvidence, (x) => { x.records[1].rawRecord.ID = id; }, `incorrect TypeText ID ${id}`, /HERO15_TYPE_RECORD/);
+  }
+  await mutateJson(typeEvidence, (x) => { delete x.records[0].rawRecord.TypeText; }, 'missing TypeText', /HERO15_TYPE_RECORD/);
+  for (const value of ['', null, 0, '0', '主动', '[治疗]', '治疗 ', '支援']) {
+    await mutateJson(typeEvidence, (x) => { x.records[0].rawRecord.TypeText = value; }, `invalid TypeText ${JSON.stringify(value)}`, /HERO15_TYPE_RECORD/);
+  }
+  for (const [field, value] of [['SkillType', 5], ['Desc', '[治疗]']]) {
+    await mutateJson(typeEvidence, (x) => {
+      x.records[0].fieldLocator = `/1913/${field}`;
+      x.records[0].rawRecord = { ID: 10801, [field]: value };
+    }, `${field} substituted for TypeText`, /HERO15_TYPE_RECORD/);
+  }
+  await mutateJson(typeOwner, (x) => { x.records[0].heroId = 16; }, 'wrong TypeText Hero', /HERO15_TYPE_CANONICAL/);
+  await mutateJson(typeOwner, (x) => { x.records[0].skillId = 12350; }, 'wrong TypeText skill', /HERO15_TYPE_CANONICAL/);
+  await mutateJson(typeOwner, (x) => { x.records[2].typeText = '治疗'; }, 'same numeric code collapsed to one TypeText', /HERO15_TYPE_CANONICAL/);
   await mutateJson(areaEvidence, (x) => { x.records.pop(); }, 'partial RangeText evidence', /HERO15_AREA_SCOPE/);
   await mutateJson(areaOwner, (x) => { x.records.pop(); }, 'partial RangeText admission', /HERO15_AREA_SCOPE/);
   await mutateJson(areaEvidence, (x) => { x.records[0].fieldLocator = '/1932/RangeText'; }, 'wrong RangeText locator', /HERO15_AREA_RECORD/);
