@@ -8,8 +8,13 @@ const source = process.cwd();
 const temp = await mkdtemp(join(tmpdir(), 'skill-identities-'));
 const repo = join(temp, 'repo');
 const centralEvidence = 'evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
+const costEvidence = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-ordinary-skill-costs.v1.json';
+const costOwner = 'canonical/hero-15-ordinary-skill-costs.v1.json';
 const paths = [
   centralEvidence,
+  costEvidence,
+  costOwner,
+  'canonical/hero-skill-references.v1.json',
   'canonical/skills.v1.json',
   'canonical/hero-talent-star-skills.v1.json',
   'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json',
@@ -55,7 +60,21 @@ async function mutateJson(path, mutate, label, pattern) {
 }
 
 try {
-  assertPass(run(), 'normal 109-record fixture');
+  const baseline = run();
+  assertPass(baseline, 'normal 109-record fixture');
+  assert.match(baseline.stdout, /ordinary SkillCost validation: PASS \(9 exact source-native rows\)/);
+  await mutateJson(costEvidence, (x) => { x.records[0].fieldLocator = '/1917/SkillCost'; }, 'wrong cost locator', /HERO15_COST_RECORD/);
+  await mutateJson(costEvidence, (x) => { x.records[0].rawRecord.ID = 10816; }, 'duplicate cost evidence ID', /HERO15_COST_RECORD/);
+  await mutateJson(costEvidence, (x) => { delete x.records[0].rawRecord.SkillCost; }, 'missing cost', /HERO15_COST_RECORD/);
+  for (const cost of [null, 0, '1', 1.5, 2]) {
+    await mutateJson(costEvidence, (x) => { x.records[0].rawRecord.SkillCost = cost; }, `wrong raw cost ${JSON.stringify(cost)}`, /HERO15_COST_RECORD/);
+  }
+  await mutateJson(costOwner, (x) => { x.records[0].heroId = 16; }, 'wrong canonical cost Hero', /HERO15_COST_CANONICAL/);
+  await mutateJson(costOwner, (x) => { x.records[0].skillId = 12350; }, 'wrong canonical cost ID', /HERO15_COST_CANONICAL/);
+  await mutateJson(costOwner, (x) => { x.records[0].skillCost = 2; }, 'changed canonical cost', /HERO15_COST_CANONICAL/);
+  await mutateJson('canonical/hero-skill-references.v1.json', (x) => {
+    x.records.find((row) => row.heroId === 15 && row.skillId === 10801).heroId = 16;
+  }, 'ordinary skill reference differs', /HERO15_COST_SCOPE/);
   const c = 'canonical/skills.v1.json';
   const e = 'evidence/source/configdata/ConfigDataSkillInfo.records-hero-6-8-talent-skills.v1.json';
   const se = 'evidence/source/configdata/ConfigDataSkillInfo.records-soldier-skill-targets-30.v1.json';
