@@ -1,3 +1,4 @@
+import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
 import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -85,10 +86,10 @@ export function validateHeroSoldierPresentation(heroPresentation, relationOwner,
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-  const [canonical, relationOwner, soldierIdentities, generatedText, publication] = await Promise.all([
+  const [canonical, relationOwner, { identities: soldierIdentities }, generatedText, publication] = await Promise.all([
     readJson('canonical/heroes.v1.json'),
     readJson('canonical/hero-soldier-relations.v1.json'),
-    readJson('canonical/soldiers.v1.json'),
+    loadPublicSoldierPopulation(),
     readFile(resolve('generated/hero-soldier-relations.v1.json'), 'utf8'),
     readJson('docs/decisions/hero-index-publication.v1.json'),
   ]);

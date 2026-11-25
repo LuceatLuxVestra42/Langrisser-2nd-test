@@ -1,35 +1,68 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
+import { selectPublicSoldierIdentities } from './validate-sp-soldier-relation.mjs';
 import { validateSoldierBfMovePoints } from './validate-soldier-bf-move-points.mjs';
 
 const read = async path => JSON.parse(await readFile(path, 'utf8'));
-const [soldiers, canonical, endpoints, manifest, endpointBytes] = await Promise.all([
+const [soldiers, canonical, endpoints, manifest, endpointBytes, spPopulationBytes, relations] = await Promise.all([
   read('canonical/soldiers.v1.json'),
   read('canonical/soldier-bf-move-points.v1.json'),
   read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
   read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
+  readFile('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+  read('canonical/sp-soldier-normal-relations.v1.json'),
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
-// The current target is derived from admitted Soldier identities and exact pinned endpoint facts.
-const identityRows = soldiers.records.filter(record => record.entity === 'Soldier');
-const requiredIds = [];
-for (const identity of identityRows) {
-  const matchingIdentityRows = identityRows.filter(record => record.id === identity.id);
-  assert.equal(matchingIdentityRows.length, 1, `Soldier identity must be unique for ID=${identity.id}`);
-  assert.equal(typeof identity.variant, 'string');
-  assert.ok(identity.variant.length > 0, `Soldier variant must be explicit for ID=${identity.id}`);
-
-  const sourceRows = endpoints.records.filter(record => record.ID === identity.id);
-  assert.equal(sourceRows.length, 1, `pinned endpoint row must occur exactly once for ID=${identity.id}`);
-  const sourceRow = sourceRows[0];
-  assert.equal(Object.hasOwn(sourceRow, 'BF_MovePoint'), true, `BF_MovePoint must be explicit for ID=${identity.id}`);
-  assert.equal(typeof sourceRow.BF_MovePoint, 'number', `BF_MovePoint must be numeric for ID=${identity.id}`);
-  assert.equal(Number.isFinite(sourceRow.BF_MovePoint), true, `BF_MovePoint must be finite for ID=${identity.id}`);
-  requiredIds.push(identity.id);
+// The preserved full table was compared against the pinned Legacy blob byte source.
+assert.equal(createHash('sha256').update(spPopulationBytes).digest('hex'),
+  'ba41a6a37c873a5cc6196bd3135d2b656896e808741cd2b1df56a555ab888500');
+const spSoldierInfo = JSON.parse(spPopulationBytes.toString('utf8'));
+assert.equal(spSoldierInfo.records.length, 56);
+const expectedEndpoints = spSoldierInfo.records.flatMap(({ ID, NormalSoliderId }) =>
+  [['SP', ID], ['NORMAL', NormalSoliderId]]);
+const endpointKeys = rows => rows.map(([variant, id]) => `${variant}:${id}`).sort();
+assert.equal(new Set(endpointKeys(expectedEndpoints)).size, 112);
+const requiredIds = expectedEndpoints.map(([, id]) => id);
+assert.equal(new Set(requiredIds).size, 112);
+for (const id of requiredIds) {
+  const sourceRows = endpoints.records.filter(record => record.ID === id);
+  assert.equal(sourceRows.length, 1, `pinned endpoint row must occur exactly once for ID=${id}`);
+  assert.ok(Number.isFinite(sourceRows[0].BF_MovePoint), `BF_MovePoint must be explicit and finite for ID=${id}`);
 }
-assert.equal(new Set(requiredIds).size, requiredIds.length, 'required Soldier IDs must be unique');
+const synthetic = { entity: 'Soldier', id: 999999, variant: 'NORMAL', provenance: 'test-only' };
+const extended = { ...soldiers, records: [...soldiers.records, synthetic] };
+const selectionInputs = { soldiers: extended, relations, soldierInfo: endpoints, spPopulationBytes, manifest };
+const publicIdentities = selectPublicSoldierIdentities(selectionInputs);
+assert.deepEqual(endpointKeys(publicIdentities.records.map(({ variant, id }) => [variant, id])),
+  endpointKeys(expectedEndpoints));
+assert.deepEqual(validateSoldierBfMovePoints({ ...args, soldiers: extended }), validateSoldierBfMovePoints(args));
+assert.throws(() => validateSoldierIdentity({ canonical: extended, soldierInfo: endpoints, spSoldierInfo, manifest }), /not source-derived/);
+
+const swapped = structuredClone(relations);
+swapped.records.find(row => row.spSoldierId === 5203).normalSoldierId = 216;
+swapped.records.find(row => row.spSoldierId === 5216).normalSoldierId = 203;
+assert.throws(() => selectPublicSoldierIdentities({ ...selectionInputs, relations: swapped }), /canonical relation set differs/);
+const swappedSource = structuredClone(spSoldierInfo);
+swappedSource.records.find(row => row.ID === 5203).NormalSoliderId = 216;
+swappedSource.records.find(row => row.ID === 5216).NormalSoliderId = 203;
+assert.throws(() => selectPublicSoldierIdentities({
+  ...selectionInputs, relations: swapped, spPopulationBytes: Buffer.from(JSON.stringify(swappedSource)),
+}), /preserved evidence SHA-256 mismatch/);
+
+for (const records of [
+  extended.records.filter(row => row.id !== 203),
+  extended.records.map(row => row.id === 203 ? { ...row, variant: 'SP' } : row),
+  [...extended.records, extended.records.find(row => row.id === 203)],
+]) {
+  assert.throws(() => selectPublicSoldierIdentities({ ...selectionInputs, soldiers: { ...extended, records } }),
+    /NORMAL target canonical identity missing|public Soldier endpoints/);
+}
+const nonTarget = structuredClone(relations);
+nonTarget.records.find(row => row.spSoldierId === 5203).normalSoldierId = synthetic.id;
+assert.throws(() => selectPublicSoldierIdentities({ ...selectionInputs, relations: nonTarget }), /canonical relation set differs/);
 
 const result = validateSoldierBfMovePoints(args);
 
@@ -75,4 +108,4 @@ assert.throws(() => validateSoldierBfMovePoints({ ...args, canonical: withRecord
 assert.throws(() => validateSoldierBfMovePoints({ ...args, endpointSha256: '0'.repeat(64) }), /evidence hash mismatch/);
 assert.throws(() => validateSoldierBfMovePoints({ ...args, manifest: { ...manifest, source: { ...manifest.source, commit: '0'.repeat(40) } } }), /repository\/commit mismatch/);
 
-process.stdout.write(`Soldier BF_MovePoint validation and full-population migration scope: PASS (${result.canonicalCount}/${requiredIds.length})\\n`);
+process.stdout.write(`Soldier BF_MovePoint pinned public endpoints and separate registration guard: PASS (${result.canonicalCount}/${requiredIds.length})\\n`);

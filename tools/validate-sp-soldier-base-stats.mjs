@@ -23,11 +23,12 @@ export function validateSpSoldierBaseStats({ soldiers, relations, stats, evidenc
 
   const sourceSpIds = spSoldierInfo.records.map(r => r.ID).sort((a,b) => a-b);
   check(sourceSpIds.length === 56 && new Set(sourceSpIds).size === 56, 'SP source identity set malformed');
-  const canonicalSpIds = soldiers.records.filter(r => r.entity === 'Soldier' && r.variant === 'SP').map(r => r.id).sort((a,b) => a-b);
+  const spIdSet = new Set(sourceSpIds);
+  const canonicalSpIds = soldiers.records.filter(r => r.entity === 'Soldier' && r.variant === 'SP' && spIdSet.has(r.id)).map(r => r.id).sort((a,b) => a-b);
   check(JSON.stringify(canonicalSpIds) === JSON.stringify(sourceSpIds), 'canonical SP identity set changed');
-  const normalCanonical = new Set(soldiers.records.filter(r => r.entity === 'Soldier' && r.variant === 'NORMAL').map(r => r.id));
-  const targetIds = spSoldierInfo.records.map(r => r.NormalSoliderId);
-  check(targetIds.every(id => normalCanonical.has(id)) && normalCanonical.size === 56, 'NORMAL identity endpoints changed');
+  const normalIds = new Set(spSoldierInfo.records.map(r => r.NormalSoliderId));
+  const normalEndpoints = soldiers.records.filter(r => r.entity === 'Soldier' && r.variant === 'NORMAL' && normalIds.has(r.id));
+  check(normalIds.size === 56 && normalEndpoints.length === 56 && new Set(normalEndpoints.map(r => r.id)).size === 56, 'NORMAL identity endpoints changed');
   const expectedRelations = new Set(spSoldierInfo.records.map(r => `${r.ID}:${r.NormalSoliderId}`));
   const actualRelations = new Set(relations.records.map(r => `${r.spSoldierId}:${r.normalSoldierId}`));
   check(expectedRelations.size === 56 && actualRelations.size === 56 && [...expectedRelations].every(k => actualRelations.has(k)), 'SP→NORMAL relations changed');

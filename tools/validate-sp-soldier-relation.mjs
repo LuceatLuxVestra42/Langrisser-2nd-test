@@ -1,7 +1,10 @@
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+export const spPopulationEvidencePath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json';
+const spPopulationEvidenceSha256 = 'ba41a6a37c873a5cc6196bd3135d2b656896e808741cd2b1df56a555ab888500';
 const PINNED_COMMIT = '6475e63ee23d18adf733756c26a14fa9e3ed662c';
 const fail = (message) => { throw new Error(`SP Soldier relation validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
@@ -50,16 +53,46 @@ export function validateSpSoldierRelation({ soldiers, relations, soldierInfo, sp
   return { relationCount: actualPairs.size };
 }
 
-export async function loadAndValidateSpSoldierRelation(root = process.cwd()) {
-  const read = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [soldiers, relations, soldierInfo, spSoldierInfo, manifest] = await Promise.all([
+async function loadSoldierRelationInputs(root) {
+  const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+  const [soldiers, relations, soldierInfo, spPopulationBytes, manifest] = await Promise.all([
     read('canonical/soldiers.v1.json'),
     read('canonical/sp-soldier-normal-relations.v1.json'),
     read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
-    read('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+    readFile(resolve(root, spPopulationEvidencePath)),
     read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
   ]);
-  return validateSpSoldierRelation({ soldiers, relations, soldierInfo, spSoldierInfo, manifest });
+  return { soldiers, relations, soldierInfo, spPopulationBytes, manifest };
+}
+
+export function parsePinnedSpPopulation(bytes) {
+  check(createHash('sha256').update(bytes).digest('hex') === spPopulationEvidenceSha256,
+    `preserved evidence SHA-256 mismatch: ${spPopulationEvidencePath}`);
+  return JSON.parse(bytes.toString('utf8'));
+}
+
+// Scope for the existing public consumers. Registration continues to validate the full owner.
+export function selectPublicSoldierIdentities({ soldiers, relations, soldierInfo, spPopulationBytes, manifest }) {
+  const spSoldierInfo = parsePinnedSpPopulation(spPopulationBytes);
+  validateSpSoldierRelation({ soldiers, relations, soldierInfo, spSoldierInfo, manifest });
+  const spIds = new Set(relations.records.map(row => row.spSoldierId));
+  const normalIds = new Set(relations.records.map(row => row.normalSoldierId));
+  check(spIds.size === 56 && normalIds.size === 56, 'public endpoint population mismatch');
+  const records = soldiers.records.filter(row => row.entity === 'Soldier'
+    && ((row.variant === 'SP' && spIds.has(row.id)) || (row.variant === 'NORMAL' && normalIds.has(row.id))));
+  check(records.length === 112 && new Set(records.map(row => `${row.variant}:${row.id}`)).size === 112,
+    'public Soldier endpoints must resolve exactly once by variant and ID');
+  return { ...soldiers, records };
+}
+
+export async function loadPublicSoldierPopulation(root = process.cwd()) {
+  const inputs = await loadSoldierRelationInputs(root);
+  return { identities: selectPublicSoldierIdentities(inputs), relations: inputs.relations };
+}
+
+export async function loadAndValidateSpSoldierRelation(root = process.cwd()) {
+  const { soldiers, relations, soldierInfo, spPopulationBytes, manifest } = await loadSoldierRelationInputs(root);
+  return validateSpSoldierRelation({ soldiers, relations, soldierInfo, spSoldierInfo: parsePinnedSpPopulation(spPopulationBytes), manifest });
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {

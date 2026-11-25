@@ -39,6 +39,10 @@ mustFail('out-of-scope Soldier relation expansion', () => render(identities, loc
 mustFail('duplicate exact Skill identity endpoint', () => render(identities, localizations, baseStats, movePoints, soldierSkillRelations, { ...skills, records: [...skills.records, skills.records[0]] }));
 mustFail('missing exact Skill identity endpoint', () => render(identities, localizations, baseStats, movePoints, soldierSkillRelations, { ...skills, records: skills.records.filter((skill) => skill.skillId !== soldierSkillRelations.records[0].targetSkillId) }));
 
+const unpublishedSoldier = JSON.parse(generated);
+unpublishedSoldier.soldiers[0].normalSoldierId = 999999;
+mustFail('unpublished NORMAL endpoint', () => validate(`${JSON.stringify(unpublishedSoldier, null, 2)}\n`));
+
 const missingName = JSON.parse(generated);
 missingName.soldiers[0].nameKo = '';
 mustFail('empty generated name', () => validate(`${JSON.stringify(missingName, null, 2)}\n`));

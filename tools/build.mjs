@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve, sep } from 'node:path';
 import { readFileSync } from 'node:fs';
-import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
+import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
+import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderHeroSoldierRelations, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
 import { validateHeroIndex } from './validate-hero-index.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
 import { validateSkinGenerated } from './validate-skin-generated.mjs';
@@ -293,19 +294,18 @@ for (const item of exclusiveEquipmentGenerated.equipment) {
   if (typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed Exclusive Equipment presentation');
 }
 
-const [soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats] = await Promise.all([
-  readJson('canonical/soldiers.v1.json'),
+const [{ identities: publicSoldiers, relations: soldierRelations }, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, normalSoldierBaseStats] = await Promise.all([
+  loadPublicSoldierPopulation(),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
   readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/sp-soldier-base-stats.v1.json'),
-  readJson('canonical/sp-soldier-normal-relations.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
 ]);
 const soldierBfMovePoints = await readJson('canonical/soldier-bf-move-points.v1.json');
 const soldierSkillRelations = await readJson('canonical/soldier-skill-relations.v1.json');
 const spGeneratedPath = resolve('generated/sp-soldiers.v1.json');
 const spGeneratedText = await readFile(spGeneratedPath, 'utf8');
-const expectedSpGenerated = renderSpSoldiers(soldierIdentities, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats, soldierBfMovePoints, soldierSkillRelations, skills);
+const expectedSpGenerated = renderSpSoldiers(publicSoldiers, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, soldierRelations, normalSoldierBaseStats, soldierBfMovePoints, soldierSkillRelations, skills);
 if (spGeneratedText !== expectedSpGenerated) throw new Error('generated SP Soldier data is stale or non-deterministic');
 const spGenerated = JSON.parse(spGeneratedText);
 if (spGenerated.schemaVersion !== 1 || !Array.isArray(spGenerated.soldiers)) throw new Error('built document has unsupported SP Soldier presentation schema');
@@ -322,7 +322,7 @@ for (const soldier of spGenerated.soldiers) {
 
 const normalSoldierGeneratedPath = resolve('generated/normal-soldiers.v1.json');
 const normalSoldierGeneratedText = await readFile(normalSoldierGeneratedPath, 'utf8');
-if (normalSoldierGeneratedText !== renderNormalSoldiers(soldierIdentities, normalSoldierLocalizations, normalSoldierBaseStats, soldierBfMovePoints, soldierSkillRelations, skills)) {
+if (normalSoldierGeneratedText !== renderNormalSoldiers(publicSoldiers, normalSoldierLocalizations, normalSoldierBaseStats, soldierBfMovePoints, soldierSkillRelations, skills)) {
   throw new Error('generated NORMAL Soldier data is stale or non-deterministic');
 }
 const normalSoldierGenerated = JSON.parse(normalSoldierGeneratedText);
@@ -355,6 +355,11 @@ if (trainingTechGenerated.records.length !== 20 || trainingTechGenerated.contrac
 
 const heroSoldierRelationPath = resolve('generated/hero-soldier-relations.v1.json');
 const heroSoldierRelationText = await readFile(heroSoldierRelationPath, 'utf8');
+const publicHeroPresentation = { ...canonical, records: projectApprovedFullDetailRecords(canonical, fullDetailPublicationDecision) };
+const heroSoldierOwner = await readJson('canonical/hero-soldier-relations.v1.json');
+if (heroSoldierRelationText !== renderHeroSoldierRelations(publicHeroPresentation, heroSoldierOwner, publicSoldiers)) {
+  throw new Error('generated Hero–Soldier relations are stale or non-deterministic');
+}
 const heroSoldierRelations = JSON.parse(heroSoldierRelationText);
 exactKeys(heroSoldierRelations, ['schemaVersion', 'relations'], 'generated Hero–Soldier relations');
 if (heroSoldierRelations.schemaVersion !== 1 || !Array.isArray(heroSoldierRelations.relations)) {

@@ -1,3 +1,4 @@
+import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
@@ -63,8 +64,8 @@ export function validateNormalSoldierPresentation(identities, localizations, bas
 const invokedPath = process.argv[1] ? resolve(process.argv[1]) : '';
 if (invokedPath === fileURLToPath(import.meta.url)) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-  const [identities, localizations, baseStats, generatedText, movePoints, soldierSkillRelations, skills] = await Promise.all([
-    readJson('canonical/soldiers.v1.json'),
+  const [{ identities }, localizations, baseStats, generatedText, movePoints, soldierSkillRelations, skills] = await Promise.all([
+    loadPublicSoldierPopulation(),
     readJson('canonical/normal-soldier-localizations-ko.v1.json'),
     readJson('canonical/normal-soldier-base-stats.v1.json'),
     readFile(resolve('generated/normal-soldiers.v1.json'), 'utf8'),

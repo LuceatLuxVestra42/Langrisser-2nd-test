@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
-import { validateSpSoldierRelation } from './validate-sp-soldier-relation.mjs';
+import { parsePinnedSpPopulation, selectPublicSoldierIdentities, spPopulationEvidencePath } from './validate-sp-soldier-relation.mjs';
 import { validateSpSoldierBaseStats } from './validate-sp-soldier-base-stats.mjs';
 
 const PINNED_COMMIT = '6475e63ee23d18adf733756c26a14fa9e3ed662c';
@@ -18,10 +18,6 @@ const EXPECTED = {
   sp5115: {
     path: 'evidence/source/configdata/ConfigDataSPSoldierInfo.record-5115.v1.json',
     sha256: '47029e0785e25ef57d3599d8ad59fa38b5620f2ea432599f4cc6db33ef76e383',
-  },
-  spPopulation: {
-    path: 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json',
-    sha256: 'ba41a6a37c873a5cc6196bd3135d2b656896e808741cd2b1df56a555ab888500',
   },
   soldierEndpoints: {
     path: 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json',
@@ -66,18 +62,18 @@ export async function validateSoldierProvenance(root = process.cwd()) {
     && identityManifest.artifacts.spSoldierInfo.gitBlobSha1 === '93dd784a7de913daa6d72f5df6cf6890a710c58a'
     && identityManifest.artifacts.spSoldierInfo.sha256 === 'bec68e5693cbceacf9d9d23c9e416e0560052cf068809a9255e4210a56632b55',
   'historical SPSoldierInfo source locator/hash mismatch');
-  check(populationManifest.artifacts?.spSoldierInfo?.repoPreservedPath === EXPECTED.spPopulation.path,
+  check(populationManifest.artifacts?.spSoldierInfo?.repoPreservedPath === spPopulationEvidencePath,
     'SP population artifact path mismatch');
   check(populationManifest.artifacts?.soldierInfoEndpoints?.repoPreservedPath === EXPECTED.soldierEndpoints.path,
     'Soldier endpoint artifact path mismatch');
   check(statsManifest.artifact?.preservedPath === EXPECTED.soldierStats.path,
     'base stats evidence artifact path mismatch');
 
-  const [historicalSoldier, historicalSp, spPopulation, endpoints, statsEvidence,
+  const [historicalSoldier, historicalSp, spPopulationBytes, endpoints, statsEvidence,
     canonical, relations, stats, identityPopulationManifest, localization] = await Promise.all([
     verifyArtifact(root, EXPECTED.identity115),
     verifyArtifact(root, EXPECTED.sp5115),
-    verifyArtifact(root, EXPECTED.spPopulation),
+    readBytes(root, spPopulationEvidencePath),
     verifyArtifact(root, EXPECTED.soldierEndpoints),
     verifyArtifact(root, EXPECTED.soldierStats),
     readJson(root, 'canonical/soldiers.v1.json'),
@@ -89,6 +85,7 @@ export async function validateSoldierProvenance(root = process.cwd()) {
   const historicalSoldierById = recordMap(historicalSoldier);
   const historicalSpById = recordMap(historicalSp);
   const endpointById = recordMap(endpoints);
+  const spPopulation = parsePinnedSpPopulation(spPopulationBytes);
   const spById = recordMap(spPopulation);
   check(historicalSoldierById.size === 2 && historicalSoldierById.has(115) && historicalSoldierById.has(5115),
     'historical SoldierInfo evidence must contain exactly IDs 115 and 5115');
@@ -121,11 +118,13 @@ export async function validateSoldierProvenance(root = process.cwd()) {
 
   const soldierInfo = { records: endpoints.records };
   validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo: spPopulation, manifest: identityPopulationManifest });
-  validateSpSoldierRelation({ soldiers: canonical, relations, soldierInfo, spSoldierInfo: spPopulation, manifest: identityPopulationManifest });
-  validateSpSoldierBaseStats({ soldiers: canonical, relations, stats, evidence: statsEvidence, spSoldierInfo: spPopulation, manifest: statsManifest });
+  const publicIdentities = selectPublicSoldierIdentities({
+    soldiers: canonical, relations, soldierInfo, spPopulationBytes, manifest: identityPopulationManifest,
+  });
+  validateSpSoldierBaseStats({ soldiers: publicIdentities, relations, stats, evidence: statsEvidence, spSoldierInfo: spPopulation, manifest: statsManifest });
   check(localization.records.every(row => Number.isInteger(row.soldierId) && spById.has(row.soldierId)),
     'Soldier localization endpoint is not in the verified SP population');
-  return { evidenceArtifacts: Object.keys(EXPECTED).length, identityCount: canonical.records.length, relationCount: relations.records.length };
+  return { evidenceArtifacts: Object.keys(EXPECTED).length + 1, identityCount: canonical.records.length, relationCount: relations.records.length };
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
