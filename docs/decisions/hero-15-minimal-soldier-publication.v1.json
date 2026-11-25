@@ -1,0 +1,80 @@
+{
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "approval": "Direct user standing approval in 이전 Work on 2026-11-25 for existing Hero 15 detail, with source, Korean display and publication conditions verified.",
+  "legacyDisplay": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15",
+  "scope": "Names and namespaces for the 14 admitted pairs. This is a subset of the Legacy display.",
+  "soldiers": [
+    {
+      "soldierId": 210,
+      "namespace": "NORMAL",
+      "nameKo": "하이랜더"
+    },
+    {
+      "soldierId": 326,
+      "namespace": "NORMAL",
+      "nameKo": "템플러"
+    },
+    {
+      "soldierId": 602,
+      "namespace": "NORMAL",
+      "nameKo": "하이엘프"
+    },
+    {
+      "soldierId": 621,
+      "namespace": "NORMAL",
+      "nameKo": "마법사"
+    },
+    {
+      "soldierId": 802,
+      "namespace": "NORMAL",
+      "nameKo": "신관"
+    },
+    {
+      "soldierId": 811,
+      "namespace": "NORMAL",
+      "nameKo": "퇴마사"
+    },
+    {
+      "soldierId": 815,
+      "namespace": "NORMAL",
+      "nameKo": "영종의 투승"
+    },
+    {
+      "soldierId": 5210,
+      "namespace": "SP",
+      "nameKo": "하이랜더"
+    },
+    {
+      "soldierId": 5326,
+      "namespace": "SP",
+      "nameKo": "템플러"
+    },
+    {
+      "soldierId": 5602,
+      "namespace": "SP",
+      "nameKo": "하이엘프"
+    },
+    {
+      "soldierId": 5621,
+      "namespace": "SP",
+      "nameKo": "마법사"
+    },
+    {
+      "soldierId": 5802,
+      "namespace": "SP",
+      "nameKo": "신관"
+    },
+    {
+      "soldierId": 5811,
+      "namespace": "SP",
+      "nameKo": "퇴마사"
+    },
+    {
+      "soldierId": 5815,
+      "namespace": "SP",
+      "nameKo": "영종의 투승"
+    }
+  ]
+}

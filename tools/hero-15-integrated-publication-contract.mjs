@@ -1,3 +1,5 @@
+import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
+
 const decisionKeys = ['schemaVersion', 'decisionType', 'status', 'approval', 'approvedScope', 'effect'];
 const approvalKeys = ['approverRole', 'source', 'recordedAtDate'];
 const sourceKeys = ['kind', 'quote', 'originalMessageIdOrUrl', 'contextVerified'];
@@ -117,7 +119,36 @@ function renderHero15Profile({ approval, rarities, relations, names } = {}) {
   return profile;
 }
 
-export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs }) {
+export async function readHero15SoldierPublicationInputs(readJson) {
+  const [approval, relations, soldiers, normalNames, spNames] = await Promise.all([
+    readJson('docs/decisions/hero-15-minimal-soldier-publication.v1.json'),
+    readJson('canonical/hero-soldier-relations.v1.json'),
+    readJson('canonical/soldiers.v1.json'),
+    readJson('canonical/normal-soldier-localizations-ko.v1.json'),
+    readJson('canonical/sp-soldier-localizations-ko.v1.json'),
+  ]);
+  return { approval, relations, soldiers, normalNames, spNames };
+}
+
+function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, spNames }) {
+  if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || approval.status !== 'APPROVED') throw new Error('Hero 15 Soldier publication scope mismatch');
+  const { records } = JSON.parse(renderHero15SoldierInternal({ relations, soldiers }));
+  const namesByVariant = { NORMAL: normalNames.records, SP: spNames.records };
+  const rows = records.map(({ soldierId, soldierIdentity: { variant } }) => {
+    const names = namesByVariant[variant]?.filter((row) => row.soldierId === soldierId);
+    if (names?.length !== 1 || !names[0].nameKo?.trim()) {
+      throw new Error(`Hero 15 Soldier name is unresolved for ${variant} ${soldierId}`);
+    }
+    return { soldierId, namespace: variant, nameKo: names[0].nameKo };
+  });
+  if (JSON.stringify(rows) !== JSON.stringify(approval.soldiers)) {
+    throw new Error('Hero 15 Soldier rows differ from the approved subset');
+  }
+  return rows.map(({ namespace, nameKo }) => ({ namespace, nameKo }));
+}
+
+export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, sourceHashes, profileInputs, soldierInputs }) {
   validateHero15IntegratedPublication(decision);
   exactKeys(sourceHashes, ['heroIdentity', 'heroLocalization', 'equipmentRelation', 'equipmentIdentity', 'equipmentLocalization'], 'Hero 15 Canonical source hashes');
   for (const key of Object.keys(sourceHashes)) {
@@ -145,6 +176,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       heroId: 15,
       nameKo: heroName[0].nameKo,
       profile: renderHero15Profile(profileInputs),
+      soldiers: renderHero15SoldierNames(soldierInputs),
       exclusiveEquipment: {
         equipmentId: 535,
         nameKo: equipmentName[0].nameKo,
@@ -161,7 +193,7 @@ export function validateHero15MinimalDetail({ generatedText, inputs }) {
   const data = JSON.parse(generatedText);
   exactKeys(data, ['schemaVersion', 'heroes'], 'Generated Hero 15 minimal detail');
   if (data.schemaVersion !== 1 || data.heroes.length !== 1) throw new Error('Hero 15 minimal detail population or schema mismatch');
-  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile'], 'Hero 15 minimal detail row');
+  exactKeys(data.heroes[0], ['heroId', 'nameKo', 'exclusiveEquipment', 'profile', 'soldiers'], 'Hero 15 minimal detail row');
   exactKeys(data.heroes[0].exclusiveEquipment, ['equipmentId', 'nameKo', 'effectDescriptionKo'], 'Hero 15 minimal equipment');
   if (data.heroes[0].heroId !== 15 || data.heroes[0].exclusiveEquipment.equipmentId !== 535) throw new Error('Hero 15 minimal detail endpoint is out of approved scope');
   return data;
