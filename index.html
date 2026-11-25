@@ -6,8 +6,8 @@
     <link rel="icon" href="data:,">
     <meta name="description" content="검증된 영웅, 전직, 용병과 일반 SSR 장비 정보를 표시합니다.">
     <title>랑그릿사 데이터 조각</title>
-    <link rel="stylesheet" href="./styles.css?v=136b0da0d174f60fd110eb7374f1e140aefd19ebf4701e80487895c38fbfaec5">
-    <script type="module" src="./app.js?v=af2e0ef1f88a8e69379b1576a09ac3f54ef554e55dbf4bca1ada58cd701f0ba1"></script>
+    <link rel="stylesheet" href="./styles.css?v=452db82090038bde9cdf336618567dd91eb3061daed59c64a6bd9da42bf26348">
+    <script type="module" src="./app.js?v=848897d28211b4bbb5cf18892f21b0d8070a5f435433213dc9a75bbccc6b5b4d"></script>
   </head>
   <body>
     <main class="page">
@@ -374,6 +374,10 @@
         </div>
         <label for="hero-faction-filter">진영</label>
         <select id="hero-faction-filter" aria-label="영웅 진영 필터">
+          <option value="all">전체</option>
+        </select>
+        <label for="hero-production-filter">작품</label>
+        <select id="hero-production-filter">
           <option value="all">전체</option>
         </select>
         <p id="hero-search-count" class="hero-search-count" aria-live="polite">영웅 전체 목록을 표시합니다.</p>

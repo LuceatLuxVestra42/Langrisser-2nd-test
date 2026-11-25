@@ -109,6 +109,10 @@ const allFactionOption = makeElement();
 allFactionOption.value = 'all';
 allFactionOption.textContent = '전체';
 factionFilter.children.push(allFactionOption);
+const productionFilter = makeElement('hero-production-filter');
+productionFilter.value = 'all';
+assert.match(html, /<label for="hero-production-filter">작품<\/label>/);
+assert.match(html, /<select id="hero-production-filter">/);
 const count = makeElement('hero-search-count');
 const emptyState = makeElement('hero-search-empty');
 const container = makeElement('exclusive-equipment');
@@ -146,10 +150,10 @@ const functions = runInNewContext(`(() => {
   ${runtime}
   return {
     filterHeroes, makeHeroRarityLabel, makeFactionPresentation, makeOriginPresentation, makeSpJobPresentation, makeJobConnectionLabel, makeAnchor, makeSoldierHeroLinks, addExclusiveEquipment,
-    startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, factionFilter, count, emptyState }); return heroNavigation; },
+    startSearch(heroes) { heroNavigation = renderHeroSearch({ heroes, input, clearButton, factionFilter, productionFilter, count, emptyState }); return heroNavigation; },
     setExclusiveEquipmentHeroById(value) { exclusiveEquipmentHeroById = value; },
   };
-})()`, { ...sandbox, input, clearButton, factionFilter, count, emptyState, container });
+})()`, { ...sandbox, input, clearButton, factionFilter, productionFilter, count, emptyState, container });
 
 const navigation = functions.startSearch(heroData.heroes);
 assert.equal(typeof navigation.showFaction, 'function', 'Hero detail faction navigation is exposed by the existing search controller');
@@ -169,6 +173,7 @@ const verify = (query) => {
   input.listeners.input({ target: input });
   const expected = independentMatches(heroData.heroes, query)
     .filter((hero) => factionFilter.value === 'all' || hero.factions.some(({ factionId }) => String(factionId) === factionFilter.value))
+    .filter((hero) => productionFilter.value === 'all' || hero.origins.some(({ productionId }) => String(productionId) === productionFilter.value))
     .map(({ id }) => id).sort((a, b) => a - b);
   const actual = heroData.heroes.filter(({ id }) => !elements.get(`hero-${id}`).hidden).map(({ id }) => id).sort((a, b) => a - b);
   assert.deepEqual(actual, expected, `visible Hero ID set for ${JSON.stringify(query)}`);
@@ -196,6 +201,34 @@ for (const { factionId } of multiFactionHero.factions) {
 factionFilter.value = 'all';
 factionFilter.listeners.change();
 
+productionFilter.value = '5';
+productionFilter.listeners.change();
+assert.deepEqual(verify(''), [6, 7, 8, 12, 13, 14]);
+factionFilter.value = '5';
+factionFilter.listeners.change();
+assert.deepEqual(verify(''), [7, 8]);
+assert.deepEqual(verify('라나'), [8]);
+assert.deepEqual(verify('레온'), []);
+clearButton.listeners.click();
+assert.equal(productionFilter.value, '5');
+assert.equal(factionFilter.value, '5');
+assert.equal(navigation.showProduction(999999), false);
+assert.equal(productionFilter.value, '5');
+assert.equal(navigation.showProduction(5), true);
+assert.equal(productionFilter.focused, true);
+assert.equal(input.value, '');
+assert.equal(factionFilter.value, '5');
+assert.equal(navigation.showTarget(8), true);
+assert.equal(productionFilter.value, '5', 'Index detail target preserves a matching Production');
+assert.equal(navigation.showTarget(9), true);
+assert.equal(elements.get('hero-9').hidden, false);
+assert.equal(productionFilter.value, 'all', 'Index detail target clears a conflicting Production');
+assert.equal(factionFilter.value, '5');
+assert.deepEqual(verify(''), [7, 8, 9, 25, 28, 67]);
+factionFilter.value = 'all';
+factionFilter.listeners.change();
+assert.match(frontend, /showDetailTarget: \(heroId\) => heroNavigation\?\.showTarget\(heroId\)/);
+
 const selectedFaction = heroData.heroes[0].factions[0];
 input.value = 'a search that hides the faction results';
 const factionNavigation = navigation.showFaction(selectedFaction.factionId);
@@ -218,7 +251,7 @@ assert.match(frontend, /metadata\.append\(id, makeHeroRarityLabel\(hero\.rarity\
 assert.match(html, /진영 한국어명과 출전작 프로젝트 검수 한국어명·중국어 원문/);
 assert.match(html, /공식 한국 서버 표기는 확인되지 않았습니다/);
 assert.match(frontend, /article\.append\(makeFactionPresentation\(hero\.factions, \(factionId\) => heroNavigation\?\.showFaction\(factionId\)\)\)/);
-assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins\)\)/);
+assert.match(frontend, /article\.append\(makeOriginPresentation\(hero\.origins, \(productionId\) => heroNavigation\?\.showProduction\(productionId\)\)\)/);
 assert.match(frontend, /heading\.textContent = '진영 · 한국어명'/);
 assert.match(frontend, /heading\.textContent = '출전작 · 프로젝트 검수 한국어명'/);
 const expectedFactionIds = new Map([[1,[1,2]],[3,[2]],[4,[1,2,11]],[5,[1,2,6]],[6,[4,7]],[7,[4,5,11]],[8,[5,6]],[9,[5,11]],[10,[1,2]],[11,[2,6,8]],[12,[1,2,4]],[13,[2,4]],[14,[2,6,8]],[25,[4,5,7]],[26,[3,6,7]],[27,[1,3,8]],[28,[5,8,11]],[29,[1,3,6]],[32,[4,7]],[33,[3,6]],[37,[3,8,11]],[40,[3]],[52,[6,8,9]],[53,[7,9]],[55,[1,9]],[56,[1,9]],[60,[1,8,9]],[67,[5,8]],[89,[2,6,11]]]);
@@ -334,10 +367,17 @@ const expectedOrigins = new Map([
 ]);
 for (const hero of heroData.heroes) {
   assert.deepEqual(hero.origins, expectedOrigins.get(hero.id), `Production IDs and Chinese names for Hero ${hero.id}`);
-  const section = functions.makeOriginPresentation(hero.origins);
+  const chosen = [];
+  const section = functions.makeOriginPresentation(hero.origins, (id) => chosen.push(id));
   assert.equal(section.className, 'hero-origins');
   assert.equal(section.children[0].textContent, '출전작 · 프로젝트 검수 한국어명');
-  assert.deepEqual(section.children[1].children.map(({ textContent }) => textContent), hero.origins.map(({ nameKo, nameCn }) => nameKo + ' (' + nameCn + ')'));
+  assert.deepEqual(section.children[1].children.map(({ children }) => children[0].textContent), hero.origins.map(({ nameKo, nameCn }) => nameKo + ' (' + nameCn + ')'));
+  for (const { children: [button] } of section.children[1].children) {
+    assert.equal(button.type, 'button');
+    assert.equal(button.attributes['aria-label'], `${button.textContent} 출전 영웅 보기`);
+    button.listeners.click();
+  }
+  assert.deepEqual(chosen, hero.origins.map(({ productionId }) => productionId));
 }
 
 const exclusiveHero = heroData.heroes[0];
@@ -353,11 +393,15 @@ const unrelatedEquipmentFaction = approvedFactionIds.find((factionId) => !exclus
 assert.ok(unrelatedEquipmentFaction);
 factionFilter.value = String(unrelatedEquipmentFaction);
 factionFilter.listeners.change();
+productionFilter.value = String(heroData.heroes.flatMap((hero) => hero.origins)
+  .find((origin) => !exclusiveHero.origins.some((own) => own.productionId === origin.productionId)).productionId);
+productionFilter.listeners.change();
 input.value = exclusiveHero.nameKo;
 input.listeners.input({ target: input });
 let equipmentNavigationPrevented = false;
 equipmentHeroLink.listeners.click({ preventDefault() { equipmentNavigationPrevented = true; } });
 assert.equal(equipmentNavigationPrevented, false);
+assert.equal(productionFilter.value, 'all');
 assert.equal(elements.get(`hero-${exclusiveHero.id}`).hidden, false);
 assert.equal(input.value, exclusiveHero.nameKo, 'equipment navigation preserves a matching search');
 assert.equal(factionFilter.value, 'all', 'equipment navigation clears only the Faction condition hiding its target');
@@ -475,6 +519,9 @@ const unrelatedSoldierFaction = approvedFactionIds.find((factionId) => !targetHe
 assert.ok(unrelatedSoldierFaction);
 factionFilter.value = String(unrelatedSoldierFaction);
 factionFilter.listeners.change();
+productionFilter.value = String(heroData.heroes.flatMap((hero) => hero.origins)
+  .find((origin) => !targetHero.origins.some((own) => own.productionId === origin.productionId)).productionId);
+productionFilter.listeners.change();
 input.value = targetHero.nameKo;
 input.listeners.input({ target: input });
 const heroLinks = functions.makeSoldierHeroLinks(pair.soldierId);
@@ -483,6 +530,7 @@ assert.equal(heroAnchor.href, `#hero-${targetHero.id}`);
 let prevented = false;
 heroAnchor.listeners.click({ preventDefault() { prevented = true; } });
 assert.equal(prevented, false, 'an existing hidden Hero endpoint should retain normal anchor behavior');
+assert.equal(productionFilter.value, 'all');
 assert.equal(elements.get(`hero-${targetHero.id}`).hidden, false);
 assert.equal(input.value, targetHero.nameKo, 'Soldier navigation preserves a matching search');
 assert.equal(factionFilter.value, 'all', 'Soldier navigation clears only the Faction hiding its target');
@@ -492,4 +540,15 @@ verify('');
 
 assert.equal(new Set(relationData.relations.map(({ heroId, soldierId }) => `${heroId}:${soldierId}`)).size,
   relationData.relations.length, 'existing Hero-Soldier relation IDs remain unique');
+const [firstHero, secondHero] = heroData.heroes;
+const otherOrigin = heroData.heroes.flatMap((hero) => hero.origins)
+  .find((origin) => origin.productionId !== firstHero.origins[0].productionId);
+const multiOriginHero = { ...firstHero, origins: [...firstHero.origins, otherOrigin] };
+const multiNavigation = functions.startSearch([multiOriginHero, secondHero]);
+for (const { productionId } of multiOriginHero.origins) {
+  input.value = '__incompatible__';
+  assert.equal(multiNavigation.showProduction(productionId), true);
+  assert.equal(input.value, '');
+  assert.equal(elements.get(`hero-${multiOriginHero.id}`).hidden, false);
+}
 process.stdout.write(`Hero search presentation PASS (${heroData.heroes.length} approved Heroes; ID/name/partial/no-result/reset/hidden-target cases; ${relationData.relations.length} relation rows unchanged)\n`);
