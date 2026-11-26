@@ -528,14 +528,54 @@ fails(x => {
     [values[0], values[1]] = [values[1], values[0]];
   }
 }, /유대 2 Gold total source vector/);
+for (const mutate of [
+  p => { delete p.bond3GoldDecision; },
+  p => { p.bond3GoldDecision.approvalMessageId = 'other'; },
+  p => { p.bond3GoldDecision.surface = 'hero-minimal-detail-16'; },
+  p => { p.bond3GoldDecision.fetterId = 67; },
+  p => { p.bond3GoldDecision.sourceRecordLocator = '/66'; },
+  p => { p.bond3GoldDecision.sourceField = 'LevelUpMaterials'; },
+  p => { p.bond3GoldDecision.totalGold++; },
+]) fails(x => mutate(x.profileInputs), /유대 3 Gold total approval/);
+for (const mutate of [
+  (records, i) => { records.splice(i, 1); },
+  (records, i) => { records.push({ ...records[i] }); },
+  (records, i) => { records[i].fetterId = 99; },
+]) fails(x => {
+  const refs = x.profileInputs.fetterReferences.records;
+  mutate(refs, refs.findIndex(row => row.fetterId === 68));
+}, /유대 3 Gold total endpoint|Bond 3 description/);
+for (const mutate of [
+  (rows, i) => { rows.splice(i, 1); },
+  (rows, i) => { rows[i].targetLevel = rows[i + 1].targetLevel; },
+  (rows, i) => { rows[i].sourceArrayIndex = rows[i + 1].sourceArrayIndex; },
+  (rows, i) => { rows[i].sourceField = 'LevelUpMaterials'; },
+  (rows, i) => { rows[i].sourceRecordLocator = 'ConfigDataHeroFetterInfo#ID=67'; },
+  (rows, i) => { [rows[i], rows[i + 1]] = [rows[i + 1], rows[i]]; },
+]) fails(x => {
+  const rows = x.profileInputs.goldOwner.goldLocators;
+  mutate(rows, rows.findIndex(row => row.endpointId === 68));
+}, /Fetter Gold publication scope|Fetter Gold level locator|유대 3 Gold total locator/);
+for (const mutate of [
+  values => { values[0]++; },
+  values => { [values[0], values[1]] = [values[1], values[0]]; },
+]) fails(x => {
+  const { fetterDetails, goldDecision } = x.profileInputs;
+  mutate(fetterDetails.records.find(row => row.endpointId === 68).fields.LevelUpGold);
+  mutate(goldDecision.groups.find(row => row.endpointId === 68).gold);
+}, /유대 3 Gold total source vector/);
 const bond2Line = 'Lv.2~10 합계 골드 383,500';
+const bond3Line = 'Lv.2~10 합계 골드 736,000';
 for (const [mode, expectedTotals] of [
-  ['approved', [bond1Line, bond2Line]],
-  ['bond1-change', [null, bond2Line]],
-  ['bond1-swap', [null, bond2Line]],
-  ['bond2-change', [bond1Line, null]],
-  ['bond2-swap', [bond1Line, null]],
-  ['bond3-copy', [bond1Line, bond2Line]],
+  ['approved', [bond1Line, bond2Line, bond3Line]],
+  ['bond1-change', [null, bond2Line, bond3Line]],
+  ['bond1-swap', [null, bond2Line, bond3Line]],
+  ['bond2-change', [bond1Line, null, bond3Line]],
+  ['bond2-swap', [bond1Line, null, bond3Line]],
+  ['bond3-change', [bond1Line, bond2Line, null]],
+  ['bond3-swap', [bond1Line, bond2Line, null]],
+  ['bond3-copy', [bond1Line, bond2Line, null]],
+  ['bond4-copy', [bond1Line, bond2Line, bond3Line]],
 ]) {
   const sample = structuredClone(generated);
   const first = sample.heroes[0].fetterGold[0].rows;
@@ -544,6 +584,12 @@ for (const [mode, expectedTotals] of [
   if (mode === 'bond1-swap') [first[0].gold, first[1].gold] = [first[1].gold, first[0].gold];
   if (mode === 'bond2-change') second[8].gold++;
   if (mode === 'bond2-swap') [second[0].gold, second[8].gold] = [second[8].gold, second[0].gold];
+  const third = sample.heroes[0].fetterGold[2].rows;
+  if (mode === 'bond3-change') third[8].gold++;
+  if (mode === 'bond3-swap') [third[0].gold, third[8].gold] = [third[8].gold, third[0].gold];
+  if (mode === 'bond4-copy') {
+    sample.heroes[0].fetterGold[3].rows.forEach((row, i) => { row.gold = third[i].gold; });
+  }
   if (mode === 'bond3-copy') {
     sample.heroes[0].fetterGold[2].rows.forEach((row, i) => { row.gold = second[i].gold; });
   }
