@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-15",
+  "heroId": 15,
+  "slotType": "HEAD",
+  "templateId": 40,
+  "levels": [1, 10],
+  "unit": "gold",
+  "subtotalGold": 3600000,
+  "placement": "중앙율정 / 투구",
+  "displayTextKo": "투구 · Lv.1~10 소계 골드 3,600,000",
+  "displayDecisionReference": "Sentinel_f37dbb7a802c8191947e93f13e7dc746",
+  "scope": "One labelled subtotal in Liana's existing Central Discipline section.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "hero": "data/configdata/ConfigDataHeroInfo.json#ID=15/CastingLawTemplates_ID/3",
+    "levels": "data/configdata/ConfigDataCastingLawTemplateInfo.json#ID=40/CastingLawLevelUpInfoList",
+    "gold": "data/configdata/ConfigDataCastingLawLevelUpInfo.json",
+    "field": "LevelUpGoldCost",
+    "sourceIndices": [195, 196, 197, 198, 199, 445, 446, 447, 448, 449],
+    "levelUpIds": [196, 197, 198, 199, 200, 10196, 10197, 10198, 10199, 10200],
+    "transformation": "Sum the ten gold fields in Template 40 reference order for this display."
+  },
+  "slotEvidence": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-casting-law-by-hero.v1.json",
+    "blob": "d5e08e12823bc5a53c728cf4accfe0cf4ce79674",
+    "record": "/records/13",
+    "slot": "/records/13/slots/3",
+    "fields": ["heroId", "slotType", "templateId", "level1to10/gold"],
+    "page": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "htmlSha256": "25e81252961161081899c84e93fe84cee7ee63956f8f5586679989a588789ff1",
+    "selector": "[data-casting-law-slot=\"HEAD\"][data-casting-law-template-id=\"40\"] summary"
+  }
+}

@@ -321,6 +321,9 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     ...centralDisciplineEffectKo.split('\n'),
     `Lv.1~10 합계 골드 ${centralDisciplineGoldTotal.toLocaleString('ko-KR')}`,
   ]);
+  const headSubtotal = document.createElement('p');
+  headSubtotal.textContent = '투구 · Lv.1~10 소계 골드 3,600,000';
+  centralDisciplineSection.append(headSubtotal);
   const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo }) =>
     [nameKo, typeLabelKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, descriptionKo]
       .filter((part) => part !== undefined).join(' · ')));
