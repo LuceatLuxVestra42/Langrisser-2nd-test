@@ -492,21 +492,61 @@ for (const mutate of [
   p => { p.bond1GoldDecision.sourceField = 'LevelUpMaterials'; },
   p => { p.bond1GoldDecision.approvalMessageId = 'other'; },
   p => { p.bond1GoldDecision.totalGold++; },
-]) fails(x => mutate(x.profileInputs), /Bond 1 Gold total approval/);
-fails(x => { x.profileInputs.fetterReferences.records[0].fetterId = 15; }, /Bond 1 Gold total endpoint/);
+]) fails(x => mutate(x.profileInputs), /유대 1 Gold total approval/);
+fails(x => { x.profileInputs.fetterReferences.records[0].fetterId = 15; }, /유대 1 Gold total endpoint/);
 fails(x => { x.profileInputs.goldOwner.goldLocators.splice(0, 1); }, /Fetter Gold publication scope/);
 fails(x => { x.profileInputs.goldOwner.goldLocators[0].targetLevel = 3; }, /Fetter Gold level locator/);
-fails(x => { x.profileInputs.goldOwner.goldLocators.splice(0, 2, ...x.profileInputs.goldOwner.goldLocators.slice(0, 2).reverse()); }, /Bond 1 Gold total locator/);
+fails(x => { x.profileInputs.goldOwner.goldLocators.splice(0, 2, ...x.profileInputs.goldOwner.goldLocators.slice(0, 2).reverse()); }, /유대 1 Gold total locator/);
 fails(x => {
   for (const values of [x.profileInputs.fetterDetails.records[0].fields.LevelUpGold, x.profileInputs.goldDecision.groups[0].gold]) {
     values[0]++; values[1]--;
   }
-}, /Bond 1 Gold total source vector/);
-for (const mode of ['approved', 'one-level', 'swap']) {
+}, /유대 1 Gold total source vector/);
+for (const mutate of [
+  p => { delete p.bond2GoldDecision; },
+  p => { p.bond2GoldDecision.fetterId = 66; },
+  p => { p.bond2GoldDecision.approval.quote = 'other'; },
+  p => { p.bond2GoldDecision.sourceRecordLocator = '/65'; },
+  p => { p.bond2GoldDecision.sourceField = 'LevelUpMaterials'; },
+  p => { p.bond2GoldDecision.sourceArrayIndices.reverse(); },
+  p => { p.bond2GoldDecision.targetLevels.reverse(); },
+  p => { p.bond2GoldDecision.totalGold++; },
+]) fails(x => mutate(x.profileInputs), /유대 2 Gold total approval/);
+fails(x => {
+  const ref = x.profileInputs.fetterReferences.records.find(r => r.fetterId === 67);
+  x.profileInputs.fetterReferences.records.push({ ...ref });
+}, /유대 2 Gold total endpoint|Bond 2/);
+fails(x => {
+  const locators = x.profileInputs.goldOwner.goldLocators;
+  const first = locators.findIndex(r => r.endpointId === 67);
+  [locators[first], locators[first + 1]] = [locators[first + 1], locators[first]];
+}, /유대 2 Gold total locator/);
+fails(x => {
+  const { fetterDetails, goldDecision } = x.profileInputs;
+  for (const values of [fetterDetails.records.find(r => r.endpointId === 67).fields.LevelUpGold,
+    goldDecision.groups.find(r => r.endpointId === 67).gold]) {
+    [values[0], values[1]] = [values[1], values[0]];
+  }
+}, /유대 2 Gold total source vector/);
+const bond2Line = 'Lv.2~10 합계 골드 383,500';
+for (const [mode, expectedTotals] of [
+  ['approved', [bond1Line, bond2Line]],
+  ['bond1-change', [null, bond2Line]],
+  ['bond1-swap', [null, bond2Line]],
+  ['bond2-change', [bond1Line, null]],
+  ['bond2-swap', [bond1Line, null]],
+  ['bond3-copy', [bond1Line, bond2Line]],
+]) {
   const sample = structuredClone(generated);
   const first = sample.heroes[0].fetterGold[0].rows;
-  if (mode === 'one-level') first[0].gold++;
-  if (mode === 'swap') [first[0].gold, first[1].gold] = [first[1].gold, first[0].gold];
+  const second = sample.heroes[0].fetterGold[1].rows;
+  if (mode === 'bond1-change') first[0].gold++;
+  if (mode === 'bond1-swap') [first[0].gold, first[1].gold] = [first[1].gold, first[0].gold];
+  if (mode === 'bond2-change') second[8].gold++;
+  if (mode === 'bond2-swap') [second[0].gold, second[8].gold] = [second[8].gold, second[0].gold];
+  if (mode === 'bond3-copy') {
+    sample.heroes[0].fetterGold[2].rows.forEach((row, i) => { row.gold = second[i].gold; });
+  }
   const output = element();
   render(sample, talent, output);
   const groups = output.children[0].children.find(n => n.children?.[0]?.textContent === '유대 강화 골드').children.slice(1);
@@ -514,7 +554,7 @@ for (const mode of ['approved', 'one-level', 'swap']) {
   for (const [i, section] of groups.entries()) {
     assert.deepEqual(section.children[1].children.map(row => row.textContent), sample.heroes[0].fetterGold[i].rows.map(
       ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
-    assert.deepEqual(section.children.slice(2).map(row => row.textContent), i === 0 && mode === 'approved' ? [bond1Line] : []);
+    assert.deepEqual(section.children.slice(2).map(row => row.textContent), expectedTotals[i] ? [expectedTotals[i]] : []);
   }
 }
 const leakedGold = structuredClone(generated);

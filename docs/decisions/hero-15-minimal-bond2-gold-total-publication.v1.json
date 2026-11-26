@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-15",
+  "labelKo": "유대 2",
+  "heroId": 15,
+  "fetterId": 67,
+  "sourceField": "LevelUpGold",
+  "sourceRecordLocator": "/66",
+  "sourceArrayIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "gold": [
+    5000,
+    7500,
+    11000,
+    17000,
+    26000,
+    39000,
+    59000,
+    89000,
+    130000
+  ],
+  "totalGold": 383500,
+  "approval": {
+    "work": "이전",
+    "date": "2026-11-26",
+    "quote": "지금 유대 2 합계 골드 383,500 표시와 검수된 두 Build 보완을 포함해, 실제 Future-guide 상세에 표시됐고 원본 근거·한국어 표기·현재 공개 조건이 확인된 같은 범위의 후속 작업은 건마다 다시 묻지 말고 진행해."
+  }
+}
