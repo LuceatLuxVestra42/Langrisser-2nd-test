@@ -847,6 +847,36 @@ function validateBondGoldTotal(expected, decision, references, detail, locators,
   }
 }
 
+function validateBond1KeyNameSources(source) {
+  const evidence = source?.nameEvidence;
+  if (source?.repository !== 'LuceatLuxVestra42/langrisser-future-guide' || source.commit !== '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    || evidence?.itemInfo?.path !== 'data/configdata/ConfigDataItemInfo.json' || evidence.itemInfo.blob !== 'fd34c0a83bd403c1fd01d34f3439e4c24a794f5e'
+    || evidence.legacyPngCommit !== '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+    || !isDeepStrictEqual(evidence.sheet, { repository: 'redpanda7301/langrisser', commit: '311c5e44f39c6938c78031bb2af3206e39ea270b',
+      path: 'classup.html', blob: '5aa5a9bd9f94ac08c9c0b1cbc21a27b0601ab8c2' }) || evidence.items?.length !== 2) {
+    throw new Error('Bond 1 key name source version mismatch');
+  }
+  const expected = [
+    { id: 3200, index: 391, png: 'FetterMaterial01.png', pngBlob: '7fe77ca370a1154856f081adc2231052b585ddba',
+      webp: 'img/item/엔열쇠.webp', webpBlob: '9b5cdbb9e17cfed5b82ca68ff1f1e04a79b73e29', title: '순박한 마음의 열쇠' },
+    { id: 3201, index: 392, png: 'FetterMaterial02.png', pngBlob: '66c4f6b619ccf07d441a0cf770ff3de9c5f5d610',
+      webp: 'img/item/알열쇠.webp', webpBlob: '004d346c927a8b0dc6fc23ce62d0eb88ef30756f', title: '순수한 마음의 열쇠' },
+  ];
+  for (const key of expected) {
+    const item = evidence.items.find(row => row.itemId === key.id);
+    if (item?.itemInfoIndex !== key.index || item.icon !== `UI/Icon/Item_ABS/${key.png}`
+      || !isDeepStrictEqual(item.legacyPng, { path: `public/images/heroes/bond-materials/${key.png}`, blob: key.pngBlob })) {
+      throw new Error(`Bond 1 key ItemInfo or PNG source mismatch for ID ${key.id}`);
+    }
+    if (!isDeepStrictEqual(item.comparisonWebp, { path: key.webp, blob: key.webpBlob })) {
+      throw new Error(`Bond 1 key comparison WebP source mismatch for ID ${key.id}`);
+    }
+    if (!isDeepStrictEqual(item.sheetImage, { src: `https://redpanda7301.github.io/langrisser/${key.webp}`, title: key.title })) {
+      throw new Error(`Bond 1 key sheet image source mismatch for ID ${key.id}`);
+    }
+  }
+}
+
 export function renderBond1KeyTotals({ bond1KeyDecision: decision, fetterDetails, goldOwner, fetterReferences }) {
   const materials = [
     { itemType: 6, itemId: 3200, nameKo: '순박한 마음의 열쇠', count: 45 },
@@ -859,6 +889,13 @@ export function renderBond1KeyTotals({ bond1KeyDecision: decision, fetterDetails
     || decision.approval?.userText !== '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15’를 텍스트로 공개하고, 검증이 통과하면 병합해도 된다') {
     throw new Error('Bond 1 key publication scope mismatch');
   }
+  if (decision.approval.scope !== 'Two Korean project display names and their totals as plain text on Liana’s existing Bond 1 detail.') {
+    throw new Error('Bond 1 key approval scope mismatch');
+  }
+  if (decision.approval.messageId !== 'bbb21ccc-89dc-453b-ba7a-d672d198235c') {
+    throw new Error('Bond 1 key approval message ID mismatch');
+  }
+  validateBond1KeyNameSources(decision.source);
   const refs = fetterReferences.records.filter(r => r.heroId === 15 && r.fetterId === 66);
   const details = fetterDetails.records.filter(r => r.heroId === 15 && r.endpointId === 66);
   const namespace = 'ConfigDataHeroFetterInfo.ID';
