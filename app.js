@@ -394,13 +394,17 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const goldSummary = document.createElement('summary');
   goldSummary.textContent = '유대 강화 골드';
   goldSection.append(goldSummary);
+  const goldTotals = new Map([
+    ['유대 1', { values: [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000], line: 'Lv.2~10 합계 골드 118,600' }],
+    ['유대 2', { values: [5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000], line: 'Lv.2~10 합계 골드 383,500' }],
+  ]);
   for (const { labelKo, rows } of fetterGold) {
     const section = renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
       `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
-    const bond1Gold = [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000];
-    if (labelKo === '유대 1' && rows.every(({ level, gold }, i) => level === i + 2 && gold === bond1Gold[i])) {
+    const approved = goldTotals.get(labelKo);
+    if (approved && rows.every(({ gold }, i) => gold === approved.values[i])) {
       const total = document.createElement('p');
-      total.textContent = 'Lv.2~10 합계 골드 118,600';
+      total.textContent = approved.line;
       section.append(total);
     }
     goldSection.append(section);
