@@ -570,26 +570,91 @@ for (const [decisionKey, endpointId, endpointError] of [
     mutate(goldDecision.groups.find(row => row.endpointId === endpointId).gold);
   }, /유대 [345] Gold total source vector/);
 }
+for (const mutate of [
+  p => { delete p.heartGoldDecision; },
+  p => { p.heartGoldDecision.approvalMessageId = 'other'; },
+  p => { p.heartGoldDecision.endpointKind = 'FETTER'; },
+  p => { p.heartGoldDecision.heartFetterId = 70; },
+  p => { p.heartGoldDecision.sourceRecordLocator = '/69'; },
+  p => { p.heartGoldDecision.totalGold++; },
+]) fails(x => mutate(x.profileInputs), /Heart Fetter Gold total approval scope mismatch/);
+
+// Keep ID 15 and the approved amounts in three independent ordinary-Fetter substitutions.
+const ordinaryNamespace = 'ConfigDataHeroFetterInfo.ID';
+const heartRef = row => row.referenceKind === 'HERO_HEART_FETTER_ID_REFERENCE' && row.heroId === 15;
+fails(({ profileInputs }) => {
+  const ref = profileInputs.fetterReferences.records.find(heartRef);
+  ref.referenceKind = 'HERO_FETTER_ID_REFERENCE';
+  ref.fetterId = ref.heartFetterId;
+  delete ref.heartFetterId;
+  ref.sourceField = 'ConfigDataHeroInformationInfo.HeroFetters_ID';
+  ref.endpointNamespace = ordinaryNamespace;
+}, /Heart Fetter Gold total selection relation mismatch/);
+fails(({ profileInputs }) => {
+  Object.assign(profileInputs.heartFetterDetails.records.find(row => row.heroId === 15 && row.endpointId === 15), {
+    detailKind: 'FETTER_RAW_DETAIL', endpointNamespace: ordinaryNamespace, sourceRecordLocator: 'ConfigDataHeroFetterInfo#ID=15',
+  });
+}, /Heart Fetter Gold total detail mismatch/);
+fails(({ profileInputs }) => {
+  const rows = profileInputs.goldOwner.goldLocators.filter(row => row.heroId === 15 && row.endpointKind === 'HEART_FETTER' && row.endpointId === 15);
+  assert.equal(rows.length, 9);
+  for (const row of rows) Object.assign(row, { endpointKind: 'FETTER', endpointNamespace: ordinaryNamespace });
+}, /Heart Fetter Gold total level locator mismatch/);
+
+for (const mutate of [
+  (rows, i) => { rows.splice(i, 1); },
+  (rows, i) => { rows.push({ ...rows[i] }); },
+]) {
+  fails(({ profileInputs }) => {
+    const refs = profileInputs.fetterReferences.records;
+    mutate(refs, refs.findIndex(heartRef));
+  }, /Heart Fetter Gold total selection relation mismatch/);
+  fails(({ profileInputs }) => {
+    const records = profileInputs.heartFetterDetails.records;
+    mutate(records, records.findIndex(row => row.heroId === 15 && row.endpointId === 15));
+  }, /Heart Fetter Gold total detail mismatch/);
+}
+for (const mutate of [
+  (rows, i) => { rows.splice(i, 1); },
+  (rows, i) => { rows[i].sourceArrayIndex = rows[i + 1].sourceArrayIndex; },
+  (rows, i) => { rows[i].targetLevel = rows[i + 1].targetLevel; },
+  (rows, i) => { rows[i].endpointNamespace = ordinaryNamespace; },
+  (rows, i) => { [rows[i], rows[i + 1]] = [rows[i + 1], rows[i]]; },
+]) fails(({ profileInputs }) => {
+  const rows = profileInputs.goldOwner.goldLocators;
+  mutate(rows, rows.findIndex(row => row.heroId === 15 && row.endpointKind === 'HEART_FETTER'));
+}, /Fetter Gold publication scope|Heart Fetter Gold total level locator mismatch/);
+for (const mutate of [
+  values => { values[0]++; },
+  values => { [values[0], values[8]] = [values[8], values[0]]; },
+]) fails(({ profileInputs }) => {
+  mutate(profileInputs.heartFetterDetails.records.find(row => row.heroId === 15 && row.endpointId === 15).fields.LevelUpGold);
+  mutate(profileInputs.goldDecision.groups.find(row => row.endpointKind === 'HEART_FETTER').gold);
+}, /Heart Fetter Gold total source vector or total mismatch/);
 const bond2Line = 'Lv.2~10 합계 골드 383,500';
 const bond3Line = 'Lv.2~10 합계 골드 736,000';
 const bond4Line = 'Lv.2~10 합계 골드 1,186,000';
 const bond5Line = 'Lv.2~10 합계 골드 1,523,000';
+const heartLine = 'Lv.2~10 합계 골드 650,000';
 for (const [mode, expectedTotals] of [
-  ['approved', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line]],
-  ['bond1-change', [null, bond2Line, bond3Line, bond4Line, bond5Line]],
-  ['bond1-swap', [null, bond2Line, bond3Line, bond4Line, bond5Line]],
-  ['bond2-change', [bond1Line, null, bond3Line, bond4Line, bond5Line]],
-  ['bond2-swap', [bond1Line, null, bond3Line, bond4Line, bond5Line]],
-  ['bond3-change', [bond1Line, bond2Line, null, bond4Line, bond5Line]],
-  ['bond3-swap', [bond1Line, bond2Line, null, bond4Line, bond5Line]],
-  ['bond3-copy', [bond1Line, bond2Line, null, bond4Line, bond5Line]],
-  ['bond4-copy', [bond1Line, bond2Line, bond3Line, null, bond5Line]],
-  ['bond4-change', [bond1Line, bond2Line, bond3Line, null, bond5Line]],
-  ['bond4-swap', [bond1Line, bond2Line, bond3Line, null, bond5Line]],
-  ['bond5-copy', [bond1Line, bond2Line, bond3Line, bond4Line, null]],
-  ['bond5-change', [bond1Line, bond2Line, bond3Line, bond4Line, null]],
-  ['bond5-swap', [bond1Line, bond2Line, bond3Line, bond4Line, null]],
-  ['heart-copy', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line]],
+  ['approved', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line, heartLine]],
+  ['bond1-change', [null, bond2Line, bond3Line, bond4Line, bond5Line, heartLine]],
+  ['bond1-swap', [null, bond2Line, bond3Line, bond4Line, bond5Line, heartLine]],
+  ['bond2-change', [bond1Line, null, bond3Line, bond4Line, bond5Line, heartLine]],
+  ['bond2-swap', [bond1Line, null, bond3Line, bond4Line, bond5Line, heartLine]],
+  ['bond3-change', [bond1Line, bond2Line, null, bond4Line, bond5Line, heartLine]],
+  ['bond3-swap', [bond1Line, bond2Line, null, bond4Line, bond5Line, heartLine]],
+  ['bond3-copy', [bond1Line, bond2Line, null, bond4Line, bond5Line, heartLine]],
+  ['bond4-copy', [bond1Line, bond2Line, bond3Line, null, bond5Line, heartLine]],
+  ['bond4-change', [bond1Line, bond2Line, bond3Line, null, bond5Line, heartLine]],
+  ['bond4-swap', [bond1Line, bond2Line, bond3Line, null, bond5Line, heartLine]],
+  ['bond5-copy', [bond1Line, bond2Line, bond3Line, bond4Line, null, heartLine]],
+  ['bond5-change', [bond1Line, bond2Line, bond3Line, bond4Line, null, heartLine]],
+  ['bond5-swap', [bond1Line, bond2Line, bond3Line, bond4Line, null, heartLine]],
+  ['heart-copy', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line, null]],
+  ['heart-change', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line, null]],
+  ['heart-swap', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line, null]],
+  ['heart-to-bond5', [bond1Line, bond2Line, bond3Line, bond4Line, null, heartLine]],
 ]) {
   const sample = structuredClone(generated);
   const first = sample.heroes[0].fetterGold[0].rows;
@@ -607,6 +672,10 @@ for (const [mode, expectedTotals] of [
   const fifth = sample.heroes[0].fetterGold[4].rows;
   if (mode === 'bond5-change') fifth[0].gold++;
   if (mode === 'bond5-swap') [fifth[0].gold, fifth[8].gold] = [fifth[8].gold, fifth[0].gold];
+  const heart = sample.heroes[0].fetterGold[5].rows;
+  if (mode === 'heart-change') heart[0].gold++;
+  if (mode === 'heart-swap') [heart[0].gold, heart[8].gold] = [heart[8].gold, heart[0].gold];
+  if (mode === 'heart-to-bond5') fifth.forEach((row, i) => { row.gold = heart[i].gold; });
   if (mode === 'heart-copy') {
     sample.heroes[0].fetterGold[5].rows.forEach((row, i) => { row.gold = fifth[i].gold; });
   }
