@@ -402,6 +402,10 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     ['유대 5', { values: [20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000], line: 'Lv.2~10 합계 골드 1,523,000' }],
     ['마음의 유대', { values: [10000, 15000, 23000, 35000, 53000, 74000, 100000, 140000, 200000], line: 'Lv.2~10 합계 골드 650,000' }],
   ]);
+  const keySummaries = new Map([
+    ['유대 1', '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15'],
+    ['유대 2', '순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16'],
+  ]);
   for (const { labelKo, rows } of fetterGold) {
     const section = renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
       `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
@@ -411,9 +415,10 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       total.textContent = approved.line;
       section.append(total);
     }
-    if (labelKo === '유대 1') {
+    const keySummary = keySummaries.get(labelKo);
+    if (keySummary) {
       const materials = document.createElement('p');
-      materials.textContent = '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15';
+      materials.textContent = keySummary;
       section.append(materials);
     }
     goldSection.append(section);

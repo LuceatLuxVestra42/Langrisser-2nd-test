@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderBond1KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -508,6 +508,33 @@ for (const [mutate, error] of [
   mutate(profile);
   assert.throws(() => renderBond1KeyTotals(profile), error);
 }
+const bond2KeyLine = '순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16';
+assert.equal(renderBond2KeyTotals(inputs.profileInputs), bond2KeyLine);
+for (const [mutate, error] of [
+  [p => { p.bond2KeyDecision.approval.messageId = 'bbb21ccc-89dc-453b-ba7a-d672d198235c'; }, /Bond 2 key approval message ID mismatch/],
+  [p => { p.bond2KeyDecision.approval.scope = p.bond1KeyDecision.approval.scope; }, /Bond 2 key approval scope mismatch/],
+  [p => { p.fetterReferences.records.find(r => r.fetterId === 67).endpointNamespace = 'other'; }, /Bond 2 key source endpoint mismatch/],
+  [p => { p.goldOwner.materials.find(r => r.endpointId === 67).itemId = 3202; }, /Bond 2 key material locator mismatch/],
+  [p => { p.goldOwner.itemEndpoints.find(r => r.itemId === 3202).sourceRecordLocator = 'ConfigDataItemInfo#ID=3201'; }, /Bond 2 key ItemInfo endpoint mismatch/],
+  [p => {
+    const rows = p.fetterDetails.records.find(r => r.endpointId === 67).fields.LevelUpMaterials;
+    [rows[0].Count, rows[2].Count] = [rows[2].Count, rows[0].Count];
+    const recorded = p.bond2KeyDecision.sourceRows;
+    [recorded[0].count, recorded[2].count] = [recorded[2].count, recorded[0].count];
+  }, /Bond 2 key source rows or quantities mismatch/],
+  [p => {
+    const [, second, third] = p.bond2KeyDecision.materials;
+    [second.nameKo, third.nameKo] = [third.nameKo, second.nameKo];
+  }, /Bond 2 key publication scope mismatch/],
+  [p => {
+    const [, second, third] = p.bond2KeyDecision.source.nameEvidence.items;
+    [second.sheetImage, third.sheetImage] = [third.sheetImage, second.sheetImage];
+  }, /Bond 2 key sheet image source mismatch for ID 3201/],
+]) {
+  const profile = structuredClone(inputs.profileInputs);
+  mutate(profile);
+  assert.throws(() => renderBond2KeyTotals(profile), error);
+}
 const bond1Line = 'Lv.2~10 합계 골드 118,600';
 for (const mutate of [
   p => { delete p.bond1GoldDecision; },
@@ -720,6 +747,7 @@ for (const [mode, expectedTotals] of [
       ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
     const expected = expectedTotals[i] ? [expectedTotals[i]] : [];
     if (i === 0) expected.push(keyLine);
+    if (i === 1) expected.push(bond2KeyLine);
     assert.deepEqual(section.children.slice(2).map(row => row.textContent), expected);
   }
 }

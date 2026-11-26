@@ -50,10 +50,13 @@ const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
 const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
 const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
-async function checkBond1KeyBuildFailures() {
-  const decisionPath = 'docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json';
+async function checkBondKeyBuildFailures() {
+  const bond1Path = 'docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json';
+  const bond2Path = 'docs/decisions/hero-15-minimal-bond2-key-totals-publication.v1.json';
+  const bond1 = JSON.parse(await readFile(bond1Path, 'utf8'));
   const approvedApp = await readFile('app.js');
   assert.ok(approvedApp.includes('순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15'));
+  assert.ok(approvedApp.includes('순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16'));
   const normalPackage = join(temp, 'approved-keys');
   const modes = ['--output-dir', '--verify-dir'];
   const run = (cwd, mode, destination) => {
@@ -69,13 +72,20 @@ async function checkBond1KeyBuildFailures() {
   assert.deepEqual(await readFile(join(normalPackage, 'app.js')), approvedApp);
 
   const cases = [
-    { name: 'missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
-    { name: 'scope', mutate: decision => { decision.approval.scope = 'Liana Bond 2'; },
+    { decisionPath: bond1Path, name: 'bond1-missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath: bond1Path, name: 'bond1-scope', mutate: decision => { decision.approval.scope = 'Liana Bond 2'; },
       error: () => 'Error: Bond 1 key approval scope mismatch' },
-    { name: 'webp', mutate: decision => {
+    { decisionPath: bond1Path, name: 'bond1-webp', mutate: decision => {
       const [first, second] = decision.source.nameEvidence.items;
       [first.comparisonWebp, second.comparisonWebp] = [second.comparisonWebp, first.comparisonWebp];
     }, error: () => 'Error: Bond 1 key comparison WebP source mismatch for ID 3200' },
+    { decisionPath: bond2Path, name: 'bond2-missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath: bond2Path, name: 'bond2-scope', mutate: decision => { decision.approval.scope = bond1.approval.scope; },
+      error: () => 'Error: Bond 2 key approval scope mismatch' },
+    { decisionPath: bond2Path, name: 'bond2-webp', mutate: decision => {
+      const [, second, third] = decision.source.nameEvidence.items;
+      [second.comparisonWebp, third.comparisonWebp] = [third.comparisonWebp, second.comparisonWebp];
+    }, error: () => 'Error: Bond 2 key comparison WebP source mismatch for ID 3201' },
   ];
   for (const test of cases) {
     for (const mode of modes) {
@@ -84,7 +94,7 @@ async function checkBond1KeyBuildFailures() {
       const destination = join(fixture, 'package');
       await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
       if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
-      const path = join(source, decisionPath);
+      const path = join(source, test.decisionPath);
       if (test.mutate) {
         const decision = JSON.parse(await readFile(path, 'utf8'));
         test.mutate(decision);
@@ -96,14 +106,14 @@ async function checkBond1KeyBuildFailures() {
       const result = run(source, mode, destination);
       assert.equal(result.status, 1, `${test.name} ${mode}: ${result.stderr}`);
       assert.ok(result.stderr.split('\n').includes(test.error(path)), result.stderr);
-      console.log(`Bond 1 keys ${mode}: rejected ${test.name} (exit ${result.status})`);
+      console.log(`Bond keys ${mode}: rejected ${test.name} (exit ${result.status})`);
       await rm(fixture, { recursive: true });
     }
   }
 }
 
 try {
-  await checkBond1KeyBuildFailures();
+  await checkBondKeyBuildFailures();
   const built = await buildSite({ outputDir: output });
   const publicEquipment = JSON.parse(await readFile(join(output, 'generated/general-ssr-equipment.v1.json'), 'utf8'));
   const excludedEquipmentIds = [265, 266, 267, 268, 288, 289, 290, 291];
