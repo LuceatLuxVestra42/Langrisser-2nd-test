@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "approvalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c",
+  "surface": "hero-minimal-detail-15",
+  "labelKo": "유대 1",
+  "heroId": 15,
+  "fetterId": 66,
+  "sourceField": "LevelUpGold",
+  "sourceRecordLocator": "/65",
+  "sourceArrayIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "gold": [
+    1500,
+    2300,
+    3500,
+    5300,
+    8000,
+    12000,
+    18000,
+    27000,
+    41000
+  ],
+  "totalGold": 118600
+}
