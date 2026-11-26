@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Explicitly admitted NORMAL identity endpoints and the full pinned SP Soldier identity population; each SP to NORMAL correspondence is owned by a separate relation canonical.",
+  "scope": "Explicitly admitted NORMAL identity endpoints and the full pinned SP Soldier identity population; each SP to NORMAL correspondence is owned by a separate relation canonical. Includes three independently verified NORMAL identities for internal registration only.",
   "records": [
     {
       "entity": "Soldier",
@@ -673,6 +673,24 @@
       "id": 6113,
       "variant": "SP",
       "provenance": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=6113/ID"
+    },
+    {
+      "entity": "Soldier",
+      "id": 806,
+      "variant": "NORMAL",
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json#ID=806"
+    },
+    {
+      "entity": "Soldier",
+      "id": 817,
+      "variant": "NORMAL",
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json#ID=817"
+    },
+    {
+      "entity": "Soldier",
+      "id": 819,
+      "variant": "NORMAL",
+      "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json#ID=819"
     }
   ]
 }

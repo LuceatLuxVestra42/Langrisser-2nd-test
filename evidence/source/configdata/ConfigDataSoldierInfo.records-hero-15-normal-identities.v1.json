@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "scope": "Internal Soldier identity evidence for three explicitly approved NORMAL registrations.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataSoldierInfo.json",
+    "gitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+    "sha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+    "sourceVersionStatus": "unknown"
+  },
+  "spPopulation": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataSPSoldierInfo.json",
+    "gitBlobSha1": "93dd784a7de913daa6d72f5df6cf6890a710c58a",
+    "sha256": "bec68e5693cbceacf9d9d23c9e416e0560052cf068809a9255e4210a56632b55",
+    "preservedPath": "evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json"
+  },
+  "classification": "Target NORMAL classification for these three approved SoldierInfo identities with exact Rank and Useable values and absence from both SPSoldierInfo.ID and SPSoldierInfo.NormalSoliderId. SoldierInfo supplies no variant field.",
+  "records": [
+    {
+      "recordLocator": "/161",
+      "rawFields": {
+        "ID": 806,
+        "Rank": 3,
+        "Useable": true
+      }
+    },
+    {
+      "recordLocator": "/169",
+      "rawFields": {
+        "ID": 817,
+        "Rank": 3,
+        "Useable": true
+      }
+    },
+    {
+      "recordLocator": "/171",
+      "rawFields": {
+        "ID": 819,
+        "Rank": 3,
+        "Useable": true
+      }
+    }
+  ]
+}

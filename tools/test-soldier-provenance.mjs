@@ -1,11 +1,14 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
+import { loadAndValidateSoldierIdentity, privateNormalIdentityEvidencePath } from './validate-soldier-identity.mjs';
 import { validateSoldierProvenance } from './validate-soldier-provenance.mjs';
 
 const paths = [
   'canonical/soldiers.v1.json',
+  privateNormalIdentityEvidencePath,
   'canonical/sp-soldier-normal-relations.v1.json',
   'canonical/sp-soldier-base-stats.v1.json',
   'canonical/sp-soldier-localizations-ko.v1.json',
@@ -44,7 +47,20 @@ const expectRejected = async (edit, pattern) => {
   }
 };
 
-await validateSoldierProvenance();
+const current = await validateSoldierProvenance();
+assert.equal(current.identityCount, 115);
+const tamperedRoot = await makeCopy();
+try {
+  await editJson(tamperedRoot, privateNormalIdentityEvidencePath, doc => {
+    doc.records[0].recordLocator = '/162';
+    doc.preservedSha256 = createHash('sha256').update(JSON.stringify(doc)).digest('hex');
+  });
+  const mismatch = /preserved evidence SHA-256 mismatch.*hero-15-normal-identities/;
+  await assert.rejects(loadAndValidateSoldierIdentity(tamperedRoot), mismatch);
+  await assert.rejects(validateSoldierProvenance(tamperedRoot), mismatch);
+} finally {
+  await rm(tamperedRoot, { recursive: true, force: true });
+}
 
 const canonical = JSON.parse(await readFile(resolve('canonical/soldiers.v1.json'), 'utf8'));
 assert.equal(canonical.records.find(row => row.variant === 'SP' && row.id === 5115)?.provenance,
@@ -77,4 +93,4 @@ await expectRejected(root => editJson(root,
   json => { json.records.find(row => row.spSoldierId === 5115).normalSoldierId = 114; }),
 /relation NORMAL target is dangling|canonical relation set differs from explicit source fields/);
 
-process.stdout.write('Soldier provenance negatives: PASS (missing historical artifact; changed preserved relation source; invalid manifest path; canonical endpoint mismatch)\\n');
+process.stdout.write('Soldier provenance negatives: PASS (missing historical artifact; changed preserved relation source; invalid manifest path; canonical endpoint mismatch; private locator and in-file hash tampering)\\n');

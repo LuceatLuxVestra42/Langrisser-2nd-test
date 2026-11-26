@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
+import { loadAndValidateSoldierIdentity } from './validate-soldier-identity.mjs';
 import { validateSpSoldierRelation } from './validate-sp-soldier-relation.mjs';
 import { validateSpSoldierKoLocalization } from './validate-sp-soldier-ko-localization.mjs';
 
@@ -16,7 +16,7 @@ const [soldiers,relations,canonical,evidence,manifest,rawSource,soldierInfo,spSo
  read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json')]);
 const args={soldiers,relations,canonical,evidence,manifest,rawSource};
 const valid=validateSpSoldierKoLocalization(args);
-validateSoldierIdentity({canonical:soldiers,soldierInfo,spSoldierInfo,manifest:identityManifest});
+await loadAndValidateSoldierIdentity();
 validateSpSoldierRelation({soldiers,relations,soldierInfo,spSoldierInfo,manifest:identityManifest});
 assert.equal(valid.localizedCount,56);
 const mutatedName=structuredClone(canonical);mutatedName.records[0].nameKo+='x';assert.throws(()=>validateSpSoldierKoLocalization({...args,canonical:mutatedName}),/Korean display name mismatch/);

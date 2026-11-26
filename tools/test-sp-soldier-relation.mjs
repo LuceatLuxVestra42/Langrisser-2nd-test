@@ -5,24 +5,27 @@ import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
 import { validateSpSoldierRelation } from './validate-sp-soldier-relation.mjs';
 
 const read = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-const [soldiers, relations, soldierInfo, spSoldierInfo, manifest] = await Promise.all([
+const [soldiers, relations, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest] = await Promise.all([
   read('canonical/soldiers.v1.json'),
   read('canonical/sp-soldier-normal-relations.v1.json'),
   read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
-  read('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+  readFile('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+  readFile('evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json'),
   read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
 ]);
-validateSoldierIdentity({ canonical: soldiers, soldierInfo, spSoldierInfo, manifest });
+const spSoldierInfo = JSON.parse(spPopulationBytes.toString('utf8'));
+const identityInputs = { soldierInfo, spPopulationBytes, privateIdentityBytes, manifest };
+validateSoldierIdentity({ ...identityInputs, canonical: soldiers });
 validateSpSoldierRelation({ soldiers, relations, soldierInfo, spSoldierInfo, manifest });
 assert.equal(relations.records.find(row => row.spSoldierId === 5115)?.normalSoldierId, 115);
 
 const missingSp = structuredClone(soldiers);
 missingSp.records = missingSp.records.filter(row => !(row.variant === 'SP' && row.id === 5203));
-assert.throws(() => validateSoldierIdentity({ canonical: missingSp, soldierInfo, spSoldierInfo, manifest }), /canonical identity set differs/);
+assert.throws(() => validateSoldierIdentity({ ...identityInputs, canonical: missingSp }), /canonical identity set differs/);
 
 const extraSp = structuredClone(soldiers);
 extraSp.records.push({ entity: 'Soldier', id: 9999, variant: 'SP', provenance: 'unsupported' });
-assert.throws(() => validateSoldierIdentity({ canonical: extraSp, soldierInfo, spSoldierInfo, manifest }), /not source-derived/);
+assert.throws(() => validateSoldierIdentity({ ...identityInputs, canonical: extraSp }), /not source-derived/);
 
 const changedTarget = structuredClone(relations);
 changedTarget.records.find(row => row.spSoldierId === 5203).normalSoldierId = 115;

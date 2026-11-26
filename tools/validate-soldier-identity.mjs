@@ -1,15 +1,36 @@
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
+import { parsePinnedSpPopulation, spPopulationEvidencePath } from './validate-sp-soldier-relation.mjs';
 
+export const privateNormalIdentityEvidencePath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json';
+const privateNormalIdentityEvidenceSha256 = 'f5facc70a31c40fe15b09f7bd597dcb298ac820184ada0f6f2f91dc64728c788';
+const privateNormalIdentities = [[806, '/161'], [817, '/169'], [819, '/171']];
 const PINNED_COMMIT = '6475e63ee23d18adf733756c26a14fa9e3ed662c';
 const fail = (message) => { throw new Error(`Soldier identity validation failed: ${message}`); };
 const check = (condition, message) => { if (!condition) fail(message); };
 const key = (variant, id) => `${variant}:${id}`;
 
-export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest }) {
+function verifyPrivateNormalIdentityEvidence(bytes, spIds, normalTargets) {
+  check(Buffer.isBuffer(bytes) && createHash('sha256').update(bytes).digest('hex') === privateNormalIdentityEvidenceSha256,
+    `preserved evidence SHA-256 mismatch: ${privateNormalIdentityEvidencePath}`);
+  const evidence = JSON.parse(bytes.toString('utf8'));
+  const expectedRecords = privateNormalIdentities.map(([ID, recordLocator]) => ({
+    recordLocator, rawFields: { ID, Rank: 3, Useable: true },
+  }));
+  check(evidence.schemaVersion === 1 && evidence.spPopulation.preservedPath === spPopulationEvidencePath
+    && isDeepStrictEqual(evidence.records, expectedRecords), 'private NORMAL evidence records or locators mismatch');
+  const ids = evidence.records.map(row => row.rawFields.ID);
+  check(ids.every(id => !spIds.has(id) && !normalTargets.has(id)), 'private NORMAL identity overlaps the SP population or its targets');
+  return new Set(ids);
+}
+
+export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest }) {
+  const spSoldierInfo = parsePinnedSpPopulation(spPopulationBytes);
   check(canonical.schemaVersion === 1 && Array.isArray(canonical.records), 'canonical schema mismatch');
-  check(canonical.scope === 'Explicitly admitted NORMAL identity endpoints and the full pinned SP Soldier identity population; each SP to NORMAL correspondence is owned by a separate relation canonical.', 'canonical scope mismatch');
+  check(canonical.scope === 'Explicitly admitted NORMAL identity endpoints and the full pinned SP Soldier identity population; each SP to NORMAL correspondence is owned by a separate relation canonical. Includes three independently verified NORMAL identities for internal registration only.', 'canonical scope mismatch');
   check(Array.isArray(spSoldierInfo.records) && spSoldierInfo.records.length > 0, 'complete SPSoldierInfo evidence missing');
   check(Array.isArray(soldierInfo.records), 'SoldierInfo endpoint evidence missing');
 
@@ -53,9 +74,11 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo,
   check(manifest.artifacts.spSoldierInfo.selector === 'entire top-level source array; no record inclusion or exclusion filter', 'SP evidence is not a full-table extraction');
   check(manifest.artifacts.spSoldierInfo.preservedRecordCount === spSoldierInfo.records.length, 'preserved SP record count mismatch');
 
+  const privateNormalIds = verifyPrivateNormalIdentityEvidence(privateIdentityBytes, spSet, targetSet);
   const expected = new Set();
   for (const id of spSet) expected.add(key('SP', id));
   for (const id of targetSet) expected.add(key('NORMAL', id));
+  for (const id of privateNormalIds) expected.add(key('NORMAL', id));
   const actual = new Set();
   for (const row of canonical.records) {
     check(row?.entity === 'Soldier' && Number.isInteger(row.id) && ['SP', 'NORMAL'].includes(row.variant), 'malformed canonical Soldier identity');
@@ -66,6 +89,10 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo,
     if (row.variant === 'SP') {
       const expectedProvenance = `evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=${row.id}/ID`;
       check(row.provenance === expectedProvenance, `SP identity provenance mismatch for ${row.id}`);
+    } else if (privateNormalIds.has(row.id)) {
+      check(isDeepStrictEqual(row, {
+        entity: 'Soldier', id: row.id, variant: 'NORMAL', provenance: `${privateNormalIdentityEvidencePath}#ID=${row.id}`,
+      }), `private NORMAL identity schema or provenance mismatch for ${row.id}`);
     } else {
       const expectedProvenance = row.id === 115
         ? 'evidence/source/configdata/ConfigDataSoldierInfo.records-identity-115.v1.json#ID=115'
@@ -73,24 +100,25 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo,
       check(row.provenance === expectedProvenance, `NORMAL identity provenance mismatch for ${row.id}`);
     }
   }
-  check(actual.size === expected.size && [...expected].every(item => actual.has(item)), 'canonical identity set differs from source-derived SP and NORMAL endpoint sets');
+  check(actual.size === expected.size && [...expected].every(item => actual.has(item)), 'canonical identity set differs from source-derived public endpoints and approved private NORMAL identities');
   check(actual.has(key('SP', 5115)) && actual.has(key('NORMAL', 115)), '5115 → 115 regression identities missing');
 
-  return { spIdentityCount: spSet.size, normalEndpointIdentityCount: targetSet.size, totalIdentityCount: actual.size };
+  return { spIdentityCount: spSet.size, normalEndpointIdentityCount: targetSet.size, privateNormalIdentityCount: privateNormalIds.size, totalIdentityCount: actual.size };
 }
 
 export async function loadAndValidateSoldierIdentity(root = process.cwd()) {
   const read = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [canonical, soldierInfo, spSoldierInfo, manifest] = await Promise.all([
+  const [canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest] = await Promise.all([
     read('canonical/soldiers.v1.json'),
     read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
-    read('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+    readFile(resolve(root, spPopulationEvidencePath)),
+    readFile(resolve(root, privateNormalIdentityEvidencePath)),
     read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
   ]);
-  return validateSoldierIdentity({ canonical, soldierInfo, spSoldierInfo, manifest });
+  return validateSoldierIdentity({ canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest });
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   const result = await loadAndValidateSoldierIdentity();
-  process.stdout.write(`Soldier identity population: PASS (${result.spIdentityCount} SP; ${result.normalEndpointIdentityCount} NORMAL endpoints)\\n`);
+  process.stdout.write(`Soldier identity population: PASS (${result.spIdentityCount} SP; ${result.normalEndpointIdentityCount} NORMAL endpoints; ${result.privateNormalIdentityCount} private NORMAL)\\n`);
 }
