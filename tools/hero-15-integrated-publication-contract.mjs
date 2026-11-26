@@ -97,7 +97,7 @@ const centralDisciplineGoldPaths = {
 };
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -128,6 +128,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-bond4-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond5-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-heart-fetter-gold-total-publication.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json'),
     readJson('canonical/hero-fetter-material-relations.v1.json'),
     readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
@@ -147,7 +148,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(centralDisciplineGoldPaths.levels),
     readJson(centralDisciplineGoldPaths.raw),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
     centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };
 }
 
@@ -844,6 +845,52 @@ function validateBondGoldTotal(expected, decision, references, detail, locators,
     || rows.reduce((total, row) => total + row.gold, 0) !== totalGold) {
     throw new Error(`${labelKo} Gold total source vector or total mismatch`);
   }
+}
+
+export function renderBond1KeyTotals({ bond1KeyDecision: decision, fetterDetails, goldOwner, fetterReferences }) {
+  const materials = [
+    { itemType: 6, itemId: 3200, nameKo: '순박한 마음의 열쇠', count: 45 },
+    { itemType: 6, itemId: 3201, nameKo: '순수한 마음의 열쇠', count: 15 },
+  ];
+  if (decision?.status !== 'APPROVED' || decision.schemaVersion !== 1 || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || decision.heroId !== 15 || decision.labelKo !== '유대 1' || decision.endpointKind !== 'FETTER' || decision.endpointId !== 66
+    || decision.sourceField !== 'LevelUpMaterials' || !isDeepStrictEqual(decision.targetLevels, [2, 3, 4, 5, 6, 7, 8, 9, 10])
+    || !isDeepStrictEqual(decision.materials, materials)
+    || decision.approval?.userText !== '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15’를 텍스트로 공개하고, 검증이 통과하면 병합해도 된다') {
+    throw new Error('Bond 1 key publication scope mismatch');
+  }
+  const refs = fetterReferences.records.filter(r => r.heroId === 15 && r.fetterId === 66);
+  const details = fetterDetails.records.filter(r => r.heroId === 15 && r.endpointId === 66);
+  const namespace = 'ConfigDataHeroFetterInfo.ID';
+  const locator = 'ConfigDataHeroFetterInfo#ID=66';
+  if (refs.length !== 1 || refs[0].heroInformationId !== 15 || refs[0].referenceKind !== 'HERO_FETTER_ID_REFERENCE'
+    || refs[0].sourceField !== 'ConfigDataHeroInformationInfo.HeroFetters_ID' || refs[0].endpointNamespace !== namespace
+    || details.length !== 1 || details[0].detailKind !== 'FETTER_RAW_DETAIL'
+    || details[0].endpointNamespace !== namespace || details[0].sourceRecordLocator !== locator) {
+    throw new Error('Bond 1 key source endpoint mismatch');
+  }
+  const raw = details[0].fields.LevelUpMaterials;
+  const relations = goldOwner.materials.filter(r => r.heroId === 15 && r.endpointKind === 'FETTER' && r.endpointId === 66);
+  if (raw.length !== 14 || relations.length !== raw.length || relations.some((r, i) =>
+    r.sourceArrayIndex !== i || r.sourceField !== 'LevelUpMaterials' || r.sourceRecordLocator !== locator || r.endpointNamespace !== namespace
+    || r.itemNamespace !== 'ConfigDataItemInfo.ID' || r.itemType !== raw[i].ItemType || r.itemId !== raw[i].ItemId
+    || r.targetLevel !== raw[i].Level || !decision.targetLevels.includes(r.targetLevel))) {
+    throw new Error('Bond 1 key material locator mismatch');
+  }
+
+  // Per-item counts in target-level order from the pinned Fetter 66 record.
+  const countsByItem = [[1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5]];
+  return decision.materials.map(({ itemType, itemId, nameKo, count }, i) => {
+    const endpoints = goldOwner.itemEndpoints.filter(r => r.itemId === itemId && r.itemType === itemType);
+    if (endpoints.length !== 1 || endpoints[0].endpointNamespace !== 'ConfigDataItemInfo.ID'
+      || endpoints[0].sourceRecordLocator !== `ConfigDataItemInfo#ID=${itemId}`) throw new Error('Bond 1 key ItemInfo endpoint mismatch');
+    const rows = raw.filter(r => r.ItemId === itemId && r.ItemType === itemType);
+    const levels = i === 0 ? decision.targetLevels : decision.targetLevels.slice(4);
+    const total = rows.reduce((sum, r) => sum + r.Count, 0);
+    if (!isDeepStrictEqual(rows.map(r => r.Level), levels) || !isDeepStrictEqual(rows.map(r => r.Count), countsByItem[i])
+      || total !== count) throw new Error('Bond 1 key levels or quantities mismatch');
+    return `${nameKo} ×${total}`;
+  }).join(' · ');
 }
 
 function validateHeartFetterGoldTotal(decision, references, details, locators, levels) {

@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderBond1KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -485,6 +485,23 @@ fails((x) => { x.profileInputs.goldDecision.status = 'NOT_APPROVED'; }, /Fetter 
 fails((x) => { x.profileInputs.goldOwner.goldLocators[0].heroId = 16; }, /Fetter Gold level locator/);
 fails((x) => { x.profileInputs.goldOwner.goldLocators[0].sourceArrayIndex = 1; }, /Fetter Gold level locator/);
 fails((x) => { x.profileInputs.goldDecision.groups[0].gold[0] = 1501; }, /Fetter Gold values/);
+const keyLine = '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15';
+assert.equal(renderBond1KeyTotals(inputs.profileInputs), keyLine);
+for (const [mutate, error] of [
+  [p => { delete p.bond1KeyDecision; }, /publication scope/],
+  [p => { p.bond1KeyDecision.materials.reverse(); }, /publication scope/],
+  [p => { p.fetterReferences.records.find(r => r.fetterId === 66).fetterId = 67; }, /source endpoint/],
+  [p => { p.goldOwner.materials.find(r => r.endpointId === 66).sourceArrayIndex++; }, /material locator/],
+  [p => { p.goldOwner.itemEndpoints.find(r => r.itemId === 3201).endpointNamespace = 'other'; }, /ItemInfo endpoint/],
+  [p => {
+    const rows = p.fetterDetails.records.find(r => r.endpointId === 66).fields.LevelUpMaterials;
+    [rows[0].Count, rows[1].Count] = [rows[1].Count, rows[0].Count];
+  }, /levels or quantities/],
+]) {
+  const profile = structuredClone(inputs.profileInputs);
+  mutate(profile);
+  assert.throws(() => renderBond1KeyTotals(profile), error);
+}
 const bond1Line = 'Lv.2~10 합계 골드 118,600';
 for (const mutate of [
   p => { delete p.bond1GoldDecision; },
@@ -695,7 +712,9 @@ for (const [mode, expectedTotals] of [
   for (const [i, section] of groups.entries()) {
     assert.deepEqual(section.children[1].children.map(row => row.textContent), sample.heroes[0].fetterGold[i].rows.map(
       ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
-    assert.deepEqual(section.children.slice(2).map(row => row.textContent), expectedTotals[i] ? [expectedTotals[i]] : []);
+    const expected = expectedTotals[i] ? [expectedTotals[i]] : [];
+    if (i === 0) expected.push(keyLine);
+    assert.deepEqual(section.children.slice(2).map(row => row.textContent), expected);
   }
 }
 const leakedGold = structuredClone(generated);
