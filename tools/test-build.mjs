@@ -1,3 +1,4 @@
+import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile, mkdtemp, mkdir, rm, writeFile, symlink, copyFile } from 'node:fs/promises';
@@ -67,6 +68,11 @@ try {
     'internal Hero 15 Portrait path must not enter the Public Build Full Detail payload');
   assert.ok(built.files.some((file) => file.path === EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH), 'approved Exclusive Equipment Hero Navigation must enter the public artifact');
   assert.ok(built.files.some((file) => file.path === HERO_15_MINIMAL_DETAIL_PATH), 'approved Hero 15 Minimal Detail must enter the public artifact');
+  const soldierTextFixture = 'tools/fixtures/hero-15-soldier-text-base-app.js';
+  assert.ok(built.files.some(file => file.path === HERO_15_SOLDIER_TEXT_PUBLIC));
+  assert.ok(!built.files.some(file => [HERO_15_SOLDIER_TEXT_DECISION, soldierTextFixture].includes(file.path)));
+  const approvedSoldierText = await readFile(HERO_15_SOLDIER_TEXT_PUBLIC);
+  assert.deepEqual(await readFile(join(output, HERO_15_SOLDIER_TEXT_PUBLIC)), approvedSoldierText);
   assert.ok(built.files.some((file) => file.path === HERO_15_TALENT_PUBLIC_PATH), 'separately approved Hero 15 Talent consumer must enter the public artifact');
   assert.deepEqual(JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')).talent.starDescriptions.map(({star,skillId})=>[star,skillId]), [[3,3212],[4,3214],[5,3216],[6,3218]]);
   assert.ok(built.files.some((file) => file.path === HERO_16_MINIMAL_DETAIL_PATH), 'approved Hero 16 Minimal Detail must enter the public artifact');
@@ -111,7 +117,14 @@ try {
     assert.deepEqual(await readFile(join(output, path)), await readFile(path), `published M06 Skin ${id} bytes must match admitted Asset`);
   }
   await assert.rejects(buildSite({ outputDir: output }), /EEXIST/);
-  const validate = (record = decision, canonical = heroes) => validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision);
+  const validate = (record = decision, canonical = heroes, soldierTextDecision = undefined) => validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, record, process.cwd(), exclusiveHeroDecision, hero15IntegratedDecision, hero16IntegratedDecision, heroMinimalDetailBatchDecision, heroMinimalDetailTenBatchDecision, heroMinimalDetailTwentyBatchDecision, heroMinimalDetailThirtyBatchDecision, heroMinimalDetailThirtyOneBatchDecision, heroMinimalDetailFortyBatchDecision, undefined, soldierTextDecision);
+  await assert.rejects(validate(decision, heroes, null), /independently approved/);
+  await rm(join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
+  await assert.rejects(validate(), /allowlist mismatch/);
+  await copyFile(HERO_15_SOLDIER_TEXT_PUBLIC, join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
+  await writeFile(join(output, HERO_15_SOLDIER_TEXT_PUBLIC), approvedSoldierText.toString().replace('무녀', '변경'));
+  await assert.rejects(validate(), /Hero 15 Soldier text bytes differ from the approved SHA-256/);
+  await copyFile(HERO_15_SOLDIER_TEXT_PUBLIC, join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
   await rm(join(output, skinConsumerPath));
   await assert.rejects(validate(), /allowlist mismatch/);
   await copyFile(skinConsumerPath, join(output, skinConsumerPath));

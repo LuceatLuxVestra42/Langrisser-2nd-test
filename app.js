@@ -398,8 +398,32 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     goldSection.append(renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
       `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`)));
   }
-  return renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
+  const navigation = renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
     { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, soldierCommandSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond2Section, bond3Section, bond4Section, bond5Section, goldSection]);
+  return { ...navigation, soldierList };
+}
+
+function loadHero15SoldierText(soldierList) {
+  return fetch('./generated/hero-15-soldier-text-public.v1.json', { integrity: 'sha256-ylhHbxlISDAVYw4hcEekPmEHtOxPMozVez/co1sskjE=' })
+    .then(response => {
+      if (!response.ok) return null;
+      return response.json();
+    })
+    .then(data => {
+      const approvedIds = [806, 817, 819];
+      if (Object.keys(data ?? {}).sort().join(',') !== 'heroId,schemaVersion,soldiers'
+        || data.heroId !== 15 || data.schemaVersion !== 1 || !Array.isArray(data.soldiers)
+        || data.soldiers.length !== approvedIds.length
+        || !data.soldiers.every((row, index) => Object.keys(row ?? {}).sort().join(',') === 'nameKo,namespace,soldierId'
+          && row.soldierId === approvedIds[index] && row.namespace === 'NORMAL'
+          && typeof row.nameKo === 'string' && row.nameKo.length > 0)
+        || !soldierList.isConnected || soldierList.children.length !== 14) return;
+      const rows = renderMinimalDetailList('용병', data.soldiers.map(({ nameKo }) => nameKo)).children[1];
+      soldierList.append(...rows.children);
+    })
+    .catch(() => {
+      // The optional response can fail independently of the existing card.
+    });
 }
 
 function renderMinimalDetailList(title, labels) {
@@ -1036,6 +1060,8 @@ try {
   hero15MinimalDetailContainer.replaceChildren(status);
   console.error(error);
 }
+
+if (hero15MinimalDetailNavigation) void loadHero15SoldierText(hero15MinimalDetailNavigation.soldierList);
 
 try {
   const response = await fetch('./generated/hero-minimal-detail-16.v1.json');

@@ -26,6 +26,7 @@ import { HERO_MINIMAL_DETAIL_FORTY_BATCH_PATH, HERO_MINIMAL_DETAIL_FORTY_BATCH_P
 import { FULL_DETAIL_PORTRAIT_PROJECTION_CONTRACT } from './full-detail-portrait-projection-contract.mjs';
 import { projectApprovedFullDetailRecords, validateFullDetailPublicPopulation } from './full-detail-public-population-contract.mjs';
 import { HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHero15TalentDecision, validateHero15TalentPublic } from './hero-15-talent-publication-contract.mjs';
+import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC, readHero15SoldierTextInputs, validateHero15SoldierText, validateHero15SoldierTextBytes, validateHero15SoldierTextDecision } from './hero-15-soldier-text-publication-contract.mjs';
 const defaultHero15TalentDecision = validateHero15TalentDecision(JSON.parse(readFileSync(resolve(HERO_15_TALENT_PUBLICATION_PATH), 'utf8')));
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
@@ -53,7 +54,7 @@ async function readApprovedSkinAssetPaths(sourceRoot = process.cwd()) {
 }
 
 // Publication packaging only: this list does not admit semantic populations.
-export function publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision) {
+export function publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths = [], exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision, hero15SoldierTextPublication = JSON.parse(readFileSync(resolve(HERO_15_SOLDIER_TEXT_DECISION), 'utf8'))) {
   if (!Array.isArray(skinFullartPaths) || skinFullartPaths.some((path) => !isAllowedSkinAssetPath(path))
     || new Set(skinFullartPaths).size !== skinFullartPaths.length) {
     throw new Error('Skin Fullart Build paths must be unique approved Asset paths');
@@ -78,6 +79,8 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
     validateHero15TalentDecision(hero15TalentPublication);
     files.push(HERO_15_TALENT_PUBLIC_PATH);
   }
+  validateHero15SoldierTextDecision(hero15SoldierTextPublication);
+  files.push(HERO_15_SOLDIER_TEXT_PUBLIC);
   if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH);
   if (heroMinimalDetailBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_BATCH_PATH);
   if (heroMinimalDetailTenBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TEN_BATCH_PATH);
@@ -96,9 +99,9 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
   return [...new Set(files)].sort();
 }
 
-export async function validatePublicSiteDirectory(output, canonical, publicationDecision, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision) {
+export async function validatePublicSiteDirectory(output, canonical, publicationDecision, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision, hero15SoldierTextPublication = JSON.parse(readFileSync(resolve(sourceRoot, HERO_15_SOLDIER_TEXT_DECISION), 'utf8'))) {
   const skinFullartPaths = await readApprovedSkinAssetPaths(sourceRoot);
-  const expected = publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication);
+  const expected = publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
   const allowedDirectories = new Set(expected.flatMap(file => {
     const parts = file.split('/');
     return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
@@ -119,6 +122,7 @@ export async function validatePublicSiteDirectory(output, canonical, publication
   const files = [];
   for (const path of expected) {
     const [bytes, source] = await Promise.all([readFile(join(output, path)), readFile(join(sourceRoot, path))]);
+    if (path === HERO_15_SOLDIER_TEXT_PUBLIC) validateHero15SoldierTextBytes(bytes, await readFile(join(output, 'app.js'), 'utf8'));
     if (!bytes.equals(source)) throw new Error(`Public artifact bytes differ from approved Source: ${path}`);
     files.push({ path, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
   }
@@ -202,6 +206,10 @@ validateHero15MinimalDetail({ generatedText: hero15MinimalDetailText, inputs: { 
 const hero15TalentPublicText = await readFile(resolve(HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 const hero15TalentPublicInputs = { decision: hero15TalentPublication, talentRelations, skills, localizations: talentLocalizations };
 validateHero15TalentPublic({ generatedText: hero15TalentPublicText, inputs: hero15TalentPublicInputs });
+const hero15SoldierTextInputs = await readHero15SoldierTextInputs();
+const hero15SoldierTextPublication = hero15SoldierTextInputs.decision;
+validateHero15SoldierText({ bytes: await readFile(HERO_15_SOLDIER_TEXT_PUBLIC), app: await readFile('app.js', 'utf8'),
+  inputs: hero15SoldierTextInputs });
 const hero16MinimalInputs = { ...hero15MinimalInputs, decision: hero16IntegratedPublication };
 const hero16MinimalDetailPath = resolve(HERO_16_MINIMAL_DETAIL_PATH);
 const hero16MinimalDetailText = await readFile(hero16MinimalDetailPath, 'utf8');
@@ -507,6 +515,7 @@ try {
   await cp(resolve('generated/hero-index.v1.json'), join(output, 'generated', 'hero-index.v1.json'));
   await cp(hero15MinimalDetailPath, join(output, ...HERO_15_MINIMAL_DETAIL_PATH.split('/')));
   await cp(resolve(HERO_15_TALENT_PUBLIC_PATH), join(output, ...HERO_15_TALENT_PUBLIC_PATH.split('/')));
+  await cp(resolve(HERO_15_SOLDIER_TEXT_PUBLIC), join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
   await cp(hero16MinimalDetailPath, join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')));
   await cp(heroMinimalDetailBatchPath, join(output, ...HERO_MINIMAL_DETAIL_BATCH_PATH.split('/')));
   await cp(heroMinimalDetailTenBatchPath, join(output, ...HERO_MINIMAL_DETAIL_TEN_BATCH_PATH.split('/')));
@@ -641,7 +650,7 @@ try {
   if (packagedExclusiveHeroNavigation.records.length !== 167) throw new Error('packaged Exclusive Equipment Hero Navigation population mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
-  const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication);
+  const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');

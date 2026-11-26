@@ -1,3 +1,5 @@
+import { HERO_15_SOLDIER_TEXT_PUBLIC, readHero15SoldierTextInputs, renderHero15SoldierText, validateHero15SoldierText } from './hero-15-soldier-text-publication-contract.mjs';
+import { selectSkinFullarts } from '../skin-fullart-presentation.mjs';
 import { runInNewContext } from 'node:vm';
 import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
@@ -551,4 +553,222 @@ assert.equal(navigation.showTarget(16), false);
 const leaked = structuredClone(generated);
 leaked.heroes[0].profile.origins = [];
 assert.throws(() => render(leaked, talent, element()), /profile consumer/);
-process.stdout.write('Hero 15 Minimal Detail regression: PASS (publication, ID, relation, localization, equipment, fields, duplication, stale output, and preserved populations)\n');
+
+const oldApp = await readFile('tools/fixtures/hero-15-soldier-text-base-app.js');
+const baseDetail = await readFile(HERO_15_MINIMAL_DETAIL_PATH);
+assert.equal(createHash('sha256').update(oldApp).digest('hex'), '0571fea422f3e7c9d82380a0a8a44947677e957aef9d9c50a6ff12276cbeafe6');
+assert.equal(createHash('sha256').update(baseDetail).digest('hex'), 'ff6404711698bdd04e426097e09f9a735ed2c16e34693174d0e3974433859021');
+
+const textInputs = await readHero15SoldierTextInputs();
+const textBytes = await readFile(HERO_15_SOLDIER_TEXT_PUBLIC);
+const textData = JSON.parse(textBytes);
+const expectedTextRows = [
+  { soldierId: 806, namespace: 'NORMAL', nameKo: '무녀' },
+  { soldierId: 817, namespace: 'NORMAL', nameKo: '바람과 꽃을 찬송하는 자' },
+  { soldierId: 819, namespace: 'NORMAL', nameKo: '산별 구조대' },
+];
+assert.deepEqual(textData, { schemaVersion: 1, heroId: 15, soldiers: expectedTextRows });
+validateHero15SoldierText({ bytes: textBytes, app: frontend, inputs: textInputs });
+for (const { nameKo } of expectedTextRows) assert.ok(!frontend.includes(nameKo));
+
+const failText = (mutate, pattern) => {
+  const changed = structuredClone(textInputs);
+  mutate(changed);
+  assert.throws(() => renderHero15SoldierText(changed), pattern);
+};
+for (const mutate of [
+  x => { delete x.status; },
+  x => { x.heroId = 16; },
+  x => { x.soldiers.pop(); },
+  x => { x.soldiers[1] = x.soldiers[0]; },
+  x => { x.soldiers.reverse(); },
+  x => { x.soldiers[0].fragment = '#normal-soldier-806'; },
+  x => { x.soldiers[0].namespace = 'SP'; },
+  x => { x.soldiers[0].nameKo = '변경'; },
+  x => { x.soldiers[0].soldierId = 818; },
+]) failText(x => mutate(x.decision), /independently approved/);
+for (const id of [806, 817, 819]) {
+  failText(x => { x.names = x.names.filter(row => row.soldierId !== id); }, /Owner or public endpoint mismatch/);
+  failText(x => { x.names.push(x.names.find(row => row.soldierId === id)); }, /Owner or public endpoint mismatch/);
+  failText(x => { x.names.find(row => row.soldierId === id).nameKo = '변경'; }, /Owner or public endpoint mismatch/);
+  failText(x => { x.publicIdentities.push({ id, variant: 'NORMAL' }); }, /Owner or public endpoint mismatch/);
+  failText(x => { x.relationInputs.soldiers.records = x.relationInputs.soldiers.records.filter(row => row.id !== id); }, /identity endpoint/);
+  failText(x => { x.relationInputs.soldiers.records.push(x.relationInputs.soldiers.records.find(row => row.id === id)); }, /identity endpoint/);
+  failText(x => { x.relationInputs.soldiers.records.find(row => row.id === id).variant = 'SP'; }, /identity endpoint/);
+  failText(x => { x.relationInputs.relations.records.find(row => row.heroId === 15 && row.soldierId === id).heroId = 16; }, /relation keys or order/);
+  failText(x => { x.relationInputs.relations.records.push(x.relationInputs.relations.records.find(row => row.heroId === 15 && row.soldierId === id)); }, /relation keys or order/);
+}
+const substituted = structuredClone(textInputs);
+substituted.decision.soldiers[0] = { soldierId: 210, namespace: 'NORMAL', nameKo: '하이랜더' };
+assert.ok(substituted.names.some(row => row.soldierId === 210 && row.nameKo === '하이랜더'));
+assert.ok(substituted.relationInputs.relations.records.some(row => row.heroId === 15 && row.soldierId === 210));
+assert.throws(() => validateHero15SoldierText({
+  bytes: Buffer.from(JSON.stringify({ ...textData, soldiers: substituted.decision.soldiers }, null, 2) + '\n'),
+  app: frontend, inputs: substituted,
+}), /independently approved/);
+assert.throws(() => validateHero15SoldierText({ bytes: Buffer.concat([textBytes, Buffer.from(' ')]), app: frontend, inputs: textInputs }), /stale/);
+const differentDigestApp = frontend.replace(/integrity: 'sha256-[^']+'/, "integrity: 'sha256-" + Buffer.alloc(32).toString('base64') + "'");
+assert.throws(() => validateHero15SoldierText({ bytes: textBytes, app: differentDigestApp, inputs: textInputs }), /app integrity/);
+
+// Run both complete startup paths. The DOM double only provides the methods the app uses.
+// Responses used for the integrity regression go through native Fetch and its real byte check.
+const appImport = "import { selectSkinFullarts } from './skin-fullart-presentation.mjs';";
+const dataUrl = bytes => 'data:application/json;base64,' + Buffer.from(bytes).toString('base64');
+const realTextResponse = options => fetch(dataUrl(textBytes), options);
+const originalLinks = expectedSoldierLinks.map(([ns, id, name]) => [`${ns} · ${name}`, `#${ns.toLowerCase()}-soldier-${id}`]);
+
+async function startApp(source, optionalResponse) {
+  const roots = new Map();
+  const errors = [];
+  const requestedText = [];
+  const node = tag => ({
+    ...element(), tag, isConnected: true, textContent: '', value: '', options: [],
+    listeners: new Map(),
+    addEventListener(event, handler) { this.listeners.set(event, handler); },
+    setAttribute(name, value) { this[name] = value; },
+  });
+  function root(selector) {
+    if (!roots.has(selector)) roots.set(selector, node('root'));
+    return roots.get(selector);
+  }
+  function* descendants(elements) {
+    for (const item of elements) {
+      yield item;
+      yield* descendants(item.children);
+    }
+  }
+  const document = {
+    baseURI: 'http://localhost/',
+    querySelector: root,
+    createElement: node,
+    createTextNode: textContent => ({ ...node('#text'), textContent }),
+    getElementById: id => [...descendants(roots.values())].find(item => item.id === id),
+  };
+  assert.ok(source.startsWith(appImport));
+  const observeOptional = source === frontend ? `
+    const loadOptional = loadHero15SoldierText;
+    loadHero15SoldierText = list => (optional = loadOptional(list));
+  ` : '';
+  const startup = runInNewContext(`(async () => {
+    let optional;
+    ${observeOptional}
+    ${source.slice(appImport.length)}
+    return { optional, loadAgain: ${source === frontend ? 'loadOptional' : 'null'} };
+  })()`, {
+    document, window: { location: { hash: '' }, requestAnimationFrame() {} },
+    console: { error: error => errors.push(error) },
+    URL, selectSkinFullarts,
+    fetch: (path, options) => {
+      if (path === './' + HERO_15_SOLDIER_TEXT_PUBLIC) {
+        requestedText.push(options);
+        return optionalResponse(options);
+      }
+      return readFile(path).then(bytes => new Response(bytes));
+    },
+  });
+  const timeout = setTimeout(() => {
+    throw new Error('App startup waited on the optional Hero 15 Soldier response');
+  }, 5000);
+  let status;
+  try {
+    status = await startup;
+  } finally {
+    clearTimeout(timeout);
+  }
+  assert.deepEqual(errors, []);
+  const [card] = root('#hero-minimal-detail-15-content').children;
+  assert.equal(card?.className, 'hero-minimal-detail-card');
+  const list = card.children.find(section => section.children[0]?.textContent === '용병').children[1];
+  const indexLink = document.getElementById('hero-index-entry-15').children[0];
+  assert.equal(indexLink.href, '#hero-minimal-detail-15');
+  assert.equal(root('#hero-minimal-detail-16-content').children[0]?.className, 'hero-minimal-detail-card');
+  assert.ok(root('#heroes').children.length > 0);
+  assert.equal(root('#hero-index-results').children.length, 267);
+  for (const [ns, prefix, count] of [['NORMAL', 'normal', 56], ['SP', 'sp', 56]]) {
+    const cards = root(`#${prefix}-soldiers`).children;
+    assert.equal(cards.filter(card => card.tag === 'article').length, count);
+    assert.ok(root(`#${prefix}-soldier-search`).listeners.has('input'));
+    for (const [, id, name] of expectedSoldierLinks.filter(row => row[0] === ns)) {
+      const matches = cards.filter(card => card.id === `${prefix}-soldier-${id}`);
+      assert.equal(matches.length, 1);
+      assert.equal(matches[0].children[0].children[0].textContent, name);
+    }
+    assert.ok(expectedTextRows.every(({ soldierId }) => !cards.some(card => card.id === `${prefix}-soldier-${soldierId}`)));
+  }
+  return { ...status, requestedText, list };
+}
+
+function checkRows(list, expected = []) {
+  assert.deepEqual(list.children.slice(0, 14).map(item => [item.children[0].textContent, item.children[0].href]), originalLinks);
+  assert.deepEqual(list.children.slice(14).map(item => [item.tag, item.textContent, item.children.length, item.id]),
+    expected.map(row => ['li', row.nameKo, 0, undefined]));
+}
+
+for (const [source, response, expected] of [
+  [oldApp.toString(), () => Promise.resolve(new Response(null, { status: 404 })), []],
+  [oldApp.toString(), realTextResponse, []],
+  [frontend, () => Promise.resolve(new Response(null, { status: 404 })), []],
+  [frontend, realTextResponse, expectedTextRows],
+]) {
+  const app = await startApp(source, response);
+  await app.optional;
+  assert.equal(app.requestedText.length, source === frontend ? 1 : 0);
+  checkRows(app.list, expected);
+}
+
+const tampered = textBytes.toString().replace('무녀', '변경');
+let nativeIntegrityError;
+const integrityFailure = await startApp(frontend, async options => {
+  assert.match(options.integrity, /^sha256-/);
+  try {
+    return await fetch(dataUrl(tampered), options);
+  } catch (error) {
+    nativeIntegrityError = error;
+    throw error;
+  }
+});
+await integrityFailure.optional;
+assert.match(nativeIntegrityError?.cause?.message ?? '', /integrity mismatch/);
+checkRows(integrityFailure.list);
+
+for (const response of [
+  () => Promise.reject(new Error('request rejected')),
+  () => Promise.resolve(new Response('{invalid')),
+  ...[
+    { ...textData, schemaVersion: 2 }, { ...textData, heroId: 16 },
+    { ...textData, soldiers: {} }, { ...textData, soldiers: expectedTextRows.slice(1) },
+    { ...textData, soldiers: [...expectedTextRows].reverse() },
+    ...[
+      { soldierId: 210 }, { nameKo: '' }, { namespace: 'SP' }, { fragment: '#normal-soldier-806' },
+    ].map(change => ({ ...textData, soldiers: [{ ...expectedTextRows[0], ...change }, ...expectedTextRows.slice(1)] })),
+  ].map(value => () => Promise.resolve(Response.json(value))),
+]) {
+  const app = await startApp(frontend, response);
+  await app.optional;
+  checkRows(app.list);
+}
+
+const request = Promise.withResolvers();
+const requestPending = await startApp(frontend, () => request.promise);
+checkRows(requestPending.list);
+request.resolve(await realTextResponse(requestPending.requestedText[0]));
+await requestPending.optional;
+checkRows(requestPending.list, expectedTextRows);
+
+const body = Promise.withResolvers();
+const bodyPending = await startApp(frontend, () => Promise.resolve({ ok: true, json: () => body.promise }));
+checkRows(bodyPending.list);
+body.resolve(await (await realTextResponse(bodyPending.requestedText[0])).json());
+await bodyPending.optional;
+checkRows(bodyPending.list, expectedTextRows);
+await bodyPending.loadAgain(bodyPending.list);
+checkRows(bodyPending.list, expectedTextRows);
+
+const late = Promise.withResolvers();
+const detached = await startApp(frontend, () => late.promise);
+detached.list.isConnected = false;
+late.resolve(await realTextResponse(detached.requestedText[0]));
+await detached.optional;
+checkRows(detached.list);
+
+process.stdout.write('Hero 15 Minimal Detail regression: PASS (Owner, existing publication, optional integrity and startup compatibility)\n');

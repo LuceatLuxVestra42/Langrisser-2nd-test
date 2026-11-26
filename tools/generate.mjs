@@ -1107,6 +1107,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
     },
   });
   await writeFile(resolve(HERO_15_MINIMAL_DETAIL_PATH), hero15MinimalDetail, 'utf8');
+  const { HERO_15_SOLDIER_TEXT_PUBLIC, readHero15SoldierTextInputs, renderHero15SoldierText } = await import('./hero-15-soldier-text-publication-contract.mjs');
+  const hero15SoldierText = renderHero15SoldierText(await readHero15SoldierTextInputs());
+  await writeFile(resolve(HERO_15_SOLDIER_TEXT_PUBLIC), hero15SoldierText, 'utf8');
   const hero16MinimalDetail = renderHero16MinimalDetail({
     decision: hero16IntegratedPublication,
     heroIdentities: exclusiveHeroIdentities,

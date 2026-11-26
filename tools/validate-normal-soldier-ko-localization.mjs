@@ -90,7 +90,7 @@ export function validateNormalSoldierKoLocalization({ soldiers, publicIdentities
   return { localizedCount: ids.length, sourceRowCount: sourceRows.length, excludedCount: excluded.length, publicRecords };
 }
 
-async function loadValidatedNormalSoldierKoLocalization(root) {
+export async function loadValidatedNormalSoldierKoLocalization(root) {
   const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
   const [population, soldiers, canonical, evidence, manifest, rawSource] = await Promise.all([
     loadPublicSoldierPopulation(root),
