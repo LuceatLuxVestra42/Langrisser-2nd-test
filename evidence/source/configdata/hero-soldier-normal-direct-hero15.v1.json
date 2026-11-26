@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "claimType": "hero-soldier-normal-direct-relations",
+  "evidenceClass": "A",
+  "canonical": false,
+  "generated": false,
+  "productionRuntimeDependency": false,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataSoldierInfo.json",
+    "gitBlobSha1": "23649493c4d4c602e8d990db7bb5fade11747cc3",
+    "sha256": "8a73b178be5b2f15ebcc84e83741d42e242ea4650f1d590fb2c1bcee8b8bbcc4",
+    "sourceVersionStatus": "unknown"
+  },
+  "identityEvidence": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json",
+  "limitation": "Full source arrays are retained for traceability. Only the three explicit Hero 15 elements are admitted; no other source membership is selected.",
+  "records": [
+    {
+      "recordLocator": "/161",
+      "rawFields": {
+        "ID": 806,
+        "GetSoldierHeros_ID": [
+          13,
+          15,
+          31,
+          51,
+          57,
+          96,
+          100,
+          109,
+          141,
+          99168,
+          99177,
+          99191,
+          99196,
+          99200,
+          99229,
+          99232,
+          99237,
+          99271,
+          99283
+        ]
+      },
+      "claim": {
+        "heroId": 15,
+        "soldierId": 806,
+        "fieldLocator": "/161/GetSoldierHeros_ID/1"
+      }
+    },
+    {
+      "recordLocator": "/169",
+      "rawFields": {
+        "ID": 817,
+        "GetSoldierHeros_ID": [
+          4,
+          15,
+          22,
+          29,
+          31,
+          35,
+          92,
+          105,
+          109,
+          113,
+          99191,
+          99203,
+          99232,
+          99237,
+          99283
+        ]
+      },
+      "claim": {
+        "heroId": 15,
+        "soldierId": 817,
+        "fieldLocator": "/169/GetSoldierHeros_ID/1"
+      }
+    },
+    {
+      "recordLocator": "/171",
+      "rawFields": {
+        "ID": 819,
+        "GetSoldierHeros_ID": [
+          4,
+          15,
+          29,
+          81,
+          92,
+          100,
+          102,
+          109,
+          113,
+          99165,
+          99168,
+          99177,
+          99185,
+          99196,
+          99229,
+          99232,
+          99238,
+          99240,
+          99274
+        ]
+      },
+      "claim": {
+        "heroId": 15,
+        "soldierId": 819,
+        "fieldLocator": "/171/GetSoldierHeros_ID/1"
+      }
+    }
+  ]
+}

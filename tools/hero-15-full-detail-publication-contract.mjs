@@ -1,6 +1,7 @@
 import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { HERO15_NORMAL_SOLDIER_IDS, HERO15_SP_SOLDIER_IDS } from './validate-hero-soldier-relations.mjs';
 import { CANONICAL as SOLDIER_COMMAND_BASE_PATH, EVIDENCE as SOLDIER_COMMAND_EVIDENCE_PATH } from './validate-hero-15-soldier-command-base.mjs';
 import {
   CANONICAL as SOLDIER_COMMAND_BOND_PATH,
@@ -203,10 +204,15 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
     || soldierCommand.canonicalClaims.find((claim) => claim.artifact === SOLDIER_COMMAND_BOND_PATH).evidenceArtifact !== SOLDIER_COMMAND_BOND_EVIDENCE_PATH
     || soldierCommand.consumerArtifacts.length !== 0) fail('Soldier Command source trace or internal-only scope drift');
 
-  const soldierRelations = canonical.soldierRelations.records.filter((row) => row.heroId === 15);
+  const pair = ({ heroId, soldierId }) => [heroId, soldierId];
+  const expectedLiveSoldierKeys = [...HERO15_NORMAL_SOLDIER_IDS, ...HERO15_SP_SOLDIER_IDS].map(soldierId => [15, soldierId]);
+  const canonicalSoldierKeys = canonical.soldierRelations.records.filter(row => row.heroId === 15).map(pair);
+  const generatedSoldierKeys = generated.hero15Soldier.records.map(pair);
+  if (!equal(canonicalSoldierKeys, generatedSoldierKeys)) fail('Soldier relation/consumer parity failed');
+  if (!equal(canonicalSoldierKeys, expectedLiveSoldierKeys) || !equal(generatedSoldierKeys, expectedLiveSoldierKeys)) {
+    fail('Soldier live relation keys or order differ from the admitted 17-pair scope');
+  }
   const expectedSoldierIds = [210,326,602,621,802,811,815,5210,5326,5602,5621,5802,5811,5815];
-  if (!equal(soldierRelations.map((row) => row.soldierId), expectedSoldierIds)
-    || !equal(generated.hero15Soldier.records.map((row) => row.soldierId), expectedSoldierIds)) fail('Soldier relation/consumer parity failed');
   if (!equal(claimIds(decision.fieldGroups.find((group) => group.id === 'soldier'), 'canonical/hero-soldier-relations.v1.json'), expectedSoldierIds)
     || !equal(claimIds(decision.fieldGroups.find((group) => group.id === 'soldier'), 'canonical/soldiers.v1.json'), expectedSoldierIds)) fail('Soldier source trace ID set drift');
   const soldierIdentityIds = canonical.soldiers.records.filter((row) => expectedSoldierIds.includes(row.id)).map((row) => row.id);

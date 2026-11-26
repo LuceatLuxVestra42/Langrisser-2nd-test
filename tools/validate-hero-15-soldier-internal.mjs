@@ -1,18 +1,17 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { loadHero15SoldierInputs, OUTPUT, renderHero15SoldierInternal, SCOPE } from './hero-15-soldier-internal-consumer.mjs';
+import { loadHero15SoldierInputs, OUTPUT, renderHero15SoldierInternal, SCOPE, EXPECTED_SOLDIER_IDS } from './hero-15-soldier-internal-consumer.mjs';
 
 export function validateHero15SoldierProjection({ relations, soldiers }, text) {
   const expected = relations.records.filter(row => row.heroId === 15);
-  assert.equal(expected.length, 14);
-  assert.equal(new Set(expected.map(row => row.soldierId)).size, 14);
+  assert.deepEqual(expected.map(row => row.soldierId), EXPECTED_SOLDIER_IDS);
   const identityIds = soldiers.records.filter(row => row.entity === 'Soldier').map(row => row.id);
   assert.equal(new Set(identityIds).size, identityIds.length);
   const generated = JSON.parse(text);
   assert.deepEqual(generated, JSON.parse(renderHero15SoldierInternal({ relations, soldiers })));
   assert.equal(generated.scope, SCOPE);
-  assert.equal(generated.records.filter(r => r.evidenceClass === 'A').length, 7);
+  assert.equal(generated.records.filter(r => r.evidenceClass === 'A').length, 10);
   assert.equal(generated.records.filter(r => r.evidenceClass === 'B').length, 7);
   for (const row of generated.records) {
     assert.equal(row.heroId, 15);
@@ -27,6 +26,6 @@ export function validateHero15SoldierProjection({ relations, soldiers }, text) {
 export async function validateFromRoot(root = process.cwd()) {
   const inputs = await loadHero15SoldierInputs(root);
   validateHero15SoldierProjection(inputs, await readFile(resolve(root, OUTPUT), 'utf8'));
-  console.log('Hero 15 Soldier internal projection: PASS (14 relations, 7 A / 7 B, exact Soldier endpoints)');
+  console.log('Hero 15 Soldier internal projection: PASS (17 relations, 10 A / 7 B, exact Soldier endpoints)');
 }
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-hero-15-soldier-internal.mjs')) await validateFromRoot();

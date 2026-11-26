@@ -15,16 +15,29 @@ const spSoldierSourcePath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.
 const soldierSourceManifestPath = 'evidence/source/configdata/sp-soldier-population.source-manifest.v1.json';
 const sourceSemanticsPath = 'evidence/source/configdata/hero-soldier-source-semantics.v1.json';
 const hero15SpAdmissionPath = 'evidence/source/configdata/hero-soldier-sp-inheritance-hero15.v1.json';
-const currentRelationCount = 393;
-const currentProvenanceCount = 394;
+export const hero15DirectAdmissionPath = 'evidence/source/configdata/hero-soldier-normal-direct-hero15.v1.json';
+const hero15DirectAdmissionSha256 = '9fcc9d88ac995b6f1b840e91cc7c26c9ec724bf51c8165ff1c836e7476b155e4';
+const hero15PrivateIdentityPath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json';
+const priorRelationBaselineSha256 = 'd25882c2bea350146fa45c8b4372832be884e7b5931c9f46bdc880b6f264746f';
+const hero15PriorNormalIds = [210, 326, 602, 621, 802, 811, 815];
+const hero15DirectClaims = [
+  { heroId: 15, soldierId: 806, fieldLocator: '/161/GetSoldierHeros_ID/1' },
+  { heroId: 15, soldierId: 817, fieldLocator: '/169/GetSoldierHeros_ID/1' },
+  { heroId: 15, soldierId: 819, fieldLocator: '/171/GetSoldierHeros_ID/1' },
+];
+const hero15DirectIds = new Set(hero15DirectClaims.map(row => row.soldierId));
+export const HERO15_NORMAL_SOLDIER_IDS = Object.freeze([...hero15PriorNormalIds, ...hero15DirectIds].sort((a, b) => a - b));
+const currentRelationCount = 396;
+const currentProvenanceCount = 397;
 const preHero15SpBaselineSha256 = 'fd8a44f3f3ebf6b2d5d1f0a7562b40b1f577e64d7747eb3c2bbacd1356f010ec';
 const currentSourceKindCounts = {
-  BASE_SOLDIER_HERO: 177,
+  BASE_SOLDIER_HERO: 180,
   SP_HERO_REWARD: 5,
   SP_SOLDIER_EXPAND: 30,
   SP_SOLDIER_INHERIT: 182,
 };
 const hero15SpAdmissionPairs = [[15, 5210], [15, 5326], [15, 5602], [15, 5621], [15, 5802], [15, 5811], [15, 5815]];
+export const HERO15_SP_SOLDIER_IDS = Object.freeze(hero15SpAdmissionPairs.map(([, soldierId]) => soldierId));
 const check = (condition, message) => { if (!condition) throw new Error(`Hero-Soldier direct-source validation failed: ${message}`); };
 const readBytes = (path) => readFile(resolve(root, path));
 const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
@@ -43,6 +56,35 @@ function addProvenance(byPair, targetHeroIds, targetSoldierIds, heroId, soldierI
   if (!edge.provenance.some((candidate) => isDeepStrictEqual(candidate, provenance))) edge.provenance.push(provenance);
 }
 
+function verifyHero15DirectAdmission(bytes, soldierOwner) {
+  check(createHash('sha256').update(bytes).digest('hex') === hero15DirectAdmissionSha256,
+    'Hero 15 NORMAL direct admission evidence SHA-256 mismatch');
+  const evidence = JSON.parse(bytes.toString('utf8'));
+  check(evidence.schemaVersion === 1 && evidence.claimType === 'hero-soldier-normal-direct-relations'
+    && evidence.evidenceClass === 'A' && evidence.identityEvidence === hero15PrivateIdentityPath
+    && evidence.canonical === false && evidence.generated === false && evidence.productionRuntimeDependency === false,
+  'Hero 15 NORMAL direct evidence boundary drift');
+  check(isDeepStrictEqual(evidence.records.map(row => row.claim), hero15DirectClaims), 'Hero 15 NORMAL direct evidence approved claims or locator drift');
+  return hero15DirectClaims.map((claim, index) => {
+    const { heroId, soldierId, fieldLocator } = claim;
+    const row = evidence.records[index];
+    const [, recordIndex, , elementIndex] = fieldLocator.split('/');
+    check(row.recordLocator === `/${recordIndex}` && row.rawFields.ID === soldierId
+      && Array.isArray(row.rawFields.GetSoldierHeros_ID)
+      && row.rawFields.GetSoldierHeros_ID[Number(elementIndex)] === heroId
+      && row.rawFields.GetSoldierHeros_ID.filter(id => id === heroId).length === 1,
+    `Hero 15 NORMAL source record or exact array element mismatch: ${heroId}:${soldierId}`);
+    const endpoints = soldierOwner.records.filter(row => row.id === soldierId);
+    check(isDeepStrictEqual(endpoints, [{
+      entity: 'Soldier', id: soldierId, variant: 'NORMAL', provenance: `${hero15PrivateIdentityPath}#ID=${soldierId}`,
+    }]), `Hero 15 NORMAL identity endpoint mismatch: ${soldierId}`);
+    return { heroId, soldierId, provenance: [{
+      sourceKind: 'BASE_SOLDIER_HERO', sourceClass: 'DIRECT',
+      origin: { table: 'ConfigDataSoldierInfo', recordId: soldierId, recordKeyField: 'ID', field: 'GetSoldierHeros_ID' },
+    }] };
+  });
+}
+
 export async function validateHeroSoldierRelations() {
   const rewardEvidence = await validateSpHeroRewardSource();
   const [
@@ -55,6 +97,7 @@ export async function validateHeroSoldierRelations() {
     soldierSourceManifest,
     sourceSemantics,
     hero15SpAdmission,
+    hero15DirectBytes,
     soldierSourceBytes,
     spSoldierSourceBytes,
   ] = await Promise.all([
@@ -67,6 +110,7 @@ export async function validateHeroSoldierRelations() {
     readJson(soldierSourceManifestPath),
     readJson(sourceSemanticsPath),
     readJson(hero15SpAdmissionPath),
+    readBytes(hero15DirectAdmissionPath),
     readBytes(soldierSourcePath),
     readBytes(spSoldierSourcePath),
   ]);
@@ -74,7 +118,7 @@ export async function validateHeroSoldierRelations() {
   exactKeys(directManifest, [
     'schemaVersion','sourceRole','canonical','generated','productionRuntimeDependency','canonicalTarget',
     'claimScope','locatorFormat','locatorSemantics','sourceSemanticsContract','sources',
-    'preservedBaselineRegression','knownLimitations','claimScopedAdmissionEvidence'
+    'preservedBaselineRegression','knownLimitations','claimScopedAdmissionEvidence','claimScopedDirectAdmissionEvidence'
   ], 'direct-source provenance manifest');
   check(directManifest.schemaVersion === 1
     && directManifest.sourceRole === 'hero_soldier_direct_source_provenance'
@@ -96,6 +140,17 @@ export async function validateHeroSoldierRelations() {
     locatorFormat: `${directManifestPath}#heroId=<HeroID>&soldierId=<SP SoldierID>`,
     admissionAuthority: false,
   }), 'claim-scoped derived admission evidence link drift');
+
+  check(isDeepStrictEqual(directManifest.claimScopedDirectAdmissionEvidence, {
+    artifactPath: hero15DirectAdmissionPath,
+    claimType: 'hero-soldier-normal-direct-relations',
+    evidenceClass: 'A',
+    sourceKind: 'BASE_SOLDIER_HERO',
+    claimCount: 3,
+    locatorFormat: `${directManifestPath}#heroId=<HeroID>&soldierId=<SoldierID>`,
+    admissionAuthority: false,
+  }), 'claim-scoped NORMAL direct admission evidence link drift');
+  const scopedDirectEdges = verifyHero15DirectAdmission(hero15DirectBytes, soldierOwner);
 
   const sources = directManifest.sources;
   const expectedSourceSpecs = {
@@ -287,6 +342,8 @@ export async function validateHeroSoldierRelations() {
     check(Number.isInteger(row.heroId) && Number.isInteger(row.soldierId), 'malformed canonical relation endpoints');
     const key = pairKey(row.heroId, row.soldierId);
     check(!canonicalByPair.has(key), `duplicate canonical pair ${key}`);
+    check(!hero15DirectIds.has(row.soldierId) || row.heroId === 15,
+      `canonical pair outside approved Hero 15 NORMAL relation keys: ${key}`);
     check(row.heroId > previousHeroId || (row.heroId === previousHeroId && row.soldierId > previousSoldierId), `canonical relation ordering drift at ${key}`);
     previousHeroId = row.heroId;
     previousSoldierId = row.soldierId;
@@ -303,8 +360,9 @@ export async function validateHeroSoldierRelations() {
 
   // The current canonical target bounds this equivalence proof. New endpoint-owner records do not
   // automatically create a completeness or admission obligation.
-  const targetHeroIds = new Set(canonical.records.map((row) => row.heroId));
-  const targetSoldierIds = new Set(canonical.records.map((row) => row.soldierId));
+  const priorAdmission = canonical.records.filter(row => !hero15DirectIds.has(row.soldierId));
+  const targetHeroIds = new Set(priorAdmission.map((row) => row.heroId));
+  const targetSoldierIds = new Set(priorAdmission.map((row) => row.soldierId));
   const byPair = new Map();
 
   for (const row of soldierSourceDoc.records) {
@@ -379,7 +437,7 @@ export async function validateHeroSoldierRelations() {
   const hero15SpInheritanceCandidates = reconstructed.filter((row) => row.heroId === 15
     && row.provenance.some((item) => item.sourceKind === 'SP_SOLDIER_INHERIT'));
   check(hero15NormalAdmissions.length === 7, `expected seven source-supported Hero 15 NORMAL admissions; found ${hero15NormalAdmissions.length}`);
-  check(isDeepStrictEqual(hero15NormalAdmissions.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 NORMAL source-derived admission set drift');
+  check(isDeepStrictEqual(hero15NormalAdmissions.map((row) => row.soldierId), hero15PriorNormalIds), 'Hero 15 NORMAL source-derived admission set drift');
   check(hero15SpInheritanceCandidates.length === hero15SpAdmission.records.length
     && isDeepStrictEqual(hero15SpInheritanceCandidates.map((row) => [row.heroId, row.soldierId]), hero15SpAdmission.records.map((row) => [row.heroId, row.spSoldierId])),
   'Hero 15 source-derived SP candidates differ from the independently recorded admission claims');
@@ -402,7 +460,7 @@ export async function validateHeroSoldierRelations() {
     `Hero 15 SP canonical admission or complete parent/support provenance drift: ${record.heroId}:${record.spSoldierId}`);
   }
 
-  const admittedReconstructed = reconstructed;
+  const admittedReconstructed = [...reconstructed, ...scopedDirectEdges];
   const admittedByPair = new Map(admittedReconstructed.map((row) => [pairKey(row.heroId, row.soldierId), row]));
   const missing = [...canonicalByPair.keys()].filter((key) => !admittedByPair.has(key));
   const extra = [...admittedByPair.keys()].filter((key) => !canonicalByPair.has(key));
@@ -423,9 +481,9 @@ export async function validateHeroSoldierRelations() {
   const hero15Canonical = canonical.records.filter((row) => row.heroId === 15);
   const hero15NormalCanonical = hero15Canonical.filter((row) => soldierVariant.get(row.soldierId) === 'NORMAL');
   const hero15SpCanonical = hero15Canonical.filter((row) => soldierVariant.get(row.soldierId) === 'SP');
-  check(isDeepStrictEqual(hero15NormalCanonical.map((row) => row.soldierId), [210, 326, 602, 621, 802, 811, 815]), 'Hero 15 Canonical NORMAL admission set drift');
+  check(isDeepStrictEqual(hero15NormalCanonical.map((row) => row.soldierId), HERO15_NORMAL_SOLDIER_IDS), 'Hero 15 Canonical NORMAL admission set drift');
   check(hero15NormalCanonical.every((row) => row.evidenceClass === 'A' && row.provenance.length === 1 && row.provenance[0].sourceKind === 'BASE_SOLDIER_HERO'), 'Hero 15 NORMAL Canonical contains an unsupported relation');
-  check(isDeepStrictEqual(hero15SpCanonical.map((row) => row.soldierId), hero15SpAdmissionPairs.map(([, soldierId]) => soldierId)), 'Hero 15 Canonical SP admission set drift');
+  check(isDeepStrictEqual(hero15SpCanonical.map((row) => row.soldierId), HERO15_SP_SOLDIER_IDS), 'Hero 15 Canonical SP admission set drift');
   check(hero15SpCanonical.every((row) => row.evidenceClass === 'B' && row.provenance.length === 1 && row.provenance[0].sourceKind === 'SP_SOLDIER_INHERIT'), 'Hero 15 SP Canonical contains an unsupported or promoted direct-source claim');
 
   check(missing.length === 0, `missing canonical-supported edges: ${missing.join(', ') || 'none'}`);
@@ -435,7 +493,11 @@ export async function validateHeroSoldierRelations() {
   const priorRecordsSha256 = createHash('sha256').update(JSON.stringify(priorRecords)).digest('hex');
   check(priorRecordsSha256 === directManifest.preservedBaselineRegression.baselineRecordsSha256, 'existing 379 canonical relation Pair/Provenance set changed');
   const spAdmissionPairKeys = new Set(hero15SpAdmissionPairs.map(([heroId, soldierId]) => pairKey(heroId, soldierId)));
-  const preSpAdmissionRecords = canonical.records.filter((row) => !spAdmissionPairKeys.has(pairKey(row.heroId, row.soldierId)));
+  check(priorAdmission.length === 393
+    && priorAdmission.reduce((sum, row) => sum + row.provenance.length, 0) === 394
+    && createHash('sha256').update(JSON.stringify(priorAdmission)).digest('hex') === priorRelationBaselineSha256,
+  'pre-Hero-15-NORMAL canonical Pair/Type/Provenance baseline changed');
+  const preSpAdmissionRecords = priorAdmission.filter((row) => !spAdmissionPairKeys.has(pairKey(row.heroId, row.soldierId)));
   check(preSpAdmissionRecords.length === 386
     && preSpAdmissionRecords.reduce((sum, row) => sum + row.provenance.length, 0) === 387
     && createHash('sha256').update(JSON.stringify(preSpAdmissionRecords)).digest('hex') === preHero15SpBaselineSha256
@@ -468,7 +530,7 @@ export async function validateHeroSoldierRelations() {
     sourceKindCounts,
     admittedHero15SpInheritanceRelations: hero15SpCanonical.length,
     deferredSpInheritanceCandidates: 0,
-    sourceReconstructionCandidateCount: reconstructed.length,
+    sourceReconstructionCandidateCount: admittedReconstructed.length,
     missingEdges: missing.length,
     extraEdges: extra.length,
     provenanceMismatches: provenanceMismatches.length,

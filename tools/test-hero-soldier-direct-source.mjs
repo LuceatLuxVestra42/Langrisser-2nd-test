@@ -18,6 +18,7 @@ const soldierPath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-sp
 const spSoldierPath = 'evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json';
 const canonicalPath = 'canonical/hero-soldier-relations.v1.json';
 const hero15SpAdmissionPath = 'evidence/source/configdata/hero-soldier-sp-inheritance-hero15.v1.json';
+const hero15DirectAdmissionPath = 'evidence/source/configdata/hero-soldier-normal-direct-hero15.v1.json';
 const sourceValidator = 'tools/validate-sp-hero-reward-source.mjs';
 const primaryValidator = 'tools/validate-hero-soldier-relations.mjs';
 const full = (path) => join(repo, path);
@@ -135,11 +136,53 @@ const restores = [];
 try {
   const before = await snapshotDirectory(repo);
   expectSuccess(run(sourceValidator), 'clean SP Hero reward source validator', /SP Hero reward source evidence: PASS/);
-  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /393 admitted relations; 394 admitted provenance; 7 Hero 15 SP inherited admissions; 0 deferred Hero 15 SP candidates/);
+  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /396 admitted relations; 397 admitted provenance; 7 Hero 15 SP inherited admissions; 0 deferred Hero 15 SP candidates/);
   const after = await snapshotDirectory(repo);
   if (after !== before) throw new Error('Hero-Soldier validators mutated repository content');
 
-  let restore = await editJson(canonicalPath, (doc) => {
+  const scopedSource = JSON.parse(await readFile(full(hero15DirectAdmissionPath), 'utf8'));
+  for (const [heroId, soldierId, elementIndex] of [[13, 806, 0], [4, 817, 0], [4, 819, 0], [29, 817, 3], [29, 819, 2]]) {
+    const sourceRow = scopedSource.records.find(row => row.rawFields.ID === soldierId);
+    assert.equal(sourceRow.rawFields.GetSoldierHeros_ID[elementIndex], heroId);
+    const restore = await editJson(canonicalPath, doc => {
+      const row = doc.records.find(row => row.heroId === 15 && row.soldierId === soldierId);
+      row.heroId = heroId;
+      row.evidenceClass = 'B';
+      row.evidencePoolLocator = `${directManifestPath}#heroId=${heroId}&soldierId=${soldierId}`;
+      doc.records.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
+      assert.equal(doc.records.length, 396);
+    });
+    restores.push(restore);
+    expectFailure(primaryValidator, `unapproved source relationship ${heroId}:${soldierId}`,
+      new RegExp(`outside approved Hero 15 NORMAL relation keys: ${heroId}:${soldierId}`));
+    await restore(); restores.pop();
+  }
+
+  for (const [label, mutate] of [
+    ['wrong source ID', doc => { doc.records[0].rawFields.ID = 115; }],
+    ['wrong element locator and forged in-file hash', doc => {
+      doc.records[0].claim.fieldLocator = '/161/GetSoldierHeros_ID/0';
+      doc.sha256 = createHash('sha256').update(JSON.stringify(doc)).digest('hex');
+    }],
+    ['missing approved evidence', doc => { doc.records.pop(); }],
+    ['duplicated approved evidence', doc => { doc.records[1] = structuredClone(doc.records[0]); }],
+    ['non-approved evidence', doc => { doc.records[0].claim.heroId = 13; }],
+    ['truncated source array', doc => { doc.records[0].rawFields.GetSoldierHeros_ID = [13, 15]; }],
+  ]) {
+    const restore = await editJson(hero15DirectAdmissionPath, mutate);
+    restores.push(restore);
+    expectFailure(primaryValidator, label, /Hero 15 NORMAL direct admission evidence SHA-256 mismatch/);
+    await restore(); restores.pop();
+  }
+
+  let restore = await editJson(canonicalPath, doc => {
+    doc.records = doc.records.filter(row => !(row.heroId === 15 && row.soldierId === 806));
+  });
+  restores.push(restore);
+  expectFailure(primaryValidator, 'missing scoped NORMAL pair', /Hero 15 Canonical NORMAL admission set drift/);
+  await restore(); restores.pop();
+
+  restore = await editJson(canonicalPath, (doc) => {
     doc.records = doc.records.filter((row) => !(row.heroId === 15 && row.soldierId === 210));
   });
   restores.push(restore); expectFailure(primaryValidator, 'missing Hero 15 NORMAL admission', /approved NORMAL parent or explicit SP_FORM_LINK/); await restore(); restores.pop();
