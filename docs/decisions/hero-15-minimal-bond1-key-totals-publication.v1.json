@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-15",
+  "heroId": 15,
+  "labelKo": "유대 1",
+  "endpointKind": "FETTER",
+  "endpointId": 66,
+  "sourceField": "LevelUpMaterials",
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "materials": [
+    {
+      "itemType": 6,
+      "itemId": 3200,
+      "nameKo": "순박한 마음의 열쇠",
+      "count": 45
+    },
+    {
+      "itemType": 6,
+      "itemId": 3201,
+      "nameKo": "순수한 마음의 열쇠",
+      "count": 15
+    }
+  ],
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "selection": "ConfigDataHeroInformationInfo.json#/14/HeroFetters_ID/0",
+    "rows": "ConfigDataHeroFetterInfo.json#/65/LevelUpMaterials",
+    "items": [
+      "ConfigDataItemInfo.json#/391 (ID 3200, 朴实心灵之钥)",
+      "ConfigDataItemInfo.json#/392 (ID 3201, 纯净心灵之钥)"
+    ],
+    "canonicalRelations": "canonical/hero-fetter-material-relations.v1.json",
+    "display": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/",
+    "transformation": "Sum Count per explicit ItemType and ItemId across the 14 LevelUpMaterials entries for target levels 2 through 10."
+  },
+  "approval": {
+    "scope": "Two Korean project display names and their totals as plain text on Liana’s existing Bond 1 detail.",
+    "userText": "순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15’를 텍스트로 공개하고, 검증이 통과하면 병합해도 된다"
+  }
+}

@@ -411,6 +411,11 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       total.textContent = approved.line;
       section.append(total);
     }
+    if (labelKo === '유대 1') {
+      const materials = document.createElement('p');
+      materials.textContent = '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15';
+      section.append(materials);
+    }
     goldSection.append(section);
   }
   const navigation = renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
