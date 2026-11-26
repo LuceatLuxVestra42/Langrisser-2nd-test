@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-15",
+  "labelKo": "유대 3",
+  "heroId": 15,
+  "fetterId": 68,
+  "sourceField": "LevelUpGold",
+  "sourceRecordLocator": "/67",
+  "sourceArrayIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "gold": [
+    9000,
+    14000,
+    21000,
+    32000,
+    48000,
+    72000,
+    110000,
+    170000,
+    260000
+  ],
+  "totalGold": 736000,
+  "approvalMessageId": "7720da79-b0f8-4c0d-9a31-09e27a9f6ffa"
+}
