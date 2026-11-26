@@ -1,14 +1,14 @@
+import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
 import { readFile } from 'node:fs/promises';
 import { renderSpSoldiers } from './generate.mjs';
 import { validateSpSoldierPresentation } from './validate-sp-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
-  readJson('canonical/soldiers.v1.json'),
+const [{ identities, relations }, localizations, normalLocalizations, baseStats, normalBaseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
+  loadPublicSoldierPopulation(),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
   readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/sp-soldier-base-stats.v1.json'),
-  readJson('canonical/sp-soldier-normal-relations.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
   readJson('canonical/soldier-bf-move-points.v1.json'),
   readJson('canonical/soldier-skill-relations.v1.json'),
