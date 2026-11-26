@@ -1,7 +1,8 @@
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
-import { readFile, mkdtemp, mkdir, rm, writeFile, symlink, copyFile } from 'node:fs/promises';
+import { readFile, mkdtemp, mkdir, rm, cp, writeFile, symlink, copyFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildSite, publicSitePaths, validatePublicSiteDirectory } from './build.mjs';
@@ -49,7 +50,60 @@ const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
 const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
 const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
+async function checkBond1KeyBuildFailures() {
+  const decisionPath = 'docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json';
+  const approvedApp = await readFile('app.js');
+  assert.ok(approvedApp.includes('순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15'));
+  const normalPackage = join(temp, 'approved-keys');
+  const modes = ['--output-dir', '--verify-dir'];
+  const run = (cwd, mode, destination) => {
+    const result = spawnSync(process.execPath, ['tools/build.mjs', mode, destination], { cwd, encoding: 'utf8' });
+    assert.ifError(result.error);
+    assert.equal(result.signal, null);
+    return result;
+  };
+  for (const mode of modes) {
+    const result = run(process.cwd(), mode, normalPackage);
+    assert.equal(result.status, 0, result.stderr);
+  }
+  assert.deepEqual(await readFile(join(normalPackage, 'app.js')), approvedApp);
+
+  const cases = [
+    { name: 'missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { name: 'scope', mutate: decision => { decision.approval.scope = 'Liana Bond 2'; },
+      error: () => 'Error: Bond 1 key approval scope mismatch' },
+    { name: 'webp', mutate: decision => {
+      const [first, second] = decision.source.nameEvidence.items;
+      [first.comparisonWebp, second.comparisonWebp] = [second.comparisonWebp, first.comparisonWebp];
+    }, error: () => 'Error: Bond 1 key comparison WebP source mismatch for ID 3200' },
+  ];
+  for (const test of cases) {
+    for (const mode of modes) {
+      const fixture = await mkdtemp(join(temp, `keys-${test.name}-`));
+      const source = join(fixture, 'source');
+      const destination = join(fixture, 'package');
+      await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
+      const path = join(source, decisionPath);
+      if (test.mutate) {
+        const decision = JSON.parse(await readFile(path, 'utf8'));
+        test.mutate(decision);
+        await writeFile(path, JSON.stringify(decision, null, 2) + '\n');
+      } else {
+        await rm(path);
+      }
+      assert.deepEqual(await readFile(join(source, 'app.js')), approvedApp);
+      const result = run(source, mode, destination);
+      assert.equal(result.status, 1, `${test.name} ${mode}: ${result.stderr}`);
+      assert.ok(result.stderr.split('\n').includes(test.error(path)), result.stderr);
+      console.log(`Bond 1 keys ${mode}: rejected ${test.name} (exit ${result.status})`);
+      await rm(fixture, { recursive: true });
+    }
+  }
+}
+
 try {
+  await checkBond1KeyBuildFailures();
   const built = await buildSite({ outputDir: output });
   const publicEquipment = JSON.parse(await readFile(join(output, 'generated/general-ssr-equipment.v1.json'), 'utf8'));
   const excludedEquipmentIds = [265, 266, 267, 268, 288, 289, 290, 291];

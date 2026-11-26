@@ -490,6 +490,12 @@ assert.equal(renderBond1KeyTotals(inputs.profileInputs), keyLine);
 for (const [mutate, error] of [
   [p => { delete p.bond1KeyDecision; }, /publication scope/],
   [p => { p.bond1KeyDecision.materials.reverse(); }, /publication scope/],
+  [p => { p.bond1KeyDecision.approval.userText = 'other'; }, /publication scope/],
+  [p => { delete p.bond1KeyDecision.approval.messageId; }, /approval message ID mismatch/],
+  [p => { p.bond1KeyDecision.approval.messageId = 'other'; }, /approval message ID mismatch/],
+  [p => { p.bond1KeyDecision.source.nameEvidence.sheet.blob = 'other'; }, /source version mismatch/],
+  [p => { p.bond1KeyDecision.source.nameEvidence.items[0].legacyPng.blob = 'other'; }, /PNG source mismatch for ID 3200/],
+  [p => { p.bond1KeyDecision.source.nameEvidence.items[1].sheetImage.title = '순박한 마음의 열쇠'; }, /sheet image source mismatch for ID 3201/],
   [p => { p.fetterReferences.records.find(r => r.fetterId === 66).fetterId = 67; }, /source endpoint/],
   [p => { p.goldOwner.materials.find(r => r.endpointId === 66).sourceArrayIndex++; }, /material locator/],
   [p => { p.goldOwner.itemEndpoints.find(r => r.itemId === 3201).endpointNamespace = 'other'; }, /ItemInfo endpoint/],
