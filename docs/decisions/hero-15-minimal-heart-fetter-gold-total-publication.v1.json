@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-15",
+  "labelKo": "마음의 유대",
+  "heroId": 15,
+  "endpointKind": "HEART_FETTER",
+  "heartFetterId": 15,
+  "sourceField": "LevelUpGold",
+  "sourceRecordLocator": "/13",
+  "sourceArrayIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "gold": [
+    10000,
+    15000,
+    23000,
+    35000,
+    53000,
+    74000,
+    100000,
+    140000,
+    200000
+  ],
+  "totalGold": 650000,
+  "approvalMessageId": "7720da79-b0f8-4c0d-9a31-09e27a9f6ffa"
+}

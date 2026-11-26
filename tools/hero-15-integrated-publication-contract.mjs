@@ -97,7 +97,7 @@ const centralDisciplineGoldPaths = {
 };
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -127,6 +127,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-bond3-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond4-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond5-gold-total-publication.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-heart-fetter-gold-total-publication.v1.json'),
     readJson('canonical/hero-fetter-material-relations.v1.json'),
     readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
@@ -146,7 +147,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(centralDisciplineGoldPaths.levels),
     readJson(centralDisciplineGoldPaths.raw),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
     centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };
 }
 
@@ -791,6 +792,7 @@ export const bond2GoldValues = Object.freeze([5000, 7500, 11000, 17000, 26000, 3
 export const bond3GoldValues = Object.freeze([9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000]);
 export const bond4GoldValues = Object.freeze([15000, 23000, 35000, 53000, 80000, 120000, 180000, 270000, 410000]);
 export const bond5GoldValues = Object.freeze([20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000]);
+export const heartFetterGoldValues = Object.freeze([10000, 15000, 23000, 35000, 53000, 74000, 100000, 140000, 200000]);
 const bond1TotalScope = {
   fetterId: 66, labelKo: '유대 1', sourceRecordLocator: '/65', gold: bond1GoldValues, totalGold: bond1GoldTotal,
   authorization: { approvalMessageId: '48a8bc75-6dbb-42c3-83b9-a185c0d0d25c' },
@@ -844,7 +846,41 @@ function validateBondGoldTotal(expected, decision, references, detail, locators,
   }
 }
 
-function renderHero15FetterGold({ bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, fetterReferences, goldDecision, goldOwner, fetterDetails, heartFetterDetails }) {
+function validateHeartFetterGoldTotal(decision, references, details, locators, levels) {
+  const indices = levels.map(level => level - 2);
+  if (!isDeepStrictEqual(decision, {
+    schemaVersion: 1, status: 'APPROVED', approvalMessageId: '7720da79-b0f8-4c0d-9a31-09e27a9f6ffa',
+    surface: HERO_15_MINIMAL_DETAIL_FRAGMENT, heroId: 15, labelKo: '마음의 유대',
+    endpointKind: 'HEART_FETTER', heartFetterId: 15, sourceField: 'LevelUpGold', sourceRecordLocator: '/13',
+    sourceArrayIndices: indices, targetLevels: levels, gold: heartFetterGoldValues, totalGold: 650000,
+  })) throw new Error('Heart Fetter Gold total approval scope mismatch');
+
+  const namespace = 'ConfigDataHeroHeartFetterInfo.ID';
+  const sourceRecord = 'ConfigDataHeroHeartFetterInfo#ID=15';
+  const refs = references.records.filter(row => row.heroId === 15 && row.referenceKind === 'HERO_HEART_FETTER_ID_REFERENCE');
+  if (refs.length !== 1 || refs[0].heartFetterId !== 15 || refs[0].heroInformationId !== 15
+    || refs[0].sourceField !== 'ConfigDataHeroInformationInfo.HeroHeartFetterId' || refs[0].endpointNamespace !== namespace) {
+    throw new Error('Heart Fetter Gold total selection relation mismatch');
+  }
+  const matches = details.records.filter(row => row.heroId === 15 && row.endpointId === refs[0].heartFetterId);
+  const [detail] = matches;
+  if (matches.length !== 1 || detail.detailKind !== 'HEART_FETTER_RAW_DETAIL'
+    || detail.endpointNamespace !== namespace || detail.sourceRecordLocator !== sourceRecord || detail.fields.MaxLevel !== 10) {
+    throw new Error('Heart Fetter Gold total detail mismatch');
+  }
+  const selected = locators.filter(row => row.heroId === 15 && row.endpointKind === 'HEART_FETTER' && row.endpointId === detail.endpointId);
+  if (selected.length !== levels.length || selected.some((row, i) =>
+    row.endpointNamespace !== namespace || row.sourceRecordLocator !== sourceRecord || row.sourceField !== 'LevelUpGold'
+    || row.locatorRule !== 'LevelUpGold[targetLevel-2]' || row.sourceArrayIndex !== indices[i] || row.targetLevel !== levels[i])) {
+    throw new Error('Heart Fetter Gold total level locator mismatch');
+  }
+  if (!isDeepStrictEqual(detail.fields.LevelUpGold, heartFetterGoldValues)
+    || detail.fields.LevelUpGold.reduce((total, gold) => total + gold, 0) !== decision.totalGold) {
+    throw new Error('Heart Fetter Gold total source vector or total mismatch');
+  }
+}
+
+function renderHero15FetterGold({ bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, fetterReferences, goldDecision, goldOwner, fetterDetails, heartFetterDetails }) {
   const groups = [
     [66, '유대 1'], [67, '유대 2'], [68, '유대 3'], [69, '유대 4'], [70, '유대 5'], [15, '마음의 유대'],
   ];
@@ -856,6 +892,7 @@ function renderHero15FetterGold({ bond1GoldDecision, bond2GoldDecision, bond3Gol
     || JSON.stringify(goldDecision.targetLevels) !== JSON.stringify(levels)) {
     throw new Error('Hero 15 Fetter Gold publication scope mismatch');
   }
+  validateHeartFetterGoldTotal(heartGoldDecision, fetterReferences, heartFetterDetails, goldOwner.goldLocators, levels);
   return groups.map(([endpointId, labelKo]) => {
     const isHeart = endpointId === 15;
     const endpointKind = isHeart ? 'HEART_FETTER' : 'FETTER';
