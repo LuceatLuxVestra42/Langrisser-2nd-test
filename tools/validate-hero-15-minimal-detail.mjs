@@ -1,3 +1,4 @@
+import { HERO_15_SOLDIER_TEXT_PUBLIC, readHero15SoldierTextInputs, validateHero15SoldierText } from './hero-15-soldier-text-publication-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -28,4 +29,6 @@ const generated = validateHero15MinimalDetail({ generatedText, inputs });
 if (heroIndex.heroes.length !== 267 || heroSlice.heroes.length !== 29 || generated.heroes.length !== 1) {
   throw new Error('Hero Index, Full Detail, or Minimal Detail population changed outside the approved scope');
 }
+validateHero15SoldierText({ bytes: await readFile(HERO_15_SOLDIER_TEXT_PUBLIC), app: await readFile('app.js', 'utf8'),
+  inputs: await readHero15SoldierTextInputs() });
 process.stdout.write('Hero 15 Minimal Detail: PASS (approved scope, exact Canonical claims, 1 minimal endpoint; 267 Index and 29 Full Detail preserved)\n');

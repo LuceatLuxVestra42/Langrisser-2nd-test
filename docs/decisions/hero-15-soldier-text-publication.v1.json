@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "section": "soldiers",
+  "display": "TEXT_ONLY",
+  "approvalMessageId": "bbb219e9-bea1-4d1e-858e-04f603a20c1e",
+  "soldiers": [
+    {
+      "soldierId": 806,
+      "namespace": "NORMAL",
+      "nameKo": "무녀"
+    },
+    {
+      "soldierId": 817,
+      "namespace": "NORMAL",
+      "nameKo": "바람과 꽃을 찬송하는 자"
+    },
+    {
+      "soldierId": 819,
+      "namespace": "NORMAL",
+      "nameKo": "산별 구조대"
+    }
+  ]
+}
