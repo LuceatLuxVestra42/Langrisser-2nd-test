@@ -18,7 +18,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -134,9 +134,9 @@ export async function validatePublicSiteDirectory(output, canonical, publication
 
 function validatePackagedBondGoldTotals(app, detail, talent) {
   const groups = detail.heroes[0].fetterGold;
-  for (const [index, values] of [bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues].entries()) {
+  for (const [index, values] of [bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues].entries()) {
     assert.deepEqual(groups[index], {
-      labelKo: ['유대 1', '유대 2', '유대 3', '유대 4'][index],
+      labelKo: ['유대 1', '유대 2', '유대 3', '유대 4', '유대 5'][index],
       rows: values.map((gold, i) => ({ level: i + 2, gold })),
     }, 'Packaged Fetter Gold rows differ from the approved source vector');
   }
@@ -147,7 +147,7 @@ function validatePackagedBondGoldTotals(app, detail, talent) {
   const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor'];
   const render = runInNewContext(functions.map(name => extractFunction(app, name)).join('\n') + '\nrenderHero15MinimalDetailView',
     { document: { createElement: element }, makeTalentPresentation: element });
-  const approvedTotals = ['Lv.2~10 합계 골드 118,600', 'Lv.2~10 합계 골드 383,500', 'Lv.2~10 합계 골드 736,000', 'Lv.2~10 합계 골드 1,186,000'];
+  const approvedTotals = ['Lv.2~10 합계 골드 118,600', 'Lv.2~10 합계 골드 383,500', 'Lv.2~10 합계 골드 736,000', 'Lv.2~10 합계 골드 1,186,000', 'Lv.2~10 합계 골드 1,523,000'];
   function totalLines(node) {
     const own = node.textContent?.startsWith('Lv.2~10 합계 골드') ? [node.textContent] : [];
     return own.concat(node.children.flatMap(totalLines));
@@ -177,14 +177,14 @@ function validatePackagedBondGoldTotals(app, detail, talent) {
       check(changed, index);
     }
   }
-  for (const [index, otherRow] of [[1, 1], [2, 1], [3, 8]]) {
+  for (const [index, otherRow] of [[0, 1], [1, 1], [2, 1], [3, 8], [4, 8]]) {
     const swapped = structuredClone(detail);
     const rows = swapped.heroes[0].fetterGold[index].rows;
     [rows[0].gold, rows[otherRow].gold] = [rows[otherRow].gold, rows[0].gold];
     check(swapped, index);
   }
   // Preserve headings and levels while making the amounts identical across two groups.
-  for (const [source, destination] of [[1, 2], [2, 3], [3, 4]]) {
+  for (const [source, destination] of [[1, 2], [2, 3], [3, 4], [4, 5]]) {
     const matchingAmounts = structuredClone(detail);
     for (const [i, row] of matchingAmounts.heroes[0].fetterGold[destination].rows.entries()) {
       row.gold = groups[source].rows[i].gold;

@@ -97,7 +97,7 @@ const centralDisciplineGoldPaths = {
 };
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -126,6 +126,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-bond2-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond3-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond4-gold-total-publication.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-bond5-gold-total-publication.v1.json'),
     readJson('canonical/hero-fetter-material-relations.v1.json'),
     readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
@@ -145,7 +146,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(centralDisciplineGoldPaths.levels),
     readJson(centralDisciplineGoldPaths.raw),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
     centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };
 }
 
@@ -789,6 +790,7 @@ export const bond1GoldTotal = 118600;
 export const bond2GoldValues = Object.freeze([5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000]);
 export const bond3GoldValues = Object.freeze([9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000]);
 export const bond4GoldValues = Object.freeze([15000, 23000, 35000, 53000, 80000, 120000, 180000, 270000, 410000]);
+export const bond5GoldValues = Object.freeze([20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000]);
 const bond1TotalScope = {
   fetterId: 66, labelKo: '유대 1', sourceRecordLocator: '/65', gold: bond1GoldValues, totalGold: bond1GoldTotal,
   authorization: { approvalMessageId: '48a8bc75-6dbb-42c3-83b9-a185c0d0d25c' },
@@ -807,6 +809,10 @@ const bond3TotalScope = {
 };
 const bond4TotalScope = {
   fetterId: 69, labelKo: '유대 4', sourceRecordLocator: '/68', gold: bond4GoldValues, totalGold: 1186000,
+  authorization: { approvalMessageId: '7720da79-b0f8-4c0d-9a31-09e27a9f6ffa' },
+};
+const bond5TotalScope = {
+  fetterId: 70, labelKo: '유대 5', sourceRecordLocator: '/69', gold: bond5GoldValues, totalGold: 1523000,
   authorization: { approvalMessageId: '7720da79-b0f8-4c0d-9a31-09e27a9f6ffa' },
 };
 
@@ -838,7 +844,7 @@ function validateBondGoldTotal(expected, decision, references, detail, locators,
   }
 }
 
-function renderHero15FetterGold({ bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, fetterReferences, goldDecision, goldOwner, fetterDetails, heartFetterDetails }) {
+function renderHero15FetterGold({ bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, fetterReferences, goldDecision, goldOwner, fetterDetails, heartFetterDetails }) {
   const groups = [
     [66, '유대 1'], [67, '유대 2'], [68, '유대 3'], [69, '유대 4'], [70, '유대 5'], [15, '마음의 유대'],
   ];
@@ -879,6 +885,7 @@ function renderHero15FetterGold({ bond1GoldDecision, bond2GoldDecision, bond3Gol
     if (endpointId === 67) validateBondGoldTotal(bond2TotalScope, bond2GoldDecision, fetterReferences, detail, goldOwner.goldLocators, rows);
     if (endpointId === 68) validateBondGoldTotal(bond3TotalScope, bond3GoldDecision, fetterReferences, detail, goldOwner.goldLocators, rows);
     if (endpointId === 69) validateBondGoldTotal(bond4TotalScope, bond4GoldDecision, fetterReferences, detail, goldOwner.goldLocators, rows);
+    if (endpointId === 70) validateBondGoldTotal(bond5TotalScope, bond5GoldDecision, fetterReferences, detail, goldOwner.goldLocators, rows);
     return { labelKo, rows };
   });
 }

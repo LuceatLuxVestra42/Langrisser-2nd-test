@@ -531,6 +531,7 @@ fails(x => {
 for (const [decisionKey, endpointId, endpointError] of [
   ['bond3GoldDecision', 68, /유대 3 Gold total endpoint|Bond 3 description/],
   ['bond4GoldDecision', 69, /유대 4 Gold total endpoint|Bond 4[/]5 description/],
+  ['bond5GoldDecision', 70, /유대 5 Gold total endpoint|Bond 4[/]5 description/],
 ]) {
   for (const mutate of [
     p => { delete p[decisionKey]; },
@@ -540,7 +541,7 @@ for (const [decisionKey, endpointId, endpointError] of [
     p => { p[decisionKey].sourceRecordLocator = '/66'; },
     p => { p[decisionKey].sourceField = 'LevelUpMaterials'; },
     p => { p[decisionKey].totalGold++; },
-  ]) fails(x => mutate(x.profileInputs), /유대 [34] Gold total approval/);
+  ]) fails(x => mutate(x.profileInputs), /유대 [345] Gold total approval/);
   for (const mutate of [
     (records, i) => { records.splice(i, 1); },
     (records, i) => { records.push({ ...records[i] }); },
@@ -559,7 +560,7 @@ for (const [decisionKey, endpointId, endpointError] of [
   ]) fails(x => {
     const rows = x.profileInputs.goldOwner.goldLocators;
     mutate(rows, rows.findIndex(row => row.endpointId === endpointId));
-  }, /Fetter Gold publication scope|Fetter Gold level locator|유대 [34] Gold total locator/);
+  }, /Fetter Gold publication scope|Fetter Gold level locator|유대 [345] Gold total locator/);
   for (const mutate of [
     values => { values[0]++; },
     values => { [values[0], values[1]] = [values[1], values[0]]; },
@@ -567,24 +568,28 @@ for (const [decisionKey, endpointId, endpointError] of [
     const { fetterDetails, goldDecision } = x.profileInputs;
     mutate(fetterDetails.records.find(row => row.endpointId === endpointId).fields.LevelUpGold);
     mutate(goldDecision.groups.find(row => row.endpointId === endpointId).gold);
-  }, /유대 [34] Gold total source vector/);
+  }, /유대 [345] Gold total source vector/);
 }
 const bond2Line = 'Lv.2~10 합계 골드 383,500';
 const bond3Line = 'Lv.2~10 합계 골드 736,000';
 const bond4Line = 'Lv.2~10 합계 골드 1,186,000';
+const bond5Line = 'Lv.2~10 합계 골드 1,523,000';
 for (const [mode, expectedTotals] of [
-  ['approved', [bond1Line, bond2Line, bond3Line, bond4Line]],
-  ['bond1-change', [null, bond2Line, bond3Line, bond4Line]],
-  ['bond1-swap', [null, bond2Line, bond3Line, bond4Line]],
-  ['bond2-change', [bond1Line, null, bond3Line, bond4Line]],
-  ['bond2-swap', [bond1Line, null, bond3Line, bond4Line]],
-  ['bond3-change', [bond1Line, bond2Line, null, bond4Line]],
-  ['bond3-swap', [bond1Line, bond2Line, null, bond4Line]],
-  ['bond3-copy', [bond1Line, bond2Line, null, bond4Line]],
-  ['bond4-copy', [bond1Line, bond2Line, bond3Line, null]],
-  ['bond4-change', [bond1Line, bond2Line, bond3Line, null]],
-  ['bond4-swap', [bond1Line, bond2Line, bond3Line, null]],
-  ['bond5-copy', [bond1Line, bond2Line, bond3Line, bond4Line]],
+  ['approved', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line]],
+  ['bond1-change', [null, bond2Line, bond3Line, bond4Line, bond5Line]],
+  ['bond1-swap', [null, bond2Line, bond3Line, bond4Line, bond5Line]],
+  ['bond2-change', [bond1Line, null, bond3Line, bond4Line, bond5Line]],
+  ['bond2-swap', [bond1Line, null, bond3Line, bond4Line, bond5Line]],
+  ['bond3-change', [bond1Line, bond2Line, null, bond4Line, bond5Line]],
+  ['bond3-swap', [bond1Line, bond2Line, null, bond4Line, bond5Line]],
+  ['bond3-copy', [bond1Line, bond2Line, null, bond4Line, bond5Line]],
+  ['bond4-copy', [bond1Line, bond2Line, bond3Line, null, bond5Line]],
+  ['bond4-change', [bond1Line, bond2Line, bond3Line, null, bond5Line]],
+  ['bond4-swap', [bond1Line, bond2Line, bond3Line, null, bond5Line]],
+  ['bond5-copy', [bond1Line, bond2Line, bond3Line, bond4Line, null]],
+  ['bond5-change', [bond1Line, bond2Line, bond3Line, bond4Line, null]],
+  ['bond5-swap', [bond1Line, bond2Line, bond3Line, bond4Line, null]],
+  ['heart-copy', [bond1Line, bond2Line, bond3Line, bond4Line, bond5Line]],
 ]) {
   const sample = structuredClone(generated);
   const first = sample.heroes[0].fetterGold[0].rows;
@@ -599,6 +604,12 @@ for (const [mode, expectedTotals] of [
   const fourth = sample.heroes[0].fetterGold[3].rows;
   if (mode === 'bond4-change') fourth[0].gold++;
   if (mode === 'bond4-swap') [fourth[0].gold, fourth[8].gold] = [fourth[8].gold, fourth[0].gold];
+  const fifth = sample.heroes[0].fetterGold[4].rows;
+  if (mode === 'bond5-change') fifth[0].gold++;
+  if (mode === 'bond5-swap') [fifth[0].gold, fifth[8].gold] = [fifth[8].gold, fifth[0].gold];
+  if (mode === 'heart-copy') {
+    sample.heroes[0].fetterGold[5].rows.forEach((row, i) => { row.gold = fifth[i].gold; });
+  }
   if (mode === 'bond5-copy') {
     sample.heroes[0].fetterGold[4].rows.forEach((row, i) => { row.gold = fourth[i].gold; });
   }
