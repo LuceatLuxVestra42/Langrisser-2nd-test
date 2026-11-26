@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -109,6 +109,34 @@ assert.deepEqual(castingSection.children[1].children.map(({ textContent }) => te
   '어게인 스킬의 사거리 +1', '어게인 스킬 받은 대상에게 증원 및 면역 부여, 지속 2행동',
   'Lv.1~10 합계 골드 10,800,000',
 ]);
+const headGoldLine = '투구 · Lv.1~10 소계 골드 3,600,000';
+assert.equal(renderHeadGoldSubtotal(inputs.profileInputs), headGoldLine);
+assert.deepEqual(castingSection.children.slice(2).map(node => node.textContent), [headGoldLine]);
+function rejectHeadGold(mutate, error) {
+  const changed = structuredClone(inputs.profileInputs);
+  mutate(changed);
+  assert.throws(() => renderHeadGoldSubtotal(changed), error);
+}
+for (const [key, value] of [['heroId', 16], ['slotType', 'BODY'], ['templateId', 41], ['levels', [2, 10]]]) {
+  rejectHeadGold(({ headGoldDecision }) => { headGoldDecision[key] = value; }, /Head gold publication scope/);
+}
+rejectHeadGold(inputs => { delete inputs.headGoldDecision; }, /Head gold publication scope/);
+rejectHeadGold(({ headGoldDecision }) => { headGoldDecision.slotEvidence.slot = '/records/13/slots/2'; }, /Head gold slot evidence/);
+rejectHeadGold(({ headGoldDecision }) => { headGoldDecision.subtotalGold++; }, /Head gold subtotal display/);
+rejectHeadGold(({ castingLawHero }) => {
+  castingLawHero.records.find(row => row.templateId === 40).heroId = 16;
+}, /Head gold Hero–Template/);
+rejectHeadGold(({ castingLawLevels }) => {
+  castingLawLevels.records.find(row => row.levelUpInfoId === 196).levelUpSourceArrayIndex++;
+}, /Head gold Template–LevelUp/);
+rejectHeadGold(({ castingLawRaw }) => {
+  castingLawRaw.records.find(row => row.levelUpInfoId === 196).rawFields.LevelUpGoldCost++;
+}, /Head gold source mismatch for LevelUp 196/);
+rejectHeadGold(({ castingLawRaw }) => {
+  const first = castingLawRaw.records.find(row => row.levelUpInfoId === 196).rawFields;
+  const second = castingLawRaw.records.find(row => row.levelUpInfoId === 197).rawFields;
+  [first.LevelUpGoldCost, second.LevelUpGoldCost] = [second.LevelUpGoldCost, first.LevelUpGoldCost];
+}, /Head gold source mismatch for LevelUp 196/);
 assert.doesNotMatch(generatedText, /90089|辉耀祝祈|effectRow/);
 fails((x) => { x.profileInputs.centralDisciplineDecision.skillId = 10816; }, /Central Discipline publication scope/);
 fails((x) => { x.profileInputs.skillIdentities.records.find(({ skillId }) => skillId === 90089).descriptionCn += 'x'; }, /Central Discipline publication scope/);
