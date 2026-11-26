@@ -6,13 +6,14 @@ import { selectPublicSoldierIdentities } from './validate-sp-soldier-relation.mj
 import { validateSoldierBfMovePoints } from './validate-soldier-bf-move-points.mjs';
 
 const read = async path => JSON.parse(await readFile(path, 'utf8'));
-const [soldiers, canonical, endpoints, manifest, endpointBytes, spPopulationBytes, relations] = await Promise.all([
+const [soldiers, canonical, endpoints, manifest, endpointBytes, spPopulationBytes, privateIdentityBytes, relations] = await Promise.all([
   read('canonical/soldiers.v1.json'),
   read('canonical/soldier-bf-move-points.v1.json'),
   read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
   read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
+  readFile('evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json'),
   read('canonical/sp-soldier-normal-relations.v1.json'),
 ]);
 const args = { soldiers, canonical, endpoints, manifest, endpointSha256: createHash('sha256').update(endpointBytes).digest('hex') };
@@ -38,8 +39,9 @@ const selectionInputs = { soldiers: extended, relations, soldierInfo: endpoints,
 const publicIdentities = selectPublicSoldierIdentities(selectionInputs);
 assert.deepEqual(endpointKeys(publicIdentities.records.map(({ variant, id }) => [variant, id])),
   endpointKeys(expectedEndpoints));
+assert.deepEqual(validateSoldierBfMovePoints(args), validateSoldierBfMovePoints({ ...args, soldiers: publicIdentities }));
 assert.deepEqual(validateSoldierBfMovePoints({ ...args, soldiers: extended }), validateSoldierBfMovePoints(args));
-assert.throws(() => validateSoldierIdentity({ canonical: extended, soldierInfo: endpoints, spSoldierInfo, manifest }), /not source-derived/);
+assert.throws(() => validateSoldierIdentity({ canonical: extended, soldierInfo: endpoints, spPopulationBytes, privateIdentityBytes, manifest }), /not source-derived/);
 
 const swapped = structuredClone(relations);
 swapped.records.find(row => row.spSoldierId === 5203).normalSoldierId = 216;

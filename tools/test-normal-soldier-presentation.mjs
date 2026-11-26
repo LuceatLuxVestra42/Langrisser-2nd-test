@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
+import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
 import { readFile } from 'node:fs/promises';
 import { renderNormalSoldiers } from './generate.mjs';
 import { validateNormalSoldierPresentation } from './validate-normal-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [identities, localizations, baseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
-  readJson('canonical/soldiers.v1.json'),
+const [{ identities }, localizations, baseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
+  loadPublicSoldierPopulation(),
   readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
   readJson('canonical/soldier-bf-move-points.v1.json'),
