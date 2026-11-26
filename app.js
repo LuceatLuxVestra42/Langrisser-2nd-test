@@ -425,7 +425,7 @@ function loadHero15SoldierText(soldierList) {
           && row.soldierId === approvedIds[index] && row.namespace === 'NORMAL'
           && typeof row.nameKo === 'string' && row.nameKo.length > 0)
         || !soldierList.isConnected || soldierList.children.length !== 14) return;
-      const rows = renderMinimalDetailList('용병', data.soldiers.map(({ nameKo }) => nameKo)).children[1];
+      const rows = renderMinimalDetailList('용병', data.soldiers.map(({ nameKo }) => `T3 ${nameKo}`)).children[1];
       soldierList.append(...rows.children);
     })
     .catch(() => {

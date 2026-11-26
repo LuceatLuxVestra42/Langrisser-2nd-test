@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 15,
+  "surface": "hero-minimal-detail-15",
+  "section": "soldiers",
+  "display": "T3_PREFIX_TEXT_ONLY",
+  "approvalMessageId": "48a8bc75-6dbb-42c3-83b9-a185c0d0d25c",
+  "soldiers": [
+    {
+      "soldierId": 806,
+      "namespace": "NORMAL",
+      "nameKo": "무녀",
+      "rank": 3
+    },
+    {
+      "soldierId": 817,
+      "namespace": "NORMAL",
+      "nameKo": "바람과 꽃을 찬송하는 자",
+      "rank": 3
+    },
+    {
+      "soldierId": 819,
+      "namespace": "NORMAL",
+      "nameKo": "산별 구조대",
+      "rank": 3
+    }
+  ],
+  "rankSource": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json"
+}

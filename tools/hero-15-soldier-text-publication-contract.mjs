@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { isDeepStrictEqual } from 'node:util';
 import { loadHero15SoldierInputs, renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
-import { loadAndValidateSoldierIdentity } from './validate-soldier-identity.mjs';
+import { loadAndValidateSoldierIdentity, privateNormalIdentityEvidencePath } from './validate-soldier-identity.mjs';
 import { loadValidatedNormalSoldierKoLocalization } from './validate-normal-soldier-ko-localization.mjs';
 
 export const HERO_15_SOLDIER_TEXT_DECISION = 'docs/decisions/hero-15-soldier-text-publication.v1.json';
@@ -28,17 +28,35 @@ export function validateHero15SoldierTextDecision(decision) {
 }
 
 export async function readHero15SoldierTextInputs() {
-  const [decision, relationInputs, { canonical, population }] = await Promise.all([
+  const [decision, relationInputs, { canonical, population }, tierDecision, rankEvidence] = await Promise.all([
     readFile(HERO_15_SOLDIER_TEXT_DECISION, 'utf8').then(JSON.parse),
     loadHero15SoldierInputs(),
     loadValidatedNormalSoldierKoLocalization(process.cwd()),
+    readFile('docs/decisions/hero-15-soldier-text-tier-publication.v1.json', 'utf8').then(JSON.parse),
+    readFile(privateNormalIdentityEvidencePath),
     loadAndValidateSoldierIdentity(),
   ]);
-  return { decision, relationInputs, names: canonical.records, publicIdentities: population.identities.records };
+  // Bind the Rank values consumed here to the same bytes authenticated by the Identity owner.
+  if (createHash('sha256').update(rankEvidence).digest('hex') !== 'f5facc70a31c40fe15b09f7bd597dcb298ac820184ada0f6f2f91dc64728c788') {
+    throw new Error('Hero 15 Soldier tier evidence SHA-256 mismatch');
+  }
+  const rankRows = JSON.parse(rankEvidence.toString('utf8')).records.map(({ rawFields }) => ({
+    soldierId: rawFields.ID, rank: rawFields.Rank,
+  }));
+  return { decision, tierDecision, rankRows, relationInputs, names: canonical.records, publicIdentities: population.identities.records };
 }
 
-export function renderHero15SoldierText({ decision, relationInputs, names, publicIdentities }) {
+export function renderHero15SoldierText({ decision, tierDecision, rankRows, relationInputs, names, publicIdentities }) {
   validateHero15SoldierTextDecision(decision);
+  const approvedTiers = approvedRows.map(row => ({ ...row, rank: 3 }));
+  if (!isDeepStrictEqual(tierDecision, {
+    schemaVersion: 1, status: 'APPROVED', heroId: 15, surface: 'hero-minimal-detail-15',
+    section: 'soldiers', display: 'T3_PREFIX_TEXT_ONLY', approvalMessageId: '48a8bc75-6dbb-42c3-83b9-a185c0d0d25c',
+    rankSource: privateNormalIdentityEvidencePath, soldiers: approvedTiers,
+  })) throw new Error('Hero 15 Soldier tier decision differs from the approved ordered scope');
+  if (!isDeepStrictEqual(rankRows, approvedTiers.map(({ soldierId, rank }) => ({ soldierId, rank })))) {
+    throw new Error('Hero 15 Soldier Rank evidence differs from the approved tiers');
+  }
   const { records } = JSON.parse(renderHero15SoldierInternal(relationInputs));
   const soldiers = approvedRows.map(({ soldierId, namespace, nameKo }) => {
     const [relation] = records.filter(row => row.soldierId === soldierId);
