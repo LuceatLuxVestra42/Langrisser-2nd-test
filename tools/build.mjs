@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve, sep } from 'node:path';
 import { readFileSync } from 'node:fs';
-import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
+import { loadPublicNormalSoldierLocalization } from './validate-normal-soldier-ko-localization.mjs';
 import { renderGenerated, renderSpSoldiers, renderNormalSoldiers, renderHeroSoldierRelations, renderJobGlossary, renderGeneralSsrEquipment, renderExclusiveEquipment, renderSoldierTrainingTechDescriptions } from './generate.mjs';
 import { validateHeroIndex } from './validate-hero-index.mjs';
 import { validateAppCacheKey, validateStylesCacheKey } from './validate-app-cache-key.mjs';
@@ -294,10 +294,9 @@ for (const item of exclusiveEquipmentGenerated.equipment) {
   if (typeof item.nameKo !== 'string' || !item.nameKo.trim() || typeof item.effectDescriptionKo !== 'string' || !item.effectDescriptionKo.trim()) throw new Error('malformed Exclusive Equipment presentation');
 }
 
-const [{ identities: publicSoldiers, relations: soldierRelations }, soldierLocalizations, normalSoldierLocalizations, soldierBaseStats, normalSoldierBaseStats] = await Promise.all([
-  loadPublicSoldierPopulation(),
+const [{ identities: publicSoldiers, relations: soldierRelations, normalLocalizations: normalSoldierLocalizations }, soldierLocalizations, soldierBaseStats, normalSoldierBaseStats] = await Promise.all([
+  loadPublicNormalSoldierLocalization(),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
-  readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/sp-soldier-base-stats.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
 ]);

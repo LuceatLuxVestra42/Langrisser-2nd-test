@@ -451,6 +451,11 @@ for (const mutate of [
   fails(x => { mutate(x.soldierInputs.approval.soldiers); }, /Soldier public keys or order/);
 }
 fails(x => { x.soldierInputs.approval.soldiers[0].nameKo += '변조'; }, /Soldier names differ from the approved subset/);
+assert.equal(inputs.soldierInputs.normalNames.records.length, 56);
+for (const nameKo of ['무녀', '바람과 꽃을 찬송하는 자', '산별 구조대']) {
+  assert.ok(inputs.soldierInputs.normalNames.records.every(row => row.nameKo !== nameKo));
+  fails(x => { x.soldierInputs.approval.soldiers[0].nameKo = nameKo; }, /Soldier names differ from the approved subset/);
+}
 fails(x => { x.soldierInputs.normalNames.records = x.soldierInputs.normalNames.records.filter(row => row.soldierId !== 210); }, /Soldier name is unresolved/);
 fails(x => { x.soldierInputs.normalPresentation.soldiers.find(row => row.normalSoldierId === 210).nameKo += '변조'; }, /Soldier navigation target mismatch/);
 const wrongSoldierNamespace = structuredClone(generated);

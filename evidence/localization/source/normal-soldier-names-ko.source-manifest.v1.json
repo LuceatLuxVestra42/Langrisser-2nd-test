@@ -68,10 +68,13 @@
     644,
     802,
     805,
+    806,
     811,
     812,
     815,
     816,
+    817,
+    819,
     1015,
     1031,
     1034,
@@ -80,7 +83,7 @@
     1111,
     1113
   ],
-  "selectedRowCount": 56,
+  "selectedRowCount": 59,
   "excludedNonTargetIds": [
     100,
     101,
@@ -165,13 +168,10 @@
     648,
     800,
     801,
-    806,
     808,
     813,
     814,
-    817,
     818,
-    819,
     1000,
     1003,
     1006,
@@ -195,11 +195,11 @@
     1117,
     1118
   ],
-  "claimScope": "This evidence supports Korean display labels only for the currently admitted NORMAL Soldier target ID set. It does not establish the full NORMAL Soldier population.",
-  "extraction": "Preserved the original source byte-for-byte; selected rows only by exact equality between current SP→NORMAL relation target IDs and the explicit SoldierID column. No name matching, ordering inference, ID arithmetic, or population expansion.",
+  "claimScope": "Korean display labels for the 56 existing public NORMAL Soldier endpoints and three internal NORMAL identities (806, 817, 819). This evidence does not establish the full NORMAL Soldier population.",
+  "extraction": "Preserved the original source byte-for-byte. Selected the 56 fixed SP→NORMAL targets and three approved internal NORMAL IDs by exact equality in the explicit SoldierID column. No name matching, ordering inference, ID arithmetic, or population expansion.",
   "knownLimitations": [
     "The source is a Project localization reference; its original upstream source/version and official Korean-server provenance are unverified.",
-    "This evidence supports Korean display labels only for the currently admitted NORMAL Soldier target ID set. It does not establish the full NORMAL Soldier population.",
+    "Korean display labels for the 56 existing public NORMAL Soldier endpoints and three internal NORMAL identities (806, 817, 819). This evidence does not establish the full NORMAL Soldier population.",
     "The remaining source IDs are excluded from canonical admission. IDs 136 and 1039 remain provisional and excluded."
   ]
 }

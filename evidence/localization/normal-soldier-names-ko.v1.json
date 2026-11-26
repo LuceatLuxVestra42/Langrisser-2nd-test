@@ -408,6 +408,15 @@
       "evidenceClass": "A"
     },
     {
+      "soldierId": 806,
+      "nameKo": "무녀",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=806",
+      "sourceLine": 149,
+      "sourceRow": 129,
+      "evidenceClass": "A"
+    },
+    {
       "soldierId": 811,
       "nameKo": "퇴마사",
       "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
@@ -441,6 +450,24 @@
       "sourceLocator": "SoldierID=816",
       "sourceLine": 156,
       "sourceRow": 136,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 817,
+      "nameKo": "바람과 꽃을 찬송하는 자",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=817",
+      "sourceLine": 157,
+      "sourceRow": 137,
+      "evidenceClass": "A"
+    },
+    {
+      "soldierId": 819,
+      "nameKo": "산별 구조대",
+      "sourceArtifact": "evidence/localization/source/normal-soldier-names-ko.v1.txt",
+      "sourceLocator": "SoldierID=819",
+      "sourceLine": 159,
+      "sourceRow": 139,
       "evidenceClass": "A"
     },
     {
