@@ -5,6 +5,8 @@ import { validateHero15SoldierProjection } from './validate-hero-15-soldier-inte
 const base = await loadHero15SoldierInputs();
 const text = await readFile(OUTPUT, 'utf8');
 validateHero15SoldierProjection(base, text);
+assert.deepEqual(JSON.parse(text).records.map(row => [row.heroId, row.soldierId]),
+  [210, 326, 602, 621, 802, 806, 811, 815, 817, 819, 5210, 5326, 5602, 5621, 5802, 5811, 5815].map(id => [15, id]));
 const cases = [
   (i,o)=>{i.relations.records=i.relations.records.filter(r=>!(r.heroId===15&&r.soldierId===210));},
   (i,o)=>{i.relations.records.push(structuredClone(i.relations.records.find(r=>r.heroId===15)));},
@@ -18,6 +20,9 @@ const cases = [
   (i,o)=>{o.records.pop();},
   (i,o)=>{o.records[0].runtimeAvailable=true;},
   (i,o)=>{o.records[0].evidenceClass='C';},
+  (i,o)=>{i.relations.records.find(r=>r.heroId===15&&r.soldierId===806).provenance[0].origin.recordId=817;},
+  (i,o)=>{i.soldiers.records.find(r=>r.id===819).variant='SP';},
+  (i,o)=>{o.records.find(r=>r.soldierId===817).evidencePoolLocator='invalid';},
 ];
 for (const [n,mutate] of cases.entries()) {
  const input=structuredClone(base), out=JSON.parse(text); mutate(input,out);

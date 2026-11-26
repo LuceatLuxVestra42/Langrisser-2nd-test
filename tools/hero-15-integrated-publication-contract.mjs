@@ -224,16 +224,26 @@ function renderHero15SoldierNames({ approval, relations, soldiers, normalNames, 
   if (approval.heroId !== 15 || approval.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
     || approval.status !== 'APPROVED') throw new Error('Hero 15 Soldier publication scope mismatch');
   const { records } = JSON.parse(renderHero15SoldierInternal({ relations, soldiers }));
+  const expectedPublicKeys = [
+    ['NORMAL', [210, 326, 602, 621, 802, 811, 815]],
+    ['SP', [5210, 5326, 5602, 5621, 5802, 5811, 5815]],
+  ].flatMap(([namespace, ids]) => ids.map(id => [namespace, id]));
+  if (!Array.isArray(approval.soldiers)
+    || !isDeepStrictEqual(approval.soldiers.map(({ namespace, soldierId }) => [namespace, soldierId]), expectedPublicKeys)) {
+    throw new Error('Hero 15 Soldier public keys or order differ from the approved 14-pair scope');
+  }
   const namesByVariant = { NORMAL: normalNames.records, SP: spNames.records };
-  const rows = records.map(({ soldierId, soldierIdentity: { variant } }) => {
-    const names = namesByVariant[variant]?.filter((row) => row.soldierId === soldierId);
-    if (names?.length !== 1 || !names[0].nameKo?.trim()) {
-      throw new Error(`Hero 15 Soldier name is unresolved for ${variant} ${soldierId}`);
+  const rows = approval.soldiers.map(({ soldierId, namespace }) => {
+    const matches = records.filter(row => row.soldierId === soldierId && row.soldierIdentity.variant === namespace);
+    if (matches.length !== 1) throw new Error(`Hero 15 Soldier public relationship is unresolved for ${namespace} ${soldierId}`);
+    const names = namesByVariant[namespace].filter(row => row.soldierId === soldierId);
+    if (names.length !== 1 || !names[0].nameKo?.trim()) {
+      throw new Error(`Hero 15 Soldier name is unresolved for ${namespace} ${soldierId}`);
     }
-    return { soldierId, namespace: variant, nameKo: names[0].nameKo };
+    return { soldierId, namespace, nameKo: names[0].nameKo };
   });
-  if (JSON.stringify(rows) !== JSON.stringify(approval.soldiers)) {
-    throw new Error('Hero 15 Soldier rows differ from the approved subset');
+  if (!isDeepStrictEqual(rows, approval.soldiers)) {
+    throw new Error('Hero 15 Soldier names differ from the approved subset');
   }
   if (approval.navigation?.status !== 'APPROVED' || approval.navigation.approval?.kind !== 'DIRECT_USER_STANDING_APPROVAL') {
     throw new Error('Hero 15 Soldier navigation publication scope mismatch');

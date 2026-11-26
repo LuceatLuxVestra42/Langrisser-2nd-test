@@ -440,6 +440,19 @@ assert.throws(() => validateHero15MinimalDetail({
 }), /stale or non-deterministic/);
 fails((x) => { x.soldierInputs.approval.navigation.status = 'NOT_APPROVED'; }, /Soldier navigation publication scope/);
 fails((x) => { x.soldierInputs.spPresentation.soldiers.find(({ spSoldierId }) => spSoldierId === 5210).spSoldierId = 210; }, /Soldier navigation target/);
+for (const mutate of [
+  rows => rows.pop(),
+  rows => { rows[1] = structuredClone(rows[0]); },
+  rows => { [rows[0], rows[1]] = [rows[1], rows[0]]; },
+  rows => { rows[0].namespace = 'SP'; },
+  ...[806, 817, 819].map(id => rows => { rows[0].soldierId = id; }),
+  rows => rows.push({ ...rows[0], soldierId: 819 }),
+]) {
+  fails(x => { mutate(x.soldierInputs.approval.soldiers); }, /Soldier public keys or order/);
+}
+fails(x => { x.soldierInputs.approval.soldiers[0].nameKo += '변조'; }, /Soldier names differ from the approved subset/);
+fails(x => { x.soldierInputs.normalNames.records = x.soldierInputs.normalNames.records.filter(row => row.soldierId !== 210); }, /Soldier name is unresolved/);
+fails(x => { x.soldierInputs.normalPresentation.soldiers.find(row => row.normalSoldierId === 210).nameKo += '변조'; }, /Soldier navigation target mismatch/);
 const wrongSoldierNamespace = structuredClone(generated);
 wrongSoldierNamespace.heroes[0].soldiers[0].fragment = 'sp-soldier-5210';
 assert.throws(() => render(wrongSoldierNamespace, talent, element()), /Soldier consumer/);
@@ -526,7 +539,7 @@ assert.throws(() => render(invalidJob, talent, element()), /Job consumer/);
 const leakedJob = structuredClone(generated);
 leakedJob.heroes[0].jobPaths.find(({ toNameKo }) => toNameKo === '허미트').jobId = 707;
 assert.throws(() => render(leakedJob, talent, element()), /Job consumer/);
-fails((x) => { x.soldierInputs.approval.soldiers.pop(); }, /approved subset/);
+fails((x) => { x.soldierInputs.approval.soldiers.pop(); }, /Soldier public keys or order/);
 assert.equal(navigation.showTarget(15), true);
 assert.equal(target.scrolled, true);
 assert.equal(navigation.showTarget(16), false);

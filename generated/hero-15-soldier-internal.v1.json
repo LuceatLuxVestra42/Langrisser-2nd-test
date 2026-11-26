@@ -126,6 +126,30 @@
     },
     {
       "heroId": 15,
+      "soldierId": 806,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=15&soldierId=806",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 806,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID"
+          }
+        }
+      ],
+      "soldierIdentity": {
+        "entity": "Soldier",
+        "id": 806,
+        "variant": "NORMAL",
+        "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json#ID=806"
+      }
+    },
+    {
+      "heroId": 15,
       "soldierId": 811,
       "evidenceClass": "A",
       "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=15&soldierId=811",
@@ -170,6 +194,54 @@
         "id": 815,
         "variant": "NORMAL",
         "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json#ID=815"
+      }
+    },
+    {
+      "heroId": 15,
+      "soldierId": 817,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=15&soldierId=817",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 817,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID"
+          }
+        }
+      ],
+      "soldierIdentity": {
+        "entity": "Soldier",
+        "id": 817,
+        "variant": "NORMAL",
+        "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json#ID=817"
+      }
+    },
+    {
+      "heroId": 15,
+      "soldierId": 819,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=15&soldierId=819",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 819,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID"
+          }
+        }
+      ],
+      "soldierIdentity": {
+        "entity": "Soldier",
+        "id": 819,
+        "variant": "NORMAL",
+        "provenance": "evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json#ID=819"
       }
     },
     {

@@ -79,5 +79,14 @@
       }
     ],
     "baselineRecordsSha256": "61ea23215c88306ef9cc842477afc36e6e52ab808aaccead27fe0c01045be974"
+  },
+  "claimScopedDirectAdmissionEvidence": {
+    "artifactPath": "evidence/source/configdata/hero-soldier-normal-direct-hero15.v1.json",
+    "claimType": "hero-soldier-normal-direct-relations",
+    "evidenceClass": "A",
+    "sourceKind": "BASE_SOLDIER_HERO",
+    "claimCount": 3,
+    "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SoldierID>",
+    "admissionAuthority": false
   }
 }
