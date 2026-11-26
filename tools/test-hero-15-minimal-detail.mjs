@@ -619,6 +619,20 @@ for (const mutate of [
   x => { x.soldiers[0].nameKo = '변경'; },
   x => { x.soldiers[0].soldierId = 818; },
 ]) failText(x => mutate(x.decision), /independently approved/);
+for (const mutate of [
+  x => { delete x.tierDecision; },
+  x => { x.tierDecision.approvalMessageId = x.decision.approvalMessageId; },
+  x => { x.tierDecision.heroId = 16; },
+  x => { x.tierDecision.soldiers[0] = { soldierId: 210, namespace: 'NORMAL', nameKo: '하이랜더', rank: 3 }; },
+  x => { x.tierDecision.soldiers[0].namespace = 'SP'; },
+  x => { x.tierDecision.soldiers[0].rank = 2; },
+  x => { x.tierDecision.soldiers[0].nameKo = '변경'; },
+  x => { x.tierDecision.soldiers[1] = x.tierDecision.soldiers[0]; },
+  x => { x.tierDecision.soldiers.pop(); },
+  x => { x.tierDecision.soldiers.reverse(); },
+]) failText(mutate, /tier decision/);
+failText(x => { x.rankRows[0].rank = 2; }, /Rank evidence/);
+failText(x => { x.rankRows[0].soldierId = 210; }, /Rank evidence/);
 for (const id of [806, 817, 819]) {
   failText(x => { x.names = x.names.filter(row => row.soldierId !== id); }, /Owner or public endpoint mismatch/);
   failText(x => { x.names.push(x.names.find(row => row.soldierId === id)); }, /Owner or public endpoint mismatch/);
@@ -736,7 +750,7 @@ async function startApp(source, optionalResponse) {
 function checkRows(list, expected = []) {
   assert.deepEqual(list.children.slice(0, 14).map(item => [item.children[0].textContent, item.children[0].href]), originalLinks);
   assert.deepEqual(list.children.slice(14).map(item => [item.tag, item.textContent, item.children.length, item.id]),
-    expected.map(row => ['li', row.nameKo, 0, undefined]));
+    expected.map(row => ['li', `T3 ${row.nameKo}`, 0, undefined]));
 }
 
 for (const [source, response, expected] of [
