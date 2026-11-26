@@ -399,6 +399,7 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     ['유대 2', { values: [5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000], line: 'Lv.2~10 합계 골드 383,500' }],
     ['유대 3', { values: [9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000], line: 'Lv.2~10 합계 골드 736,000' }],
     ['유대 4', { values: [15000, 23000, 35000, 53000, 80000, 120000, 180000, 270000, 410000], line: 'Lv.2~10 합계 골드 1,186,000' }],
+    ['유대 5', { values: [20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000], line: 'Lv.2~10 합계 골드 1,523,000' }],
   ]);
   for (const { labelKo, rows } of fetterGold) {
     const section = renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
