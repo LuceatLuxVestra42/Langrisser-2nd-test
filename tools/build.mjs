@@ -1,4 +1,6 @@
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { runInNewContext } from 'node:vm';
+import { extractFunction } from './test-app-function-source.mjs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -15,7 +17,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldTotal, bond1GoldValues, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -127,6 +129,34 @@ export async function validatePublicSiteDirectory(output, canonical, publication
     files.push({ path, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
   }
   return files;
+}
+
+// Exercise the packaged renderer with the approved rows and a positive mutation at each level.
+function validatePackagedBond1Gold(app, detail, talent) {
+  const expectedRows = bond1GoldValues.map((gold, i) => ({ level: i + 2, gold }));
+  const group = detail.heroes[0].fetterGold[0];
+  if (group.labelKo !== '유대 1' || JSON.stringify(group.rows) !== JSON.stringify(expectedRows)) {
+    throw new Error('Packaged Bond 1 Gold rows differ from the verified source vector');
+  }
+  const element = () => ({
+    children: [], append(...nodes) { this.children.push(...nodes); },
+    replaceChildren(...nodes) { this.children = nodes; }, addEventListener() {},
+  });
+  const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor'];
+  const render = runInNewContext(functions.map(name => extractFunction(app, name)).join('\n') + '\nrenderHero15MinimalDetailView',
+    { document: { createElement: element }, makeTalentPresentation: element });
+  for (const index of [-1, ...expectedRows.keys()]) {
+    const sample = structuredClone(detail);
+    if (index >= 0) sample.heroes[0].fetterGold[0].rows[index].gold += 1;
+    const container = element();
+    render(sample, talent, container);
+    const panel = container.children[0].children.find(node => node.children[0]?.textContent === '유대 강화 골드');
+    const section = panel.children.find(node => node.children[0]?.textContent === '유대 1');
+    const expected = index === -1 ? [`Lv.2~10 합계 골드 ${bond1GoldTotal.toLocaleString('ko-KR')}`] : [];
+    if (JSON.stringify(section.children.slice(2).map(node => node.textContent)) !== JSON.stringify(expected)) {
+      throw new Error('Packaged Bond 1 Gold renderer differs from the approved vector or total');
+    }
+  }
 }
 
 export async function buildSite({ outputDir, verifyDir, manifestPath } = {}) {
@@ -603,6 +633,7 @@ try {
   if (packagedHero15MinimalDetailText !== hero15MinimalDetailText) throw new Error('packaged Hero 15 minimal detail differs from validated Generated artifact');
   const packagedHero15MinimalDetail = JSON.parse(packagedHero15MinimalDetailText);
   if (packagedHero15MinimalDetail.heroes.length !== 1 || packagedHero15MinimalDetail.heroes[0].heroId !== 15) throw new Error('packaged Hero Minimal Detail scope mismatch');
+  validatePackagedBond1Gold(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')));
   const packagedHero16MinimalDetailText = await readFile(join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')), 'utf8');
   if (packagedHero16MinimalDetailText !== hero16MinimalDetailText) throw new Error('packaged Hero 16 minimal detail differs from validated Generated artifact');
   const packagedHero16MinimalDetail = JSON.parse(packagedHero16MinimalDetailText);

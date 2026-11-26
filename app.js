@@ -395,8 +395,15 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   goldSummary.textContent = '유대 강화 골드';
   goldSection.append(goldSummary);
   for (const { labelKo, rows } of fetterGold) {
-    goldSection.append(renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
-      `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`)));
+    const section = renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
+      `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
+    const bond1Gold = [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000];
+    if (labelKo === '유대 1' && rows.every(({ level, gold }, i) => level === i + 2 && gold === bond1Gold[i])) {
+      const total = document.createElement('p');
+      total.textContent = 'Lv.2~10 합계 골드 118,600';
+      section.append(total);
+    }
+    goldSection.append(section);
   }
   const navigation = renderHeroMinimalDetailView({ ...data, heroes: [baseHero] }, container,
     { heroId: 15, nameKo: '리아나', equipmentId: 535, equipmentNameKo: '완벽한 찬사' }, talentData.talent, profile, [soldierSection, soldierCommandSection, jobSection, skillSection, centralDisciplineSection, awakeningSection, bond2Section, bond3Section, bond4Section, bond5Section, goldSection]);
