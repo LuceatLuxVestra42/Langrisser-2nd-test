@@ -18,7 +18,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, renderBond1KeyTotals, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, renderBond1KeyTotals, renderBond2KeyTotals, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -132,7 +132,7 @@ export async function validatePublicSiteDirectory(output, canonical, publication
   return files;
 }
 
-function validatePackagedBondGoldTotals(app, detail, talent, keyLine) {
+function validatePackagedBondGoldTotals(app, detail, talent, keyLines) {
   const groups = detail.heroes[0].fetterGold;
   for (const [index, values] of [bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues].entries()) {
     assert.deepEqual(groups[index], {
@@ -159,7 +159,7 @@ function validatePackagedBondGoldTotals(app, detail, talent, keyLine) {
     const panel = card.children.find(node => node.children[0]?.textContent === '유대 강화 골드');
     const totals = approvedTotals.map((line, i) => i === changedGroup ? null : line);
     assert.deepEqual(textLines(card, text => text?.startsWith('Lv.2~10 합계 골드')), totals.filter(Boolean), 'Unexpected Fetter Gold totals in the card');
-    assert.deepEqual(textLines(card, text => text?.includes('마음의 열쇠')), [keyLine]);
+    assert.deepEqual(textLines(card, text => text?.includes('마음의 열쇠')), keyLines);
     assert.equal(panel.children.length, groups.length + 1);
     for (const [i, group] of sample.heroes[0].fetterGold.entries()) {
       const [heading, list, ...afterList] = panel.children[i + 1].children;
@@ -168,9 +168,9 @@ function validatePackagedBondGoldTotals(app, detail, talent, keyLine) {
       assert.deepEqual(list.children.map(row => row.textContent), group.rows.map(
         ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
       const expected = totals[i] ? [totals[i]] : [];
-      if (i === 0) expected.push(keyLine);
+      if (keyLines[i]) expected.push(keyLines[i]);
       assert.deepEqual(afterList.map(node => node.textContent), expected);
-      if (i === 0) {
+      if (keyLines[i]) {
         const keys = afterList.at(-1);
         assert.equal(keys.tag, 'p');
         assert.equal(keys.children.length, 0);
@@ -275,7 +275,7 @@ const hero15MinimalInputs = {
 const hero15MinimalDetailPath = resolve(HERO_15_MINIMAL_DETAIL_PATH);
 const hero15MinimalDetailText = await readFile(hero15MinimalDetailPath, 'utf8');
 const profileInputs = await readHero15ProfileInputs(readJson);
-const bond1KeyLine = renderBond1KeyTotals(profileInputs);
+const keyLines = [renderBond1KeyTotals(profileInputs), renderBond2KeyTotals(profileInputs)];
 validateHero15MinimalDetail({ generatedText: hero15MinimalDetailText, inputs: { ...hero15MinimalInputs, jobInputs: await readHero15JobPublicationInputs(readJson), soldierInputs: await readHero15SoldierPublicationInputs(readJson), profileInputs } });
 const hero15TalentPublicText = await readFile(resolve(HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 const hero15TalentPublicInputs = { decision: hero15TalentPublication, talentRelations, skills, localizations: talentLocalizations };
@@ -677,7 +677,7 @@ try {
   if (packagedHero15MinimalDetailText !== hero15MinimalDetailText) throw new Error('packaged Hero 15 minimal detail differs from validated Generated artifact');
   const packagedHero15MinimalDetail = JSON.parse(packagedHero15MinimalDetailText);
   if (packagedHero15MinimalDetail.heroes.length !== 1 || packagedHero15MinimalDetail.heroes[0].heroId !== 15) throw new Error('packaged Hero Minimal Detail scope mismatch');
-  validatePackagedBondGoldTotals(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')), bond1KeyLine);
+  validatePackagedBondGoldTotals(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')), keyLines);
   const packagedHero16MinimalDetailText = await readFile(join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')), 'utf8');
   if (packagedHero16MinimalDetailText !== hero16MinimalDetailText) throw new Error('packaged Hero 16 minimal detail differs from validated Generated artifact');
   const packagedHero16MinimalDetail = JSON.parse(packagedHero16MinimalDetailText);

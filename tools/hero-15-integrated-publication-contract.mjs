@@ -97,7 +97,7 @@ const centralDisciplineGoldPaths = {
 };
 
 export async function readHero15ProfileInputs(readJson) {
-  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
+  const [approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, bond2KeyDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes, centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-profile-publication.v1.json'),
     readJson('canonical/hero-rarities.v1.json'),
     readJson('canonical/hero-faction-relations.v1.json'),
@@ -129,6 +129,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-bond5-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-heart-fetter-gold-total-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json'),
+    readJson('docs/decisions/hero-15-minimal-bond2-key-totals-publication.v1.json'),
     readJson('canonical/hero-fetter-material-relations.v1.json'),
     readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
@@ -148,7 +149,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(centralDisciplineGoldPaths.levels),
     readJson(centralDisciplineGoldPaths.raw),
   ]);
-  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
+  return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, bond2KeyDecision, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
     centralDisciplineGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };
 }
 
@@ -847,37 +848,72 @@ function validateBondGoldTotal(expected, decision, references, detail, locators,
   }
 }
 
-function validateBond1KeyNameSources(source) {
+const bond1KeySources = [
+  { id: 3200, index: 391, png: 'FetterMaterial01.png', pngBlob: '7fe77ca370a1154856f081adc2231052b585ddba',
+    webp: 'img/item/엔열쇠.webp', webpBlob: '9b5cdbb9e17cfed5b82ca68ff1f1e04a79b73e29', title: '순박한 마음의 열쇠' },
+  { id: 3201, index: 392, png: 'FetterMaterial02.png', pngBlob: '66c4f6b619ccf07d441a0cf770ff3de9c5f5d610',
+    webp: 'img/item/알열쇠.webp', webpBlob: '004d346c927a8b0dc6fc23ce62d0eb88ef30756f', title: '순수한 마음의 열쇠' },
+];
+const bond2KeySources = [...bond1KeySources, {
+  id: 3202, index: 393, png: 'FetterMaterial03.png', pngBlob: '8f23f82ee1988a736ce579fd42f8a7a9fc6dfd8f',
+  webp: 'img/item/스알열쇠.webp', webpBlob: '947bacea4b563b2d24c17c9a25b4d9be9aa02070', title: '빛나는 마음의 열쇠',
+}];
+
+function validateKeyNameSources(source, expected, bond) {
   const evidence = source?.nameEvidence;
   if (source?.repository !== 'LuceatLuxVestra42/langrisser-future-guide' || source.commit !== '6475e63ee23d18adf733756c26a14fa9e3ed662c'
     || evidence?.itemInfo?.path !== 'data/configdata/ConfigDataItemInfo.json' || evidence.itemInfo.blob !== 'fd34c0a83bd403c1fd01d34f3439e4c24a794f5e'
     || evidence.legacyPngCommit !== '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
     || !isDeepStrictEqual(evidence.sheet, { repository: 'redpanda7301/langrisser', commit: '311c5e44f39c6938c78031bb2af3206e39ea270b',
-      path: 'classup.html', blob: '5aa5a9bd9f94ac08c9c0b1cbc21a27b0601ab8c2' }) || evidence.items?.length !== 2) {
-    throw new Error('Bond 1 key name source version mismatch');
+      path: 'classup.html', blob: '5aa5a9bd9f94ac08c9c0b1cbc21a27b0601ab8c2' }) || evidence.items?.length !== expected.length) {
+    throw new Error(`Bond ${bond} key name source version mismatch`);
   }
-  const expected = [
-    { id: 3200, index: 391, png: 'FetterMaterial01.png', pngBlob: '7fe77ca370a1154856f081adc2231052b585ddba',
-      webp: 'img/item/엔열쇠.webp', webpBlob: '9b5cdbb9e17cfed5b82ca68ff1f1e04a79b73e29', title: '순박한 마음의 열쇠' },
-    { id: 3201, index: 392, png: 'FetterMaterial02.png', pngBlob: '66c4f6b619ccf07d441a0cf770ff3de9c5f5d610',
-      webp: 'img/item/알열쇠.webp', webpBlob: '004d346c927a8b0dc6fc23ce62d0eb88ef30756f', title: '순수한 마음의 열쇠' },
-  ];
   for (const key of expected) {
     const item = evidence.items.find(row => row.itemId === key.id);
     if (item?.itemInfoIndex !== key.index || item.icon !== `UI/Icon/Item_ABS/${key.png}`
       || !isDeepStrictEqual(item.legacyPng, { path: `public/images/heroes/bond-materials/${key.png}`, blob: key.pngBlob })) {
-      throw new Error(`Bond 1 key ItemInfo or PNG source mismatch for ID ${key.id}`);
+      throw new Error(`Bond ${bond} key ItemInfo or PNG source mismatch for ID ${key.id}`);
     }
     if (!isDeepStrictEqual(item.comparisonWebp, { path: key.webp, blob: key.webpBlob })) {
-      throw new Error(`Bond 1 key comparison WebP source mismatch for ID ${key.id}`);
+      throw new Error(`Bond ${bond} key comparison WebP source mismatch for ID ${key.id}`);
     }
     if (!isDeepStrictEqual(item.sheetImage, { src: `https://redpanda7301.github.io/langrisser/${key.webp}`, title: key.title })) {
-      throw new Error(`Bond 1 key sheet image source mismatch for ID ${key.id}`);
+      throw new Error(`Bond ${bond} key sheet image source mismatch for ID ${key.id}`);
     }
   }
 }
 
-export function renderBond1KeyTotals({ bond1KeyDecision: decision, fetterDetails, goldOwner, fetterReferences }) {
+function readKeyMaterialRows({ fetterReferences, fetterDetails, goldOwner }, endpointId, rowCount, levels, bond) {
+  const refs = fetterReferences.records.filter(r => r.heroId === 15 && r.fetterId === endpointId);
+  const details = fetterDetails.records.filter(r => r.heroId === 15 && r.endpointId === endpointId);
+  const namespace = 'ConfigDataHeroFetterInfo.ID';
+  const locator = `ConfigDataHeroFetterInfo#ID=${endpointId}`;
+  if (refs.length !== 1 || refs[0].heroInformationId !== 15 || refs[0].referenceKind !== 'HERO_FETTER_ID_REFERENCE'
+    || refs[0].sourceField !== 'ConfigDataHeroInformationInfo.HeroFetters_ID' || refs[0].endpointNamespace !== namespace
+    || details.length !== 1 || details[0].detailKind !== 'FETTER_RAW_DETAIL'
+    || details[0].endpointNamespace !== namespace || details[0].sourceRecordLocator !== locator) {
+    throw new Error(`Bond ${bond} key source endpoint mismatch`);
+  }
+  const raw = details[0].fields.LevelUpMaterials;
+  const relations = goldOwner.materials.filter(r => r.heroId === 15 && r.endpointKind === 'FETTER' && r.endpointId === endpointId);
+  if (raw.length !== rowCount || relations.length !== raw.length || relations.some((r, i) =>
+    r.sourceArrayIndex !== i || r.sourceField !== 'LevelUpMaterials' || r.sourceRecordLocator !== locator || r.endpointNamespace !== namespace
+    || r.itemNamespace !== 'ConfigDataItemInfo.ID' || r.itemType !== raw[i].ItemType || r.itemId !== raw[i].ItemId
+    || r.targetLevel !== raw[i].Level || !levels.includes(r.targetLevel))) {
+    throw new Error(`Bond ${bond} key material locator mismatch`);
+  }
+
+  return raw;
+}
+
+function validateKeyItemEndpoint(goldOwner, itemId, itemType, bond) {
+  const endpoints = goldOwner.itemEndpoints.filter(r => r.itemId === itemId && r.itemType === itemType);
+  if (endpoints.length !== 1 || endpoints[0].endpointNamespace !== 'ConfigDataItemInfo.ID'
+    || endpoints[0].sourceRecordLocator !== `ConfigDataItemInfo#ID=${itemId}`) throw new Error(`Bond ${bond} key ItemInfo endpoint mismatch`);
+}
+
+export function renderBond1KeyTotals(inputs) {
+  const { bond1KeyDecision: decision, goldOwner } = inputs;
   const materials = [
     { itemType: 6, itemId: 3200, nameKo: '순박한 마음의 열쇠', count: 45 },
     { itemType: 6, itemId: 3201, nameKo: '순수한 마음의 열쇠', count: 15 },
@@ -895,32 +931,12 @@ export function renderBond1KeyTotals({ bond1KeyDecision: decision, fetterDetails
   if (decision.approval.messageId !== 'bbb21ccc-89dc-453b-ba7a-d672d198235c') {
     throw new Error('Bond 1 key approval message ID mismatch');
   }
-  validateBond1KeyNameSources(decision.source);
-  const refs = fetterReferences.records.filter(r => r.heroId === 15 && r.fetterId === 66);
-  const details = fetterDetails.records.filter(r => r.heroId === 15 && r.endpointId === 66);
-  const namespace = 'ConfigDataHeroFetterInfo.ID';
-  const locator = 'ConfigDataHeroFetterInfo#ID=66';
-  if (refs.length !== 1 || refs[0].heroInformationId !== 15 || refs[0].referenceKind !== 'HERO_FETTER_ID_REFERENCE'
-    || refs[0].sourceField !== 'ConfigDataHeroInformationInfo.HeroFetters_ID' || refs[0].endpointNamespace !== namespace
-    || details.length !== 1 || details[0].detailKind !== 'FETTER_RAW_DETAIL'
-    || details[0].endpointNamespace !== namespace || details[0].sourceRecordLocator !== locator) {
-    throw new Error('Bond 1 key source endpoint mismatch');
-  }
-  const raw = details[0].fields.LevelUpMaterials;
-  const relations = goldOwner.materials.filter(r => r.heroId === 15 && r.endpointKind === 'FETTER' && r.endpointId === 66);
-  if (raw.length !== 14 || relations.length !== raw.length || relations.some((r, i) =>
-    r.sourceArrayIndex !== i || r.sourceField !== 'LevelUpMaterials' || r.sourceRecordLocator !== locator || r.endpointNamespace !== namespace
-    || r.itemNamespace !== 'ConfigDataItemInfo.ID' || r.itemType !== raw[i].ItemType || r.itemId !== raw[i].ItemId
-    || r.targetLevel !== raw[i].Level || !decision.targetLevels.includes(r.targetLevel))) {
-    throw new Error('Bond 1 key material locator mismatch');
-  }
-
+  validateKeyNameSources(decision.source, bond1KeySources, 1);
+  const raw = readKeyMaterialRows(inputs, 66, 14, decision.targetLevels, 1);
   // Per-item counts in target-level order from the pinned Fetter 66 record.
   const countsByItem = [[1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5]];
   return decision.materials.map(({ itemType, itemId, nameKo, count }, i) => {
-    const endpoints = goldOwner.itemEndpoints.filter(r => r.itemId === itemId && r.itemType === itemType);
-    if (endpoints.length !== 1 || endpoints[0].endpointNamespace !== 'ConfigDataItemInfo.ID'
-      || endpoints[0].sourceRecordLocator !== `ConfigDataItemInfo#ID=${itemId}`) throw new Error('Bond 1 key ItemInfo endpoint mismatch');
+    validateKeyItemEndpoint(goldOwner, itemId, itemType, 1);
     const rows = raw.filter(r => r.ItemId === itemId && r.ItemType === itemType);
     const levels = i === 0 ? decision.targetLevels : decision.targetLevels.slice(4);
     const total = rows.reduce((sum, r) => sum + r.Count, 0);
@@ -928,6 +944,52 @@ export function renderBond1KeyTotals({ bond1KeyDecision: decision, fetterDetails
       || total !== count) throw new Error('Bond 1 key levels or quantities mismatch');
     return `${nameKo} ×${total}`;
   }).join(' · ');
+}
+
+export function renderBond2KeyTotals(inputs) {
+  const { bond2KeyDecision: decision, goldOwner } = inputs;
+  const materials = [
+    { itemType: 6, itemId: 3200, nameKo: '순박한 마음의 열쇠', count: 26 },
+    { itemType: 6, itemId: 3201, nameKo: '순수한 마음의 열쇠', count: 69 },
+    { itemType: 6, itemId: 3202, nameKo: '빛나는 마음의 열쇠', count: 16 },
+  ];
+  const levels = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+  if (decision?.status !== 'APPROVED' || decision.schemaVersion !== 1 || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || decision.heroId !== 15 || decision.labelKo !== '유대 2' || decision.endpointKind !== 'FETTER' || decision.endpointId !== 67
+    || decision.sourceField !== 'LevelUpMaterials' || !isDeepStrictEqual(decision.targetLevels, levels)
+    || !isDeepStrictEqual(decision.materials, materials) || decision.approval?.userText !== '리아나 유대 2의 Lv.2~10 골드 합계 아래에 ‘순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16’을 텍스트로 공개하는 걸 승인해. 검수된 원본 대조와 필수 검증이 모두 통과하면 같은 Work에서 병합해도 돼.') {
+    throw new Error('Bond 2 key publication scope mismatch');
+  }
+  if (decision.approval.messageId !== 'bbb219d3-135d-4fe5-907a-4e5809749dfb') throw new Error('Bond 2 key approval message ID mismatch');
+  if (decision.approval.scope !== 'Hero 15, Bond 2 (FETTER 67): publish “순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16” as plain text below the Lv.2–10 gold total. Merge in this Work after source comparison and all required checks pass.') throw new Error('Bond 2 key approval scope mismatch');
+  validateKeyNameSources(decision.source, bond2KeySources, 2);
+
+  // Fetter 67, LevelUpMaterials[0..17], in source order.
+  const sourceRows = [
+    [2, 3200, 5], [2, 3201, 2], [3, 3200, 6], [3, 3201, 3],
+    [4, 3200, 7], [4, 3201, 4], [5, 3200, 8], [5, 3201, 5],
+    [6, 3201, 7], [6, 3202, 1], [7, 3201, 9], [7, 3202, 2],
+    [8, 3201, 11], [8, 3202, 3], [9, 3201, 13], [9, 3202, 4],
+    [10, 3201, 15], [10, 3202, 6],
+  ].map(([level, itemId, count]) => ({ level, itemType: 6, itemId, count }));
+  if (decision.source.selection !== 'ConfigDataHeroInformationInfo.json#/14/HeroFetters_ID/1'
+    || decision.source.rows !== 'ConfigDataHeroFetterInfo.json#/66/LevelUpMaterials'
+    || decision.source.rawDetailEvidence !== 'evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/1') {
+    throw new Error('Bond 2 key source locator mismatch');
+  }
+  const raw = readKeyMaterialRows(inputs, 67, sourceRows.length, levels, 2);
+  const rows = raw.map(({ Level, ItemType, ItemId, Count }) => ({ level: Level, itemType: ItemType, itemId: ItemId, count: Count }));
+  if (!isDeepStrictEqual(decision.sourceRows, sourceRows) || !isDeepStrictEqual(rows, sourceRows)) {
+    throw new Error('Bond 2 key source rows or quantities mismatch');
+  }
+  const line = materials.map(({ itemId, itemType, nameKo, count }) => {
+    validateKeyItemEndpoint(goldOwner, itemId, itemType, 2);
+    const total = rows.filter(row => row.itemId === itemId && row.itemType === itemType).reduce((sum, row) => sum + row.count, 0);
+    if (total !== count) throw new Error('Bond 2 key total mismatch');
+    return `${nameKo} ×${total}`;
+  }).join(' · ');
+  if (decision.lineKo !== line) throw new Error('Bond 2 key display text mismatch');
+  return line;
 }
 
 function validateHeartFetterGoldTotal(decision, references, details, locators, levels) {
