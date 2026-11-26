@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { CANONICAL as HERO_CV_CANONICAL, renderHero15ProfileCvInternal } from './hero-15-profile-cv-internal.mjs';
 import { loadInputs as loadJobTree, render as renderJobTree } from './hero-15-job-tree-internal.mjs';
+import { loadPublicNormalSoldierLocalization } from './validate-normal-soldier-ko-localization.mjs';
 import { renderHero15SoldierInternal } from './hero-15-soldier-internal-consumer.mjs';
 import {
   hero15AreaCanonicalPath, hero15AreaEvidencePath, validateHero15OrdinarySkillAreas,
@@ -208,11 +209,11 @@ function renderHero15SourceNames({ sourceNamesApproval, nameMaster, englishNameE
 }
 
 export async function readHero15SoldierPublicationInputs(readJson) {
-  const [approval, relations, soldiers, normalNames, spNames, normalPresentation, spPresentation] = await Promise.all([
+  const [approval, relations, soldiers, { normalLocalizations: normalNames }, spNames, normalPresentation, spPresentation] = await Promise.all([
     readJson('docs/decisions/hero-15-minimal-soldier-publication.v1.json'),
     readJson('canonical/hero-soldier-relations.v1.json'),
     readJson('canonical/soldiers.v1.json'),
-    readJson('canonical/normal-soldier-localizations-ko.v1.json'),
+    loadPublicNormalSoldierLocalization(),
     readJson('canonical/sp-soldier-localizations-ko.v1.json'),
     readJson('generated/normal-soldiers.v1.json'),
     readJson('generated/sp-soldiers.v1.json'),

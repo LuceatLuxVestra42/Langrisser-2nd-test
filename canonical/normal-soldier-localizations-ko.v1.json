@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "NORMAL Soldier Korean display-name lookup only; not Soldier identity, population, relations, or official Korean-server provenance authority.",
-  "sourceScope": "This evidence supports Korean display labels only for the currently admitted NORMAL Soldier target ID set. It does not establish the full NORMAL Soldier population. Official Korean-server provenance is unverified.",
+  "sourceScope": "Korean display labels for the 56 existing public NORMAL Soldier endpoints and three internal NORMAL identities (806, 817, 819). This evidence does not establish the full NORMAL Soldier population. Official Korean-server provenance is unverified.",
   "officialKrProvenanceStatus": "unverified",
   "records": [
     {
@@ -275,6 +275,12 @@
       "provenance": "evidence/localization/normal-soldier-names-ko.v1.json#SoldierID=805"
     },
     {
+      "soldierId": 806,
+      "nameKo": "무녀",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/normal-soldier-names-ko.v1.json#SoldierID=806"
+    },
+    {
       "soldierId": 811,
       "nameKo": "퇴마사",
       "evidenceClass": "A",
@@ -297,6 +303,18 @@
       "nameKo": "신성 호위술사",
       "evidenceClass": "A",
       "provenance": "evidence/localization/normal-soldier-names-ko.v1.json#SoldierID=816"
+    },
+    {
+      "soldierId": 817,
+      "nameKo": "바람과 꽃을 찬송하는 자",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/normal-soldier-names-ko.v1.json#SoldierID=817"
+    },
+    {
+      "soldierId": 819,
+      "nameKo": "산별 구조대",
+      "evidenceClass": "A",
+      "provenance": "evidence/localization/normal-soldier-names-ko.v1.json#SoldierID=819"
     },
     {
       "soldierId": 1015,

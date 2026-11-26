@@ -1029,22 +1029,21 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await writeFile(resolve('generated/hero-index.v1.json'), renderHeroIndex(heroIdentities, heroLocalization, heroIndexPublication), 'utf8');
   const glossaryPath = resolve('generated/job-glossary.v1.json');
   await writeFile(glossaryPath, renderJobGlossary(jobLocalization), 'utf8');
-  const { loadPublicSoldierPopulation } = await import('./validate-sp-soldier-relation.mjs');
+  const { loadPublicNormalSoldierLocalization } = await import('./validate-normal-soldier-ko-localization.mjs');
   const spOutputPath = resolve('generated/sp-soldiers.v1.json');
   const soldierBfMovePointsPath = resolve('canonical/soldier-bf-move-points.v1.json');
-  const [{ identities: publicSoldiers, relations: spRelations }, spLocalizations, normalLocalizations, spBaseStats, normalBaseStats, soldierBfMovePoints] = await Promise.all([
-    loadPublicSoldierPopulation(),
+  const [{ identities: publicSoldiers, relations: spRelations, normalLocalizations }, spLocalizations, spBaseStats, normalBaseStats, soldierBfMovePoints] = await Promise.all([
+    loadPublicNormalSoldierLocalization(),
     readFile(resolve('canonical/sp-soldier-localizations-ko.v1.json'), 'utf8'),
-    readFile(resolve('canonical/normal-soldier-localizations-ko.v1.json'), 'utf8'),
     readFile(resolve('canonical/sp-soldier-base-stats.v1.json'), 'utf8'),
     readFile(resolve('canonical/normal-soldier-base-stats.v1.json'), 'utf8'),
     readFile(soldierBfMovePointsPath, 'utf8'),
   ]);
   const soldierSkillRelations = JSON.parse(await readFile(resolve('canonical/soldier-skill-relations.v1.json'), 'utf8'));
   const skills = JSON.parse(await readFile(resolve('canonical/skills.v1.json'), 'utf8'));
-  await writeFile(spOutputPath, renderSpSoldiers(publicSoldiers, JSON.parse(spLocalizations), JSON.parse(normalLocalizations), JSON.parse(spBaseStats), spRelations, JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
+  await writeFile(spOutputPath, renderSpSoldiers(publicSoldiers, JSON.parse(spLocalizations), normalLocalizations, JSON.parse(spBaseStats), spRelations, JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
   const normalSoldierOutputPath = resolve('generated/normal-soldiers.v1.json');
-  await writeFile(normalSoldierOutputPath, renderNormalSoldiers(publicSoldiers, JSON.parse(normalLocalizations), JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
+  await writeFile(normalSoldierOutputPath, renderNormalSoldiers(publicSoldiers, normalLocalizations, JSON.parse(normalBaseStats), JSON.parse(soldierBfMovePoints), soldierSkillRelations, skills), 'utf8');
   const [trainingTechDescriptions, trainingTechDecisionRecord] = await Promise.all([
     readFile(resolve('canonical/soldier-training-tech-descriptions.v1.json'), 'utf8').then(JSON.parse),
     readFile(resolve(TRAINING_TECH_DECISION_RECORD_PATH), 'utf8').then(JSON.parse),

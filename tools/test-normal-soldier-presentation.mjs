@@ -1,13 +1,12 @@
 import assert from 'node:assert/strict';
-import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
+import { loadPublicNormalSoldierLocalization } from './validate-normal-soldier-ko-localization.mjs';
 import { readFile } from 'node:fs/promises';
 import { renderNormalSoldiers } from './generate.mjs';
 import { validateNormalSoldierPresentation } from './validate-normal-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [{ identities }, localizations, baseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
-  loadPublicSoldierPopulation(),
-  readJson('canonical/normal-soldier-localizations-ko.v1.json'),
+const [{ identities, normalLocalizations: localizations }, baseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
+  loadPublicNormalSoldierLocalization(),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
   readJson('canonical/soldier-bf-move-points.v1.json'),
   readJson('canonical/soldier-skill-relations.v1.json'),
@@ -24,6 +23,23 @@ const mustFail = (label, action) => {
 };
 
 validate(generated);
+const internalNames = await readJson('canonical/normal-soldier-localizations-ko.v1.json');
+for (const id of [806, 817, 819]) {
+  const admitted = internalNames.records.find(row => row.soldierId === id);
+  if (!admitted) throw new Error(`Missing privately admitted fixture name ${id}`);
+  for (const records of [[...localizations.records, admitted], [admitted, ...localizations.records.slice(1)]]) {
+    const names = { ...localizations, records };
+    mustFail(`unauthorized public name endpoint ${id}`, () => render(identities, names));
+  }
+  const leaked = JSON.parse(generated);
+  leaked.soldiers[0].normalSoldierId = id;
+  leaked.soldiers[0].nameKo = admitted.nameKo;
+  mustFail(`unauthorized public card or mapping ${id}`, () => validate(`${JSON.stringify(leaked, null, 2)}\n`));
+  const renamed = JSON.parse(generated);
+  renamed.soldiers[0].nameKo = admitted.nameKo;
+  mustFail(`unauthorized public name ${id}`, () => validate(`${JSON.stringify(renamed, null, 2)}\n`));
+}
+
 mustFail('missing localization', () => render(identities, { ...localizations, records: localizations.records.slice(1) }));
 mustFail('duplicate localization', () => render(identities, { ...localizations, records: [...localizations.records, localizations.records[0]] }));
 mustFail('missing base stats', () => render(identities, localizations, { ...baseStats, records: baseStats.records.slice(1) }));

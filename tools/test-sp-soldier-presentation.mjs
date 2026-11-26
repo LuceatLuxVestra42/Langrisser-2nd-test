@@ -1,13 +1,12 @@
-import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
+import { loadPublicNormalSoldierLocalization } from './validate-normal-soldier-ko-localization.mjs';
 import { readFile } from 'node:fs/promises';
 import { renderSpSoldiers } from './generate.mjs';
 import { validateSpSoldierPresentation } from './validate-sp-soldier-presentation.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
-const [{ identities, relations }, localizations, normalLocalizations, baseStats, normalBaseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
-  loadPublicSoldierPopulation(),
+const [{ identities, relations, normalLocalizations }, localizations, baseStats, normalBaseStats, movePoints, soldierSkillRelations, skills] = await Promise.all([
+  loadPublicNormalSoldierLocalization(),
   readJson('canonical/sp-soldier-localizations-ko.v1.json'),
-  readJson('canonical/normal-soldier-localizations-ko.v1.json'),
   readJson('canonical/sp-soldier-base-stats.v1.json'),
   readJson('canonical/normal-soldier-base-stats.v1.json'),
   readJson('canonical/soldier-bf-move-points.v1.json'),
@@ -25,6 +24,23 @@ const mustFail = (label, action) => {
 const validate = (text, points = movePoints) => validateSpSoldierPresentation(identities, localizations, normalLocalizations, baseStats, relations, normalBaseStats, text, points, soldierSkillRelations, skills);
 
 validate(generated);
+const internalNames = await readJson('canonical/normal-soldier-localizations-ko.v1.json');
+for (const id of [806, 817, 819]) {
+  const admitted = internalNames.records.find(row => row.soldierId === id);
+  if (!admitted) throw new Error(`Missing privately admitted fixture name ${id}`);
+  for (const records of [[...normalLocalizations.records, admitted], [admitted, ...normalLocalizations.records.slice(1)]]) {
+    const names = { ...normalLocalizations, records };
+    mustFail(`unauthorized public name endpoint ${id}`, () => render(localizations, names));
+  }
+  const leaked = JSON.parse(generated);
+  leaked.soldiers[0].normalSoldierId = id;
+  leaked.soldiers[0].normalSoldierNameKo = admitted.nameKo;
+  mustFail(`unauthorized public card or mapping ${id}`, () => validate(`${JSON.stringify(leaked, null, 2)}\n`));
+  const renamed = JSON.parse(generated);
+  renamed.soldiers[0].normalSoldierNameKo = admitted.nameKo;
+  mustFail(`unauthorized public name ${id}`, () => validate(`${JSON.stringify(renamed, null, 2)}\n`));
+}
+
 mustFail('missing SP localization', () => render({ ...localizations, records: localizations.records.slice(1) }));
 mustFail('duplicate SP localization', () => render({ ...localizations, records: [...localizations.records, localizations.records[0]] }));
 mustFail('missing NORMAL localization', () => render(localizations, { ...normalLocalizations, records: normalLocalizations.records.slice(1) }));
