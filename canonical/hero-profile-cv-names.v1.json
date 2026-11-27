@@ -22,6 +22,15 @@
         "cvNameRaw": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#claim/CVName",
         "heroToCharImageRelation": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#relation"
       }
+    },
+    {
+      "heroId": 16,
+      "charImageId": 16,
+      "cvNameRaw": "最上嗣生",
+      "provenance": {
+        "cvNameRaw": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-16-cv-name.v1.json#/records/0/CVName",
+        "heroToCharImageRelation": "evidence/source/configdata/ConfigDataHeroInfo.record-hero-16-name-eng.v1.json#/records/0/CharImage_ID"
+      }
     }
   ]
 }

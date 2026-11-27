@@ -12,6 +12,9 @@ const baseline = {
   generatedText: await readFile('generated/hero-15-profile-cv-internal.v1.json', 'utf8'),
 };
 assert.equal(validateHero15ProfileCvInternal(baseline), true);
+const reordered = structuredClone(baseline);
+reordered.canonical.records.reverse();
+assert.equal(validateHero15ProfileCvInternal(reordered), true);
 const cases = [
   ['Hero ID changed', (x) => { x.evidence.claim.heroId = 16; }],
   ['CharImage endpoint changed', (x) => { x.evidence.claim.charImageId = 16; }],
@@ -19,9 +22,9 @@ const cases = [
   ['wrong Source locator', (x) => { x.evidence.source.fieldLocators.CVName = '#records[14]/CVName'; }],
   ['source blob pin changed', (x) => { x.evidence.source.gitBlobSha1 = '0'.repeat(40); }],
   ['Hero foreign key changed', (x) => { x.evidence.relation.charImageId = 16; }],
-  ['Canonical name changed', (x) => { x.canonical.records[0].cvNameRaw = 'another'; }],
-  ['Canonical Hero ID changed', (x) => { x.canonical.records[0].heroId = 16; }],
-  ['Canonical provenance detached', (x) => { x.canonical.records[0].provenance.cvNameRaw = 'legacy-output'; }],
+  ['Canonical name changed', (x) => { x.canonical.records.find(row => row.heroId === 15).cvNameRaw = 'another'; }],
+  ['Canonical Hero ID changed', (x) => { x.canonical.records.find(row => row.heroId === 15).heroId = 16; }],
+  ['Canonical provenance detached', (x) => { x.canonical.records.find(row => row.heroId === 15).provenance.cvNameRaw = 'legacy-output'; }],
   ['identity endpoint removed', (x) => { x.identities.records = x.identities.records.filter((row) => row.heroId !== 15); }],
   ['portrait FK relation changed', (x) => { x.portraitEvidence.source.heroInfo.fields.CharImage_ID = 16; }],
   ['public Full Detail approved', (x) => { x.fullDetailDecision.publication.fullDetailStatus = 'APPROVED'; }],

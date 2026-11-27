@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "scope": "Historical Hero 16 CV presence, corroborating the source-native claim.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/validation/hero-page-stage5-5-2-cv.v1.json",
+    "blob": "67c21e9097ac95110a5ff53b8889f677e4f34d17",
+    "locator": "#/heroes/14"
+  },
+  "transformation": "Selected fields copied verbatim from the pinned record.",
+  "records": [
+    {
+      "heroId": 16,
+      "charImageId": 16,
+      "cvNameRaw": "最上嗣生",
+      "voiceActorStatus": "PRESENT"
+    }
+  ]
+}

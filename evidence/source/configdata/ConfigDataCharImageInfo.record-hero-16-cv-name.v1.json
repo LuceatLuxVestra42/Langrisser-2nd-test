@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "scope": "CVName on the CharImage endpoint explicitly referenced by Hero 16.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataCharImageInfo.json",
+    "blob": "397afb3e76c0fe4f3e424c04ba68459ff48d74c5",
+    "locator": "#/14"
+  },
+  "transformation": "Selected fields copied verbatim from the pinned record.",
+  "records": [
+    {
+      "ID": 16,
+      "CVName": "最上嗣生"
+    }
+  ]
+}
