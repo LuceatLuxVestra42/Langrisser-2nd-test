@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "unit": "gold",
+  "levels": [
+    1,
+    10
+  ],
+  "placement": "directly after the job path",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "slots": [
+    {
+      "index": 0,
+      "slot": "WEAPON_1",
+      "templateId": 1,
+      "labelKo": "무기 1",
+      "subtotalGold": 1800000
+    },
+    {
+      "index": 1,
+      "slot": "WEAPON_2",
+      "templateId": 2,
+      "labelKo": "무기 2",
+      "subtotalGold": 1800000
+    },
+    {
+      "index": 2,
+      "slot": "ARMOR",
+      "templateId": 30,
+      "labelKo": "갑옷",
+      "subtotalGold": 3600000
+    },
+    {
+      "index": 3,
+      "slot": "HEAD",
+      "templateId": 33,
+      "labelKo": "투구",
+      "subtotalGold": 1800000
+    },
+    {
+      "index": 4,
+      "slot": "ACCESSORY",
+      "templateId": 41,
+      "labelKo": "장신구",
+      "subtotalGold": 1800000
+    }
+  ],
+  "paragraphs": [
+    "Lv.1~10 합계 골드 10,800,000",
+    "무기 1 · Lv.1~10 소계 골드 1,800,000",
+    "무기 2 · Lv.1~10 소계 골드 1,800,000",
+    "갑옷 · Lv.1~10 소계 골드 3,600,000",
+    "투구 · Lv.1~10 소계 골드 1,800,000",
+    "장신구 · Lv.1~10 소계 골드 1,800,000"
+  ],
+  "evidence": "evidence/source/jobs/hero16-casting-law-gold.v1.json",
+  "legacyDisplay": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "projection": "data/generated/hero-casting-law-by-hero.v1.json#/records/14",
+    "blob": "d5e08e12823bc5a53c728cf4accfe0cf4ce79674",
+    "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "observedHtmlSha256": "7b1a38444032fa256a9733904e0b82eb8e7fa3be7a472f030506ca914f36f207"
+  },
+  "scope": "Existing Hero 16 card, aggregate gold text only. Legacy corroborates slot placement. No runtime or level-by-level publication."
+}

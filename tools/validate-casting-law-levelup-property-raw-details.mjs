@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -30,7 +31,7 @@ const EXPECTED_SUMMARY = [
 const SOURCE_PROJECTION_SHA256 = 'a5260c5654d97157429c3771fbbbf2268096012b261c0b3ed384a26d5a138e8b';
 const check = (condition, code, message) => { if (!condition) throw new Error(`Casting Law LevelUp Property raw-detail validation failed [${code}]: ${message}`); };
 const exactKeys = (value, keys, label) => check(value && typeof value === 'object' && !Array.isArray(value) && isDeepStrictEqual(Object.keys(value).sort(), [...keys].sort()), 'SCHEMA', `${label} keys drift`);
-const read = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+const read = async (root, path) => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
 const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const sourceType = value => value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
 const sourceState = value => value === null ? 'NULL' : value === 0 ? 'ZERO' : value === '' ? 'EMPTY_STRING' : Array.isArray(value) && value.length === 0 ? 'EMPTY_ARRAY' : value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0 ? 'EMPTY_OBJECT' : 'PRESENT';

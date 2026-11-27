@@ -598,13 +598,29 @@ function renderMinimalDetailList(title, labels) {
 function renderHero16MinimalDetailView(data, container) {
   const jobPath = document.createElement('p');
   jobPath.textContent = '전직 · 호크 나이트 → 하이랜더';
+  const discipline = document.createElement('section');
+  const title = document.createElement('h4');
+  title.textContent = '중앙율정';
+  discipline.append(title);
+  for (const line of [
+    'Lv.1~10 합계 골드 10,800,000',
+    '무기 1 · Lv.1~10 소계 골드 1,800,000',
+    '무기 2 · Lv.1~10 소계 골드 1,800,000',
+    '갑옷 · Lv.1~10 소계 골드 3,600,000',
+    '투구 · Lv.1~10 소계 골드 1,800,000',
+    '장신구 · Lv.1~10 소계 골드 1,800,000',
+  ]) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = line;
+    discipline.append(paragraph);
+  }
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath]);
+  }, null, null, [jobPath, discipline]);
 }
 
 async function loadHero16Talent(card) {

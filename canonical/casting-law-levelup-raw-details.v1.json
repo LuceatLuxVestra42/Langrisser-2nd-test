@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Selected shared Casting Law LevelUp raw fields keyed only by ConfigDataCastingLawLevelUpInfo.ID: ID, Name, LevelUpGoldCost. Source-native values only; no runtime cost/consumption semantics or publication.",
+  "scope": "Selected shared Casting Law LevelUp raw fields keyed only by ConfigDataCastingLawLevelUpInfo.ID: ID and LevelUpGoldCost; Name only for the original 50 records. Source-native values only; no runtime cost/consumption semantics or publication.",
   "sourceOrder": [
     66,
     67,
@@ -51,7 +51,47 @@
     10202,
     10203,
     10204,
-    10205
+    10205,
+    1,
+    2,
+    3,
+    4,
+    5,
+    10001,
+    10002,
+    10003,
+    10004,
+    10005,
+    6,
+    7,
+    8,
+    9,
+    10,
+    10006,
+    10007,
+    10008,
+    10009,
+    10010,
+    146,
+    147,
+    148,
+    149,
+    150,
+    10146,
+    10147,
+    10148,
+    10149,
+    10150,
+    161,
+    162,
+    163,
+    164,
+    165,
+    10161,
+    10162,
+    10163,
+    10164,
+    10165
   ],
   "records": [
     {
@@ -503,6 +543,326 @@
         "LevelUpGoldCost": 400000
       },
       "provenance": "evidence/source/jobs/casting-law-levelup-raw-details.v1.json#records/ID=10205"
+    },
+    {
+      "levelUpInfoId": 1,
+      "rawFields": {
+        "ID": 1,
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/0"
+    },
+    {
+      "levelUpInfoId": 2,
+      "rawFields": {
+        "ID": 2,
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/1"
+    },
+    {
+      "levelUpInfoId": 3,
+      "rawFields": {
+        "ID": 3,
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/2"
+    },
+    {
+      "levelUpInfoId": 4,
+      "rawFields": {
+        "ID": 4,
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/3"
+    },
+    {
+      "levelUpInfoId": 5,
+      "rawFields": {
+        "ID": 5,
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/4"
+    },
+    {
+      "levelUpInfoId": 10001,
+      "rawFields": {
+        "ID": 10001,
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/5"
+    },
+    {
+      "levelUpInfoId": 10002,
+      "rawFields": {
+        "ID": 10002,
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/6"
+    },
+    {
+      "levelUpInfoId": 10003,
+      "rawFields": {
+        "ID": 10003,
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/7"
+    },
+    {
+      "levelUpInfoId": 10004,
+      "rawFields": {
+        "ID": 10004,
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/8"
+    },
+    {
+      "levelUpInfoId": 10005,
+      "rawFields": {
+        "ID": 10005,
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/9"
+    },
+    {
+      "levelUpInfoId": 6,
+      "rawFields": {
+        "ID": 6,
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/10"
+    },
+    {
+      "levelUpInfoId": 7,
+      "rawFields": {
+        "ID": 7,
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/11"
+    },
+    {
+      "levelUpInfoId": 8,
+      "rawFields": {
+        "ID": 8,
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/12"
+    },
+    {
+      "levelUpInfoId": 9,
+      "rawFields": {
+        "ID": 9,
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/13"
+    },
+    {
+      "levelUpInfoId": 10,
+      "rawFields": {
+        "ID": 10,
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/14"
+    },
+    {
+      "levelUpInfoId": 10006,
+      "rawFields": {
+        "ID": 10006,
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/15"
+    },
+    {
+      "levelUpInfoId": 10007,
+      "rawFields": {
+        "ID": 10007,
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/16"
+    },
+    {
+      "levelUpInfoId": 10008,
+      "rawFields": {
+        "ID": 10008,
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/17"
+    },
+    {
+      "levelUpInfoId": 10009,
+      "rawFields": {
+        "ID": 10009,
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/18"
+    },
+    {
+      "levelUpInfoId": 10010,
+      "rawFields": {
+        "ID": 10010,
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/19"
+    },
+    {
+      "levelUpInfoId": 146,
+      "rawFields": {
+        "ID": 146,
+        "LevelUpGoldCost": 50000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/20"
+    },
+    {
+      "levelUpInfoId": 147,
+      "rawFields": {
+        "ID": 147,
+        "LevelUpGoldCost": 70000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/21"
+    },
+    {
+      "levelUpInfoId": 148,
+      "rawFields": {
+        "ID": 148,
+        "LevelUpGoldCost": 120000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/22"
+    },
+    {
+      "levelUpInfoId": 149,
+      "rawFields": {
+        "ID": 149,
+        "LevelUpGoldCost": 200000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/23"
+    },
+    {
+      "levelUpInfoId": 150,
+      "rawFields": {
+        "ID": 150,
+        "LevelUpGoldCost": 300000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/24"
+    },
+    {
+      "levelUpInfoId": 10146,
+      "rawFields": {
+        "ID": 10146,
+        "LevelUpGoldCost": 380000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/25"
+    },
+    {
+      "levelUpInfoId": 10147,
+      "rawFields": {
+        "ID": 10147,
+        "LevelUpGoldCost": 460000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/26"
+    },
+    {
+      "levelUpInfoId": 10148,
+      "rawFields": {
+        "ID": 10148,
+        "LevelUpGoldCost": 560000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/27"
+    },
+    {
+      "levelUpInfoId": 10149,
+      "rawFields": {
+        "ID": 10149,
+        "LevelUpGoldCost": 660000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/28"
+    },
+    {
+      "levelUpInfoId": 10150,
+      "rawFields": {
+        "ID": 10150,
+        "LevelUpGoldCost": 800000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/29"
+    },
+    {
+      "levelUpInfoId": 161,
+      "rawFields": {
+        "ID": 161,
+        "LevelUpGoldCost": 25000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/30"
+    },
+    {
+      "levelUpInfoId": 162,
+      "rawFields": {
+        "ID": 162,
+        "LevelUpGoldCost": 35000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/31"
+    },
+    {
+      "levelUpInfoId": 163,
+      "rawFields": {
+        "ID": 163,
+        "LevelUpGoldCost": 60000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/32"
+    },
+    {
+      "levelUpInfoId": 164,
+      "rawFields": {
+        "ID": 164,
+        "LevelUpGoldCost": 100000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/33"
+    },
+    {
+      "levelUpInfoId": 165,
+      "rawFields": {
+        "ID": 165,
+        "LevelUpGoldCost": 150000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/34"
+    },
+    {
+      "levelUpInfoId": 10161,
+      "rawFields": {
+        "ID": 10161,
+        "LevelUpGoldCost": 190000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/35"
+    },
+    {
+      "levelUpInfoId": 10162,
+      "rawFields": {
+        "ID": 10162,
+        "LevelUpGoldCost": 230000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/36"
+    },
+    {
+      "levelUpInfoId": 10163,
+      "rawFields": {
+        "ID": 10163,
+        "LevelUpGoldCost": 280000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/37"
+    },
+    {
+      "levelUpInfoId": 10164,
+      "rawFields": {
+        "ID": 10164,
+        "LevelUpGoldCost": 330000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/38"
+    },
+    {
+      "levelUpInfoId": 10165,
+      "rawFields": {
+        "ID": 10165,
+        "LevelUpGoldCost": 400000
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/levels/39"
     }
   ]
 }

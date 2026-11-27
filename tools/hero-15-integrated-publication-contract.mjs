@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { loadAwakeningInputs, renderAwakeningInternal } from './hero-15-awakening-internal-consumer.mjs';
 import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
@@ -164,9 +165,9 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(hero15TypeCanonicalPath),
     readJson('docs/decisions/hero-15-minimal-central-discipline-gold-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-central-discipline-head-gold-publication.v1.json'),
-    readJson(centralDisciplineGoldPaths.hero),
-    readJson(centralDisciplineGoldPaths.levels),
-    readJson(centralDisciplineGoldPaths.raw),
+    readJson(centralDisciplineGoldPaths.hero).then(doc => lianaCastingInput(centralDisciplineGoldPaths.hero, doc)),
+    readJson(centralDisciplineGoldPaths.levels).then(doc => lianaCastingInput(centralDisciplineGoldPaths.levels, doc)),
+    readJson(centralDisciplineGoldPaths.raw).then(doc => lianaCastingInput(centralDisciplineGoldPaths.raw, doc)),
   ]);
   return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, bond2KeyDecision, bondKeyDecision, bondSelection, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
     centralDisciplineGoldDecision, headGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };

@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -63,7 +64,7 @@ export function validateHero15CastingLawTemplateReferencesData({ evidence, canon
 }
 
 export async function validateHero15CastingLawTemplateReferences(root = process.cwd()) {
-  const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+  const read = async path => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
   const [evidence, canonical] = await Promise.all([read(EVIDENCE), read(CANONICAL)]);
   const result = validateHero15CastingLawTemplateReferencesData({ evidence, canonical });
   process.stdout.write('Hero 15 Casting Law template references: PASS (5 direct ordered references; no costs, effects, or publication admitted)\n');

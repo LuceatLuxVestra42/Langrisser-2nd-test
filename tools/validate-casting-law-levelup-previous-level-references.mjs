@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -17,7 +18,7 @@ const ENDPOINT_SHA256='f184129d99c17ddf90e92d908a328b51d11a3fd56e36ef069017f1c71
 const RELATION_SHA256='e2a7b5256a256f02d2921b371ebe2c4ac359294949d7639c733a225c3316982a';
 const check=(x,code,msg)=>{if(!x)throw new Error(`Casting Law LevelUp Previous-Level reference validation failed [${code}]: ${msg}`);};
 const exactKeys=(x,keys,label)=>check(x&&typeof x==='object'&&!Array.isArray(x)&&isDeepStrictEqual(Object.keys(x).sort(),[...keys].sort()),'SCHEMA',`${label} keys drift`);
-const read=async(root,path)=>JSON.parse(await readFile(resolve(root,path),'utf8'));
+const read=async(root,path)=>lianaCastingInput(path, JSON.parse(await readFile(resolve(root,path),'utf8')));
 const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 
 // Searches the supplied full source population by exact ID equality. The selected

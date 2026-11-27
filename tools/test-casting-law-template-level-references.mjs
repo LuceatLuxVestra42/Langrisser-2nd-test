@@ -1,7 +1,8 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { validateCastingLawTemplateLevelReferencesData } from './validate-casting-law-template-level-references.mjs';
-const parse = async p => JSON.parse(await readFile(resolve(p),'utf8'));
+const parse = async p => lianaCastingInput(p, JSON.parse(await readFile(resolve(p),'utf8')));
 const base = {
  evidence: await parse('evidence/source/jobs/casting-law-template-level-references.v1.json'),
  canonical: await parse('canonical/casting-law-template-level-references.v1.json'),

@@ -1,6 +1,8 @@
+import assert from 'node:assert/strict';
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { readFile } from 'node:fs/promises';import { resolve } from 'node:path';
 import { validateCastingLawLevelUpMaterialReferencesData } from './validate-casting-law-levelup-material-references.mjs';
-const parse=async p=>JSON.parse(await readFile(resolve(p),'utf8'));
+const parse=async p=>lianaCastingInput(p, JSON.parse(await readFile(resolve(p),'utf8')));
 const base={evidence:await parse('evidence/source/jobs/casting-law-levelup-material-references.v1.json'),canonical:await parse('canonical/casting-law-levelup-material-references.v1.json'),templateLevelReferences:await parse('canonical/casting-law-template-level-references.v1.json')};
 const clone=x=>structuredClone(x);
 const tests=[
@@ -26,3 +28,10 @@ const tests=[
 ];
 for(const [name,mutate] of tests){const sample=clone(base);mutate(sample);let rejected=false;try{validateCastingLawLevelUpMaterialReferencesData(sample);}catch{rejected=true;}if(!rejected)throw new Error(`negative control failed: ${name}`);}
 validateCastingLawLevelUpMaterialReferencesData(base);process.stdout.write(`Casting Law LevelUp material-reference negative controls: PASS (${tests.length})\n`);
+
+const replacement = structuredClone(base);
+const sharedLevels = JSON.parse(await readFile('canonical/casting-law-template-level-references.v1.json', 'utf8'));
+replacement.templateLevelReferences.records[0] = sharedLevels.records.find(row => row.templateId === 1 && row.sourceArrayIndex === 0);
+assert.equal(replacement.templateLevelReferences.records[0].levelUpInfoId, 1);
+assert.equal(replacement.templateLevelReferences.records.length, 50);
+assert.throws(() => validateCastingLawLevelUpMaterialReferencesData(replacement), /LEVEL_ROWS/);

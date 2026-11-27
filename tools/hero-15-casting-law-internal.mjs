@@ -1,3 +1,5 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
+import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -18,9 +20,13 @@ export const LIMITATIONS = [
   'Item endpoints establish only the admitted source ID endpoint. Icons are raw paths, not approved assets.',
 ];
 export async function loadInputs(root = process.cwd()) {
-  return Object.fromEntries(await Promise.all(Object.entries(PATHS).map(async ([key, path]) => [key, JSON.parse(await readFile(resolve(root, path), 'utf8'))])));
+  return Object.fromEntries(await Promise.all(Object.entries(PATHS).map(async ([key, path]) => [key, lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')))])));
 }
 export function project(inputs) {
+  // Pin ordered ID, template, source index and locator at the consumer boundary.
+  if (createHash('sha256').update(JSON.stringify(inputs.levels.records)).digest('hex') !== '4e18b29ac1256866c6e1824daafed079464bc845f8216a0a39f762867a07184e') {
+    throw new Error('Hero 15 internal Casting Law level attribution mismatch');
+  }
   const lookup = (rows, key, id) => {
     const matches = rows.filter(row => row[key] === id);
     if (matches.length !== 1) throw new Error(`Expected one ${key}=${id}, found ${matches.length}`);

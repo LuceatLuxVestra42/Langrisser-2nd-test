@@ -13,7 +13,7 @@ import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-pres
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { slotGoldDecisionPath, bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
-import { HERO_16_JOB_PATH_DECISION, HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
+import { lanceGoldDecision, HERO_16_JOB_PATH_DECISION, HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-twenty-batch-contract.mjs';
@@ -77,7 +77,50 @@ async function checkHeroDetailBuildFailures() {
   const membership = 'canonical/hero-job-relations.v1.json';
   const advancement = 'canonical/hero-job-advancement-relations.v1.json';
   const talentError = message => () => 'AssertionError [ERR_ASSERTION]: ' + message;
+  const heroGoldRefs = 'canonical/hero-casting-law-template-references.v1.json';
+  const levelGoldRefs = 'canonical/casting-law-template-level-references.v1.json';
+  const levelCosts = 'canonical/casting-law-levelup-raw-details.v1.json';
+  const lianaDecision = JSON.parse(await readFile('docs/decisions/hero-15-minimal-central-discipline-gold-publication.v1.json','utf8'));
+  const costsFor = (records, ids) => ids.map(id => records.find(row => row.levelUpInfoId === id).rawFields);
+  function exchangeCost(a, b) {
+    [a.LevelUpGoldCost, b.LevelUpGoldCost] = [b.LevelUpGoldCost, a.LevelUpGoldCost];
+  }
   const cases = [
+    {decisionPath:lanceGoldDecision, name:'Lance gold decision missing', error:path => `Error: ENOENT: no such file or directory, open '${path}'`},
+    ...[
+      [lanceGoldDecision, 'Liana decision replaces Lance decision', doc => {
+        for (const key of Object.keys(doc)) delete doc[key];
+        Object.assign(doc,lianaDecision);
+      }, 'publication scope'],
+      [lanceGoldDecision, 'Lance gold slot missing', doc => doc.slots.splice(2,1), 'publication scope'],
+      [levelGoldRefs, 'Lance weapon ordered ID and locator bundles exchanged', ({records}) => {
+        for (const first of records.filter(row => row.templateId === 1)) {
+          const second = records.find(row => row.templateId === 2 && row.sourceArrayIndex === first.sourceArrayIndex);
+          for (const key of ['levelUpInfoId','levelUpSourceArrayIndex','levelUpRecordLocator']) {
+            [first[key],second[key]] = [second[key],first[key]];
+          }
+        }
+      }, 'CastingLawLevelUpInfoList attribution'],
+      [heroGoldRefs, 'Lance weapon FK exchange', ({records}) => {
+        const [first,second] = records.filter(row => row.heroId === 16);
+        [first.templateId,second.templateId] = [second.templateId,first.templateId];
+      }, 'Hero FK'],
+      [heroGoldRefs, 'Lance shared accessory FK missing', doc => {
+        doc.records = doc.records.filter(row => !(row.heroId === 16 && row.templateId === 41));
+      }, 'Hero FK'],
+      [templatePath, 'Lance armor equipment type', ({records}) => {
+        records.find(row => row.templateId === 30).rawRecord.EquipmentType = 2;
+      }, 'EquipmentType'],
+      [levelCosts, 'Lance two costs exchanged within weapon', ({records}) => {
+        exchangeCost(...costsFor(records,[1,2]));
+      }, 'level cost'],
+      [levelCosts, 'Lance armor and head cost vectors exchanged', ({records}) => {
+        const armor = costsFor(records,[146,147,148,149,150,10146,10147,10148,10149,10150]);
+        const head = costsFor(records,[161,162,163,164,165,10161,10162,10163,10164,10165]);
+        armor.forEach((row,index) => exchangeCost(row,head[index]));
+      }, 'level cost'],
+    ].map(([decisionPath,name,mutate,reason]) => ({decisionPath,name,mutate,error:()=>'Error: Lance gold '+reason+' mismatch'})),
+
     ...[
       ['evidence/source/hero-16-cv-presence.v1.json', 'missing Lance PRESENT row',
         d=>{d.records=d.records.filter(r=>r.heroId!==16);}, 'Hero 16 CharImage 16 PRESENT evidence missing or mismatched'],
@@ -360,6 +403,9 @@ async function checkHeroDetailBuildFailures() {
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
+    ["Lance armor and head gold exchanged", "Lance gold paragraph attribution", "    '갑옷 · Lv.1~10 소계 골드 3,600,000',\n    '투구 · Lv.1~10 소계 골드 1,800,000',", "    '갑옷 · Lv.1~10 소계 골드 1,800,000',\n    '투구 · Lv.1~10 소계 골드 3,600,000',"],
+    ["Lance weapon labels exchanged", "Lance gold paragraph attribution", "    '무기 1 · Lv.1~10 소계 골드 1,800,000',\n    '무기 2 · Lv.1~10 소계 골드 1,800,000',", "    '무기 2 · Lv.1~10 소계 골드 1,800,000',\n    '무기 1 · Lv.1~10 소계 골드 1,800,000',"],
+
     ['Lance ordinary cost and cooldown swapped', 'Packaged Lance ordinary skill row text or placement',
       '`${row.cost}코스트`, ...range', '`${data.ordinarySkills[i===1 ? 2 : i===2 ? 1 : i].cost}코스트`, ...range.map((value,j)=>j===0 && (i===1 || i===2) ? data.ordinarySkills[3-i].cooldownLabelKo : value)'],
     ['Lance ordinary 10311 type changed', 'Packaged Lance ordinary skill row text or placement',

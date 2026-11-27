@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { loadInputs, render } from './hero-15-casting-law-internal.mjs';
 import { validate } from './validate-hero-15-casting-law-internal.mjs';
@@ -20,3 +21,10 @@ for (const mutate of [
   assert.throws(() => validate(inputs, `${JSON.stringify(altered, null, 2)}\n`));
 }
 console.log('Hero 15 Casting Law internal negative tests: PASS');
+
+const replacement = structuredClone(inputs);
+const sharedLevels = JSON.parse(await readFile('canonical/casting-law-template-level-references.v1.json', 'utf8'));
+replacement.levels.records[0] = sharedLevels.records.find(row => row.templateId === 1 && row.sourceArrayIndex === 0);
+assert.equal(replacement.levels.records[0].levelUpInfoId, 1);
+assert.equal(replacement.levels.records.length, 50);
+assert.throws(() => render(replacement), /internal Casting Law level attribution mismatch/);

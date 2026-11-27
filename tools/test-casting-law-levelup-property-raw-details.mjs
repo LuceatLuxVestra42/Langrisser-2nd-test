@@ -1,8 +1,9 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateCastingLawLevelUpPropertyRawDetailsData } from './validate-casting-law-levelup-property-raw-details.mjs';
 
-const read = async path => JSON.parse(await readFile(path, 'utf8'));
+const read = async path => lianaCastingInput(path, JSON.parse(await readFile(path, 'utf8')));
 const original = {
   evidence: await read('evidence/source/jobs/casting-law-levelup-property-raw-details.v1.json'),
   canonical: await read('canonical/casting-law-levelup-property-raw-details.v1.json'),
@@ -65,3 +66,10 @@ for (const [label, mutate] of cases) {
   assert.throws(() => validateCastingLawLevelUpPropertyRawDetailsData(data), undefined, `must reject ${label}`);
 }
 console.log(`Casting Law LevelUp Property raw-detail negative controls: PASS (${cases.length} mutation cases; key-presence/state/value/type and regression boundaries)`);
+
+const replacement = structuredClone(original);
+const sharedLevels = JSON.parse(await readFile('canonical/casting-law-template-level-references.v1.json', 'utf8'));
+replacement.references.records[0] = sharedLevels.records.find(row => row.templateId === 1 && row.sourceArrayIndex === 0);
+assert.equal(replacement.references.records[0].levelUpInfoId, 1);
+assert.equal(replacement.references.records.length, 50);
+assert.throws(() => validateCastingLawLevelUpPropertyRawDetailsData(replacement), /SELECTION/);
