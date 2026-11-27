@@ -67,8 +67,8 @@ const equipmentNavigation = await read('generated/exclusive-equipment-hero-navig
 assert.deepEqual(equipmentNavigation.records.find(({ equipmentId }) => equipmentId === 535).navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-15' });
 
-const element = () => ({
-  children: [],
+const element = (tag) => ({
+  tag, open: false, children: [],
   append(...children) { this.children.push(...children); },
   replaceChildren(...children) { this.children = children; },
   addEventListener() {},
@@ -189,7 +189,13 @@ for (const value of [undefined, '10800000', null, 0, { gold: 10800000, materials
   assert.throws(() => validateHero15MinimalDetail({ generatedText: JSON.stringify(invalid, null, 2) + '\n', inputs }), /stale or non-deterministic/);
 }
 assert.throws(() => validateHero15MinimalDetail({ generatedText: generatedText.replace('"centralDisciplineGoldTotal": 10800000', '"centralDisciplineGoldTotal": 10800001'), inputs }), /stale or non-deterministic/);
-const awakeningSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '각성 재료');
+const awakeningSections = container.children[0].children.filter(node => node.children?.[0]?.textContent === '각성 재료');
+assert.equal(awakeningSections.length, 1);
+const [awakeningSection] = awakeningSections;
+assert.equal(awakeningSection.tag, 'details');
+assert.equal(awakeningSection.open, false);
+assert.deepEqual(awakeningSection.children.map(node => node.tag), ['summary', 'ul', 'p']);
+assert.equal(castingSection.tag, 'section');
 assert.deepEqual(awakeningSection.children[1].children.map(({ textContent }) => textContent), [
   '1단계 · 생령의 수정 × 8', '1단계 · 심연의 수정 × 8', '1단계 · 빛나는 별의 조각 × 5',
   '2단계 · 계절풍의 마음 × 12', '2단계 · 대륙의 마음 × 12', '2단계 · 영원한 달의 빛 × 5',
@@ -504,6 +510,8 @@ const leakedCommand = structuredClone(generated);
 leakedCommand.heroes[0].soldierCommandLinesKo.push('최종 · 생명 +40%');
 assert.throws(() => render(leakedCommand, talent, element()), /Soldier Command consumer/);
 const goldSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '유대 강화 골드');
+assert.equal(goldSection.tag, 'details');
+assert.equal(goldSection.children[0].tag, 'summary');
 const goldGroups = goldSection.children.slice(1);
 assert.equal(goldGroups.length, 6);
 assert.ok(goldGroups.every(({ children }) => children[1].children.length === 9));
