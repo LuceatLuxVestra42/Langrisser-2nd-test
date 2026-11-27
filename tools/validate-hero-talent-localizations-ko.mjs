@@ -19,10 +19,14 @@ const expected = new Map([
   ['15:5', { skillId: 3216, text: '행동 종료 시 주위 <font color="red">2칸</font> 내 다른 아군 부대 디버프 <font color="red">1개</font> 제거<br/> 동시에 자신 지력의 <font color="red">2.5배</font>만큼 회복.' }],
   ['15:6', { skillId: 3218, text: '행동 종료 시 주위 <font color="red">2칸</font> 내 다른 아군 부대 디버프 <font color="red">2개</font> 제거<br/> 동시에 자신 지력의 <font color="red">3배</font>만큼 회복.' }],
 ]);
-const names = new Map([[6, '전설의 기사'], [8, '마력 강화'], [15, '성결한 수녀']]);
+for (const [star,skillId,percent] of [[3,3278,15],[4,3279,20],[5,3280,25],[6,3281,30]]) {
+  expected.set(`16:${star}`, {skillId, text: `"비병" 및 "기병"과 전투 시 공격 방어 <font color="red">+${percent}%</font>.`});
+}
+const names = new Map([[6, '전설의 기사'], [8, '마력 강화'], [15, '성결한 수녀'], [16, '하늘의 사령관']]);
 const sourceFiles = new Map([
   [6, { heroName: '레온', path: 'hero/data/레온.js', blob: '3b074244053151e0197c2cd1cfbbc01af0cb02b6' }],
   [8, { heroName: '라나', path: 'hero/data/라나.js', blob: 'f73a45f2df303788f1dd0ea047ca71ec34bba45e' }],
+  [16, { heroName:'란스', path:'hero/data/란스.js', blob:'0be2f806f90c21507a814dc64057921c51b1bd2e' }],
   [15, { heroName: '리아나', path: 'hero/data/리아나.js', blob: '139e57339caa0d07d540ed091a208cae6f39ddc3' }],
 ]);
 const sourceCommit = 'a85bba49dcf073563e7366dc18e96b7ba67c2ae3';
@@ -46,7 +50,7 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
   exactKeys(evidence, ['schemaVersion', 'responsibility', 'scope', 'source', 'projectReview', 'records', 'descriptions'], 'Evidence');
   check(evidence.schemaVersion === 1 && evidence.responsibility === 'hero-talent-localization-ko', 'SCHEMA', 'Evidence identity drift');
   exactKeys(evidence.scope, ['heroIds', 'stars', 'claim', 'outOfScope'], 'Evidence scope');
-  check(isDeepStrictEqual(evidence.scope.heroIds, [6, 8, 15]) && isDeepStrictEqual(evidence.scope.stars, [3, 4, 5, 6]), 'SCOPE', 'Hero/star scope drift');
+  check(isDeepStrictEqual(evidence.scope.heroIds, [6, 8, 15, 16]) && isDeepStrictEqual(evidence.scope.stars, [3, 4, 5, 6]), 'SCOPE', 'Hero/star scope drift');
   check(evidence.scope.claim === 'Project-reviewed Korean normal Talent display name per Hero and Korean star-specific description keyed by exact Hero ID, star, and already-admitted Skill ID.', 'SCOPE', 'Claim meaning drift');
   check(Array.isArray(evidence.scope.outOfScope) && evidence.scope.outOfScope.includes('official Korean-server terminology')
     && evidence.scope.outOfScope.includes('structured combat mechanics') && evidence.scope.outOfScope.includes('Talent star-selection rule revalidation'), 'SCOPE', 'out-of-scope limitations missing');
@@ -58,7 +62,7 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
     && evidence.source.baseUrl === `https://raw.githubusercontent.com/redpanda7301/langrisser/${sourceCommit}/`
     && evidence.source.nameField === 'data[0].Talent[0].TalentName'
     && evidence.source.descriptionFieldRule === 'data[0].Talent[0].Abilities[star - 1].Desc', 'SOURCE', 'pinned source contract drift');
-  check(Array.isArray(evidence.source.files) && evidence.source.files.length === 3, 'SOURCE', 'expected exactly three source files');
+  check(Array.isArray(evidence.source.files) && evidence.source.files.length === 4, 'SOURCE', 'expected exactly four source files');
   for (const [heroId, expectedFile] of sourceFiles) {
     const file = evidence.source.files.find((row) => row.heroId === heroId);
     exactKeys(file, ['heroId', 'heroName', 'path', 'gitBlobSha1'], `source file Hero ${heroId}`);
@@ -67,7 +71,7 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
 
   exactKeys(evidence.projectReview, ['evidenceClass', 'claimScope', 'repository', 'ref', 'legacyCommitTree', 'contract', 'finalLocalization', 'sourceIntake', 'sourceContract', 'stage5Decision', 'hero15FinalRecord', 'owningReview', 'parityGuard', 'overlayGuard', 'limitations'], 'Project review');
   const review = evidence.projectReview;
-  check(review.evidenceClass === 'B' && review.claimScope === 'Prior project review decision and applicability for the exact Hero 6, 8, and 15 localization records.'
+  check(review.evidenceClass === 'B' && review.claimScope === 'Prior project review decision and applicability for the exact Hero 6, 8, 15, and 16 localization records.'
     && review.repository === 'LuceatLuxVestra42/langrisser-future-guide' && review.ref === legacyCommit && review.legacyCommitTree === legacyTree, 'PROVENANCE', 'Legacy review ref, tree, or evidence class drift');
   exactKeys(review.contract, ['path', 'gitBlobSha1'], 'Legacy contract');
   check(review.contract.path === 'data/contracts/localization-audit-hero-talent-stage6-final.v1.json' && review.contract.gitBlobSha1 === '942fd0182888ad4d4bce383cedb3f65b019f7eb5', 'PROVENANCE', 'Legacy contract pin drift');
@@ -115,7 +119,7 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'scope', 'officialKrProvenanceStatus', 'nameRecords', 'descriptionRecords'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.officialKrProvenanceStatus === 'unverified', 'CANONICAL', 'Canonical version or official localization boundary drift');
-  check(canonical.scope === 'Project-reviewed Korean normal Talent names for Heroes 6, 8, and 15 and star 3-6 descriptions keyed by exact Hero ID, star, and existing Talent Skill ID; official Korean-server status is unverified.', 'CANONICAL', 'Canonical scope drift');
+  check(canonical.scope === 'Project-reviewed Korean normal Talent names for Heroes 6, 8, 15, and 16 and star 3-6 descriptions keyed by exact Hero ID, star, and existing Talent Skill ID; official Korean-server status is unverified.', 'CANONICAL', 'Canonical scope drift');
 
   const relationByKey = new Map();
   check(Array.isArray(relations.records), 'RELATION', 'existing Talent relation owner records missing');
@@ -127,9 +131,10 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
   const expectedRelations = new Map([
     ['6:3', 3067], ['6:4', 3072], ['6:5', 3077], ['6:6', 3082],
     ['8:3', 3196], ['8:4', 3197], ['8:5', 3198], ['8:6', 3199],
+    ['16:2',3277], ['16:3',3278], ['16:4',3279], ['16:5',3280], ['16:6',3281],
     ...Object.entries(hero15SkillsByStar).map(([star, skillId]) => [`15:${star}`, skillId]),
   ]);
-  check(relationByKey.size === 12 && expectedRelations.size === 12, 'RELATION', 'Talent relation population must remain exactly 12');
+  check(relationByKey.size === 17 && expectedRelations.size === 17, 'RELATION', 'Talent relation population must remain exactly 17');
   for (const [key, skillId] of expectedRelations) check(relationByKey.get(key) === skillId, 'RELATION', `existing admitted Talent relation mismatch ${key}`);
   check(Array.isArray(skills.records), 'SKILL_IDENTITY', 'admitted Skill Identity records are missing');
   const skillRows = new Map(skills.records.map(row => [row.skillId, row]));
@@ -139,8 +144,8 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
     check(skill && (key.startsWith('15:') ? skill.nameCn === '圣洁的修女' : true), 'SKILL_IDENTITY', `Talent Skill Identity missing or mismatched ${key}`);
   }
 
-  check(Array.isArray(evidence.records) && evidence.records.length === names.size, 'EVIDENCE', 'exactly two Hero-level Talent names are required');
-  check(Array.isArray(canonical.nameRecords) && canonical.nameRecords.length === names.size, 'CANONICAL', 'exactly two Hero-level Talent names are required');
+  check(Array.isArray(evidence.records) && evidence.records.length === names.size, 'EVIDENCE', 'exactly four Hero-level Talent names are required');
+  check(Array.isArray(canonical.nameRecords) && canonical.nameRecords.length === names.size, 'CANONICAL', 'exactly four Hero-level Talent names are required');
   const evidenceNames = new Map();
   for (const row of evidence.records) {
     exactKeys(row, ['heroId', 'talentNameKo', 'nameSourceLocator', 'reviewLocator', 'reviewStatus', 'reviewRequired'], 'Evidence name');
@@ -163,8 +168,8 @@ export async function validateHeroTalentLocalizationsKo(root = process.cwd()) {
   }
   check(evidenceNames.size === names.size && canonicalNames.size === names.size, 'CANONICAL', 'name claim set incomplete');
 
-  check(Array.isArray(evidence.descriptions) && evidence.descriptions.length === expected.size, 'EVIDENCE', 'exactly eight reviewed star descriptions are required');
-  check(Array.isArray(canonical.descriptionRecords) && canonical.descriptionRecords.length === expected.size, 'CANONICAL', 'exactly eight star descriptions are required');
+  check(Array.isArray(evidence.descriptions) && evidence.descriptions.length === expected.size, 'EVIDENCE', 'exactly sixteen reviewed star descriptions are required');
+  check(Array.isArray(canonical.descriptionRecords) && canonical.descriptionRecords.length === expected.size, 'CANONICAL', 'exactly sixteen star descriptions are required');
   const evidenceDescriptions = new Map();
   for (const row of evidence.descriptions) {
     exactKeys(row, ['heroId', 'star', 'skillId', 'descriptionKoRaw', 'sourceLocator', 'reviewLocator', 'reviewStatus', 'reviewRequired'], 'Evidence description');

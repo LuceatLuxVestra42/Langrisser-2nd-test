@@ -1066,6 +1066,26 @@
       "heroId": 16,
       "jobId": 302,
       "provenance": "evidence/source/jobs/hero16-job-advancement-direct.v1.json#/connections/1/Job_ID"
+    },
+    {
+      "heroId": 16,
+      "jobId": 403,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/1/Job_ID"
+    },
+    {
+      "heroId": 16,
+      "jobId": 202,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/3/Job_ID"
+    },
+    {
+      "heroId": 16,
+      "jobId": 405,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/4/Job_ID"
+    },
+    {
+      "heroId": 16,
+      "jobId": 306,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/5/Job_ID"
     }
   ]
 }

@@ -11,7 +11,7 @@ await cp(source, repo, { recursive: true, filter: (path) => !path.split('/').inc
 const run = () => spawnSync(process.execPath, ['tools/validate-hero-talent-star-skills.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /relations=12/);
+  assert.match(result.stdout, /relations=17/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -31,12 +31,12 @@ async function mutateJson(path, mutate, label, pattern) {
 }
 
 try {
-  assertPass(run(), 'normal twelve-relation fixture');
+  assertPass(run(), 'normal seventeen-relation fixture');
   const c = 'canonical/hero-talent-star-skills.v1.json';
   const e = 'evidence/source/hero-talent-star-skills.v1.json';
   const r = 'evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-5-6-8.json';
   await mutateJson(c, (v) => { v.records.pop(); }, 'missing relation', /\[CANONICAL\]/);
-  await mutateJson(c, (v) => { v.records[v.records.length - 1] = { ...v.records[0] }; }, 'duplicate Hero/star', /\[CANONICAL\].*duplicate/);
+  await mutateJson(c, (v) => { v.records[11] = { ...v.records[0] }; }, 'duplicate Hero/star', /\[CANONICAL\].*duplicate/);
   await mutateJson(c, (v) => { v.records[0].skillId = 9999; }, 'wrong Skill ID', /\[CANONICAL\].*mismatch/);
   await mutateJson(c, (v) => { v.records[0].heroId = 999; }, 'unregistered Hero endpoint', /\[SCOPE\]|\[ENDPOINT\]/);
   await mutateJson(c, (v) => { v.records[0].star = 7; }, 'out-of-range star', /\[SCOPE\]/);

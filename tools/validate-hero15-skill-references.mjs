@@ -72,7 +72,7 @@ export async function validateHero15SkillReferences(root=process.cwd()){
  check(stats15.length===25,'JOBLEVEL_BASELINE','Hero 15 existing JobLevel raw-stat population changed');
  const statsIds=new Set(stats15.map(r=>r.jobLevelId));
  check(advancement.records.filter(r=>r.heroId===15).length===5,'ADVANCEMENT_BASELINE','Hero 15 direct advancement population changed');
- check(talent.records.length===12,'TALENT_BASELINE','Existing Talent reference population changed');
+ check(talent.records.filter(r=>[6,8,15].includes(r.heroId)).length===12,'TALENT_BASELINE','Existing Talent reference population changed');
  const expectedCanonical=[];
  expectedCanonical.push({referenceKind:'HERO_DIRECT_SKILL_REFERENCE',heroId:15,skillId:10801,sourceField:'ConfigDataHeroInfo.Skills_ID',endpointNamespace:'ConfigDataSkillInfo.ID',provenance:{reference:`${evidencePath}#references/0`,endpoint:'canonical/skills.v1.json#skillId=10801'}});
  for(let i=0;i<jobRefs.length;i++){

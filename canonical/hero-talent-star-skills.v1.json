@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Inherited B-class Hero normal Talent Skill reference by exact Hero ID and star; admitted Heroes 6, 8 and 15 at stars 3 through 6 only.",
+  "scope": "Inherited B-class Hero normal Talent Skill references: Heroes 6, 8 and 15 at stars 3 through 6; Hero 16 at stars 2 through 6.",
   "records": [
     {
       "heroId": 6,
@@ -73,6 +73,36 @@
       "star": 6,
       "skillId": 3218,
       "provenance": "evidence/source/hero-talent-star-skills.v1.json#heroId=15&star=6"
+    },
+    {
+      "heroId": 16,
+      "star": 2,
+      "skillId": 3277,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/0/TalentSkill_IDs/1"
+    },
+    {
+      "heroId": 16,
+      "star": 3,
+      "skillId": 3278,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/0/TalentSkill_IDs/2"
+    },
+    {
+      "heroId": 16,
+      "star": 4,
+      "skillId": 3279,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/0/TalentSkill_IDs/3"
+    },
+    {
+      "heroId": 16,
+      "star": 5,
+      "skillId": 3280,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/0/TalentSkill_IDs/4"
+    },
+    {
+      "heroId": 16,
+      "star": 6,
+      "skillId": 3281,
+      "provenance": "evidence/source/configdata/hero-16-talent.v1.json#/connections/0/TalentSkill_IDs/5"
     }
   ]
 }

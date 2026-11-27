@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Project-reviewed Korean normal Talent names for Heroes 6, 8, and 15 and star 3-6 descriptions keyed by exact Hero ID, star, and existing Talent Skill ID; official Korean-server status is unverified.",
+  "scope": "Project-reviewed Korean normal Talent names for Heroes 6, 8, 15, and 16 and star 3-6 descriptions keyed by exact Hero ID, star, and existing Talent Skill ID; official Korean-server status is unverified.",
   "officialKrProvenanceStatus": "unverified",
   "nameRecords": [
     {
@@ -26,6 +26,14 @@
       "reviewRequired": false,
       "evidenceClass": "B",
       "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&claim=name"
+    },
+    {
+      "heroId": 16,
+      "talentNameKo": "하늘의 사령관",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=16&claim=name"
     }
   ],
   "descriptionRecords": [
@@ -148,6 +156,46 @@
       "reviewRequired": false,
       "evidenceClass": "B",
       "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=15&star=6&skillId=3218"
+    },
+    {
+      "heroId": 16,
+      "star": 3,
+      "skillId": 3278,
+      "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+15%</font>.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=16&star=3&skillId=3278"
+    },
+    {
+      "heroId": 16,
+      "star": 4,
+      "skillId": 3279,
+      "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+20%</font>.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=16&star=4&skillId=3279"
+    },
+    {
+      "heroId": 16,
+      "star": 5,
+      "skillId": 3280,
+      "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+25%</font>.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=16&star=5&skillId=3280"
+    },
+    {
+      "heroId": 16,
+      "star": 6,
+      "skillId": 3281,
+      "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+30%</font>.",
+      "localizationStatus": "CONFIRMED_EXISTING_KR_REUSE",
+      "reviewRequired": false,
+      "evidenceClass": "B",
+      "provenance": "evidence/source/hero-talent-localizations-ko.v1.json#heroId=16&star=6&skillId=3281"
     }
   ]
 }

@@ -1,3 +1,4 @@
+import { lanceTalentDecision, lanceTalentPublic } from './hero-16-talent-publication-contract.mjs';
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -74,7 +75,38 @@ async function checkHeroDetailBuildFailures() {
   const templatePath = 'canonical/casting-law-template-raw-details.v1.json';
   const membership = 'canonical/hero-job-relations.v1.json';
   const advancement = 'canonical/hero-job-advancement-relations.v1.json';
+  const talentError = message => () => 'AssertionError [ERR_ASSERTION]: ' + message;
   const cases = [
+    { decisionPath: membership, name: 'Lance Talent Job 403 omitted',
+      mutate: doc => { doc.records = doc.records.filter(r=>!(r.heroId===16 && r.jobId===403)); },
+      error: talentError('Lance Talent Job membership') },
+    { decisionPath:'canonical/hero-talent-star-skills.v1.json', name:'Lance two-star relation missing',
+      mutate: doc => { doc.records = doc.records.filter(r=>!(r.heroId===16 && r.star===2)); }, error:talentError('Lance Talent star relations') },
+    { decisionPath:'canonical/skills.v1.json', name:'Lance CN Skill 3277 missing',
+      mutate: doc => { doc.records = doc.records.filter(r=>r.skillId!==3277); }, error:talentError('Lance Talent CN Skill identity') },
+    { decisionPath:'canonical/hero-talent-localizations-ko.v1.json', name:'Lance three-star reviewed text missing',
+      mutate: doc => { doc.descriptionRecords = doc.descriptionRecords.filter(r=>!(r.heroId===16 && r.star===3)); }, error:talentError('Lance Talent reviewed KO relations') },
+    { decisionPath:'canonical/hero-talent-localizations-ko.v1.json', name:'Lance two-star promoted to reviewed KO',
+      mutate: doc => { doc.descriptionRecords.push({...doc.descriptionRecords.find(r=>r.heroId===16),star:2,skillId:3277}); },
+      error:talentError('Lance Talent reviewed KO relations') },
+    { decisionPath:lanceTalentDecision, name:'Lance Talent publication missing',
+      error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath:lanceTalentDecision, name:'Lance display decision status changed',
+      mutate: doc => { doc.scope.star2.status='CONFIRMED_EXISTING_KR_REUSE'; }, error:talentError('Lance Talent decision scope') },
+    { decisionPath:lanceTalentDecision, name:'Lance two-star decision attached to 3278',
+      mutate: doc => { doc.scope.star2.skillId=3278; }, error:talentError('Lance Talent decision scope') },
+    { decisionPath:lanceTalentDecision, name:'Lance two-star decision wording changed',
+      mutate: doc => { doc.scope.star2.descriptionKoRaw+=' '; }, error:talentError('Lance Talent decision scope') },
+    { decisionPath:lanceTalentDecision, name:'Lance decision internal field publication',
+      mutate: doc => { doc.scope.publicFields.star.push('connectionId'); }, error:talentError('Lance Talent decision scope') },
+    { decisionPath:lanceTalentPublic, finalFile:true, name:'Lance generated internal field',
+      mutate: doc => { doc.talent.starDescriptions[0].connectionId=160; }, error:talentError('Lance Talent public row keys') },
+    { decisionPath:lanceTalentPublic, finalFile:true, name:'Lance final CN two and three stars switched',
+      mutate: doc => {
+        const [two,three]=doc.talent.starDescriptions;
+        [two.descriptionCn,three.descriptionCn]=[three.descriptionCn,two.descriptionCn];
+      }, error:talentError('Lance Talent final CN row attribution') },
+
     ...[401, 302].map(jobId => ({
       decisionPath: membership, name: `lance-job-${jobId}-missing`,
       mutate: doc => { doc.records = doc.records.filter(row => !(row.heroId === 16 && row.jobId === jobId)); },
@@ -159,7 +191,7 @@ async function checkHeroDetailBuildFailures() {
       const destination = join(fixture, 'package');
       await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
       if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
-      const path = join(source, test.decisionPath);
+      const path = join(test.finalFile && mode === '--verify-dir' ? destination : source, test.decisionPath);
       if (test.mutate) {
         const decision = JSON.parse(await readFile(path, 'utf8'));
         test.mutate(decision);
@@ -176,6 +208,35 @@ async function checkHeroDetailBuildFailures() {
     }
   }
 
+  for (const mode of modes) {
+    const root = await mkdtemp(join(temp, 'lance-talent-missing-'));
+    const source = join(root, 'source');
+    const destination = join(root, 'package');
+    await cp(process.cwd(), source, {recursive:true,filter:path=>path!==join(process.cwd(),'.git')});
+    if (mode === '--verify-dir') await cp(normalPackage,destination,{recursive:true});
+    await rm(join(mode === '--verify-dir' ? destination : source, lanceTalentPublic));
+    const result = run(source,mode,destination);
+    assert.equal(result.status,1);
+    assert.match(result.stderr,/ENOENT[^\n]*hero-16-talent-public.v1.json/);
+    await rm(root,{recursive:true});
+  }
+  for (const mode of modes) {
+    const root = await mkdtemp(join(temp, 'lance-selector-'));
+    const source = join(root, 'source');
+    const destination = join(root, 'package');
+    await cp(process.cwd(),source,{recursive:true,filter:path=>path!==join(process.cwd(),'.git')});
+    if (mode === '--verify-dir') await cp(normalPackage,destination,{recursive:true});
+    const owner = join(source,'tools/hero-16-talent-publication-contract.mjs');
+    const correct = await readFile(owner,'utf8');
+    const broken = correct.replace('connection.TalentSkill_IDs[star - 1]', 'connection.TalentSkill_IDs[star === 2 ? 0 : star - 1]');
+    assert.notEqual(broken,correct);
+    await writeFile(owner,broken);
+    const result = run(source,mode,destination);
+    assert.equal(result.status,1);
+    assert.match(result.stderr,/AssertionError \[ERR_ASSERTION\]: Lance two-star selector must use index 1/);
+    console.log(`Lance ${mode}: rejected production selector reading index zero`);
+    await rm(root,{recursive:true});
+  }
   const firstIcon = 'assets/bond-materials/FetterMaterial01.png';
   const secondIcon = 'assets/bond-materials/FetterMaterial02.png';
   async function changeRenderer(root, before, after) {

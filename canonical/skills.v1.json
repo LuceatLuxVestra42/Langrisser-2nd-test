@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
+  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
   "records": [
     {
       "skillId": 3067,
@@ -1091,6 +1091,56 @@
         "identity": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json#skillInfo/rawRecord/ID",
         "name": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json#skillInfo/rawRecord/Name",
         "description": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json#skillInfo/rawRecord/Desc"
+      }
+    },
+    {
+      "skillId": 3277,
+      "nameCn": "空骑统帅",
+      "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>10%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-talent.v1.json#/skills/0/ID",
+        "name": "evidence/source/configdata/hero-16-talent.v1.json#/skills/0/Name",
+        "description": "evidence/source/configdata/hero-16-talent.v1.json#/skills/0/Desc"
+      }
+    },
+    {
+      "skillId": 3278,
+      "nameCn": "空骑统帅",
+      "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>15%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-talent.v1.json#/skills/1/ID",
+        "name": "evidence/source/configdata/hero-16-talent.v1.json#/skills/1/Name",
+        "description": "evidence/source/configdata/hero-16-talent.v1.json#/skills/1/Desc"
+      }
+    },
+    {
+      "skillId": 3279,
+      "nameCn": "空骑统帅",
+      "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>20%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-talent.v1.json#/skills/2/ID",
+        "name": "evidence/source/configdata/hero-16-talent.v1.json#/skills/2/Name",
+        "description": "evidence/source/configdata/hero-16-talent.v1.json#/skills/2/Desc"
+      }
+    },
+    {
+      "skillId": 3280,
+      "nameCn": "空骑统帅",
+      "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>25%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-talent.v1.json#/skills/3/ID",
+        "name": "evidence/source/configdata/hero-16-talent.v1.json#/skills/3/Name",
+        "description": "evidence/source/configdata/hero-16-talent.v1.json#/skills/3/Desc"
+      }
+    },
+    {
+      "skillId": 3281,
+      "nameCn": "空骑统帅",
+      "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>30%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-talent.v1.json#/skills/4/ID",
+        "name": "evidence/source/configdata/hero-16-talent.v1.json#/skills/4/Name",
+        "description": "evidence/source/configdata/hero-16-talent.v1.json#/skills/4/Desc"
       }
     }
   ]

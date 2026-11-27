@@ -658,7 +658,7 @@ const hero60JobInfoRows = await readJson('evidence/source/configdata/ConfigDataJ
 check(JSON.stringify(hero60JobInfoRows.map((row) => row.ID)) === '[213,214]'
   && hero60JobInfoRows.find((row) => row.ID === 213)?.Name === '剑斗士'
   && hero60JobInfoRows.find((row) => row.ID === 214)?.Name === '剑斗统帅', 'Hero 60 pinned JobInfo ID/name set drift');
-check(talentRelations.records.every((row) => [6,8,15].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6, 8 and 15');
+check(talentRelations.records.every((row) => [6,8,15,16].includes(row.heroId)), 'Talent owner scope expanded beyond Heroes 6, 8, 15 and 16');
 
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities, skills, heroJobLevelRawStats, fullDetailPublicationDecision);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');

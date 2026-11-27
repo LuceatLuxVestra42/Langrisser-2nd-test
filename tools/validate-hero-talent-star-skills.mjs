@@ -1,3 +1,4 @@
+import { lanceTalentRelations, readLanceTalentSource } from './hero-16-talent-publication-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
@@ -112,7 +113,7 @@ export async function validateHeroTalentStarSkills(root = process.cwd()) {
     && rule.limitations.some((x) => /Talent Korean localization is not admitted/.test(x)), 'LIMITATIONS', 'required claim limitations missing');
 
   exactKeys(canonical, ['schemaVersion', 'scope', 'records'], 'Canonical');
-  check(canonical.schemaVersion === 1 && canonical.scope === "Inherited B-class Hero normal Talent Skill reference by exact Hero ID and star; admitted Heroes 6, 8 and 15 at stars 3 through 6 only.", 'CANONICAL', 'Canonical schema or scope drift');
+  check(canonical.schemaVersion === 1 && canonical.scope === "Inherited B-class Hero normal Talent Skill references: Heroes 6, 8 and 15 at stars 3 through 6; Hero 16 at stars 2 through 6.", 'CANONICAL', 'Canonical schema or scope drift');
   check(Array.isArray(rawRows), 'SOURCE', 'preserved JobConnection source projection must be an array');
   const rawById = new Map();
   for (const row of [...rawRows, ...conn15]) {
@@ -188,9 +189,13 @@ export async function validateHeroTalentStarSkills(root = process.cwd()) {
   }
   check(claimByKey.size === expected.size && [...expected.keys()].every((key) => claimByKey.has(key)), 'CLAIM', 'Evidence claim set missing or extra');
 
-  check(Array.isArray(canonical.records) && canonical.records.length === expected.size, 'CANONICAL', 'Canonical must contain exactly twelve admitted rows');
+  const lance = await readLanceTalentSource(root);
+  const lanceRows = canonical.records.filter(row => row.heroId === 16);
+  check(isDeepStrictEqual(lanceRows, lanceTalentRelations(lance)), 'CANONICAL', 'Hero 16 Talent reference mismatch');
+  check(lance.connections.every(row => jobPairSet.has(`16:${row.Job_ID}`)), 'RELATION', 'Hero 16 Job membership mismatch');
+  check(Array.isArray(canonical.records) && canonical.records.length === expected.size + lanceRows.length, 'CANONICAL', 'Canonical must contain the 12 existing and five Lance rows');
   const canonicalByKey = new Map();
-  for (const row of canonical.records) {
+  for (const row of canonical.records.filter(row => row.heroId !== 16)) {
     exactKeys(row, ['heroId', 'star', 'skillId', 'provenance'], 'Canonical row');
     check(Number.isInteger(row.heroId) && Number.isInteger(row.star) && Number.isInteger(row.skillId), 'CANONICAL', 'Canonical IDs and star must be integers');
     const key = `${row.heroId}:${row.star}`;
@@ -202,7 +207,7 @@ export async function validateHeroTalentStarSkills(root = process.cwd()) {
     canonicalByKey.set(key, row);
   }
   check(canonicalByKey.size === expected.size && [...expected.keys()].every((key) => canonicalByKey.has(key)), 'CANONICAL', 'Canonical relation set missing or extra');
-  return { heroCount: 3, relationCount: canonical.records.length, sourceArrayRecords: sourceArrays.records.length, sourceArrayClass: 'A_REUSED_HASH_VERIFIED_PROJECTION', selectionRelationClass: 'B', stage7Role: 'PARITY_GUARD_ONLY' };
+  return { heroCount: 4, relationCount: canonical.records.length, sourceArrayRecords: sourceArrays.records.length + lance.connections.length, sourceArrayClass: 'A_REUSED_HASH_VERIFIED_PROJECTION', selectionRelationClass: 'B', stage7Role: 'PARITY_GUARD_ONLY' };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

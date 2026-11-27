@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "surface": "hero-minimal-detail-16",
+  "heroId": 16,
+  "officialKrProvenanceStatus": "unverified",
+  "talent": {
+    "nameKo": "하늘의 사령관",
+    "starDescriptions": [
+      {
+        "star": 2,
+        "skillId": 3277,
+        "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 +10%.",
+        "nameCn": "空骑统帅",
+        "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>10%</color>。"
+      },
+      {
+        "star": 3,
+        "skillId": 3278,
+        "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+15%</font>.",
+        "nameCn": "空骑统帅",
+        "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>15%</color>。"
+      },
+      {
+        "star": 4,
+        "skillId": 3279,
+        "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+20%</font>.",
+        "nameCn": "空骑统帅",
+        "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>20%</color>。"
+      },
+      {
+        "star": 5,
+        "skillId": 3280,
+        "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+25%</font>.",
+        "nameCn": "空骑统帅",
+        "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>25%</color>。"
+      },
+      {
+        "star": 6,
+        "skillId": 3281,
+        "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 <font color=\"red\">+30%</font>.",
+        "nameCn": "空骑统帅",
+        "descriptionCn": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>30%</color>。"
+      }
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
+import { generateLanceTalent, lanceTalentPublic, selectTalentSkill, validateLanceTalentPackage } from './hero-16-talent-publication-contract.mjs';
 import { extractFunction } from './test-app-function-source.mjs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -84,7 +85,7 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
   }
   validateHero15SoldierTextDecision(hero15SoldierTextPublication);
   files.push(HERO_15_SOLDIER_TEXT_PUBLIC);
-  if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH);
+  if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH, lanceTalentPublic);
   if (heroMinimalDetailBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_BATCH_PATH);
   if (heroMinimalDetailTenBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TEN_BATCH_PATH);
   if (heroMinimalDetailTwentyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH);
@@ -150,7 +151,9 @@ const element = tag => ({
   tag, textContent: '', children: [],
   get childNodes() { return this.textContent ? [this.textContent, ...this.children] : this.children; },
   append(...nodes) { this.children.push(...nodes); },
-  replaceChildren(...nodes) { this.children = nodes; }, addEventListener() {},
+  replaceChildren(...nodes) { this.children = nodes; }, addEventListener(type, callback) { this.listeners.set(type,callback); },
+  listeners: new Map(),
+  click() { if (!this.disabled) this.listeners.get('click')?.(); },
   attributes: new Map(),
   hasAttribute(name) { return this.attributes.has(name.toLowerCase()); },
   setAttribute(name, value) {
@@ -308,6 +311,78 @@ function checkPackagedHero16(app, detail, profileLines, jobPath) {
   assert.ok(card.children.every(node => node.children.length === 0), 'Packaged Hero 16 rows must contain only text');
 }
 
+async function checkPackagedLanceTalent(app, detail, payload) {
+  const names = ['renderHeroMinimalDetailView', 'renderHero16MinimalDetailView', 'makeTalentPresentation', 'makeTalentDescription', 'appendSkillDescription'];
+  const functions = names.map(name => extractFunction(app, name)).join('\n');
+  const load = 'async ' + extractFunction(app, 'loadHero16Talent');
+  const start = app.indexOf("try {\n  const response = await fetch('./generated/hero-minimal-detail-16.v1.json')");
+  const end = app.indexOf('\ntry {', start + 1);
+  assert.ok(start >= 0 && end > start, 'Lance detail startup missing');
+  const startup = app.slice(start, end);
+  const code = functions + '\n' + load + '\n(async () => { let hero16MinimalDetailNavigation, hero16MinimalDetailIds;\n'
+    + startup + '\nreturn hero16MinimalDetailNavigation; })()';
+  const visible = node => typeof node === 'string' ? node : node.textContent + node.children.map(visible).join('');
+
+  for (const scenario of ['normal', 'request-failed', 'blank-lower-star']) {
+    const container = element('div');
+    const fetches = [];
+    let finishTalent;
+    const optionalResponse = new Promise(resolve => { finishTalent = resolve; });
+    let target;
+    const navigation = await runInNewContext(code, {
+      hero16MinimalDetailContainer: container,
+      document: {createElement: element, createTextNode: text => text, getElementById: id => { target = id; }},
+      fetch(url) {
+        fetches.push(url);
+        if (url === './generated/hero-minimal-detail-16.v1.json') return Promise.resolve({ok:true, json:async()=>detail});
+        assert.equal(url, './' + lanceTalentPublic);
+        return optionalResponse;
+      },
+    }, {timeout: 1000});
+    assert.deepEqual(fetches, ['./generated/hero-minimal-detail-16.v1.json', './' + lanceTalentPublic]);
+    const card = container.children[0];
+    const baseRows = [...card.children];
+    assert.equal(baseRows.length, 8);
+    assert.equal(baseRows[5].textContent, '칼자스의 왕관 (Equipment ID 418)');
+    assert.equal(baseRows[7].textContent, '전직 · 호크 나이트 → 하이랜더');
+    const responseData = structuredClone(payload);
+    if (scenario === 'blank-lower-star') responseData.talent.starDescriptions[0].descriptionKoRaw = ' ';
+    finishTalent({ok:scenario !== 'request-failed', json:async()=>responseData});
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(container.children[0],card);
+    assert.ok(baseRows.every((node,i)=>card.children[i] === node));
+    assert.ok(navigation.showTarget(16));
+    assert.equal(target,'hero-minimal-detail-16');
+    if (scenario !== 'normal') {
+      assert.equal(card.children.length, 8, 'Failed optional Lance Talent must preserve only the base card');
+      continue;
+    }
+    assert.equal(card.children.length,9);
+    const section = card.children[8];
+    const [heading, name, lower, higher, list, original] = section.children;
+    assert.equal(heading.id,'hero-16-talent-heading');
+    assert.equal(name.textContent,'하늘의 사령관');
+    assert.deepEqual([lower.tag,higher.tag,list.tag,original.tag],['button','button','ul','details']);
+    assert.equal(original.open,false);
+    original.open = true;
+    const sourceRows = original.children[1].children;
+    assert.deepEqual(sourceRows.map(n=>n.children.map(visible)),payload.talent.starDescriptions.map(row=>[
+      `${row.star}성 · Skill ID ${row.skillId} · ${row.nameCn}`,row.descriptionCn.replace(/<[^>]+>/g,''),
+    ]));
+    for (const [i, star] of [6,5,4,3,2,3,4,5,6].entries()) {
+      const row = payload.talent.starDescriptions.find(r=>r.star===star);
+      assert.equal(list.children.length,1);
+      assert.deepEqual(list.children[0].children.map(visible),[`${star}성`,row.descriptionKoRaw.replace(/<[^>]+>/g,'')]);
+      assert.equal(lower.disabled,star===2);
+      assert.equal(higher.disabled,star===6);
+      assert.equal(original.open,true);
+      assert.equal(original.children[1].children,sourceRows);
+      if (i < 4) lower.click();
+      else if (i < 8) higher.click();
+    }
+  }
+}
+
 function checkPackagedSoldierCommand(card) {
   const sections = card.children.filter(node => node.children[0]?.textContent === '병사 지휘 보정');
   assert.equal(sections.length, 1, 'Hero 15 Soldier Command section count');
@@ -406,6 +481,8 @@ const productionLocalizations = await readJson('canonical/production-localizatio
 const heroJobRelations = await readJson('canonical/hero-job-relations.v1.json');
 const lanceJobPath = hero16JobPathLine(await readJson(HERO_16_JOB_PATH_DECISION), heroJobRelations,
   await readJson('canonical/hero-job-advancement-relations.v1.json'), jobLocalization);
+const lanceTalent = await generateLanceTalent();
+assert.equal(selectTalentSkill({TalentSkill_IDs:[9999,3277,3278,3279,3280,3281]}, 2), 3277, 'Lance two-star selector must use index 1');
 const spJobIdentities = await readJson('canonical/sp-job-identities.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
@@ -780,6 +857,7 @@ try {
   await cp(hero15MinimalDetailPath, join(output, ...HERO_15_MINIMAL_DETAIL_PATH.split('/')));
   await cp(resolve(HERO_15_TALENT_PUBLIC_PATH), join(output, ...HERO_15_TALENT_PUBLIC_PATH.split('/')));
   await cp(resolve(HERO_15_SOLDIER_TEXT_PUBLIC), join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
+  await cp(resolve(lanceTalentPublic), join(output,lanceTalentPublic));
   await cp(hero16MinimalDetailPath, join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')));
   await cp(heroMinimalDetailBatchPath, join(output, ...HERO_MINIMAL_DETAIL_BATCH_PATH.split('/')));
   await cp(heroMinimalDetailTenBatchPath, join(output, ...HERO_MINIMAL_DETAIL_TEN_BATCH_PATH.split('/')));
@@ -916,10 +994,13 @@ try {
   if (packagedExclusiveHeroNavigation.records.length !== 167) throw new Error('packaged Exclusive Equipment Hero Navigation population mismatch');
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
+  const packagedTalentText = await readFile(join(output, lanceTalentPublic), 'utf8');
+  validateLanceTalentPackage(packagedTalentText, lanceTalent);
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
   const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
     keyGroups, renderHeadGoldSubtotal(profileInputs), await readSlotGoldSubtotals(readJson, profileInputs));
   checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath);
+  await checkPackagedLanceTalent(app, packagedHero16MinimalDetail, JSON.parse(packagedTalentText));
   checkPackagedSoldierCommand(hero15Card);
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {
