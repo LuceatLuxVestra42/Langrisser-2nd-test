@@ -143,17 +143,23 @@ async function checkHero15BuildFailures() {
     await writeFile(html, (await readFile(html, 'utf8')).replace(/app\.js\?v=[a-f0-9]{64}/, 'app.js?v=' + digest));
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
-  const skillCases = [
-    ['Freeze on Skill 10804', 10705, selector, 'skillId === 10705 ? descriptionKo : displayDescriptions[skillId === 10804 ? 10705 : skillId] ?? descriptionKo'],
-    ['Shield omitted', 10804, selector, 'skillId === 10804 ? descriptionKo : ' + selector],
-    ['Meditation omitted', 6009, selector, 'skillId === 6009 ? descriptionKo : ' + selector],
-    ['Shield cooldown in effect text', 10804, '효과는 2턴 동안 지속된다.', '쿨타임 2행동'],
-    ['Meditation exclusive threshold', 6009, '부대 생명이 90% 이상일 때', '부대 생명이 90% 초과일 때'],
-    ['Shield and Meditation swapped', 10804, selector, 'displayDescriptions[skillId === 10804 ? 6009 : skillId === 6009 ? 10804 : skillId] ?? descriptionKo'],
+  const rendererCases = [
+    ['Freeze on Skill 10804', 'Packaged Skill 10705 row attribution or description mismatch', selector, 'skillId === 10705 ? descriptionKo : displayDescriptions[skillId === 10804 ? 10705 : skillId] ?? descriptionKo'],
+    ['Shield omitted', 'Packaged Skill 10804 row attribution or description mismatch', selector, 'skillId === 10804 ? descriptionKo : ' + selector],
+    ['Meditation omitted', 'Packaged Skill 6009 row attribution or description mismatch', selector, 'skillId === 6009 ? descriptionKo : ' + selector],
+    ['Shield cooldown in effect text', 'Packaged Skill 10804 row attribution or description mismatch', '효과는 2턴 동안 지속된다.', '쿨타임 2행동'],
+    ['Meditation exclusive threshold', 'Packaged Skill 6009 row attribution or description mismatch', '부대 생명이 90% 이상일 때', '부대 생명이 90% 초과일 때'],
+    ['Shield and Meditation swapped', 'Packaged Skill 10804 row attribution or description mismatch', selector, 'displayDescriptions[skillId === 10804 ? 6009 : skillId === 6009 ? 10804 : skillId] ?? descriptionKo'],
+    ['Bond 1 list outside its details', 'Bond level list ownership: 유대 1', 'levels.append(summary, list);\n    section.append(levels);',
+      "levels.append(summary); section.append(levels); if (labelKo === '유대 1') section.append(list); else levels.append(list);"],
+    ['Bond 2 and 4 share a name', 'Bond level lists must open independently', 'levels.append(summary, list);',
+      "levels.append(summary, list); if (labelKo === '유대 2') levels.setAttribute('name', 'linked'); if (labelKo === '유대 4') levels.name = 'linked';"],
+    ['Bond 1 empty open attribute', 'Bond level list must start closed', 'levels.append(summary, list);',
+      "levels.append(summary, list); if (labelKo === '유대 1') levels.setAttribute('open', '');"],
   ];
-  for (const [name, id, before, after] of skillCases) {
+  for (const [name, error, before, after] of rendererCases) {
     for (const mode of modes) {
-      const fixture = await mkdtemp(join(temp, 'skill-display-'));
+      const fixture = await mkdtemp(join(temp, 'hero15-display-'));
       const source = join(fixture, 'source');
       const destination = join(fixture, 'package');
       await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
@@ -164,7 +170,7 @@ async function checkHero15BuildFailures() {
       }
       const result = run(source, mode, destination);
       assert.equal(result.status, 1, result.stderr);
-      assert.ok(result.stderr.includes(`AssertionError [ERR_ASSERTION]: Packaged Skill ${id} row attribution or description mismatch`), result.stderr);
+      assert.ok(result.stderr.includes(`AssertionError [ERR_ASSERTION]: ${error}`), result.stderr);
       console.log(`Hero 15 ${mode}: rejected ${name}`);
       await rm(fixture, { recursive: true });
     }
@@ -208,15 +214,15 @@ async function checkHero15BuildFailures() {
   for (const [name, mutate, error] of copyCases) {
     for (const mode of modes) {
       const fixture = await mkdtemp(join(temp, 'icons-'));
-      const source = mode === '--output-dir' ? join(fixture, 'source') : process.cwd();
+      const source = join(fixture, 'source');
       const destination = join(fixture, 'package');
       const root = mode === '--output-dir' ? source : destination;
-      if (mode === '--output-dir') {
-        await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
-      } else {
-        await cp(normalPackage, destination, { recursive: true });
-      }
+      await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
       await mutate(root, mode);
+      if (mode === '--verify-dir') {
+        for (const file of ['app.js', 'index.html']) await copyFile(join(destination, file), join(source, file));
+      }
       const result = run(source, mode, destination);
       assert.equal(result.status, 1, name + ' ' + mode);
       assert.match(result.stderr, error);

@@ -526,9 +526,17 @@ assert.equal(goldSection.tag, 'details');
 assert.equal(goldSection.children[0].tag, 'summary');
 const goldGroups = goldSection.children.slice(1);
 assert.equal(goldGroups.length, 6);
-assert.ok(goldGroups.every(({ children }) => children[1].children.length === 9));
-assert.equal(goldGroups[0].children[1].children[0].textContent, 'Lv.2 · 1,500 골드');
-assert.equal(goldGroups[5].children[1].children[8].textContent, 'Lv.10 · 200,000 골드');
+assert.equal(goldSection.open, false);
+const levelLists = goldGroups.map(group => {
+  const [levels] = group.children;
+  assert.equal(levels.tag, 'details');
+  assert.equal(levels.open, false);
+  assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul']);
+  return levels.children[1];
+});
+assert.ok(levelLists.every(list => list.children.length === 9));
+assert.equal(levelLists[0].children[0].textContent, 'Lv.2 · 1,500 골드');
+assert.equal(levelLists[5].children[8].textContent, 'Lv.10 · 200,000 골드');
 fails((x) => { x.profileInputs.goldDecision.status = 'NOT_APPROVED'; }, /Fetter Gold publication/);
 fails((x) => { x.profileInputs.goldOwner.goldLocators[0].heroId = 16; }, /Fetter Gold level locator/);
 fails((x) => { x.profileInputs.goldOwner.goldLocators[0].sourceArrayIndex = 1; }, /Fetter Gold level locator/);
@@ -806,12 +814,13 @@ for (const [mode, expectedTotals] of [
   const output = element();
   render(sample, talent, output);
   const groups = output.children[0].children.find(n => n.children?.[0]?.textContent === '유대 강화 골드').children.slice(1);
-  assert.deepEqual(groups.map(g => g.children[0].textContent), ['유대 1', '유대 2', '유대 3', '유대 4', '유대 5', '마음의 유대']);
+  assert.deepEqual(groups.map(g => g.children[0].children[0].textContent), ['유대 1', '유대 2', '유대 3', '유대 4', '유대 5', '마음의 유대']);
   for (const [i, section] of groups.entries()) {
-    assert.deepEqual(section.children[1].children.map(row => row.textContent), sample.heroes[0].fetterGold[i].rows.map(
+    const [levels, ...summaries] = section.children;
+    const list = levels.children[1];
+    assert.deepEqual(list.children.map(row => row.textContent), sample.heroes[0].fetterGold[i].rows.map(
       ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
-    section.children[1].children.forEach((row, level) => expectKeyBadges(row, iconGroups[i]?.levels[level] ?? []));
-    const summaries = section.children.slice(2);
+    list.children.forEach((row, level) => expectKeyBadges(row, iconGroups[i]?.levels[level] ?? []));
     if (iconGroups[i]) expectKeyBadges(summaries.pop(), iconGroups[i].totals);
     assert.deepEqual(summaries.map(row => row.textContent), expectedTotals[i] ? [expectedTotals[i]] : []);
   }
