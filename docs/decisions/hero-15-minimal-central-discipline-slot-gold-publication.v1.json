@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-15",
+  "heroId": 15,
+  "levels": [1, 10],
+  "unit": "gold",
+  "placement": "중앙율정 / 기존 투구 소계 다음의 직접 자식 문단",
+  "slots": [
+    { "slot": "WEAPON_1", "labelKo": "무기 1", "templateId": 14, "heroReferenceIndex": 0, "subtotalGold": 1800000 },
+    { "slot": "WEAPON_2", "labelKo": "무기 2", "templateId": 12, "heroReferenceIndex": 1, "subtotalGold": 1800000 },
+    { "slot": "ARMOR", "labelKo": "갑옷", "templateId": 37, "heroReferenceIndex": 2, "subtotalGold": 1800000 },
+    { "slot": "ACCESSORY", "labelKo": "장신구", "templateId": 41, "heroReferenceIndex": 4, "subtotalGold": 1800000 }
+  ],
+  "displayDecision": {
+    "proposal": "Sentinel_529588881e188191aba4a85fb627af85",
+    "reply": "Sentinel_d14701a3c0908191a74ae90fce799ed3",
+    "source": "Adjacent Dot proposal and user reply, excerpt supplied to this Work."
+  },
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "configCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "heroField": "ConfigDataHeroInfo#ID=15/CastingLawTemplates_ID",
+    "templateFields": ["EquipmentType", "CastingLawLevelUpInfoList"],
+    "goldField": "ConfigDataCastingLawLevelUpInfo.LevelUpGoldCost",
+    "orderedProjectionDecision": "docs/decisions/hero-15-minimal-central-discipline-gold-publication.v1.json",
+    "legacyCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "legacyRecord": "data/generated/hero-casting-law-by-hero.v1.json#/records/13/slots",
+    "page": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/15/"
+  }
+}

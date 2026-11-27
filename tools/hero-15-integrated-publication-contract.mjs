@@ -653,7 +653,7 @@ function renderHero15CentralDiscipline({ centralDisciplineDecision: decision, sk
   return decision.effectTextKo;
 }
 
-function renderHero15CentralDisciplineGold({ centralDisciplineGoldDecision: decision, castingLawHero, castingLawLevels, castingLawRaw }) {
+function validateCentralDisciplineGold({ centralDisciplineGoldDecision: decision, castingLawHero, castingLawLevels, castingLawRaw }) {
   const templateIds = [14, 12, 37, 40, 41];
   const range = [1, 10];
   // Ordered [template ID, list index, explicit LevelUp ID, raw row index, gold] tuples
@@ -715,7 +715,55 @@ function renderHero15CentralDisciplineGold({ centralDisciplineGoldDecision: deci
   }
   const total = [...subtotals.values()].reduce((sum, gold) => sum + gold, 0);
   if (total !== decision.totalGold) throw new Error('Hero 15 Central Discipline Gold approved total mismatch');
-  return total;
+  return { total, subtotals };
+}
+
+export const slotGoldDecisionPath = 'docs/decisions/hero-15-minimal-central-discipline-slot-gold-publication.v1.json';
+
+export async function readSlotGoldSubtotals(readJson, profileInputs) {
+  const [decision, templates] = await Promise.all([
+    readJson(slotGoldDecisionPath),
+    readJson('canonical/casting-law-template-raw-details.v1.json'),
+  ]);
+  const expected = [
+    ['WEAPON_1', '무기 1', 14, 0, undefined],
+    ['WEAPON_2', '무기 2', 12, 1, undefined],
+    ['ARMOR', '갑옷', 37, 2, 1],
+    ['ACCESSORY', '장신구', 41, 4, 3],
+  ];
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 15
+    || decision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT || !isDeepStrictEqual(decision.levels, [1, 10])
+    || decision.unit !== 'gold' || decision.placement !== '중앙율정 / 기존 투구 소계 다음의 직접 자식 문단'
+    || !Array.isArray(decision.slots) || decision.slots.length !== expected.length) {
+    throw new Error('Central Discipline slot gold decision scope mismatch');
+  }
+  // The existing 50-row invariant binds each template to its ordered IDs, locators and gold costs.
+  const { subtotals } = validateCentralDisciplineGold(profileInputs);
+  return expected.map(([slot, labelKo, templateId, heroReferenceIndex, equipmentType], index) => {
+    const subtotalGold = subtotals.get(templateId);
+    if (subtotalGold !== 1800000 || !isDeepStrictEqual(decision.slots[index],
+      { slot, labelKo, templateId, heroReferenceIndex, subtotalGold })) {
+      throw new Error('Central Discipline slot gold decision scope mismatch');
+    }
+    const records = templates.records.filter(row => row.templateId === templateId);
+    const template = records[0];
+    if (records.length !== 1 || template.rawRecord.ID !== templateId
+      || profileInputs.castingLawHero.records[heroReferenceIndex].templateId !== templateId) {
+      throw new Error('Central Discipline slot template mismatch');
+    }
+    const { rawRecord, fieldStates } = template;
+    if (fieldStates.EquipmentType !== (equipmentType === undefined ? 'ABSENT' : 'PRESENT')
+      || Object.hasOwn(rawRecord, 'EquipmentType') !== (equipmentType !== undefined)
+      || rawRecord.EquipmentType !== equipmentType) {
+      throw new Error(`Central Discipline EquipmentType mismatch for Template ${templateId}`);
+    }
+    const levelIds = profileInputs.castingLawLevels.records.filter(row => row.templateId === templateId)
+      .map(row => row.levelUpInfoId);
+    if (!isDeepStrictEqual(rawRecord.CastingLawLevelUpInfoList, levelIds)) {
+      throw new Error(`Central Discipline slot LevelUp references mismatch for Template ${templateId}`);
+    }
+    return `${labelKo} · Lv.1~10 소계 골드 ${subtotalGold.toLocaleString('ko-KR')}`;
+  });
 }
 
 // Independently transcribed from the pinned Template 40 references and LevelUp gold fields.
@@ -879,7 +927,7 @@ export function renderHero15MinimalDetail({ decision, heroIdentities, heroLocali
       soldierCommandLinesKo: renderHero15SoldierCommand(profileInputs),
       jobPaths: renderHero15JobPaths(jobInputs),
       centralDisciplineEffectKo: renderHero15CentralDiscipline(profileInputs),
-      centralDisciplineGoldTotal: renderHero15CentralDisciplineGold(profileInputs),
+      centralDisciplineGoldTotal: validateCentralDisciplineGold(profileInputs).total,
       awakeningMaterials: renderHero15AwakeningMaterials(profileInputs),
       bond2DescriptionKo: renderHero15Bond2Description(profileInputs, heroName[0].nameKo),
       bond3DescriptionKo: renderHero15Bond3Description(profileInputs),

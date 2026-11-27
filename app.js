@@ -324,6 +324,11 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const headSubtotal = document.createElement('p');
   headSubtotal.textContent = '투구 · Lv.1~10 소계 골드 3,600,000';
   centralDisciplineSection.append(headSubtotal);
+  for (const label of ['무기 1', '무기 2', '갑옷', '장신구']) {
+    const subtotal = document.createElement('p');
+    subtotal.textContent = `${label} · Lv.1~10 소계 골드 1,800,000`;
+    centralDisciplineSection.append(subtotal);
+  }
   const displayDescriptions = {
     10705: '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.',
     10804: '범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.',
