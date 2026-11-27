@@ -1,3 +1,4 @@
+import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { lanceTalentDecision, lanceTalentPublic } from './hero-16-talent-publication-contract.mjs';
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
@@ -77,6 +78,19 @@ async function checkHeroDetailBuildFailures() {
   const advancement = 'canonical/hero-job-advancement-relations.v1.json';
   const talentError = message => () => 'AssertionError [ERR_ASSERTION]: ' + message;
   const cases = [
+    { decisionPath:ordinaryEvidence, name:'ordinary GotSkill_ID swapped', mutate:({levels})=>{
+      [levels[0].GotSkill_ID,levels[1].GotSkill_ID]=[levels[1].GotSkill_ID,levels[0].GotSkill_ID];
+    }, error:talentError('Lance ordinary GotSkill_ID source mismatch') },
+    { decisionPath:ordinaryCanonical, name:'ordinary 10311 acquisition missing',
+      mutate:doc=>{doc.records=doc.records.filter(r=>r.skillId!==10311);}, error:talentError('Lance ordinary acquisition or metadata mismatch') },
+    { decisionPath:ordinaryDecision, name:'ordinary decision missing', error:path=>`Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath:ordinaryDecision, name:'ordinary decision third skill',
+      mutate:doc=>{doc.rows.push({...doc.rows[0],skillId:10705});}, error:talentError('Lance ordinary publication scope mismatch') },
+    { decisionPath:ordinaryPublic, finalFile:true, name:'final ordinary third skill',
+      mutate:doc=>{doc.ordinarySkills.push({...doc.ordinarySkills[0],skillId:10705});}, error:talentError('Lance ordinary public row count') },
+    { decisionPath:ordinaryPublic, finalFile:true, name:'final ordinary iconPath',
+      mutate:doc=>{doc.ordinarySkills[1].iconPath='unexpected.png';}, error:talentError('Lance ordinary public row fields') },
+
     { decisionPath: membership, name: 'Lance Talent Job 403 omitted',
       mutate: doc => { doc.records = doc.records.filter(r=>!(r.heroId===16 && r.jobId===403)); },
       error: talentError('Lance Talent Job membership') },
@@ -208,16 +222,17 @@ async function checkHeroDetailBuildFailures() {
     }
   }
 
-  for (const mode of modes) {
-    const root = await mkdtemp(join(temp, 'lance-talent-missing-'));
+  for (const file of [lanceTalentPublic,ordinaryPublic]) for (const mode of modes) {
+    const root = await mkdtemp(join(temp, 'lance-json-missing-'));
     const source = join(root, 'source');
     const destination = join(root, 'package');
     await cp(process.cwd(), source, {recursive:true,filter:path=>path!==join(process.cwd(),'.git')});
     if (mode === '--verify-dir') await cp(normalPackage,destination,{recursive:true});
-    await rm(join(mode === '--verify-dir' ? destination : source, lanceTalentPublic));
+    await rm(join(mode === '--verify-dir' ? destination : source, file));
     const result = run(source,mode,destination);
     assert.equal(result.status,1);
-    assert.match(result.stderr,/ENOENT[^\n]*hero-16-talent-public.v1.json/);
+    assert.ok(result.stderr.split('\n').some(line=>line.includes('ENOENT') && line.includes(file)),result.stderr);
+    console.log(`Lance ${mode}: rejected missing ${file}`);
     await rm(root,{recursive:true});
   }
   for (const mode of modes) {
@@ -252,6 +267,11 @@ async function checkHeroDetailBuildFailures() {
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
+    ['Lance ordinary cost and cooldown swapped', 'Packaged Lance ordinary skill row text or placement',
+      '`${row.cost}코스트`, row.cooldownLabelKo', '`${data.ordinarySkills[1-i].cost}코스트`, data.ordinarySkills[1-i].cooldownLabelKo'],
+    ['Lance ordinary 10311 type changed', 'Packaged Lance ordinary skill row text or placement',
+      'labels.push([row.nameKo, row.typeLabelKo,', "labels.push([row.nameKo, row.skillId === 10311 ? '패시브' : row.typeLabelKo,"],
+
     ['Lance job path reversed', 'Packaged Hero 16 job path text or direction mismatch',
       '전직 · 호크 나이트 → 하이랜더', '전직 · 하이랜더 → 호크 나이트'],
     ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',

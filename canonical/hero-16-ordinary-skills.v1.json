@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "heroId": 16,
+  "records": [
+    {
+      "heroId": 16,
+      "connectionId": 160,
+      "jobId": 401,
+      "jobLevelIndex": 1,
+      "jobLevelId": 1602,
+      "skillId": 10401,
+      "TypeText": "物理伤害",
+      "SkillCost": 2,
+      "CDText": "3回合",
+      "DistanceText": "1格",
+      "RangeText": "单体",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/0",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/0/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/0"
+      }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 162,
+      "jobId": 302,
+      "jobLevelIndex": 1,
+      "jobLevelId": 1622,
+      "skillId": 10311,
+      "TypeText": "物理伤害",
+      "SkillCost": 1,
+      "CDText": "2回合",
+      "DistanceText": "1格",
+      "RangeText": "单体",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/1",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/1/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1"
+      }
+    }
+  ]
+}

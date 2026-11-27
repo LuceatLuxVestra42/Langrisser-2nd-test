@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "surface": "hero-minimal-detail-16",
+  "heroId": 16,
+  "publicPath": "generated/hero-16-ordinary-skills-public.v1.json",
+  "placement": "after-talent",
+  "displayStatus": "PROJECT_DISPLAY_ONLY",
+  "officialKrProvenanceStatus": "unverified",
+  "rows": [
+    {
+      "skillId": 10401,
+      "nameKo": "뇌광",
+      "descriptionKo": "단일 적 부대를 공격해 1.5배 피해를 준다. 이 스킬로 적을 처치하면 스킬 쿨타임 -3."
+    },
+    {
+      "skillId": 10311,
+      "nameKo": "격돌",
+      "descriptionKo": "단일 적 부대를 공격해 1.2배 피해를 준다. 대상을 2칸 밀쳐내고 이동력 -2와 호위 불가를 1턴 부여한다."
+    }
+  ],
+  "localization": {
+    "catalog": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "src/lib/hero-skill-localization.data.ts",
+      "blob": "95f789c504394aee305e21bfab0d2be2612e205d",
+      "locator": "L248-L277; skillId + sourceNameCn"
+    },
+    "sheet": {
+      "repository": "redpanda7301/langrisser",
+      "commit": "a85bba49dcf073563e7366dc18e96b7ba67c2ae3",
+      "path": "hero/data/란스.js",
+      "blob": "0be2f806f90c21507a814dc64057921c51b1bd2e",
+      "locator": [
+        "L421-L443",
+        "L501-L523"
+      ]
+    }
+  },
+  "corroboration": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-detail/by-id/16.json",
+    "locator": "/normal/skills/jobLevelAcquisitions/0,1",
+    "blob": "929798dd8019d033750e43d0af353869cc087a31",
+    "page": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/"
+  }
+}
