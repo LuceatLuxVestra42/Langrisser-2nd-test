@@ -1,4 +1,4 @@
-import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic, ordinaryPublicV2, ordinaryDecisionV2 } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { lanceTalentDecision, lanceTalentPublic } from './hero-16-talent-publication-contract.mjs';
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
@@ -78,6 +78,48 @@ async function checkHeroDetailBuildFailures() {
   const advancement = 'canonical/hero-job-advancement-relations.v1.json';
   const talentError = message => () => 'AssertionError [ERR_ASSERTION]: ' + message;
   const cases = [
+    ...[[5025,202],[10303,306]].map(([skill,job])=>({
+      decisionPath:membership, name:`Skill ${skill} missing Hero 16–Job ${job}`,
+      mutate:doc=>{ doc.records = doc.records.filter(r=>!(r.heroId===16 && r.jobId===job)); },
+      error:talentError(`${skill}의 Hero 16–Job ${job} 소속 누락 또는 출처 불일치`),
+    })),
+    { decisionPath:ordinaryEvidence, name:'10403 direct reference missing', mutate:doc=>{ delete doc.hero['Skills_ID/0']; },
+      error:talentError('Lance Hero 16 direct skill or usable connection source mismatch') },
+    { decisionPath:ordinaryCanonical, name:'5025 substituted with direct acquisition', mutate:doc=>{
+      const row = doc.records.find(r=>r.skillId===5025);
+      for (const field of ['jobId','jobLevelId','jobLevelIndex','connectionId']) delete row[field];
+      row.provenance.acquisition = ordinaryEvidence+'#/hero/Skills_ID~10';
+    }, error:talentError('Lance ordinary acquisition or metadata mismatch') },
+    { decisionPath:ordinaryEvidence, name:'10303 JobLevels_ID index changed', mutate:doc=>{
+      const row = doc.connections.find(r=>r.ID===165);
+      row['JobLevels_ID/1']=row['JobLevels_ID/2'];
+      delete row['JobLevels_ID/2'];
+    }, error:talentError('Lance ordinary JobConnection source mismatch') },
+    { decisionPath:ordinaryEvidence, name:'10403 and 5025 cooldowns exchanged', mutate:doc=>{
+      const wind=doc.skills.find(r=>r.ID===10403), heal=doc.skills.find(r=>r.ID===5025);
+      [wind.CDText,heal.CDText]=[heal.CDText,wind.CDText];
+    }, error:talentError('Lance ordinary Skill 10403 source metadata') },
+    ...[[5025,'TypeText','物理伤害'],[10303,'TypeText','物理伤害'],[10403,'DistanceText','1圈'],[10303,'CDText',undefined]].map(([id,key,value])=>({
+      decisionPath:ordinaryEvidence, name:`Skill ${id} invalid ${key}`,
+      mutate:doc=>{const row=doc.skills.find(r=>r.ID===id); if (value===undefined) delete row[key]; else row[key]=value;},
+      error:talentError(`Lance ordinary Skill ${id} source metadata`),
+    })),
+    { decisionPath:ordinaryDecisionV2, name:'v2 decision missing',error:path=>`Error: ENOENT: no such file or directory, open '${path}'` },
+    ...[
+      ['path',d=>{d.publicPath=ordinaryPublic;}],
+      ['out of scope 10418',d=>{d.rows.push({...d.rows[0],skillId:10418});}],
+      ['wind area label',d=>{d.rows[0].areaLabelKo='범위 1칸';}],
+    ].map(([name,mutate])=>({decisionPath:ordinaryDecisionV2,name:'v2 decision '+name,mutate,error:talentError('Lance ordinary v2 publication scope mismatch')})),
+    ...[
+      ['sixth skill',d=>{d.ordinarySkills.push({...d.ordinarySkills[0],skillId:10418});},'public row count'],
+      ['iconPath',d=>{d.ordinarySkills[0].iconPath='invalid.png';},'public row fields'],
+      ['passive cooldown',d=>{d.ordinarySkills[4].cooldownLabelKo='-';},'public row fields'],
+      ['heal lacks cooldown',d=>{delete d.ordinarySkills[3].cooldownLabelKo;},'public row fields'],
+      ['altered description',d=>{d.ordinarySkills[0].descriptionKo+='!';},'public values'],
+      ['wrong version',d=>{d.schemaVersion=1;},'public values'],
+    ].map(([name,mutate,reason])=>({decisionPath:ordinaryPublicV2,finalFile:true,name:'v2 '+name,mutate,error:talentError('Lance ordinary '+reason)})),
+    { decisionPath:ordinaryPublic, finalFile:true, name:'v1 altered description', mutate:d=>{d.ordinarySkills[0].descriptionKo+='!';},
+      error:talentError('Lance ordinary v1 digest') },
     { decisionPath:ordinaryEvidence, name:'ordinary GotSkill_ID swapped', mutate:({levels})=>{
       [levels[0].GotSkill_ID,levels[1].GotSkill_ID]=[levels[1].GotSkill_ID,levels[0].GotSkill_ID];
     }, error:talentError('Lance ordinary GotSkill_ID source mismatch') },
@@ -222,7 +264,7 @@ async function checkHeroDetailBuildFailures() {
     }
   }
 
-  for (const file of [lanceTalentPublic,ordinaryPublic]) for (const mode of modes) {
+  for (const file of [lanceTalentPublic,ordinaryPublic,ordinaryPublicV2]) for (const mode of modes) {
     const root = await mkdtemp(join(temp, 'lance-json-missing-'));
     const source = join(root, 'source');
     const destination = join(root, 'package');
@@ -268,10 +310,15 @@ async function checkHeroDetailBuildFailures() {
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
     ['Lance ordinary cost and cooldown swapped', 'Packaged Lance ordinary skill row text or placement',
-      '`${row.cost}코스트`, row.cooldownLabelKo', '`${data.ordinarySkills[1-i].cost}코스트`, data.ordinarySkills[1-i].cooldownLabelKo'],
+      '`${row.cost}코스트`, ...range', '`${data.ordinarySkills[i===1 ? 2 : i===2 ? 1 : i].cost}코스트`, ...range.map((value,j)=>j===0 && (i===1 || i===2) ? data.ordinarySkills[3-i].cooldownLabelKo : value)'],
     ['Lance ordinary 10311 type changed', 'Packaged Lance ordinary skill row text or placement',
       'labels.push([row.nameKo, row.typeLabelKo,', "labels.push([row.nameKo, row.skillId === 10311 ? '패시브' : row.typeLabelKo,"],
 
+    ...[
+      ['order', 'labels.reverse()'], ['duplication', '[...labels, labels[0]]'],
+      ['description attribution', 'labels.map((line,i)=>i===0 ? line.replace(data.ordinarySkills[0].descriptionKo,data.ordinarySkills[3].descriptionKo) : line)'],
+    ].map(([name,expression])=>['Lance v2 '+name,'Packaged Lance ordinary skill row text or placement',
+      "renderMinimalDetailList('일반 스킬', labels)",`renderMinimalDetailList('일반 스킬', ${expression})`]),
     ['Lance job path reversed', 'Packaged Hero 16 job path text or direction mismatch',
       '전직 · 호크 나이트 → 하이랜더', '전직 · 하이랜더 → 호크 나이트'],
     ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',
@@ -317,6 +364,13 @@ async function checkHeroDetailBuildFailures() {
   const isFirstBadge = "parent.textContent === 'Lv.2 · 1,500 골드'";
   const sourceAssignment = 'image.src = keyImages.get(itemId);';
   const copyCases = [
+    ['v1 and v2 exchanged', async root=>{
+      const a=join(root,ordinaryPublic), b=join(root,ordinaryPublicV2);
+      const [one,two]=await Promise.all([readFile(a),readFile(b)]);
+      await Promise.all([writeFile(a,two),writeFile(b,one)]);
+    }, /Lance ordinary public row count/],
+    ['v1 served at v2 path', root=>copyFile(join(root,ordinaryPublic),join(root,ordinaryPublicV2)), /Lance ordinary public row count/],
+    ['v2 path relocated',root=>rename(join(root,ordinaryPublicV2),join(root,'generated/wrong-skill-path.json')), /ENOENT.*hero-16-ordinary-skills-public.v2/],
     ['missing PNG', (root) => rm(join(root, firstIcon)), /ENOENT.*FetterMaterial01|Public artifact file allowlist mismatch/],
     ['swapped PNG bytes', async root => {
       const [a, b] = await Promise.all([readFile(join(root, firstIcon)), readFile(join(root, secondIcon))]);

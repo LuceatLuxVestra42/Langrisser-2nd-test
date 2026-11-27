@@ -37,6 +37,55 @@
         "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/1/GotSkill_ID",
         "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1"
       }
+    },
+    {
+      "heroId": 16,
+      "skillId": 10403,
+      "TypeText": "物理伤害",
+      "SkillCost": 2,
+      "CDText": "2回合",
+      "DistanceText": "自身",
+      "RangeText": "1圈",
+      "provenance": {
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/hero/Skills_ID~10",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/2"
+      }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 163,
+      "jobId": 202,
+      "jobLevelIndex": 1,
+      "jobLevelId": 1632,
+      "skillId": 5025,
+      "TypeText": "治疗",
+      "SkillCost": 1,
+      "CDText": "3回合",
+      "DistanceText": "自身",
+      "RangeText": "单体",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/2",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/2/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/3"
+      }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 165,
+      "jobId": 306,
+      "jobLevelIndex": 2,
+      "jobLevelId": 1653,
+      "skillId": 10303,
+      "TypeText": "被动",
+      "SkillCost": 1,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/3",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/3/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/4"
+      }
     }
   ]
 }
