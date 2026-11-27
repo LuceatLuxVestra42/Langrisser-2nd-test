@@ -157,7 +157,20 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
   const element = tag => ({
     tag, children: [], append(...nodes) { this.children.push(...nodes); },
     replaceChildren(...nodes) { this.children = nodes; }, addEventListener() {},
-    setAttribute(name, value) { this[name.toLowerCase()] = String(value); },
+    attributes: new Map(),
+    hasAttribute(name) { return this.attributes.has(name.toLowerCase()); },
+    setAttribute(name, value) {
+      const key = name.toLowerCase();
+      this.attributes.set(key, String(value));
+      if (key !== 'open' && key !== 'name') this[key] = String(value);
+    },
+    get open() { return this.hasAttribute('open'); },
+    set open(value) {
+      if (value) this.attributes.set('open', '');
+      else this.attributes.delete('open');
+    },
+    get name() { return this.attributes.get('name') ?? ''; },
+    set name(value) { this.attributes.set('name', String(value)); },
   });
   const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor',
     'makeTalentPresentation', 'makeTalentDescription', 'appendSkillDescription'];
@@ -199,21 +212,41 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
     render(sample, talent, container);
     const card = container.children[0];
     if (sample === detail) checkCentralDiscipline(card);
-    const panel = card.children.find(node => node.children[0]?.textContent === '유대 강화 골드');
+    const panels = card.children.filter(node => node.children[0]?.textContent === '유대 강화 골드');
+    assert.equal(panels.length, 1);
+    const [panel] = panels;
+    assert.equal(panel.tag, 'details');
+    assert.equal(panel.children[0].tag, 'summary');
+    assert.equal(panel.hasAttribute('open'), false);
+    assert.equal(panel.open, false);
+    const names = new Set([panel.name]);
     const totals = approvedTotals.map((line, i) => i === changedGroup ? null : line);
     assert.deepEqual(textLines(card, text => text?.startsWith('Lv.2~10 합계 골드')), totals.filter(Boolean), 'Unexpected Fetter Gold totals in the card');
     assert.deepEqual(textLines(card, text => text?.includes('마음의 열쇠')), []);
     assert.equal(panel.children.length, groups.length + 1);
     for (const [i, group] of sample.heroes[0].fetterGold.entries()) {
-      const [heading, list, ...afterList] = panel.children[i + 1].children;
+      const section = panel.children[i + 1];
+      assert.equal(section.tag, 'section');
+      const [levels, ...afterList] = section.children;
+      assert.equal(levels.tag, 'details');
+      assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul'], `Bond level list ownership: ${group.labelKo}`);
+      const [heading, list] = levels.children;
       assert.equal(heading.textContent, group.labelKo);
-      assert.equal(list.tag, 'ul');
+      assert.equal(heading.children.length, 0);
+      assert.equal(levels.hasAttribute('open'), false, 'Bond level list must start closed');
+      assert.equal(levels.open, false, 'Bond level list must start closed');
+      if (levels.name) {
+        assert.ok(!names.has(levels.name), 'Bond level lists must open independently');
+        names.add(levels.name);
+      }
+      assert.ok(list.children.every(row => row.tag === 'li'));
       assert.deepEqual(list.children.map(row => row.textContent), group.rows.map(
         ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
       list.children.forEach((row, level) => checkBadges(row, keyGroups[i]?.levels[level] ?? []));
       const expectedCount = Number(Boolean(totals[i])) + Number(Boolean(keyGroups[i]));
       assert.equal(afterList.length, expectedCount, 'Bond key group summary placement');
       if (totals[i]) {
+        assert.equal(afterList[0].tag, 'p');
         assert.equal(afterList[0].textContent, totals[i]);
         assert.equal(afterList[0].children.length, 0);
       }
@@ -761,8 +794,6 @@ try {
   if (packagedHero15MinimalDetail.heroes.length !== 1 || packagedHero15MinimalDetail.heroes[0].heroId !== 15) throw new Error('packaged Hero Minimal Detail scope mismatch');
   assert.equal(createHash('sha256').update(packagedHero15MinimalDetailText).digest('hex'),
     'ff6404711698bdd04e426097e09f9a735ed2c16e34693174d0e3974433859021', 'Packaged Hero 15 public v1 bytes changed');
-  const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
-    keyGroups, renderHeadGoldSubtotal(profileInputs));
   const packagedHero16MinimalDetailText = await readFile(join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')), 'utf8');
   if (packagedHero16MinimalDetailText !== hero16MinimalDetailText) throw new Error('packaged Hero 16 minimal detail differs from validated Generated artifact');
   const packagedHero16MinimalDetail = JSON.parse(packagedHero16MinimalDetailText);
@@ -811,6 +842,8 @@ try {
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
+  const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
+    keyGroups, renderHeadGoldSubtotal(profileInputs));
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();

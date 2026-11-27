@@ -483,17 +483,27 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     }
   }
   for (const { labelKo, rows } of fetterGold) {
-    const section = renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
-      `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
+    const section = document.createElement('section');
+    const levels = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = labelKo;
+    const list = document.createElement('ul');
+    const keys = bondKeys.get(labelKo);
+    for (const [index, { level, gold }] of rows.entries()) {
+      const item = document.createElement('li');
+      item.textContent = `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`;
+      if (keys) appendKeys(item, keys.levels[index]);
+      list.append(item);
+    }
+    levels.append(summary, list);
+    section.append(levels);
     const approved = goldTotals.get(labelKo);
     if (approved && rows.every(({ gold }, i) => gold === approved.values[i])) {
       const total = document.createElement('p');
       total.textContent = approved.line;
       section.append(total);
     }
-    const keys = bondKeys.get(labelKo);
     if (keys) {
-      keys.levels.forEach((pairs, index) => appendKeys(section.children[1].children[index], pairs));
       const materials = document.createElement('p');
       appendKeys(materials, keys.totals);
       section.append(materials);
