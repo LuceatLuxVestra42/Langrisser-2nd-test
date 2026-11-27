@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-16",
+  "heroId": 16,
+  "skillId": 90092,
+  "classification": "PROJECT_DISPLAY_ONLY",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "descriptionCnSha256": "51dfe79791536a5903dd527027c97dc855ad2c9c15c8795a905380482009dc34",
+  "koreanSource": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/presentation/hero-central-discipline-ko/part-04.v1.json",
+    "gitBlobSha1": "d6113b7279d840f832165ee5b2d7bc412a8040b0",
+    "locator": "#/records/11"
+  },
+  "effectLines": [
+    "상성 우세인 부대와 전투 시 모든 스탯 +15%",
+    "혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복"
+  ],
+  "placement": "Two plain paragraphs directly after the central discipline heading and before the six gold paragraphs.",
+  "reviewText": {
+    "path": "data/presentation/hero-central-discipline-ko/review-source-2026-09-20.txt",
+    "gitBlobSha1": "6cb5729af7135ed989fb61827bdbfbeb72b26daa",
+    "lines": [
+      90,
+      93
+    ]
+  },
+  "worksheet": {
+    "id": "1GVRtJHFvV6_-yuOcyqJwnnc7ejhUe4FCEpJ3IlnpmBU",
+    "sheet": "출시된 율정",
+    "effect": "B184",
+    "hero": "A185",
+    "firstLine": "상성 우세인 부대와 전투 시 올스탯 +15%"
+  },
+  "legacyDisplay": {
+    "path": "data/generated/hero-detail/by-id/16.json#/centralDiscipline",
+    "gitBlobSha1": "929798dd8019d033750e43d0af353869cc087a31",
+    "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/"
+  },
+  "limitation": "The frozen reviewed Korean text is project display only. Matchup, individual stats, mixed-unit rules and healing calculation are outside this decision."
+}

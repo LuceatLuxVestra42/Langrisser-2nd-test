@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z"
+  },
+  "heroInfo": {
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "locator": "#/15",
+    "rawRecord": {
+      "ID": 16,
+      "CastingLawSkill_ID": 90092
+    }
+  },
+  "skillInfo": {
+    "path": "data/configdata/ConfigDataSkillInfo.json",
+    "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+    "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741",
+    "locator": "#/20260",
+    "rawRecord": {
+      "ID": 90092,
+      "Name": "长驰锐骑",
+      "Desc": "与有特效克制的部队交战时全属性<color=#DC143C>+15%</color>；自身为[混合部队]时移动力<color=#DC143C>+2</color>，且战后恢复造成伤害<color=#DC143C>20%</color>的生命。"
+    }
+  },
+  "transformation": "Select only the stated source fields at each zero-based record locator. Resolve CastingLawSkill_ID in the SkillInfo.ID namespace.",
+  "limitation": "Source-native reference and identity only. Combat mechanics and Korean display require separate evidence."
+}

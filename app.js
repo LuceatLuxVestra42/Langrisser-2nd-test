@@ -603,6 +603,8 @@ function renderHero16MinimalDetailView(data, container) {
   title.textContent = '중앙율정';
   discipline.append(title);
   for (const line of [
+    '상성 우세인 부대와 전투 시 모든 스탯 +15%',
+    '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복',
     'Lv.1~10 합계 골드 10,800,000',
     '무기 1 · Lv.1~10 소계 골드 1,800,000',
     '무기 2 · Lv.1~10 소계 골드 1,800,000',

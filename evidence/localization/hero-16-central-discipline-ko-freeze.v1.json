@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/presentation/hero-central-discipline-ko/part-04.v1.json",
+    "gitBlobSha1": "d6113b7279d840f832165ee5b2d7bc412a8040b0",
+    "locator": "#/records/11"
+  },
+  "record": {
+    "heroId": 16,
+    "castingLawSkillId": 90092,
+    "effectTextKo": "상성 우세인 부대와 전투 시 모든 스탯 +15%\n혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복",
+    "source": {
+      "sheet": "출시된 율정",
+      "effectRow": 184,
+      "heroRow": 185,
+      "releaseDateRaw": null,
+      "heroNameKoRaw": "란스"
+    }
+  }
+}

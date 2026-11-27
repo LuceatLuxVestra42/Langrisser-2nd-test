@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Hero 15 only: direct HeroInfo Skills_ID, JobLevelInfo GotSkill_ID, and HeroInfo CastingLawSkill_ID references. No equipping, unlock condition, combat effect, or publication claim.",
+  "scope": "Hero 15: direct HeroInfo Skills_ID, JobLevelInfo GotSkill_ID, and HeroInfo CastingLawSkill_ID references; Hero 16: CastingLawSkill_ID reference only. No equipping, unlock condition, combat effect, or publication claim.",
   "records": [
     {
       "referenceKind": "HERO_DIRECT_SKILL_REFERENCE",
@@ -134,6 +134,17 @@
       "provenance": {
         "reference": "evidence/source/configdata/hero-15-central-discipline-skill.v1.json#heroInfo/rawRecord/CastingLawSkill_ID",
         "endpoint": "canonical/skills.v1.json#skillId=90089"
+      }
+    },
+    {
+      "referenceKind": "HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE",
+      "heroId": 16,
+      "skillId": 90092,
+      "sourceField": "ConfigDataHeroInfo.CastingLawSkill_ID",
+      "endpointNamespace": "ConfigDataSkillInfo.ID",
+      "provenance": {
+        "reference": "evidence/source/configdata/hero-16-central-discipline-skill.v1.json#heroInfo/rawRecord/CastingLawSkill_ID",
+        "endpoint": "canonical/skills.v1.json#skillId=90092"
       }
     }
   ]
