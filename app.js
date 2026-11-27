@@ -324,9 +324,11 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const headSubtotal = document.createElement('p');
   headSubtotal.textContent = '투구 · Lv.1~10 소계 골드 3,600,000';
   centralDisciplineSection.append(headSubtotal);
-  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo }) =>
-    [nameKo, typeLabelKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, descriptionKo]
-      .filter((part) => part !== undefined).join(' · ')));
+  const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ skillId, nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo }) => {
+    const description = skillId === 10705 ? '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.' : descriptionKo;
+    return [nameKo, typeLabelKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, description]
+      .filter((part) => part !== undefined).join(' · ');
+  }));
   const soldierSection = renderMinimalDetailList('용병', []);
   const soldierList = soldierSection.children[1];
   for (const { namespace, nameKo, fragment } of soldiers) {

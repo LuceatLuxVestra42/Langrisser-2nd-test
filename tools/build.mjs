@@ -18,7 +18,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readFreezeDisplay, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -140,7 +140,13 @@ export async function validatePublicSiteDirectory(output, canonical, publication
   return files;
 }
 
-function validatePackagedHero15Gold(app, detail, talent, keyGroups, headGoldLine) {
+function textLines(node, matches) {
+  if (typeof node === 'string') return matches(node) ? [node] : [];
+  const own = matches(node.textContent) ? [node.textContent] : [];
+  return own.concat(node.children.flatMap(child => textLines(child, matches)));
+}
+
+function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLine) {
   const groups = detail.heroes[0].fetterGold;
   for (const [index, values] of [bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues].entries()) {
     assert.deepEqual(groups[index], {
@@ -153,15 +159,11 @@ function validatePackagedHero15Gold(app, detail, talent, keyGroups, headGoldLine
     replaceChildren(...nodes) { this.children = nodes; }, addEventListener() {},
     setAttribute(name, value) { this[name.toLowerCase()] = String(value); },
   });
-  const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor'];
+  const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor',
+    'makeTalentPresentation', 'makeTalentDescription', 'appendSkillDescription'];
   const render = runInNewContext(functions.map(name => extractFunction(app, name)).join('\n') + '\nrenderHero15MinimalDetailView',
-    { document: { createElement: element }, makeTalentPresentation: element });
+    { document: { createElement: element, createTextNode: text => text } });
   const approvedTotals = ['Lv.2~10 합계 골드 118,600', 'Lv.2~10 합계 골드 383,500', 'Lv.2~10 합계 골드 736,000', 'Lv.2~10 합계 골드 1,186,000', 'Lv.2~10 합계 골드 1,523,000', 'Lv.2~10 합계 골드 650,000'];
-  function textLines(node, matches) {
-    if (typeof node === 'string') return matches(node) ? [node] : [];
-    const own = matches(node.textContent) ? [node.textContent] : [];
-    return own.concat(node.children.flatMap(child => textLines(child, matches)));
-  }
   function checkCentralDiscipline(card) {
     const sections = card.children.filter(node => node.children[0]?.textContent === '중앙율정');
     assert.equal(sections.length, 1, 'Packaged Central Discipline section count');
@@ -222,8 +224,9 @@ function validatePackagedHero15Gold(app, detail, talent, keyGroups, headGoldLine
         checkBadges(summary, keyGroups[i].totals);
       }
     }
+    return card;
   }
-  check(detail);
+  const card = check(detail);
   for (const index of approvedTotals.keys()) {
     for (const level of groups[index].rows.keys()) {
       const changed = structuredClone(detail);
@@ -245,6 +248,28 @@ function validatePackagedHero15Gold(app, detail, talent, keyGroups, headGoldLine
     }
     check(matchingAmounts, destination);
   }
+  return card;
+}
+
+function checkPackagedFreezeDescription(card, description) {
+  const sections = card.children.filter(node => node.children[0]?.textContent === '일반 스킬');
+  assert.equal(sections.length, 1, 'Packaged ordinary skill section count');
+  const list = sections[0].children[1];
+  assert.equal(list.tag, 'ul');
+  const expectedRows = [
+    '힐 · 치료 · 1코스트 · 사거리 2칸 · 범위 단일 · 단일 아군의 생명을 시전자 지력의 5배만큼 회복하고 디버프 1개를 제거한다.',
+    '어게인 · 지원 · 2코스트 · 쿨 2턴 · 사거리 2칸 · 범위 단일 · 행동을 마친 아군 1부대를 다시 행동할 수 있게 하고 시전자 지력 2배만큼 생명을 회복시킨다.',
+    '복음 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 단일 · [지원] 단일 부대의 공격, 지력, 방어 +20% 및 모든 디버프 면역, 2턴 지속.',
+    '윈드 커터 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일 · 단일 적 부대를 공격해 1.5배의 마법 피해를 준다. 비병에게 더 큰 피해를 준다.',
+    '빙결 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일 · 적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.',
+    '광역 실드 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 3칸',
+    '홀리 힐 · 치료 · 2코스트 · 쿨 3턴 · 사거리 3칸 · 범위 6칸 · [지원]광범위 부대에게 지력 4배만큼 생명을 회복한다. 그리고 행동 종료 시 생명을 20% 회복한다. 2행동 지속.',
+    '명상 · 패시브 · 1코스트',
+    '천공사수 소환 · 소환 · 2코스트 · 쿨 4턴 · 사거리 3칸 · 범위 단일 · [소환] 천공사수 1기 소환',
+  ];
+  assert.deepEqual(list.children.map(row => row.textContent), expectedRows, 'Packaged Skill 10705 row attribution or ordinary skill list mismatch');
+  assert.ok(list.children.every(row => row.tag === 'li' && row.children.length === 0), 'Ordinary skills must be plain text rows');
+  assert.deepEqual(textLines(card, text => text?.includes(description)), [expectedRows[4]], 'Freeze description occurrences in Hero 15 card');
 }
 
 export async function buildSite({ outputDir, verifyDir, manifestPath } = {}) {
@@ -325,6 +350,7 @@ const profileInputs = await readHero15ProfileInputs(readJson);
 renderBond1KeyTotals(profileInputs);
 renderBond2KeyTotals(profileInputs);
 const keyGroups = readBondKeyDisplay(profileInputs);
+const freezeDescription = readFreezeDisplay(profileInputs);
 validateHero15MinimalDetail({ generatedText: hero15MinimalDetailText, inputs: { ...hero15MinimalInputs, jobInputs: await readHero15JobPublicationInputs(readJson), soldierInputs: await readHero15SoldierPublicationInputs(readJson), profileInputs } });
 const hero15TalentPublicText = await readFile(resolve(HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 const hero15TalentPublicInputs = { decision: hero15TalentPublication, talentRelations, skills, localizations: talentLocalizations };
@@ -726,7 +752,9 @@ try {
   if (packagedHero15MinimalDetailText !== hero15MinimalDetailText) throw new Error('packaged Hero 15 minimal detail differs from validated Generated artifact');
   const packagedHero15MinimalDetail = JSON.parse(packagedHero15MinimalDetailText);
   if (packagedHero15MinimalDetail.heroes.length !== 1 || packagedHero15MinimalDetail.heroes[0].heroId !== 15) throw new Error('packaged Hero Minimal Detail scope mismatch');
-  validatePackagedHero15Gold(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
+  assert.equal(createHash('sha256').update(packagedHero15MinimalDetailText).digest('hex'),
+    'ff6404711698bdd04e426097e09f9a735ed2c16e34693174d0e3974433859021', 'Packaged Hero 15 public v1 bytes changed');
+  const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
     keyGroups, renderHeadGoldSubtotal(profileInputs));
   const packagedHero16MinimalDetailText = await readFile(join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')), 'utf8');
   if (packagedHero16MinimalDetailText !== hero16MinimalDetailText) throw new Error('packaged Hero 16 minimal detail differs from validated Generated artifact');
@@ -776,6 +804,7 @@ try {
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
+  checkPackagedFreezeDescription(hero15Card, freezeDescription);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');

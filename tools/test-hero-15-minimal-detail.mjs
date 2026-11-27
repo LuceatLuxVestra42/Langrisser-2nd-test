@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readFreezeDisplay, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -279,8 +279,13 @@ assert.deepEqual(generated.heroes[0].ordinarySkills, existingSkills.map((row, in
 const expectedSkillLabels = existingSkills.map(({ nameKo, descriptionKo }, index) => [
   nameKo, expectedTypeLabels[index], `${expectedCosts[index]}코스트`, expectedCooldownLabels[index], expectedDistanceLabels[index], expectedAreaLabels[index], descriptionKo,
 ].filter(Boolean).join(' · '));
+const oldSkillLabels = [...expectedSkillLabels];
+expectedSkillLabels[4] = '빙결 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일 · 적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.';
+assert.equal(readFreezeDisplay(inputs.profileInputs), '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.');
+for (const id of [10705, 10804, 6009]) {
+  assert.ok(!Object.hasOwn(generated.heroes[0].ordinarySkills.find(row => row.skillId === id), 'descriptionKo'));
+}
 assert.deepEqual(skillLabels, expectedSkillLabels);
-assert.equal(skillLabels[4], '빙결 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일');
 assert.equal(skillLabels[5], '광역 실드 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 3칸');
 assert.match(skillLabels[6], /^홀리 힐 · 치료 · 2코스트 · 쿨 3턴 · 사거리 3칸 · 범위 6칸 · /);
 assert.equal(skillLabels[7], '명상 · 패시브 · 1코스트');
@@ -1017,6 +1022,8 @@ async function startApp(source, optionalResponse) {
   assert.deepEqual(errors, []);
   const [card] = root('#hero-minimal-detail-15-content').children;
   assert.equal(card?.className, 'hero-minimal-detail-card');
+  const skills = card.children.find(section => section.children[0]?.textContent === '일반 스킬');
+  assert.deepEqual(skills.children[1].children.map(row => row.textContent), source === frontend ? expectedSkillLabels : oldSkillLabels);
   const totals = [...descendants(roots.values())].filter(node => node.textContent === bond1Line);
   assert.equal(totals.length, source === frontend ? 1 : 0);
   if (totals.length) assert.ok([...descendants([card])].includes(totals[0]));
