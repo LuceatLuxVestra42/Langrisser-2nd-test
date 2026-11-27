@@ -1,4 +1,4 @@
-import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic, ordinaryPublicV2, ordinaryDecisionV2, ordinaryDecisionV3, ordinaryPublicV3 } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic, ordinaryPublicV2, ordinaryDecisionV2, ordinaryDecisionV3, ordinaryPublicV3, ordinaryDecisionV4, ordinaryPublicV4 } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { lanceTalentDecision, lanceTalentPublic } from './hero-16-talent-publication-contract.mjs';
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
@@ -85,7 +85,28 @@ async function checkHeroDetailBuildFailures() {
   function exchangeCost(a, b) {
     [a.LevelUpGoldCost, b.LevelUpGoldCost] = [b.LevelUpGoldCost, a.LevelUpGoldCost];
   }
+  const stormRow = d => d.ordinarySkills.find(row => row.skillId === 11819);
   const cases = [
+    {decisionPath:ordinaryEvidence,name:'1641 grants a different skill',mutate:d=>{
+      d.levels.find(row=>row.ID===1641).GotSkill_ID=10105;
+    },error:talentError('JobLevel 1641 must grant Skill 11819')},
+    {decisionPath:ordinaryDecisionV4,name:'missing v4 decision',error:path=>`Error: ENOENT: no such file or directory, open '${path}'`},
+    ...[
+      ['Hero',d=>{d.heroId=15;},'Hero'],
+      ['path',d=>{d.publicPath=ordinaryPublicV3;},'public path'],
+      ['rows',d=>{d.rows.splice(6,1);},'rows'],
+    ].map(([name,mutate,reason])=>({decisionPath:ordinaryDecisionV4,name:'v4 decision '+name,mutate,error:talentError('Lance v4 decision '+reason)})),
+    ...[
+      ['passive',d=>{stormRow(d).typeLabelKo='패시브';},'values'],
+      ['cooldown and duration exchanged',d=>{const r=stormRow(d); r.cooldownLabelKo='쿨 4턴'; r.descriptionKo=r.descriptionKo.replace('4턴','3턴');},'values'],
+      ['faction omitted',d=>{stormRow(d).descriptionKo=stormRow(d).descriptionKo.replace("'제국의 빛' ",'');},'values'],
+      ['non-stacking omitted',d=>{stormRow(d).descriptionKo=stormRow(d).descriptionKo.split(' 다른 초절강화')[0];},'values'],
+      ['unapproved percentage',d=>{stormRow(d).descriptionKo=stormRow(d).descriptionKo.replace('크게','20%');},'values'],
+      ['extra field',d=>{stormRow(d).factionId=4;},'row fields'],
+      ['duplicate',d=>{d.ordinarySkills.push(stormRow(d));},'row count'],
+      ['misordered rows',d=>{const rows=d.ordinarySkills; [rows[6],rows[1]]=[rows[1],rows[6]];},'values'],
+    ].map(([name,mutate,reason])=>({decisionPath:ordinaryPublicV4,finalFile:true,name:'v4 '+name,mutate,error:talentError('Lance ordinary public '+reason)})),
+
     {decisionPath:lanceGoldDecision, name:'Lance gold decision missing', error:path => `Error: ENOENT: no such file or directory, open '${path}'`},
     ...[
       [lanceGoldDecision, 'Liana decision replaces Lance decision', doc => {
@@ -141,7 +162,7 @@ async function checkHeroDetailBuildFailures() {
       ...['sourceNames','voiceActor'].map(field=>[HERO_16_PROFILE_DECISION, 'missing profile approval for '+field,
         d=>{delete d.nameAndVoice[field];}, 'Hero 16 original names and voice publication scope mismatch']),
     ].map(([decisionPath,name,mutate,message])=>({decisionPath,name,mutate,error:()=>'Error: '+message})),
-    ...[[5025,202],['10303·10305',306],[10105,405]].map(([skill,job])=>({
+    ...[[5025,202],['10303·10305',306],['10105·11819',405]].map(([skill,job])=>({
       decisionPath:membership, name:`Skill ${skill} missing Hero 16–Job ${job}`,
       mutate:doc=>{ doc.records = doc.records.filter(r=>!(r.heroId===16 && r.jobId===job)); },
       error:talentError(`${skill}의 Hero 16–Job ${job} 소속 누락 또는 출처 불일치`),
@@ -149,10 +170,11 @@ async function checkHeroDetailBuildFailures() {
     ...[
       [165, 0, 1653, 1651, 10305],
       [164, 2, 1641, 1643, 10105],
+      [164, 0, 1643, 1641, 11819],
     ].map(([connection,slot,wrong,expected,skill])=>({
       decisionPath:ordinaryEvidence, name:`Skill ${skill}: Connection ${connection} [${slot}] only`,
       mutate:d=>{d.connections.find(r=>r.ID===connection)[`JobLevels_ID/${slot}`]=wrong;},
-      error:talentError(`Skill ${skill} requires Connection ${connection} JobLevels_ID[${slot}]=${expected}`),
+      error:talentError(`Skill ${skill} requires Connection ${connection} JobLevels_ID[${slot}]=${expected}, found ${wrong}`),
     })),
     {decisionPath:ordinaryEvidence,name:'1651 and 1653 acquisitions exchanged',mutate:d=>{
       const a=d.levels.find(r=>r.ID===1651), b=d.levels.find(r=>r.ID===1653);
@@ -188,7 +210,7 @@ async function checkHeroDetailBuildFailures() {
       const row = doc.connections.find(r=>r.ID===165);
       row['JobLevels_ID/1']=row['JobLevels_ID/2'];
       delete row['JobLevels_ID/2'];
-    }, error:talentError('Skill 10303 requires Connection 165 JobLevels_ID[2]=1653') },
+    }, error:talentError('Skill 10303 requires Connection 165 JobLevels_ID[2]=1653, found undefined') },
     { decisionPath:ordinaryEvidence, name:'10403 and 5025 cooldowns exchanged', mutate:doc=>{
       const wind=doc.skills.find(r=>r.ID===10403), heal=doc.skills.find(r=>r.ID===5025);
       [wind.CDText,heal.CDText]=[heal.CDText,wind.CDText];
@@ -358,7 +380,7 @@ async function checkHeroDetailBuildFailures() {
     }
   }
 
-  for (const file of [lanceTalentPublic,ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3]) for (const mode of modes) {
+  for (const file of [lanceTalentPublic,ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3,ordinaryPublicV4]) for (const mode of modes) {
     const root = await mkdtemp(join(temp, 'lance-json-missing-'));
     const source = join(root, 'source');
     const destination = join(root, 'package');
@@ -403,6 +425,9 @@ async function checkHeroDetailBuildFailures() {
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
+    ['Lance storm and defense threat descriptions exchanged','Packaged Lance ordinary skill row text or placement',
+      '...range, row.descriptionKo].join', '...range, (i===6 || i===7) ? data.ordinarySkills[13-i].descriptionKo : row.descriptionKo].join'],
+
     ["Lance armor and head gold exchanged", "Lance gold paragraph attribution", "    '갑옷 · Lv.1~10 소계 골드 3,600,000',\n    '투구 · Lv.1~10 소계 골드 1,800,000',", "    '갑옷 · Lv.1~10 소계 골드 1,800,000',\n    '투구 · Lv.1~10 소계 골드 3,600,000',"],
     ["Lance weapon labels exchanged", "Lance gold paragraph attribution", "    '무기 1 · Lv.1~10 소계 골드 1,800,000',\n    '무기 2 · Lv.1~10 소계 골드 1,800,000',", "    '무기 2 · Lv.1~10 소계 골드 1,800,000',\n    '무기 1 · Lv.1~10 소계 골드 1,800,000',"],
 
@@ -412,8 +437,8 @@ async function checkHeroDetailBuildFailures() {
       'labels.push([row.nameKo, row.typeLabelKo,', "labels.push([row.nameKo, row.skillId === 10311 ? '패시브' : row.typeLabelKo,"],
 
     ...[
-      ['attack command after charge', '[...labels.slice(0,4),labels[5],labels[4],labels[6]]'],
-      ['passive descriptions exchanged', 'labels.map((line,i)=>(i===4 || i===6) ? line.replace(data.ordinarySkills[i].descriptionKo,data.ordinarySkills[10-i].descriptionKo) : line)'],
+      ['attack command after charge', '[...labels.slice(0,4),labels[5],labels[4],...labels.slice(6)]'],
+      ['passive descriptions exchanged', 'labels.map((line,i)=>(i===4 || i===7) ? line.replace(data.ordinarySkills[i].descriptionKo,data.ordinarySkills[11-i].descriptionKo) : line)'],
       ['order', 'labels.reverse()'], ['duplication', '[...labels, labels[0]]'],
       ['description attribution', 'labels.map((line,i)=>i===0 ? line.replace(data.ordinarySkills[0].descriptionKo,data.ordinarySkills[3].descriptionKo) : line)'],
     ].map(([name,expression])=>['Lance v3 '+name,'Packaged Lance ordinary skill row text or placement',

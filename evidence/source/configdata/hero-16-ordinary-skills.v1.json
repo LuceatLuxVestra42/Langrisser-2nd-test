@@ -49,7 +49,8 @@
       "index": 108,
       "ID": 164,
       "Job_ID": 405,
-      "JobLevels_ID/2": 1643
+      "JobLevels_ID/2": 1643,
+      "JobLevels_ID/0": 1641
     }
   ],
   "levels": [
@@ -82,6 +83,11 @@
       "index": 620,
       "ID": 1643,
       "GotSkill_ID": 10105
+    },
+    {
+      "index": 618,
+      "ID": 1641,
+      "GotSkill_ID": 11819
     }
   ],
   "skills": [
@@ -161,6 +167,17 @@
       "CDText": "-",
       "DistanceText": "-",
       "RangeText": "-"
+    },
+    {
+      "index": 3288,
+      "ID": 11819,
+      "Name": "帝国疾风",
+      "Desc": "[超绝强化]主动使用，范围内所有“帝国之辉”友军，攻防能力大幅提升，持续<color=#DC143C>4</color>回合。（该效果无法和其他的超绝强化技能叠加）",
+      "TypeText": "超绝强化",
+      "SkillCost": 2,
+      "CDText": "3回合",
+      "DistanceText": "自身",
+      "RangeText": "全场"
     }
   ],
   "hero": {

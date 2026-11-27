@@ -122,6 +122,24 @@
         "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/5/GotSkill_ID",
         "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/6"
       }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 164,
+      "jobId": 405,
+      "jobLevelIndex": 0,
+      "jobLevelId": 1641,
+      "skillId": 11819,
+      "TypeText": "超绝强化",
+      "SkillCost": 2,
+      "CDText": "3回合",
+      "DistanceText": "自身",
+      "RangeText": "全场",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/4",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/6/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/7"
+      }
     }
   ]
 }

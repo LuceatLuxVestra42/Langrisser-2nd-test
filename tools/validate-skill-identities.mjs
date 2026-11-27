@@ -340,9 +340,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 7 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 8 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length + 12, 'CANONICAL', 'Canonical must contain exactly the 121 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length + 13, 'CANONICAL', 'Canonical must contain exactly the 122 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];

@@ -12,6 +12,8 @@ export const ordinaryPublicV2 = 'generated/hero-16-ordinary-skills-public.v2.jso
 export const ordinaryDecisionV2 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v2.json';
 export const ordinaryPublicV3 = 'generated/hero-16-ordinary-skills-public.v3.json';
 export const ordinaryDecisionV3 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v3.json';
+export const ordinaryPublicV4 = 'generated/hero-16-ordinary-skills-public.v4.json';
+export const ordinaryDecisionV4 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v4.json';
 const original = [
   { id:10401, name:'雷光', index:1862, connection:160, job:401, level:1602, cost:2, cd:'3回合', cooldown:'쿨 3턴',
     hash:'5f2262e391467ca876a139bcf3471bcd081ba92a2a2ffa9c30908a5bf678731e', ko:'뇌광',
@@ -36,6 +38,9 @@ const added = [
   { id:10105, index:1810, name:'防御威吓', type:'被动', cost:2, cd:'-', distance:'-', area:'-',
     hash:'f2bbc8e4958b465c337b28f52fcd23db0f9efcbd910a960f1cd2f1ff8a9b5b54', ko:'방어 위협',
     description:'행동 종료 시 주위 2칸 내 모든 적의 방어 -15%, 1턴 지속.' },
+  { id:11819, index:3288, name:'帝国疾风', type:'超绝强化', cost:2, cd:'3回合', distance:'自身', area:'全场',
+    hash:'48fb062a99a6c812d60ab5bc072da5c2723c074ce4c0800bde34c46dd43344a3', ko:'제국 질풍',
+    description:"[초절강화] 범위 내 모든 '제국의 빛' 아군의 공격, 방어 능력치가 크게 상승한다. 4턴 지속. 다른 초절강화와 중첩되지 않는다." },
 ];
 const approved = [...original.map(r=>({...r,type:'物理伤害',distance:'1格',area:'单体'})), ...added];
 const jobSources = [
@@ -45,6 +50,7 @@ const jobSources = [
   { connection:165, job:306, level:1653, skill:10303, slot:2, ci:109, li:625, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/5/Job_ID' },
   { connection:165, job:306, level:1651, skill:10305, slot:0, ci:109, li:623, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/5/Job_ID' },
   { connection:164, job:405, level:1643, skill:10105, slot:2, ci:108, li:620, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/4/Job_ID' },
+  { connection:164, job:405, level:1641, skill:11819, slot:0, ci:108, li:618, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/4/Job_ID' },
 ];
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root,path),'utf8'));
 
@@ -65,11 +71,12 @@ export async function readOrdinarySkillEvidence(root) {
     const expected = connections.get(r.connection) ?? {index:r.ci, ID:r.connection, Job_ID:r.job};
     const key = `JobLevels_ID/${r.slot}`;
     const actual = e.connections.find(row=>row.ID===r.connection);
-    assert.equal(actual?.[key],r.level,`Skill ${r.skill} requires Connection ${r.connection} JobLevels_ID[${r.slot}]=${r.level}`);
+    assert.equal(actual?.[key],r.level,`Skill ${r.skill} requires Connection ${r.connection} JobLevels_ID[${r.slot}]=${r.level}, found ${actual?.[key]}`);
     expected[key] = r.level;
     connections.set(r.connection,expected);
   }
   assert.deepEqual(e.connections,[...connections.values()],'Lance ordinary JobConnection source mismatch');
+  assert.equal(e.levels.find(row => row.ID === 1641)?.GotSkill_ID,11819,'JobLevel 1641 must grant Skill 11819');
   assert.deepEqual(e.levels, jobSources.map(r=>({index:r.li, ID:r.level, GotSkill_ID:r.skill})), 'Lance ordinary GotSkill_ID source mismatch');
   assert.deepEqual(e.skills.map(r=>r.ID),approved.map(r=>r.id),'Lance ordinary Skill source locators');
   for (const r of approved) {
@@ -140,9 +147,9 @@ export async function generateOrdinarySkills(root=process.cwd()) {
     const labels = row.TypeText==='被动' ? {} : {
       cooldownLabelKo:{'2回合':'쿨 2턴','3回合':'쿨 3턴'}[row.CDText],
       distanceLabelKo:{'自身':'사거리 자신','1格':'사거리 1칸'}[row.DistanceText],
-      areaLabelKo:{'单体':'범위 단일','1圈':'범위 주위 1칸'}[row.RangeText],
+      areaLabelKo:{'单体':'범위 단일','1圈':'범위 주위 1칸','全场':'범위 전체'}[row.RangeText],
     };
-    return {skillId:id,nameKo:display.ko,typeLabelKo:{'被动':'패시브','治疗':'치료','物理伤害':'물리 피해'}[row.TypeText],
+    return {skillId:id,nameKo:display.ko,typeLabelKo:{'被动':'패시브','治疗':'치료','物理伤害':'물리 피해','超绝强化':'초절강화'}[row.TypeText],
       cost:row.SkillCost,...labels,descriptionKo:display.description};
   }
   const v1 = {schemaVersion:1,heroId:16,surface:scope.surface,officialKrProvenanceStatus:scope.officialKrProvenanceStatus,
@@ -170,7 +177,23 @@ export async function generateOrdinarySkills(root=process.cwd()) {
     corroboration:{...scopeV2.corroboration,locator:[...scopeV2.corroboration.locator,
       '/normal/skills/jobLevelAcquisitions/4','/normal/skills/jobLevelAcquisitions/7']},
   },'Lance ordinary v3 publication scope mismatch');
-  return {v1,v2:{...v1,schemaVersion:2,ordinarySkills:rows},v3:{...v1,schemaVersion:3,ordinarySkills:v3Rows}};
+  const {approval:approvalV4, rows:v4Rows, ...scopeV4} = await readJson(root,ordinaryDecisionV4);
+  assert.ok(approvalV4?.source && approvalV4?.basis,'Lance v4 approval reference missing');
+  assert.equal(scopeV4.heroId,16,'Lance v4 decision Hero');
+  assert.equal(scopeV4.publicPath,ordinaryPublicV4,'Lance v4 decision public path');
+  const {rows:priorRows, ...previousScope} = scopeV3;
+  const expectedV4 = [...priorRows.slice(0,6),publicRow(11819),priorRows[6]];
+  assert.deepEqual(v4Rows,expectedV4,'Lance v4 decision rows');
+  assert.deepEqual(scopeV4,{...previousScope,schemaVersion:4,publicPath:ordinaryPublicV4,
+    localization:{
+      catalog:{...catalog,locator:[...scopeV3.localization.catalog.locator,'11819 帝国疾风 L2136-L2141']},
+      sheet:{...sheet,locator:[...scopeV3.localization.sheet.locator,'L461-L483']},
+    },
+    corroboration:{...scopeV3.corroboration,locator:[...scopeV3.corroboration.locator,'/normal/skills/jobLevelAcquisitions/6']},
+  },'Lance ordinary v4 publication scope mismatch');
+  return {v1,v2:{...v1,schemaVersion:2,ordinarySkills:rows},v3:{...v1,schemaVersion:3,ordinarySkills:v3Rows},
+    v4:{...v1,schemaVersion:4,ordinarySkills:expectedV4}};
+
 }
 
 export function validateOrdinaryPublic(text, expected) {
