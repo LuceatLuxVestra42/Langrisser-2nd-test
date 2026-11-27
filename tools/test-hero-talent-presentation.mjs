@@ -72,6 +72,9 @@ assert.match(source, /Talent · 프로젝트 검수 한국어 \(공식 표기 �
 const makeElement = (tagName = '#text') => ({
   tagName, children: [], className: '', textContent: '', attributes: {},
   append(...children) { this.children.push(...children); },
+  replaceChildren(...children) { this.children = children; },
+  addEventListener(event, listener) { this.listeners[event] = listener; },
+  listeners: {},
   setAttribute(key, value) { this.attributes[key] = value; },
 });
 const document = {
@@ -100,6 +103,49 @@ for (const hero of generated.heroes.filter(({ talent }) => talent)) {
   assert.ok(sourceDescription.children.some((child) => child.className === 'skill-description-emphasis'));
   assert.ok(!source.includes('innerHTML'));
 }
+const { talent } = hero15Public;
+for (const star of [3, 4, 5]) {
+  const copy = structuredClone(hero15Public);
+  copy.talent.starDescriptions.find(row => row.star === star).descriptionKoRaw = '   ';
+  assert.throws(() => functions.makeTalentPresentation(15, copy.talent),
+    /Generated Hero Talent description is missing/, `Reject blank ${star}-star Korean text on initial render`);
+}
+const liana = functions.makeTalentPresentation(15, talent);
+const [heading, name, lower, higher, list, originals] = liana.children;
+assert.equal(heading.textContent, 'Talent · 프로젝트 검수 한국어 (공식 표기 미확인)');
+assert.equal(name.textContent, '성결한 수녀');
+assert.deepEqual([lower.tagName, higher.tagName, originals.tagName], ['button', 'button', 'details']);
+assert.equal(originals.children[0].textContent, '연결된 Talent Skill 중국어 원문 · ID 기준');
+const originalRows = originals.children[1].children;
+assert.deepEqual(originalRows.map(row => row.children[0].textContent),
+  talent.starDescriptions.map(row => `${row.star}성 · Skill ID ${row.skillId} · ${row.nameCn}`));
+originals.open = true;
+const skillIds = new Map([[3, 3212], [4, 3214], [5, 3216], [6, 3218]]);
+function checkSelectedStar(star) {
+  const row = talent.starDescriptions.find(row => row.skillId === skillIds.get(star));
+  assert.equal(list.children.length, 1);
+  const [label, description] = list.children[0].children;
+  assert.equal(label.textContent, `${star}성`);
+  // Compare the same public row using the pre-existing Korean formatting rules.
+  const expected = functions.makeTalentDescription(row.descriptionKoRaw, star);
+  assert.equal(description.className, expected.className);
+  assert.equal(description.textContent, expected.textContent);
+  assert.deepEqual(description.children.map(node => [node.className, node.textContent]),
+    expected.children.map(node => [node.className, node.textContent]));
+  assert.equal(lower.disabled, star === 3);
+  assert.equal(higher.disabled, star === 6);
+  assert.equal(lower.textContent, star === 3 ? '낮은 성급 고유기 보기' : `낮은 성급 고유기 보기 · ${star - 1}성`);
+  assert.equal(higher.textContent, star === 6 ? '높은 성급 고유기 보기' : `높은 성급 고유기 보기 · ${star + 1}성`);
+  assert.equal(liana.children.at(-1), originals);
+  assert.equal(originals.open, true);
+  assert.equal(originals.children[1].children, originalRows);
+}
+checkSelectedStar(6);
+for (const [button, star] of [[higher, 6], [lower, 5], [lower, 4], [lower, 3], [lower, 3],
+  [higher, 4], [higher, 5], [higher, 6], [higher, 6]]) {
+  button.listeners.click();
+  checkSelectedStar(star);
+}
 const unsafe = functions.makeTalentDescription('<img src=x onerror=alert(1)>', 3);
 assert.equal(unsafe.textContent, '<img src=x onerror=alert(1)>');
 assert.equal(unsafe.children.length, 0, 'unsupported markup is rendered as text, never HTML');
@@ -110,4 +156,4 @@ assert.equal(unsafeSource.children.length, 0, 'unsupported Chinese source markup
 assert.throws(() => functions.makeTalentDescription(' ', 3), /missing/);
 assert.throws(() => functions.makeTalentPresentation(6, { nameKo: 'x', starDescriptions: [] }), /malformed/);
 assert.throws(() => functions.makeTalentPresentation(6, { nameKo: 'x', starDescriptions: [{ star: 3, skillId: 3067 }] }), /presentation is malformed/);
-console.log('Hero Talent presentation checks passed (Full Detail remains Heroes 6/8; Hero 15 Talent isolated to approved Minimal Detail; 8 negative controls; original markup safety)');
+console.log('Hero Talent presentation checks passed (Full Detail remains Heroes 6/8; Hero 15 Talent isolated to approved Minimal Detail; 6→3→6 navigation and endpoints; three unselected Korean descriptions checked on initial render; original markup safety)');

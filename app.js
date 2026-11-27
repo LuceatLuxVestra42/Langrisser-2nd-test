@@ -719,7 +719,31 @@ function makeTalentPresentation(heroId, talent) {
     sourceList.append(sourceItem);
   }
   sourceDetails.append(sourceSummary, sourceList);
-  section.append(heading, name, list, sourceDetails);
+  section.append(heading, name);
+  if (heroId === 15) {
+    const items = Array.from(list.children);
+    const lower = document.createElement('button');
+    const higher = document.createElement('button');
+    lower.type = higher.type = 'button';
+    list.setAttribute('aria-live', 'polite');
+    let selectedIndex;
+    function showStar(index) {
+      if (!items[index]) return;
+      selectedIndex = index;
+      list.replaceChildren(items[index]);
+      const previous = talent.starDescriptions[index - 1];
+      const next = talent.starDescriptions[index + 1];
+      lower.disabled = !previous;
+      higher.disabled = !next;
+      lower.textContent = previous ? `낮은 성급 고유기 보기 · ${previous.star}성` : '낮은 성급 고유기 보기';
+      higher.textContent = next ? `높은 성급 고유기 보기 · ${next.star}성` : '높은 성급 고유기 보기';
+    }
+    lower.addEventListener('click', () => showStar(selectedIndex - 1));
+    higher.addEventListener('click', () => showStar(selectedIndex + 1));
+    showStar(items.length - 1);
+    section.append(lower, higher);
+  }
+  section.append(list, sourceDetails);
   return section;
 }
 
