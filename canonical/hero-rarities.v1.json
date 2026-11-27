@@ -271,6 +271,15 @@
         "rank": "evidence/source/hero-rarity-hero15-inherited.v1.json#records/heroId=15/Rank",
         "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=4/Desc"
       }
+    },
+    {
+      "heroId": 16,
+      "rankId": 3,
+      "label": "SR",
+      "provenance": {
+        "rank": "evidence/source/hero-rarity-hero16.v1.json#/record/Rank",
+        "label": "evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc"
+      }
     }
   ]
 }

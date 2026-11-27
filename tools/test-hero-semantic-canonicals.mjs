@@ -171,6 +171,8 @@ try {
   assert.deepEqual(generatedRarity.heroes.map((hero) => hero.id), [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 32, 33, 37, 40, 52, 53, 55, 56, 60, 67, 89],
     'off-slice Rarity Canonical records must not expand Generated Hero population');
   assert.equal(generatedRarity.heroes.some((hero) => hero.id === 15), false, 'Hero 15 Rarity admission must not publish Minimal Detail');
+  await mutateAndExpectFailure('evidence/source/hero-rarity-hero16.v1.json', doc => { doc.record.Rank = 4; },
+    'Hero 16 source Rank mismatch', /Hero 16 rarity source or endpoint mismatch/, 'tools/validate.mjs');
   const hero15RarityEvidencePath = 'evidence/source/hero-rarity-hero15-inherited.v1.json';
   await mutateAndExpectFailure(hero15RarityEvidencePath, (doc) => { doc.records[0].rank = 3; },
     'Hero 15 rank mismatch rejected by required validation entry point', /Hero 15 inherited rarity Claim or boundary drift/, 'tools/validate.mjs');
@@ -206,7 +208,7 @@ try {
   assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
   if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, 30 Hero Rarity claims, 211 Hero→Job relations including six inherited Hero 15 claims, 181-pair Full Detail parity, inherited evidence negatives, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, 31 Hero Rarity claims, 211 Hero→Job relations including six inherited Hero 15 claims, 181-pair Full Detail parity, inherited evidence negatives, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

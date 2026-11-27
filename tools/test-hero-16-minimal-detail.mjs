@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { runInNewContext } from 'node:vm';
+import { extractFunction } from './test-app-function-source.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, renderHero16MinimalDetail, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
@@ -45,4 +47,28 @@ const extraField = structuredClone(generated); extraField.heroes[0].rarity = { r
 assert.throws(() => validateHero16MinimalDetail({ generatedText: `${JSON.stringify(extraField, null, 2)}\n`, inputs }), /stale or non-deterministic/);
 const duplicated = structuredClone(generated); duplicated.heroes.push(structuredClone(duplicated.heroes[0]));
 assert.throws(() => validateHero16MinimalDetail({ generatedText: `${JSON.stringify(duplicated, null, 2)}\n`, inputs }), /stale or non-deterministic/);
+assert.equal(Buffer.byteLength(generatedText), 294);
+assert.equal(createHash('sha256').update(generatedText).digest('hex'), 'ef76cb5a482d1fc717a49a16b115f25358c843cdb5ded784b9d7558ad1ed83d2');
+for (const [appPath, lines] of [
+  ['tools/fixtures/hero-15-soldier-text-base-app.js', []],
+  ['app.js', ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가']],
+]) {
+  const app = await readFile(appPath, 'utf8');
+  const functions = ['renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name));
+  const element = tag => ({ tag, children: [], append(...nodes) { this.children.push(...nodes); },
+    replaceChildren(...nodes) { this.children = nodes; } });
+  let target;
+  const document = { createElement: element, getElementById: id => ({ scrollIntoView() { target = id; } }) };
+  const render = runInNewContext([...functions, 'renderHero16MinimalDetailView'].join('\n'), { document });
+  const container = element('div');
+  const navigation = render(JSON.parse(generatedText), container);
+  const [card] = container.children;
+  assert.deepEqual(card.children.map(row => row.textContent), [
+    '란스', 'Hero ID 16', '프로젝트 검수 표시명 · 공식 한국 서버 Provenance 미확인', ...lines,
+    '칼자스의 왕관 (Equipment ID 418)', '생명 +5%\n혼합부대일 시, 주는 피해 +20%',
+  ]);
+  assert.equal(navigation.showTarget(15), false);
+  assert.equal(navigation.showTarget(16), true);
+  assert.equal(target, 'hero-minimal-detail-16');
+}
 process.stdout.write('Hero 16 Minimal Detail regression: PASS (publication, IDs, relation, localization, fields, duplicate endpoints, stale output, and Hero 15/population preservation)\n');

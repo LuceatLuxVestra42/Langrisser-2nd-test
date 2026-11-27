@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Explicit CN ConfigData Hero-to-Faction memberships for the 29 existing presentation-slice Heroes plus independently admitted Hero 15 claims; exactly 30 Hero endpoints / 74 evidence-backed edges, without implying Full Detail or Publication eligibility.",
+  "scope": "Explicit CN ConfigData Hero-to-Faction memberships for the 29 existing presentation-slice Heroes plus independently admitted Hero 15 and 16 claims; exactly 31 Hero endpoints / 77 evidence-backed edges, without implying Full Detail or Publication eligibility.",
   "sourceEvidence": "evidence/source/hero-faction.v1.json",
   "membershipField": "RelatedHeros_ID",
   "records": [
@@ -373,6 +373,21 @@
       "heroId": 15,
       "factionId": 6,
       "provenance": "evidence/source/hero-faction-hero15.v1.json#heroId=15&factionId=6"
+    },
+    {
+      "heroId": 16,
+      "factionId": 2,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=2/RelatedHeros_ID&contains=16"
+    },
+    {
+      "heroId": 16,
+      "factionId": 4,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=4/RelatedHeros_ID&contains=16"
+    },
+    {
+      "heroId": 16,
+      "factionId": 7,
+      "provenance": "evidence/source/hero-faction.v1.json#ID=7/RelatedHeros_ID&contains=16"
     }
   ],
   "additionalSourceEvidence": "evidence/source/hero-faction-hero15.v1.json"

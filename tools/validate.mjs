@@ -199,7 +199,18 @@ for (const record of inheritedRarityEvidence.records) {
   if (inheritedRankById.has(record.heroId)) throw new Error(`duplicate inherited Hero rarity record ${record.heroId}`);
   inheritedRankById.set(record.heroId, record);
 }
-const allRarityTargets = [...rarityTargets, ...independentlyAdmittedRarityTargets];
+const hero16RarityPath = 'evidence/source/hero-rarity-hero16.v1.json';
+const lance = await readJson(hero16RarityPath);
+check(lance.schemaVersion === 1 && lance.source?.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+  && lance.source.commit === heroRarityEvidence.source.commit && lance.source.path === 'data/configdata/ConfigDataHeroInfo.json'
+  && lance.source.blobSha1 === heroRarityEvidence.sourceFiles.heroInfo.blobSha1 && lance.source.pointer === '/15'
+  && lance.record?.ID === 16 && lance.record.Rank === 3
+  && lance.rankDefinition?.path === 'data/configdata/ConfigDataRankInfo.json'
+  && lance.rankDefinition.blobSha1 === heroRarityEvidence.sourceFiles.rankInfo.blobSha1
+  && lance.rankDefinition.pointer === '/3' && lance.rankDefinition.ID === rankInfo[3].ID
+  && lance.rankDefinition.Desc === rankInfo[3].Desc && rankInfo[3].ID === 3 && rankInfo[3].Desc === 'SR'
+  && heroIdentities.records.some(row => row.heroId === 16), 'Hero 16 rarity source or endpoint mismatch');
+const allRarityTargets = [...rarityTargets, ...independentlyAdmittedRarityTargets, 16];
 check(heroRarities.schemaVersion === 1 && heroRarities.sourceScope === canonical.sourceScope
   && JSON.stringify(heroRarities.records.map((record) => record.heroId)) === JSON.stringify(allRarityTargets), 'Hero rarity canonical scope drift');
 const heroInfoRarityById = new Map(heroInfoRarityRecords.map((record) => [record.ID, record]));
@@ -210,6 +221,13 @@ check(independentRarityById.size === hero15RarityEvidence.records.length
 const rankLabelById = new Map(rankInfo.filter((record) => Number.isSafeInteger(record.ID)).map((record) => [record.ID, record.Desc]));
 for (const rarity of heroRarities.records) {
   exactKeys(rarity, ['heroId', 'rankId', 'label', 'provenance'], `Hero ${rarity.heroId} rarity canonical`);
+  if (rarity.heroId === 16) {
+    check(rarity.rankId === lance.record.Rank && rarity.label === rankLabelById.get(rarity.rankId)
+      && rarity.provenance?.rank === `${hero16RarityPath}#/record/Rank`
+      && rarity.provenance?.label === 'evidence/source/configdata/ConfigDataRankInfo.json#ID=3/Desc',
+    'Hero 16 rarity Canonical differs from its source');
+    continue;
+  }
   const directSource = heroInfoRarityById.get(rarity.heroId);
   const inheritedSource = inheritedRankById.get(rarity.heroId);
   const independentSource = independentRarityById.get(rarity.heroId);
