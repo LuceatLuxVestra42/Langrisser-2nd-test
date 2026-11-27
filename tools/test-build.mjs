@@ -78,6 +78,26 @@ async function checkHeroDetailBuildFailures() {
   const advancement = 'canonical/hero-job-advancement-relations.v1.json';
   const talentError = message => () => 'AssertionError [ERR_ASSERTION]: ' + message;
   const cases = [
+    ...[
+      ['evidence/source/hero-16-cv-presence.v1.json', 'missing Lance PRESENT row',
+        d=>{d.records=d.records.filter(r=>r.heroId!==16);}, 'Hero 16 CharImage 16 PRESENT evidence missing or mismatched'],
+      ['evidence/localization/hero-16-cv-ko-freeze.v1.json', 'wrong frozen Korean CV',
+        d=>{d.records[0].nameKr='다른 성우';}, 'Hero 16 frozen CV Korean name mismatch'],
+      ['evidence/localization/hero-16-cv-ko-freeze.v1.json', 'unconfirmed frozen CV',
+        d=>{d.records[0].status='PENDING';}, 'Hero 16 frozen CV confirmation status mismatch'],
+      ['evidence/localization/hero-16-cv-ko-freeze.v1.json', 'wrong frozen CV source',
+        d=>{d.records[0].sourceValue='小清水亚美';}, 'Hero 16 frozen CV source value mismatch'],
+      ['evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json', 'missing Lance Chinese name',
+        d=>{d.records=d.records.filter(r=>r.heroId!==16);}, 'Hero 16 verified Chinese name mismatch'],
+      ['evidence/source/configdata/ConfigDataHeroInfo.record-hero-16-name-eng.v1.json', 'Lance English name on another Hero',
+        d=>{d.records[0].ID=15;}, 'Hero 16 original name attribution mismatch'],
+      ['evidence/source/configdata/ConfigDataHeroInfo.record-hero-16-name-eng.v1.json', 'Lance points to another CharImage',
+        d=>{d.records[0].CharImage_ID=15;}, 'Hero 16 CharImage foreign key or CV endpoint mismatch'],
+      ['canonical/hero-profile-cv-names.v1.json', 'missing Lance CV claim',
+        d=>{d.records=d.records.filter(r=>r.heroId!==16);}, 'Hero 16 CV Canonical claim or provenance mismatch'],
+      ...['sourceNames','voiceActor'].map(field=>[HERO_16_PROFILE_DECISION, 'missing profile approval for '+field,
+        d=>{delete d.nameAndVoice[field];}, 'Hero 16 original names and voice publication scope mismatch']),
+    ].map(([decisionPath,name,mutate,message])=>({decisionPath,name,mutate,error:()=>'Error: '+message})),
     ...[[5025,202],[10303,306]].map(([skill,job])=>({
       decisionPath:membership, name:`Skill ${skill} missing Hero 16–Job ${job}`,
       mutate:doc=>{ doc.records = doc.records.filter(r=>!(r.heroId===16 && r.jobId===job)); },
@@ -319,6 +339,16 @@ async function checkHeroDetailBuildFailures() {
       ['description attribution', 'labels.map((line,i)=>i===0 ? line.replace(data.ordinarySkills[0].descriptionKo,data.ordinarySkills[3].descriptionKo) : line)'],
     ].map(([name,expression])=>['Lance v2 '+name,'Packaged Lance ordinary skill row text or placement',
       "renderMinimalDetailList('일반 스킬', labels)",`renderMinimalDetailList('일반 스킬', ${expression})`]),
+    ['Lance original names and CV exchanged','Packaged Hero 16 profile text or placement mismatch',
+      "'중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오'", "'성우 · 모가미 츠구오', '중국어명 · 兰斯 / 영문명 · Lance'"],
+    ['Lance profile paragraphs moved to Liana','Lance profile paragraph attribution',
+      'void loadHero16Talent(hero16MinimalDetailContainer.children[0]);',
+      `const lanceCard = hero16MinimalDetailContainer.children[0];
+       const nodes = Array.from(lanceCard.children);
+       const moved = nodes.slice(5,7);
+       lanceCard.replaceChildren(...nodes.filter(node=>!moved.includes(node)));
+       hero15MinimalDetailContainer.children[0].append(...moved);
+       void loadHero16Talent(lanceCard);`],
     ['Lance job path reversed', 'Packaged Hero 16 job path text or direction mismatch',
       '전직 · 호크 나이트 → 하이랜더', '전직 · 하이랜더 → 호크 나이트'],
     ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',

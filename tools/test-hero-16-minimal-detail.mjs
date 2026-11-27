@@ -51,7 +51,7 @@ assert.equal(Buffer.byteLength(generatedText), 294);
 assert.equal(createHash('sha256').update(generatedText).digest('hex'), 'ef76cb5a482d1fc717a49a16b115f25358c843cdb5ded784b9d7558ad1ed83d2');
 for (const [appPath, lines] of [
   ['tools/fixtures/hero-15-soldier-text-base-app.js', []],
-  ['app.js', ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가']],
+  ['app.js', ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가', '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오']],
 ]) {
   const app = await readFile(appPath, 'utf8');
   const functions = ['renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name));

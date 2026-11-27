@@ -7,7 +7,69 @@ export const HERO_16_MINIMAL_DETAIL_FRAGMENT = 'hero-minimal-detail-16';
 
 export const HERO_16_PROFILE_DECISION = 'docs/decisions/hero-16-minimal-profile-publication.v1.json';
 
-export function hero16ProfileLines(decision, rarities, relations, localizations) {
+const heroInfoPath = 'evidence/source/configdata/ConfigDataHeroInfo.record-hero-16-name-eng.v1.json';
+const charImagePath = 'evidence/source/configdata/ConfigDataCharImageInfo.record-hero-16-cv-name.v1.json';
+const chineseNamePath = 'evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json';
+const cvCanonicalPath = 'canonical/hero-profile-cv-names.v1.json';
+const presencePath = 'evidence/source/hero-16-cv-presence.v1.json';
+const freezePath = 'evidence/localization/hero-16-cv-ko-freeze.v1.json';
+
+async function hero16NameAndVoiceLines(decision, identities, readJson) {
+  const config = '6475e63ee23d18adf733756c26a14fa9e3ed662c';
+  const legacy = '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff';
+  async function readEvidence(input, commit, path, blob, locator) {
+    const evidence = await readJson(input);
+    const source = { repository:'LuceatLuxVestra42/langrisser-future-guide', commit, path, blob, locator };
+    if (evidence.schemaVersion !== 1 || !isDeepStrictEqual(evidence.source,source) || !Array.isArray(evidence.records)) {
+      throw new Error('Hero 16 profile evidence source mismatch: ' + input);
+    }
+    return evidence.records;
+  }
+  const [heroes, images, presence, mapping, master, canonical] = await Promise.all([
+    readEvidence(heroInfoPath, config, 'data/configdata/ConfigDataHeroInfo.json', '728daab3370f0c7779449663ea02e638677944d4', '#/15'),
+    readEvidence(charImagePath, config, 'data/configdata/ConfigDataCharImageInfo.json', '397afb3e76c0fe4f3e424c04ba68459ff48d74c5', '#/14'),
+    readEvidence(presencePath, legacy, 'data/validation/hero-page-stage5-5-2-cv.v1.json', '67c21e9097ac95110a5ff53b8889f677e4f34d17', '#/heroes/14'),
+    readEvidence(freezePath, legacy, 'data/presentation/hero-cv-localization-stage4-freeze.v1.json', '1b599f4aa49268ea5723bbc59c1a72d7fb1257ba', '#/records/2'),
+    readJson(chineseNamePath), readJson(cvCanonicalPath),
+  ]);
+  if (identities.records.filter(r=>r.heroId===16).length !== 1 || heroes.length !== 1 || heroes[0].ID !== 16
+    || heroes[0].Name !== '兰斯' || heroes[0].Name_Eng !== 'Lance') throw new Error('Hero 16 original name attribution mismatch');
+  const hero = heroes[0];
+  const names = master.records.filter(r=>r.heroId===hero.ID);
+  if (names.length !== 1 || names[0] !== master.records[23] || names[0].status !== 'verified' || names[0].nameCn !== hero.Name) {
+    throw new Error('Hero 16 verified Chinese name mismatch');
+  }
+  if (images.length !== 1 || images[0].ID !== 16 || hero.CharImage_ID !== images[0].ID || images[0].CVName !== '最上嗣生') {
+    throw new Error('Hero 16 CharImage foreign key or CV endpoint mismatch');
+  }
+  const image = images[0];
+  const cv = canonical.records.filter(r=>r.heroId===hero.ID);
+  if (canonical.schemaVersion !== 1 || canonical.responsibility !== 'hero-profile-source-cv-name'
+    || !isDeepStrictEqual(cv,[{heroId:hero.ID, charImageId:image.ID, cvNameRaw:image.CVName,
+      provenance:{cvNameRaw:charImagePath+'#/records/0/CVName', heroToCharImageRelation:heroInfoPath+'#/records/0/CharImage_ID'}}])) {
+    throw new Error('Hero 16 CV Canonical claim or provenance mismatch');
+  }
+  if (!isDeepStrictEqual(presence,[{heroId:hero.ID,charImageId:image.ID,cvNameRaw:cv[0].cvNameRaw,voiceActorStatus:'PRESENT'}])) {
+    throw new Error('Hero 16 CharImage 16 PRESENT evidence missing or mismatched');
+  }
+  const matches = mapping.filter(r=>r.sourceValue===presence[0].cvNameRaw);
+  if (mapping.length !== 1 || matches.length !== 1) throw new Error('Hero 16 frozen CV source value mismatch');
+  if (matches[0].nameKr !== '모가미 츠구오') throw new Error('Hero 16 frozen CV Korean name mismatch');
+  if (matches[0].status !== 'CONFIRMED') throw new Error('Hero 16 frozen CV confirmation status mismatch');
+  const sourceNames = `중국어명 · ${hero.Name} / 영문명 · ${hero.Name_Eng}`;
+  const voiceActor = `성우 · ${matches[0].nameKr}`;
+  const expected = {
+    displayStatus:'PROJECT_DISPLAY_ONLY', officialKrProvenanceStatus:'unverified', placement:'two-paragraphs-after-factions-before-equipment-418',
+    sourceNames:{heroInfo:heroInfoPath,chineseNameMaster:chineseNamePath+'#/records/23',lineKo:sourceNames},
+    voiceActor:{charImageInfo:charImagePath,canonical:cvCanonicalPath,presence:presencePath,koreanMapping:freezePath,lineKo:voiceActor},
+  };
+  if (!decision.approval?.source || !decision.approval?.basis || !isDeepStrictEqual(decision.nameAndVoice,expected)) {
+    throw new Error('Hero 16 original names and voice publication scope mismatch');
+  }
+  return [sourceNames, voiceActor];
+}
+
+export async function hero16ProfileLines(decision, rarities, relations, localizations, identities, readJson) {
   const ids = [2, 4, 7];
   if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 16
     || decision.surface !== HERO_16_MINIMAL_DETAIL_FRAGMENT || decision.placement !== 'after-name-provenance-before-equipment'
@@ -29,7 +91,7 @@ export function hero16ProfileLines(decision, rarities, relations, localizations)
   if (!isDeepStrictEqual(names, ['빛의 군단', '제국의 빛', '전략의 대가']) || !isDeepStrictEqual(decision.linesKo, lines)) {
     throw new Error('Hero 16 profile approved text mismatch');
   }
-  return lines;
+  return [...lines,...await hero16NameAndVoiceLines(decision, identities, readJson)];
 }
 
 export const HERO_16_JOB_PATH_DECISION = 'docs/decisions/hero-16-minimal-job-path-publication.v1.json';

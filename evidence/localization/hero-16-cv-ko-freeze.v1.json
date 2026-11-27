@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "scope": "Frozen project Korean display mapping for this CVName. Official Korean provenance is unverified.",
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/presentation/hero-cv-localization-stage4-freeze.v1.json",
+    "blob": "1b599f4aa49268ea5723bbc59c1a72d7fb1257ba",
+    "locator": "#/records/2"
+  },
+  "transformation": "Selected fields copied verbatim from the pinned record.",
+  "records": [
+    {
+      "sourceValue": "最上嗣生",
+      "nameKr": "모가미 츠구오",
+      "status": "CONFIRMED"
+    }
+  ]
+}

@@ -36,5 +36,22 @@
       "factions/2.png, factions/4.png, factions/7.png below CV"
     ]
   },
-  "scope": "Two plain-text paragraphs on the existing detail. Existing v1 schema, equipment and navigation retain their original publication contract."
+  "scope": "Four plain-text paragraphs on the existing card. Publish the two name and voice paragraphs together. Preserve the existing v1 schema, equipment and navigation.",
+  "nameAndVoice": {
+    "displayStatus": "PROJECT_DISPLAY_ONLY",
+    "officialKrProvenanceStatus": "unverified",
+    "placement": "two-paragraphs-after-factions-before-equipment-418",
+    "sourceNames": {
+      "heroInfo": "evidence/source/configdata/ConfigDataHeroInfo.record-hero-16-name-eng.v1.json",
+      "chineseNameMaster": "evidence/source/configdata/hero-name-master.records-hero-ko-localization-expansion.v1.json#/records/23",
+      "lineKo": "중국어명 · 兰斯 / 영문명 · Lance"
+    },
+    "voiceActor": {
+      "charImageInfo": "evidence/source/configdata/ConfigDataCharImageInfo.record-hero-16-cv-name.v1.json",
+      "canonical": "canonical/hero-profile-cv-names.v1.json",
+      "presence": "evidence/source/hero-16-cv-presence.v1.json",
+      "koreanMapping": "evidence/localization/hero-16-cv-ko-freeze.v1.json",
+      "lineKo": "성우 · 모가미 츠구오"
+    }
+  }
 }

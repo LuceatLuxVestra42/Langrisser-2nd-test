@@ -7,10 +7,12 @@ export const SCOPE = 'Internal-only projection of the source-native CVName field
 
 export function renderHero15ProfileCvInternal(canonical) {
   if (canonical?.schemaVersion !== 1 || canonical?.responsibility !== 'hero-profile-source-cv-name'
-    || !Array.isArray(canonical.records) || canonical.records.length !== 1) {
+    || !Array.isArray(canonical.records)) {
     throw new Error('Hero 15 source CVName Canonical scope is invalid');
   }
-  const record = canonical.records[0];
+  const matches = canonical.records.filter(row => row.heroId === 15);
+  if (matches.length !== 1) throw new Error('Hero 15 source CVName Canonical claim is not unique');
+  const [record] = matches;
   if (record.heroId !== 15 || record.charImageId !== 15 || record.cvNameRaw !== '小清水亚美'
     || record.provenance?.cvNameRaw !== 'evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#claim/CVName'
     || record.provenance?.heroToCharImageRelation !== 'evidence/source/configdata/ConfigDataCharImageInfo.record-hero-15-cv-name.v1.json#relation') {

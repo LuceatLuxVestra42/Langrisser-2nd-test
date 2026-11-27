@@ -600,7 +600,10 @@ function renderHero16MinimalDetailView(data, container) {
   jobPath.textContent = '전직 · 호크 나이트 → 하이랜더';
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
-    profileLines: ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가'],
+    profileLines: [
+      '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
+      '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
+    ],
   }, null, null, [jobPath]);
 }
 

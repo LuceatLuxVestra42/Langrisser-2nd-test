@@ -41,8 +41,9 @@ export function validateHero15ProfileCvInternal({ evidence, canonical, identitie
   check(portraitEvidence.source.heroInfo.fields.ID === 15 && portraitRelation === 15
     && portraitEvidence.source.charImageInfo.fields.ID === 15, 'Existing explicit HeroInfo to CharImageInfo relation');
   check(canonical.schemaVersion === 1 && canonical.responsibility === 'hero-profile-source-cv-name'
-    && canonical.records.length === 1, 'Canonical owner scope/population');
-  const record = canonical.records[0];
+    && Array.isArray(canonical.records) && canonical.records.length === 2
+    && [15,16].every(id => canonical.records.filter(row => row.heroId === id).length === 1), 'Canonical owner scope/population');
+  const record = canonical.records.find(row => row.heroId === 15);
   check(record.heroId === 15 && record.charImageId === 15 && record.cvNameRaw === '小清水亚美'
     && record.provenance?.cvNameRaw === `${EVIDENCE}#claim/CVName`
     && record.provenance?.heroToCharImageRelation === `${EVIDENCE}#relation`, 'Canonical claim/provenance parity');
