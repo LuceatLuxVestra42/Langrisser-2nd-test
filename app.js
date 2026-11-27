@@ -413,10 +413,68 @@ function renderHero15MinimalDetailView(data, talentData, container) {
     ['유대 5', { values: [20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000], line: 'Lv.2~10 합계 골드 1,523,000' }],
     ['마음의 유대', { values: [10000, 15000, 23000, 35000, 53000, 74000, 100000, 140000, 200000], line: 'Lv.2~10 합계 골드 650,000' }],
   ]);
-  const keySummaries = new Map([
-    ['유대 1', '순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15'],
-    ['유대 2', '순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16'],
+  const keyImages = new Map([
+    [3200, './assets/bond-materials/FetterMaterial01.png'],
+    [3201, './assets/bond-materials/FetterMaterial02.png'],
+    [3202, './assets/bond-materials/FetterMaterial03.png'],
+    [3203, './assets/bond-materials/FetterMaterial04.png'],
   ]);
+  const bondKeys = new Map([
+    ['유대 1', {
+      levels: [
+        [[3200, 1]],
+        [[3200, 2]],
+        [[3200, 3]],
+        [[3200, 4]],
+        [[3200, 5], [3201, 1]],
+        [[3200, 6], [3201, 2]],
+        [[3200, 7], [3201, 3]],
+        [[3200, 8], [3201, 4]],
+        [[3200, 9], [3201, 5]],
+      ],
+      totals: [[3200, 45], [3201, 15]],
+    }],
+    ['유대 2', {
+      levels: [
+        [[3200, 5], [3201, 2]],
+        [[3200, 6], [3201, 3]],
+        [[3200, 7], [3201, 4]],
+        [[3200, 8], [3201, 5]],
+        [[3201, 7], [3202, 1]],
+        [[3201, 9], [3202, 2]],
+        [[3201, 11], [3202, 3]],
+        [[3201, 13], [3202, 4]],
+        [[3201, 15], [3202, 6]],
+      ],
+      totals: [[3200, 26], [3201, 69], [3202, 16]],
+    }],
+    ['유대 3', {
+      levels: [
+        [[3201, 5], [3202, 2]],
+        [[3201, 8], [3202, 3]],
+        [[3201, 10], [3202, 3]],
+        [[3201, 12], [3202, 4]],
+        [[3201, 15], [3202, 5]],
+        [[3202, 6], [3203, 1]],
+        [[3202, 7], [3203, 2]],
+        [[3202, 8], [3203, 3]],
+        [[3202, 9], [3203, 4]],
+      ],
+      totals: [[3201, 50], [3202, 47], [3203, 10]],
+    }],
+  ]);
+  function appendKeys(parent, pairs) {
+    for (const [itemId, count] of pairs) {
+      const badge = document.createElement('span');
+      const image = document.createElement('img');
+      image.src = keyImages.get(itemId);
+      image.alt = '';
+      image.width = 24;
+      image.height = 24;
+      badge.append(image, `×${count}`);
+      parent.append(badge);
+    }
+  }
   for (const { labelKo, rows } of fetterGold) {
     const section = renderMinimalDetailList(labelKo, rows.map(({ level, gold }) =>
       `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
@@ -426,10 +484,11 @@ function renderHero15MinimalDetailView(data, talentData, container) {
       total.textContent = approved.line;
       section.append(total);
     }
-    const keySummary = keySummaries.get(labelKo);
-    if (keySummary) {
+    const keys = bondKeys.get(labelKo);
+    if (keys) {
+      keys.levels.forEach((pairs, index) => appendKeys(section.children[1].children[index], pairs));
       const materials = document.createElement('p');
-      materials.textContent = keySummary;
+      appendKeys(materials, keys.totals);
       section.append(materials);
     }
     goldSection.append(section);

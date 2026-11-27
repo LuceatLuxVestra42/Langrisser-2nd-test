@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -576,6 +576,23 @@ for (const [mutate, error] of [
   mutate(profile);
   assert.throws(() => renderBond2KeyTotals(profile), error);
 }
+const iconGroups = readBondKeyDisplay(inputs.profileInputs);
+const thirdKeyRows = profile => profile.fetterDetails.records.find(r => r.endpointId === 68).fields.LevelUpMaterials;
+for (const [mutate, error] of [
+  [p => { thirdKeyRows(p)[0].Count++; }, /source rows or quantities/],
+  [p => { const rows = thirdKeyRows(p); [rows[0].Count, rows[2].Count] = [rows[2].Count, rows[0].Count]; }, /source rows or quantities/],
+  [p => { const rows = thirdKeyRows(p); [rows[0].ItemId, rows[1].ItemId] = [rows[1].ItemId, rows[0].ItemId]; }, /material locator/],
+  [p => { p.bondSelection.source.heroInformationInfo.fields.HeroFetters_ID[2] = 69; }, /source selection/],
+  [p => { thirdKeyRows(p).push({ Level: 2, ItemType: 6, ItemId: 3203, Count: 0 }); }, /material locator/],
+]) {
+  const profile = structuredClone(inputs.profileInputs);
+  mutate(profile);
+  assert.throws(() => readBondKeyDisplay(profile), error);
+}
+function expectKeyBadges(parent, pairs) {
+  assert.deepEqual(parent.children.map(badge => [badge.children[0].src, badge.children[1]]),
+    pairs.map(([id, count]) => ['./' + bondKeyAssets.find(asset => asset.itemId === id).path, `×${count}`]));
+}
 const bond1Line = 'Lv.2~10 합계 골드 118,600';
 for (const mutate of [
   p => { delete p.bond1GoldDecision; },
@@ -786,10 +803,10 @@ for (const [mode, expectedTotals] of [
   for (const [i, section] of groups.entries()) {
     assert.deepEqual(section.children[1].children.map(row => row.textContent), sample.heroes[0].fetterGold[i].rows.map(
       ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
-    const expected = expectedTotals[i] ? [expectedTotals[i]] : [];
-    if (i === 0) expected.push(keyLine);
-    if (i === 1) expected.push(bond2KeyLine);
-    assert.deepEqual(section.children.slice(2).map(row => row.textContent), expected);
+    section.children[1].children.forEach((row, level) => expectKeyBadges(row, iconGroups[i]?.levels[level] ?? []));
+    const summaries = section.children.slice(2);
+    if (iconGroups[i]) expectKeyBadges(summaries.pop(), iconGroups[i].totals);
+    assert.deepEqual(summaries.map(row => row.textContent), expectedTotals[i] ? [expectedTotals[i]] : []);
   }
 }
 const leakedGold = structuredClone(generated);
@@ -954,6 +971,7 @@ async function startApp(source, optionalResponse) {
   }
   function* descendants(elements) {
     for (const item of elements) {
+      if (typeof item === 'string') continue;
       yield item;
       yield* descendants(item.children);
     }
