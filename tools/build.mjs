@@ -1,7 +1,7 @@
 import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, ordinaryPublicV4, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import assert from 'node:assert/strict';
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
-import { runInNewContext } from 'node:vm';
+import { runInNewContext, Script } from 'node:vm';
 import { generateLanceTalent, lanceTalentPublic, selectTalentSkill, validateLanceTalentPackage } from './hero-16-talent-publication-contract.mjs';
 import { extractFunction } from './test-app-function-source.mjs';
 import { createHash } from 'node:crypto';
@@ -360,13 +360,16 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
   const lanceSkillLines = [oldLanceSkillLines,newLanceSkillLines,lanceSkillLinesV3,lanceSkillLinesV4][skills.schemaVersion-1];
   const { selectSkinFullarts } = await import(pathToFileURL(join(output,'skin-fullart-presentation.mjs')).href);
   const source = app.replace("import { selectSkinFullarts } from './skin-fullart-presentation.mjs';", '');
-  const script = '(async () => { "use strict";\n' + source + '\nreturn hero16MinimalDetailNavigation; })()';
+  const script = new Script('(async () => { "use strict";\n' + source + '\nreturn hero16MinimalDetailNavigation; })()');
   const settle = () => new Promise(resolve => setImmediate(resolve));
   const response = data => ({ok:true, status:200, json:async()=>data});
   const visible = node => typeof node === 'string' ? node : node.textContent + node.children.map(visible).join('');
-  function walk(node, matches) {
-    if (typeof node === 'string') return [];
-    return (matches(node) ? [node] : []).concat(node.children.flatMap(child => walk(child,matches)));
+  function walk(node, matches, found = []) {
+    if (typeof node !== 'string') {
+      if (matches(node)) found.push(node);
+      for (const child of node.children) walk(child, matches, found);
+    }
+    return found;
   }
   const scenarios = [
     ['skills','success'], ['skills','failure'], ['talent','success'], ['talent','failure'], ['talent','invalid-second-row'],
@@ -417,7 +420,7 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
       if (!packageText.has(url)) packageText.set(url,readFile(join(output,url),'utf8'));
       return response(JSON.parse(await packageText.get(url)));
     };
-    const startup = runInNewContext(script,{
+    const startup = script.runInNewContext({
       document, fetch, selectSkinFullarts, window:{location:{hash:''},requestAnimationFrame:callback=>callback()},
       console:{error:e=>errors.push(e.message), warn() {}, log() {}}, URL, URLSearchParams, AbortController, Request, Response, Headers,
     },{timeout:10000});
@@ -1216,6 +1219,9 @@ try {
     ['중국어명 · 莉亚娜 / 영문명 · Liana','성우 · 코시미즈 아미'],'Packaged Liana original names and voice');
   const goldLines = await readLanceGoldDisplay(readJson);
   checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath, goldLines);
+  checkPackagedSoldierCommand(hero15Card);
+  checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
+  await checkPackagedLanceStartup(output,html,app,JSON.parse(packagedTalentText),skillsV4,skillsV3,true,goldLines);
   const oldApp = await readFile(resolve('tools/fixtures/hero-16-ordinary-skills-base-app.js'),'utf8');
   assert.equal(createHash('sha256').update(oldApp).digest('hex'),'9c4e9d027b27308d3e0a18f1f7dc913371a0df11256e4cd808e315d23d58fb3f','Packaged Lance #332 fixture digest');
   assert.equal(Buffer.byteLength(oldApp),120939,'Packaged Lance #332 fixture length');
@@ -1240,9 +1246,6 @@ try {
   assert.equal(base336.length,122677,'#336 fixture length');
   assert.equal(createHash('sha256').update(base336).digest('hex'),'4d35ddb545b8ff92b8dee67cd4968405b5ebd69adc1c58d7f62e3c9bb4f03b29','#336 fixture digest');
   await checkPackagedLanceStartup(output,html,base336.toString('utf8'),JSON.parse(packagedTalentText),skillsV3,newSkills,true,goldLines);
-  await checkPackagedLanceStartup(output,html,app,JSON.parse(packagedTalentText),skillsV4,skillsV3,true,goldLines);
-  checkPackagedSoldierCommand(hero15Card);
-  checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');
