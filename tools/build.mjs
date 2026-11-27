@@ -155,7 +155,9 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
     }, 'Packaged Fetter Gold rows differ from the approved source vector');
   }
   const element = tag => ({
-    tag, children: [], append(...nodes) { this.children.push(...nodes); },
+    tag, textContent: '', children: [],
+    get childNodes() { return this.textContent ? [this.textContent, ...this.children] : this.children; },
+    append(...nodes) { this.children.push(...nodes); },
     replaceChildren(...nodes) { this.children = nodes; }, addEventListener() {},
     attributes: new Map(),
     hasAttribute(name) { return this.attributes.has(name.toLowerCase()); },
@@ -282,6 +284,54 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
     check(matchingAmounts, destination);
   }
   return card;
+}
+
+function checkPackagedSoldierCommand(card) {
+  const sections = card.children.filter(node => node.children[0]?.textContent === '병사 지휘 보정');
+  assert.equal(sections.length, 1, 'Hero 15 Soldier Command section count');
+  const [section] = sections;
+  const position = card.children.indexOf(section);
+  assert.equal(card.children[position - 1]?.children[0]?.textContent, '용병');
+  assert.equal(card.children[position + 1]?.children[0]?.textContent, '전직');
+
+  function checkStructure(node, tag, children) {
+    assert.equal(node.tag, tag);
+    assert.deepEqual(node.childNodes.map(child => child.tag), children, 'Soldier Command table structure');
+  }
+  checkStructure(section, 'section', ['h4', 'table']);
+  const [heading, table] = section.children;
+  assert.equal(heading.children.length, 0);
+  checkStructure(table, 'table', ['thead', 'tbody']);
+  const [head, body] = table.children;
+  checkStructure(head, 'thead', ['tr']);
+  checkStructure(head.children[0], 'tr', ['th', 'th', 'th']);
+  assert.deepEqual(head.children[0].children.map(cell => [cell.scope, cell.textContent, cell.children.length]), [
+    ['col', '능력치', 0], ['col', '기본 지휘', 0], ['col', '최대 레벨 일반 유대', 0],
+  ]);
+
+  const expected = [
+    ['생명', '+15%', '+25%'],
+    ['공격', '', '+10%'],
+    ['방어', '', '+10%'],
+    ['마방', '+15%', '+25%'],
+  ];
+  checkStructure(body, 'tbody', ['tr', 'tr', 'tr', 'tr']);
+  for (const [i, row] of body.children.entries()) {
+    checkStructure(row, 'tr', ['th', 'td', 'td']);
+    const [label, base] = row.children;
+    assert.equal(label.scope, 'row');
+    assert.deepEqual(row.children.map(cell => cell.textContent), expected[i], `Soldier Command values: ${expected[i][0]}`);
+    assert.ok(row.children.every(cell => cell.children.length === 0), 'Soldier Command cells must be plain text');
+    if (expected[i][1] === '') {
+      assert.equal(base.childNodes.length, 0, 'Empty Soldier Command cell has child nodes');
+      const hiddenAttributes = [...base.attributes.keys()].filter(key =>
+        key === 'title' || key === 'value' || key.startsWith('aria-') || key.startsWith('data-'));
+      const hiddenProperties = ['title', 'ariaLabel', 'ariaDescription', 'ariaLabelledByElements', 'ariaDescribedByElements', 'value'];
+      assert.ok(hiddenAttributes.length === 0 && hiddenProperties.every(key => !Object.hasOwn(base, key))
+        && !base.innerText && !base.innerHTML && !Object.keys(base.dataset ?? {}).length,
+      'Empty Soldier Command cell has a hidden value');
+    }
+  }
 }
 
 function checkPackagedSkillDescriptions(card, descriptions) {
@@ -844,6 +894,7 @@ try {
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
   const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
     keyGroups, renderHeadGoldSubtotal(profileInputs));
+  checkPackagedSoldierCommand(hero15Card);
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
