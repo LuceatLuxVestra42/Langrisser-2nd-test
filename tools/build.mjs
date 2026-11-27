@@ -1,4 +1,4 @@
-import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, ordinaryPublicV4, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import assert from 'node:assert/strict';
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
@@ -86,7 +86,7 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
   }
   validateHero15SoldierTextDecision(hero15SoldierTextPublication);
   files.push(HERO_15_SOLDIER_TEXT_PUBLIC);
-  if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH, lanceTalentPublic, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3);
+  if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH, lanceTalentPublic, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, ordinaryPublicV4);
   if (heroMinimalDetailBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_BATCH_PATH);
   if (heroMinimalDetailTenBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TEN_BATCH_PATH);
   if (heroMinimalDetailTwentyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH);
@@ -349,10 +349,15 @@ const lanceSkillLinesV3 = [
   '방어 위협 · 패시브 · 2코스트 · 행동 종료 시 주위 2칸 내 모든 적의 방어 -15%, 1턴 지속.',
 ];
 
+const lanceSkillLinesV4 = [...lanceSkillLinesV3.slice(0,6),
+  "제국 질풍 · 초절강화 · 2코스트 · 쿨 3턴 · 사거리 자신 · 범위 전체 · [초절강화] 범위 내 모든 '제국의 빛' 아군의 공격, 방어 능력치가 크게 상승한다. 4턴 지속. 다른 초절강화와 중첩되지 않는다.",
+  lanceSkillLinesV3[6],
+];
+
 async function checkPackagedLanceStartup(output, html, app, talent, skills, otherVersion, hasNameAndVoice, goldLines) {
   const oldApp = skills.schemaVersion === 1;
-  const skillPath = [ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3][skills.schemaVersion-1];
-  const lanceSkillLines = [oldLanceSkillLines,newLanceSkillLines,lanceSkillLinesV3][skills.schemaVersion-1];
+  const skillPath = [ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3,ordinaryPublicV4][skills.schemaVersion-1];
+  const lanceSkillLines = [oldLanceSkillLines,newLanceSkillLines,lanceSkillLinesV3,lanceSkillLinesV4][skills.schemaVersion-1];
   const { selectSkinFullarts } = await import(pathToFileURL(join(output,'skin-fullart-presentation.mjs')).href);
   const source = app.replace("import { selectSkinFullarts } from './skin-fullart-presentation.mjs';", '');
   const script = '(async () => { "use strict";\n' + source + '\nreturn hero16MinimalDetailNavigation; })()';
@@ -366,9 +371,19 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
   const scenarios = [
     ['skills','success'], ['skills','failure'], ['talent','success'], ['talent','failure'], ['talent','invalid-second-row'],
     ['skills','blank-lower-star'], ['talent','other-version'],
+    ...(skills.schemaVersion >= 3 ? [
+      ['skills','success',false], ['skills','failure',false],
+      ['talent','success',false], ['talent','failure',false],
+    ] : []),
+    ...(skills.schemaVersion === 4 ? [['talent','invalid-storm']] : []),
     ...oldApp ? [] : [['talent','invalid-last-row'], ['talent','wrong-version'], ['talent','wrong-description']],
   ];
-  for (const [first,outcome] of scenarios) {
+  // Each session parses fresh responses from the same immutable final package.
+  const packageText = new Map();
+  const baseUrl = './' + HERO_16_MINIMAL_DETAIL_PATH;
+  const talentUrl = './' + lanceTalentPublic;
+  const skillsUrl = './' + skillPath;
+  for (const [first,outcome,firstSucceeded = true] of scenarios) {
     const roots = new Map();
     const errors = [];
     let scrollTarget;
@@ -394,12 +409,13 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     const pending = new Map();
     const requests = [];
     const fetch = async url => {
-      if ([ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3].includes(url.replace(/^\.\//,''))) requests.push(url);
-      if ([skillPath,lanceTalentPublic].some(path=>url==='./'+path)) {
+      if (url === baseUrl || url === talentUrl || url.startsWith('./generated/hero-16-ordinary-skills-public.')) requests.push(url);
+      if (url === skillsUrl || url === talentUrl) {
         assert.ok(!pending.has(url),'Duplicate optional Lance request');
         return new Promise(resolve=>pending.set(url,resolve));
       }
-      return response(JSON.parse(await readFile(join(output,url),'utf8')));
+      if (!packageText.has(url)) packageText.set(url,readFile(join(output,url),'utf8'));
+      return response(JSON.parse(await packageText.get(url)));
     };
     const startup = runInNewContext(script,{
       document, fetch, selectSkinFullarts, window:{location:{hash:''},requestAnimationFrame:callback=>callback()},
@@ -415,6 +431,8 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     assert.deepEqual(errors,[]);
     const resolveTalent=pending.get('./'+lanceTalentPublic);
     const resolveSkills=pending.get('./'+skillPath);
+    assert.deepEqual(requests.slice(0,1),[baseUrl]);
+    assert.deepEqual(requests.slice(1).sort(),[talentUrl,skillsUrl].sort());
     assert.ok(resolveTalent && resolveSkills,'Both Lance requests must start independently');
     const card=getById('hero-minimal-detail-16-content').children[0];
     const base=[...card.children];
@@ -433,6 +451,7 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     checkLanceGold(card, goldLines);
     function checkNavigation() {
       checkLanceGold(card, goldLines);
+      assert.equal(card.children[hasNameAndVoice ? 9 : 7].textContent,'전직 · 호크 나이트 → 하이랜더');
       assert.deepEqual(card.children.slice(3,4+profile.length).map(n=>n.textContent),
         [...profile,'칼자스의 왕관 (Equipment ID 418)'],'Lance profile order while loading');
       checkProfileAttribution();
@@ -451,10 +470,13 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     function checkSkills(present) {
       const section=card.children.find(n=>n.className==='hero-ordinary-skills');
       assert.equal(walk(card,n=>n.textContent==='일반 스킬').length,Number(present));
-      for (const line of lanceSkillLinesV3) {
+      const matchingLines = node => lanceSkillLinesV4.includes(node.textContent);
+      const cardLines = walk(card,matchingLines).map(node=>node.textContent);
+      const siteLines = Array.from(roots.values()).flatMap(root=>walk(root,matchingLines)).map(node=>node.textContent);
+      for (const line of lanceSkillLinesV4) {
         const count = Number(present && lanceSkillLines.includes(line));
-        assert.equal(walk(card,n=>n.textContent===line).length,count,'Packaged Lance ordinary skill row text or placement');
-        assert.equal(Array.from(roots.values()).reduce((count,root)=>count+walk(root,n=>n.textContent===line).length,0),count,'Lance ordinary skill leaked outside its card');
+        assert.equal(cardLines.filter(text=>text===line).length,count,'Packaged Lance ordinary skill row text or placement');
+        assert.equal(siteLines.filter(text=>text===line).length,count,'Lance ordinary skill leaked outside its card');
       }
       if (!present) { assert.equal(section,undefined); return; }
       const [title,list]=section.children;
@@ -498,10 +520,10 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     checkNavigation();
     checkSkills(false);
     if (first==='skills') {
-      resolveSkills(response(skills));
+      resolveSkills(firstSucceeded ? response(skills) : {ok:false});
       await settle();
-      assert.equal(card.children.length,base.length+1);
-      const existing=checkSkills(true);
+      assert.equal(card.children.length,base.length+Number(firstSucceeded));
+      const existing=checkSkills(firstSucceeded);
       checkNavigation();
       if (outcome==='blank-lower-star') {
         const invalid=structuredClone(talent);
@@ -509,31 +531,34 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
         resolveTalent(response(invalid));
       } else resolveTalent(outcome==='success'?response(talent):{ok:false});
       await settle();
-      assert.equal(card.children.length,base.length+(outcome==='success'?2:1));
+      assert.equal(card.children.length,base.length+Number(firstSucceeded)+Number(outcome==='success'));
       if (outcome==='success') selectFive();
-      assert.equal(card.children.at(-1),existing);
-      checkSkills(true);
+      if (firstSucceeded) assert.equal(card.children.at(-1),existing);
+      checkSkills(firstSucceeded);
     } else {
-      resolveTalent(response(talent));
+      resolveTalent(firstSucceeded ? response(talent) : {ok:false});
       await settle();
-      assert.equal(card.children.length,base.length+1);
-      const checkSelection=selectFive();
+      assert.equal(card.children.length,base.length+Number(firstSucceeded));
+      const checkSelection = firstSucceeded ? selectFive() : () =>
+        assert.equal(walk(card,n=>n.id==='hero-16-talent-heading').length,0);
+      checkSelection();
       checkSkills(false);
       checkNavigation();
       const payload = structuredClone(skills);
       if (outcome==='invalid-second-row') payload.ordinarySkills[1].descriptionKo=' ';
       if (outcome==='invalid-last-row') payload.ordinarySkills.at(-1).descriptionKo=' ';
       if (outcome==='wrong-version') payload.schemaVersion=skills.schemaVersion+1;
+      if (outcome==='invalid-storm') payload.ordinarySkills.find(r=>r.skillId===11819).descriptionKo+='!';
       if (outcome==='wrong-description') payload.ordinarySkills[0].descriptionKo+='!';
       if (outcome==='other-version') resolveSkills(response(otherVersion));
       else resolveSkills(outcome==='failure' ? {ok:false} : response(payload));
       await settle();
       checkSelection();
-      assert.equal(card.children.length,base.length+(outcome==='success'?2:1));
+      assert.equal(card.children.length,base.length+Number(firstSucceeded)+Number(outcome==='success'));
       checkSkills(outcome==='success');
     }
     checkNavigation();
-    assert.deepEqual(requests,['./'+skillPath],'Lance ordinary skill request or fallback');
+    assert.deepEqual(requests.slice().sort(),[baseUrl,talentUrl,skillsUrl].sort(),'Lance ordinary skill request or fallback');
   }
 }
 
@@ -1012,6 +1037,7 @@ try {
   await cp(hero15MinimalDetailPath, join(output, ...HERO_15_MINIMAL_DETAIL_PATH.split('/')));
   await cp(resolve(HERO_15_TALENT_PUBLIC_PATH), join(output, ...HERO_15_TALENT_PUBLIC_PATH.split('/')));
   await cp(resolve(HERO_15_SOLDIER_TEXT_PUBLIC), join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
+  await cp(resolve(ordinaryPublicV4), join(output,ordinaryPublicV4));
   await cp(resolve(ordinaryPublicV3), join(output,ordinaryPublicV3));
   await cp(resolve(ordinaryPublicV2), join(output,ordinaryPublicV2));
   await cp(resolve(ordinaryPublic), join(output,ordinaryPublic));
@@ -1161,7 +1187,13 @@ try {
   validateOrdinaryPublic(newOrdinaryText,lanceOrdinary.v2);
   const skillsV3Text = await readFile(join(output,ordinaryPublicV3),'utf8');
   validateOrdinaryPublic(skillsV3Text,lanceOrdinary.v3);
+  assert.equal(Buffer.byteLength(skillsV3Text),2219,'Packaged Lance v3 length');
+  assert.equal(createHash('sha256').update(skillsV3Text).digest('hex'),'8da5645139e51d86367c8c6e11f7b801719c41102bb122220ce9582fa2e30dc5','Packaged Lance v3 digest');
   const skillsV3 = JSON.parse(skillsV3Text);
+  const skillsV4Text = await readFile(join(output,ordinaryPublicV4),'utf8');
+  validateOrdinaryPublic(skillsV4Text,lanceOrdinary.v4);
+  const skillsV4 = JSON.parse(skillsV4Text);
+  assert.deepEqual(skillsV4.ordinarySkills.filter(row => row.skillId !== 11819),skillsV3.ordinarySkills,'Preserved v3 rows');
   const oldSkills = JSON.parse(packagedOrdinaryText);
   const newSkills = JSON.parse(newOrdinaryText);
   for (const oldRow of oldSkills.ordinarySkills) {
@@ -1203,7 +1235,12 @@ try {
   assert.equal(createHash('sha1').update('blob 122052\0').update(base335).digest('hex'),'619111cec61b3aeb83c78ab29a30e5a945226967','#335 fixture blob');
   assert.equal(createHash('sha256').update(base335).digest('hex'),'9073023e1142c8cfeb48ed0150c744816497ae37d2dc8a531f47ac4434b22140','#335 fixture digest');
   await checkPackagedLanceStartup(output,html,base335.toString('utf8'),JSON.parse(packagedTalentText),skillsV3,newSkills,true);
-  await checkPackagedLanceStartup(output,html,app,JSON.parse(packagedTalentText),skillsV3,newSkills,true,goldLines);
+  // #336 merge 94b13d04513fa19851bc50b54a62aea6d81ba3af introduced the gold section and still consumes v3.
+  const base336 = await readFile(resolve('tools/fixtures/hero-16-imperial-storm-base-336-app.js'));
+  assert.equal(base336.length,122677,'#336 fixture length');
+  assert.equal(createHash('sha256').update(base336).digest('hex'),'4d35ddb545b8ff92b8dee67cd4968405b5ebd69adc1c58d7f62e3c9bb4f03b29','#336 fixture digest');
+  await checkPackagedLanceStartup(output,html,base336.toString('utf8'),JSON.parse(packagedTalentText),skillsV3,newSkills,true,goldLines);
+  await checkPackagedLanceStartup(output,html,app,JSON.parse(packagedTalentText),skillsV4,skillsV3,true,goldLines);
   checkPackagedSoldierCommand(hero15Card);
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {

@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 4,
+  "status": "APPROVED",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "surface": "hero-minimal-detail-16",
+  "heroId": 16,
+  "publicPath": "generated/hero-16-ordinary-skills-public.v4.json",
+  "placement": "after-talent",
+  "displayStatus": "PROJECT_DISPLAY_ONLY",
+  "officialKrProvenanceStatus": "unverified",
+  "rows": [
+    {
+      "skillId": 10403,
+      "nameKo": "바람의 분노",
+      "typeLabelKo": "물리 피해",
+      "cost": 2,
+      "cooldownLabelKo": "쿨 2턴",
+      "distanceLabelKo": "사거리 자신",
+      "areaLabelKo": "범위 주위 1칸",
+      "descriptionKo": "주위 1칸 내 모든 적에게 0.3배 범위 피해를 주고 각 대상에게 무작위 디버프를 부여한다."
+    },
+    {
+      "skillId": 10401,
+      "nameKo": "뇌광",
+      "typeLabelKo": "물리 피해",
+      "cost": 2,
+      "cooldownLabelKo": "쿨 3턴",
+      "distanceLabelKo": "사거리 1칸",
+      "areaLabelKo": "범위 단일",
+      "descriptionKo": "단일 적 부대를 공격해 1.5배 피해를 준다. 이 스킬로 적을 처치하면 스킬 쿨타임 -3."
+    },
+    {
+      "skillId": 10311,
+      "nameKo": "격돌",
+      "typeLabelKo": "물리 피해",
+      "cost": 1,
+      "cooldownLabelKo": "쿨 2턴",
+      "distanceLabelKo": "사거리 1칸",
+      "areaLabelKo": "범위 단일",
+      "descriptionKo": "단일 적 부대를 공격해 1.2배 피해를 준다. 대상을 2칸 밀쳐내고 이동력 -2와 호위 불가를 1턴 부여한다."
+    },
+    {
+      "skillId": 5025,
+      "nameKo": "구급",
+      "typeLabelKo": "치료",
+      "cost": 1,
+      "cooldownLabelKo": "쿨 3턴",
+      "distanceLabelKo": "사거리 자신",
+      "areaLabelKo": "범위 단일",
+      "descriptionKo": "자신 부대 생명 100% 회복."
+    },
+    {
+      "skillId": 10305,
+      "nameKo": "공격 지휘",
+      "typeLabelKo": "패시브",
+      "cost": 2,
+      "descriptionKo": "주위 2칸 내 모든 아군의 공격, 지력 +10%."
+    },
+    {
+      "skillId": 10303,
+      "nameKo": "돌진",
+      "typeLabelKo": "패시브",
+      "cost": 1,
+      "descriptionKo": "공격 전 이동 1칸마다 공격 +5%, 최대 +15%."
+    },
+    {
+      "skillId": 11819,
+      "nameKo": "제국 질풍",
+      "typeLabelKo": "초절강화",
+      "cost": 2,
+      "cooldownLabelKo": "쿨 3턴",
+      "distanceLabelKo": "사거리 자신",
+      "areaLabelKo": "범위 전체",
+      "descriptionKo": "[초절강화] 범위 내 모든 '제국의 빛' 아군의 공격, 방어 능력치가 크게 상승한다. 4턴 지속. 다른 초절강화와 중첩되지 않는다."
+    },
+    {
+      "skillId": 10105,
+      "nameKo": "방어 위협",
+      "typeLabelKo": "패시브",
+      "cost": 2,
+      "descriptionKo": "행동 종료 시 주위 2칸 내 모든 적의 방어 -15%, 1턴 지속."
+    }
+  ],
+  "localization": {
+    "catalog": {
+      "repository": "LuceatLuxVestra42/langrisser-future-guide",
+      "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+      "path": "src/lib/hero-skill-localization.data.ts",
+      "blob": "95f789c504394aee305e21bfab0d2be2612e205d",
+      "locator": [
+        "10403 风语 L1312-L1317",
+        "10401 雷光, 10311 撞击 L248-L277",
+        "5025 急救 L568-L573",
+        "10303 冲锋 L680-L685",
+        "10305 攻击指挥 L1304-L1309",
+        "10105 防御威吓 L712-L717",
+        "11819 帝国疾风 L2136-L2141"
+      ]
+    },
+    "sheet": {
+      "repository": "redpanda7301/langrisser",
+      "commit": "a85bba49dcf073563e7366dc18e96b7ba67c2ae3",
+      "path": "hero/data/란스.js",
+      "blob": "0be2f806f90c21507a814dc64057921c51b1bd2e",
+      "locator": [
+        "L395-L417",
+        "L421-L443",
+        "L501-L523",
+        "L555-L577",
+        "L541-L553",
+        "L527-L536",
+        "L487-L496",
+        "L461-L483"
+      ]
+    }
+  },
+  "corroboration": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-detail/by-id/16.json",
+    "locator": [
+      "/normal/skills/heroDirectSkills/0",
+      "/normal/skills/jobLevelAcquisitions/0",
+      "/normal/skills/jobLevelAcquisitions/1",
+      "/normal/skills/jobLevelAcquisitions/3",
+      "/normal/skills/jobLevelAcquisitions/5",
+      "/normal/skills/jobLevelAcquisitions/4",
+      "/normal/skills/jobLevelAcquisitions/7",
+      "/normal/skills/jobLevelAcquisitions/6"
+    ],
+    "blob": "929798dd8019d033750e43d0af353869cc087a31",
+    "page": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/"
+  }
+}
