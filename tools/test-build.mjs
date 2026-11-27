@@ -9,7 +9,7 @@ import { join } from 'node:path';
 import { buildSite, publicSitePaths, validatePublicSiteDirectory } from './build.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-presentation-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
+import { slotGoldDecisionPath, bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
@@ -71,7 +71,20 @@ async function checkHero15BuildFailures() {
   assert.deepEqual(await readFile(join(normalPackage, 'app.js')), approvedApp);
 
   const skillDecisionPath = 'docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json';
+  const templatePath = 'canonical/casting-law-template-raw-details.v1.json';
   const cases = [
+    { decisionPath: slotGoldDecisionPath, name: 'slot-gold-missing',
+      error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath: slotGoldDecisionPath, name: 'slot-gold-accessory-missing', mutate: decision => { decision.slots.pop(); },
+      error: () => 'Error: Central Discipline slot gold decision scope mismatch' },
+    { decisionPath: templatePath, name: 'equal-gold-weapon-references-swapped', mutate: ({ records }) => {
+      const first = records.find(row => row.templateId === 14).rawRecord;
+      const second = records.find(row => row.templateId === 12).rawRecord;
+      [first.CastingLawLevelUpInfoList, second.CastingLawLevelUpInfoList] = [second.CastingLawLevelUpInfoList, first.CastingLawLevelUpInfoList];
+    }, error: () => 'Error: Central Discipline slot LevelUp references mismatch for Template 14' },
+    { decisionPath: templatePath, name: 'armor-equipment-type-changed', mutate: ({ records }) => {
+      records.find(row => row.templateId === 37).rawRecord.EquipmentType = 3;
+    }, error: () => 'Error: Central Discipline EquipmentType mismatch for Template 37' },
     { decisionPath: skillDecisionPath, name: 'freeze-missing', mutate: decision => { delete decision.freezeDisplay; },
       error: () => 'Error: Hero 15 Freeze display decision or source mismatch' },
     { decisionPath: skillDecisionPath, name: 'freeze-incomplete', mutate: decision => {
@@ -144,6 +157,8 @@ async function checkHero15BuildFailures() {
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
+    ['Weapon subtotal labels swapped', 'Packaged Central Discipline slot subtotal order or label',
+      "['무기 1', '무기 2', '갑옷', '장신구']", "['무기 2', '무기 1', '갑옷', '장신구']"],
     ['Freeze on Skill 10804', 'Packaged Skill 10705 row attribution or description mismatch', selector, 'skillId === 10705 ? descriptionKo : displayDescriptions[skillId === 10804 ? 10705 : skillId] ?? descriptionKo'],
     ['Shield omitted', 'Packaged Skill 10804 row attribution or description mismatch', selector, 'skillId === 10804 ? descriptionKo : ' + selector],
     ['Meditation omitted', 'Packaged Skill 6009 row attribution or description mismatch', selector, 'skillId === 6009 ? descriptionKo : ' + selector],

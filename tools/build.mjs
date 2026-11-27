@@ -18,7 +18,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readSlotGoldSubtotals, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -146,7 +146,7 @@ function textLines(node, matches) {
   return own.concat(node.children.flatMap(child => textLines(child, matches)));
 }
 
-function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLine) {
+function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLine, slotGoldLines) {
   const groups = detail.heroes[0].fetterGold;
   for (const [index, values] of [bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues].entries()) {
     assert.deepEqual(groups[index], {
@@ -182,14 +182,16 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
   function checkCentralDiscipline(card) {
     const sections = card.children.filter(node => node.children[0]?.textContent === '중앙율정');
     assert.equal(sections.length, 1, 'Packaged Central Discipline section count');
-    const [, list, item] = sections[0].children;
-    assert.deepEqual(sections[0].children.map(node => node.tag), ['h4', 'ul', 'p'], 'Packaged HEAD subtotal placement');
+    const [, list, item, ...slots] = sections[0].children;
+    assert.deepEqual(sections[0].children.map(node => node.tag), ['h4', 'ul', 'p', 'p', 'p', 'p', 'p'], 'Packaged Central Discipline subtotal placement');
     const originalLines = [...detail.heroes[0].centralDisciplineEffectKo.split('\n'), 'Lv.1~10 합계 골드 10,800,000'];
     assert.deepEqual(list.children.map(node => node.textContent), originalLines, 'Packaged Central Discipline list');
     assert.equal(item.textContent, headGoldLine, 'Packaged HEAD subtotal label and amount');
     assert.equal(item.children.length, 0, 'Packaged HEAD subtotal content');
+    assert.deepEqual(slots.map(node => node.textContent), slotGoldLines, 'Packaged Central Discipline slot subtotal order or label');
+    assert.ok(slots.every(node => node.children.length === 0), 'Packaged Central Discipline subtotals must be plain text');
     assert.deepEqual(textLines(card, text => text?.includes('소계 골드') || originalLines.includes(text)),
-      [...originalLines, headGoldLine], 'Packaged Central Discipline lines in Hero 15 card');
+      [...originalLines, headGoldLine, ...slotGoldLines], 'Packaged Central Discipline lines in Hero 15 card');
   }
   const pathsById = new Map(bondKeyAssets.map(asset => [asset.itemId, './' + asset.path]));
   function checkBadges(parent, pairs) {
@@ -893,7 +895,7 @@ try {
 
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
   const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
-    keyGroups, renderHeadGoldSubtotal(profileInputs));
+    keyGroups, renderHeadGoldSubtotal(profileInputs), await readSlotGoldSubtotals(readJson, profileInputs));
   checkPackagedSoldierCommand(hero15Card);
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {

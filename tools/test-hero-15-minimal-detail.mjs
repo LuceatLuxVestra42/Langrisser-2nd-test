@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readSlotGoldSubtotals, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -116,7 +116,14 @@ assert.deepEqual(castingSection.children[1].children.map(({ textContent }) => te
 ]);
 const headGoldLine = '투구 · Lv.1~10 소계 골드 3,600,000';
 assert.equal(renderHeadGoldSubtotal(inputs.profileInputs), headGoldLine);
-assert.deepEqual(castingSection.children.slice(2).map(node => node.textContent), [headGoldLine]);
+const slotGoldLines = [
+  '무기 1 · Lv.1~10 소계 골드 1,800,000',
+  '무기 2 · Lv.1~10 소계 골드 1,800,000',
+  '갑옷 · Lv.1~10 소계 골드 1,800,000',
+  '장신구 · Lv.1~10 소계 골드 1,800,000',
+];
+assert.deepEqual(await readSlotGoldSubtotals(read, inputs.profileInputs), slotGoldLines);
+assert.deepEqual(castingSection.children.slice(2).map(node => node.textContent), [headGoldLine, ...slotGoldLines]);
 function rejectHeadGold(mutate, error) {
   const changed = structuredClone(inputs.profileInputs);
   mutate(changed);
