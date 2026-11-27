@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Direct prerequisite JobConnection edges for Hero 15 only, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.",
+  "scope": "Direct prerequisite JobConnection edges for Hero 15 and the selected Hero 16 path, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.",
   "records": [
     {
       "heroId": 15,
@@ -41,6 +41,14 @@
       "successorConnectionId": 155,
       "successorJobId": 707,
       "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#ID=155/PreJobConnectionList"
+    },
+    {
+      "heroId": 16,
+      "predecessorConnectionId": 160,
+      "predecessorJobId": 401,
+      "successorConnectionId": 162,
+      "successorJobId": 302,
+      "sourceLocator": "data/configdata/ConfigDataJobConnectionInfo.json#/106/PreJobConnectionList/0"
     }
   ]
 }

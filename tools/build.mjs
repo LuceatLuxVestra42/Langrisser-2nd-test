@@ -19,7 +19,7 @@ import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readSlotGoldSubtotals, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
-import { HERO_16_PROFILE_DECISION, hero16ProfileLines, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
+import { HERO_16_JOB_PATH_DECISION, hero16JobPathLine, HERO_16_PROFILE_DECISION, hero16ProfileLines, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailTwentyBatchPublication, validateHeroMinimalDetailTwentyBatch } from './hero-minimal-detail-twenty-batch-contract.mjs';
@@ -289,7 +289,7 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
   return card;
 }
 
-function checkPackagedHero16(app, detail, profileLines) {
+function checkPackagedHero16(app, detail, profileLines, jobPath) {
   const renderer = ['renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name)).join('\n');
   const render = runInNewContext(renderer + '\nrenderHero16MinimalDetailView', { document: { createElement: element } });
   const root = element('div');
@@ -298,8 +298,13 @@ function checkPackagedHero16(app, detail, profileLines) {
   const expected = ['란스', 'Hero ID 16', '프로젝트 검수 표시명 · 공식 한국 서버 Provenance 미확인',
     ...profileLines, '칼자스의 왕관 (Equipment ID 418)', detail.heroes[0].exclusiveEquipment.effectDescriptionKo];
   assert.equal(root.children.length, 1);
-  assert.deepEqual(card.children.map(node => node.textContent), expected, 'Packaged Hero 16 profile text or placement mismatch');
-  assert.deepEqual(card.children.map(node => node.tag), ['h3', 'p', 'p', 'p', 'p', 'h4', 'p']);
+  assert.deepEqual(card.children.slice(0, expected.length).map(node => node.textContent), expected, 'Packaged Hero 16 profile text or placement mismatch');
+  const path = card.children[expected.length];
+  assert.equal(path?.textContent, jobPath, 'Packaged Hero 16 job path text or direction mismatch');
+  assert.deepEqual(textLines(card, text => text?.includes(jobPath)), [jobPath], 'Packaged Hero 16 job path occurrence mismatch');
+  assert.equal(path.attributes.size, 0, 'Packaged Hero 16 job path must have no attributes');
+  assert.deepEqual(Object.keys(path), Object.keys(element('p')), 'Packaged Hero 16 job path must have no additional properties');
+  assert.deepEqual(card.children.map(node => node.tag), ['h3', 'p', 'p', 'p', 'p', 'h4', 'p', 'p']);
   assert.ok(card.children.every(node => node.children.length === 0), 'Packaged Hero 16 rows must contain only text');
 }
 
@@ -399,6 +404,8 @@ const factionLocalizations = await readJson('canonical/faction-localizations-ko.
 const lanceLines = hero16ProfileLines(await readJson(HERO_16_PROFILE_DECISION), heroRarities, heroFactionRelations, factionLocalizations);
 const productionLocalizations = await readJson('canonical/production-localizations-ko.v1.json');
 const heroJobRelations = await readJson('canonical/hero-job-relations.v1.json');
+const lanceJobPath = hero16JobPathLine(await readJson(HERO_16_JOB_PATH_DECISION), heroJobRelations,
+  await readJson('canonical/hero-job-advancement-relations.v1.json'), jobLocalization);
 const spJobIdentities = await readJson('canonical/sp-job-identities.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
 const heroProductionRelations = await readJson('canonical/hero-production-relations.v1.json');
@@ -912,7 +919,7 @@ try {
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
   const hero15Card = renderAndCheckPackagedHero15(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
     keyGroups, renderHeadGoldSubtotal(profileInputs), await readSlotGoldSubtotals(readJson, profileInputs));
-  checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines);
+  checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath);
   checkPackagedSoldierCommand(hero15Card);
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {

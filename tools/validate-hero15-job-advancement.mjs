@@ -69,11 +69,11 @@ export function validateHero15JobAdvancement({ evidence, canonical, heroJobRelat
     check(connectionMap.get(edge.predecessorConnectionId)?.fields.Job_ID === edge.predecessorJobId && connectionMap.get(edge.successorConnectionId)?.fields.Job_ID === edge.successorJobId, 'Connection-to-Job endpoint parity');
     check(connectionMap.get(edge.successorConnectionId)?.fields.PreJobConnectionList?.includes(edge.predecessorConnectionId), 'source edge reference exists');
   }
-  check(canonical?.schemaVersion === 1 && canonical.scope === 'Direct prerequisite JobConnection edges for Hero 15 only, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.', 'Canonical schema/scope');
+  check(canonical?.schemaVersion === 1 && canonical.scope === 'Direct prerequisite JobConnection edges for Hero 15 and the selected Hero 16 path, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.', 'Canonical schema/scope');
   check(JSON.stringify(Object.keys(canonical).sort()) === JSON.stringify(['records','schemaVersion','scope']), 'Canonical must not add unlock, mastery, or presentation fields');
-  check(JSON.stringify(canonical.records) === JSON.stringify(projected), 'Canonical exact Source Projection parity');
+  check(JSON.stringify(canonical.records.filter(row => row.heroId === 15)) === JSON.stringify(projected), 'Canonical exact Source Projection parity');
   const relationRows = heroJobRelations.records.filter((r) => r.heroId === 15);
-  check(heroJobRelations.records.length === 211 && JSON.stringify(relationRows.map(r => [r.heroId,r.jobId]).sort((a,b)=>a[1]-b[1])) === JSON.stringify([[15,703],[15,707],[15,802],[15,803],[15,806],[15,811]]), 'existing Hero-Job 211 / Hero 15 six relation parity');
+  check(JSON.stringify(relationRows.map(r => [r.heroId,r.jobId]).sort((a,b)=>a[1]-b[1])) === JSON.stringify([[15,703],[15,707],[15,802],[15,803],[15,806],[15,811]]), 'Hero 15 six relation parity');
   const statRows = jobLevelCanonical.records.filter((r) => r.heroId === 15);
   check(jobLevelCanonical.records.length === 75 && statRows.length === 25 && JSON.stringify([...new Set(statRows.map(r=>r.jobConnectionId))].sort((a,b)=>a-b)) === JSON.stringify(membership), 'existing Hero 15 JobLevel 25 / six connections parity');
   check(JSON.stringify(Object.keys(integratedDecision).sort()) === JSON.stringify(['approval','approvedScope','decisionType','effect','schemaVersion','status']) && integratedDecision?.status === 'APPROVED' && integratedDecision.approvedScope.heroId === 15 && JSON.stringify(integratedDecision.approvedScope.surfaces) === JSON.stringify(['HERO_MINIMAL_DETAIL','HERO_INDEX_LIST','EXCLUSIVE_EQUIPMENT_LIST']) && integratedDecision.approvedScope.excluded.includes('Job') && integratedDecision.approvedScope.excluded.includes('New Semantic Admission'), 'existing integrated publication decision scope remains unchanged');

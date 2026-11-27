@@ -1056,6 +1056,16 @@
       "heroId": 89,
       "jobId": 830,
       "provenance": "evidence/source/jobs/hero-job-connection-presentation-batch-5.v1.json#heroId=89&connectionId=894"
+    },
+    {
+      "heroId": 16,
+      "jobId": 401,
+      "provenance": "evidence/source/jobs/hero16-job-advancement-direct.v1.json#/connections/0/Job_ID"
+    },
+    {
+      "heroId": 16,
+      "jobId": 302,
+      "provenance": "evidence/source/jobs/hero16-job-advancement-direct.v1.json#/connections/1/Job_ID"
     }
   ]
 }

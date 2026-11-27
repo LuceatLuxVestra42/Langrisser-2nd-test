@@ -40,7 +40,7 @@ reject('UISort/connection order added edge', x => { x.canonical.records.push({ h
 reject('raw reference promoted to unlock condition', x => { x.canonical.unlockConditions = [{ connectionId:154, level:40 }]; });
 reject('unlock condition promoted into Canonical', x => { x.canonical.unlockText = 'master 40'; });
 reject('unsupported reachability added', x => { x.canonical.records.push({ heroId:15, predecessorConnectionId:150, predecessorJobId:802, successorConnectionId:155, successorJobId:707, sourceLocator:'transitive' }); });
-reject('Hero-Job membership regression', x => { x.heroJobRelations.records.pop(); });
+reject('Hero-Job membership regression', x => { x.heroJobRelations.records = x.heroJobRelations.records.filter(row => !(row.heroId === 15 && row.jobId === 802)); });
 reject('JobLevel raw stats regression', x => { x.jobLevelCanonical.records.pop(); });
 reject('unlock text transformed', x => { x.evidence.records.jobs[0].fields.UnlockText = 'Level 40'; });
 reject('official corroboration overclaimed', x => { x.evidence.claims.officialCorroboration.scope = 'proves all five individual edges'; });

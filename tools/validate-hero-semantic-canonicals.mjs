@@ -590,8 +590,32 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   check(expectedRelations.size === 205, 'pre-existing 205 evidence-backed Hero→Job pairs or provenance changed');
   for (const row of hero15JobEvidence.selectedRelations) addExpectedRelation(row.heroId, row.jobId,
     `${hero15JobEvidencePath}#heroId=${row.heroId}&connectionId=${row.connectionId}`, 'Hero 15 inherited validated relation evidence');
+  const lancePath = 'evidence/source/jobs/hero16-job-advancement-direct.v1.json';
+  const lance = await readJson(lancePath);
+  check(lance.schemaVersion === 1 && lance.repository === 'LuceatLuxVestra42/langrisser-future-guide'
+    && lance.commit === '6475e63ee23d18adf733756c26a14fa9e3ed662c' && isDeepStrictEqual(lance.sourceFiles, {
+      'data/configdata/ConfigDataHeroInfo.json': '728daab3370f0c7779449663ea02e638677944d4',
+      'data/configdata/ConfigDataJobConnectionInfo.json': 'cdad8d6fda6edd30c92fbcda53e0f63af1903139',
+      'data/configdata/ConfigDataJobInfo.json': '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133',
+    }), 'Hero 16 Job evidence source mismatch');
+  check(isDeepStrictEqual(lance.hero, { recordIndex: 15, ID: 16, JobConnection_ID: 160, 'UseableJobConnections_ID/1': 162 })
+    && isDeepStrictEqual(lance.connections, [
+      { recordIndex: 104, ID: 160, Job_ID: 401 }, { recordIndex: 106, ID: 162, Job_ID: 302, PreJobConnectionList: [160] },
+    ]) && isDeepStrictEqual(lance.jobs, [
+      { recordIndex: 252, ID: 401, Name: '鹰骑士' }, { recordIndex: 191, ID: 302, Name: '骑士长' },
+    ]), 'Hero 16 Job source fields or locators mismatch');
+  for (const [index, row] of lance.connections.entries()) {
+    addExpectedRelation(lance.hero.ID, row.Job_ID, `${lancePath}#/connections/${index}/Job_ID`, 'Hero 16 selected Job evidence');
+  }
+  const advancement = await readJson('canonical/hero-job-advancement-relations.v1.json');
+  const [from, to] = lance.connections;
+  check(isDeepStrictEqual(advancement.records.filter(row => row.heroId !== 15), [{
+    heroId: lance.hero.ID, predecessorConnectionId: to.PreJobConnectionList[0], predecessorJobId: from.Job_ID,
+    successorConnectionId: to.ID, successorJobId: to.Job_ID,
+    sourceLocator: `data/configdata/ConfigDataJobConnectionInfo.json#/${to.recordIndex}/PreJobConnectionList/0`,
+  }]), 'Hero 16 direct advancement differs from the selected source reference');
   check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
-  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + hero11Evidence.records.length + hero7Evidence.records.length + hero26Evidence.records.length + hero60Evidence.records.length + hero4Evidence.records.length + batch5Evidence.records.length + spEvidence.records.length + hero15JobEvidence.selectedRelations.length, 'current evidence-backed relation scope has duplicate or missing pairs');
+  check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + hero11Evidence.records.length + hero7Evidence.records.length + hero26Evidence.records.length + hero60Evidence.records.length + hero4Evidence.records.length + batch5Evidence.records.length + spEvidence.records.length + hero15JobEvidence.selectedRelations.length + lance.connections.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
   const assertUniqueJobSubset = (rows, label) => {
     const ids = rows.map((row) => row.ID);
@@ -603,7 +627,7 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
   const hero15JobIds = hero15JobEvidence.jobInfoRecordIdsInspected.map((row) => row.ID);
   check(new Set(hero15JobIds).size === 6 && JSON.stringify([...hero15JobIds].sort((a, b) => a - b)) === '[703,707,802,803,806,811]',
     'Hero 15 JobInfo evidence must cover its exact six distinct endpoint IDs');
-  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo, ...batch3Evidence.inspectedSourceRows.jobInfo, ...batch4Evidence.inspectedSourceRows.jobInfo, ...hero11Evidence.inspectedSourceRows.jobInfo, ...hero7Evidence.inspectedSourceRows.jobInfo, ...hero26Evidence.inspectedSourceRows.jobInfo, ...hero60Evidence.inspectedSourceRows.jobInfo, ...hero4Evidence.inspectedSourceRows.jobInfo, ...batch5Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID).concat(hero15JobIds));
+  const jobIds = new Set([...classicJobs, ...expansionJobs, ...spJobs, ...presentationJobs, ...batch2Evidence.inspectedSourceRows.jobInfo, ...hero13Evidence.inspectedSourceRows.jobInfo, ...batch3Evidence.inspectedSourceRows.jobInfo, ...batch4Evidence.inspectedSourceRows.jobInfo, ...hero11Evidence.inspectedSourceRows.jobInfo, ...hero7Evidence.inspectedSourceRows.jobInfo, ...hero26Evidence.inspectedSourceRows.jobInfo, ...hero60Evidence.inspectedSourceRows.jobInfo, ...hero4Evidence.inspectedSourceRows.jobInfo, ...batch5Evidence.inspectedSourceRows.jobInfo].map((row) => row.ID).concat(hero15JobIds, lance.jobs.map(row => row.ID)));
   const relationByPair = new Map();
   for (const row of relations.records) {
     exactKeys(row, ['heroId', 'jobId', 'provenance'], `Hero→Job relation ${row.heroId}:${row.jobId}`);
