@@ -42,7 +42,14 @@
       "index": 109,
       "ID": 165,
       "Job_ID": 306,
-      "JobLevels_ID/2": 1653
+      "JobLevels_ID/2": 1653,
+      "JobLevels_ID/0": 1651
+    },
+    {
+      "index": 108,
+      "ID": 164,
+      "Job_ID": 405,
+      "JobLevels_ID/2": 1643
     }
   ],
   "levels": [
@@ -65,6 +72,16 @@
       "index": 625,
       "ID": 1653,
       "GotSkill_ID": 10303
+    },
+    {
+      "index": 623,
+      "ID": 1651,
+      "GotSkill_ID": 10305
+    },
+    {
+      "index": 620,
+      "ID": 1643,
+      "GotSkill_ID": 10105
     }
   ],
   "skills": [
@@ -122,6 +139,28 @@
       "CDText": "-",
       "DistanceText": "-",
       "RangeText": "-"
+    },
+    {
+      "index": 1846,
+      "ID": 10305,
+      "Name": "攻击指挥",
+      "Desc": "[指挥]周围<color=#DC143C>2</color>格以内的所有友军攻击、智力提升<color=#DC143C>10%</color>。",
+      "TypeText": "被动",
+      "SkillCost": 2,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-"
+    },
+    {
+      "index": 1810,
+      "ID": 10105,
+      "Name": "防御威吓",
+      "Desc": "[被动]行动结束时，使得周围<color=#DC143C>2</color>格以内所有敌军的防御降低<color=#DC143C>15%</color>，持续<color=#DC143C>1</color>回合。",
+      "TypeText": "被动",
+      "SkillCost": 2,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-"
     }
   ],
   "hero": {
@@ -129,6 +168,7 @@
     "ID": 16,
     "Skills_ID/0": 10403,
     "UseableJobConnections_ID/2": 163,
-    "UseableJobConnections_ID/4": 165
+    "UseableJobConnections_ID/4": 165,
+    "UseableJobConnections_ID/3": 164
   }
 }

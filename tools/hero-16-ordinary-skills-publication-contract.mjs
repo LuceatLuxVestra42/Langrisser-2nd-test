@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 
 export const ordinaryEvidence = 'evidence/source/configdata/hero-16-ordinary-skills.v1.json';
 export const ordinaryCanonical = 'canonical/hero-16-ordinary-skills.v1.json';
@@ -9,6 +10,8 @@ export const ordinaryDecision = 'docs/decisions/hero-16-minimal-ordinary-skills-
 export const ordinaryPublic = 'generated/hero-16-ordinary-skills-public.v1.json';
 export const ordinaryPublicV2 = 'generated/hero-16-ordinary-skills-public.v2.json';
 export const ordinaryDecisionV2 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v2.json';
+export const ordinaryPublicV3 = 'generated/hero-16-ordinary-skills-public.v3.json';
+export const ordinaryDecisionV3 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v3.json';
 const original = [
   { id:10401, name:'雷光', index:1862, connection:160, job:401, level:1602, cost:2, cd:'3回合', cooldown:'쿨 3턴',
     hash:'5f2262e391467ca876a139bcf3471bcd081ba92a2a2ffa9c30908a5bf678731e', ko:'뇌광',
@@ -27,6 +30,12 @@ const added = [
   { id:10303, index:1844, name:'冲锋', type:'被动', cost:1, cd:'-', distance:'-', area:'-',
     hash:'4c33156224b60ac99590688c74b2fea45f596ee0dc4aaf1a4a2ee2c393f78555', ko:'돌진',
     description:'공격 전 이동 1칸마다 공격 +5%, 최대 +15%.' },
+  { id:10305, index:1846, name:'攻击指挥', type:'被动', cost:2, cd:'-', distance:'-', area:'-',
+    hash:'465e0aee8785dd2e7c9023ad1cb6bbef5c859dd448673b0305b51c026677f635', ko:'공격 지휘',
+    description:'주위 2칸 내 모든 아군의 공격, 지력 +10%.' },
+  { id:10105, index:1810, name:'防御威吓', type:'被动', cost:2, cd:'-', distance:'-', area:'-',
+    hash:'f2bbc8e4958b465c337b28f52fcd23db0f9efcbd910a960f1cd2f1ff8a9b5b54', ko:'방어 위협',
+    description:'행동 종료 시 주위 2칸 내 모든 적의 방어 -15%, 1턴 지속.' },
 ];
 const approved = [...original.map(r=>({...r,type:'物理伤害',distance:'1格',area:'单体'})), ...added];
 const jobSources = [
@@ -34,6 +43,8 @@ const jobSources = [
   { connection:162, job:302, level:1622, skill:10311, slot:1, ci:106, li:609, membership:'evidence/source/jobs/hero16-job-advancement-direct.v1.json#/connections/1/Job_ID' },
   { connection:163, job:202, level:1632, skill:5025, slot:1, ci:107, li:614, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/3/Job_ID' },
   { connection:165, job:306, level:1653, skill:10303, slot:2, ci:109, li:625, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/5/Job_ID' },
+  { connection:165, job:306, level:1651, skill:10305, slot:0, ci:109, li:623, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/5/Job_ID' },
+  { connection:164, job:405, level:1643, skill:10105, slot:2, ci:108, li:620, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/4/Job_ID' },
 ];
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root,path),'utf8'));
 
@@ -47,10 +58,18 @@ export async function readOrdinarySkillEvidence(root) {
     JobLevel:{path:'data/configdata/ConfigDataJobLevelInfo.json',blob:'e9c978f78a96372db6e7b142512b69a8d0ab3182'},
     Skill:{path:'data/configdata/ConfigDataSkillInfo.json',blob:'dbd7f8f94702bb43d2ceb0091e9755c9aebaed19'},
   });
-  assert.deepEqual(e.hero,{index:15,ID:16,'Skills_ID/0':10403,'UseableJobConnections_ID/2':163,'UseableJobConnections_ID/4':165},
+  assert.deepEqual(e.hero,{index:15,ID:16,'Skills_ID/0':10403,'UseableJobConnections_ID/2':163,'UseableJobConnections_ID/3':164,'UseableJobConnections_ID/4':165},
     'Lance Hero 16 direct skill or usable connection source mismatch');
-  assert.deepEqual(e.connections, jobSources.map(r=>({index:r.ci, ID:r.connection, Job_ID:r.job, [`JobLevels_ID/${r.slot}`]:r.level})),
-    'Lance ordinary JobConnection source mismatch');
+  const connections = new Map();
+  for (const r of jobSources) {
+    const expected = connections.get(r.connection) ?? {index:r.ci, ID:r.connection, Job_ID:r.job};
+    const key = `JobLevels_ID/${r.slot}`;
+    const actual = e.connections.find(row=>row.ID===r.connection);
+    assert.equal(actual?.[key],r.level,`Skill ${r.skill} requires Connection ${r.connection} JobLevels_ID[${r.slot}]=${r.level}`);
+    expected[key] = r.level;
+    connections.set(r.connection,expected);
+  }
+  assert.deepEqual(e.connections,[...connections.values()],'Lance ordinary JobConnection source mismatch');
   assert.deepEqual(e.levels, jobSources.map(r=>({index:r.li, ID:r.level, GotSkill_ID:r.skill})), 'Lance ordinary GotSkill_ID source mismatch');
   assert.deepEqual(e.skills.map(r=>r.ID),approved.map(r=>r.id),'Lance ordinary Skill source locators');
   for (const r of approved) {
@@ -73,6 +92,15 @@ export async function generateOrdinarySkills(root=process.cwd()) {
   const [e, canonical, jobs, identities, decision] = await Promise.all([
     readOrdinarySkillEvidence(root), ...[ordinaryCanonical,'canonical/hero-job-relations.v1.json','canonical/skills.v1.json',ordinaryDecision].map(path=>readJson(root,path)),
   ]);
+  for (const job of new Set(jobSources.map(r=>r.job))) {
+    const references = jobSources.filter(r=>r.job===job);
+    const members = jobs.records.filter(r=>r.heroId===16 && r.jobId===job);
+    const missing = references.filter(r=>!isDeepStrictEqual(members,[{heroId:16,jobId:job,provenance:r.membership}]));
+    if (missing.length) {
+      const skills = missing.map(r=>r.skill).join('·');
+      assert.fail(`${skills}의 Hero 16–Job ${job} 소속 누락 또는 출처 불일치`);
+    }
+  }
   const expectedRecords = e.skills.map((skill,skillIndex)=>{
     const {TypeText,SkillCost,CDText,DistanceText,RangeText} = skill;
     const metadata = {skillId:skill.ID,TypeText,SkillCost,CDText,DistanceText,RangeText};
@@ -81,9 +109,6 @@ export async function generateOrdinarySkills(root=process.cwd()) {
       return {heroId:e.hero.ID,...metadata,provenance:{acquisition:ordinaryEvidence+'#/hero/Skills_ID~10', metadata:source}};
     }
     const acquisition = jobSources.find(r=>r.skill===skill.ID);
-    const jobRow = jobs.records.filter(r=>r.heroId===16 && r.jobId===acquisition.job);
-    assert.deepEqual(jobRow,[{heroId:16,jobId:acquisition.job,provenance:acquisition.membership}],
-      `${skill.ID}의 Hero 16–Job ${acquisition.job} 소속 누락 또는 출처 불일치`);
     const ci = e.connections.findIndex(row=>row.ID===acquisition.connection);
     const connection = e.connections[ci];
     const li = e.levels.findIndex(row=>row.ID===connection[`JobLevels_ID/${acquisition.slot}`]);
@@ -133,7 +158,19 @@ export async function generateOrdinarySkills(root=process.cwd()) {
     },
     corroboration:{...corroboration,locator:['/normal/skills/heroDirectSkills/0',...([0,1,3,5].map(i=>'/normal/skills/jobLevelAcquisitions/'+i))]},
   },'Lance ordinary v2 publication scope mismatch');
-  return {v1,v2:{...v1,schemaVersion:2,ordinarySkills:rows}};
+  const {approval:approvalV3,...scopeV3} = await readJson(root,ordinaryDecisionV3);
+  assert.ok(approvalV3?.source && approvalV3?.basis,'Lance v3 approval reference missing');
+  const v3Rows = [10403,10401,10311,5025,10305,10303,10105].map(publicRow);
+  const {catalog,sheet} = scopeV2.localization;
+  assert.deepEqual(scopeV3,{...scopeV2,schemaVersion:3,publicPath:ordinaryPublicV3,rows:v3Rows,
+    localization:{
+      catalog:{...catalog,locator:[...catalog.locator,'10305 攻击指挥 L1304-L1309','10105 防御威吓 L712-L717']},
+      sheet:{...sheet,locator:[...sheet.locator,'L527-L536','L487-L496']},
+    },
+    corroboration:{...scopeV2.corroboration,locator:[...scopeV2.corroboration.locator,
+      '/normal/skills/jobLevelAcquisitions/4','/normal/skills/jobLevelAcquisitions/7']},
+  },'Lance ordinary v3 publication scope mismatch');
+  return {v1,v2:{...v1,schemaVersion:2,ordinarySkills:rows},v3:{...v1,schemaVersion:3,ordinarySkills:v3Rows}};
 }
 
 export function validateOrdinaryPublic(text, expected) {

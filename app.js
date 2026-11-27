@@ -630,28 +630,31 @@ async function loadHero16Talent(card) {
 
 async function loadHero16OrdinarySkills(card) {
   try {
-    const response = await fetch('./generated/hero-16-ordinary-skills-public.v2.json');
+    const response = await fetch('./generated/hero-16-ordinary-skills-public.v3.json');
     if (!response.ok) return;
     const data = await response.json();
     if (Object.keys(data).sort().join(',') !== 'heroId,officialKrProvenanceStatus,ordinarySkills,schemaVersion,surface'
-      || data.schemaVersion !== 2 || data.heroId !== 16 || data.surface !== 'hero-minimal-detail-16'
+      || data.schemaVersion !== 3 || data.heroId !== 16 || data.surface !== 'hero-minimal-detail-16'
       || data.officialKrProvenanceStatus !== 'unverified' || !Array.isArray(data.ordinarySkills)
-      || data.ordinarySkills.length !== 5) return;
+      || data.ordinarySkills.length !== 7) return;
 
     const expected = [
       [10403, "바람의 분노", "물리 피해", 2, "쿨 2턴", "사거리 자신", "범위 주위 1칸", "주위 1칸 내 모든 적에게 0.3배 범위 피해를 주고 각 대상에게 무작위 디버프를 부여한다."],
       [10401, "뇌광", "물리 피해", 2, "쿨 3턴", "사거리 1칸", "범위 단일", "단일 적 부대를 공격해 1.5배 피해를 준다. 이 스킬로 적을 처치하면 스킬 쿨타임 -3."],
       [10311, "격돌", "물리 피해", 1, "쿨 2턴", "사거리 1칸", "범위 단일", "단일 적 부대를 공격해 1.2배 피해를 준다. 대상을 2칸 밀쳐내고 이동력 -2와 호위 불가를 1턴 부여한다."],
       [5025, "구급", "치료", 1, "쿨 3턴", "사거리 자신", "범위 단일", "자신 부대 생명 100% 회복."],
+      [10305, "공격 지휘", "패시브", 2, "주위 2칸 내 모든 아군의 공격, 지력 +10%."],
       [10303, "돌진", "패시브", 1, "공격 전 이동 1칸마다 공격 +5%, 최대 +15%."],
+      [10105, "방어 위협", "패시브", 2, "행동 종료 시 주위 2칸 내 모든 적의 방어 -15%, 1턴 지속."],
     ];
     const labels = [];
     for (const [i, row] of data.ordinarySkills.entries()) {
+      const passive = expected[i][2] === '패시브';
       const keys = ['skillId', 'nameKo', 'typeLabelKo', 'cost'];
-      if (row.skillId !== 10303) keys.push('cooldownLabelKo', 'distanceLabelKo', 'areaLabelKo');
+      if (!passive) keys.push('cooldownLabelKo', 'distanceLabelKo', 'areaLabelKo');
       keys.push('descriptionKo');
       if (Object.keys(row).length !== keys.length || !keys.every((key,j) => row[key] === expected[i][j])) return;
-      const range = row.skillId === 10303 ? [] : [row.cooldownLabelKo, row.distanceLabelKo, row.areaLabelKo];
+      const range = passive ? [] : [row.cooldownLabelKo, row.distanceLabelKo, row.areaLabelKo];
       labels.push([row.nameKo, row.typeLabelKo, `${row.cost}코스트`, ...range, row.descriptionKo].join(' · '));
     }
     const section = renderMinimalDetailList('일반 스킬', labels);

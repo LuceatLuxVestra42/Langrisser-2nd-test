@@ -1,4 +1,4 @@
-import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import assert from 'node:assert/strict';
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { runInNewContext } from 'node:vm';
@@ -86,7 +86,7 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
   }
   validateHero15SoldierTextDecision(hero15SoldierTextPublication);
   files.push(HERO_15_SOLDIER_TEXT_PUBLIC);
-  if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH, lanceTalentPublic, ordinaryPublic, ordinaryPublicV2);
+  if (hero16IntegratedPublication?.status === 'APPROVED') files.push(HERO_16_MINIMAL_DETAIL_PATH, lanceTalentPublic, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3);
   if (heroMinimalDetailBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_BATCH_PATH);
   if (heroMinimalDetailTenBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TEN_BATCH_PATH);
   if (heroMinimalDetailTwentyBatchPublication?.status === 'APPROVED') files.push(HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH);
@@ -324,10 +324,17 @@ const newLanceSkillLines = [
   '돌진 · 패시브 · 1코스트 · 공격 전 이동 1칸마다 공격 +5%, 최대 +15%.',
 ];
 
+const lanceSkillLinesV3 = [
+  ...newLanceSkillLines.slice(0,4),
+  '공격 지휘 · 패시브 · 2코스트 · 주위 2칸 내 모든 아군의 공격, 지력 +10%.',
+  newLanceSkillLines[4],
+  '방어 위협 · 패시브 · 2코스트 · 행동 종료 시 주위 2칸 내 모든 적의 방어 -15%, 1턴 지속.',
+];
+
 async function checkPackagedLanceStartup(output, html, app, talent, skills, otherVersion, hasNameAndVoice) {
   const oldApp = skills.schemaVersion === 1;
-  const skillPath = oldApp ? ordinaryPublic : ordinaryPublicV2;
-  const lanceSkillLines = oldApp ? oldLanceSkillLines : newLanceSkillLines;
+  const skillPath = [ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3][skills.schemaVersion-1];
+  const lanceSkillLines = [oldLanceSkillLines,newLanceSkillLines,lanceSkillLinesV3][skills.schemaVersion-1];
   const { selectSkinFullarts } = await import(pathToFileURL(join(output,'skin-fullart-presentation.mjs')).href);
   const source = app.replace("import { selectSkinFullarts } from './skin-fullart-presentation.mjs';", '');
   const script = '(async () => { "use strict";\n' + source + '\nreturn hero16MinimalDetailNavigation; })()';
@@ -369,7 +376,7 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     const pending = new Map();
     const requests = [];
     const fetch = async url => {
-      if ([ordinaryPublic,ordinaryPublicV2].includes(url.replace(/^\.\//,''))) requests.push(url);
+      if ([ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3].includes(url.replace(/^\.\//,''))) requests.push(url);
       if ([skillPath,lanceTalentPublic].some(path=>url==='./'+path)) {
         assert.ok(!pending.has(url),'Duplicate optional Lance request');
         return new Promise(resolve=>pending.set(url,resolve));
@@ -424,7 +431,7 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     function checkSkills(present) {
       const section=card.children.find(n=>n.className==='hero-ordinary-skills');
       assert.equal(walk(card,n=>n.textContent==='일반 스킬').length,Number(present));
-      for (const line of newLanceSkillLines) {
+      for (const line of lanceSkillLinesV3) {
         const count = Number(present && lanceSkillLines.includes(line));
         assert.equal(walk(card,n=>n.textContent===line).length,count,'Packaged Lance ordinary skill row text or placement');
         assert.equal(Array.from(roots.values()).reduce((count,root)=>count+walk(root,n=>n.textContent===line).length,0),count,'Lance ordinary skill leaked outside its card');
@@ -496,7 +503,7 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
       const payload = structuredClone(skills);
       if (outcome==='invalid-second-row') payload.ordinarySkills[1].descriptionKo=' ';
       if (outcome==='invalid-last-row') payload.ordinarySkills.at(-1).descriptionKo=' ';
-      if (outcome==='wrong-version') payload.schemaVersion=3;
+      if (outcome==='wrong-version') payload.schemaVersion=skills.schemaVersion+1;
       if (outcome==='wrong-description') payload.ordinarySkills[0].descriptionKo+='!';
       if (outcome==='other-version') resolveSkills(response(otherVersion));
       else resolveSkills(outcome==='failure' ? {ok:false} : response(payload));
@@ -985,6 +992,7 @@ try {
   await cp(hero15MinimalDetailPath, join(output, ...HERO_15_MINIMAL_DETAIL_PATH.split('/')));
   await cp(resolve(HERO_15_TALENT_PUBLIC_PATH), join(output, ...HERO_15_TALENT_PUBLIC_PATH.split('/')));
   await cp(resolve(HERO_15_SOLDIER_TEXT_PUBLIC), join(output, HERO_15_SOLDIER_TEXT_PUBLIC));
+  await cp(resolve(ordinaryPublicV3), join(output,ordinaryPublicV3));
   await cp(resolve(ordinaryPublicV2), join(output,ordinaryPublicV2));
   await cp(resolve(ordinaryPublic), join(output,ordinaryPublic));
   await cp(resolve(lanceTalentPublic), join(output,lanceTalentPublic));
@@ -1131,11 +1139,18 @@ try {
   validateOrdinaryPublic(packagedOrdinaryText, lanceOrdinary.v1);
   const newOrdinaryText = await readFile(join(output,ordinaryPublicV2),'utf8');
   validateOrdinaryPublic(newOrdinaryText,lanceOrdinary.v2);
+  const skillsV3Text = await readFile(join(output,ordinaryPublicV3),'utf8');
+  validateOrdinaryPublic(skillsV3Text,lanceOrdinary.v3);
+  const skillsV3 = JSON.parse(skillsV3Text);
   const oldSkills = JSON.parse(packagedOrdinaryText);
   const newSkills = JSON.parse(newOrdinaryText);
   for (const oldRow of oldSkills.ordinarySkills) {
     const newRow = newSkills.ordinarySkills.find(r=>r.skillId===oldRow.skillId);
     assert.equal(JSON.stringify(newRow),JSON.stringify(oldRow),'Lance existing Skill object bytes');
+  }
+  for (const row of newSkills.ordinarySkills) {
+    const preserved = skillsV3.ordinarySkills.find(r=>r.skillId===row.skillId);
+    assert.equal(JSON.stringify(preserved),JSON.stringify(row),'Lance v3 preserved Skill object bytes');
   }
   const packagedTalentText = await readFile(join(output, lanceTalentPublic), 'utf8');
   validateLanceTalentPackage(packagedTalentText, lanceTalent);
@@ -1158,7 +1173,11 @@ try {
   assert.equal(createHash('sha256').update(newOrdinaryText).digest('hex'),'fec251ee8db49065e1405e8cb703cf73c81ae94494fdcabcb79ea559a44a3190','Packaged Lance skills v2 digest');
   await checkPackagedLanceStartup(output,html,oldApp,JSON.parse(packagedTalentText),oldSkills,newSkills,false);
   await checkPackagedLanceStartup(output,html,base333App,JSON.parse(packagedTalentText),newSkills,oldSkills,false);
-  await checkPackagedLanceStartup(output,html,app,JSON.parse(packagedTalentText),newSkills,oldSkills,true);
+  const base334App = await readFile(resolve('tools/fixtures/hero-16-passives-base-334-app.js'),'utf8');
+  assert.equal(Buffer.byteLength(base334App),121795,'Packaged Lance #334 fixture length');
+  assert.equal(createHash('sha256').update(base334App).digest('hex'),'aaa738dfcf88c9fe3a3790567a6ddea0c7fa1d467d1cddaa8095b2462d36343d','Packaged Lance #334 fixture digest');
+  await checkPackagedLanceStartup(output,html,base334App,JSON.parse(packagedTalentText),newSkills,oldSkills,true);
+  await checkPackagedLanceStartup(output,html,app,JSON.parse(packagedTalentText),skillsV3,newSkills,true);
   checkPackagedSoldierCommand(hero15Card);
   checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {
