@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -11,7 +12,7 @@ const ITEM={path:'data/configdata/ConfigDataItemInfo.json',blobSha1:'fd34c0a83bd
 const LEGACY={repository:'LuceatLuxVestra42/langrisser-future-guide',refCommit:'57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff',path:'data/contracts/hero-casting-law-materials.v1.json',blobSha1:'9a3b29dec4f594923b5fe6dd8508ae757a6d69f7',relationRule:'LevelupMaterialsCost[].GoodsType == 6: Id -> ConfigDataItemInfo.ID by explicit numeric equality',use:'Transformation precedent only; does not transfer Legacy status or admission.'};
 const ITEM_ENDPOINTS=[[3267,458],[3281,472],[3295,486],[3308,499],[3309,500],[3310,501],[3265,456],[3279,470],[3293,484],[3270,461],[3284,475],[3298,489],[3273,464],[3287,478],[3301,492],[3274,465],[3288,479],[3302,493]].map(([itemId,sourceArrayIndex])=>({itemId,sourceArrayIndex,recordLocator:`ConfigDataItemInfo#ID=${itemId}`,fields:{ID:itemId}}));
 const check=(x,c,m)=>{if(!x)throw new Error(`Casting Law LevelUp material reference validation failed [${c}]: ${m}`);};
-const read=async(root,p)=>JSON.parse(await readFile(resolve(root,p),'utf8'));
+const read=async(root,p)=>lianaCastingInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
 const projectionDigest=rows=>createHash('sha256').update(JSON.stringify(rows)).digest('hex');
 export function validateCastingLawLevelUpMaterialReferencesData({evidence,canonical,templateLevelReferences}){
  check(evidence.schemaVersion===1&&evidence.claimType==='casting-law-template-levelup-material-references'&&evidence.owner==='casting-law-levelup-material-reference','EVIDENCE','owner/schema drift');

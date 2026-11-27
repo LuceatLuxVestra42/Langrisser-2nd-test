@@ -63,7 +63,19 @@ for (const [appPath, lines] of [
   const container = element('div');
   const navigation = render(JSON.parse(generatedText), container);
   const [card] = container.children;
-  assert.deepEqual(card.children.map(row => row.textContent), [
+  const profile = appPath === 'app.js' ? card.children.slice(0, -1) : card.children;
+  if (appPath === 'app.js') {
+    assert.deepEqual(card.children.at(-1).children.map(node => node.textContent), [
+      '중앙율정',
+      'Lv.1~10 합계 골드 10,800,000',
+      '무기 1 · Lv.1~10 소계 골드 1,800,000',
+      '무기 2 · Lv.1~10 소계 골드 1,800,000',
+      '갑옷 · Lv.1~10 소계 골드 3,600,000',
+      '투구 · Lv.1~10 소계 골드 1,800,000',
+      '장신구 · Lv.1~10 소계 골드 1,800,000',
+    ]);
+  }
+  assert.deepEqual(profile.map(row => row.textContent), [
     '란스', 'Hero ID 16', '프로젝트 검수 표시명 · 공식 한국 서버 Provenance 미확인', ...lines,
     '칼자스의 왕관 (Equipment ID 418)', '생명 +5%\n혼합부대일 시, 주는 피해 +20%',
     ...(appPath === 'app.js' ? ['전직 · 호크 나이트 → 하이랜더'] : []),

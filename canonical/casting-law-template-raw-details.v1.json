@@ -145,6 +145,104 @@
         "EquipmentType": "PRESENT"
       },
       "provenance": "evidence/source/jobs/casting-law-template-raw-details.v1.json#templateRecords/ID=41"
+    },
+    {
+      "templateId": 1,
+      "rawRecord": {
+        "ID": 1,
+        "CastingLawLevelUpInfoList": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          10001,
+          10002,
+          10003,
+          10004,
+          10005
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "EquipmentType": "ABSENT"
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/templates/0"
+    },
+    {
+      "templateId": 2,
+      "rawRecord": {
+        "ID": 2,
+        "CastingLawLevelUpInfoList": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          10006,
+          10007,
+          10008,
+          10009,
+          10010
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "EquipmentType": "ABSENT"
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/templates/1"
+    },
+    {
+      "templateId": 30,
+      "rawRecord": {
+        "ID": 30,
+        "EquipmentType": 1,
+        "CastingLawLevelUpInfoList": [
+          146,
+          147,
+          148,
+          149,
+          150,
+          10146,
+          10147,
+          10148,
+          10149,
+          10150
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "EquipmentType": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT"
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/templates/2"
+    },
+    {
+      "templateId": 33,
+      "rawRecord": {
+        "ID": 33,
+        "EquipmentType": 2,
+        "CastingLawLevelUpInfoList": [
+          161,
+          162,
+          163,
+          164,
+          165,
+          10161,
+          10162,
+          10163,
+          10164,
+          10165
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "EquipmentType": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT"
+      },
+      "provenance": "evidence/source/jobs/hero16-casting-law-gold.v1.json#/templates/3"
     }
   ]
 }

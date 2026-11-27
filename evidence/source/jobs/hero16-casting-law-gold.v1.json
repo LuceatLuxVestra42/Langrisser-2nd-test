@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "sourceDirectory": "data/configdata/",
+  "sourceBlobs": {
+    "ConfigDataHeroInfo": "728daab3370f0c7779449663ea02e638677944d4",
+    "ConfigDataCastingLawTemplateInfo": "3d3f403120324a258cc1e1d03dd4af3cf56ad10e",
+    "ConfigDataCastingLawLevelUpInfo": "83b99ebff9c54523d7f9476b92e8b3d59229179f"
+  },
+  "hero": {
+    "sourceArrayIndex": 15,
+    "ID": 16,
+    "CastingLawTemplates_ID": [
+      1,
+      2,
+      30,
+      33,
+      41
+    ]
+  },
+  "templates": [
+    {
+      "sourceArrayIndex": 0,
+      "rawRecord": {
+        "ID": 1,
+        "CastingLawLevelUpInfoList": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          10001,
+          10002,
+          10003,
+          10004,
+          10005
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "EquipmentType": "ABSENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 1,
+      "rawRecord": {
+        "ID": 2,
+        "CastingLawLevelUpInfoList": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          10006,
+          10007,
+          10008,
+          10009,
+          10010
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT",
+        "EquipmentType": "ABSENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 29,
+      "rawRecord": {
+        "ID": 30,
+        "EquipmentType": 1,
+        "CastingLawLevelUpInfoList": [
+          146,
+          147,
+          148,
+          149,
+          150,
+          10146,
+          10147,
+          10148,
+          10149,
+          10150
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "EquipmentType": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT"
+      }
+    },
+    {
+      "sourceArrayIndex": 32,
+      "rawRecord": {
+        "ID": 33,
+        "EquipmentType": 2,
+        "CastingLawLevelUpInfoList": [
+          161,
+          162,
+          163,
+          164,
+          165,
+          10161,
+          10162,
+          10163,
+          10164,
+          10165
+        ]
+      },
+      "fieldStates": {
+        "ID": "PRESENT",
+        "EquipmentType": "PRESENT",
+        "CastingLawLevelUpInfoList": "PRESENT"
+      }
+    }
+  ],
+  "levels": [
+    {
+      "sourceArrayIndex": 0,
+      "rawFields": {
+        "ID": 1,
+        "LevelUpGoldCost": 25000
+      }
+    },
+    {
+      "sourceArrayIndex": 1,
+      "rawFields": {
+        "ID": 2,
+        "LevelUpGoldCost": 35000
+      }
+    },
+    {
+      "sourceArrayIndex": 2,
+      "rawFields": {
+        "ID": 3,
+        "LevelUpGoldCost": 60000
+      }
+    },
+    {
+      "sourceArrayIndex": 3,
+      "rawFields": {
+        "ID": 4,
+        "LevelUpGoldCost": 100000
+      }
+    },
+    {
+      "sourceArrayIndex": 4,
+      "rawFields": {
+        "ID": 5,
+        "LevelUpGoldCost": 150000
+      }
+    },
+    {
+      "sourceArrayIndex": 250,
+      "rawFields": {
+        "ID": 10001,
+        "LevelUpGoldCost": 190000
+      }
+    },
+    {
+      "sourceArrayIndex": 251,
+      "rawFields": {
+        "ID": 10002,
+        "LevelUpGoldCost": 230000
+      }
+    },
+    {
+      "sourceArrayIndex": 252,
+      "rawFields": {
+        "ID": 10003,
+        "LevelUpGoldCost": 280000
+      }
+    },
+    {
+      "sourceArrayIndex": 253,
+      "rawFields": {
+        "ID": 10004,
+        "LevelUpGoldCost": 330000
+      }
+    },
+    {
+      "sourceArrayIndex": 254,
+      "rawFields": {
+        "ID": 10005,
+        "LevelUpGoldCost": 400000
+      }
+    },
+    {
+      "sourceArrayIndex": 5,
+      "rawFields": {
+        "ID": 6,
+        "LevelUpGoldCost": 25000
+      }
+    },
+    {
+      "sourceArrayIndex": 6,
+      "rawFields": {
+        "ID": 7,
+        "LevelUpGoldCost": 35000
+      }
+    },
+    {
+      "sourceArrayIndex": 7,
+      "rawFields": {
+        "ID": 8,
+        "LevelUpGoldCost": 60000
+      }
+    },
+    {
+      "sourceArrayIndex": 8,
+      "rawFields": {
+        "ID": 9,
+        "LevelUpGoldCost": 100000
+      }
+    },
+    {
+      "sourceArrayIndex": 9,
+      "rawFields": {
+        "ID": 10,
+        "LevelUpGoldCost": 150000
+      }
+    },
+    {
+      "sourceArrayIndex": 255,
+      "rawFields": {
+        "ID": 10006,
+        "LevelUpGoldCost": 190000
+      }
+    },
+    {
+      "sourceArrayIndex": 256,
+      "rawFields": {
+        "ID": 10007,
+        "LevelUpGoldCost": 230000
+      }
+    },
+    {
+      "sourceArrayIndex": 257,
+      "rawFields": {
+        "ID": 10008,
+        "LevelUpGoldCost": 280000
+      }
+    },
+    {
+      "sourceArrayIndex": 258,
+      "rawFields": {
+        "ID": 10009,
+        "LevelUpGoldCost": 330000
+      }
+    },
+    {
+      "sourceArrayIndex": 259,
+      "rawFields": {
+        "ID": 10010,
+        "LevelUpGoldCost": 400000
+      }
+    },
+    {
+      "sourceArrayIndex": 145,
+      "rawFields": {
+        "ID": 146,
+        "LevelUpGoldCost": 50000
+      }
+    },
+    {
+      "sourceArrayIndex": 146,
+      "rawFields": {
+        "ID": 147,
+        "LevelUpGoldCost": 70000
+      }
+    },
+    {
+      "sourceArrayIndex": 147,
+      "rawFields": {
+        "ID": 148,
+        "LevelUpGoldCost": 120000
+      }
+    },
+    {
+      "sourceArrayIndex": 148,
+      "rawFields": {
+        "ID": 149,
+        "LevelUpGoldCost": 200000
+      }
+    },
+    {
+      "sourceArrayIndex": 149,
+      "rawFields": {
+        "ID": 150,
+        "LevelUpGoldCost": 300000
+      }
+    },
+    {
+      "sourceArrayIndex": 395,
+      "rawFields": {
+        "ID": 10146,
+        "LevelUpGoldCost": 380000
+      }
+    },
+    {
+      "sourceArrayIndex": 396,
+      "rawFields": {
+        "ID": 10147,
+        "LevelUpGoldCost": 460000
+      }
+    },
+    {
+      "sourceArrayIndex": 397,
+      "rawFields": {
+        "ID": 10148,
+        "LevelUpGoldCost": 560000
+      }
+    },
+    {
+      "sourceArrayIndex": 398,
+      "rawFields": {
+        "ID": 10149,
+        "LevelUpGoldCost": 660000
+      }
+    },
+    {
+      "sourceArrayIndex": 399,
+      "rawFields": {
+        "ID": 10150,
+        "LevelUpGoldCost": 800000
+      }
+    },
+    {
+      "sourceArrayIndex": 160,
+      "rawFields": {
+        "ID": 161,
+        "LevelUpGoldCost": 25000
+      }
+    },
+    {
+      "sourceArrayIndex": 161,
+      "rawFields": {
+        "ID": 162,
+        "LevelUpGoldCost": 35000
+      }
+    },
+    {
+      "sourceArrayIndex": 162,
+      "rawFields": {
+        "ID": 163,
+        "LevelUpGoldCost": 60000
+      }
+    },
+    {
+      "sourceArrayIndex": 163,
+      "rawFields": {
+        "ID": 164,
+        "LevelUpGoldCost": 100000
+      }
+    },
+    {
+      "sourceArrayIndex": 164,
+      "rawFields": {
+        "ID": 165,
+        "LevelUpGoldCost": 150000
+      }
+    },
+    {
+      "sourceArrayIndex": 410,
+      "rawFields": {
+        "ID": 10161,
+        "LevelUpGoldCost": 190000
+      }
+    },
+    {
+      "sourceArrayIndex": 411,
+      "rawFields": {
+        "ID": 10162,
+        "LevelUpGoldCost": 230000
+      }
+    },
+    {
+      "sourceArrayIndex": 412,
+      "rawFields": {
+        "ID": 10163,
+        "LevelUpGoldCost": 280000
+      }
+    },
+    {
+      "sourceArrayIndex": 413,
+      "rawFields": {
+        "ID": 10164,
+        "LevelUpGoldCost": 330000
+      }
+    },
+    {
+      "sourceArrayIndex": 414,
+      "rawFields": {
+        "ID": 10165,
+        "LevelUpGoldCost": 400000
+      }
+    }
+  ]
+}

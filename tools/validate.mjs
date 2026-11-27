@@ -1,3 +1,4 @@
+import { readLanceGoldSource } from './hero-16-integrated-publication-contract.mjs';
 import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { validateFromRoot as validateHero15SoldierInternal } from './validate-hero-15-soldier-internal.mjs';
@@ -812,6 +813,7 @@ await validateHero15FetterRewardTypeReferences(root);
 await validateHero15FetterInternal(root);
 await validateHero15CastingLawTemplateReferences(root);
 await validateCastingLawTemplateRawDetails(root);
+await readLanceGoldSource(readJson);
 await validateCastingLawTemplateLevelReferences(root);
 await validateCastingLawLevelUpMaterialReferences(root);
 await validateCastingLawLevelUpRawDetails(root);

@@ -1,8 +1,9 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateCastingLawLevelUpRawDetailsData } from './validate-casting-law-levelup-raw-details.mjs';
 
-const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
+const read = async (path) => lianaCastingInput(path, JSON.parse(await readFile(path, 'utf8')));
 const original = {
   evidence: await read('evidence/source/jobs/casting-law-levelup-raw-details.v1.json'),
   canonical: await read('canonical/casting-law-levelup-raw-details.v1.json'),

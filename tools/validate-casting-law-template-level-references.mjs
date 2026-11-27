@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
@@ -31,7 +32,7 @@ const LEVEL_SOURCE_INDEX = {
 };
 const check = (ok, code, message) => { if (!ok) throw new Error(`Casting Law Template Level-reference validation failed [${code}]: ${message}`); };
 const exactKeys = (v, keys, label) => check(v && typeof v === 'object' && !Array.isArray(v) && isDeepStrictEqual(Object.keys(v).sort(), [...keys].sort()), 'SCHEMA', `${label} keys drift`);
-const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+const readJson = async (root, path) => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
 
 export function validateCastingLawTemplateLevelReferencesData({ evidence, canonical, templateEvidence, templateCanonical }) {
   check(evidence.schemaVersion === 1 && evidence.claimType === 'casting-law-template-level-references' && evidence.owner === 'shared-casting-law-template-level-reference', 'EVIDENCE', 'owner/schema identity drift');

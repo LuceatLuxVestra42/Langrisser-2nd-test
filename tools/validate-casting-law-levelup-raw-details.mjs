@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -16,7 +17,7 @@ const PROJECTION_SHA256 = '4a1dad08b5220552eaf19f08cd17911b75e7fb6ebdd33963942dc
 const INVENTORY_SHA256 = 'e68c88561667afef5162cca895d0647aafe2adb55fdae8d8a66ba5a389c2e5e8';
 const check = (x, code, message) => { if (!x) throw new Error(`Casting Law LevelUp raw-detail validation failed [${code}]: ${message}`); };
 const exactKeys = (x, keys, label) => check(x && typeof x === 'object' && !Array.isArray(x) && isDeepStrictEqual(Object.keys(x).sort(), [...keys].sort()), 'SCHEMA', `${label} keys drift`);
-const read = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+const read = async (root, path) => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
 const digest = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 
 export function validateCastingLawLevelUpRawDetailsData({ evidence, canonical, references, materials }) {

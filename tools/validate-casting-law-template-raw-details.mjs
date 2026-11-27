@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
@@ -29,7 +30,7 @@ const EXPECTED = [
 const check = (value, code, message) => { if (!value) throw new Error(`Casting Law Template raw-detail validation failed [${code}]: ${message}`); };
 const exactKeys = (value, keys, label, code = 'SCHEMA') => check(value && typeof value === 'object' && !Array.isArray(value)
   && isDeepStrictEqual(Object.keys(value).sort(), [...keys].sort()), code, `${label} keys drift`);
-const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+const readJson = async (root, path) => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
 const stateFor = (record, key) => {
   if (!Object.hasOwn(record, key)) return 'ABSENT';
   if (record[key] === null) return 'NULL';

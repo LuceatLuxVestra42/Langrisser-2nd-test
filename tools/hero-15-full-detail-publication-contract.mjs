@@ -1,3 +1,4 @@
+import { lianaCastingInput } from './liana-casting-input.mjs';
 import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -297,7 +298,7 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
 }
 
 export async function loadHero15FullDetailPublicationInputs(root = process.cwd()) {
-  const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+  const readJson = async (path) => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
   const paths = {
     decision: HERO_15_FULL_DETAIL_PUBLICATION_PATH,
     migrationDecision: HERO_15_FULL_DETAIL_POPULATION_MIGRATION_PATH,
