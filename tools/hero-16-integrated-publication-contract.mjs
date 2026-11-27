@@ -32,6 +32,39 @@ export function hero16ProfileLines(decision, rarities, relations, localizations)
   return lines;
 }
 
+export const HERO_16_JOB_PATH_DECISION = 'docs/decisions/hero-16-minimal-job-path-publication.v1.json';
+
+export function hero16JobPathLine(decision, memberships, advancements, localizations) {
+  const from = { connectionId: 160, jobId: 401 };
+  const to = { connectionId: 162, jobId: 302 };
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.surface !== HERO_16_MINIMAL_DETAIL_FRAGMENT
+    || decision.heroId !== 16 || decision.placement !== 'paragraph-immediately-after-equipment-effect'
+    || !isDeepStrictEqual(decision.predecessor, from) || !isDeepStrictEqual(decision.successor, to)) {
+    throw new Error('Hero 16 job path publication scope mismatch');
+  }
+  for (const { jobId } of [from, to]) {
+    if (memberships.records.filter(row => row.heroId === 16 && row.jobId === jobId).length !== 1) {
+      throw new Error(`Hero 16 job path membership mismatch for Job ${jobId}`);
+    }
+  }
+  const edges = advancements.records.filter(row => row.heroId === 16);
+  if (edges.length !== 1) throw new Error('Hero 16 job path edge count mismatch');
+  const [edge] = edges;
+  if (edge.predecessorConnectionId !== from.connectionId || edge.predecessorJobId !== from.jobId
+    || edge.successorConnectionId !== to.connectionId || edge.successorJobId !== to.jobId) {
+    throw new Error('Hero 16 job path edge direction mismatch');
+  }
+  const names = [edge.predecessorJobId, edge.successorJobId].map(jobId => {
+    const rows = localizations.records.filter(row => row.jobId === jobId);
+    if (rows.length !== 1) throw new Error(`Hero 16 job path localization count mismatch for Job ${jobId}`);
+    return rows[0].nameKo;
+  });
+  if (!isDeepStrictEqual(names, ['호크 나이트', '하이랜더'])) throw new Error('Hero 16 job path localization mismatch');
+  const text = `전직 · ${names.join(' → ')}`;
+  if (decision.textKo !== text) throw new Error('Hero 16 job path approved text mismatch');
+  return text;
+}
+
 const sourceSpecs = {
   heroIdentity: { path: 'canonical/hero-identities.v1.json', sha256: '6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c', locator: 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=16' },
   heroLocalization: { path: 'canonical/hero-localizations-ko.v1.json', sha256: '7f0ca08eb578dd2d1fcf9aa44eb825c49f7e415faeedd2fffa4b604d2c4ab299', locator: 'evidence/localization/hero-names-ko.v1.json#heroId=16' },

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-16",
+  "heroId": 16,
+  "predecessor": {
+    "connectionId": 160,
+    "jobId": 401
+  },
+  "successor": {
+    "connectionId": 162,
+    "jobId": 302
+  },
+  "placement": "paragraph-immediately-after-equipment-effect",
+  "textKo": "전직 · 호크 나이트 → 하이랜더",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "evidence": {
+    "admission": "evidence/source/jobs/hero16-job-advancement-direct.v1.json",
+    "jobNames": "canonical/job-localizations-ko.v1.json",
+    "legacyPage": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "htmlSha256": "7b1a38444032fa256a9733904e0b82eb8e7fa3be7a472f030506ca914f36f207",
+    "jobCards": [
+      "article[data-job-connection-id=\"160\"][data-job-id=\"401\"]",
+      "article[data-job-connection-id=\"162\"][data-job-id=\"302\"]"
+    ]
+  },
+  "scope": "One plain text line in the existing Lance card. Direction follows the ConfigData prerequisite reference; the Legacy job cards corroborate the displayed endpoints."
+}

@@ -11,7 +11,7 @@ import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-pres
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { slotGoldDecisionPath, bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
-import { HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
+import { HERO_16_JOB_PATH_DECISION, HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-twenty-batch-contract.mjs';
@@ -72,7 +72,31 @@ async function checkHeroDetailBuildFailures() {
 
   const skillDecisionPath = 'docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json';
   const templatePath = 'canonical/casting-law-template-raw-details.v1.json';
+  const membership = 'canonical/hero-job-relations.v1.json';
+  const advancement = 'canonical/hero-job-advancement-relations.v1.json';
   const cases = [
+    ...[401, 302].map(jobId => ({
+      decisionPath: membership, name: `lance-job-${jobId}-missing`,
+      mutate: doc => { doc.records = doc.records.filter(row => !(row.heroId === 16 && row.jobId === jobId)); },
+      error: () => `Error: Hero 16 job path membership mismatch for Job ${jobId}`,
+    })),
+    { decisionPath: advancement, name: 'lance-edge-missing', mutate: doc => { doc.records = doc.records.filter(row => row.heroId !== 16); },
+      error: () => 'Error: Hero 16 job path edge count mismatch' },
+    { decisionPath: advancement, name: 'lance-edge-reversed', mutate: doc => {
+      const e = doc.records.find(row => row.heroId === 16);
+      [e.predecessorJobId, e.successorJobId] = [e.successorJobId, e.predecessorJobId];
+      [e.predecessorConnectionId, e.successorConnectionId] = [e.successorConnectionId, e.predecessorConnectionId];
+    }, error: () => 'Error: Hero 16 job path edge direction mismatch' },
+    { decisionPath: 'canonical/job-localizations-ko.v1.json', name: 'lance-job-names-swapped', mutate: doc => {
+      const from = doc.records.find(row => row.jobId === 401);
+      const to = doc.records.find(row => row.jobId === 302);
+      [from.nameKo, to.nameKo] = [to.nameKo, from.nameKo];
+    }, error: () => 'Error: Hero 16 job path localization mismatch' },
+    { decisionPath: HERO_16_JOB_PATH_DECISION, name: 'lance-job-decision-missing',
+      error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath: HERO_16_JOB_PATH_DECISION, name: 'lance-job-decision-reversed', mutate: doc => {
+      [doc.predecessor, doc.successor] = [doc.successor, doc.predecessor];
+    }, error: () => 'Error: Hero 16 job path publication scope mismatch' },
     { decisionPath: HERO_16_PROFILE_DECISION, name: 'lance-decision-missing',
       error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
     { decisionPath: HERO_16_PROFILE_DECISION, name: 'lance-decision-excludes-7', mutate: doc => { doc.factionIds.pop(); },
@@ -167,6 +191,8 @@ async function checkHeroDetailBuildFailures() {
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
+    ['Lance job path reversed', 'Packaged Hero 16 job path text or direction mismatch',
+      '전직 · 호크 나이트 → 하이랜더', '전직 · 하이랜더 → 호크 나이트'],
     ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',
       '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가', '진영 · 빛의 군단 · 전략의 대가 · 제국의 빛'],
     ['Weapon subtotal labels swapped', 'Packaged Central Discipline slot subtotal order or label',

@@ -596,10 +596,12 @@ function renderMinimalDetailList(title, labels) {
 }
 
 function renderHero16MinimalDetailView(data, container) {
+  const jobPath = document.createElement('p');
+  jobPath.textContent = '전직 · 호크 나이트 → 하이랜더';
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가'],
-  });
+  }, null, null, [jobPath]);
 }
 
 function renderHeroSearch({ heroes, input, clearButton, factionFilter, productionFilter, count, emptyState }) {

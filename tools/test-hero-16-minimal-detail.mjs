@@ -66,6 +66,7 @@ for (const [appPath, lines] of [
   assert.deepEqual(card.children.map(row => row.textContent), [
     '란스', 'Hero ID 16', '프로젝트 검수 표시명 · 공식 한국 서버 Provenance 미확인', ...lines,
     '칼자스의 왕관 (Equipment ID 418)', '생명 +5%\n혼합부대일 시, 주는 피해 +20%',
+    ...(appPath === 'app.js' ? ['전직 · 호크 나이트 → 하이랜더'] : []),
   ]);
   assert.equal(navigation.showTarget(15), false);
   assert.equal(navigation.showTarget(16), true);
