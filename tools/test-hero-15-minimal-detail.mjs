@@ -510,10 +510,25 @@ const wrongSoldierNamespace = structuredClone(generated);
 wrongSoldierNamespace.heroes[0].soldiers[0].fragment = 'sp-soldier-5210';
 assert.throws(() => render(wrongSoldierNamespace, talent, element()), /Soldier consumer/);
 const commandSection = container.children[0].children.find(({ children }) => children?.[0]?.textContent === '병사 지휘 보정');
-assert.deepEqual(commandSection.children[1].children.map(({ textContent }) => textContent), [
+assert.deepEqual(generated.heroes[0].soldierCommandLinesKo, [
   '기본 지휘 · 생명 +15% · 마방 +15%',
   '최대 레벨 일반 유대 · 생명 +25% · 공격 +10% · 방어 +10% · 마방 +25%',
 ]);
+assert.deepEqual(commandSection.children.map(node => node.tag), ['h4', 'table']);
+const [commandHead, commandBody] = commandSection.children[1].children;
+assert.deepEqual(commandHead.children[0].children.map(cell => [cell.tag, cell.scope, cell.textContent]), [
+  ['th', 'col', '능력치'], ['th', 'col', '기본 지휘'], ['th', 'col', '최대 레벨 일반 유대'],
+]);
+assert.deepEqual(commandBody.children.map(row => row.children.map(cell => cell.textContent)), [
+  ['생명', '+15%', '+25%'], ['공격', '', '+10%'], ['방어', '', '+10%'], ['마방', '+15%', '+25%'],
+]);
+for (const row of commandBody.children) {
+  assert.deepEqual(row.children.map(cell => cell.tag), ['th', 'td', 'td']);
+  assert.equal(row.children[0].scope, 'row');
+}
+const reversedCommand = structuredClone(generated);
+reversedCommand.heroes[0].soldierCommandLinesKo.reverse();
+assert.throws(() => render(reversedCommand, talent, element()), /Soldier Command consumer/);
 fails((x) => { x.profileInputs.commandDecision.status = 'NOT_APPROVED'; }, /Soldier Command publication scope/);
 fails((x) => { x.profileInputs.commandBase.records[0].heroId = 16; }, /Soldier Command owner values/);
 fails((x) => { x.profileInputs.commandBase.records[0].base.at = 0; }, /Soldier Command owner values/);
@@ -1033,6 +1048,8 @@ async function startApp(source, optionalResponse) {
   assert.deepEqual(errors, []);
   const [card] = root('#hero-minimal-detail-15-content').children;
   assert.equal(card?.className, 'hero-minimal-detail-card');
+  const command = card.children.find(section => section.children[0]?.textContent === '병사 지휘 보정');
+  assert.deepEqual(command.children.map(node => node.tag), ['h4', source === frontend ? 'table' : 'ul']);
   const skills = card.children.find(section => section.children[0]?.textContent === '일반 스킬');
   assert.deepEqual(skills.children[1].children.map(row => row.textContent), source === frontend ? expectedSkillLabels : oldSkillLabels);
   const totals = [...descendants(roots.values())].filter(node => node.textContent === bond1Line);
