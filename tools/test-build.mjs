@@ -77,6 +77,16 @@ async function checkHero15BuildFailures() {
     { decisionPath: skillDecisionPath, name: 'freeze-incomplete', mutate: decision => {
       decision.freezeDisplay.textKo = '적 1부대에 1.5배의 마법 피해를 준다.';
     }, error: () => 'Error: Hero 15 Freeze display decision or source mismatch' },
+    { decisionPath: skillDecisionPath, name: 'shield-missing', mutate: decision => { delete decision.shieldDisplay; },
+      error: () => 'Error: Hero 15 Shield display decision or source mismatch' },
+    { decisionPath: skillDecisionPath, name: 'shield-duration', mutate: decision => {
+      decision.shieldDisplay.textKo = decision.shieldDisplay.textKo.replace('2턴 동안 지속된다', '쿨타임 2행동이다');
+    }, error: () => 'Error: Hero 15 Shield display decision or source mismatch' },
+    { decisionPath: skillDecisionPath, name: 'meditation-missing', mutate: decision => { delete decision.meditationDisplay; },
+      error: () => 'Error: Hero 15 Meditation display decision or source mismatch' },
+    { decisionPath: skillDecisionPath, name: 'meditation-threshold', mutate: decision => {
+      decision.meditationDisplay.textKo = decision.meditationDisplay.textKo.replace('90% 이상', '90% 초과');
+    }, error: () => 'Error: Hero 15 Meditation display decision or source mismatch' },
     { decisionPath: bondKeyDecisionPath, name: 'icons-missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
     { decisionPath: bondKeyDecisionPath, name: 'icons-scope', mutate: decision => { decision.groups.pop(); },
       error: () => 'Error: Bond key icon decision scope mismatch' },
@@ -132,22 +142,32 @@ async function checkHero15BuildFailures() {
     const digest = createHash('sha256').update(changed).digest('hex');
     await writeFile(html, (await readFile(html, 'utf8')).replace(/app\.js\?v=[a-f0-9]{64}/, 'app.js?v=' + digest));
   }
-  for (const mode of modes) {
-    const fixture = await mkdtemp(join(temp, 'freeze-wrong-skill-'));
-    const source = join(fixture, 'source');
-    const destination = join(fixture, 'package');
-    await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
-    const selector = 'const description = skillId === ';
-    await changeRenderer(source, selector + '10705 ?', selector + '10804 ?');
-    if (mode === '--verify-dir') {
-      await cp(normalPackage, destination, { recursive: true });
-      for (const file of ['app.js', 'index.html']) await copyFile(join(source, file), join(destination, file));
+  const selector = 'displayDescriptions[skillId] ?? descriptionKo';
+  const skillCases = [
+    ['Freeze on Skill 10804', 10705, selector, 'skillId === 10705 ? descriptionKo : displayDescriptions[skillId === 10804 ? 10705 : skillId] ?? descriptionKo'],
+    ['Shield omitted', 10804, selector, 'skillId === 10804 ? descriptionKo : ' + selector],
+    ['Meditation omitted', 6009, selector, 'skillId === 6009 ? descriptionKo : ' + selector],
+    ['Shield cooldown in effect text', 10804, '효과는 2턴 동안 지속된다.', '쿨타임 2행동'],
+    ['Meditation exclusive threshold', 6009, '부대 생명이 90% 이상일 때', '부대 생명이 90% 초과일 때'],
+    ['Shield and Meditation swapped', 10804, selector, 'displayDescriptions[skillId === 10804 ? 6009 : skillId === 6009 ? 10804 : skillId] ?? descriptionKo'],
+  ];
+  for (const [name, id, before, after] of skillCases) {
+    for (const mode of modes) {
+      const fixture = await mkdtemp(join(temp, 'skill-display-'));
+      const source = join(fixture, 'source');
+      const destination = join(fixture, 'package');
+      await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      await changeRenderer(source, before, after);
+      if (mode === '--verify-dir') {
+        await cp(normalPackage, destination, { recursive: true });
+        for (const file of ['app.js', 'index.html']) await copyFile(join(source, file), join(destination, file));
+      }
+      const result = run(source, mode, destination);
+      assert.equal(result.status, 1, result.stderr);
+      assert.ok(result.stderr.includes(`AssertionError [ERR_ASSERTION]: Packaged Skill ${id} row attribution or description mismatch`), result.stderr);
+      console.log(`Hero 15 ${mode}: rejected ${name}`);
+      await rm(fixture, { recursive: true });
     }
-    const result = run(source, mode, destination);
-    assert.equal(result.status, 1, result.stderr);
-    assert.match(result.stderr, /AssertionError \[ERR_ASSERTION\]: Packaged Skill 10705 row attribution/);
-    console.log(`Hero 15 ${mode}: rejected Freeze description on Skill 10804`);
-    await rm(fixture, { recursive: true });
   }
   const isFirstBadge = "parent.textContent === 'Lv.2 · 1,500 골드'";
   const sourceAssignment = 'image.src = keyImages.get(itemId);';

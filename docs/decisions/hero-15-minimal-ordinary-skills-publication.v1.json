@@ -112,5 +112,37 @@
     "textKo": "적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.",
     "basis": "Pinned CN Desc, the Hero 15 shard and Korean catalog identified above, and the previously reviewed Lgrsheet card. The corrected project text replaces the screen omission only.",
     "approvalReference": "7720da79-b0f8-4c0d-9a31-09e27a9f6ffa"
+  },
+  "shieldDisplay": {
+    "heroId": 15,
+    "skillId": 10804,
+    "authority": "PROJECT_DISPLAY_ONLY",
+    "acquisition": {
+      "jobConnectionId": 154,
+      "jobId": 811,
+      "jobLevelId": 1541
+    },
+    "sourceField": "ConfigDataSkillInfo.json#/1916/Desc",
+    "sourceDescSha256": "fe19924ab21210493da02b2d8a63c21f7fe569034bdfdf79d00671d067edda37",
+    "sheetCardSource": "311c5e44f39c6938c78031bb2af3206e39ea270b",
+    "textKo": "범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.",
+    "basis": "The pinned Korean card reads ‘2행동 지속’. The project translation ‘2턴 동안’ follows 持续…2回合 in the CN effect description. The existing cooldown field is independent of effect duration.",
+    "approvalReference": "7720da79-b0f8-4c0d-9a31-09e27a9f6ffa"
+  },
+  "meditationDisplay": {
+    "heroId": 15,
+    "skillId": 6009,
+    "authority": "PROJECT_DISPLAY_ONLY",
+    "acquisition": {
+      "jobConnectionId": 155,
+      "jobId": 707,
+      "jobLevelId": 1551
+    },
+    "sourceField": "ConfigDataSkillInfo.json#/1805/Desc",
+    "sourceDescSha256": "0755c714089a02a8e1068ea4aacac7281789b05941d17a72063acb7457b1e561",
+    "sheetCardSource": "311c5e44f39c6938c78031bb2af3206e39ea270b",
+    "textKo": "부대 생명이 90% 이상일 때 지력과 마방이 10% 증가한다",
+    "basis": "The Korean card and the user's display decision use ‘이상’. The pinned CN source reads 高于90%. Game behavior at exactly 90% is unverified.",
+    "approvalReference": "Sentinel_ca25f0b9caa88191abb8e034abd98e9e"
   }
 }

@@ -324,8 +324,13 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   const headSubtotal = document.createElement('p');
   headSubtotal.textContent = '투구 · Lv.1~10 소계 골드 3,600,000';
   centralDisciplineSection.append(headSubtotal);
+  const displayDescriptions = {
+    10705: '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.',
+    10804: '범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.',
+    6009: '부대 생명이 90% 이상일 때 지력과 마방이 10% 증가한다',
+  };
   const skillSection = renderMinimalDetailList('일반 스킬', ordinarySkills.map(({ skillId, nameKo, descriptionKo, cost, cooldownLabelKo, distanceLabelKo, areaLabelKo, typeLabelKo }) => {
-    const description = skillId === 10705 ? '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.' : descriptionKo;
+    const description = displayDescriptions[skillId] ?? descriptionKo;
     return [nameKo, typeLabelKo, cost === undefined ? undefined : `${cost}코스트`, cooldownLabelKo, distanceLabelKo, areaLabelKo, description]
       .filter((part) => part !== undefined).join(' · ');
   }));

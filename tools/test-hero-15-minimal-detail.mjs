@@ -5,7 +5,7 @@ import { extractFunction } from './test-app-function-source.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readFreezeDisplay, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, renderHeadGoldSubtotal, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readBondKeyDisplay, bondKeyAssets, renderBond1KeyTotals, renderBond2KeyTotals, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, renderHero15MinimalDetail, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 
 const read = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const [decision, heroIdentities, heroLocalizations, relations, equipmentIdentities, equipmentLocalizations, generatedText, heroIndex, heroSlice] = await Promise.all([
@@ -281,14 +281,16 @@ const expectedSkillLabels = existingSkills.map(({ nameKo, descriptionKo }, index
 ].filter(Boolean).join(' · '));
 const oldSkillLabels = [...expectedSkillLabels];
 expectedSkillLabels[4] = '빙결 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일 · 적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.';
+expectedSkillLabels[5] = '광역 실드 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 3칸 · 범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.';
+expectedSkillLabels[7] = '명상 · 패시브 · 1코스트 · 부대 생명이 90% 이상일 때 지력과 마방이 10% 증가한다';
+assert.equal(readShieldDisplay(inputs.profileInputs), '범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.');
+assert.equal(readMeditationDisplay(inputs.profileInputs), '부대 생명이 90% 이상일 때 지력과 마방이 10% 증가한다');
 assert.equal(readFreezeDisplay(inputs.profileInputs), '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.');
 for (const id of [10705, 10804, 6009]) {
   assert.ok(!Object.hasOwn(generated.heroes[0].ordinarySkills.find(row => row.skillId === id), 'descriptionKo'));
 }
 assert.deepEqual(skillLabels, expectedSkillLabels);
-assert.equal(skillLabels[5], '광역 실드 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 3칸');
 assert.match(skillLabels[6], /^홀리 힐 · 치료 · 2코스트 · 쿨 3턴 · 사거리 3칸 · 범위 6칸 · /);
-assert.equal(skillLabels[7], '명상 · 패시브 · 1코스트');
 assert.doesNotMatch(generatedText, /SkillCost|shardCost|legacyCostLabel|sourceDescSha256|catalogLine|withheldDescriptionReason|CDText|cdText|shardCooldown|legacyCooldown|BF_Cooldown|回合|DistanceText|distanceText|shardDistance|legacyDistance|RangeText|rangeText|BF_Distance|BF_Range|areaOrTarget|shardArea|legacyArea|TypeText|typeText|SkillType|displayType|shardType|legacyType/);
 fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].shardCost = 2; }, /SkillCost source or display/);
 fails((x) => { x.profileInputs.ordinarySkillCostDecision.rows[0].legacyCostLabel = '2코스트'; }, /SkillCost source or display/);
