@@ -523,23 +523,50 @@ function projectOrdinarySkillLabels(decision, owner, approvedIds, {
   return projected;
 }
 
-export function readFreezeDisplay({ skillDecision, skillReferences, skillIdentities }) {
-  const display = skillDecision.freezeDisplay;
-  const sourceHash = 'a11ce8611ae970f3fffbcd1dd800806051e41db262796f9a1aa0c78cfbb7cc60';
-  const skill = skillIdentities.records.find(row => row.skillId === 10705);
-  const acquired = skillReferences.records.some(row => row.heroId === 15 && row.skillId === 10705
-    && row.referenceKind === 'JOB_LEVEL_SKILL_ACQUISITION' && row.jobConnectionId === 153
-    && row.jobId === 703 && row.jobLevelId === 1532 && row.sourceField === 'ConfigDataJobLevelInfo.GotSkill_ID'
+function readSkillDisplay({ skillDecision, skillReferences, skillIdentities }, key, expected) {
+  const display = skillDecision[key];
+  const { skillId, jobConnectionId, jobId, jobLevelId, sourceHash } = expected;
+  const skill = skillIdentities.records.find(row => row.skillId === skillId);
+  const acquired = skillReferences.records.some(row => row.heroId === 15 && row.skillId === skillId
+    && row.referenceKind === 'JOB_LEVEL_SKILL_ACQUISITION' && row.jobConnectionId === jobConnectionId
+    && row.jobId === jobId && row.jobLevelId === jobLevelId && row.sourceField === 'ConfigDataJobLevelInfo.GotSkill_ID'
     && row.endpointNamespace === 'ConfigDataSkillInfo.ID');
   if (skillDecision.status !== 'APPROVED' || skillDecision.heroId !== 15 || skillDecision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
-    || display?.authority !== 'PROJECT_DISPLAY_ONLY' || display.heroId !== 15 || display.skillId !== 10705
-    || display.sourceField !== 'ConfigDataSkillInfo.json#/1894/Desc' || display.sourceDescSha256 !== sourceHash
+    || display?.authority !== 'PROJECT_DISPLAY_ONLY' || display.heroId !== 15 || display.skillId !== skillId
+    || display.sourceField !== `ConfigDataSkillInfo.json#/${expected.recordIndex}/Desc` || display.sourceDescSha256 !== sourceHash
     || skillDecision.source?.canonicalRaw?.commit !== '6475e63ee23d18adf733756c26a14fa9e3ed662c'
-    || !acquired || skill?.nameCn !== '冰冻' || createHash('sha256').update(skill.descriptionCn).digest('hex') !== sourceHash
-    || display.textKo !== '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.') {
-    throw new Error('Hero 15 Freeze display decision or source mismatch');
+    || skillDecision.source?.commit !== '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff'
+    || !acquired || skill?.nameCn !== expected.nameCn || createHash('sha256').update(skill.descriptionCn).digest('hex') !== sourceHash
+    || (expected.sheetCardSource && (display.sheetCardSource !== expected.sheetCardSource
+      || !isDeepStrictEqual(display.acquisition, { jobConnectionId, jobId, jobLevelId })))
+    || display.textKo !== expected.textKo) {
+    throw new Error(`Hero 15 ${expected.name} display decision or source mismatch`);
   }
   return display.textKo;
+}
+
+export function readFreezeDisplay(inputs) {
+  return readSkillDisplay(inputs, 'freezeDisplay', {
+    name: 'Freeze', skillId: 10705, nameCn: '冰冻', jobConnectionId: 153, jobId: 703, jobLevelId: 1532, recordIndex: 1894,
+    sourceHash: 'a11ce8611ae970f3fffbcd1dd800806051e41db262796f9a1aa0c78cfbb7cc60',
+    textKo: '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.',
+  });
+}
+
+export function readShieldDisplay(inputs) {
+  return readSkillDisplay(inputs, 'shieldDisplay', {
+    name: 'Shield', skillId: 10804, nameCn: '群体护盾', jobConnectionId: 154, jobId: 811, jobLevelId: 1541, recordIndex: 1916,
+    sourceHash: 'fe19924ab21210493da02b2d8a63c21f7fe569034bdfdf79d00671d067edda37', sheetCardSource: '311c5e44f39c6938c78031bb2af3206e39ea270b',
+    textKo: '범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.',
+  });
+}
+
+export function readMeditationDisplay(inputs) {
+  return readSkillDisplay(inputs, 'meditationDisplay', {
+    name: 'Meditation', skillId: 6009, nameCn: '冥想', jobConnectionId: 155, jobId: 707, jobLevelId: 1551, recordIndex: 1805,
+    sourceHash: '0755c714089a02a8e1068ea4aacac7281789b05941d17a72063acb7457b1e561', sheetCardSource: '311c5e44f39c6938c78031bb2af3206e39ea270b',
+    textKo: '부대 생명이 90% 이상일 때 지력과 마방이 10% 증가한다',
+  });
 }
 
 function renderHero15OrdinarySkills({

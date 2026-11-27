@@ -18,7 +18,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readFreezeDisplay, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readFreezeDisplay, readShieldDisplay, readMeditationDisplay, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -251,7 +251,7 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
   return card;
 }
 
-function checkPackagedFreezeDescription(card, description) {
+function checkPackagedSkillDescriptions(card, descriptions) {
   const sections = card.children.filter(node => node.children[0]?.textContent === '일반 스킬');
   assert.equal(sections.length, 1, 'Packaged ordinary skill section count');
   const list = sections[0].children[1];
@@ -262,14 +262,17 @@ function checkPackagedFreezeDescription(card, description) {
     '복음 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 단일 · [지원] 단일 부대의 공격, 지력, 방어 +20% 및 모든 디버프 면역, 2턴 지속.',
     '윈드 커터 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일 · 단일 적 부대를 공격해 1.5배의 마법 피해를 준다. 비병에게 더 큰 피해를 준다.',
     '빙결 · 마법 피해 · 1코스트 · 쿨 1턴 · 사거리 2칸 · 범위 단일 · 적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.',
-    '광역 실드 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 3칸',
+    '광역 실드 · 지원 · 2코스트 · 쿨 2턴 · 사거리 3칸 · 범위 3칸 · 범위 내 여러 아군 부대의 방어를 20% 높이고, 방어·마방 감소와 치료 방해에 면역을 부여한다. 효과는 2턴 동안 지속된다.',
     '홀리 힐 · 치료 · 2코스트 · 쿨 3턴 · 사거리 3칸 · 범위 6칸 · [지원]광범위 부대에게 지력 4배만큼 생명을 회복한다. 그리고 행동 종료 시 생명을 20% 회복한다. 2행동 지속.',
-    '명상 · 패시브 · 1코스트',
+    '명상 · 패시브 · 1코스트 · 부대 생명이 90% 이상일 때 지력과 마방이 10% 증가한다',
     '천공사수 소환 · 소환 · 2코스트 · 쿨 4턴 · 사거리 3칸 · 범위 단일 · [소환] 천공사수 1기 소환',
   ];
-  assert.deepEqual(list.children.map(row => row.textContent), expectedRows, 'Packaged Skill 10705 row attribution or ordinary skill list mismatch');
+  for (const [id, index, description] of [[10705, 4, descriptions.freeze], [10804, 5, descriptions.shield], [6009, 7, descriptions.meditation]]) {
+    assert.equal(list.children[index]?.textContent, expectedRows[index], `Packaged Skill ${id} row attribution or description mismatch`);
+    assert.deepEqual(textLines(card, text => text?.includes(description)), [expectedRows[index]], `Skill ${id} description occurrences in Hero 15 card`);
+  }
+  assert.deepEqual(list.children.map(row => row.textContent), expectedRows, 'Packaged ordinary skill list mismatch');
   assert.ok(list.children.every(row => row.tag === 'li' && row.children.length === 0), 'Ordinary skills must be plain text rows');
-  assert.deepEqual(textLines(card, text => text?.includes(description)), [expectedRows[4]], 'Freeze description occurrences in Hero 15 card');
 }
 
 export async function buildSite({ outputDir, verifyDir, manifestPath } = {}) {
@@ -350,7 +353,11 @@ const profileInputs = await readHero15ProfileInputs(readJson);
 renderBond1KeyTotals(profileInputs);
 renderBond2KeyTotals(profileInputs);
 const keyGroups = readBondKeyDisplay(profileInputs);
-const freezeDescription = readFreezeDisplay(profileInputs);
+const skillDescriptions = {
+  freeze: readFreezeDisplay(profileInputs),
+  shield: readShieldDisplay(profileInputs),
+  meditation: readMeditationDisplay(profileInputs),
+};
 validateHero15MinimalDetail({ generatedText: hero15MinimalDetailText, inputs: { ...hero15MinimalInputs, jobInputs: await readHero15JobPublicationInputs(readJson), soldierInputs: await readHero15SoldierPublicationInputs(readJson), profileInputs } });
 const hero15TalentPublicText = await readFile(resolve(HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 const hero15TalentPublicInputs = { decision: hero15TalentPublication, talentRelations, skills, localizations: talentLocalizations };
@@ -804,7 +811,7 @@ try {
   const packagedGlossary = JSON.parse(await readFile(join(output, 'generated', 'job-glossary.v1.json'), 'utf8'));
 
   const files = await validatePublicSiteDirectory(output, canonical, fullDetailPublicationDecision, trainingTechDecisionRecord, process.cwd(), exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
-  checkPackagedFreezeDescription(hero15Card, freezeDescription);
+  checkPackagedSkillDescriptions(hero15Card, skillDescriptions);
   if (manifestPath) {
     const sourceSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     if (process.env.GITHUB_SHA && process.env.GITHUB_SHA !== sourceSha) throw new Error('Build Source SHA differs from workflow SHA');
