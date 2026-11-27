@@ -63,6 +63,11 @@ const frontend = await readFile('app.js', 'utf8');
 const talent = await read('generated/hero-15-talent-public.v1.json');
 const html = await readFile('index.html', 'utf8');
 assert.match(html, /id="hero-minimal-detail-15-content"/);
+const lianaHeader = html.match(/<section\b[^>]*\sid="hero-minimal-detail-15"[^>]*>\s*<header\b[^>]*>([\s\S]*?)<\/header>/)?.[1];
+assert.ok(lianaHeader, 'Expected the static header of Liana’s detail');
+assert.match(lianaHeader, /^\s*<a href="#hero-index">영웅 목록<\/a>/);
+assert.equal([...lianaHeader.matchAll(/<a\b[^>]*\shref="#hero-index"[^>]*>/g)].length, 1);
+assert.equal([...html.matchAll(/\sid="hero-index"/g)].length, 1);
 const equipmentNavigation = await read('generated/exclusive-equipment-hero-navigation.v1.json');
 assert.deepEqual(equipmentNavigation.records.find(({ equipmentId }) => equipmentId === 535).navigationTarget,
   { surface: 'HERO_MINIMAL_DETAIL', fragment: 'hero-minimal-detail-15' });
