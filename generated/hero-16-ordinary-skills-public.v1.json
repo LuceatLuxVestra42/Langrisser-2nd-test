@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "officialKrProvenanceStatus": "unverified",
+  "ordinarySkills": [
+    {
+      "skillId": 10401,
+      "nameKo": "뇌광",
+      "typeLabelKo": "물리 피해",
+      "cost": 2,
+      "cooldownLabelKo": "쿨 3턴",
+      "distanceLabelKo": "사거리 1칸",
+      "areaLabelKo": "범위 단일",
+      "descriptionKo": "단일 적 부대를 공격해 1.5배 피해를 준다. 이 스킬로 적을 처치하면 스킬 쿨타임 -3."
+    },
+    {
+      "skillId": 10311,
+      "nameKo": "격돌",
+      "typeLabelKo": "물리 피해",
+      "cost": 1,
+      "cooldownLabelKo": "쿨 2턴",
+      "distanceLabelKo": "사거리 1칸",
+      "areaLabelKo": "범위 단일",
+      "descriptionKo": "단일 적 부대를 공격해 1.2배 피해를 준다. 대상을 2칸 밀쳐내고 이동력 -2와 호위 불가를 1턴 부여한다."
+    }
+  ]
+}

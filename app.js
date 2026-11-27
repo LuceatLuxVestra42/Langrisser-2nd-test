@@ -616,9 +616,38 @@ async function loadHero16Talent(card) {
     const rows = data.talent.starDescriptions;
     if (!Array.isArray(rows) || JSON.stringify(rows.map(r => [r.star,r.skillId])) !== '[[2,3277],[3,3278],[4,3279],[5,3280],[6,3281]]'
       || rows.some(r => Object.keys(r).sort().join(',') !== 'descriptionCn,descriptionKoRaw,nameCn,skillId,star')) return;
-    card.append(makeTalentPresentation(16, data.talent));
+    const section = makeTalentPresentation(16, data.talent);
+    const skills = Array.from(card.children).find(node => node.className === 'hero-ordinary-skills');
+    if (skills) card.insertBefore(section, skills);
+    else card.append(section);
   } catch {
     // The base card and navigation are already available if this optional section fails.
+  }
+}
+
+async function loadHero16OrdinarySkills(card) {
+  try {
+    const response = await fetch('./generated/hero-16-ordinary-skills-public.v1.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    if (Object.keys(data).sort().join(',') !== 'heroId,officialKrProvenanceStatus,ordinarySkills,schemaVersion,surface'
+      || data.schemaVersion !== 1 || data.heroId !== 16 || data.surface !== 'hero-minimal-detail-16'
+      || data.officialKrProvenanceStatus !== 'unverified' || !Array.isArray(data.ordinarySkills)
+      || data.ordinarySkills.length !== 2) return;
+    const labels = [];
+    for (const [i, row] of data.ordinarySkills.entries()) {
+      if (Object.keys(row).sort().join(',') !== 'areaLabelKo,cooldownLabelKo,cost,descriptionKo,distanceLabelKo,nameKo,skillId,typeLabelKo'
+        || row.skillId !== [10401, 10311][i] || row.nameKo !== ['뇌광', '격돌'][i]
+        || row.cost !== [2, 1][i] || row.cooldownLabelKo !== ['쿨 3턴', '쿨 2턴'][i]
+        || row.typeLabelKo !== '물리 피해' || row.distanceLabelKo !== '사거리 1칸' || row.areaLabelKo !== '범위 단일'
+        || typeof row.descriptionKo !== 'string' || !row.descriptionKo.trim()) return;
+      labels.push([row.nameKo, row.typeLabelKo, `${row.cost}코스트`, row.cooldownLabelKo, row.distanceLabelKo, row.areaLabelKo, row.descriptionKo].join(' · '));
+    }
+    const section = renderMinimalDetailList('일반 스킬', labels);
+    section.className = 'hero-ordinary-skills';
+    card.append(section);
+  } catch {
+    // This optional section loads independently from the card and its Talent.
   }
 }
 
@@ -1273,6 +1302,7 @@ try {
   if (hero16MinimalDetailIds.size !== 1 || !hero16MinimalDetailIds.has(16)) throw new Error('Hero Minimal Detail publication scope must contain only Hero 16');
   hero16MinimalDetailNavigation = renderHero16MinimalDetailView(data, hero16MinimalDetailContainer);
   void loadHero16Talent(hero16MinimalDetailContainer.children[0]);
+  void loadHero16OrdinarySkills(hero16MinimalDetailContainer.children[0]);
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';

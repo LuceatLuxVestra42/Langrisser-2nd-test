@@ -1,0 +1,68 @@
+{
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "files": {
+    "JobConnection": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "blob": "cdad8d6fda6edd30c92fbcda53e0f63af1903139"
+    },
+    "JobLevel": {
+      "path": "data/configdata/ConfigDataJobLevelInfo.json",
+      "blob": "e9c978f78a96372db6e7b142512b69a8d0ab3182"
+    },
+    "Skill": {
+      "path": "data/configdata/ConfigDataSkillInfo.json",
+      "blob": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19"
+    }
+  },
+  "connections": [
+    {
+      "index": 104,
+      "ID": 160,
+      "Job_ID": 401,
+      "JobLevels_ID/1": 1602
+    },
+    {
+      "index": 106,
+      "ID": 162,
+      "Job_ID": 302,
+      "JobLevels_ID/1": 1622
+    }
+  ],
+  "levels": [
+    {
+      "index": 599,
+      "ID": 1602,
+      "GotSkill_ID": 10401
+    },
+    {
+      "index": 609,
+      "ID": 1622,
+      "GotSkill_ID": 10311
+    }
+  ],
+  "skills": [
+    {
+      "index": 1862,
+      "ID": 10401,
+      "Name": "雷光",
+      "Desc": "[物理伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍的战斗伤害。成功消灭敌军时，该技能的冷却时间减少<color=#DC143C>3</color>。",
+      "TypeText": "物理伤害",
+      "SkillCost": 2,
+      "CDText": "3回合",
+      "DistanceText": "1格",
+      "RangeText": "单体"
+    },
+    {
+      "index": 1852,
+      "ID": 10311,
+      "Name": "撞击",
+      "Desc": "[物理伤害]攻击单个敌军，造成<color=#DC143C>1.2</color>倍伤害。并造成[位移]效果:将目标撞开<color=#DC143C>2</color>格，同时使其移动力降低<color=#DC143C>2</color>，且无法进行护卫，持续<color=#DC143C>1</color>回合。",
+      "TypeText": "物理伤害",
+      "SkillCost": 1,
+      "CDText": "2回合",
+      "DistanceText": "1格",
+      "RangeText": "单体"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
+  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 2 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
   "records": [
     {
       "skillId": 3067,
@@ -1141,6 +1141,26 @@
         "identity": "evidence/source/configdata/hero-16-talent.v1.json#/skills/4/ID",
         "name": "evidence/source/configdata/hero-16-talent.v1.json#/skills/4/Name",
         "description": "evidence/source/configdata/hero-16-talent.v1.json#/skills/4/Desc"
+      }
+    },
+    {
+      "skillId": 10401,
+      "nameCn": "雷光",
+      "descriptionCn": "[物理伤害]攻击单个敌军，造成<color=#DC143C>1.5</color>倍的战斗伤害。成功消灭敌军时，该技能的冷却时间减少<color=#DC143C>3</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/0/ID",
+        "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/0/Name",
+        "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/0/Desc"
+      }
+    },
+    {
+      "skillId": 10311,
+      "nameCn": "撞击",
+      "descriptionCn": "[物理伤害]攻击单个敌军，造成<color=#DC143C>1.2</color>倍伤害。并造成[位移]效果:将目标撞开<color=#DC143C>2</color>格，同时使其移动力降低<color=#DC143C>2</color>，且无法进行护卫，持续<color=#DC143C>1</color>回合。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1/ID",
+        "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1/Name",
+        "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1/Desc"
       }
     }
   ]
