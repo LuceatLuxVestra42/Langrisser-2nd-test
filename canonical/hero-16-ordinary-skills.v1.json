@@ -86,6 +86,42 @@
         "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/3/GotSkill_ID",
         "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/4"
       }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 165,
+      "jobId": 306,
+      "jobLevelIndex": 0,
+      "jobLevelId": 1651,
+      "skillId": 10305,
+      "TypeText": "被动",
+      "SkillCost": 2,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/3",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/4/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/5"
+      }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 164,
+      "jobId": 405,
+      "jobLevelIndex": 2,
+      "jobLevelId": 1643,
+      "skillId": 10105,
+      "TypeText": "被动",
+      "SkillCost": 2,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/4",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/5/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/6"
+      }
     }
   ]
 }

@@ -1193,8 +1193,9 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await generateHero15ProfileCvInternal();
   const { generateLanceTalent, lanceTalentPublic } = await import('./hero-16-talent-publication-contract.mjs');
   await writeFile(resolve(lanceTalentPublic), JSON.stringify(await generateLanceTalent(), null, 2) + '\n', 'utf8');
-  const { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2 } = await import('./hero-16-ordinary-skills-publication-contract.mjs');
+  const { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3 } = await import('./hero-16-ordinary-skills-publication-contract.mjs');
   const ordinary = await generateOrdinarySkills();
+  await writeFile(resolve(ordinaryPublicV3), JSON.stringify(ordinary.v3, null, 2) + '\n', 'utf8');
   await writeFile(resolve(ordinaryPublicV2), JSON.stringify(ordinary.v2, null, 2) + '\n', 'utf8');
   await writeFile(resolve(ordinaryPublic), JSON.stringify(ordinary.v1, null, 2) + '\n', 'utf8');
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
