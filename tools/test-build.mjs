@@ -11,7 +11,7 @@ import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-pres
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { slotGoldDecisionPath, bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
-import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
+import { HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-twenty-batch-contract.mjs';
@@ -51,7 +51,7 @@ const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
 const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
 const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
-async function checkHero15BuildFailures() {
+async function checkHeroDetailBuildFailures() {
   const bond1Path = 'docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json';
   const bond2Path = 'docs/decisions/hero-15-minimal-bond2-key-totals-publication.v1.json';
   const bond1 = JSON.parse(await readFile(bond1Path, 'utf8'));
@@ -73,6 +73,16 @@ async function checkHero15BuildFailures() {
   const skillDecisionPath = 'docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json';
   const templatePath = 'canonical/casting-law-template-raw-details.v1.json';
   const cases = [
+    { decisionPath: HERO_16_PROFILE_DECISION, name: 'lance-decision-missing',
+      error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath: HERO_16_PROFILE_DECISION, name: 'lance-decision-excludes-7', mutate: doc => { doc.factionIds.pop(); },
+      error: () => 'Error: Hero 16 profile publication scope mismatch' },
+    { decisionPath: 'canonical/hero-rarities.v1.json', name: 'lance-rarity-missing',
+      mutate: doc => { doc.records = doc.records.filter(row => row.heroId !== 16); },
+      error: () => 'Error: Hero 16 profile Canonical rarity mismatch' },
+    { decisionPath: 'canonical/hero-faction-relations.v1.json', name: 'lance-membership-7-missing',
+      mutate: doc => { doc.records = doc.records.filter(row => !(row.heroId === 16 && row.factionId === 7)); },
+      error: () => 'Error: Hero 16 profile Canonical faction relations mismatch' },
     { decisionPath: slotGoldDecisionPath, name: 'slot-gold-missing',
       error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
     { decisionPath: slotGoldDecisionPath, name: 'slot-gold-accessory-missing', mutate: decision => { decision.slots.pop(); },
@@ -137,7 +147,7 @@ async function checkHero15BuildFailures() {
       const result = run(source, mode, destination);
       assert.equal(result.status, 1, `${test.name} ${mode}: ${result.stderr}`);
       assert.ok(result.stderr.split('\n').includes(test.error(path)), result.stderr);
-      console.log(`Hero 15 ${mode}: rejected ${test.name} (exit ${result.status})`);
+      console.log(`Hero detail ${mode}: rejected ${test.name} (exit ${result.status})`);
       await rm(fixture, { recursive: true });
     }
   }
@@ -157,6 +167,8 @@ async function checkHero15BuildFailures() {
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
   const rendererCases = [
+    ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',
+      '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가', '진영 · 빛의 군단 · 전략의 대가 · 제국의 빛'],
     ['Weapon subtotal labels swapped', 'Packaged Central Discipline slot subtotal order or label',
       "['무기 1', '무기 2', '갑옷', '장신구']", "['무기 2', '무기 1', '갑옷', '장신구']"],
     ['Freeze on Skill 10804', 'Packaged Skill 10705 row attribution or description mismatch', selector, 'skillId === 10705 ? descriptionKo : displayDescriptions[skillId === 10804 ? 10705 : skillId] ?? descriptionKo'],
@@ -191,7 +203,7 @@ async function checkHero15BuildFailures() {
       const result = run(source, mode, destination);
       assert.equal(result.status, 1, result.stderr);
       assert.ok(result.stderr.includes(`AssertionError [ERR_ASSERTION]: ${error}`), result.stderr);
-      console.log(`Hero 15 ${mode}: rejected ${name}`);
+      console.log(`Hero detail ${mode}: rejected ${name}`);
       await rm(fixture, { recursive: true });
     }
   }
@@ -253,7 +265,7 @@ async function checkHero15BuildFailures() {
 }
 
 try {
-  await checkHero15BuildFailures();
+  await checkHeroDetailBuildFailures();
   const built = await buildSite({ outputDir: output });
   const publicEquipment = JSON.parse(await readFile(join(output, 'generated/general-ssr-equipment.v1.json'), 'utf8'));
   const excludedEquipmentIds = [265, 266, 267, 268, 288, 289, 290, 291];

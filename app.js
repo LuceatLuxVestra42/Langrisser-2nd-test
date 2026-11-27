@@ -189,7 +189,7 @@ function renderHeroIndexSearch({ heroes, detailHeroIds, minimalDetailHeroIds = n
   return { showAll, showTarget, update };
 }
 
-function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo }, talent = null, profile = null, extraSections = []) {
+function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmentId, equipmentNameKo, profileLines = [] }, talent = null, profile = null, extraSections = []) {
   const expectedHeroId = heroId;
   if (data?.schemaVersion !== 1 || !Array.isArray(data.heroes) || data.heroes.length !== 1) {
     throw new Error(`Unsupported Hero ${heroId} minimal detail consumer`);
@@ -225,6 +225,11 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
     const cv = document.createElement('p');
     cv.textContent = `성우 · ${profile.cvNameKo}`;
     article.append(sourceNames, cv, rarity, factions);
+  }
+  for (const text of profileLines) {
+    const line = document.createElement('p');
+    line.textContent = text;
+    article.append(line);
   }
   article.append(equipment, effect);
   if (talent) article.append(makeTalentPresentation(heroId, talent));
@@ -591,7 +596,10 @@ function renderMinimalDetailList(title, labels) {
 }
 
 function renderHero16MinimalDetailView(data, container) {
-  return renderHeroMinimalDetailView(data, container, { heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관' });
+  return renderHeroMinimalDetailView(data, container, {
+    heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
+    profileLines: ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가'],
+  });
 }
 
 function renderHeroSearch({ heroes, input, clearButton, factionFilter, productionFilter, count, emptyState }) {

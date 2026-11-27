@@ -42,7 +42,7 @@ const evidencePath = 'evidence/source/hero-faction.v1.json';
 const hero15EvidencePath = 'evidence/source/hero-faction-hero15.v1.json';
 const relationValidator = 'tools/validate-hero-faction-relations.mjs';
 try {
-  expectSuccess(run(relationValidator), 'Faction relation baseline', /30 Canonical Heroes, 74 admitted edges; 29 presentation Heroes/);
+  expectSuccess(run(relationValidator), 'Faction relation baseline', /31 Canonical Heroes, 77 admitted edges; 29 presentation Heroes/);
 
   const generatedPath = join(repo, 'generated/hero-slice.v1.json');
   const generatedBefore = await readFile(generatedPath, 'utf8');
@@ -60,11 +60,11 @@ try {
   await mutateAndRun(canonicalPath, (doc) => { doc.records[0].factionId = 999999; doc.records[0].provenance = 'evidence/source/hero-faction.v1.json#ID=999999/RelatedHeros_ID&contains=5'; }, 'tools/generate.mjs',
     'Generator rejects missing Faction endpoint', /unknown Faction 999999/);
   await mutateAndRun(canonicalPath, (doc) => { doc.records.push({ ...doc.records[0] }); }, relationValidator,
-    'duplicate Canonical pair', /exactly 74/);
+    'duplicate Canonical pair', /exactly 77/);
   await mutateAndRun(canonicalPath, (doc) => { doc.records.pop(); doc.records.push({ heroId: 30, factionId: 3, provenance: 'evidence/source/hero-faction.v1.json#ID=3/RelatedHeros_ID&contains=30' }); }, relationValidator,
     'source membership outside approved six-edge admission is rejected', /out of scope/);
   await mutateAndRun(canonicalPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 40 && row.factionId === 3)); }, relationValidator,
-    'Hero 40 admitted relation cannot be removed', /exactly 74/);
+    'Hero 40 admitted relation cannot be removed', /exactly 77/);
   await mutateAndRun('canonical/hero-identities.v1.json', (doc) => { doc.records = doc.records.filter((row) => row.heroId !== 40); }, relationValidator,
     'Hero 40 endpoint must exist in the Identity owner', /Hero endpoint 40 missing/);
   await mutateAndRun('canonical/faction-identities.v1.json', (doc) => { doc.records.find((row) => row.factionId === 3).nameCn = '错误名称'; }, 'tools/validate-faction-identities.mjs',
@@ -72,7 +72,7 @@ try {
   await mutateAndRun(canonicalPath, (doc) => { doc.records[0].provenance = 'evidence/wrong.json#record=1'; }, relationValidator,
     'Canonical provenance mismatch', /source locator drift/);
   await mutateAndRun(canonicalPath, (doc) => { doc.records = doc.records.filter((row) => !(row.heroId === 5 && row.factionId === 1)); }, relationValidator,
-    'existing visible relation cannot be removed', /exactly 74/);
+    'existing visible relation cannot be removed', /exactly 77/);
   await mutateAndRun(canonicalPath, (doc) => {
     const row = doc.records.find((entry) => entry.heroId === 15 && entry.factionId === 1);
     row.factionId = 3;
@@ -102,7 +102,7 @@ try {
     row.RelatedHeros_ID = row.RelatedHeros_ID.filter((heroId) => heroId !== 1);
   }, relationValidator, 'Canonical cannot outgrow source membership', /source RelatedHeros_ID target projection differs/);
 
-  process.stdout.write('Hero–Faction relation regression tests: PASS (74-pair admission including Hero 15, approved Faction 3 edges, rejected unapproved membership, endpoint/provenance negatives, 29-Hero Presentation parity, and deterministic generation)\n');
+  process.stdout.write('Hero–Faction relation regression tests: PASS (77-pair admission including Heroes 15 and 16, approved Faction 3 edges, rejected unapproved membership, endpoint/provenance negatives, 29-Hero Presentation parity, and deterministic generation)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

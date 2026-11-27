@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "placement": "after-name-provenance-before-equipment",
+  "rankId": 3,
+  "factionIds": [
+    2,
+    4,
+    7
+  ],
+  "linesKo": [
+    "등급 · SR",
+    "진영 · 빛의 군단 · 제국의 빛 · 전략의 대가"
+  ],
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "Original user statement in Dot on repeated work within the same hero-detail scope; excerpt supplied to this Work."
+  },
+  "evidence": {
+    "rarity": "evidence/source/hero-rarity-hero16.v1.json",
+    "factions": "evidence/source/hero-faction.v1.json",
+    "sourcePointers": [
+      "ConfigDataHeroInfo.json#/15/Rank",
+      "ConfigDataRankInfo.json#/3/Desc",
+      "ConfigDataHeroTagInfo.json#/1/RelatedHeros_ID/20",
+      "ConfigDataHeroTagInfo.json#/3/RelatedHeros_ID/5",
+      "ConfigDataHeroTagInfo.json#/6/RelatedHeros_ID/9"
+    ],
+    "localization": "canonical/faction-localizations-ko.v1.json",
+    "legacyPage": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "htmlSha256": "7b1a38444032fa256a9733904e0b82eb8e7fa3be7a472f030506ca914f36f207",
+    "displayLocators": [
+      "rarity/SR.png before h1",
+      "factions/2.png, factions/4.png, factions/7.png below CV"
+    ]
+  },
+  "scope": "Two plain-text paragraphs on the existing detail. Existing v1 schema, equipment and navigation retain their original publication contract."
+}

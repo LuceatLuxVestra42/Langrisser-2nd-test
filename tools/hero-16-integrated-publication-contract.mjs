@@ -1,8 +1,36 @@
 import { createHash } from 'node:crypto';
+import { isDeepStrictEqual } from 'node:util';
 
 export const HERO_16_INTEGRATED_PUBLICATION_PATH = 'docs/decisions/hero-16-integrated-publication.v1.json';
 export const HERO_16_MINIMAL_DETAIL_PATH = 'generated/hero-minimal-detail-16.v1.json';
 export const HERO_16_MINIMAL_DETAIL_FRAGMENT = 'hero-minimal-detail-16';
+
+export const HERO_16_PROFILE_DECISION = 'docs/decisions/hero-16-minimal-profile-publication.v1.json';
+
+export function hero16ProfileLines(decision, rarities, relations, localizations) {
+  const ids = [2, 4, 7];
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 16
+    || decision.surface !== HERO_16_MINIMAL_DETAIL_FRAGMENT || decision.placement !== 'after-name-provenance-before-equipment'
+    || decision.rankId !== 3 || !isDeepStrictEqual(decision.factionIds, ids)) {
+    throw new Error('Hero 16 profile publication scope mismatch');
+  }
+  const ranks = rarities.records.filter(row => row.heroId === 16);
+  if (ranks.length !== 1 || ranks[0].rankId !== 3 || ranks[0].label !== 'SR') {
+    throw new Error('Hero 16 profile Canonical rarity mismatch');
+  }
+  const factions = relations.records.filter(row => row.heroId === 16).map(row => row.factionId);
+  if (!isDeepStrictEqual(factions, ids)) throw new Error('Hero 16 profile Canonical faction relations mismatch');
+  const names = factions.map(id => {
+    const rows = localizations.records.filter(row => row.factionId === id);
+    if (rows.length !== 1) throw new Error(`Hero 16 Faction ${id} localization mismatch`);
+    return rows[0].nameKo;
+  });
+  const lines = [`등급 · ${ranks[0].label}`, `진영 · ${names.join(' · ')}`];
+  if (!isDeepStrictEqual(names, ['빛의 군단', '제국의 빛', '전략의 대가']) || !isDeepStrictEqual(decision.linesKo, lines)) {
+    throw new Error('Hero 16 profile approved text mismatch');
+  }
+  return lines;
+}
 
 const sourceSpecs = {
   heroIdentity: { path: 'canonical/hero-identities.v1.json', sha256: '6cb710d09df61cbc31d2021fd41b9e1e1b5899377991d14af7a4a5d89e7fe11c', locator: 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json#ID=16' },
