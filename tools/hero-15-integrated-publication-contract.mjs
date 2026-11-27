@@ -523,6 +523,25 @@ function projectOrdinarySkillLabels(decision, owner, approvedIds, {
   return projected;
 }
 
+export function readFreezeDisplay({ skillDecision, skillReferences, skillIdentities }) {
+  const display = skillDecision.freezeDisplay;
+  const sourceHash = 'a11ce8611ae970f3fffbcd1dd800806051e41db262796f9a1aa0c78cfbb7cc60';
+  const skill = skillIdentities.records.find(row => row.skillId === 10705);
+  const acquired = skillReferences.records.some(row => row.heroId === 15 && row.skillId === 10705
+    && row.referenceKind === 'JOB_LEVEL_SKILL_ACQUISITION' && row.jobConnectionId === 153
+    && row.jobId === 703 && row.jobLevelId === 1532 && row.sourceField === 'ConfigDataJobLevelInfo.GotSkill_ID'
+    && row.endpointNamespace === 'ConfigDataSkillInfo.ID');
+  if (skillDecision.status !== 'APPROVED' || skillDecision.heroId !== 15 || skillDecision.surface !== HERO_15_MINIMAL_DETAIL_FRAGMENT
+    || display?.authority !== 'PROJECT_DISPLAY_ONLY' || display.heroId !== 15 || display.skillId !== 10705
+    || display.sourceField !== 'ConfigDataSkillInfo.json#/1894/Desc' || display.sourceDescSha256 !== sourceHash
+    || skillDecision.source?.canonicalRaw?.commit !== '6475e63ee23d18adf733756c26a14fa9e3ed662c'
+    || !acquired || skill?.nameCn !== '冰冻' || createHash('sha256').update(skill.descriptionCn).digest('hex') !== sourceHash
+    || display.textKo !== '적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.') {
+    throw new Error('Hero 15 Freeze display decision or source mismatch');
+  }
+  return display.textKo;
+}
+
 function renderHero15OrdinarySkills({
   skillDecision, skillReferences, skillIdentities, ordinarySkillCostDecision, ordinarySkillCosts,
   ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances,

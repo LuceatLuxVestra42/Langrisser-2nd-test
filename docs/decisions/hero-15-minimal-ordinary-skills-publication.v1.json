@@ -102,5 +102,15 @@
       "nameKo": "천공사수 소환",
       "descriptionKo": "[소환] 천공사수 1기 소환"
     }
-  ]
+  ],
+  "freezeDisplay": {
+    "heroId": 15,
+    "skillId": 10705,
+    "authority": "PROJECT_DISPLAY_ONLY",
+    "sourceField": "ConfigDataSkillInfo.json#/1894/Desc",
+    "sourceDescSha256": "a11ce8611ae970f3fffbcd1dd800806051e41db262796f9a1aa0c78cfbb7cc60",
+    "textKo": "적 1부대에 1.5배의 마법 피해를 준다. 창병에게 더 큰 피해를 준다.",
+    "basis": "Pinned CN Desc, the Hero 15 shard and Korean catalog identified above, and the previously reviewed Lgrsheet card. The corrected project text replaces the screen omission only.",
+    "approvalReference": "7720da79-b0f8-4c0d-9a31-09e27a9f6ffa"
+  }
 }

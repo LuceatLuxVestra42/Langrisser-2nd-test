@@ -51,7 +51,7 @@ const publicAssets = JSON.parse(await readFile(publicAssetsPath, 'utf8'));
 const skinAssetPaths = publicAssets.assets.map((row) => row.imageUrl.slice(2));
 const expectedSkinRows = JSON.parse(await readFile(skinConsumerPath, 'utf8')).skins;
 const expectedPublicRows = JSON.parse(await readFile(publicConsumerPath, 'utf8')).skins;
-async function checkBondKeyBuildFailures() {
+async function checkHero15BuildFailures() {
   const bond1Path = 'docs/decisions/hero-15-minimal-bond1-key-totals-publication.v1.json';
   const bond2Path = 'docs/decisions/hero-15-minimal-bond2-key-totals-publication.v1.json';
   const bond1 = JSON.parse(await readFile(bond1Path, 'utf8'));
@@ -70,7 +70,13 @@ async function checkBondKeyBuildFailures() {
   }
   assert.deepEqual(await readFile(join(normalPackage, 'app.js')), approvedApp);
 
+  const skillDecisionPath = 'docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json';
   const cases = [
+    { decisionPath: skillDecisionPath, name: 'freeze-missing', mutate: decision => { delete decision.freezeDisplay; },
+      error: () => 'Error: Hero 15 Freeze display decision or source mismatch' },
+    { decisionPath: skillDecisionPath, name: 'freeze-incomplete', mutate: decision => {
+      decision.freezeDisplay.textKo = '적 1부대에 1.5배의 마법 피해를 준다.';
+    }, error: () => 'Error: Hero 15 Freeze display decision or source mismatch' },
     { decisionPath: bondKeyDecisionPath, name: 'icons-missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
     { decisionPath: bondKeyDecisionPath, name: 'icons-scope', mutate: decision => { decision.groups.pop(); },
       error: () => 'Error: Bond key icon decision scope mismatch' },
@@ -108,7 +114,7 @@ async function checkBondKeyBuildFailures() {
       const result = run(source, mode, destination);
       assert.equal(result.status, 1, `${test.name} ${mode}: ${result.stderr}`);
       assert.ok(result.stderr.split('\n').includes(test.error(path)), result.stderr);
-      console.log(`Bond keys ${mode}: rejected ${test.name} (exit ${result.status})`);
+      console.log(`Hero 15 ${mode}: rejected ${test.name} (exit ${result.status})`);
       await rm(fixture, { recursive: true });
     }
   }
@@ -125,6 +131,23 @@ async function checkBondKeyBuildFailures() {
     const html = join(root, 'index.html');
     const digest = createHash('sha256').update(changed).digest('hex');
     await writeFile(html, (await readFile(html, 'utf8')).replace(/app\.js\?v=[a-f0-9]{64}/, 'app.js?v=' + digest));
+  }
+  for (const mode of modes) {
+    const fixture = await mkdtemp(join(temp, 'freeze-wrong-skill-'));
+    const source = join(fixture, 'source');
+    const destination = join(fixture, 'package');
+    await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+    const selector = 'const description = skillId === ';
+    await changeRenderer(source, selector + '10705 ?', selector + '10804 ?');
+    if (mode === '--verify-dir') {
+      await cp(normalPackage, destination, { recursive: true });
+      for (const file of ['app.js', 'index.html']) await copyFile(join(source, file), join(destination, file));
+    }
+    const result = run(source, mode, destination);
+    assert.equal(result.status, 1, result.stderr);
+    assert.match(result.stderr, /AssertionError \[ERR_ASSERTION\]: Packaged Skill 10705 row attribution/);
+    console.log(`Hero 15 ${mode}: rejected Freeze description on Skill 10804`);
+    await rm(fixture, { recursive: true });
   }
   const isFirstBadge = "parent.textContent === 'Lv.2 · 1,500 골드'";
   const sourceAssignment = 'image.src = keyImages.get(itemId);';
@@ -184,7 +207,7 @@ async function checkBondKeyBuildFailures() {
 }
 
 try {
-  await checkBondKeyBuildFailures();
+  await checkHero15BuildFailures();
   const built = await buildSite({ outputDir: output });
   const publicEquipment = JSON.parse(await readFile(join(output, 'generated/general-ssr-equipment.v1.json'), 'utf8'));
   const excludedEquipmentIds = [265, 266, 267, 268, 288, 289, 290, 291];
