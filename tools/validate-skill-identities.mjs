@@ -1,3 +1,4 @@
+import { lanceCentralEvidence, lanceCentralSource } from './validate-hero15-skill-references.mjs';
 import { ordinaryIdentities, readOrdinarySkillEvidence } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { readLanceTalentSource, lanceSkillRecords } from './hero-16-talent-publication-contract.mjs';
 import { readFile } from 'node:fs/promises';
@@ -340,9 +341,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 8 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 8 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 2 explicit Central Discipline SkillInfo identities (Hero 15 and Hero 16); ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length + 13, 'CANONICAL', 'Canonical must contain exactly the 122 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length + 14, 'CANONICAL', 'Canonical must contain exactly the 123 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -651,7 +652,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
   const lanceSkills = lanceSkillRecords(await readLanceTalentSource(root));
   check(isDeepStrictEqual(canonical.records.slice(allExpectedIds.length, allExpectedIds.length + lanceSkills.length), lanceSkills), 'CANONICAL', 'Lance Skill identity mismatch');
   const ordinarySkills = ordinaryIdentities(await readOrdinarySkillEvidence(root));
-  check(isDeepStrictEqual(canonical.records.slice(allExpectedIds.length + lanceSkills.length), ordinarySkills), 'CANONICAL', 'Lance ordinary Skill identity mismatch');
+  check(isDeepStrictEqual(canonical.records.slice(allExpectedIds.length + lanceSkills.length, -1), ordinarySkills), 'CANONICAL', 'Lance ordinary Skill identity mismatch');
+  const centralLance = lanceCentralSource(await readJson(root, lanceCentralEvidence));
+  check(isDeepStrictEqual(canonical.records.at(-1), centralLance.identity), 'CANONICAL', 'Lance central Skill identity or provenance mismatch');
   const preserved38Json = JSON.stringify(canonical.records.slice(0,allExpectedIds.length).filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461 && row.skillId!==70110 && row.skillId!==90089));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');

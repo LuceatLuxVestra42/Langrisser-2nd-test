@@ -1,3 +1,4 @@
+import { expectedLianaSkillReferences, sharedSkillReferenceScope } from './validate-hero15-skill-references.mjs';
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -5,6 +6,7 @@ import { isDeepStrictEqual } from 'node:util';
 
 export const OUTPUT = 'generated/hero-15-skill-detail-internal.v1.json';
 const REFERENCES = 'canonical/hero-skill-references.v1.json';
+const lianaReferenceScope = 'Hero 15 only: direct HeroInfo Skills_ID, JobLevelInfo GotSkill_ID, and HeroInfo CastingLawSkill_ID references. No equipping, unlock condition, combat effect, or publication claim.';
 const CENTRAL_DISCIPLINE_KIND = 'HERO_CENTRAL_DISCIPLINE_SKILL_REFERENCE';
 const SKILLS = 'canonical/skills.v1.json';
 const SCOPE = 'Internal Hero 15 direct and JobLevel skill-reference detail projection only; no Korean localization, equipability, unlock, combat, or publication semantics.';
@@ -18,7 +20,9 @@ const LIMITATIONS = [
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 export async function loadInputs(root = process.cwd()) {
   const [references, skills] = await Promise.all([readJson(root, REFERENCES), readJson(root, SKILLS)]);
-  return { references, skills };
+  assert.equal(references.scope, sharedSkillReferenceScope);
+  const lianaRows = references.records.filter(row => row.heroId === 15);
+  return { references: { schemaVersion: references.schemaVersion, scope: lianaReferenceScope, records: lianaRows }, skills };
 }
 const exactKeys = (value, keys, label) => {
   assert(value && typeof value === 'object' && !Array.isArray(value), `${label} must be an object`);
@@ -33,10 +37,11 @@ const refKeys = (row) => row.referenceKind === 'HERO_DIRECT_SKILL_REFERENCE'
 function validateCanonicalInputs(references, skills) {
   exactKeys(references, ['schemaVersion', 'scope', 'records'], 'Hero Skill Reference Canonical');
   assert.equal(references.schemaVersion, 1);
-  assert.equal(references.scope, 'Hero 15 only: direct HeroInfo Skills_ID, JobLevelInfo GotSkill_ID, and HeroInfo CastingLawSkill_ID references. No equipping, unlock condition, combat effect, or publication claim.');
+  assert.equal(references.scope, lianaReferenceScope);
   exactKeys(skills, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Skill Identity Canonical');
   assert.equal(skills.schemaVersion, 1);
   assert(Array.isArray(references.records), 'Hero Skill references must be an array');
+  assert(isDeepStrictEqual(references.records, expectedLianaSkillReferences()), 'Hero 15 ten ordered Skill references or provenance mismatch');
   const ordinaryReferences = references.records.filter((row) => row.referenceKind !== CENTRAL_DISCIPLINE_KIND);
   assert.equal(ordinaryReferences.length, 9, 'Expected exactly nine ordinary Hero 15 Skill references');
   assert(Array.isArray(skills.records), 'Skill Identity Canonical records must be an array');

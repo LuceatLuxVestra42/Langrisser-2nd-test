@@ -1,3 +1,4 @@
+import { lanceCentralEvidence, lanceCentralSource, lanceDescDigest } from './validate-hero15-skill-references.mjs';
 import { lianaCastingInput } from './liana-casting-input.mjs';
 import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
@@ -331,5 +332,52 @@ export async function readLanceGoldDisplay(readJson) {
   const lines = ['Lv.1~10 합계 골드 '+total.toLocaleString('ko-KR'),
     ...slots.map(row => row.labelKo+' · Lv.1~10 소계 골드 '+row.subtotalGold.toLocaleString('ko-KR'))];
   requireGold(decision.paragraphs,lines,'publication paragraphs');
+  return lines;
+}
+
+export const lanceEffectDecision = 'docs/decisions/hero-16-minimal-central-discipline-publication.v1.json';
+export const lanceEffectFreeze = 'evidence/localization/hero-16-central-discipline-ko-freeze.v1.json';
+const lanceEffectText = [
+  '상성 우세인 부대와 전투 시 모든 스탯 +15%',
+  '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복',
+];
+
+export async function readLanceCentralEffect(readJson) {
+  const [decision, evidence, frozen, references, skills] = await Promise.all([
+    readJson(lanceEffectDecision), readJson(lanceCentralEvidence), readJson(lanceEffectFreeze),
+    readJson('canonical/hero-skill-references.v1.json'), readJson('canonical/skills.v1.json'),
+  ]);
+  const expected = lanceCentralSource(evidence);
+  const matches = references.records.filter(row => row.heroId === 16 && row.skillId === 90092);
+  if (matches.length !== 1) throw new Error('Lance central reference missing or duplicated');
+  if (matches[0].referenceKind !== expected.reference.referenceKind) throw new Error('Lance central reference kind mismatch');
+  if (matches[0].endpointNamespace !== expected.reference.endpointNamespace) throw new Error('Lance central endpoint namespace mismatch');
+  if (!isDeepStrictEqual(matches[0], expected.reference)) throw new Error('Lance central reference provenance mismatch');
+  const identities = skills.records.filter(row => row.skillId === 90092);
+  if (identities.length !== 1 || createHash('sha256').update(identities[0].descriptionCn).digest('hex') !== lanceDescDigest)
+    throw new Error('Lance central identity Desc digest mismatch');
+  if (!isDeepStrictEqual(identities[0], expected.identity)) throw new Error('Lance central identity provenance mismatch');
+
+  const pin = {
+    repository: 'LuceatLuxVestra42/langrisser-future-guide', commit: '57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff',
+    path: 'data/presentation/hero-central-discipline-ko/part-04.v1.json',
+    gitBlobSha1: 'd6113b7279d840f832165ee5b2d7bc412a8040b0', locator: '#/records/11',
+  };
+  const { record } = frozen;
+  if (frozen.schemaVersion !== 1 || !isDeepStrictEqual(frozen.source, pin)
+      || record.heroId !== 16 || record.castingLawSkillId !== 90092
+      || record.source.sheet !== '출시된 율정' || record.source.effectRow !== 184 || record.source.heroRow !== 185
+      || record.source.heroNameKoRaw !== '란스') throw new Error('Lance central frozen Korean record mismatch');
+  const lines = record.effectTextKo.split('\n');
+  if (lines[0] !== lanceEffectText[0]) throw new Error('Lance central frozen Korean first line mismatch');
+  if (!isDeepStrictEqual(lines, lanceEffectText)) throw new Error('Lance central frozen Korean text mismatch');
+
+  if (decision.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 16 || decision.skillId !== 90092
+      || decision.surface !== 'hero-minimal-detail-16' || decision.classification !== 'PROJECT_DISPLAY_ONLY'
+      || decision.descriptionCnSha256 !== lanceDescDigest
+      || decision.placement !== 'Two plain paragraphs directly after the central discipline heading and before the six gold paragraphs.')
+    throw new Error('Lance central publication scope mismatch');
+  if (!isDeepStrictEqual(decision.koreanSource, pin)) throw new Error('Lance central decision frozen locator mismatch');
+  if (!isDeepStrictEqual(decision.effectLines, lines)) throw new Error('Lance central decision Korean text mismatch');
   return lines;
 }

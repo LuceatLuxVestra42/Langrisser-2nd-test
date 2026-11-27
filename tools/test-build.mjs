@@ -13,7 +13,7 @@ import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-pres
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
 import { slotGoldDecisionPath, bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
-import { lanceGoldDecision, HERO_16_JOB_PATH_DECISION, HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
+import { lanceEffectFreeze, lanceEffectDecision, lanceGoldDecision, HERO_16_JOB_PATH_DECISION, HERO_16_PROFILE_DECISION, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-twenty-batch-contract.mjs';
@@ -86,7 +86,36 @@ async function checkHeroDetailBuildFailures() {
     [a.LevelUpGoldCost, b.LevelUpGoldCost] = [b.LevelUpGoldCost, a.LevelUpGoldCost];
   }
   const stormRow = d => d.ordinarySkills.find(row => row.skillId === 11819);
+  const lianaConsumer = 'tools/hero-15-skill-detail-internal.mjs';
+  const sharedReferences = 'canonical/hero-skill-references.v1.json';
+  const firstFrozenLine = '상성 우세인 부대와 전투 시 모든 스탯 +15%';
+  const sheetLine = '상성 우세인 부대와 전투 시 올스탯 +15%';
+  const lanceReference = doc => doc.records.find(row => row.heroId === 16 && row.skillId === 90092);
   const cases = [
+    { decisionPath: lianaConsumer, name: 'Liana ten-row input replaced after union validation', mutateSource: source => {
+      const input = 'const lianaRows = references.records.filter(row => row.heroId === 15);';
+      assert.ok(source.includes(input));
+      return source.replace(input, input + '\n  lianaRows[lianaRows.findIndex(row => row.skillId === 90089)] = references.records.find(row => row.heroId === 16 && row.skillId === 90092);');
+    }, error: () => 'AssertionError [ERR_ASSERTION]: Hero 15 ten ordered Skill references or provenance mismatch' },
+    { decisionPath: lanceEffectDecision, name: 'Lance central effect decision missing',
+      error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    ...[
+      [lanceEffectFreeze, 'frozen first line only', doc => {
+        assert.ok(doc.record.effectTextKo.startsWith(firstFrozenLine));
+        doc.record.effectTextKo = doc.record.effectTextKo.replace(firstFrozenLine, sheetLine);
+      }, 'frozen Korean first line'],
+      ['evidence/source/configdata/hero-16-central-discipline-skill.v1.json', 'source FK', doc => { doc.heroInfo.rawRecord.CastingLawSkill_ID = 90089; }, 'source FK'],
+      [sharedReferences, 'reference omitted', doc => { doc.records.splice(doc.records.indexOf(lanceReference(doc)), 1); }, 'reference missing or duplicated'],
+      [sharedReferences, 'reference kind', doc => { lanceReference(doc).referenceKind = 'HERO_DIRECT_SKILL_REFERENCE'; }, 'reference kind'],
+      [sharedReferences, 'reference namespace', doc => { lanceReference(doc).endpointNamespace = 'ConfigDataJobInfo.ID'; }, 'endpoint namespace'],
+      ['canonical/skills.v1.json', 'identity Desc', doc => { doc.records.find(row => row.skillId === 90092).descriptionCn += '。'; }, 'identity Desc digest'],
+      ...[['heroId', 15], ['skillId', 90089], ['surface', 'hero-minimal-detail-15']].map(([key, value]) =>
+        [lanceEffectDecision, 'decision ' + key, doc => { doc[key] = value; }, 'publication scope']),
+      [lanceEffectDecision, 'decision locator', doc => { doc.koreanSource.locator = '#/records/8'; }, 'decision frozen locator'],
+      [lanceEffectDecision, 'decision first line', doc => { doc.effectLines[0] = sheetLine; }, 'decision Korean text'],
+    ].map(([decisionPath, label, mutate, reason]) => ({ decisionPath, name: 'Lance central ' + label, mutate,
+      error: () => 'Error: Lance central ' + reason + (reason === 'reference missing or duplicated' ? '' : ' mismatch') })),
+
     {decisionPath:ordinaryEvidence,name:'1641 grants a different skill',mutate:d=>{
       d.levels.find(row=>row.ID===1641).GotSkill_ID=10105;
     },error:talentError('JobLevel 1641 must grant Skill 11819')},
@@ -364,7 +393,9 @@ async function checkHeroDetailBuildFailures() {
       await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
       if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
       const path = join(test.finalFile && mode === '--verify-dir' ? destination : source, test.decisionPath);
-      if (test.mutate) {
+      if (test.mutateSource) {
+        await writeFile(path, test.mutateSource(await readFile(path, 'utf8')));
+      } else if (test.mutate) {
         const decision = JSON.parse(await readFile(path, 'utf8'));
         test.mutate(decision);
         await writeFile(path, JSON.stringify(decision, null, 2) + '\n');
@@ -424,7 +455,14 @@ async function checkHeroDetailBuildFailures() {
     await writeFile(html, (await readFile(html, 'utf8')).replace(/app\.js\?v=[a-f0-9]{64}/, 'app.js?v=' + digest));
   }
   const selector = 'displayDescriptions[skillId] ?? descriptionKo';
+  const secondFrozenLine = '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복';
+  const goldDecision = JSON.parse(await readFile(lanceGoldDecision, 'utf8'));
+  const appParagraphs = lines => lines.map(line => `    '${line}',`).join('\n');
   const rendererCases = [
+    ['Lance effect lines exchanged', 'Lance central effect order or placement',
+      appParagraphs([firstFrozenLine, secondFrozenLine]), appParagraphs([secondFrozenLine, firstFrozenLine])],
+    ['Lance second effect after gold', 'Lance central effect order or placement',
+      appParagraphs([secondFrozenLine, ...goldDecision.paragraphs]), appParagraphs([...goldDecision.paragraphs, secondFrozenLine])],
     ['Lance storm and defense threat descriptions exchanged','Packaged Lance ordinary skill row text or placement',
       '...range, row.descriptionKo].join', '...range, (i===6 || i===7) ? data.ordinarySkills[13-i].descriptionKo : row.descriptionKo].join'],
 

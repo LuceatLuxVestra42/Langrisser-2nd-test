@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
 const source=process.cwd(),temp=await mkdtemp(join(tmpdir(),'hero15-skill-references-')),repo=join(temp,'repo');
 const centralEvidence='evidence/source/configdata/hero-15-central-discipline-skill.v1.json';
 const paths=[
- centralEvidence,'canonical/hero-identities.v1.json',
+ 'evidence/source/configdata/hero-16-central-discipline-skill.v1.json', centralEvidence,'canonical/hero-identities.v1.json',
  'evidence/source/jobs/hero15-job-skill-references.v1.json',
  'evidence/source/configdata/ConfigDataSkillInfo.records-hero-15-general-skills.v1.json',
  'evidence/source/configdata/ConfigDataJobConnectionInfo.records-hero-15-job-level-raw-stats.v1.json',
@@ -21,7 +21,7 @@ const pass=(r,label)=>{if(r.error||r.signal||r.status!==0)throw new Error(`${lab
 const reject=(r,label,pattern)=>{if(r.error||r.signal||r.status===0)throw new Error(`${label} accepted: ${r.error?.message||r.stdout}`);assert.match(`${r.stdout}\n${r.stderr}`,pattern,label)};
 async function mutate(path,fn,label,pattern){const f=join(repo,path),original=await readFile(f,'utf8');try{const value=JSON.parse(original);fn(value);await writeFile(f,`${JSON.stringify(value,null,2)}\n`);reject(run(),label,pattern)}finally{await writeFile(f,original)}}
 try{
- pass(run(),'valid 10-reference fixture');
+ pass(run(),'valid 11-reference fixture');
  const c='canonical/hero-skill-references.v1.json',e='evidence/source/jobs/hero15-job-skill-references.v1.json',s='canonical/skills.v1.json',talent='canonical/hero-talent-star-skills.v1.json',jobs='canonical/hero-job-relations.v1.json',stats='canonical/hero-job-level-raw-stats.v1.json';
  await mutate(c,v=>{v.records[0].heroId=8},'wrong Hero ID',/\[CANONICAL\]/);
  await mutate(c,v=>{v.records[1].jobConnectionId=155},'wrong JobConnection ID',/\[CANONICAL\]/);
@@ -33,7 +33,7 @@ try{
  await mutate(c,v=>{v.records[0].referenceKind='JOB_LEVEL_SKILL_ACQUISITION'},'direct reference promoted to acquisition',/\[CANONICAL\]/);
  await mutate(c,v=>{v.records[1].direction='Skill-to-Hero'},'reversed relation direction field',/\[CANONICAL\]/);
  await mutate(c,v=>{v.records.push(v.records[1])},'duplicate reference',/\[CANONICAL\]/);
- await mutate(c,v=>{v.records.pop()},'missing reference',/\[CANONICAL\]/);
+ await mutate(c,v=>{v.records.splice(v.records.findIndex(row=>row.skillId===90089),1)},'missing Hero 15 reference',/\[CANONICAL\]/);
  await mutate(c,v=>{v.records[1].provenance.reference='bad'},'relation provenance moved',/\[CANONICAL\]/);
  await mutate(e,v=>{v.heroInfoSource.selectedFields.Skills_ID=[99999]},'Hero source reference changed',/\[HERO_SOURCE\]/);
  await mutate(e,v=>{v.heroInfoSource.gitBlobSha1='0'.repeat(40)},'Hero Source Blob changed',/\[HERO_SOURCE\]/);
@@ -50,7 +50,8 @@ try{
  await mutate(talent,v=>{v.records=v.records.filter(r=>!(r.heroId===15 && r.star===6))},'Talent relation regression',/\[TALENT_BASELINE\]/);
  await mutate(centralEvidence,v=>{v.heroInfo.rawRecord.CastingLawSkill_ID=90085},'wrong explicit CastingLawSkill_ID',/\[CENTRAL_SOURCE\]/);
  await mutate(centralEvidence,v=>{v.predecessorResolver.namespace='ConfigDataHeroInfo.CastingLawSkill_ID -> ConfigDataJobInfo.ID'},'wrong Central Discipline namespace',/\[CENTRAL_NAMESPACE\]/);
- await mutate(c,v=>{v.records.at(-1).referenceKind='HERO_DIRECT_SKILL_REFERENCE'},'Central Discipline conflated with ordinary Hero Skill',/\[CANONICAL\]/);
+ await mutate(c,v=>{v.records.find(row=>row.skillId===90089).referenceKind='HERO_DIRECT_SKILL_REFERENCE'},'Central Discipline conflated with ordinary Hero Skill',/\[CANONICAL\]/);
  await mutate(s,v=>{v.records=v.records.filter(row=>row.skillId!==90089)},'missing Central Discipline Skill identity',/\[CENTRAL_ENDPOINT\]/);
- console.log('Hero 15 Skill reference tests: PASS (valid fixture and 28 negative controls)');
+ await mutate(c,v=>{v.records.pop()},'missing Hero 16 reference',/\[CANONICAL\]/);
+ console.log('Hero Skill reference tests: PASS (11 references, 29 negative controls)');
 }finally{await rm(temp,{recursive:true,force:true})}
