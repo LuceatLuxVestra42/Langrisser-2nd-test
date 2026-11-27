@@ -18,7 +18,7 @@ import { validateGeneralSsrPublication } from './validate-general-ssr-equipment-
 import { TRAINING_TECH_DECISION_RECORD_PATH, shouldPublishTrainingTechDirectJson, validateTrainingTechDecisionRecord } from './soldier-training-tech-presentation-contract.mjs';
 import { isAllowedSkinAssetPath, skinAssetPathFromPublicUrl } from '../skin-asset-publication-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH, validateExclusiveEquipmentHeroNavigation } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
+import { bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues, bondKeyAssets, readBondKeyDisplay, renderBond1KeyTotals, renderBond2KeyTotals, renderHeadGoldSubtotal, readHero15JobPublicationInputs, readHero15SoldierPublicationInputs, readHero15ProfileInputs, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH, validateHero15IntegratedPublication, validateHero15MinimalDetail } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
@@ -77,7 +77,7 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
   ];
   if (shouldPublishTrainingTechDirectJson(decisionRecord)) files.push('generated/soldier-training-tech-descriptions.v1.json');
   if (exclusiveHeroPublicationDecision?.status === 'APPROVED') files.push(EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH);
-  if (hero15IntegratedPublication?.status === 'APPROVED') files.push(HERO_15_MINIMAL_DETAIL_PATH);
+  if (hero15IntegratedPublication?.status === 'APPROVED') files.push(HERO_15_MINIMAL_DETAIL_PATH, ...bondKeyAssets.map(asset => asset.path));
   if (hero15TalentPublication) {
     validateHero15TalentDecision(hero15TalentPublication);
     files.push(HERO_15_TALENT_PUBLIC_PATH);
@@ -105,6 +105,9 @@ export function publicSitePaths(canonical, publicationDecision, decisionRecord, 
 export async function validatePublicSiteDirectory(output, canonical, publicationDecision, decisionRecord, sourceRoot = process.cwd(), exclusiveHeroPublicationDecision = null, hero15IntegratedPublication = null, hero16IntegratedPublication = null, heroMinimalDetailBatchPublication = null, heroMinimalDetailTenBatchPublication = null, heroMinimalDetailTwentyBatchPublication = null, heroMinimalDetailThirtyBatchPublication = null, heroMinimalDetailThirtyOneBatchPublication = null, heroMinimalDetailFortyBatchPublication = null, hero15TalentPublication = defaultHero15TalentDecision, hero15SoldierTextPublication = JSON.parse(readFileSync(resolve(sourceRoot, HERO_15_SOLDIER_TEXT_DECISION), 'utf8'))) {
   const skinFullartPaths = await readApprovedSkinAssetPaths(sourceRoot);
   const expected = publicSitePaths(canonical, publicationDecision, decisionRecord, skinFullartPaths, exclusiveHeroPublicationDecision, hero15IntegratedPublication, hero16IntegratedPublication, heroMinimalDetailBatchPublication, heroMinimalDetailTenBatchPublication, heroMinimalDetailTwentyBatchPublication, heroMinimalDetailThirtyBatchPublication, heroMinimalDetailThirtyOneBatchPublication, heroMinimalDetailFortyBatchPublication, hero15TalentPublication, hero15SoldierTextPublication);
+  assert.deepEqual(expected.filter(path => path.startsWith('assets/bond-materials/')),
+    hero15IntegratedPublication?.status === 'APPROVED' ? bondKeyAssets.map(asset => asset.path) : [],
+    'Bond key icon deployment paths mismatch');
   const allowedDirectories = new Set(expected.flatMap(file => {
     const parts = file.split('/');
     return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
@@ -126,13 +129,18 @@ export async function validatePublicSiteDirectory(output, canonical, publication
   for (const path of expected) {
     const [bytes, source] = await Promise.all([readFile(join(output, path)), readFile(join(sourceRoot, path))]);
     if (path === HERO_15_SOLDIER_TEXT_PUBLIC) validateHero15SoldierTextBytes(bytes, await readFile(join(output, 'app.js'), 'utf8'));
+    const icon = bondKeyAssets.find(asset => asset.path === path);
+    if (icon) {
+      const blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
+      if (bytes.length !== icon.bytes || blob !== icon.blobSha1) throw new Error(`Bond key icon bytes mismatch: ${path}`);
+    }
     if (!bytes.equals(source)) throw new Error(`Public artifact bytes differ from approved Source: ${path}`);
     files.push({ path, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
   }
   return files;
 }
 
-function validatePackagedHero15Gold(app, detail, talent, keyLines, headGoldLine) {
+function validatePackagedHero15Gold(app, detail, talent, keyGroups, headGoldLine) {
   const groups = detail.heroes[0].fetterGold;
   for (const [index, values] of [bond1GoldValues, bond2GoldValues, bond3GoldValues, bond4GoldValues, bond5GoldValues, heartFetterGoldValues].entries()) {
     assert.deepEqual(groups[index], {
@@ -143,12 +151,14 @@ function validatePackagedHero15Gold(app, detail, talent, keyLines, headGoldLine)
   const element = tag => ({
     tag, children: [], append(...nodes) { this.children.push(...nodes); },
     replaceChildren(...nodes) { this.children = nodes; }, addEventListener() {},
+    setAttribute(name, value) { this[name.toLowerCase()] = String(value); },
   });
   const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor'];
   const render = runInNewContext(functions.map(name => extractFunction(app, name)).join('\n') + '\nrenderHero15MinimalDetailView',
     { document: { createElement: element }, makeTalentPresentation: element });
   const approvedTotals = ['Lv.2~10 합계 골드 118,600', 'Lv.2~10 합계 골드 383,500', 'Lv.2~10 합계 골드 736,000', 'Lv.2~10 합계 골드 1,186,000', 'Lv.2~10 합계 골드 1,523,000', 'Lv.2~10 합계 골드 650,000'];
   function textLines(node, matches) {
+    if (typeof node === 'string') return matches(node) ? [node] : [];
     const own = matches(node.textContent) ? [node.textContent] : [];
     return own.concat(node.children.flatMap(child => textLines(child, matches)));
   }
@@ -164,6 +174,24 @@ function validatePackagedHero15Gold(app, detail, talent, keyLines, headGoldLine)
     assert.deepEqual(textLines(card, text => text?.includes('소계 골드') || originalLines.includes(text)),
       [...originalLines, headGoldLine], 'Packaged Central Discipline lines in Hero 15 card');
   }
+  const pathsById = new Map(bondKeyAssets.map(asset => [asset.itemId, './' + asset.path]));
+  function checkBadges(parent, pairs) {
+    assert.equal(parent.children.length, pairs.length, 'Bond key badge count or group boundary mismatch');
+    for (const [index, [itemId, count]] of pairs.entries()) {
+      const badge = parent.children[index];
+      assert.equal(badge.tag, 'span', 'Bond key badge element mismatch');
+      assert.equal(badge.children.length, 2, 'Bond key badge must contain only an image and quantity');
+      const [image, quantity] = badge.children;
+      assert.equal(image.tag, 'img', 'Bond key badge must use a single img');
+      assert.equal(image.children.length, 0);
+      assert.equal(image.src, pathsById.get(itemId), 'Bond key icon local src mismatch');
+      assert.equal(image.alt, '', 'Bond key icon alt must be explicitly empty');
+      assert.ok(!('srcset' in image), 'Bond key icon srcset is forbidden');
+      assert.ok(!('title' in badge || 'title' in image), 'Bond key badge or image title is forbidden');
+      assert.ok(!badge.textContent && !image.textContent, 'Bond key badge contains unexpected text');
+      assert.equal(quantity, `×${count}`, 'Bond key quantity mismatch');
+    }
+  }
   function check(sample, changedGroup) {
     const container = element();
     render(sample, talent, container);
@@ -172,7 +200,7 @@ function validatePackagedHero15Gold(app, detail, talent, keyLines, headGoldLine)
     const panel = card.children.find(node => node.children[0]?.textContent === '유대 강화 골드');
     const totals = approvedTotals.map((line, i) => i === changedGroup ? null : line);
     assert.deepEqual(textLines(card, text => text?.startsWith('Lv.2~10 합계 골드')), totals.filter(Boolean), 'Unexpected Fetter Gold totals in the card');
-    assert.deepEqual(textLines(card, text => text?.includes('마음의 열쇠')), keyLines);
+    assert.deepEqual(textLines(card, text => text?.includes('마음의 열쇠')), []);
     assert.equal(panel.children.length, groups.length + 1);
     for (const [i, group] of sample.heroes[0].fetterGold.entries()) {
       const [heading, list, ...afterList] = panel.children[i + 1].children;
@@ -180,13 +208,18 @@ function validatePackagedHero15Gold(app, detail, talent, keyLines, headGoldLine)
       assert.equal(list.tag, 'ul');
       assert.deepEqual(list.children.map(row => row.textContent), group.rows.map(
         ({ level, gold }) => `Lv.${level} · ${gold.toLocaleString('ko-KR')} 골드`));
-      const expected = totals[i] ? [totals[i]] : [];
-      if (keyLines[i]) expected.push(keyLines[i]);
-      assert.deepEqual(afterList.map(node => node.textContent), expected);
-      if (keyLines[i]) {
-        const keys = afterList.at(-1);
-        assert.equal(keys.tag, 'p');
-        assert.equal(keys.children.length, 0);
+      list.children.forEach((row, level) => checkBadges(row, keyGroups[i]?.levels[level] ?? []));
+      const expectedCount = Number(Boolean(totals[i])) + Number(Boolean(keyGroups[i]));
+      assert.equal(afterList.length, expectedCount, 'Bond key group summary placement');
+      if (totals[i]) {
+        assert.equal(afterList[0].textContent, totals[i]);
+        assert.equal(afterList[0].children.length, 0);
+      }
+      if (keyGroups[i]) {
+        const summary = afterList.at(-1);
+        assert.equal(summary.tag, 'p');
+        assert.ok(!summary.textContent);
+        checkBadges(summary, keyGroups[i].totals);
       }
     }
   }
@@ -288,7 +321,10 @@ const hero15MinimalInputs = {
 const hero15MinimalDetailPath = resolve(HERO_15_MINIMAL_DETAIL_PATH);
 const hero15MinimalDetailText = await readFile(hero15MinimalDetailPath, 'utf8');
 const profileInputs = await readHero15ProfileInputs(readJson);
-const keyLines = [renderBond1KeyTotals(profileInputs), renderBond2KeyTotals(profileInputs)];
+// Retain the original Bond 1 and 2 approval and Korean name provenance checks.
+renderBond1KeyTotals(profileInputs);
+renderBond2KeyTotals(profileInputs);
+const keyGroups = readBondKeyDisplay(profileInputs);
 validateHero15MinimalDetail({ generatedText: hero15MinimalDetailText, inputs: { ...hero15MinimalInputs, jobInputs: await readHero15JobPublicationInputs(readJson), soldierInputs: await readHero15SoldierPublicationInputs(readJson), profileInputs } });
 const hero15TalentPublicText = await readFile(resolve(HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 const hero15TalentPublicInputs = { decision: hero15TalentPublication, talentRelations, skills, localizations: talentLocalizations };
@@ -618,10 +654,10 @@ try {
   await cp(resolve(skinAssetsPublicPath), join(output, ...skinAssetsPublicPath.split('/')));
   await cp(resolve('skin-fullart-presentation.mjs'), join(output, 'skin-fullart-presentation.mjs'));
   await cp(resolve('skin-asset-publication-contract.mjs'), join(output, 'skin-asset-publication-contract.mjs'));
-  for (const skinPath of skinFullartPaths) {
-    const destination = join(output, ...skinPath.split('/'));
+  for (const assetPath of [...skinFullartPaths, ...bondKeyAssets.map(asset => asset.path)]) {
+    const destination = join(output, ...assetPath.split('/'));
     await mkdir(dirname(destination), { recursive: true });
-    await cp(resolve(skinPath), destination);
+    await cp(resolve(assetPath), destination);
   }
   if (includeTrainingTechDirectJson) {
     await cp(trainingTechGeneratedPath, join(output, 'generated', 'soldier-training-tech-descriptions.v1.json'));
@@ -691,7 +727,7 @@ try {
   const packagedHero15MinimalDetail = JSON.parse(packagedHero15MinimalDetailText);
   if (packagedHero15MinimalDetail.heroes.length !== 1 || packagedHero15MinimalDetail.heroes[0].heroId !== 15) throw new Error('packaged Hero Minimal Detail scope mismatch');
   validatePackagedHero15Gold(app, packagedHero15MinimalDetail, JSON.parse(await readFile(join(output, HERO_15_TALENT_PUBLIC_PATH), 'utf8')),
-    keyLines, renderHeadGoldSubtotal(profileInputs));
+    keyGroups, renderHeadGoldSubtotal(profileInputs));
   const packagedHero16MinimalDetailText = await readFile(join(output, ...HERO_16_MINIMAL_DETAIL_PATH.split('/')), 'utf8');
   if (packagedHero16MinimalDetailText !== hero16MinimalDetailText) throw new Error('packaged Hero 16 minimal detail differs from validated Generated artifact');
   const packagedHero16MinimalDetail = JSON.parse(packagedHero16MinimalDetailText);

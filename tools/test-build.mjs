@@ -1,14 +1,15 @@
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
-import { readFile, mkdtemp, mkdir, rm, cp, writeFile, symlink, copyFile } from 'node:fs/promises';
+import { readFile, mkdtemp, mkdir, rm, cp, writeFile, symlink, copyFile, rename } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildSite, publicSitePaths, validatePublicSiteDirectory } from './build.mjs';
 import { TRAINING_TECH_DECISION_RECORD_PATH } from './soldier-training-tech-presentation-contract.mjs';
 import { EXCLUSIVE_EQUIPMENT_HERO_NAVIGATION_PATH, EXCLUSIVE_EQUIPMENT_HERO_PUBLICATION_PATH } from './exclusive-equipment-hero-navigation-contract.mjs';
-import { HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
+import { bondKeyDecisionPath, HERO_15_INTEGRATED_PUBLICATION_PATH, HERO_15_MINIMAL_DETAIL_PATH } from './hero-15-integrated-publication-contract.mjs';
 import { HERO_15_TALENT_PUBLIC_PATH } from './hero-15-talent-publication-contract.mjs';
 import { HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH } from './hero-minimal-detail-batch-contract.mjs';
@@ -55,8 +56,6 @@ async function checkBondKeyBuildFailures() {
   const bond2Path = 'docs/decisions/hero-15-minimal-bond2-key-totals-publication.v1.json';
   const bond1 = JSON.parse(await readFile(bond1Path, 'utf8'));
   const approvedApp = await readFile('app.js');
-  assert.ok(approvedApp.includes('순박한 마음의 열쇠 ×45 · 순수한 마음의 열쇠 ×15'));
-  assert.ok(approvedApp.includes('순박한 마음의 열쇠 ×26 · 순수한 마음의 열쇠 ×69 · 빛나는 마음의 열쇠 ×16'));
   const normalPackage = join(temp, 'approved-keys');
   const modes = ['--output-dir', '--verify-dir'];
   const run = (cwd, mode, destination) => {
@@ -72,6 +71,9 @@ async function checkBondKeyBuildFailures() {
   assert.deepEqual(await readFile(join(normalPackage, 'app.js')), approvedApp);
 
   const cases = [
+    { decisionPath: bondKeyDecisionPath, name: 'icons-missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    { decisionPath: bondKeyDecisionPath, name: 'icons-scope', mutate: decision => { decision.groups.pop(); },
+      error: () => 'Error: Bond key icon decision scope mismatch' },
     { decisionPath: bond1Path, name: 'bond1-missing', error: path => `Error: ENOENT: no such file or directory, open '${path}'` },
     { decisionPath: bond1Path, name: 'bond1-scope', mutate: decision => { decision.approval.scope = 'Liana Bond 2'; },
       error: () => 'Error: Bond 1 key approval scope mismatch' },
@@ -107,6 +109,75 @@ async function checkBondKeyBuildFailures() {
       assert.equal(result.status, 1, `${test.name} ${mode}: ${result.stderr}`);
       assert.ok(result.stderr.split('\n').includes(test.error(path)), result.stderr);
       console.log(`Bond keys ${mode}: rejected ${test.name} (exit ${result.status})`);
+      await rm(fixture, { recursive: true });
+    }
+  }
+
+  const firstIcon = 'assets/bond-materials/FetterMaterial01.png';
+  const secondIcon = 'assets/bond-materials/FetterMaterial02.png';
+  async function changeRenderer(root, before, after) {
+    const file = join(root, 'app.js');
+    const original = await readFile(file, 'utf8');
+    assert.equal(original.split(before).length, 2, 'renderer mutation must have one target');
+    const changed = original.replace(before, () => after);
+    await writeFile(file, changed);
+    // Keep the cache key valid so the packaged renderer itself is exercised.
+    const html = join(root, 'index.html');
+    const digest = createHash('sha256').update(changed).digest('hex');
+    await writeFile(html, (await readFile(html, 'utf8')).replace(/app\.js\?v=[a-f0-9]{64}/, 'app.js?v=' + digest));
+  }
+  const isFirstBadge = "parent.textContent === 'Lv.2 · 1,500 골드'";
+  const sourceAssignment = 'image.src = keyImages.get(itemId);';
+  const copyCases = [
+    ['missing PNG', (root) => rm(join(root, firstIcon)), /ENOENT.*FetterMaterial01|Public artifact file allowlist mismatch/],
+    ['swapped PNG bytes', async root => {
+      const [a, b] = await Promise.all([readFile(join(root, firstIcon)), readFile(join(root, secondIcon))]);
+      await writeFile(join(root, firstIcon), b);
+      await writeFile(join(root, secondIcon), a);
+    }, /Bond key icon bytes mismatch/],
+    ['relocated PNG', root => rename(join(root, firstIcon), join(root, 'assets/bond-materials/moved.png')),
+      /ENOENT.*FetterMaterial01|Public artifact file allowlist mismatch/],
+    ['fifth icon', async (root, mode) => {
+      const extra = 'assets/bond-materials/unapproved.png';
+      await copyFile(join(root, firstIcon), join(root, extra));
+      if (mode === '--output-dir') {
+        const path = join(root, 'tools/build.mjs');
+        const build = await readFile(path, 'utf8');
+        await writeFile(path, build.replace('return [...new Set(files)].sort();',
+          `files.push('${extra}'); return [...new Set(files)].sort();`));
+      }
+    }, /Bond key icon deployment paths mismatch|Public artifact file allowlist mismatch/],
+    ['swapped image sources', root => changeRenderer(root, sourceAssignment,
+      'image.src = keyImages.get(itemId === 3200 ? 3201 : itemId === 3201 ? 3200 : itemId);'), /Bond key icon local src mismatch/],
+    ['external image', root => changeRenderer(root, sourceAssignment,
+      "image.src = 'https://example.invalid/icon.png';"), /Bond key icon local src mismatch/],
+    ['badge title', root => changeRenderer(root, sourceAssignment,
+      sourceAssignment + ` if (${isFirstBadge}) badge.title = '3200';`), /Bond key badge or image title is forbidden/],
+    ['image alt', root => changeRenderer(root, "image.alt = '';",
+      `image.alt = ${isFirstBadge} ? '3200' : '';`), /Bond key icon alt must be explicitly empty/],
+    ['image srcset', root => changeRenderer(root, sourceAssignment,
+      sourceAssignment + ` if (${isFirstBadge}) image.srcset = 'https://example.invalid/icon.png';`), /Bond key icon srcset is forbidden/],
+    ['unused zero', root => changeRenderer(root, 'for (const [itemId, count] of pairs)',
+      'for (const [itemId, count] of [...pairs, [3203, 0]])'), /Bond key badge count or group boundary mismatch/],
+    ['Bond 3 icons repeated in Bond 4', root => changeRenderer(root, 'const keys = bondKeys.get(labelKo);',
+      "const keys = bondKeys.get(labelKo === '유대 4' ? '유대 3' : labelKo);"), /Bond key badge count or group boundary mismatch/],
+  ];
+  for (const [name, mutate, error] of copyCases) {
+    for (const mode of modes) {
+      const fixture = await mkdtemp(join(temp, 'icons-'));
+      const source = mode === '--output-dir' ? join(fixture, 'source') : process.cwd();
+      const destination = join(fixture, 'package');
+      const root = mode === '--output-dir' ? source : destination;
+      if (mode === '--output-dir') {
+        await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      } else {
+        await cp(normalPackage, destination, { recursive: true });
+      }
+      await mutate(root, mode);
+      const result = run(source, mode, destination);
+      assert.equal(result.status, 1, name + ' ' + mode);
+      assert.match(result.stderr, error);
+      console.log(`Bond key icons ${mode}: rejected ${name}`);
       await rm(fixture, { recursive: true });
     }
   }
