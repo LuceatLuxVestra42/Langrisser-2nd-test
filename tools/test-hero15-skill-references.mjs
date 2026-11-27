@@ -47,7 +47,7 @@ try{
  await mutate(s,v=>{v.records.find(x=>x.skillId===10816).skillId=19999},'SkillInfo endpoint removed',/\[SKILL_ENDPOINT\]/);
  await mutate(jobs,v=>{v.records.find(x=>x.heroId===15&&x.jobId===803).jobId=804},'Hero Job membership regression',/\[HERO_JOB_PARITY\]/);
  await mutate(stats,v=>{v.records.find(x=>x.heroId===15&&x.jobLevelId===1512).jobConnectionId=152},'JobLevel context regression',/\[JOBLEVEL_CONTEXT\]/);
- await mutate(talent,v=>{v.records.pop()},'Talent relation regression',/\[TALENT_BASELINE\]/);
+ await mutate(talent,v=>{v.records=v.records.filter(r=>!(r.heroId===15 && r.star===6))},'Talent relation regression',/\[TALENT_BASELINE\]/);
  await mutate(centralEvidence,v=>{v.heroInfo.rawRecord.CastingLawSkill_ID=90085},'wrong explicit CastingLawSkill_ID',/\[CENTRAL_SOURCE\]/);
  await mutate(centralEvidence,v=>{v.predecessorResolver.namespace='ConfigDataHeroInfo.CastingLawSkill_ID -> ConfigDataJobInfo.ID'},'wrong Central Discipline namespace',/\[CENTRAL_NAMESPACE\]/);
  await mutate(c,v=>{v.records.at(-1).referenceKind='HERO_DIRECT_SKILL_REFERENCE'},'Central Discipline conflated with ordinary Hero Skill',/\[CANONICAL\]/);

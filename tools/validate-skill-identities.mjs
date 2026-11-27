@@ -1,3 +1,4 @@
+import { readLanceTalentSource, lanceSkillRecords } from './hero-16-talent-publication-contract.mjs';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
@@ -338,9 +339,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
 
   exactKeys(canonical, ['schemaVersion', 'sourceScope', 'scope', 'records'], 'Canonical');
   check(canonical.schemaVersion === 1 && canonical.sourceScope === evidence.scope.sourceScope
-    && canonical.scope === 'Selected source-native Skill identity subset: 12 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
+    && canonical.scope === 'Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.',
   'CANONICAL', 'Canonical owner scope drift');
-  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length, 'CANONICAL', 'Canonical must contain exactly the 109 admitted Skill records');
+  check(Array.isArray(canonical.records) && canonical.records.length === allExpectedIds.length + 5, 'CANONICAL', 'Canonical must contain exactly the 114 admitted Skill records');
   const canonicalIds = [];
   for (let i = 0; i < expected.length; i += 1) {
     const [id, , name, description] = expected[i];
@@ -646,7 +647,9 @@ export async function validateSkillIdentities(root = process.cwd()) {
   canonicalIds.push(centralRow.skillId);
   check(isDeepStrictEqual(canonicalIds, allExpectedIds), 'CANONICAL', 'Canonical Skill ID order/scope differs from prior 108 records plus source-verified Skill 90089');
   check(new Set(canonicalIds).size === canonicalIds.length, 'CANONICAL', 'Duplicate canonical Skill ID');
-  const preserved38Json = JSON.stringify(canonical.records.filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461 && row.skillId!==70110 && row.skillId!==90089));
+  const lanceSkills = lanceSkillRecords(await readLanceTalentSource(root));
+  check(isDeepStrictEqual(canonical.records.slice(allExpectedIds.length), lanceSkills), 'CANONICAL', 'Lance Skill identity mismatch');
+  const preserved38Json = JSON.stringify(canonical.records.slice(0,allExpectedIds.length).filter(row=>!hero15ExpectedIds.includes(row.skillId) && !hero15GeneralIds.includes(row.skillId) && !hero15FetterSkillIds.includes(row.skillId) && row.skillId!==12350 && row.skillId!==70461 && row.skillId!==70110 && row.skillId!==90089));
   const preserved38Blob = createHash('sha1').update('blob '+Buffer.byteLength(preserved38Json,'utf8')+String.fromCharCode(0)).update(preserved38Json).digest('hex');
   check(preserved38Blob === prior38RecordsGitBlob, 'BASELINE', 'Previously admitted 38 exact Skill records or relative order changed');
 
@@ -657,6 +660,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
   const expectedTalentRows=[
     ...expectedIds.map((skillId,i)=>[i<4?6:8,(i%4)+3,skillId]),
     ...hero15ExpectedIds.map((skillId,i)=>[15,i+3,skillId]),
+    ...lanceSkills.map((row,i)=>[16,i+2,row.skillId]),
   ];
   check(isDeepStrictEqual(talent.records.map(row=>[row.heroId,row.star,row.skillId]),expectedTalentRows),
     'TALENT_PARITY','All 12 prior Talent references must remain unchanged');
@@ -671,7 +675,7 @@ export async function validateSkillIdentities(root = process.cwd()) {
     readJson(root, hero15TypeEvidencePath), readJson(root, hero15TypeCanonicalPath),
   ]);
   validateHero15OrdinarySkillTypes(typeEvidence, types);
-  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=12; SoldierSkills=30; ID/Name/Desc only)`);
+  console.log(`Skill identity validation: PASS (records=${canonical.records.length}; priorPopulationPreserved=108; Hero15CentralDiscipline=1; Hero15Awakening=1; Hero15Fetter=54; Hero15HeartFetter=1; Hero15HeartFetterLv10=1; Hero15Talent=4; Hero15General=9; TalentReferences=17; SoldierSkills=30; ID/Name/Desc only)`);
   console.log('Hero 15 ordinary SkillCost validation: PASS (9 exact source-native rows)');
   console.log('Hero 15 ordinary CDText validation: PASS (9 exact source-native strings)');
   console.log('Hero 15 ordinary DistanceText validation: PASS (9 exact source-native strings)');

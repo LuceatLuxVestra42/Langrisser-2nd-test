@@ -17,7 +17,7 @@ import { projectApprovedFullDetailRecords } from './full-detail-public-populatio
 
 const TALENT_STARS = [3, 4, 5, 6];
 const TALENT_HERO_IDS = new Set([6, 8]);
-const TALENT_SEMANTIC_HERO_IDS = new Set([6, 8, 15]);
+const TALENT_SEMANTIC_HERO_IDS = new Set([6, 8, 15, 16]);
 const JOB_LEVEL_STATS_HERO_IDS = new Set([6, 8]);
 const JOB_LEVEL_RAW_STAT_FIELDS = ['HP_INI', 'HP_UP', 'AT_INI', 'AT_UP', 'Magic_INI', 'Magic_UP', 'DF_INI', 'DF_UP', 'MagicDF_INI', 'MagicDF_UP', 'DEX_INI'];
 const TRAINING_TECH_DESCRIPTION_SOURCE = {
@@ -339,8 +339,8 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
   const heroIds = new Set(publicCanonical.records.map(({ id }) => id));
   if (talentLocalizations.officialKrProvenanceStatus !== 'unverified') throw new Error('Hero Talent localization official Korean status must remain unverified');
   const talentRelationByKey = new Map();
-  // Hero 15 has semantic admission only; presentation remains restricted to Heroes 6 and 8.
-  if (talentRelations.records.some((row) => ![6, 8, 15].includes(row.heroId))) throw new Error('Unsupported Hero Talent semantic scope');
+  // Only Heroes 6 and 8 publish Talent through the Full Detail consumer.
+  if (talentRelations.records.some((row) => !TALENT_SEMANTIC_HERO_IDS.has(row.heroId))) throw new Error('Unsupported Hero Talent semantic scope');
   const presentationTalentRelations = { ...talentRelations, records: talentRelations.records.filter((row) => TALENT_HERO_IDS.has(row.heroId)) };
   for (const relation of presentationTalentRelations.records) {
     const key = `${relation.heroId}:${relation.star}`;
@@ -376,7 +376,7 @@ export function renderGenerated(canonical, heroIdentities, heroLocalization, job
       || description.localizationStatus !== 'CONFIRMED_EXISTING_KR_REUSE' || description.reviewRequired !== false || description.evidenceClass !== 'B') {
       throw new Error(`Hero Talent description is malformed, unreviewed, or out of scope (${key})`);
     }
-    // Hero 15 Localization is canonically admitted, but this Generator only publishes Talent text for Heroes 6 and 8.
+    // Minimal Detail Talent publications have dedicated outputs.
     if (!TALENT_HERO_IDS.has(description.heroId)) continue;
     if (talentDescriptionByKey.has(key)) throw new Error(`Duplicate Hero Talent description ${key}`);
     const relationKey = `${description.heroId}:${description.star}`;
@@ -1191,6 +1191,8 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
   await generateHero15FetterInternal();
   const { generate: generateHero15ProfileCvInternal } = await import('./hero-15-profile-cv-internal.mjs');
   await generateHero15ProfileCvInternal();
+  const { generateLanceTalent, lanceTalentPublic } = await import('./hero-16-talent-publication-contract.mjs');
+  await writeFile(resolve(lanceTalentPublic), JSON.stringify(await generateLanceTalent(), null, 2) + '\n', 'utf8');
   const skinOutputPath = resolve('generated/skin-consumer.v1.json');
   await writeFile(skinOutputPath, renderSkinConsumer(skinIdentities, skinHeroRelations, skinSourceOrders, heroIdentities), 'utf8');
   const { loadHero15SoldierInputs, renderHero15SoldierInternal, OUTPUT: HERO15_SOLDIER_INTERNAL_OUTPUT } = await import('./hero-15-soldier-internal-consumer.mjs');

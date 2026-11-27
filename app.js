@@ -604,6 +604,24 @@ function renderHero16MinimalDetailView(data, container) {
   }, null, null, [jobPath]);
 }
 
+async function loadHero16Talent(card) {
+  try {
+    const response = await fetch('./generated/hero-16-talent-public.v1.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    if (Object.keys(data).sort().join(',') !== 'heroId,officialKrProvenanceStatus,schemaVersion,surface,talent'
+      || data.schemaVersion !== 1 || data.heroId !== 16 || data.surface !== 'hero-minimal-detail-16'
+      || data.officialKrProvenanceStatus !== 'unverified' || data.talent?.nameKo !== '하늘의 사령관'
+      || Object.keys(data.talent).sort().join(',') !== 'nameKo,starDescriptions') return;
+    const rows = data.talent.starDescriptions;
+    if (!Array.isArray(rows) || JSON.stringify(rows.map(r => [r.star,r.skillId])) !== '[[2,3277],[3,3278],[4,3279],[5,3280],[6,3281]]'
+      || rows.some(r => Object.keys(r).sort().join(',') !== 'descriptionCn,descriptionKoRaw,nameCn,skillId,star')) return;
+    card.append(makeTalentPresentation(16, data.talent));
+  } catch {
+    // The base card and navigation are already available if this optional section fails.
+  }
+}
+
 function renderHeroSearch({ heroes, input, clearButton, factionFilter, productionFilter, count, emptyState }) {
   const factions = new Map();
   const productions = new Map();
@@ -801,7 +819,7 @@ function makeTalentDescription(raw, star) {
 
 function makeTalentPresentation(heroId, talent) {
   if (!Number.isSafeInteger(heroId) || !talent || typeof talent.nameKo !== 'string' || !talent.nameKo.trim()
-    || !Array.isArray(talent.starDescriptions) || JSON.stringify(talent.starDescriptions.map(({ star }) => star)) !== '[3,4,5,6]') {
+    || !Array.isArray(talent.starDescriptions) || JSON.stringify(talent.starDescriptions.map(({ star }) => star)) !== (heroId === 16 ? '[2,3,4,5,6]' : '[3,4,5,6]')) {
     throw new Error('Generated Hero Talent presentation is malformed');
   }
   const section = document.createElement('section');
@@ -844,7 +862,7 @@ function makeTalentPresentation(heroId, talent) {
   }
   sourceDetails.append(sourceSummary, sourceList);
   section.append(heading, name);
-  if (heroId === 15) {
+  if (heroId === 15 || heroId === 16) {
     const items = Array.from(list.children);
     const lower = document.createElement('button');
     const higher = document.createElement('button');
@@ -1254,6 +1272,7 @@ try {
   hero16MinimalDetailIds = new Set(data.heroes?.map(({ heroId }) => heroId) ?? []);
   if (hero16MinimalDetailIds.size !== 1 || !hero16MinimalDetailIds.has(16)) throw new Error('Hero Minimal Detail publication scope must contain only Hero 16');
   hero16MinimalDetailNavigation = renderHero16MinimalDetailView(data, hero16MinimalDetailContainer);
+  void loadHero16Talent(hero16MinimalDetailContainer.children[0]);
 } catch (error) {
   const status = document.createElement('p');
   status.className = 'status status-error';

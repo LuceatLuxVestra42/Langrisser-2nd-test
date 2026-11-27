@@ -11,7 +11,7 @@ await cp(source, repo, { recursive: true, filter: (path) => !path.split('/').inc
 const run = () => spawnSync(process.execPath, ['tools/validate-hero-talent-localizations-ko.mjs'], { cwd: repo, encoding: 'utf8' });
 const assertPass = (result, label) => {
   if (result.error || result.signal || result.status !== 0) throw new Error(`${label} failed: ${result.error?.message || result.signal || result.stderr}`);
-  assert.match(result.stdout, /Hero names=3, star descriptions=12/);
+  assert.match(result.stdout, /Hero names=4, star descriptions=16/);
 };
 const assertReject = (result, label, pattern) => {
   if (result.error || result.signal || result.status === 0) throw new Error(`${label} was unexpectedly accepted: ${result.error?.message || result.stdout}`);
@@ -31,7 +31,7 @@ async function mutateJson(path, mutate, label, pattern) {
 }
 
 try {
-  assertPass(run(), 'normal three-name/twelve-description fixture');
+  assertPass(run(), 'normal four-name/sixteen-description fixture');
   const c = 'canonical/hero-talent-localizations-ko.v1.json';
   const e = 'evidence/source/hero-talent-localizations-ko.v1.json';
   await mutateJson(c, (v) => { v.nameRecords[0].talentNameKo = '변조 이름'; }, 'mutated Korean Talent name', /\[CANONICAL\].*name/);
@@ -41,7 +41,7 @@ try {
   await mutateJson(c, (v) => { v.descriptionRecords[0].star = 2; }, 'invalid star', /\[SCOPE\]/);
   await mutateJson(c, (v) => { v.descriptionRecords[0].skillId = 9999; }, 'invalid Skill ID', /\[CANONICAL\].*parity/);
   await mutateJson(c, (v) => { v.descriptionRecords[1] = { ...v.descriptionRecords[0] }; }, 'duplicate localization key', /\[SCOPE\].*duplicate/);
-  await mutateJson(c, (v) => { v.descriptionRecords.pop(); }, 'missing localization key', /\[CANONICAL\].*eight/);
+  await mutateJson(c, (v) => { v.descriptionRecords.pop(); }, 'missing localization key', /\[CANONICAL\].*sixteen/);
   await mutateJson(c, (v) => { v.descriptionRecords[0].provenance = 'evidence/source/other.json'; }, 'invalid provenance locator', /\[CANONICAL\].*parity/);
   await mutateJson(e, (v) => { v.descriptions[0].reviewRequired = true; }, 'reviewRequired drift', /\[PROVENANCE\].*locator or status/);
   await mutateJson(c, (v) => { v.nameRecords[0].localizationStatus = 'OFFICIAL_KR'; }, 'project review promoted to official', /\[CANONICAL\].*name/);

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "scope": {
+    "heroId": 16,
+    "surface": "hero-minimal-detail-16",
+    "path": "generated/hero-16-talent-public.v1.json",
+    "nameKo": "하늘의 사령관",
+    "stars": [
+      [
+        2,
+        3277
+      ],
+      [
+        3,
+        3278
+      ],
+      [
+        4,
+        3279
+      ],
+      [
+        5,
+        3280
+      ],
+      [
+        6,
+        3281
+      ]
+    ],
+    "initialDisplayStar": 6,
+    "officialKrProvenanceStatus": "unverified",
+    "star2": {
+      "status": "PROJECT_DISPLAY_ONLY",
+      "skillId": 3277,
+      "descriptionKoRaw": "\"비병\" 및 \"기병\"과 전투 시 공격 방어 +10%.",
+      "sheet": "hero/data/란스.js#data[0].Talent[0].Abilities[1].Desc",
+      "sheetCommit": "a85bba49dcf073563e7366dc18e96b7ba67c2ae3",
+      "sheetBlob": "0be2f806f90c21507a814dc64057921c51b1bd2e"
+    },
+    "publicFields": {
+      "root": [
+        "schemaVersion",
+        "surface",
+        "heroId",
+        "officialKrProvenanceStatus",
+        "talent"
+      ],
+      "talent": [
+        "nameKo",
+        "starDescriptions"
+      ],
+      "star": [
+        "star",
+        "skillId",
+        "descriptionKoRaw",
+        "nameCn",
+        "descriptionCn"
+      ]
+    }
+  }
+}

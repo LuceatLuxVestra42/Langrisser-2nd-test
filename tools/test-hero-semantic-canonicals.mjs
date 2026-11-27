@@ -89,8 +89,8 @@ async function mutateAndExpectFailure(path, change, label, expectedDiagnostic, s
 
 try {
   const baseline = run();
-  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 213 relations; 181 selected-slice parity pairs/);
-  if (!baseline.stdout.includes('267 playable identities; 213 relations; 181 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities, 213 evidence-backed relations, and 181 Full Detail parity pairs');
+  expectSuccess(baseline, 'Hero semantic canonical baseline', /267 playable identities; 217 relations; 181 selected-slice parity pairs/);
+  if (!baseline.stdout.includes('267 playable identities; 217 relations; 181 selected-slice parity pairs')) throw new Error('baseline must retain 267 identities, 217 evidence-backed relations, and 181 Full Detail parity pairs');
   await mutateAndExpectFailure('evidence/source/jobs/hero16-job-advancement-direct.v1.json',
     doc => { doc.connections[1].PreJobConnectionList = [161]; }, 'Hero 16 prerequisite source mismatch',
     /Hero 16 Job source fields or locators mismatch/);
@@ -211,7 +211,7 @@ try {
   assertExecution(factionRelationTests, 'Hero–Faction relation regression tests');
   if (factionRelationTests.status !== 0) throw new Error(`Hero–Faction relation regression tests failed:\n${factionRelationTests.stdout ?? ''}\n${factionRelationTests.stderr ?? ''}`);
 
-  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, 31 Hero Rarity claims, 213 Hero→Job relations including the selected Hero 16 pair, 181-pair Full Detail parity, inherited evidence negatives, status-only Jobs, localization independence)\n');
+  process.stdout.write('Hero semantic canonical tests: PASS (playable identity source/canonical negatives, 31 Hero Rarity claims, 217 Hero→Job relations including the selected Hero 16 pair, 181-pair Full Detail parity, inherited evidence negatives, status-only Jobs, localization independence)\n');
 } finally {
   await rm(temp, { recursive: true, force: true });
 }

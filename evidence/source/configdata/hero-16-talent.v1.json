@@ -1,0 +1,171 @@
+{
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "files": {
+    "Hero": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "JobConnection": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "gitBlobSha1": "cdad8d6fda6edd30c92fbcda53e0f63af1903139"
+    },
+    "Skill": {
+      "path": "data/configdata/ConfigDataSkillInfo.json",
+      "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19"
+    },
+    "Job": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "gitBlobSha1": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133"
+    }
+  },
+  "hero": {
+    "recordIndex": 15,
+    "ID": 16,
+    "Star": 2,
+    "JobConnection_ID": 160,
+    "UseableJobConnections_ID": [
+      161,
+      162,
+      163,
+      164,
+      165
+    ]
+  },
+  "connections": [
+    {
+      "recordIndex": 104,
+      "ID": 160,
+      "Job_ID": 401,
+      "TalentSkill_IDs": [
+        3277,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281
+      ]
+    },
+    {
+      "recordIndex": 105,
+      "ID": 161,
+      "Job_ID": 403,
+      "TalentSkill_IDs": [
+        3277,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281
+      ]
+    },
+    {
+      "recordIndex": 106,
+      "ID": 162,
+      "Job_ID": 302,
+      "TalentSkill_IDs": [
+        3277,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281
+      ]
+    },
+    {
+      "recordIndex": 107,
+      "ID": 163,
+      "Job_ID": 202,
+      "TalentSkill_IDs": [
+        3277,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281
+      ]
+    },
+    {
+      "recordIndex": 108,
+      "ID": 164,
+      "Job_ID": 405,
+      "TalentSkill_IDs": [
+        3277,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281
+      ]
+    },
+    {
+      "recordIndex": 109,
+      "ID": 165,
+      "Job_ID": 306,
+      "TalentSkill_IDs": [
+        3277,
+        3277,
+        3278,
+        3279,
+        3280,
+        3281
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "recordIndex": 46,
+      "ID": 202,
+      "Name": "剑士"
+    },
+    {
+      "recordIndex": 195,
+      "ID": 306,
+      "Name": "皇家骑士"
+    },
+    {
+      "recordIndex": 254,
+      "ID": 403,
+      "Name": "龙骑士"
+    },
+    {
+      "recordIndex": 256,
+      "ID": 405,
+      "Name": "龙骑统帅"
+    }
+  ],
+  "skills": [
+    {
+      "recordIndex": 335,
+      "ID": 3277,
+      "Name": "空骑统帅",
+      "Desc": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>10%</color>。"
+    },
+    {
+      "recordIndex": 336,
+      "ID": 3278,
+      "Name": "空骑统帅",
+      "Desc": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>15%</color>。"
+    },
+    {
+      "recordIndex": 337,
+      "ID": 3279,
+      "Name": "空骑统帅",
+      "Desc": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>20%</color>。"
+    },
+    {
+      "recordIndex": 338,
+      "ID": 3280,
+      "Name": "空骑统帅",
+      "Desc": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>25%</color>。"
+    },
+    {
+      "recordIndex": 339,
+      "ID": 3281,
+      "Name": "空骑统帅",
+      "Desc": "对战“飞兵”与“骑兵”部队时，攻击和防御提升<color=#DC143C>30%</color>。"
+    }
+  ],
+  "selectionRule": "data/hero-basic-combat-stage4-5.v1.json#semanticGates[talentStarProgression]",
+  "selectionRuleCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff"
+}
