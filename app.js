@@ -366,12 +366,20 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   if (JSON.stringify(awakeningMaterials) !== JSON.stringify(expectedAwakeningMaterials)) {
     throw new Error('Hero 15 Awakening material consumer is malformed');
   }
-  const awakeningSection = renderMinimalDetailList('각성 재료', awakeningMaterials.stages.flatMap(
-    ({ stageLabelKo, materials }) => materials.map(({ nameKo, count }) => `${stageLabelKo} · ${nameKo} × ${count}`),
-  ));
+  const awakeningSection = document.createElement('details');
+  const awakeningSummary = document.createElement('summary');
+  awakeningSummary.textContent = '각성 재료';
+  const materialList = document.createElement('ul');
+  for (const { stageLabelKo, materials } of awakeningMaterials.stages) {
+    for (const { nameKo, count } of materials) {
+      const row = document.createElement('li');
+      row.textContent = `${stageLabelKo} · ${nameKo} × ${count}`;
+      materialList.append(row);
+    }
+  }
   const notice = document.createElement('p');
   notice.textContent = awakeningMaterials.noticeKo;
-  awakeningSection.append(notice);
+  awakeningSection.append(awakeningSummary, materialList, notice);
   if (bond2DescriptionKo !== '리아나를 출전시켜 시공의 균열 3-6 클리어') {
     throw new Error('Hero 15 Bond 2 description consumer is malformed');
   }
