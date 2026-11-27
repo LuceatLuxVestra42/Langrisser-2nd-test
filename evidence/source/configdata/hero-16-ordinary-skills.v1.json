@@ -13,6 +13,10 @@
     "Skill": {
       "path": "data/configdata/ConfigDataSkillInfo.json",
       "blob": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19"
+    },
+    "Hero": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "blob": "728daab3370f0c7779449663ea02e638677944d4"
     }
   },
   "connections": [
@@ -27,6 +31,18 @@
       "ID": 162,
       "Job_ID": 302,
       "JobLevels_ID/1": 1622
+    },
+    {
+      "index": 107,
+      "ID": 163,
+      "Job_ID": 202,
+      "JobLevels_ID/1": 1632
+    },
+    {
+      "index": 109,
+      "ID": 165,
+      "Job_ID": 306,
+      "JobLevels_ID/2": 1653
     }
   ],
   "levels": [
@@ -39,6 +55,16 @@
       "index": 609,
       "ID": 1622,
       "GotSkill_ID": 10311
+    },
+    {
+      "index": 614,
+      "ID": 1632,
+      "GotSkill_ID": 5025
+    },
+    {
+      "index": 625,
+      "ID": 1653,
+      "GotSkill_ID": 10303
     }
   ],
   "skills": [
@@ -63,6 +89,46 @@
       "CDText": "2回合",
       "DistanceText": "1格",
       "RangeText": "单体"
+    },
+    {
+      "index": 1864,
+      "ID": 10403,
+      "Name": "风语",
+      "Desc": "[物理伤害]对自身周围<color=#DC143C>1</color>圈的所有敌军造成<color=#DC143C>0.3</color>倍的范围伤害，并对每个目标施加随机的弱化效果。",
+      "TypeText": "物理伤害",
+      "SkillCost": 2,
+      "CDText": "2回合",
+      "DistanceText": "自身",
+      "RangeText": "1圈"
+    },
+    {
+      "index": 1788,
+      "ID": 5025,
+      "Name": "急救",
+      "Desc": "[治疗]主动使用，恢复自身部队<color=#DC143C>100%</color>的生命。",
+      "TypeText": "治疗",
+      "SkillCost": 1,
+      "CDText": "3回合",
+      "DistanceText": "自身",
+      "RangeText": "单体"
+    },
+    {
+      "index": 1844,
+      "ID": 10303,
+      "Name": "冲锋",
+      "Desc": "[被动]在攻击前，每移动<color=#DC143C>1</color>格，攻击提升<color=#DC143C>5%</color>。（最多提升<color=#DC143C>15%</color>）",
+      "TypeText": "被动",
+      "SkillCost": 1,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-"
     }
-  ]
+  ],
+  "hero": {
+    "index": 15,
+    "ID": 16,
+    "Skills_ID/0": 10403,
+    "UseableJobConnections_ID/2": 163,
+    "UseableJobConnections_ID/4": 165
+  }
 }

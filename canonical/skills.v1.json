@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 2 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
+  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 5 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 1 explicit Hero 15 Central Discipline SkillInfo identity; ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
   "records": [
     {
       "skillId": 3067,
@@ -1161,6 +1161,36 @@
         "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1/ID",
         "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1/Name",
         "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/1/Desc"
+      }
+    },
+    {
+      "skillId": 10403,
+      "nameCn": "风语",
+      "descriptionCn": "[物理伤害]对自身周围<color=#DC143C>1</color>圈的所有敌军造成<color=#DC143C>0.3</color>倍的范围伤害，并对每个目标施加随机的弱化效果。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/2/ID",
+        "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/2/Name",
+        "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/2/Desc"
+      }
+    },
+    {
+      "skillId": 5025,
+      "nameCn": "急救",
+      "descriptionCn": "[治疗]主动使用，恢复自身部队<color=#DC143C>100%</color>的生命。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/3/ID",
+        "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/3/Name",
+        "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/3/Desc"
+      }
+    },
+    {
+      "skillId": 10303,
+      "nameCn": "冲锋",
+      "descriptionCn": "[被动]在攻击前，每移动<color=#DC143C>1</color>格，攻击提升<color=#DC143C>5%</color>。（最多提升<color=#DC143C>15%</color>）",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/4/ID",
+        "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/4/Name",
+        "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/4/Desc"
       }
     }
   ]

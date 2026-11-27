@@ -1,4 +1,4 @@
-import { generateOrdinarySkills, ordinaryPublic, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { validateFromRoot as validateHero15SoldierInternal } from './validate-hero-15-soldier-internal.mjs';
 import { validateFromRoot as validateHero15AwakeningInternal } from './validate-hero-15-awakening-internal.mjs';
@@ -664,7 +664,9 @@ check(talentRelations.records.every((row) => [6,8,15,16].includes(row.heroId)), 
 const expectedGenerated = renderGenerated(canonical, heroIdentities, heroLocalization, jobLocalization, exclusiveRelations, exclusiveLocalizations, heroRarities, factionIdentities, heroFactionRelations, productionIdentities, heroProductionRelations, talentRelations, talentLocalizations, factionLocalizations, productionLocalizations, relationOwner, spJobIdentities, skills, heroJobLevelRawStats, fullDetailPublicationDecision);
 const generated = await readFile(resolve(root, 'generated/hero-slice.v1.json'), 'utf8');
 check(generated === expectedGenerated, 'generated consumer is stale or non-deterministic relative to canonical input');
-validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublic), 'utf8'), await generateOrdinarySkills(root));
+const ordinarySkills = await generateOrdinarySkills(root);
+validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublic), 'utf8'), ordinarySkills.v1);
+validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublicV2), 'utf8'), ordinarySkills.v2);
 const hero15TalentGenerated = await readFile(resolve(root, HERO_15_TALENT_PUBLIC_PATH), 'utf8');
 validateHero15TalentPublic({ generatedText: hero15TalentGenerated, inputs: { decision: hero15TalentDecision, talentRelations, skills, localizations: talentLocalizations } });
 const generatedJson = JSON.parse(generated);
