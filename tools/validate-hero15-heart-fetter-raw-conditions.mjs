@@ -1,3 +1,4 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -59,7 +60,7 @@ export function validateHero15HeartFetterRawConditionsData({ evidence, canonical
   return {records:4, rawConditions:5, conditionType7Meaning:'MANUAL_REVIEW', publication:false};
 }
 export async function validateHero15HeartFetterRawConditions(root=process.cwd()) {
-  const read = async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
+  const read = async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
   const [evidence,canonical,references]=await Promise.all([read(EVIDENCE_PATH),read(CANONICAL_PATH),read('canonical/hero-fetter-references.v1.json')]);
   const result=validateHero15HeartFetterRawConditionsData({evidence,canonical,references});
   process.stdout.write('Hero 15 Heart Fetter raw conditions: PASS (4 claims; runtime meaning remains MANUAL_REVIEW; no publication)\n');

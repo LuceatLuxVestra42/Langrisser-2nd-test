@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -12,6 +13,7 @@ const MAP={
 const check=(v,m)=>{if(!v)throw new Error(m);};
 const exact=(a,b,m)=>assert.deepEqual(a,b,m);
 export function validateHero15FetterConditionTypeReferencesData({evidence,canonical,fetterDetails,heartDetails,references,heartConditions}){
+  checkLianaRegularFetters(fetterDetails, 'condition');
  check(evidence.schemaVersion===1&&evidence.claimType==='hero15-fetter-condition-type-enum-references','Condition type evidence contract mismatch');
  check(evidence.source.repository==='LuceatLuxVestra42/langrisser-future-guide'&&evidence.source.commit==='6475e63ee23d18adf733756c26a14fa9e3ed662c'&&evidence.source.tree==='08e1e6c2773730e60b258940e31494f68d65f86a'&&evidence.source.blobSha1===DUMP_BLOB,'Frozen enum metadata pin mismatch');
  check(evidence.source.sha256==='15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31','Frozen enum metadata hash mismatch');
@@ -36,7 +38,7 @@ export function validateHero15FetterConditionTypeReferencesData({evidence,canoni
  return {typeReferences:11,regularFetter:9,heartFetter:2,runtimePredicate:'NOT_ADMITTED',parameterSemantics:'NOT_ADMITTED',publication:false};
 }
 export async function validateHero15FetterConditionTypeReferences(root=process.cwd()){
- const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
+ const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
  const [evidence,canonical,fetterDetails,heartDetails,references,heartConditions]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
  const result=validateHero15FetterConditionTypeReferencesData({evidence,canonical,fetterDetails,heartDetails,references,heartConditions});
  process.stdout.write('Hero 15 Fetter condition type enum references: PASS (11 type references; runtime predicates remain unadmitted)\n');return result;

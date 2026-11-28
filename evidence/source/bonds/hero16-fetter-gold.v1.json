@@ -1,0 +1,539 @@
+{
+  "schemaVersion": 1,
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "sources": {
+    "HeroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4"
+    },
+    "HeroInformationInfo": {
+      "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+      "gitBlobSha1": "49aef6be8ea1a65d5725c16a05dab94fffa73f92"
+    },
+    "HeroFetterInfo": {
+      "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+      "gitBlobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06"
+    },
+    "HeroHeartFetterInfo": {
+      "path": "data/configdata/ConfigDataHeroHeartFetterInfo.json",
+      "gitBlobSha1": "be61dd6fb14662d70335e833c4c857dda5105f74"
+    }
+  },
+  "hero": {
+    "locator": "#/15",
+    "fields": {
+      "ID": 16,
+      "HeroInformation_ID": 16
+    }
+  },
+  "information": {
+    "locator": "#/15",
+    "fields": {
+      "ID": 16,
+      "HeroFetters_ID": [
+        71,
+        72,
+        73,
+        74,
+        75
+      ],
+      "HeroHeartFetterId": 16
+    }
+  },
+  "endpoints": [
+    {
+      "kind": "FETTER",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "ID": 71,
+      "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/70",
+      "LevelUpGold": [
+        1500,
+        2300,
+        3500,
+        5300,
+        8000,
+        12000,
+        18000,
+        27000,
+        41000
+      ],
+      "levels": [
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 2,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/0",
+          "gold": 1500
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 3,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/1",
+          "gold": 2300
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 4,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/2",
+          "gold": 3500
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 5,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/3",
+          "gold": 5300
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 6,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/4",
+          "gold": 8000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 7,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/5",
+          "gold": 12000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 8,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/6",
+          "gold": 18000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 9,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/7",
+          "gold": 27000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 10,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/8",
+          "gold": 41000
+        }
+      ]
+    },
+    {
+      "kind": "FETTER",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "ID": 72,
+      "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/71",
+      "LevelUpGold": [
+        5000,
+        7500,
+        11000,
+        17000,
+        26000,
+        39000,
+        59000,
+        89000,
+        130000
+      ],
+      "levels": [
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 2,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/0",
+          "gold": 5000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 3,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/1",
+          "gold": 7500
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 4,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/2",
+          "gold": 11000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 5,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/3",
+          "gold": 17000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 6,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/4",
+          "gold": 26000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 7,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/5",
+          "gold": 39000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 8,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/6",
+          "gold": 59000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 9,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/7",
+          "gold": 89000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 10,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/8",
+          "gold": 130000
+        }
+      ]
+    },
+    {
+      "kind": "FETTER",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "ID": 73,
+      "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/72",
+      "LevelUpGold": [
+        9000,
+        14000,
+        21000,
+        32000,
+        48000,
+        72000,
+        110000,
+        170000,
+        260000
+      ],
+      "levels": [
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 2,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/0",
+          "gold": 9000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 3,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/1",
+          "gold": 14000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 4,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/2",
+          "gold": 21000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 5,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/3",
+          "gold": 32000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 6,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/4",
+          "gold": 48000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 7,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/5",
+          "gold": 72000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 8,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/6",
+          "gold": 110000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 9,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/7",
+          "gold": 170000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 10,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/8",
+          "gold": 260000
+        }
+      ]
+    },
+    {
+      "kind": "FETTER",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "ID": 74,
+      "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/73",
+      "LevelUpGold": [
+        15000,
+        23000,
+        35000,
+        53000,
+        80000,
+        120000,
+        180000,
+        270000,
+        410000
+      ],
+      "levels": [
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 2,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/0",
+          "gold": 15000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 3,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/1",
+          "gold": 23000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 4,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/2",
+          "gold": 35000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 5,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/3",
+          "gold": 53000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 6,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/4",
+          "gold": 80000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 7,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/5",
+          "gold": 120000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 8,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/6",
+          "gold": 180000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 9,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/7",
+          "gold": 270000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 10,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/73/LevelUpGold/8",
+          "gold": 410000
+        }
+      ]
+    },
+    {
+      "kind": "FETTER",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "ID": 75,
+      "recordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/74",
+      "LevelUpGold": [
+        20000,
+        30000,
+        45000,
+        68000,
+        100000,
+        150000,
+        230000,
+        350000,
+        530000
+      ],
+      "levels": [
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 2,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/0",
+          "gold": 20000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 3,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/1",
+          "gold": 30000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 4,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/2",
+          "gold": 45000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 5,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/3",
+          "gold": 68000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 6,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/4",
+          "gold": 100000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 7,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/5",
+          "gold": 150000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 8,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/6",
+          "gold": 230000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 9,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/7",
+          "gold": 350000
+        },
+        {
+          "kind": "FETTER",
+          "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+          "level": 10,
+          "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/74/LevelUpGold/8",
+          "gold": 530000
+        }
+      ]
+    },
+    {
+      "kind": "HEART_FETTER",
+      "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "ID": 16,
+      "recordLocator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14",
+      "LevelUpGold": [
+        10000,
+        15000,
+        23000,
+        35000,
+        53000,
+        74000,
+        100000,
+        140000,
+        200000
+      ],
+      "levels": [
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 2,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/0",
+          "gold": 10000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 3,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/1",
+          "gold": 15000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 4,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/2",
+          "gold": 23000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 5,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/3",
+          "gold": 35000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 6,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/4",
+          "gold": 53000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 7,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/5",
+          "gold": 74000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 8,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/6",
+          "gold": 100000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 9,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/7",
+          "gold": 140000
+        },
+        {
+          "kind": "HEART_FETTER",
+          "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+          "level": 10,
+          "locator": "data/configdata/ConfigDataHeroHeartFetterInfo.json#/14/LevelUpGold/8",
+          "gold": 200000
+        }
+      ]
+    }
+  ],
+  "limitation": "Source gold arrays only. No material, unlock, reward or combat semantics."
+}

@@ -1,3 +1,4 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -6,7 +7,7 @@ export const HERO15_FETTER_CANONICAL_PATH = 'canonical/hero-fetter-references.v1
 
 const check = (ok, message) => { if (!ok) throw new Error(message); };
 const exactKeys = (obj, keys, label) => check(JSON.stringify(Object.keys(obj).sort()) === JSON.stringify([...keys].sort()), `${label} fields drift`);
-const parse = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
+const parse = async (root, path) => lianaFetterInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
 
 export function validateHero15FetterReferencesData({ evidence, canonical, heroIdentities }) {
   exactKeys(evidence, ['schemaVersion', 'claimType', 'evidenceClass', 'scope', 'source', 'extraction', 'claims', 'nonClaims'], 'evidence');
@@ -85,6 +86,7 @@ export async function validateHero15FetterReferences(root = process.cwd()) {
     parse(root, HERO15_FETTER_CANONICAL_PATH),
     parse(root, 'canonical/hero-identities.v1.json')
   ]);
+  check(heroIdentities.records.filter(row => row.heroId === 16).length === 1, 'Hero 16 identity endpoint missing or duplicated');
   const result = validateHero15FetterReferencesData({ evidence, canonical, heroIdentities });
   process.stdout.write(`Hero 15 source-native Fetter references: PASS (references=${result.references}; no conditions, rewards, stats, effects, or publication admitted)\n`);
   return result;

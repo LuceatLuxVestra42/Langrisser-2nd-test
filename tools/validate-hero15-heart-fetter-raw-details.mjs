@@ -1,3 +1,4 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -21,5 +22,5 @@ export function validateHero15HeartFetterRawDetailsData({evidence,canonical,refe
  check(evidence.limitations.some(x=>x.includes('MANUAL_REVIEW'))&&evidence.limitations.some(x=>x.includes('No ConditionType=7')),'Heart Fetter runtime boundary missing');
  return {endpoints:1,fields:FIELDS.length,existingRawConditionRows:4,conditionType7Meaning:'MANUAL_REVIEW',publication:false};
 }
-export async function validateHero15HeartFetterRawDetails(root=process.cwd()){const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));const [evidence,canonical,references,conditions]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);const out=validateHero15HeartFetterRawDetailsData({evidence,canonical,references,conditions});process.stdout.write('Hero 15 Heart Fetter raw details: PASS (ID 15; six non-duplicate raw fields; Type 7 remains MANUAL_REVIEW)\n');return out;}
+export async function validateHero15HeartFetterRawDetails(root=process.cwd()){const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));const [evidence,canonical,references,conditions]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);const out=validateHero15HeartFetterRawDetailsData({evidence,canonical,references,conditions});process.stdout.write('Hero 15 Heart Fetter raw details: PASS (ID 15; six non-duplicate raw fields; Type 7 remains MANUAL_REVIEW)\n');return out;}
 if(process.argv[1]&&import.meta.url===new URL(`file://${process.argv[1]}`).href)await validateHero15HeartFetterRawDetails();

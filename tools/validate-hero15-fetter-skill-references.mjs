@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
@@ -14,6 +15,7 @@ const assertThat = (v, m) => { if (!v) throw new Error(m); };
 const same = (a, b, m) => assert.deepEqual(a, b, m);
 
 export function validateHero15FetterSkillReferencesData({ evidence, canonical, fetterDetails, heartDetails }) {
+  checkLianaRegularFetters(fetterDetails, 'skill');
   assertThat(evidence.schemaVersion === 1 && evidence.claimType === 'hero15-fetter-skill-level-locators', 'Evidence contract mismatch');
   assertThat(evidence.source.repository === 'LuceatLuxVestra42/langrisser-future-guide', 'Source repository mismatch');
   assertThat(evidence.source.configDataCommit === '6475e63ee23d18adf733756c26a14fa9e3ed662c' && evidence.source.configDataTree === '08e1e6c2773730e60b258940e31494f68d65f86a', 'Frozen ConfigData snapshot mismatch');
@@ -55,7 +57,7 @@ export function validateHero15FetterSkillReferencesData({ evidence, canonical, f
 }
 
 export async function validateHero15FetterSkillReferences(root=process.cwd()) {
-  const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
+  const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
   const [evidence,canonical,fetterDetails,heartDetails]=await Promise.all([read(EVIDENCE),read(CANONICAL),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json')]);
   const result=validateHero15FetterSkillReferencesData({evidence,canonical,fetterDetails,heartDetails});
   process.stdout.write('Hero 15 Fetter SkillInfo level locators: PASS (54 locators, exact endpoints, no acquisition semantics)\n');

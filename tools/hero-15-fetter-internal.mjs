@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -27,7 +28,7 @@ const LIMITATIONS = [
 
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 export async function loadInputs(root = process.cwd()) {
-  const entries = await Promise.all(Object.entries(PATHS).map(async ([key, path]) => [key, await readJson(root, path)]));
+  const entries = await Promise.all(Object.entries(PATHS).map(async ([key, path]) => [key, lianaFetterInput(path, await readJson(root, path))]));
   return Object.fromEntries(entries);
 }
 const clone = (value) => structuredClone(value);
@@ -39,6 +40,7 @@ const counts = (rows, field) => Object.fromEntries([...new Set(rows.map((row) =>
 
 function validateInputs(input) {
   const { references, fetterDetails, heartDetails, skillReferences, skills, materials, rewards, conditions, heartConditions } = input;
+  checkLianaRegularFetters(fetterDetails, 'internal');
   for (const [key, value] of Object.entries(input)) {
     assert.equal(value.schemaVersion, 1, `${key} Canonical schema version drift`);
   }

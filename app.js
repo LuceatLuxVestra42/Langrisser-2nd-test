@@ -616,13 +616,29 @@ function renderHero16MinimalDetailView(data, container) {
     paragraph.textContent = line;
     discipline.append(paragraph);
   }
+  const bonds = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = '유대 강화 골드';
+  bonds.append(summary);
+  for (const line of [
+    '유대 1 · Lv.2~10 합계 골드 118,600',
+    '유대 2 · Lv.2~10 합계 골드 383,500',
+    '유대 3 · Lv.2~10 합계 골드 736,000',
+    '유대 4 · Lv.2~10 합계 골드 1,186,000',
+    '유대 5 · Lv.2~10 합계 골드 1,523,000',
+    '마음의 유대 · Lv.2~10 합계 골드 650,000',
+  ]) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = line;
+    bonds.append(paragraph);
+  }
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline]);
+  }, null, null, [jobPath, discipline, bonds]);
 }
 
 async function loadHero16Talent(card) {

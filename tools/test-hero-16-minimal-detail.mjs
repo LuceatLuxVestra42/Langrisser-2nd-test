@@ -63,9 +63,20 @@ for (const [appPath, lines] of [
   const container = element('div');
   const navigation = render(JSON.parse(generatedText), container);
   const [card] = container.children;
-  const profile = appPath === 'app.js' ? card.children.slice(0, -1) : card.children;
+  const profile = appPath === 'app.js' ? card.children.slice(0, -2) : card.children;
   if (appPath === 'app.js') {
-    assert.deepEqual(card.children.at(-1).children.map(node => node.textContent), [
+    const bonds = card.children.at(-1);
+    assert.equal(bonds.tag, 'details');
+    assert.deepEqual(bonds.children.map(node => node.textContent), [
+      '유대 강화 골드',
+      '유대 1 · Lv.2~10 합계 골드 118,600',
+      '유대 2 · Lv.2~10 합계 골드 383,500',
+      '유대 3 · Lv.2~10 합계 골드 736,000',
+      '유대 4 · Lv.2~10 합계 골드 1,186,000',
+      '유대 5 · Lv.2~10 합계 골드 1,523,000',
+      '마음의 유대 · Lv.2~10 합계 골드 650,000',
+    ]);
+    assert.deepEqual(card.children.at(-2).children.map(node => node.textContent), [
       '중앙율정',
       '상성 우세인 부대와 전투 시 모든 스탯 +15%',
       '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복',

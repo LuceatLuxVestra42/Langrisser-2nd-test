@@ -1,3 +1,4 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -26,5 +27,5 @@ export function validateHero15FetterRawDetailsData({evidence,canonical,reference
  check(evidence.limitations.some(x=>x.includes('no completion'))&&evidence.limitations.some(x=>x.includes('No Fetter UI')),'Fetter semantic/publication boundary missing');
  return {endpoints:5,fieldsPerEndpoint:6,sourcePin:SOURCE,gameplayRules:'NOT_ADMITTED',publication:false};
 }
-export async function validateHero15FetterRawDetails(root=process.cwd()){const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));const [evidence,canonical,references]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-references.v1.json')]);const out=validateHero15FetterRawDetailsData({evidence,canonical,references});process.stdout.write('Hero 15 Fetter raw details: PASS (5 endpoints; six raw fields each; no gameplay rules/publication)\n');return out;}
+export async function validateHero15FetterRawDetails(root=process.cwd()){const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));const [evidence,canonical,references]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-references.v1.json')]);const out=validateHero15FetterRawDetailsData({evidence,canonical,references});process.stdout.write('Hero 15 Fetter raw details: PASS (5 endpoints; six raw fields each; no gameplay rules/publication)\n');return out;}
 if(process.argv[1]&&import.meta.url===new URL(`file://${process.argv[1]}`).href)await validateHero15FetterRawDetails();

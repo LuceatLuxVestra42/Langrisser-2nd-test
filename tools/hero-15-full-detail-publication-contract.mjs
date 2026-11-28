@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import { lianaCastingInput } from './liana-casting-input.mjs';
 import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { readFile } from 'node:fs/promises';
@@ -180,6 +181,7 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
     if (!equal(claimIds(equipmentGroup, artifact), [535])) fail('Equipment 535 Claim locator/ID drift');
   }
 
+  checkLianaRegularFetters(canonical.fetterRawDetails, 'Full Detail');
   const fetter = canonical.fetterReferences.records.filter((row) => row.heroId === 15);
   if (!equal(fetter.map((row) => row.fetterId ?? `heart:${row.heartFetterId}`), [66,67,68,69,70,'heart:15'])) fail('Fetter and Heart Fetter reference parity failed');
   const fetterGroup = decision.fieldGroups.find((group) => group.id === 'fetterBond');
@@ -298,7 +300,7 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
 }
 
 export async function loadHero15FullDetailPublicationInputs(root = process.cwd()) {
-  const readJson = async (path) => lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8')));
+  const readJson = async (path) => lianaFetterInput(path, lianaCastingInput(path, JSON.parse(await readFile(resolve(root, path), 'utf8'))));
   const paths = {
     decision: HERO_15_FULL_DETAIL_PUBLICATION_PATH,
     migrationDecision: HERO_15_FULL_DETAIL_POPULATION_MIGRATION_PATH,

@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -12,6 +13,7 @@ const check=(x,m)=>{if(!x)throw new Error(m)},exact=(a,b,m)=>check(JSON.stringif
 const matKey=x=>`${x.endpointKind}:${x.endpointId}:${x.sourceArrayIndex}`;
 const goldKey=x=>`${x.endpointKind}:${x.endpointId}:${x.targetLevel}`;
 export function validateHero15FetterMaterialRelationsData({evidence,canonical,fetterDetails,heartDetails,references,conditions}){
+  checkLianaRegularFetters(fetterDetails, 'material');
  check(evidence.schemaVersion===1&&evidence.claimType==='hero15-fetter-material-and-gold-locators'&&evidence.evidenceClass==='A','Material evidence contract drift');
  check(evidence.source.repository==='LuceatLuxVestra42/langrisser-future-guide'&&evidence.source.commit==='6475e63ee23d18adf733756c26a14fa9e3ed662c'&&evidence.source.gitTree==='08e1e6c2773730e60b258940e31494f68d65f86a','Source snapshot drift');
  check(evidence.source.itemInfo.path==='data/configdata/ConfigDataItemInfo.json'&&evidence.source.itemInfo.blobSha1===SOURCE&&evidence.source.itemInfo.sha256===SOURCE_HASH&&evidence.source.itemInfo.recordCount===2250,'ItemInfo source pin drift');
@@ -37,5 +39,5 @@ export function validateHero15FetterMaterialRelationsData({evidence,canonical,fe
  check(evidence.limitations.some(x=>x.includes('actual item consumption'))&&evidence.limitations.some(x=>x.includes('No Fetter UI')),'Material semantic/publication boundary missing');
  return {materialRows:104,itemEndpoints:18,goldLocators:54,legacyPolicy:'REUSED_PINNED',itemConsumption:'NOT_ADMITTED',goldDeduction:'NOT_ADMITTED',publication:false};
 }
-export async function validateHero15FetterMaterialRelations(root=process.cwd()){const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));const [e,c,f,h,r,k]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);const out=validateHero15FetterMaterialRelationsData({evidence:e,canonical:c,fetterDetails:f,heartDetails:h,references:r,conditions:k});process.stdout.write('Hero 15 Fetter material endpoints and gold locators: PASS (104 rows; 18 ItemInfo endpoints; 54 LevelUpGold locators; no runtime cost/publication claims)\n');return out;}
+export async function validateHero15FetterMaterialRelations(root=process.cwd()){const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));const [e,c,f,h,r,k]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);const out=validateHero15FetterMaterialRelationsData({evidence:e,canonical:c,fetterDetails:f,heartDetails:h,references:r,conditions:k});process.stdout.write('Hero 15 Fetter material endpoints and gold locators: PASS (104 rows; 18 ItemInfo endpoints; 54 LevelUpGold locators; no runtime cost/publication claims)\n');return out;}
 if(process.argv[1]&&import.meta.url===new URL(`file://${process.argv[1]}`).href)await validateHero15FetterMaterialRelations();

@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -6,6 +7,7 @@ const E='evidence/source/bonds/hero15-fetter-reward-type-references.v1.json';
 const C='canonical/hero-fetter-reward-type-references.v1.json';
 const check=(v,m)=>{if(!v)throw new Error(m);};
 export function validateHero15FetterRewardTypeReferencesData({evidence,canonical,fetterDetails,references,heartConditions}){
+  checkLianaRegularFetters(fetterDetails, 'reward');
  check(evidence.schemaVersion===1&&evidence.claimType==='hero15-fetter-reward-goods-type-enum-references','Reward type evidence contract mismatch');
  check(evidence.source.repository==='LuceatLuxVestra42/langrisser-future-guide'&&evidence.source.commit==='6475e63ee23d18adf733756c26a14fa9e3ed662c'&&evidence.source.tree==='08e1e6c2773730e60b258940e31494f68d65f86a','Frozen Reward source snapshot mismatch');
  check(evidence.source.dump.blobSha1==='201bc8004792d13c52a26afc79f73e5ed8d1c2ac'&&evidence.source.dump.sha256==='15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31','GoodsType metadata pin mismatch');
@@ -22,7 +24,7 @@ export function validateHero15FetterRewardTypeReferencesData({evidence,canonical
  return {rewardTypeReferences:5,enumNamespace:'BlackJack.ConfigData.GoodsType',goodsTypeCode:2,enumMember:'GoodsType_Crystal',rewardIdentity:'NOT_ADMITTED',payoutSemantics:'NOT_ADMITTED',publication:false};
 }
 export async function validateHero15FetterRewardTypeReferences(root=process.cwd()){
- const read=async p=>JSON.parse(await readFile(resolve(root,p),'utf8'));
+ const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
  const [evidence,canonical,fetterDetails,references,heartConditions]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
  const result=validateHero15FetterRewardTypeReferencesData({evidence,canonical,fetterDetails,references,heartConditions});
  process.stdout.write('Hero 15 Fetter reward GoodsType references: PASS (5 enum references; no payout semantics)\n');return result;

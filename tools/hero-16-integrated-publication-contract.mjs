@@ -1,3 +1,4 @@
+import { readLanceFetterSource, lanceFetterDecision } from './lance-fetter-gold.mjs';
 import { lanceCentralEvidence, lanceCentralSource, lanceDescDigest } from './validate-hero15-skill-references.mjs';
 import { lianaCastingInput } from './liana-casting-input.mjs';
 import { createHash } from 'node:crypto';
@@ -380,4 +381,18 @@ export async function readLanceCentralEffect(readJson) {
   if (!isDeepStrictEqual(decision.koreanSource, pin)) throw new Error('Lance central decision frozen locator mismatch');
   if (!isDeepStrictEqual(decision.effectLines, lines)) throw new Error('Lance central decision Korean text mismatch');
   return lines;
+}
+
+export async function readLanceFetterTotals(readJson) {
+  const [approved, decision] = await Promise.all([readLanceFetterSource(readJson), readJson(lanceFetterDecision)]);
+  const expected = {
+    schemaVersion: 1, status: 'APPROVED', heroId: 16, surface: 'hero-minimal-detail-16', levels: [2,10],
+    title: '유대 강화 골드', unit: 'gold',
+    placement: 'Closed details directly after central discipline; six total paragraphs in source group order.',
+    groups: approved,
+  };
+  for (const [field, value] of Object.entries(expected)) {
+    if (!isDeepStrictEqual(decision[field], value)) throw new Error('Lance Fetter publication scope mismatch');
+  }
+  return approved.map(group => group.paragraph);
 }

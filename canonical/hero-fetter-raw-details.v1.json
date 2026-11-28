@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Hero 15 source-native raw Fetter detail fields only; excludes gameplay rules, endpoint identity admission, and publication.",
+  "scope": "Hero 15 source-native raw Fetter detail fields only; excludes gameplay rules, endpoint identity admission, and publication. Hero 16: explicit Fetter references and LevelUpGold only.",
   "records": [
     {
       "detailKind": "FETTER_RAW_DETAIL",
@@ -908,6 +908,111 @@
         }
       },
       "provenance": "evidence/source/bonds/hero15-fetter-raw-details.v1.json#selection/records/4"
+    },
+    {
+      "detailKind": "FETTER_RAW_DETAIL",
+      "heroId": 16,
+      "endpointId": 71,
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceRecordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/70",
+      "fields": {
+        "LevelUpGold": [
+          1500,
+          2300,
+          3500,
+          5300,
+          8000,
+          12000,
+          18000,
+          27000,
+          41000
+        ]
+      },
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/0"
+    },
+    {
+      "detailKind": "FETTER_RAW_DETAIL",
+      "heroId": 16,
+      "endpointId": 72,
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceRecordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/71",
+      "fields": {
+        "LevelUpGold": [
+          5000,
+          7500,
+          11000,
+          17000,
+          26000,
+          39000,
+          59000,
+          89000,
+          130000
+        ]
+      },
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/1"
+    },
+    {
+      "detailKind": "FETTER_RAW_DETAIL",
+      "heroId": 16,
+      "endpointId": 73,
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceRecordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/72",
+      "fields": {
+        "LevelUpGold": [
+          9000,
+          14000,
+          21000,
+          32000,
+          48000,
+          72000,
+          110000,
+          170000,
+          260000
+        ]
+      },
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/2"
+    },
+    {
+      "detailKind": "FETTER_RAW_DETAIL",
+      "heroId": 16,
+      "endpointId": 74,
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceRecordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/73",
+      "fields": {
+        "LevelUpGold": [
+          15000,
+          23000,
+          35000,
+          53000,
+          80000,
+          120000,
+          180000,
+          270000,
+          410000
+        ]
+      },
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/3"
+    },
+    {
+      "detailKind": "FETTER_RAW_DETAIL",
+      "heroId": 16,
+      "endpointId": 75,
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "sourceRecordLocator": "data/configdata/ConfigDataHeroFetterInfo.json#/74",
+      "fields": {
+        "LevelUpGold": [
+          20000,
+          30000,
+          45000,
+          68000,
+          100000,
+          150000,
+          230000,
+          350000,
+          530000
+        ]
+      },
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/4"
     }
   ]
 }
