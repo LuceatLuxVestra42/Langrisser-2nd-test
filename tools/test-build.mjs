@@ -161,7 +161,27 @@ async function checkHeroDetailBuildFailures() {
     return consumerMutation(name, 'build', levelBoundary, statement + '\n' + levelBoundary,
       'Lance Fetter ' + reason + ' mismatch');
   }
+  const forwardDecision = 'docs/decisions/hero-16-minimal-soldier-forward-links-publication.v1.json';
+  const forwardCall = 'const forwardLinks = lanceSoldierForwardLinks(forwardInputs);';
   const cases = [
+    ...[
+      ['Rank', 'forwardInputs.source.find(r => r.ID === 115).Rank = 2;', '115 T3 Rank mismatch'],
+      ['name', 'forwardInputs.names = forwardInputs.names.filter(r => r.soldierId !== 115);', 'NORMAL 115 Korean name missing or duplicated'],
+      ['relation', 'forwardInputs.relations = forwardInputs.relations.filter(r => !(r.heroId === 16 && r.soldierId === 115));', '115 relation missing or duplicated'],
+      ['identity', "forwardInputs.identities.find(r => r.id === 115).variant = 'SP';", '115 NORMAL namespace'],
+      ['destination', 'forwardInputs.destinations = forwardInputs.destinations.filter(r => r.normalSoldierId !== 115);', '115 NORMAL destination'],
+    ].map(([name, mutation, reason]) => consumerMutation('Lance forward ' + name, 'build', forwardCall,
+      mutation + '\n' + forwardCall, 'Lance forward links: ' + reason)),
+    ...[
+      ['decision missing', undefined, 'publication decision missing'],
+      ['status', d => { d.status = 'PENDING'; }, 'approval status'],
+      ['direction', d => { d.direction = 'BIDIRECTIONAL'; }, 'approved direction'],
+      ['approved fragments exchanged', d => {
+        const [a, b] = d.soldiers;
+        [a.fragment, b.fragment] = [b.fragment, a.fragment];
+      }, 'approved ordered destinations'],
+    ].map(([name, mutate, reason]) => ({ name: 'Lance forward ' + name, decisionPath: forwardDecision, mutate,
+      error: () => 'Error: Lance forward links: ' + reason })),
     ...[[2,72,67,5000], [3,73,68,9000]].flatMap(([bond, endpoint, lianaId, firstGold], index) => {
       const input = 'bondLevelInputs[' + index + ']';
       const label = 'bond ' + bond;
@@ -829,6 +849,11 @@ function lianaFetterInput(path, union) {
     return `const nodes = [...bonds.children]; [nodes[${index}],nodes[${index+1}]] = [nodes[${index+1}],nodes[${index}]]; bonds.replaceChildren(...nodes);\n` + afterBondPanel;
   }
   const rendererCases = [
+    ['Lance 115 link to homonymous SP', 'Lance forward destination 115',
+      "['근위창병', 'normal-soldier-115']", "['근위창병', 'sp-soldier-5115']"],
+    ['NORMAL 115 reverse Lance link', 'NORMAL 115 reverse DOM',
+      'const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId);',
+      "const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId); if (soldier.normalSoldierId === 115) { const item = document.createElement('li'); item.append(makeAnchor('란스 (영웅 ID 16)', 'hero-minimal-detail-16')); heroLinks.children[1].append(item); }"],
     ['Lance bond 1 list after second total', 'Lance bond 1 level list placement', afterBondPanel, moveListAfterNextTotal(2)],
     ['Lance bond 1 rendered gold exchanged', 'Lance bond 1 level gold text',
       '    [1500, 2300, 3500, 5300,', '    [2300, 1500, 3500, 5300,'],
@@ -839,8 +864,8 @@ function lianaFetterInput(path, union) {
     ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
       finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],
     ['Lance obsolete first final job paragraph', 'Lance old final job paragraph occurrence: ' + dragonPath,
-      'command, heart, ...bondDescriptions]);',
-      "command, heart, ...bondDescriptions, Object.assign(document.createElement('p'), {textContent: '" + dragonPath + "'})]);"],
+      'command, heart, ...bondDescriptions, soldiers]);',
+      "command, heart, ...bondDescriptions, soldiers, Object.assign(document.createElement('p'), {textContent: '" + dragonPath + "'})]);"],
     ['Lance bond 4 Gate of Fate number', 'Lance bond 4 rendered Gate of Fate number or text',
       '유대 4 · 나암과 함께 운명의문 4 클리어', '유대 4 · 나암과 함께 운명의문 5 클리어'],
     ['Lance bond 5 Gate of Fate number', 'Lance bond 5 rendered Gate of Fate number or text',
@@ -849,7 +874,7 @@ function lianaFetterInput(path, union) {
       appParagraphs(['유대 4 · 나암과 함께 운명의문 4 클리어','유대 5 · 쉐리와 함께 운명의문 5 클리어']),
       appParagraphs(['유대 5 · 쉐리와 함께 운명의문 5 클리어','유대 4 · 나암과 함께 운명의문 4 클리어'])],
     ['Lance bond description order', 'Lance bond description placement after Heart Fetter',
-      'command, heart, ...bondDescriptions]', 'command, heart, ...bondDescriptions.reverse()]'],
+      'command, heart, ...bondDescriptions, soldiers]', 'command, heart, ...bondDescriptions.reverse(), soldiers]'],
     ['Lance bond 3 missing elite', 'Lance bond description rendered text',
       '란스를 출전시켜 시공의 균열 3-1[정예] 클리어', '란스를 출전시켜 시공의 균열 3-1 클리어'],
     ['10418 renderer threshold','10418 rendered Korean text',windList,
@@ -862,8 +887,8 @@ function lianaFetterInput(path, union) {
     ['Lance Heart incoming direction','Lance Heart effect text',dragonFour,dragonFour.replace('받는','주는')],
     ['Lance Heart incoming sign','Lance Heart effect text',royalFour,royalFour.replace('-10%','+10%')],
     ['Lance Heart threshold','Lance Heart effect text',royalSeven,royalSeven.replace('미만','이하')],
-    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions]',
-      '[jobPath, heart, discipline, bonds, ...finalPaths, command, ...bondDescriptions]'],
+    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers]',
+      '[jobPath, heart, discipline, bonds, ...finalPaths, command, ...bondDescriptions, soldiers]'],
 
     ['Lance defense and magic defense values swapped','Soldier Command values: 방어',lanceDefense,
       "['방어', '', '+10%'],\n    ['마방', '+10%', '+25%']"],
@@ -871,9 +896,9 @@ function lianaFetterInput(path, union) {
     ...[['aria-label','name'],['aria-description','description']].map(([attribute,label]) =>
       ['Lance blank cell '+attribute,'Lance base magic defense accessible '+label,'cell.textContent = value;',
         "cell.textContent = value; if (stat === '마방' && value === '') cell.setAttribute('"+attribute+"','+0%');"]),
-    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart, ...bondDescriptions]);',
-      "...finalPaths, (command.append(document.createElement('p')), command), heart, ...bondDescriptions]);"],
-    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart, ...bondDescriptions]);','command, ...finalPaths, heart, ...bondDescriptions]);'],
+    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart, ...bondDescriptions, soldiers]);',
+      "...finalPaths, (command.append(document.createElement('p')), command), heart, ...bondDescriptions, soldiers]);"],
+    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart, ...bondDescriptions, soldiers]);','command, ...finalPaths, heart, ...bondDescriptions, soldiers]);'],
     ['Lance bond totals exchanged', 'Lance bond total paragraph attribution',
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 118,600','유대 2 · Lv.2~10 합계 골드 383,500']),
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 383,500','유대 2 · Lv.2~10 합계 골드 118,600'])],

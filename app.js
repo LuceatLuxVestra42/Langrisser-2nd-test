@@ -695,13 +695,27 @@ function renderHero16MinimalDetailView(data, container) {
     paragraph.textContent = text;
     return paragraph;
   });
+  const soldiers = renderMinimalDetailList('일반 3티어 용병 (일부)', []);
+  for (const [nameKo, fragment] of [
+    ['근위창병', 'normal-soldier-115'],
+    ['천상의 수호자', 'normal-soldier-324'],
+    ['메카 드래곤 나이트', 'normal-soldier-423'],
+    ['홀리 페가수스', 'normal-soldier-419'],
+    ['로열 그리폰', 'normal-soldier-402'],
+  ]) {
+    const item = document.createElement('li');
+    const link = makeAnchor('NORMAL · ' + nameKo, fragment, () => normalSoldierNavigation?.showAll(false), true);
+    link.className = 'soldier-navigation-link';
+    item.append(link);
+    soldiers.children[1].append(item);
+  }
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions]);
+  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers]);
 }
 
 async function loadHero16Talent(card) {

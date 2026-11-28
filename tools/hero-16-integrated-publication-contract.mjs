@@ -704,3 +704,46 @@ export function lanceCompanionBondDescriptions(references, source, names, decisi
   requireBondValue(decision.rows.map(row => row.textKo), lines, 'bond 4/5 decision text');
   return lines;
 }
+
+export const lanceForwardDecisionPath = 'docs/decisions/hero-16-minimal-soldier-forward-links-publication.v1.json';
+const lanceForwardSoldiers = [
+  [115, '근위창병', '/9/GetSoldierHeros_ID/4'],
+  [324, '천상의 수호자', '/68/GetSoldierHeros_ID/1'],
+  [423, '메카 드래곤 나이트', '/101/GetSoldierHeros_ID/1'],
+  [419, '홀리 페가수스', '/97/GetSoldierHeros_ID/0'],
+  [402, '로열 그리폰', '/85/GetSoldierHeros_ID/3'],
+];
+
+export function lanceSoldierForwardLinks({ relations, identities, source, names, destinations, decision }) {
+  function requireClaim(condition, message) {
+    if (!condition) throw new Error('Lance forward links: ' + message);
+  }
+  requireClaim(decision, 'publication decision missing');
+  requireClaim(decision.status === 'APPROVED', 'approval status');
+  requireClaim(decision.heroId === 16 && decision.surface === HERO_16_MINIMAL_DETAIL_FRAGMENT, 'approved surface');
+  requireClaim(decision.direction === 'HERO_TO_SOLDIER_ONLY', 'approved direction');
+  requireClaim(decision.title === '일반 3티어 용병 (일부)' && decision.placement === 'after-bond-5-description', 'title or placement');
+  requireClaim(decision.approval?.source?.trim() && decision.approval.basis?.trim(), 'approval source and basis');
+
+  const links = lanceForwardSoldiers.map(([soldierId, expectedName, fieldLocator]) => {
+    const matches = relations.filter(row => row.heroId === 16 && row.soldierId === soldierId);
+    requireClaim(matches.length === 1, soldierId + ' relation missing or duplicated');
+    const direct = [{ sourceKind: 'BASE_SOLDIER_HERO', sourceClass: 'DIRECT', origin: {
+      table: 'ConfigDataSoldierInfo', recordId: soldierId, recordKeyField: 'ID', field: 'GetSoldierHeros_ID', fieldLocator,
+    } }];
+    requireClaim(matches[0].evidenceClass === 'A' && isDeepStrictEqual(matches[0].provenance, direct), soldierId + ' direct provenance');
+    const identity = identities.filter(row => row.id === soldierId);
+    requireClaim(identity.length === 1 && identity[0].entity === 'Soldier' && identity[0].variant === 'NORMAL', soldierId + ' NORMAL namespace');
+    const records = source.filter(row => row.ID === soldierId);
+    requireClaim(records.length === 1 && records[0].Rank === 3, soldierId + ' T3 Rank mismatch');
+    const labels = names.filter(row => row.soldierId === soldierId);
+    requireClaim(labels.length === 1, 'NORMAL ' + soldierId + ' Korean name missing or duplicated');
+    const { nameKo, evidenceClass } = labels[0];
+    requireClaim(evidenceClass === 'A' && nameKo === expectedName, soldierId + ' approved Korean name');
+    const cards = destinations.filter(row => row.normalSoldierId === soldierId);
+    requireClaim(cards.length === 1 && cards[0].nameKo === nameKo, soldierId + ' NORMAL destination');
+    return { soldierId, namespace: identity[0].variant, rank: records[0].Rank, nameKo, fragment: 'normal-soldier-' + cards[0].normalSoldierId };
+  });
+  requireClaim(isDeepStrictEqual(decision.soldiers, links), 'approved ordered destinations');
+  return links;
+}

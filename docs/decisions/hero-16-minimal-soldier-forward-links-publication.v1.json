@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "direction": "HERO_TO_SOLDIER_ONLY",
+  "title": "일반 3티어 용병 (일부)",
+  "placement": "after-bond-5-description",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "The user approved sequential, independently reviewed work on existing hero details within Liana’s scope. #295 established forward links to admitted soldier cards. #348 admitted these five direct NORMAL relations. This separate decision publishes only their forward links on Lance’s existing card in Legacy display order. The base Soldier exclusion and shared reverse projection are preserved."
+  },
+  "legacyDisplay": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+  "soldiers": [
+    {
+      "soldierId": 115,
+      "namespace": "NORMAL",
+      "rank": 3,
+      "nameKo": "근위창병",
+      "fragment": "normal-soldier-115"
+    },
+    {
+      "soldierId": 324,
+      "namespace": "NORMAL",
+      "rank": 3,
+      "nameKo": "천상의 수호자",
+      "fragment": "normal-soldier-324"
+    },
+    {
+      "soldierId": 423,
+      "namespace": "NORMAL",
+      "rank": 3,
+      "nameKo": "메카 드래곤 나이트",
+      "fragment": "normal-soldier-423"
+    },
+    {
+      "soldierId": 419,
+      "namespace": "NORMAL",
+      "rank": 3,
+      "nameKo": "홀리 페가수스",
+      "fragment": "normal-soldier-419"
+    },
+    {
+      "soldierId": 402,
+      "namespace": "NORMAL",
+      "rank": 3,
+      "nameKo": "로열 그리폰",
+      "fragment": "normal-soldier-402"
+    }
+  ]
+}
