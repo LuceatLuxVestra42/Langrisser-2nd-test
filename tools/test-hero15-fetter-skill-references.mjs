@@ -1,7 +1,8 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateHero15FetterSkillReferencesData } from './validate-hero15-fetter-skill-references.mjs';
-const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(p,'utf8')));
 const [evidence,canonical,fetterDetails,heartDetails]=await Promise.all([read('evidence/source/bonds/hero15-fetter-skill-references.v1.json'),read('canonical/hero-fetter-skill-references.v1.json'),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json')]);
 const fresh=()=>({evidence:structuredClone(evidence),canonical:structuredClone(canonical),fetterDetails:structuredClone(fetterDetails),heartDetails:structuredClone(heartDetails)});
 const expected={locatorRelations:54,skillInfoEndpoints:54,regularFetters:45,heartFetter:9,skillIdentityAdmission:false,acquisitionSemantics:false,publication:false};

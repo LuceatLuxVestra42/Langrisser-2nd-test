@@ -1,3 +1,4 @@
+import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
 import { lianaCastingInput } from './liana-casting-input.mjs';
 import { loadAwakeningInputs, renderAwakeningInternal } from './hero-15-awakening-internal-consumer.mjs';
 import { createHash } from 'node:crypto';
@@ -131,8 +132,8 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-awakening-materials-publication.v1.json'),
     loadAwakeningInputs(),
     readJson('docs/decisions/hero-15-minimal-bond3-description-publication.v1.json'),
-    readJson('canonical/hero-fetter-references.v1.json'),
-    readJson('canonical/hero-fetter-raw-details.v1.json'),
+    readJson('canonical/hero-fetter-references.v1.json').then(doc => lianaFetterInput('canonical/hero-fetter-references.v1.json', doc)),
+    readJson('canonical/hero-fetter-raw-details.v1.json').then(doc => lianaFetterInput('canonical/hero-fetter-raw-details.v1.json', doc)),
     readJson('docs/decisions/hero-15-minimal-bond45-description-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-bond2-description-publication.v1.json'),
     readJson('docs/decisions/hero-15-minimal-soldier-command-publication.v1.json'),
@@ -150,7 +151,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(bondKeyDecisionPath),
     readJson('evidence/source/bonds/hero15-fetter-references.v1.json'),
     readJson('canonical/hero-fetter-material-relations.v1.json'),
-    readJson('canonical/hero-heart-fetter-raw-details.v1.json'),
+    readJson('canonical/hero-heart-fetter-raw-details.v1.json').then(doc => lianaFetterInput('canonical/hero-heart-fetter-raw-details.v1.json', doc)),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
     readJson(ordinarySkillCostOwnerPath),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cooldown-publication.v1.json'),
@@ -169,6 +170,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson(centralDisciplineGoldPaths.levels).then(doc => lianaCastingInput(centralDisciplineGoldPaths.levels, doc)),
     readJson(centralDisciplineGoldPaths.raw).then(doc => lianaCastingInput(centralDisciplineGoldPaths.raw, doc)),
   ]);
+  checkLianaRegularFetters(fetterDetails, 'Minimal Detail');
   return { approval, rarities, relations, names, sourceNamesApproval, nameMaster, englishNameEvidence, cvDecision, cvCanonical, skillDecision, skillReferences, skillIdentities, centralDisciplineDecision, awakeningDecision, awakeningInputs, bond3Decision, fetterReferences, fetterDetails, bond45Decision, bond2Decision, commandDecision, commandBase, commandBond, goldDecision, bond1GoldDecision, bond2GoldDecision, bond3GoldDecision, bond4GoldDecision, bond5GoldDecision, heartGoldDecision, bond1KeyDecision, bond2KeyDecision, bondKeyDecision, bondSelection, goldOwner, heartFetterDetails, ordinarySkillCostDecision, ordinarySkillCosts, ordinarySkillCooldownDecision, ordinarySkillCooldowns, ordinarySkillDistanceDecision, ordinarySkillDistances, ordinarySkillAreaDecision, ordinarySkillAreaEvidence, ordinarySkillAreas, ordinarySkillTypeDecision, ordinarySkillTypeEvidence, ordinarySkillTypes,
     centralDisciplineGoldDecision, headGoldDecision, castingLawHero, castingLawLevels, castingLawRaw };
 }

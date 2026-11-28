@@ -91,7 +91,60 @@ async function checkHeroDetailBuildFailures() {
   const firstFrozenLine = '상성 우세인 부대와 전투 시 모든 스탯 +15%';
   const sheetLine = '상성 우세인 부대와 전투 시 올스탯 +15%';
   const lanceReference = doc => doc.records.find(row => row.heroId === 16 && row.skillId === 90092);
+  const goldEvidence = 'evidence/source/bonds/hero16-fetter-gold.v1.json';
+  const goldPublication = 'docs/decisions/hero-16-minimal-fetter-gold-totals-publication.v1.json';
+  const regularDetails = 'canonical/hero-fetter-raw-details.v1.json';
+  const heartDetails = 'canonical/hero-heart-fetter-raw-details.v1.json';
+  const fetterReferences = 'canonical/hero-fetter-references.v1.json';
+  const groups = [71,72,73,74,75,16];
   const cases = [
+    { decisionPath:goldPublication, name:'Lance bond decision missing',
+      error:path => `Error: ENOENT: no such file or directory, open '${path}'` },
+    ...[
+      [goldEvidence, 'source HeroInformation FK', doc => { doc.hero.fields.HeroInformation_ID = 15; }, 'Hero to HeroInformation FK'],
+      [goldEvidence, 'source Fetter slots', doc => { [doc.information.fields.HeroFetters_ID[0],doc.information.fields.HeroFetters_ID[1]] = [72,71]; }, 'source selection'],
+      [fetterReferences, 'heart relation namespace only', doc => { const row = doc.records.at(-1);
+        row.referenceKind = 'HERO_FETTER_ID_REFERENCE'; row.fetterId = row.heartFetterId; delete row.heartFetterId;
+        row.sourceField = 'ConfigDataHeroInformationInfo.HeroFetters_ID'; row.endpointNamespace = 'ConfigDataHeroFetterInfo.ID';
+      }, 'HEART_FETTER 16 reference'],
+      [heartDetails, 'heart detail namespace only', doc => { Object.assign(doc.records[1], {
+        detailKind:'FETTER_RAW_DETAIL', endpointNamespace:'ConfigDataHeroFetterInfo.ID', sourceRecordLocator:'data/configdata/ConfigDataHeroFetterInfo.json#/15',
+      }); }, 'HEART_FETTER 16 detail'],
+      [goldEvidence, 'heart level locator namespace only', doc => { Object.assign(doc.endpoints[5].levels[0],
+        { kind:'FETTER',endpointNamespace:'ConfigDataHeroFetterInfo.ID' }); }, 'HEART_FETTER 16 level locator'],
+      [regularDetails, 'Liana same gold regular detail', doc => { const src = doc.records[0];
+        Object.assign(doc.records[5], {heroId:src.heroId, endpointId:src.endpointId, sourceRecordLocator:src.sourceRecordLocator, provenance:src.provenance}); }, 'FETTER 71 detail'],
+      [heartDetails, 'Liana same gold heart detail', doc => { const src = doc.records[0];
+        Object.assign(doc.records[1], {heroId:src.heroId, endpointId:src.endpointId, sourceRecordLocator:src.sourceRecordLocator, provenance:src.provenance}); }, 'HEART_FETTER 16 detail'],
+      [regularDetails, 'other group gold vector', doc => { doc.records[5].fields.LevelUpGold = doc.records[6].fields.LevelUpGold; }, 'FETTER 71 detail'],
+      [goldPublication, 'one group omitted', doc => { doc.groups.pop(); }, 'publication scope'],
+      ...groups.flatMap((id, i) => {
+        const reason = (i === 5 ? 'HEART_FETTER ' : 'FETTER ') + id + ' source gold';
+        return [
+          [goldEvidence, 'positive gold ' + id, doc => { doc.endpoints[i].LevelUpGold[0]++; }, reason],
+          [goldEvidence, 'equal total swapped levels ' + id, doc => { const gold = doc.endpoints[i].LevelUpGold;
+            [gold[0],gold[1]] = [gold[1],gold[0]]; }, reason],
+        ];
+      }),
+    ].map(([decisionPath,name,mutate,reason]) => ({ decisionPath,name:'Lance bond '+name,mutate,error:()=>'Error: Lance Fetter '+reason+' mismatch' })),
+    ...[
+      ['hero-15-fetter-internal','internal'], ['hero-15-integrated-publication-contract','Minimal Detail'],
+      ['hero-15-full-detail-publication-contract','Full Detail'], ['validate-hero15-fetter-material-relations','material'],
+      ['validate-hero15-fetter-condition-type-references','condition'], ['validate-hero15-fetter-reward-type-references','reward'],
+      ['validate-hero15-fetter-skill-references','skill'],
+    ].map(([module,consumer]) => ({
+      decisionPath:'tools/'+module+'.mjs', name:'same-gold substitution in Liana '+consumer, mutateSource: source => {
+        const original = "import { lianaFetterInput, checkLianaRegularFetters } from './lance-fetter-gold.mjs';";
+        assert.equal(source.split(original).length, 2);
+        return source.replace(original, `import { lianaFetterInput as selectLiana, checkLianaRegularFetters } from './lance-fetter-gold.mjs';
+function lianaFetterInput(path, union) {
+  const selected = selectLiana(path, union);
+  if (path === '${regularDetails}') selected.records[0] = structuredClone(union.records[5]);
+  return selected;
+}`);
+      }, error:()=>'Error: Liana '+consumer+' Fetter attribution mismatch',
+    })),
+
     { decisionPath: lianaConsumer, name: 'Liana ten-row input replaced after union validation', mutateSource: source => {
       const input = 'const lianaRows = references.records.filter(row => row.heroId === 15);';
       assert.ok(source.includes(input));
@@ -459,6 +512,10 @@ async function checkHeroDetailBuildFailures() {
   const goldDecision = JSON.parse(await readFile(lanceGoldDecision, 'utf8'));
   const appParagraphs = lines => lines.map(line => `    '${line}',`).join('\n');
   const rendererCases = [
+    ['Lance bond totals exchanged', 'Lance bond total paragraph attribution',
+      appParagraphs(['유대 1 · Lv.2~10 합계 골드 118,600','유대 2 · Lv.2~10 합계 골드 383,500']),
+      appParagraphs(['유대 1 · Lv.2~10 합계 골드 383,500','유대 2 · Lv.2~10 합계 골드 118,600'])],
+
     ['Lance effect lines exchanged', 'Lance central effect order or placement',
       appParagraphs([firstFrozenLine, secondFrozenLine]), appParagraphs([secondFrozenLine, firstFrozenLine])],
     ['Lance second effect after gold', 'Lance central effect order or placement',

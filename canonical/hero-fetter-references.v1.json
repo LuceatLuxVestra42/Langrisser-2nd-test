@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Hero 15 source-native ConfigData Fetter ID references only; not an admission of stages, completion/unlock conditions, rewards, stats, skills, battle effects, Korean localization, or publication.",
+  "scope": "Hero 15 source-native ConfigData Fetter ID references only; not an admission of stages, completion/unlock conditions, rewards, stats, skills, battle effects, Korean localization, or publication. Hero 16: explicit Fetter references and LevelUpGold only.",
   "records": [
     {
       "referenceKind": "HERO_FETTER_ID_REFERENCE",
@@ -55,6 +55,60 @@
       "sourceField": "ConfigDataHeroInformationInfo.HeroHeartFetterId",
       "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
       "provenance": "evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroHeartFetterReference"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 16,
+      "heroInformationId": 16,
+      "fetterId": 71,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/0"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 16,
+      "heroInformationId": 16,
+      "fetterId": 72,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/1"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 16,
+      "heroInformationId": 16,
+      "fetterId": 73,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/2"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 16,
+      "heroInformationId": 16,
+      "fetterId": 74,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/3"
+    },
+    {
+      "referenceKind": "HERO_FETTER_ID_REFERENCE",
+      "heroId": 16,
+      "heroInformationId": 16,
+      "fetterId": 75,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroFetters_ID",
+      "endpointNamespace": "ConfigDataHeroFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/4"
+    },
+    {
+      "referenceKind": "HERO_HEART_FETTER_ID_REFERENCE",
+      "heroId": 16,
+      "heroInformationId": 16,
+      "heartFetterId": 16,
+      "sourceField": "ConfigDataHeroInformationInfo.HeroHeartFetterId",
+      "endpointNamespace": "ConfigDataHeroHeartFetterInfo.ID",
+      "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroHeartFetterId"
     }
   ]
 }

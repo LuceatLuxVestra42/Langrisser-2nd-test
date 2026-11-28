@@ -1,7 +1,8 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateHero15FetterConditionTypeReferencesData } from './validate-hero15-fetter-condition-type-references.mjs';
-const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(p,'utf8')));
 const [evidence,canonical,fetterDetails,heartDetails,references,heartConditions]=await Promise.all([read('evidence/source/bonds/hero15-fetter-condition-type-references.v1.json'),read('canonical/hero-fetter-condition-type-references.v1.json'),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
 const fresh=()=>({evidence:structuredClone(evidence),canonical:structuredClone(canonical),fetterDetails:structuredClone(fetterDetails),heartDetails:structuredClone(heartDetails),references:structuredClone(references),heartConditions:structuredClone(heartConditions)});
 const expected={typeReferences:11,regularFetter:9,heartFetter:2,runtimePredicate:'NOT_ADMITTED',parameterSemantics:'NOT_ADMITTED',publication:false};

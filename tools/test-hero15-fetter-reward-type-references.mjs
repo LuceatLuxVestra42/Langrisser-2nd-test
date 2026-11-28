@@ -1,7 +1,8 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateHero15FetterRewardTypeReferencesData } from './validate-hero15-fetter-reward-type-references.mjs';
-const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(p,'utf8')));
 const [evidence,canonical,fetterDetails,references,heartConditions]=await Promise.all([read('evidence/source/bonds/hero15-fetter-reward-type-references.v1.json'),read('canonical/hero-fetter-reward-type-references.v1.json'),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
 const fresh=()=>({evidence:structuredClone(evidence),canonical:structuredClone(canonical),fetterDetails:structuredClone(fetterDetails),references:structuredClone(references),heartConditions:structuredClone(heartConditions)});
 assert.deepEqual(validateHero15FetterRewardTypeReferencesData(fresh()),{rewardTypeReferences:5,enumNamespace:'BlackJack.ConfigData.GoodsType',goodsTypeCode:2,enumMember:'GoodsType_Crystal',rewardIdentity:'NOT_ADMITTED',payoutSemantics:'NOT_ADMITTED',publication:false});

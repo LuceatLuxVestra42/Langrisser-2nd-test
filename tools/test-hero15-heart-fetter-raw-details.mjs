@@ -1,7 +1,8 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateHero15HeartFetterRawDetailsData } from './validate-hero15-heart-fetter-raw-details.mjs';
-const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(p,'utf8')));
 const [evidence,canonical,references,conditions]=await Promise.all([read('evidence/source/bonds/hero15-heart-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
 const fresh=()=>({evidence:structuredClone(evidence),canonical:structuredClone(canonical),references:structuredClone(references),conditions:structuredClone(conditions)});
 assert.equal(validateHero15HeartFetterRawDetailsData(fresh()).conditionType7Meaning,'MANUAL_REVIEW');

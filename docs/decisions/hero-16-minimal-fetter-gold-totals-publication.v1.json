@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "levels": [
+    2,
+    10
+  ],
+  "unit": "gold",
+  "title": "유대 강화 골드",
+  "placement": "Closed details directly after central discipline; six total paragraphs in source group order.",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "legacy": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "component": "src/components/hero-bond-materials-panel.tsx",
+    "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "display": "Group summaries show profile.total.gold."
+  },
+  "groups": [
+    {
+      "labelKo": "유대 1",
+      "kind": "FETTER",
+      "endpointId": 71,
+      "total": 118600,
+      "paragraph": "유대 1 · Lv.2~10 합계 골드 118,600"
+    },
+    {
+      "labelKo": "유대 2",
+      "kind": "FETTER",
+      "endpointId": 72,
+      "total": 383500,
+      "paragraph": "유대 2 · Lv.2~10 합계 골드 383,500"
+    },
+    {
+      "labelKo": "유대 3",
+      "kind": "FETTER",
+      "endpointId": 73,
+      "total": 736000,
+      "paragraph": "유대 3 · Lv.2~10 합계 골드 736,000"
+    },
+    {
+      "labelKo": "유대 4",
+      "kind": "FETTER",
+      "endpointId": 74,
+      "total": 1186000,
+      "paragraph": "유대 4 · Lv.2~10 합계 골드 1,186,000"
+    },
+    {
+      "labelKo": "유대 5",
+      "kind": "FETTER",
+      "endpointId": 75,
+      "total": 1523000,
+      "paragraph": "유대 5 · Lv.2~10 합계 골드 1,523,000"
+    },
+    {
+      "labelKo": "마음의 유대",
+      "kind": "HEART_FETTER",
+      "endpointId": 16,
+      "total": 650000,
+      "paragraph": "마음의 유대 · Lv.2~10 합계 골드 650,000"
+    }
+  ]
+}

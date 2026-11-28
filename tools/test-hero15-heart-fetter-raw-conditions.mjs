@@ -1,3 +1,4 @@
+import { lianaFetterInput } from './lance-fetter-gold.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { validateHero15HeartFetterRawConditionsData } from './validate-hero15-heart-fetter-raw-conditions.mjs';
@@ -5,7 +6,7 @@ const root=process.cwd();
 const [evidence,canonical,references]=await Promise.all([
   readFile(`${root}/evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json`,'utf8').then(JSON.parse),
   readFile(`${root}/canonical/hero-heart-fetter-raw-conditions.v1.json`,'utf8').then(JSON.parse),
-  readFile(`${root}/canonical/hero-fetter-references.v1.json`,'utf8').then(JSON.parse),
+  readFile(`${root}/canonical/hero-fetter-references.v1.json`,'utf8').then(JSON.parse).then(doc => lianaFetterInput('canonical/hero-fetter-references.v1.json', doc)),
 ]);
 const fresh=()=>({evidence:structuredClone(evidence),canonical:structuredClone(canonical),references:structuredClone(references)});
 const valid=()=>validateHero15HeartFetterRawConditionsData(fresh());
