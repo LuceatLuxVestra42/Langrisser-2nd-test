@@ -625,6 +625,59 @@ function renderHero16MinimalDetailView(data, container) {
   const summary = document.createElement('summary');
   summary.textContent = '유대 강화 골드';
   bonds.append(summary);
+  const keyRows = [
+    [
+      [[3200, 1]],
+      [[3200, 2]],
+      [[3200, 3]],
+      [[3200, 4]],
+      [[3200, 5], [3201, 1]],
+      [[3200, 6], [3201, 2]],
+      [[3200, 7], [3201, 3]],
+      [[3200, 8], [3201, 4]],
+      [[3200, 9], [3201, 5]],
+    ],
+    [
+      [[3200, 5], [3201, 2]],
+      [[3200, 6], [3201, 3]],
+      [[3200, 7], [3201, 4]],
+      [[3200, 8], [3201, 5]],
+      [[3201, 7], [3202, 1]],
+      [[3201, 9], [3202, 2]],
+      [[3201, 11], [3202, 3]],
+      [[3201, 13], [3202, 4]],
+      [[3201, 15], [3202, 6]],
+    ],
+    [
+      [[3201, 5], [3202, 2]],
+      [[3201, 8], [3202, 3]],
+      [[3201, 10], [3202, 3]],
+      [[3201, 12], [3202, 4]],
+      [[3201, 15], [3202, 5]],
+      [[3202, 6], [3203, 1]],
+      [[3202, 7], [3203, 2]],
+      [[3202, 8], [3203, 3]],
+      [[3202, 9], [3203, 4]],
+    ],
+  ];
+  const keyPaths = new Map([
+    [3200, './assets/bond-materials/FetterMaterial01.png'],
+    [3201, './assets/bond-materials/FetterMaterial02.png'],
+    [3202, './assets/bond-materials/FetterMaterial03.png'],
+    [3203, './assets/bond-materials/FetterMaterial04.png'],
+  ]);
+  function appendKeyBadges(parent, pairs) {
+    for (const [id, count] of pairs) {
+      const badge = document.createElement('span');
+      const icon = document.createElement('img');
+      icon.src = keyPaths.get(id);
+      icon.alt = '';
+      icon.width = 24;
+      icon.height = 24;
+      badge.append(icon, '×' + count);
+      parent.append(badge);
+    }
+  }
   const levelGold = [
     [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000],
     [5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000],
@@ -643,6 +696,14 @@ function renderHero16MinimalDetailView(data, container) {
     const paragraph = document.createElement('p');
     paragraph.textContent = line;
     bonds.append(paragraph);
+    const keyLevels = keyRows[index];
+    if (keyLevels) {
+      const totals = new Map();
+      for (const [id, count] of keyLevels.flat()) totals.set(id, (totals.get(id) ?? 0) + count);
+      const subtotal = document.createElement('div');
+      appendKeyBadges(subtotal, totals);
+      bonds.append(subtotal);
+    }
     if (index < levelGold.length) {
       const levels = document.createElement('details');
       const heading = document.createElement('summary');
@@ -651,6 +712,7 @@ function renderHero16MinimalDetailView(data, container) {
       for (const [offset, gold] of levelGold[index].entries()) {
         const item = document.createElement('li');
         item.textContent = 'Lv.' + (offset + 2) + ' · ' + gold.toLocaleString('ko-KR') + ' 골드';
+        if (keyLevels) appendKeyBadges(item, keyLevels[offset]);
         list.append(item);
       }
       levels.append(heading, list);

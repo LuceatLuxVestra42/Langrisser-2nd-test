@@ -97,13 +97,13 @@ for (const [appPath, lines] of [
     assert.equal(lists.length, expectedAmounts.length);
     for (const [index, amounts] of expectedAmounts.entries()) {
       const levels = lists[index];
-      assert.equal(bonds.children[2 * (index + 1)], levels);
+      assert.equal(bonds.children.filter(node => node.tag !== 'div')[2 * (index + 1)], levels);
       assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul']);
       assert.equal(levels.children[0].textContent, '유대 ' + (index + 1) + ' 레벨별 골드');
       assert.deepEqual(levels.children[1].children.map(node => node.textContent),
         amounts.map((gold, offset) => 'Lv.' + (offset + 2) + ' · ' + gold.toLocaleString('ko-KR') + ' 골드'));
     }
-    assert.deepEqual(bonds.children.filter(node => node.tag !== 'details').map(node => node.textContent), [
+    assert.deepEqual(bonds.children.filter(node => node.tag === 'p' || node.tag === 'summary').map(node => node.textContent), [
       '유대 강화 골드',
       '유대 1 · Lv.2~10 합계 골드 118,600',
       '유대 2 · Lv.2~10 합계 골드 383,500',

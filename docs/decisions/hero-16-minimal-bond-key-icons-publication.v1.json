@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "surface": "hero-minimal-detail-16",
+  "heroId": 16,
+  "groups": [
+    {
+      "slot": 0,
+      "fetterId": 71,
+      "recordIndex": 70
+    },
+    {
+      "slot": 1,
+      "fetterId": 72,
+      "recordIndex": 71
+    },
+    {
+      "slot": 2,
+      "fetterId": 73,
+      "recordIndex": 72
+    }
+  ],
+  "levels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "placement": [
+    "after-level-gold",
+    "immediately-below-group-gold-total"
+  ],
+  "configCommit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "legacyCommit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+  "manifest": "data/generated/hero-bond-material-icon-assets.v1.json",
+  "assets": [
+    {
+      "itemId": 3200,
+      "sourcePath": "UI/Icon/Item_ABS/FetterMaterial01.png",
+      "repositoryAsset": "public/images/heroes/bond-materials/FetterMaterial01.png",
+      "path": "assets/bond-materials/FetterMaterial01.png",
+      "blobSha1": "7fe77ca370a1154856f081adc2231052b585ddba",
+      "bytes": 16721
+    },
+    {
+      "itemId": 3201,
+      "sourcePath": "UI/Icon/Item_ABS/FetterMaterial02.png",
+      "repositoryAsset": "public/images/heroes/bond-materials/FetterMaterial02.png",
+      "path": "assets/bond-materials/FetterMaterial02.png",
+      "blobSha1": "66c4f6b619ccf07d441a0cf770ff3de9c5f5d610",
+      "bytes": 19861
+    },
+    {
+      "itemId": 3202,
+      "sourcePath": "UI/Icon/Item_ABS/FetterMaterial03.png",
+      "repositoryAsset": "public/images/heroes/bond-materials/FetterMaterial03.png",
+      "path": "assets/bond-materials/FetterMaterial03.png",
+      "blobSha1": "8f23f82ee1988a736ce579fd42f8a7a9fc6dfd8f",
+      "bytes": 21788
+    },
+    {
+      "itemId": 3203,
+      "sourcePath": "UI/Icon/Item_ABS/FetterMaterial04.png",
+      "repositoryAsset": "public/images/heroes/bond-materials/FetterMaterial04.png",
+      "path": "assets/bond-materials/FetterMaterial04.png",
+      "blobSha1": "532e8b864de1764b8ea181cd0453f410c058370c",
+      "bytes": 33716
+    }
+  ],
+  "publication": {
+    "scope": "Existing Lance bond gold panel: four existing local PNGs and quantities for three ordinary bonds, 50 level badges and 8 subtotal badges.",
+    "decisionReferences": [
+      "219fdc8d-940a-402c-a984-6acc0c1f8c50"
+    ],
+    "thirdPartyLicenseVerification": "UNVERIFIED"
+  }
+}
