@@ -7,6 +7,8 @@ import { parsePinnedSpPopulation, spPopulationEvidencePath } from './validate-sp
 
 export const privateNormalIdentityEvidencePath = 'evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json';
 const privateNormalIdentityEvidenceSha256 = 'f5facc70a31c40fe15b09f7bd597dcb298ac820184ada0f6f2f91dc64728c788';
+export const soldier340EvidencePath = 'evidence/source/configdata/ConfigDataSoldierInfo.record-normal-340.v1.json';
+const soldier340EvidenceSha256 = '6b4d73f68799d91589800587db244891b66fdd7c89489c733e1330edefdf8ea9';
 const privateNormalIdentities = [[806, '/161'], [817, '/169'], [819, '/171']];
 const PINNED_COMMIT = '6475e63ee23d18adf733756c26a14fa9e3ed662c';
 const fail = (message) => { throw new Error(`Soldier identity validation failed: ${message}`); };
@@ -27,10 +29,35 @@ function verifyPrivateNormalIdentityEvidence(bytes, spIds, normalTargets) {
   return new Set(ids);
 }
 
-export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest }) {
+export async function readSoldier340Evidence(root) {
+  try {
+    return await readFile(resolve(root, soldier340EvidencePath));
+  } catch (error) {
+    if (error.code === 'ENOENT') fail('NORMAL 340 evidence missing: ' + soldier340EvidencePath);
+    throw error;
+  }
+}
+
+export function verifySoldier340Fields(row) {
+  check(row?.ID === 340, `expected SoldierInfo ID 340, found ${row?.ID}`);
+  check(row.Rank === 3 && row.Useable === true, 'NORMAL 340 Rank or Useable mismatch');
+}
+
+function verifySoldier340Evidence(bytes, spIds, normalTargets) {
+  check(Buffer.isBuffer(bytes) && createHash('sha256').update(bytes).digest('hex') === soldier340EvidenceSha256,
+    'NORMAL 340 evidence SHA-256 mismatch: ' + soldier340EvidencePath);
+  const evidence = JSON.parse(bytes);
+  check(evidence.records.length === 1 && evidence.records[0].recordLocator === '/81', 'NORMAL 340 evidence record locator mismatch');
+  const fields = evidence.records[0].rawFields;
+  verifySoldier340Fields(fields);
+  check(!spIds.has(fields.ID) && !normalTargets.has(fields.ID), 'NORMAL 340 overlaps SP IDs or NORMAL targets');
+  return fields.ID;
+}
+
+export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest }) {
   const spSoldierInfo = parsePinnedSpPopulation(spPopulationBytes);
   check(canonical.schemaVersion === 1 && Array.isArray(canonical.records), 'canonical schema mismatch');
-  check(canonical.scope === 'Explicitly admitted NORMAL identity endpoints and the full pinned SP Soldier identity population; each SP to NORMAL correspondence is owned by a separate relation canonical. Includes three independently verified NORMAL identities for internal registration only.', 'canonical scope mismatch');
+  check(canonical.scope === 'Explicitly admitted NORMAL identity endpoints and the full pinned SP Soldier identity population; each SP to NORMAL correspondence is owned by a separate relation canonical. Includes four independently verified NORMAL identities for internal registration only.', 'canonical scope mismatch');
   check(Array.isArray(spSoldierInfo.records) && spSoldierInfo.records.length > 0, 'complete SPSoldierInfo evidence missing');
   check(Array.isArray(soldierInfo.records), 'SoldierInfo endpoint evidence missing');
 
@@ -75,6 +102,8 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBy
   check(manifest.artifacts.spSoldierInfo.preservedRecordCount === spSoldierInfo.records.length, 'preserved SP record count mismatch');
 
   const privateNormalIds = verifyPrivateNormalIdentityEvidence(privateIdentityBytes, spSet, targetSet);
+  const soldier340Id = verifySoldier340Evidence(soldier340Bytes, spSet, targetSet);
+  privateNormalIds.add(soldier340Id);
   const expected = new Set();
   for (const id of spSet) expected.add(key('SP', id));
   for (const id of targetSet) expected.add(key('NORMAL', id));
@@ -82,6 +111,7 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBy
   const actual = new Set();
   for (const row of canonical.records) {
     check(row?.entity === 'Soldier' && Number.isInteger(row.id) && ['SP', 'NORMAL'].includes(row.variant), 'malformed canonical Soldier identity');
+    if (row.id === soldier340Id) check(row.variant === 'NORMAL', 'NORMAL 340 namespace mismatch');
     const identityKey = key(row.variant, row.id);
     check(!actual.has(identityKey), `duplicate canonical Soldier identity ${identityKey}`);
     actual.add(identityKey);
@@ -90,8 +120,9 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBy
       const expectedProvenance = `evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json#ID=${row.id}/ID`;
       check(row.provenance === expectedProvenance, `SP identity provenance mismatch for ${row.id}`);
     } else if (privateNormalIds.has(row.id)) {
+      const evidencePath = row.id === soldier340Id ? soldier340EvidencePath : privateNormalIdentityEvidencePath;
       check(isDeepStrictEqual(row, {
-        entity: 'Soldier', id: row.id, variant: 'NORMAL', provenance: `${privateNormalIdentityEvidencePath}#ID=${row.id}`,
+        entity: 'Soldier', id: row.id, variant: 'NORMAL', provenance: `${evidencePath}#ID=${row.id}`,
       }), `private NORMAL identity schema or provenance mismatch for ${row.id}`);
     } else {
       const expectedProvenance = row.id === 115
@@ -108,14 +139,15 @@ export function validateSoldierIdentity({ canonical, soldierInfo, spPopulationBy
 
 export async function loadAndValidateSoldierIdentity(root = process.cwd()) {
   const read = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest] = await Promise.all([
+  const [canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest] = await Promise.all([
     read('canonical/soldiers.v1.json'),
     read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
     readFile(resolve(root, spPopulationEvidencePath)),
     readFile(resolve(root, privateNormalIdentityEvidencePath)),
+    readSoldier340Evidence(root),
     read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
   ]);
-  return validateSoldierIdentity({ canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest });
+  return validateSoldierIdentity({ canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest });
 }
 
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {

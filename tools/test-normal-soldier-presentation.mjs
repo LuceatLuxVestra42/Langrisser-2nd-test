@@ -23,6 +23,9 @@ const mustFail = (label, action) => {
 };
 
 validate(generated);
+const leaked = JSON.parse(generated);
+leaked.soldiers.push({ normalSoldierId: 340 });
+assert.throws(() => validate(JSON.stringify(leaked)), /unsupported NORMAL Soldier presentation population/);
 const internalNames = await readJson('canonical/normal-soldier-localizations-ko.v1.json');
 for (const id of [806, 817, 819]) {
   const admitted = internalNames.records.find(row => row.soldierId === id);
