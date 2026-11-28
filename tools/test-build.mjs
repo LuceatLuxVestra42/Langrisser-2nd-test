@@ -107,7 +107,47 @@ async function checkHeroDetailBuildFailures() {
       }};
   }
   const finalOwnerCall = 'finalJobPathLines(finalDecision, heroJobRelations, jobEdges.finals, expectedJobEdges.slice(6), jobLocalization)';
+  const commandBaseEvidence = 'evidence/source/configdata/hero-16-soldier-command-base.v1.json';
+  const commandBondEvidence = 'evidence/source/configdata/hero-16-soldier-command-bond-contribution.v1.json';
+  const commandDecision = 'docs/decisions/hero-16-minimal-soldier-command-publication.v1.json';
+  const bondCall = 'validateHero15SoldierCommandBondContribution(bondCommand);';
   const cases = [
+    ...[
+      [commandBaseEvidence,'absent base materialized',d => {d.rawRecord.MagicDFCmd_INI=0;},'Lance explicit base fields'],
+      [commandBaseEvidence,'base attack removed',d => {delete d.rawRecord.ATCmd_INI;},'Lance explicit base fields'],
+      [commandBaseEvidence,'base other Hero locator',d => {d.source.recordLocator=d.source.path+'#/14';},'Lance base HeroInfo provenance'],
+      [commandBondEvidence,'third Fetter selects Liana skill',d => {d.fetters[2].GotSkills_ID[9]=70039;},'Lance maximum-level Skill endpoints'],
+      [commandBondEvidence,'third skill points to Liana buff',d => {d.skills[2].PassiveBuffs_ID=[70039];},'Lance passive Buff links'],
+      [commandBondEvidence,'third Fetter defense replaced by magic defense',d => {d.buffs[3].Property2_ID=96;},'Lance Buff property slots 70019'],
+      [commandBondEvidence,'second noncommand buff missing',d => {d.buffs.splice(2,1);},'Lance Buff endpoints'],
+      [commandBondEvidence,'wrong enum',d => {d.propertyNamespace.members[95]='Hero3_MagicDFCmdAdd';},'Lance command enum'],
+      [commandBondEvidence,'property not additive',d => {d.properties[2].IsAddType=false;},'Lance property type and additivity'],
+      [commandBondEvidence,'wrong unit',d => {d.transformation.divisor=1000;},'Lance command percentage divisor'],
+    ].map(([decisionPath,name,mutate,reason]) => ({decisionPath,name,mutate,error:()=>'AssertionError [ERR_ASSERTION]: '+reason})),
+    ...[
+      ['HeroInformation FK','{...bondCommand,lanceEvidence:{...bondCommand.lanceEvidence,hero:{...bondCommand.lanceEvidence.hero,HeroInformation_ID:15}}}', 'Hero 16 to HeroInformation attribution'],
+      ['regular Fetter 73','{...bondCommand,references:{...bondCommand.references,records:bondCommand.references.records.filter(r => !(r.heroId===16 && r.fetterId===73))}}','Hero 16 regular Fetter relation 73'],
+    ].map(([name,input,reason]) => ({
+      ...consumerMutation('bond Owner isolated '+name,'build',bondCall,bondCall.replace('(bondCommand)','('+input+')'),reason),
+      error:()=>'AssertionError [ERR_ASSERTION]: '+reason,
+    })),
+    ...['base','bond'].flatMap(kind => ['missing','Liana'].map(change => {
+      const input = kind+'Command.canonical.records.find(row => row.heroId === 16)';
+      return consumerMutation('Lance display '+kind+' '+change,'build',input,change==='missing'?'undefined':input.replace('=== 16','=== 15'),
+        'Lance command '+kind+' attribution');
+    })),
+    {decisionPath:commandDecision,name:'command decision missing',error:path=>"Error: ENOENT: no such file or directory, open '"+path+"'"},
+    {decisionPath:commandDecision,name:'command decision wrong form',mutate:d=>{d.mode='SP';},error:()=>'Error: Lance command publication scope or values'},
+    ...[['base','canonical/hero-soldier-command-base.v1.json','soldierCommandBase'],
+        ['bond','canonical/hero-soldier-command-bond-contributions.v1.json','soldierCommandBond']].flatMap(([kind,path,key]) => {
+      const min = "readJson('"+path+"').then(owner => ({...owner, records:owner.records.filter(row => row.heroId === 15)}))";
+      const full = "data['canonical."+key+"'].records.filter(row => row.heroId === 15)";
+      return [
+        consumerMutation('Liana Minimal '+kind+' receives Lance','hero-15-integrated-publication-contract',min,min.replace('=== 15','=== 16'),'Hero 15 Soldier Command owner values mismatch'),
+        consumerMutation('Liana Full '+kind+' receives Lance','hero-15-full-detail-publication-contract',full,full.replace('=== 15','=== 16'),
+          'Hero 15 Full Detail Publication contract: Hero 15 Soldier Command '+(kind==='base'?'base':'bond contribution')+' expected exactly one matching record; received 0'),
+      ];
+    }),
     ...[[403,'161/403 → 164/405','predecessor'], [405,'161/403 → 164/405','successor'],
         [302,'162/302 → 165/306','predecessor'], [306,'162/302 → 165/306','successor']].map(([id,edge,role]) =>
       consumerMutation('final path missing ' + role + ' Job ' + id, 'build', finalOwnerCall,
@@ -557,7 +597,17 @@ function lianaFetterInput(path, union) {
   const secondFrozenLine = '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복';
   const goldDecision = JSON.parse(await readFile(lanceGoldDecision, 'utf8'));
   const appParagraphs = lines => lines.map(line => `    '${line}',`).join('\n');
+  const lanceDefense = "['방어', '+10%', '+25%'],\n    ['마방', '', '+10%']";
   const rendererCases = [
+    ['Lance defense and magic defense values swapped','Soldier Command values: 방어',lanceDefense,
+      "['방어', '', '+10%'],\n    ['마방', '+10%', '+25%']"],
+    ['Lance absent magic defense has text','Lance unadmitted base magic defense text',"['마방', '', '+10%']","['마방', '+0%', '+10%']"],
+    ...[['aria-label','name'],['aria-description','description']].map(([attribute,label]) =>
+      ['Lance blank cell '+attribute,'Lance base magic defense accessible '+label,'cell.textContent = value;',
+        "cell.textContent = value; if (stat === '마방' && value === '') cell.setAttribute('"+attribute+"','+0%');"]),
+    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command]);',
+      "...finalPaths, (command.append(document.createElement('p')), command)]);"],
+    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command]);','command, ...finalPaths]);'],
     ['Lance bond totals exchanged', 'Lance bond total paragraph attribution',
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 118,600','유대 2 · Lv.2~10 합계 골드 383,500']),
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 383,500','유대 2 · Lv.2~10 합계 골드 118,600'])],

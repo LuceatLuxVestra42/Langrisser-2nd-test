@@ -34,7 +34,9 @@ import { validateHero15FetterInternal } from './hero-15-fetter-internal.mjs';
 import { validateHero15SkillDetailInternal } from './hero-15-skill-detail-internal.mjs';
 import { expectedAdvancements } from './validate-hero15-job-advancement.mjs';
 import { validateFile as validateLianaJobTree } from './hero-15-job-tree-internal.mjs';
-import { finalJobPathDecision, splitJobAdvancements, finalJobPathLines, readLanceFetterTotals, readLanceCentralEffect, readLanceGoldDisplay, HERO_16_JOB_PATH_DECISION, hero16JobPathLine, HERO_16_PROFILE_DECISION, hero16ProfileLines, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
+import { loadInputs as commandBaseInputs, validateHero15SoldierCommandBase } from './validate-hero-15-soldier-command-base.mjs';
+import { loadInputs as commandBondInputs, validateHero15SoldierCommandBondContribution } from './validate-hero-15-soldier-command-bond-contribution.mjs';
+import { commandDecisionPath, lanceCommandRows, finalJobPathDecision, splitJobAdvancements, finalJobPathLines, readLanceFetterTotals, readLanceCentralEffect, readLanceGoldDisplay, HERO_16_JOB_PATH_DECISION, hero16JobPathLine, HERO_16_PROFILE_DECISION, hero16ProfileLines, HERO_16_INTEGRATED_PUBLICATION_PATH, HERO_16_MINIMAL_DETAIL_PATH, validateHero16IntegratedPublication, validateHero16MinimalDetail } from './hero-16-integrated-publication-contract.mjs';
 import { HERO_MINIMAL_DETAIL_BATCH_PATH, HERO_MINIMAL_DETAIL_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication, validateHeroMinimalDetailBatch } from './hero-minimal-detail-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TEN_BATCH_PATH, HERO_MINIMAL_DETAIL_TEN_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailBatchPublication as validateHeroMinimalDetailTenBatchPublication, validateHeroMinimalDetailBatch as validateHeroMinimalDetailTenBatch } from './hero-minimal-detail-ten-batch-contract.mjs';
 import { HERO_MINIMAL_DETAIL_TWENTY_BATCH_PATH, HERO_MINIMAL_DETAIL_TWENTY_BATCH_PUBLICATION_PATH, validateHeroMinimalDetailTwentyBatchPublication, validateHeroMinimalDetailTwentyBatch } from './hero-minimal-detail-twenty-batch-contract.mjs';
@@ -161,10 +163,18 @@ function textLines(node, matches) {
   return own.concat(node.children.flatMap(child => textLines(child, matches)));
 }
 
+const parents = new WeakMap();
 const element = tag => ({
   tag, textContent: '', children: [],
   get childNodes() { return this.textContent ? [this.textContent, ...this.children] : this.children; },
-  append(...nodes) { this.children.push(...nodes); },
+  get nextElementSibling() {
+    const siblings = parents.get(this)?.children ?? [];
+    return siblings.slice(siblings.indexOf(this)+1).find(node => typeof node === 'object') ?? null;
+  },
+  append(...nodes) {
+    for (const node of nodes) if (typeof node === 'object') parents.set(node,this);
+    this.children.push(...nodes);
+  },
   replaceChildren(...nodes) { this.children = nodes; }, addEventListener(type, callback) { this.listeners.set(type,callback); },
   listeners: new Map(),
   click() { if (!this.disabled) this.listeners.get('click')?.(); },
@@ -192,7 +202,7 @@ function renderAndCheckPackagedHero15(app, detail, talent, keyGroups, headGoldLi
       rows: values.map((gold, i) => ({ level: i + 2, gold })),
     }, 'Packaged Fetter Gold rows differ from the approved source vector');
   }
-  const functions = ['renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor',
+  const functions = ['renderSoldierCommandTable','renderHero15MinimalDetailView', 'renderHeroMinimalDetailView', 'renderMinimalDetailList', 'makeAnchor',
     'makeTalentPresentation', 'makeTalentDescription', 'appendSkillDescription'];
   const render = runInNewContext(functions.map(name => extractFunction(app, name)).join('\n') + '\nrenderHero15MinimalDetailView',
     { document: { createElement: element, createTextNode: text => text } });
@@ -359,8 +369,8 @@ function checkFinalPaths(card, lines = []) {
   }
 }
 
-function checkPackagedHero16(app, detail, profileLines, jobPath, goldLines, effectLines, bondTotals, finalPaths) {
-  const renderer = ['renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name)).join('\n');
+function checkPackagedHero16(app, detail, profileLines, jobPath, goldLines, effectLines, bondTotals, finalPaths, commandRows) {
+  const renderer = ['renderSoldierCommandTable','renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name)).join('\n');
   const render = runInNewContext(renderer + '\nrenderHero16MinimalDetailView', { document: { createElement: element } });
   const root = element('div');
   render(detail, root);
@@ -374,11 +384,12 @@ function checkPackagedHero16(app, detail, profileLines, jobPath, goldLines, effe
   assert.deepEqual(textLines(card, text => text?.includes(jobPath)), [jobPath], 'Packaged Hero 16 job path occurrence mismatch');
   assert.equal(path.attributes.size, 0, 'Packaged Hero 16 job path must have no attributes');
   assert.deepEqual(Object.keys(path), Object.keys(element('p')), 'Packaged Hero 16 job path must have no additional properties');
-  assert.deepEqual(card.children.map(node => node.tag), ['h3', 'p', 'p', 'p', 'p', 'p', 'p', 'h4', 'p', 'p', 'section', 'details', 'p', 'p']);
+  checkLanceCommand(card, commandRows);
+  assert.deepEqual(card.children.map(node => node.tag), ['h3', 'p', 'p', 'p', 'p', 'p', 'p', 'h4', 'p', 'p', 'section', 'details', 'p', 'p','section']);
   checkFinalPaths(card, finalPaths);
   checkLanceBondPanel(card, bondTotals);
   checkLanceGold(card, goldLines, effectLines);
-  assert.ok(card.children.slice(0, -4).every(node => node.children.length === 0), 'Packaged Hero 16 rows must contain only text');
+  assert.ok(card.children.slice(0, -5).every(node => node.children.length === 0), 'Packaged Hero 16 rows must contain only text');
 }
 
 const oldLanceSkillLines = [
@@ -505,9 +516,10 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
       }
     }
     checkProfileAttribution();
-    assert.equal(base.length,(hasNameAndVoice ? 10 : 8) + Number(Boolean(goldLines)) + Number(Boolean(bondComparison?.lines)) + (bondComparison?.finalPaths?.length ?? 0), 'Lance initial profile child count');
+    assert.equal(base.length,(hasNameAndVoice ? 10 : 8) + Number(Boolean(goldLines)) + Number(Boolean(bondComparison?.lines)) + (bondComparison?.finalPaths?.length ?? 0) + Number(Boolean(bondComparison?.commandRows)), 'Lance initial profile child count');
     assert.equal(base[hasNameAndVoice ? 9 : 7].textContent,'전직 · 호크 나이트 → 하이랜더');
     checkLanceGold(card, goldLines, effectLines);
+    checkLanceCommand(card, bondComparison?.commandRows);
     checkFinalPaths(card, bondComparison?.finalPaths);
     const panel = checkLanceBondPanel(card, bondComparison?.lines);
     if (bondComparison) {
@@ -522,12 +534,14 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
         }
         await settle();
         checkLanceBondPanel(card, bondComparison.lines, open);
+        checkLanceCommand(card, bondComparison.commandRows);
         checkFinalPaths(card, bondComparison.finalPaths);
         assert.deepEqual(snapshot(), before, 'Lance disclosure initiated a fetch');
         traces.push(snapshot());
       }
     }
     function checkNavigation() {
+      checkLanceCommand(card, bondComparison?.commandRows);
       checkFinalPaths(card, bondComparison?.finalPaths);
       checkLanceBondPanel(card, bondComparison?.lines, true);
       checkLanceGold(card, goldLines, effectLines);
@@ -655,6 +669,24 @@ function checkPackagedSoldierCommand(card) {
   assert.equal(card.children[position - 1]?.children[0]?.textContent, '용병');
   assert.equal(card.children[position + 1]?.children[0]?.textContent, '전직');
 
+  validateCommandTable(section, [
+    ['생명', '+15%', '+25%'], ['공격', '', '+10%'], ['방어', '', '+10%'], ['마방', '+15%', '+25%'],
+  ]);
+}
+
+function checkLanceCommand(card, rows) {
+  const label = '병사 지휘 보정';
+  const sections = card.children.filter(node => node.children[0]?.textContent === label);
+  assert.deepEqual(textLines(card,text => text === label),rows ? [label] : [], 'Lance command heading occurrences');
+  assert.equal(sections.length,Number(Boolean(rows)), 'Lance command section count');
+  if (!rows) return;
+  const secondPath = card.children.find(node => node.tag === 'p' && node.textContent === finalJobText[1]);
+  assert.ok(secondPath, 'Lance final job paragraph attribution');
+  assert.ok(secondPath.nextElementSibling === sections[0], 'Lance command must immediately follow second final job paragraph');
+  validateCommandTable(sections[0], rows);
+}
+
+function validateCommandTable(section, expected) {
   function checkStructure(node, tag, children) {
     assert.equal(node.tag, tag);
     assert.deepEqual(node.childNodes.map(child => child.tag), children, 'Soldier Command table structure');
@@ -670,17 +702,16 @@ function checkPackagedSoldierCommand(card) {
     ['col', '능력치', 0], ['col', '기본 지휘', 0], ['col', '최대 레벨 일반 유대', 0],
   ]);
 
-  const expected = [
-    ['생명', '+15%', '+25%'],
-    ['공격', '', '+10%'],
-    ['방어', '', '+10%'],
-    ['마방', '+15%', '+25%'],
-  ];
   checkStructure(body, 'tbody', ['tr', 'tr', 'tr', 'tr']);
   for (const [i, row] of body.children.entries()) {
     checkStructure(row, 'tr', ['th', 'td', 'td']);
     const [label, base] = row.children;
     assert.equal(label.scope, 'row');
+    if (expected[i][0] === '마방' && expected[i][1] === '') {
+      assert.equal(base.textContent, '', 'Lance unadmitted base magic defense text');
+      assert.ok(!base.hasAttribute('aria-label') && !base.ariaLabel, 'Lance base magic defense accessible name');
+      assert.ok(!base.hasAttribute('aria-description') && !base.ariaDescription, 'Lance base magic defense accessible description');
+    }
     assert.deepEqual(row.children.map(cell => cell.textContent), expected[i], `Soldier Command values: ${expected[i][0]}`);
     assert.ok(row.children.every(cell => cell.children.length === 0), 'Soldier Command cells must be plain text');
     if (expected[i][1] === '') {
@@ -688,7 +719,10 @@ function checkPackagedSoldierCommand(card) {
       const hiddenAttributes = [...base.attributes.keys()].filter(key =>
         key === 'title' || key === 'value' || key.startsWith('aria-') || key.startsWith('data-'));
       const hiddenProperties = ['title', 'ariaLabel', 'ariaDescription', 'ariaLabelledByElements', 'ariaDescribedByElements', 'value'];
-      assert.ok(hiddenAttributes.length === 0 && hiddenProperties.every(key => !Object.hasOwn(base, key))
+      // The startup fixture sets value='' on every element, including table cells.
+      const plainCell = hiddenProperties.every(key => !Object.hasOwn(base,key)
+        || (key === 'value' && base.value === '' && Object.hasOwn(base,'focus')));
+      assert.ok(hiddenAttributes.length === 0 && plainCell
         && !base.innerText && !base.innerHTML && !Object.keys(base.dataset ?? {}).length,
       'Empty Soldier Command cell has a hidden value');
     }
@@ -753,6 +787,15 @@ assert.equal(createHash('sha256').update(await readFile('generated/hero-15-job-t
 const lanceOrdinary = await generateOrdinarySkills();
 const bondTotals = await readLanceFetterTotals(readJson);
 await Promise.all([validateHero15FetterReferences(), validateHero15FetterRawDetails(), validateHero15HeartFetterRawDetails()]);
+const baseCommand = await commandBaseInputs();
+const bondCommand = await commandBondInputs();
+validateHero15SoldierCommandBase(baseCommand);
+validateHero15SoldierCommandBondContribution(bondCommand);
+const commandRows = lanceCommandRows(
+  baseCommand.canonical.records.find(row => row.heroId === 16),
+  bondCommand.canonical.records.find(row => row.heroId === 16),
+  await readJson(commandDecisionPath),
+);
 const effectLines = await readLanceCentralEffect(readJson);
 await validateHero15SkillReferences();
 await validateHero15SkillDetailInternal();
@@ -1314,7 +1357,7 @@ try {
   assert.deepEqual(textLines(hero15Card,text=>text?.startsWith('중국어명 · ') || text?.startsWith('성우 · ')),
     ['중국어명 · 莉亚娜 / 영문명 · Liana','성우 · 코시미즈 아미'],'Packaged Liana original names and voice');
   const goldLines = await readLanceGoldDisplay(readJson);
-  checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath, goldLines, effectLines, bondTotals, finalPaths);
+  checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath, goldLines, effectLines, bondTotals, finalPaths, commandRows);
   await Promise.all([
     validateHero15FetterInternal(), validateHero15FullDetailPublicationFromRoot(),
     validateHero15FetterMaterialRelations(), validateHero15FetterConditionTypeReferences(),
@@ -1335,7 +1378,13 @@ try {
   assert.equal(createHash('sha256').update(base339).digest('hex'),
     '2348ffe1d8599ef30b9609c4c87f21a219d34671c995daa2c505224321ff1b02', 'Merged #339 app digest');
   const baseRequests = await checkPackagedLanceStartup(output,html,base339.toString('utf8'),...startupArgs,{ lines:bondTotals });
-  const candidateRequests = await checkPackagedLanceStartup(output,html,app,...startupArgs,{ lines:bondTotals, finalPaths });
+  const base340 = await readFile(resolve('tools/fixtures/hero-16-soldier-command-base-340-app.js'));
+  assert.equal(base340.length,124007);
+  assert.equal(createHash('sha256').update(base340).digest('hex'),
+    '4a1cbcec94b57128db55f4ba7d8fad5ab4c409795c6b2119f42e4fd7425bd6a6', 'Merged #340 app digest');
+  const previousCommandRequests = await checkPackagedLanceStartup(output,html,base340.toString('utf8'),...startupArgs,{ lines:bondTotals, finalPaths });
+  const candidateRequests = await checkPackagedLanceStartup(output,html,app,...startupArgs,{ lines:bondTotals, finalPaths, commandRows });
+  assert.deepEqual(candidateRequests, previousCommandRequests, 'Lance #340 fetch URL counts across command and optional loading');
   assert.deepEqual(candidateRequests, baseRequests, 'Lance #339 complete fetch URL counts by scenario and arrival');
   assert.deepEqual(candidateRequests, previousRequests, 'Lance complete fetch URL counts by scenario and arrival');
   const base337 = await readFile(resolve('tools/fixtures/hero-16-central-effect-base-337-app.js'));

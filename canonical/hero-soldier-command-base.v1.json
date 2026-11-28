@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Hero 15 only. Hero-owned troop base modifier metadata. Copy explicit HeroInfo integers and divide by 100 without rounding to express percentages. Absent fields have no admitted value.",
+  "scope": "Heroes 15 and 16 only. Hero-owned troop base modifier metadata. Copy explicit HeroInfo integers and divide by 100 without rounding to express percentages. Absent fields have no admitted value.",
   "records": [
     {
       "heroId": 15,
@@ -19,6 +19,28 @@
         },
         "heroIdentity": "evidence/source/configdata/hero-15-soldier-command-base.v1.json#rawRecord/ID",
         "transformation": "evidence/source/configdata/hero-15-soldier-command-base.v1.json#transformationEvidence"
+      }
+    },
+    {
+      "heroId": 16,
+      "raw": {
+        "hp": 1000,
+        "at": 500,
+        "df": 1000
+      },
+      "base": {
+        "hp": 10,
+        "at": 5,
+        "df": 10
+      },
+      "provenance": {
+        "raw": {
+          "hp": "evidence/source/configdata/hero-16-soldier-command-base.v1.json#rawRecord/HPCmd_INI",
+          "at": "evidence/source/configdata/hero-16-soldier-command-base.v1.json#rawRecord/ATCmd_INI",
+          "df": "evidence/source/configdata/hero-16-soldier-command-base.v1.json#rawRecord/DFCmd_INI"
+        },
+        "heroIdentity": "evidence/source/configdata/hero-16-soldier-command-base.v1.json#rawRecord/ID",
+        "transformation": "evidence/source/configdata/hero-16-soldier-command-base.v1.json#transformation"
       }
     }
   ]

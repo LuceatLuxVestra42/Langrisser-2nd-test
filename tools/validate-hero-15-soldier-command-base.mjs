@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 export const CANONICAL = 'canonical/hero-soldier-command-base.v1.json';
+const LANCE_EVIDENCE = 'evidence/source/configdata/hero-16-soldier-command-base.v1.json';
 export const EVIDENCE = 'evidence/source/configdata/hero-15-soldier-command-base.v1.json';
 const SOURCE_PATH = 'data/configdata/ConfigDataHeroInfo.json';
 const HERO_IDENTITY = 'canonical/hero-identities.v1.json';
@@ -10,13 +11,13 @@ const SOURCE_FIELDS = { hp: 'HPCmd_INI', magicDf: 'MagicDFCmd_INI' };
 
 export async function loadInputs(root = process.cwd()) {
   const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
-  const [evidence, canonical, identities] = await Promise.all(
-    [EVIDENCE, CANONICAL, HERO_IDENTITY].map(readJson),
+  const [evidence, lanceEvidence, canonical, identities] = await Promise.all(
+    [EVIDENCE, LANCE_EVIDENCE, CANONICAL, HERO_IDENTITY].map(readJson),
   );
-  return { evidence, canonical, identities };
+  return { evidence, lanceEvidence, canonical, identities };
 }
 
-export function validateHero15SoldierCommandBase({ evidence, canonical, identities }) {
+export function validateHero15SoldierCommandBase({ evidence, lanceEvidence, canonical, identities }) {
   assert.equal(evidence.schemaVersion, 1);
   assert.deepEqual(evidence.source, {
     repository: 'LuceatLuxVestra42/langrisser-future-guide',
@@ -81,18 +82,33 @@ export function validateHero15SoldierCommandBase({ evidence, canonical, identiti
   const raw = Object.fromEntries(Object.entries(SOURCE_FIELDS).map(([key, field]) => [key, evidence.rawRecord[field]]));
   const base = Object.fromEntries(Object.entries(raw).map(([key, value]) => [key, value / 100]));
   const locators = Object.fromEntries(Object.entries(SOURCE_FIELDS).map(([key, field]) => [key, `${EVIDENCE}#rawRecord/${field}`]));
+  const lance = lanceEvidence;
+  assert.deepEqual(lance.source, {...evidence.source, recordIndex:15, recordLocator:SOURCE_PATH + '#/15'}, 'Lance base HeroInfo provenance');
+  assert.equal(lance.schemaVersion, 1);
+  assert.deepEqual(lance.rawRecord, { ID:16, HPCmd_INI:1000, ATCmd_INI:500, DFCmd_INI:1000 }, 'Lance explicit base fields');
+  assert.deepEqual(lance.absentFields, ['MagicDFCmd_INI'], 'Lance absent base magic defense');
+  assert.equal(identities.records.filter(row => row.heroId === lance.rawRecord.ID).length, 1);
+  assert.deepEqual(lance.transformation, {commit:'57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff',
+    path:'data/contracts/hero-soldier-command-base.v1.json',gitBlobSha1:'e7f2546945db23d5cc23c7707645100acc10c52f',
+    locator:'#projection/normalization',divisor:100}, 'Lance base percentage contract');
+  const fields = Object.entries({hp:'HPCmd_INI', at:'ATCmd_INI', df:'DFCmd_INI'});
+  const lanceRaw = Object.fromEntries(fields.map(([stat, field]) => [stat,lance.rawRecord[field]]));
+  const lanceRow = {heroId:lance.rawRecord.ID, raw:lanceRaw,
+    base:Object.fromEntries(Object.entries(lanceRaw).map(([stat,value]) => [stat,value/lance.transformation.divisor])),
+    provenance:{raw:Object.fromEntries(fields.map(([stat,field]) => [stat,LANCE_EVIDENCE+'#rawRecord/'+field])),
+      heroIdentity:LANCE_EVIDENCE+'#rawRecord/ID',transformation:LANCE_EVIDENCE+'#transformation'}};
   assert.deepEqual(canonical, {
     schemaVersion: 1,
-    scope: 'Hero 15 only. Hero-owned troop base modifier metadata. Copy explicit HeroInfo integers and divide by 100 without rounding to express percentages. Absent fields have no admitted value.',
+    scope: 'Heroes 15 and 16 only. Hero-owned troop base modifier metadata. Copy explicit HeroInfo integers and divide by 100 without rounding to express percentages. Absent fields have no admitted value.',
     records: [{ heroId, raw, base, provenance: {
       raw: locators,
       heroIdentity: `${EVIDENCE}#rawRecord/ID`,
       transformation: `${EVIDENCE}#transformationEvidence`,
-    } }],
+    } }, lanceRow],
   }, 'Canonical must preserve and normalize only the two source-proven base modifiers');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve('tools/validate-hero-15-soldier-command-base.mjs')) {
   validateHero15SoldierCommandBase(await loadInputs());
-  console.log('Hero 15 Soldier Command base validation: PASS (2 source-proven modifiers and 2 absent fields)');
+  console.log('Hero 15 and 16 Soldier Command base validation: PASS (2 and 3 explicit modifiers)');
 }

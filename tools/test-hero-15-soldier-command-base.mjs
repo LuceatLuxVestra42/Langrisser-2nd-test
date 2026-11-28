@@ -5,6 +5,7 @@ const baseline = await loadInputs();
 validateHero15SoldierCommandBase(baseline);
 
 const cases = [
+  ['Lance absent magic defense materialized', ({lanceEvidence}) => { lanceEvidence.rawRecord.MagicDFCmd_INI = 0; }],
   ['wrong HeroInfo ID', ({ evidence }) => { evidence.rawRecord.ID = 16; }],
   ['missing Canonical Hero endpoint', ({ identities }) => {
     identities.records = identities.records.filter(({ heroId }) => heroId !== 15);
