@@ -667,13 +667,21 @@ function renderHero16MinimalDetailView(data, container) {
     }
     heart.append(group);
   }
+  const bondDescriptions = [
+    '유대 2 · 레벨 30 달성',
+    '유대 3 · 란스를 출전시켜 시공의 균열 3-1[정예] 클리어',
+  ].map(text => {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    return paragraph;
+  });
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart]);
+  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions]);
 }
 
 async function loadHero16Talent(card) {

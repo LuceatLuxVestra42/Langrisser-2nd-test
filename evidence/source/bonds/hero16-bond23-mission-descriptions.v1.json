@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "fetters": {
+    "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+    "gitBlobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+    "records": [
+      {
+        "locator": "#/71",
+        "selectedLocator": "#/71/CompletionConditions/1",
+        "ID": 72,
+        "CompletionConditions": [
+          {
+            "ConditionType": 1,
+            "Parm1": 16,
+            "Parm2": 10
+          },
+          {
+            "ConditionType": 2,
+            "Parm1": 5053
+          }
+        ]
+      },
+      {
+        "locator": "#/72",
+        "selectedLocator": "#/72/CompletionConditions/1",
+        "ID": 73,
+        "CompletionConditions": [
+          {
+            "ConditionType": 1,
+            "Parm1": 16,
+            "Parm2": 15
+          },
+          {
+            "ConditionType": 2,
+            "Parm1": 5054
+          }
+        ]
+      }
+    ]
+  },
+  "missions": {
+    "path": "data/configdata/ConfigDataMissionInfo.json",
+    "gitBlobSha1": "72c62b297a0664844c3c53dc10452a1b0ca4704d",
+    "records": [
+      {
+        "locator": "#/370",
+        "ID": 5053,
+        "Title": "兰斯",
+        "MissionType": 34,
+        "Desc": "兰斯到达30级"
+      },
+      {
+        "locator": "#/371",
+        "ID": 5054,
+        "Title": "兰斯",
+        "MissionType": 5,
+        "Desc": "使用兰斯完成时空裂缝精英3-1"
+      }
+    ]
+  }
+}

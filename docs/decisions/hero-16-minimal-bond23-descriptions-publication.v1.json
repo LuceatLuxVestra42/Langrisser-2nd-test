@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "scope": "PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "placement": "consecutive-card-paragraphs-immediately-after-heart-fetter",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "sourceEvidence": "evidence/source/bonds/hero16-bond23-mission-descriptions.v1.json",
+  "heroNameSource": "canonical/hero-localizations-ko.v1.json#heroId=16",
+  "crossChecks": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-detail/by-id/16.json",
+    "locators": [
+      "/bonds/1/completionConditions/1/mission",
+      "/bonds/2/completionConditions/1/mission"
+    ],
+    "display": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/"
+  },
+  "rows": [
+    {
+      "bond": 2,
+      "fetterId": 72,
+      "missionId": 5053,
+      "textKo": "유대 2 · 레벨 30 달성"
+    },
+    {
+      "bond": 3,
+      "fetterId": 73,
+      "missionId": 5054,
+      "textKo": "유대 3 · 란스를 출전시켜 시공의 균열 3-1[정예] 클리어"
+    }
+  ],
+  "transformation": "Translate only the selected Mission.Desc. The card supplies the subject for bond 2. Bond 3 names the admitted Korean hero and retains the elite qualifier.",
+  "limitations": "Official Korean text, runtime completion, condition composition, and dungeon or stage identifiers are unverified."
+}
