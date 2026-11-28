@@ -670,6 +670,8 @@ function renderHero16MinimalDetailView(data, container) {
   const bondDescriptions = [
     '유대 2 · 레벨 30 달성',
     '유대 3 · 란스를 출전시켜 시공의 균열 3-1[정예] 클리어',
+    '유대 4 · 나암과 함께 운명의문 4 클리어',
+    '유대 5 · 쉐리와 함께 운명의문 5 클리어',
   ].map(text => {
     const paragraph = document.createElement('p');
     paragraph.textContent = text;

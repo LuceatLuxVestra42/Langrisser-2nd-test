@@ -124,16 +124,44 @@ async function checkHeroDetailBuildFailures() {
     return {...consumerMutation('10418 '+name,'hero-16-ordinary-skills-publication-contract',windCall,replacement,reason),
       error:talentError(reason)};
   }
-  function bondDescriptionMutation(name, input, change, reason) {
-    const args = ['bondReferences', 'bondDescriptionSource', 'heroLocalization', 'bondDescriptionDecision'];
-    const call = 'lanceBondDescriptions(' + args.join(', ') + ')';
+  function bondDescriptionMutation(name, input, change, reason, companion = false) {
+    const owner = companion ? 'lanceCompanionBondDescriptions' : 'lanceBondDescriptions';
+    const args = companion ? ['bondReferences', 'companionSource', 'heroLocalization', 'companionDecision']
+      : ['bondReferences', 'bondDescriptionSource', 'heroLocalization', 'bondDescriptionDecision'];
+    const call = owner + '(' + args.join(', ') + ')';
     const index = args.indexOf(input);
     assert.notEqual(index, -1);
     args[index] = 'copy';
-    const replacement = `(() => { let copy = structuredClone(${input}); ${change}; return lanceBondDescriptions(${args.join(', ')}); })()`;
+    const replacement = `(() => { let copy = structuredClone(${input}); ${change}; return ${owner}(${args.join(', ')}); })()`;
     return consumerMutation(name, 'build', call, replacement, 'Lance bond descriptions: ' + reason);
   }
+  const mission = 'copy.tables.MissionInfo.records';
+  const fetter = 'copy.tables.HeroFetterInfo.records';
+  const stage = 'copy.tables.HeroDungeonLevelInfo.records';
+  const ownership = 'copy.tables.HeroInformationInfo.ownerReferences';
   const cases = [
+    ...[
+      ...[[4,74],[5,75]].map(([bond,id])=>['Lance bond '+bond+' reference missing', 'bondReferences',
+        'copy.records=copy.records.filter(r=>!(r.heroId===16 && r.fetterId==='+id+'))', 'bond '+bond+' Hero 16 regular Fetter '+id+' reference']),
+      ...[[4,5055,11],[5,5056,14]].map(([bond,mid,id])=>['Lance companion '+id+' name missing', 'heroLocalization',
+        'copy.records=copy.records.filter(r=>r.heroId!=='+id+')', 'bond '+bond+' Mission '+mid+' Hero '+id+' Korean name']),
+      ['Lance Mission 5055 type', 'companionSource', mission+'[0].MissionType=34', 'Mission 5055 MissionType=5'],
+      ['Lance Mission 5055 Param2', 'companionSource', mission+'[0].Param2=5', 'Mission 5055 Param2=6'],
+      ['Lance Stage 164 multiple owners', 'companionSource', ownership+'.find(r=>r.ID===14).DungeonLevels_ID.push(164)', 'Stage 164 complete reverse-owner set'],
+      ['Lance Stage 164 missing ownership', 'companionSource', ownership+'[15].DungeonLevels_ID.splice(3,1)', 'Hero 16 missing Stage 164 ownership'],
+      ['Lance companions exchanged', 'companionSource', mission+'[0].Param1=14; '+mission+'[1].Param1=11', 'Mission 5055 companion attribution'],
+      ['Lance stages exchanged', 'companionSource', mission+'[0].Param3=165; '+mission+'[1].Param3=164', 'Mission 5055 Stage attribution'],
+      ['Lance Stage 164 number', 'companionSource', stage+"[0].NameNum='5'", 'Stage 164 NameNum'],
+      ['Lance Stage 165 number', 'companionSource', stage+"[1].NameNum='4'", 'Stage 165 NameNum'],
+      ['Lance Fetter 74 and 75 Missions exchanged', 'companionSource',
+        fetter+'[0].CompletionConditions[1].Parm1=5056; '+fetter+'[1].CompletionConditions[1].Parm1=5055', 'Fetter 74 Mission attribution'],
+      ['Lance Fetter 74 condition order', 'companionSource', fetter+'[0].CompletionConditions.reverse()', 'Fetter 74 condition object at [1]'],
+      ['Lance Fetter 74 locator', 'companionSource', fetter+"[0].selectedLocator='#/73/CompletionConditions/0'", 'Fetter 74 selected locator'],
+      ['Lance decision stages exchanged', 'companionDecision', 'copy.rows[0].stageId=165; copy.rows[1].stageId=164', 'bond 4/5 approved decision tuples'],
+      ['Lance companion decision missing', 'companionDecision', 'copy=undefined', 'missing bond 4/5 decision'],
+      ['Lance companion decision status', 'companionDecision', "copy.status='PENDING'", 'bond 4/5 approval status'],
+      ['Lance companion decision scope', 'companionDecision', "copy.scope='RUNTIME_COMPLETION'", 'bond 4/5 description-only scope'],
+    ].map(args => bondDescriptionMutation(...args, true)),
     ...[
       ['Mission references exchanged', 'bondDescriptionSource',
         '[copy.fetters.records[0].CompletionConditions[1].Parm1,copy.fetters.records[1].CompletionConditions[1].Parm1] = [5054,5053]',
@@ -717,6 +745,13 @@ function lianaFetterInput(path, union) {
   const bothGroups = approvedApp.toString('utf8').match(/    \['드래곤 마스터', 'Lv\.4[^\n]+\n    \['로열 나이트', 'Lv\.4[^\n]+/)[0];
   const windList = "renderMinimalDetailList('일반 스킬', labels)";
   const rendererCases = [
+    ['Lance bond 4 Gate of Fate number', 'Lance bond 4 rendered Gate of Fate number or text',
+      '유대 4 · 나암과 함께 운명의문 4 클리어', '유대 4 · 나암과 함께 운명의문 5 클리어'],
+    ['Lance bond 5 Gate of Fate number', 'Lance bond 5 rendered Gate of Fate number or text',
+      '유대 5 · 쉐리와 함께 운명의문 5 클리어', '유대 5 · 쉐리와 함께 운명의문 4 클리어'],
+    ['Lance companion paragraph order', 'Lance companion paragraph placement after bond 3',
+      appParagraphs(['유대 4 · 나암과 함께 운명의문 4 클리어','유대 5 · 쉐리와 함께 운명의문 5 클리어']),
+      appParagraphs(['유대 5 · 쉐리와 함께 운명의문 5 클리어','유대 4 · 나암과 함께 운명의문 4 클리어'])],
     ['Lance bond description order', 'Lance bond description placement after Heart Fetter',
       'command, heart, ...bondDescriptions]', 'command, heart, ...bondDescriptions.reverse()]'],
     ['Lance bond 3 missing elite', 'Lance bond description rendered text',

@@ -500,22 +500,22 @@ export function lanceHeartGroups(conditions, source, edges, memberships, names, 
 export const bond23EvidencePath = 'evidence/source/bonds/hero16-bond23-mission-descriptions.v1.json';
 export const bond23DecisionPath = 'docs/decisions/hero-16-minimal-bond23-descriptions-publication.v1.json';
 
-export function lanceBondDescriptions(references, source, names, decision) {
-  function requireValue(actual, expected, reason) {
-    if (!isDeepStrictEqual(actual, expected)) throw new Error('Lance bond descriptions: ' + reason);
-  }
+function requireBondValue(actual, expected, reason) {
+  if (!isDeepStrictEqual(actual, expected)) throw new Error('Lance bond descriptions: ' + reason);
+}
 
-  requireValue([source.schemaVersion, source.repository, source.commit], [1, 'LuceatLuxVestra42/langrisser-future-guide',
+export function lanceBondDescriptions(references, source, names, decision) {
+  requireBondValue([source.schemaVersion, source.repository, source.commit], [1, 'LuceatLuxVestra42/langrisser-future-guide',
     '6475e63ee23d18adf733756c26a14fa9e3ed662c'], 'ConfigData origin');
   for (const [table, name, blob] of [
     [source.fetters, 'HeroFetterInfo', '1beec024e3d82e57923e59c70048c5abefd92d06'],
     [source.missions, 'MissionInfo', '72c62b297a0664844c3c53dc10452a1b0ca4704d'],
   ]) {
-    requireValue([table.path, table.gitBlobSha1, table.records.length],
+    requireBondValue([table.path, table.gitBlobSha1, table.records.length],
       ['data/configdata/ConfigData' + name + '.json', blob, 2], name + ' provenance');
   }
   const koreanNames = names.records.filter(row => row.heroId === 16).map(row => row.nameKo);
-  requireValue(koreanNames, ['란스'], 'bond 3 Mission 5054 requires Hero 16 Korean name');
+  requireBondValue(koreanNames, ['란스'], 'bond 3 Mission 5054 requires Hero 16 Korean name');
   const lines = ['유대 2 · 레벨 30 달성', '유대 3 · ' + koreanNames[0] + '를 출전시켜 시공의 균열 3-1[정예] 클리어'];
   const selections = [
     { bond: 2, fetterId: 72, missionId: 5053, slot: 1, level: 10, fetterLocator: '#/71', missionLocator: '#/370', type: 34, desc: '兰斯到达30级' },
@@ -524,36 +524,126 @@ export function lanceBondDescriptions(references, source, names, decision) {
   for (const [index, spec] of selections.entries()) {
     const { fetterId, missionId, slot, level, fetterLocator, missionLocator, type, desc } = spec;
     const refs = references.records.filter(row => row.heroId === 16 && row.fetterId === fetterId);
-    requireValue(refs, [{ heroId: 16, heroInformationId: 16, fetterId, referenceKind: 'HERO_FETTER_ID_REFERENCE',
+    requireBondValue(refs, [{ heroId: 16, heroInformationId: 16, fetterId, referenceKind: 'HERO_FETTER_ID_REFERENCE',
       sourceField: 'ConfigDataHeroInformationInfo.HeroFetters_ID', endpointNamespace: 'ConfigDataHeroFetterInfo.ID',
       provenance: 'evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/' + slot }],
       'Hero 16 regular Fetter ' + fetterId + ' reference');
     const fetter = source.fetters.records[index];
-    requireValue([fetter.ID, fetter.locator], [fetterId, fetterLocator], 'Fetter ' + fetterId + ' record');
-    requireValue(fetter.selectedLocator, fetterLocator + '/CompletionConditions/1', 'Fetter ' + fetterId + ' selected locator');
+    requireBondValue([fetter.ID, fetter.locator], [fetterId, fetterLocator], 'Fetter ' + fetterId + ' record');
+    requireBondValue(fetter.selectedLocator, fetterLocator + '/CompletionConditions/1', 'Fetter ' + fetterId + ' selected locator');
     const conditions = fetter.CompletionConditions;
-    requireValue(conditions.length, 2, 'Fetter ' + fetterId + ' condition count');
+    requireBondValue(conditions.length, 2, 'Fetter ' + fetterId + ' condition count');
     const affinityCondition = { ConditionType: 1, Parm1: 16, Parm2: level };
     if (isDeepStrictEqual(conditions[1], affinityCondition)) {
       throw new Error('Lance bond descriptions: Fetter ' + fetterId + ' Mission condition misplaced at [1]');
     }
-    requireValue(conditions[1].ConditionType, 2, 'Fetter ' + fetterId + ' condition type at [1]');
-    requireValue(conditions[1], { ConditionType: 2, Parm1: missionId }, 'Fetter ' + fetterId + ' Mission attribution at [1]');
-    requireValue(conditions[0], affinityCondition, 'Fetter ' + fetterId + ' first condition');
+    requireBondValue(conditions[1].ConditionType, 2, 'Fetter ' + fetterId + ' condition type at [1]');
+    requireBondValue(conditions[1], { ConditionType: 2, Parm1: missionId }, 'Fetter ' + fetterId + ' Mission attribution at [1]');
+    requireBondValue(conditions[0], affinityCondition, 'Fetter ' + fetterId + ' first condition');
     const mission = source.missions.records[index];
-    requireValue([mission.locator, mission.ID, mission.Title, mission.MissionType], [missionLocator, missionId, '兰斯', type], 'Mission ' + missionId + ' record');
-    requireValue(mission.Desc, desc, 'Mission ' + missionId + ' pinned Desc');
+    requireBondValue([mission.locator, mission.ID, mission.Title, mission.MissionType], [missionLocator, missionId, '兰斯', type], 'Mission ' + missionId + ' record');
+    requireBondValue(mission.Desc, desc, 'Mission ' + missionId + ' pinned Desc');
   }
 
   if (!decision) throw new Error('Lance bond descriptions: missing publication decision');
-  requireValue(decision.status, 'APPROVED', 'publication approval status');
-  requireValue(decision.scope, 'PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY', 'translation-only scope');
-  requireValue([decision.schemaVersion, decision.heroId, decision.surface, decision.placement, decision.sourceEvidence, decision.heroNameSource],
+  requireBondValue(decision.status, 'APPROVED', 'publication approval status');
+  requireBondValue(decision.scope, 'PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY', 'translation-only scope');
+  requireBondValue([decision.schemaVersion, decision.heroId, decision.surface, decision.placement, decision.sourceEvidence, decision.heroNameSource],
     [1, 16, HERO_16_MINIMAL_DETAIL_FRAGMENT, 'consecutive-card-paragraphs-immediately-after-heart-fetter', bond23EvidencePath,
       'canonical/hero-localizations-ko.v1.json#heroId=16'], 'decision subject or placement');
   if (!decision.approval?.source || !decision.approval?.basis) throw new Error('Lance bond descriptions: publication approval source');
-  requireValue(decision.rows.map(({ bond, fetterId, missionId }) => [bond, fetterId, missionId]),
+  requireBondValue(decision.rows.map(({ bond, fetterId, missionId }) => [bond, fetterId, missionId]),
     [[2, 72, 5053], [3, 73, 5054]], 'publication Mission attribution');
-  requireValue(decision.rows.map(row => row.textKo), lines, 'publication Korean text');
+  requireBondValue(decision.rows.map(row => row.textKo), lines, 'publication Korean text');
+  return lines;
+}
+
+export const bond45EvidencePath = 'evidence/source/bonds/hero16-bond45-mission-descriptions.v1.json';
+export const bond45DecisionPath = 'docs/decisions/hero-16-minimal-bond45-description-publication.v1.json';
+
+export function lanceCompanionBondDescriptions(references, source, names, decision) {
+  const tuples = [[4, 74, 5055, 11, 16, 164, '4'], [5, 75, 5056, 14, 16, 165, '5']];
+  const { HeroInfo, HeroInformationInfo, HeroFetterInfo, MissionInfo, HeroDungeonLevelInfo } = source.tables;
+  requireBondValue([source.schemaVersion, source.repository, source.commit],
+    [1, 'LuceatLuxVestra42/langrisser-future-guide', '6475e63ee23d18adf733756c26a14fa9e3ed662c'], 'bond 4/5 source version');
+  for (const [name, blob, count] of [
+    ['HeroInfo', '728daab3370f0c7779449663ea02e638677944d4', 3],
+    ['HeroInformationInfo', '49aef6be8ea1a65d5725c16a05dab94fffa73f92', 291],
+    ['HeroFetterInfo', '1beec024e3d82e57923e59c70048c5abefd92d06', 2],
+    ['MissionInfo', '72c62b297a0664844c3c53dc10452a1b0ca4704d', 2],
+    ['HeroDungeonLevelInfo', '3b4282a1a8707f4f83545138eb052c594055bfb7', 2],
+  ]) {
+    const table = source.tables[name];
+    requireBondValue([table.path, table.blob, (table.records ?? table.ownerReferences).length],
+      ['data/configdata/ConfigData' + name + '.json', blob, count], name + ' bond 4/5 provenance');
+  }
+  const owner = HeroInfo.records[2];
+  const information = HeroInformationInfo.lance;
+  requireBondValue([owner.locator, owner.ID, owner.Name, owner.HeroInformation_ID, information.locator, information.ID, information.HeroFetters_ID],
+    ['#/15', 16, '兰斯', 16, '#/15', 16, [71, 72, 73, 74, 75]], 'Lance HeroInformation and regular Fetters');
+  const lines = tuples.map((expected, i) => {
+    const [bond, fetterId, missionId, companionId, ownerId, stageId, number] = expected;
+    const slot = bond - 1;
+    const selectedId = information.HeroFetters_ID[slot];
+    const refs = references.records.filter(row => row.heroId === owner.ID && row.fetterId === selectedId);
+    requireBondValue(refs, [{ heroId: 16, heroInformationId: 16, fetterId, referenceKind: 'HERO_FETTER_ID_REFERENCE',
+      sourceField: 'ConfigDataHeroInformationInfo.HeroFetters_ID', endpointNamespace: 'ConfigDataHeroFetterInfo.ID',
+      provenance: 'evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/' + slot }],
+      'bond ' + bond + ' Hero 16 regular Fetter ' + fetterId + ' reference');
+    const fetter = HeroFetterInfo.records[i];
+    const locator = ['#/73', '#/74'][i];
+    requireBondValue([fetter.ID, fetter.locator], [selectedId, locator], 'Fetter ' + fetterId + ' source record');
+    requireBondValue(fetter.selectedLocator, locator + '/CompletionConditions/1', 'Fetter ' + fetterId + ' selected locator');
+    const conditions = fetter.CompletionConditions;
+    requireBondValue([conditions.length, conditions[1].ConditionType], [2, 2], 'Fetter ' + fetterId + ' condition object at [1]');
+    requireBondValue(conditions[0], { ConditionType: 1, Parm1: owner.ID, Parm2: [23, 25][i] }, 'Fetter ' + fetterId + ' first condition');
+    requireBondValue(conditions[1], { ConditionType: 2, Parm1: missionId }, 'Fetter ' + fetterId + ' Mission attribution');
+
+    const mission = MissionInfo.records.find(row => row.ID === conditions[1].Parm1);
+    const companion = HeroInfo.records[i];
+    const stage = HeroDungeonLevelInfo.records.find(row => row.ID === mission?.Param3);
+    const stageName = ['魔物显形', '骑士'][i];
+    requireBondValue([mission?.locator, mission?.Title, mission?.Param4, mission?.Desc],
+      [['#/372', '#/373'][i], owner.Name, 1, ['在娜姆的帮助下完成魔物显形', '在雪莉的帮助下完成骑士'][i]], 'Mission ' + missionId + ' source');
+    requireBondValue(mission.MissionType, 5, 'Mission ' + missionId + ' MissionType=5');
+    requireBondValue(mission.Param2, 6, 'Mission ' + missionId + ' Param2=6');
+    requireBondValue(mission.Param3, stageId, 'Mission ' + missionId + ' Stage attribution');
+    const stageLocator = ['#/84', '#/85'][i];
+    requireBondValue([stage?.locator, stage?.Name, stage?.nameNumLocator], [stageLocator, stageName, stageLocator + '/NameNum'], 'Stage ' + stageId + ' record');
+    requireBondValue(stage.NameNum, number, 'Stage ' + stageId + ' NameNum');
+
+    const stageOwners = new Set(HeroInformationInfo.ownerReferences
+      .filter(row => row.DungeonLevels_ID?.includes(stage.ID)).map(row => row.ID));
+    const heroIds = new Set(HeroInfo.ownerReferences.filter(row => stageOwners.has(row.HeroInformation_ID)).map(row => row.ID));
+    requireBondValue(heroIds.has(owner.ID), true, 'Hero 16 missing Stage ' + stageId + ' ownership');
+    requireBondValue([...heroIds], [ownerId], 'Stage ' + stageId + ' complete reverse-owner set');
+    requireBondValue(HeroInformationInfo.ownerReferences[15].DungeonLevels_ID[slot], stage.ID, 'Lance dungeon slot ' + slot);
+    const companions = new Set([...heroIds, mission.Param1]);
+    companions.delete(owner.ID);
+    requireBondValue([...companions], [companionId], 'Mission ' + missionId + ' companion attribution');
+    requireBondValue([companion.ID, companion.Name, companion.locator], [mission.Param1, ['娜姆', '雪莉'][i], ['#/10', '#/13'][i]], 'companion Hero source');
+    const [resolvedOwner] = heroIds;
+    const [resolvedCompanion] = companions;
+    requireBondValue([slot + 1, fetter.ID, mission.ID, resolvedCompanion, resolvedOwner, stage.ID, stage.NameNum], expected, 'source tuple for bond ' + bond);
+    const ko = names.records.filter(row => row.heroId === resolvedCompanion).map(row => row.nameKo);
+    requireBondValue(ko, [['나암', '쉐리'][i]], 'bond ' + bond + ' Mission ' + missionId + ' Hero ' + companionId + ' Korean name');
+    return '유대 ' + bond + ' · ' + ko[0] + ['과', '와'][i] + ' 함께 운명의문 ' + stage.NameNum + ' 클리어';
+  });
+  // Pin both complete source projections after the row-specific attribution checks.
+  for (const [rows, digest] of [
+    [HeroInfo.ownerReferences, '35ec40d5ccef69e7c66e10f948cbcc4b9e44f6c2ad212b520cf2a52c003fbabf'],
+    [HeroInformationInfo.ownerReferences, '6956fd67e66cb0121e2e0442508ca5497dd0fcf64583389da440ade3272a998e'],
+  ]) requireBondValue(createHash('sha256').update(JSON.stringify(rows)).digest('hex'), digest, 'complete dungeon ownership inputs');
+  if (!decision) throw new Error('Lance bond descriptions: missing bond 4/5 decision');
+  requireBondValue(decision.status, 'APPROVED', 'bond 4/5 approval status');
+  requireBondValue(decision.scope, 'PROJECT_BOND_DESCRIPTION_ONLY', 'bond 4/5 description-only scope');
+  requireBondValue([decision.schemaVersion, decision.heroId, decision.surface, decision.placement, decision.evidence, decision.companionNames],
+    [1, 16, HERO_16_MINIMAL_DETAIL_FRAGMENT, 'consecutive-card-paragraphs-immediately-after-bond-3-description',
+      bond45EvidencePath, 'canonical/hero-localizations-ko.v1.json'], 'bond 4/5 decision surface or source');
+  if (!decision.approval?.source || !decision.approval?.basis) throw new Error('Lance bond descriptions: missing bond 4/5 approval source');
+  requireBondValue(decision.rows.map(row => [row.bondNumber, row.fetterId, row.missionId, row.companionHeroId,
+    row.dungeonOwnerHeroId, row.stageId, row.stageNameNum]), tuples, 'bond 4/5 approved decision tuples');
+  requireBondValue(lines, ['유대 4 · 나암과 함께 운명의문 4 클리어', '유대 5 · 쉐리와 함께 운명의문 5 클리어'], 'bond 4/5 display text');
+  requireBondValue(decision.rows.map(row => row.textKo), lines, 'bond 4/5 decision text');
   return lines;
 }
