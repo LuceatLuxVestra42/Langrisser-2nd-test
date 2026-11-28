@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "kind": "HEART_FETTER",
+  "endpointId": 16,
+  "unit": "gold",
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "rows": [
+    {
+      "level": 2,
+      "gold": 10000,
+      "textKo": "Lv.2 · 10,000 골드"
+    },
+    {
+      "level": 3,
+      "gold": 15000,
+      "textKo": "Lv.3 · 15,000 골드"
+    },
+    {
+      "level": 4,
+      "gold": 23000,
+      "textKo": "Lv.4 · 23,000 골드"
+    },
+    {
+      "level": 5,
+      "gold": 35000,
+      "textKo": "Lv.5 · 35,000 골드"
+    },
+    {
+      "level": 6,
+      "gold": 53000,
+      "textKo": "Lv.6 · 53,000 골드"
+    },
+    {
+      "level": 7,
+      "gold": 74000,
+      "textKo": "Lv.7 · 74,000 골드"
+    },
+    {
+      "level": 8,
+      "gold": 100000,
+      "textKo": "Lv.8 · 100,000 골드"
+    },
+    {
+      "level": 9,
+      "gold": 140000,
+      "textKo": "Lv.9 · 140,000 골드"
+    },
+    {
+      "level": 10,
+      "gold": 200000,
+      "textKo": "Lv.10 · 200,000 골드"
+    }
+  ],
+  "summary": "마음의 유대 레벨별 골드",
+  "placement": "Closed details immediately after the Heart Fetter total, as the last child of the bond gold panel.",
+  "approval": {
+    "source": "Direct user approval in the designated 이전 Work, 219fdc8d-940a-402c-a984-6acc0c1f8c50.",
+    "basis": "Existing Lance detail, within the published Liana level-gold scope. Independent review 430f4c91-1f12-52eb-b8c1-e436b50d8eca."
+  },
+  "evidence": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/5/levels",
+  "legacy": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "component": "src/components/hero-bond-materials-panel.tsx",
+    "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "fields": [
+      "level.targetLevel",
+      "level.goldCost"
+    ]
+  },
+  "sourceField": "LevelUpGold"
+}

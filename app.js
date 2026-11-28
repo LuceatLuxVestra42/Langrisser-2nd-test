@@ -684,6 +684,7 @@ function renderHero16MinimalDetailView(data, container) {
     [9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000],
     [15000, 23000, 35000, 53000, 80000, 120000, 180000, 270000, 410000],
     [20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000],
+    [10000, 15000, 23000, 35000, 53000, 74000, 100000, 140000, 200000],
   ];
   for (const [index, line] of [
     '유대 1 · Lv.2~10 합계 골드 118,600',
@@ -707,7 +708,7 @@ function renderHero16MinimalDetailView(data, container) {
     if (index < levelGold.length) {
       const levels = document.createElement('details');
       const heading = document.createElement('summary');
-      heading.textContent = '유대 ' + (index + 1) + ' 레벨별 골드';
+      heading.textContent = index === 5 ? '마음의 유대 레벨별 골드' : '유대 ' + (index + 1) + ' 레벨별 골드';
       const list = document.createElement('ul');
       for (const [offset, gold] of levelGold[index].entries()) {
         const item = document.createElement('li');

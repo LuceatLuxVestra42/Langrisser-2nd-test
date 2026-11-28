@@ -92,6 +92,7 @@ for (const [appPath, lines] of [
       [9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000],
       [15000, 23000, 35000, 53000, 80000, 120000, 180000, 270000, 410000],
       [20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000],
+      [10000, 15000, 23000, 35000, 53000, 74000, 100000, 140000, 200000],
     ];
     const lists = bonds.children.filter(node => node.tag === 'details');
     assert.equal(lists.length, expectedAmounts.length);
@@ -99,7 +100,7 @@ for (const [appPath, lines] of [
       const levels = lists[index];
       assert.equal(bonds.children.filter(node => node.tag !== 'div')[2 * (index + 1)], levels);
       assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul']);
-      assert.equal(levels.children[0].textContent, '유대 ' + (index + 1) + ' 레벨별 골드');
+      assert.equal(levels.children[0].textContent, index === 5 ? '마음의 유대 레벨별 골드' : '유대 ' + (index + 1) + ' 레벨별 골드');
       assert.deepEqual(levels.children[1].children.map(node => node.textContent),
         amounts.map((gold, offset) => 'Lv.' + (offset + 2) + ' · ' + gold.toLocaleString('ko-KR') + ' 골드'));
     }

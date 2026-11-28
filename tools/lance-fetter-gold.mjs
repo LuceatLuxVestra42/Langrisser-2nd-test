@@ -146,9 +146,23 @@ export function lanceBondLevelLines(bond, references, detail, levels, decision) 
   const selected = references.records.filter(row => row.heroId === 16 && row.fetterId === group.endpointId);
   requireMatch(selected, [group.reference], label + ' selection reference');
   requireMatch(detail, group.detail, label + ' detail attribution');
+  return approvedLevelLines(group, label, bond - 1, placement, detail, levels, decision);
+}
+
+export function lanceHeartLevelLines({references, details, levels, decision}) {
+  const group = expected[5];
+  const label = 'Heart';
+  requireMatch(references, [group.reference], 'Heart selection reference');
+  requireMatch(details, [group.detail], 'Heart detail attribution');
+  if (decision) requireMatch(decision.sourceField, 'LevelUpGold', 'Heart level approval field');
+  return approvedLevelLines(group, label, 5,
+    'Closed details immediately after the Heart Fetter total, as the last child of the bond gold panel.', details[0], levels, decision);
+}
+
+function approvedLevelLines(group, label, evidenceIndex, placement, detail, levels, decision) {
   requireMatch(levels.length, group.gold.length, label + ' level count');
   const prefix = group.recordLocator + '/LevelUpGold/';
-  requireMatch(levels.every(row => row.locator?.startsWith(prefix)), true, label + ' level evidence group');
+  if (group.kind === 'FETTER') requireMatch(levels.every(row => row.locator?.startsWith(prefix)), true, label + ' level evidence group');
   const rows = group.gold.map((gold, index) => {
     const level = index + 2;
     const row = levels[index];
@@ -162,9 +176,9 @@ export function lanceBondLevelLines(bond, references, detail, levels, decision) 
   if (!decision) throw new Error('Lance Fetter ' + label + ' level decision missing');
   requireMatch(decision.status, 'APPROVED', label + ' level approval status');
   requireMatch([decision.schemaVersion, decision.heroId, decision.surface, decision.kind, decision.endpointId, decision.unit],
-    [1, 16, 'hero-minimal-detail-16', 'FETTER', group.endpointId, 'gold'], label + ' level approval target');
+    [1, 16, 'hero-minimal-detail-16', group.kind, group.endpointId, 'gold'], label + ' level approval target');
   requireMatch(decision.targetLevels, [2,3,4,5,6,7,8,9,10], label + ' approved level order');
-  requireMatch(decision.evidence, lanceFetterEvidence + '#/endpoints/' + (bond - 1) + '/levels', label + ' decision evidence path');
+  requireMatch(decision.evidence, lanceFetterEvidence + '#/endpoints/' + evidenceIndex + '/levels', label + ' decision evidence path');
   requireMatch(decision.rows?.length, rows.length, label + ' approved row count');
   for (const [index, row] of rows.entries()) {
     requireMatch(decision.rows[index]?.gold, row.gold, label + ' approved Lv.' + row.level + ' amount');
