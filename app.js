@@ -636,6 +636,29 @@ function renderHero16MinimalDetailView(data, container) {
     const paragraph = document.createElement('p');
     paragraph.textContent = line;
     bonds.append(paragraph);
+    if (line.startsWith('유대 1 ·')) {
+      const levels = document.createElement('details');
+      const heading = document.createElement('summary');
+      heading.textContent = '유대 1 레벨별 골드';
+      const list = document.createElement('ul');
+      for (const text of [
+        'Lv.2 · 1,500 골드',
+        'Lv.3 · 2,300 골드',
+        'Lv.4 · 3,500 골드',
+        'Lv.5 · 5,300 골드',
+        'Lv.6 · 8,000 골드',
+        'Lv.7 · 12,000 골드',
+        'Lv.8 · 18,000 골드',
+        'Lv.9 · 27,000 골드',
+        'Lv.10 · 41,000 골드',
+      ]) {
+        const item = document.createElement('li');
+        item.textContent = text;
+        list.append(item);
+      }
+      levels.append(heading, list);
+      bonds.append(levels);
+    }
   }
   const finalPaths = ['전직 · 드래곤 나이트 → 드래곤 마스터 · 기본 사거리 1 · 비행 · 이동력 5', '전직 · 하이랜더 → 로열 나이트 · 기본 사거리 1 · 기마 · 이동력 5'].map(text => {
     const paragraph = document.createElement('p');
