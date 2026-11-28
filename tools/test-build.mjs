@@ -139,7 +139,30 @@ async function checkHeroDetailBuildFailures() {
   const fetter = 'copy.tables.HeroFetterInfo.records';
   const stage = 'copy.tables.HeroDungeonLevelInfo.records';
   const ownership = 'copy.tables.HeroInformationInfo.ownerReferences';
+  function movementMutation(name, input, change, reason) {
+    const args = ['successors', 'movementEvidence.jobs.records', 'movementEvidence.movement.records', 'movementDecision'];
+    const original = 'finalJobMovementLines(' + args.join(', ') + ')';
+    const position = args.indexOf(input);
+    assert.notEqual(position, -1);
+    args[position] = 'copy';
+    const replacement = `(() => { const copy = structuredClone(${input}); ${change}; return finalJobMovementLines(${args.join(', ')}); })()`;
+    return consumerMutation(name, 'build', original, replacement, reason);
+  }
   const cases = [
+    ...[
+      ['Lance Connection 164 wrong successor', 'successors', 'copy[0].jobId=306', 'Lance final movement requires Connection 164 -> Job 405'],
+      ['Lance Connection 165 wrong successor', 'successors', 'copy[1].jobId=405', 'Lance final movement requires Connection 165 -> Job 306'],
+      ['Lance definitions Korean names exchanged', 'movementEvidence.movement.records',
+        '[copy[0].nameKr,copy[1].nameKr]=[copy[1].nameKr,copy[0].nameKr]', 'Lance final movement Korean definition for 4/FLY'],
+      ['Lance final Job movement types exchanged', 'movementEvidence.jobs.records',
+        '[copy[0].MoveType,copy[1].MoveType]=[copy[1].MoveType,copy[0].MoveType]', 'Lance final movement type for Job 405'],
+      ['Lance final Job wrong base range', 'movementEvidence.jobs.records', 'copy[0].BF_AttackDistance=2', 'Lance final movement base range for Job 405'],
+      ['Lance final Job wrong movement points', 'movementEvidence.jobs.records', 'copy[1].BF_MovePoint=4', 'Lance final movement points for Job 306'],
+      ['Lance movement decision missing successor', 'movementDecision', 'copy.rows.shift()', 'Lance final movement approved row missing'],
+      ['Lance approved movement assignments exchanged', 'movementDecision',
+        'for (const field of ["moveType","moveLabelKo"]) [copy.rows[0][field],copy.rows[1][field]]=[copy.rows[1][field],copy.rows[0][field]]',
+        'Lance final movement approved row for Job 405'],
+    ].map(args => movementMutation(...args)),
     ...[
       ...[[4,74],[5,75]].map(([bond,id])=>['Lance bond '+bond+' reference missing', 'bondReferences',
         'copy.records=copy.records.filter(r=>!(r.heroId===16 && r.fetterId==='+id+'))', 'bond '+bond+' Hero 16 regular Fetter '+id+' reference']),
@@ -744,7 +767,15 @@ function lianaFetterInput(path, union) {
   const royalSeven = 'Lv.7 · 부대 생명이 70% 미만일 시, 주는 피해 +10%';
   const bothGroups = approvedApp.toString('utf8').match(/    \['드래곤 마스터', 'Lv\.4[^\n]+\n    \['로열 나이트', 'Lv\.4[^\n]+/)[0];
   const windList = "renderMinimalDetailList('일반 스킬', labels)";
+  const dragonPath = '전직 · 드래곤 나이트 → 드래곤 마스터';
+  const royalPath = '전직 · 하이랜더 → 로열 나이트';
+  const finalMovementRows = "'"+dragonPath+" · 기본 사거리 1 · 비행 · 이동력 5', '"+royalPath+" · 기본 사거리 1 · 기마 · 이동력 5'";
   const rendererCases = [
+    ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
+      finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],
+    ['Lance obsolete first final job paragraph', 'Lance old final job paragraph occurrence: ' + dragonPath,
+      'command, heart, ...bondDescriptions]);',
+      "command, heart, ...bondDescriptions, Object.assign(document.createElement('p'), {textContent: '" + dragonPath + "'})]);"],
     ['Lance bond 4 Gate of Fate number', 'Lance bond 4 rendered Gate of Fate number or text',
       '유대 4 · 나암과 함께 운명의문 4 클리어', '유대 4 · 나암과 함께 운명의문 5 클리어'],
     ['Lance bond 5 Gate of Fate number', 'Lance bond 5 rendered Gate of Fate number or text',
@@ -815,8 +846,7 @@ function lianaFetterInput(path, union) {
        hero15MinimalDetailContainer.children[0].append(...moved);
        void loadHero16Talent(lanceCard);`],
     ['Lance final jobs interchanged', 'Lance final job paragraph attribution',
-      "'전직 · 드래곤 나이트 → 드래곤 마스터', '전직 · 하이랜더 → 로열 나이트'",
-      "'전직 · 드래곤 나이트 → 로열 나이트', '전직 · 하이랜더 → 드래곤 마스터'"],
+      finalMovementRows, finalMovementRows.replace(dragonPath, '전직 · 드래곤 나이트 → 로열 나이트').replace(royalPath, '전직 · 하이랜더 → 드래곤 마스터')],
     ['Lance job path reversed', 'Packaged Hero 16 job path text or direction mismatch',
       '전직 · 호크 나이트 → 하이랜더', '전직 · 하이랜더 → 호크 나이트'],
     ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',

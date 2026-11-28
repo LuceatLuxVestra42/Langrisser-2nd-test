@@ -151,6 +151,63 @@ export function finalJobPathLines(decision, memberships, edges, expected, locali
   return paths.map(path => path.textKo);
 }
 
+export const finalMovementEvidence = 'evidence/source/jobs/hero16-final-job-movement.v1.json';
+export const finalMovementDecision = 'docs/decisions/hero-16-minimal-final-job-movement-publication.v1.json';
+
+export function validateFinalMovementEvidence(source) {
+  if (source.repository !== 'LuceatLuxVestra42/langrisser-future-guide') throw new Error('Lance final movement source repository');
+  for (const [table, commit, path, blob, projectionDigest] of [
+    [source.jobs, '6475e63ee23d18adf733756c26a14fa9e3ed662c', 'data/configdata/ConfigDataJobInfo.json',
+      '4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133', '20311e2d6d99fbdf3195776f77cc1ebf6ef4880589052f6b66f4ad8a4502803f'],
+    [source.movement, '214e759b46741a534f0ffb297dd7265deb4bd5ca', 'data/contracts/hero-soldier-movement-type-presentation.v1.json',
+      '422078f935ec57a66b4763514fa2da8f2d3fccda', '200c3619b810e92c57a1ebfc2463884b936517c48a83bef17e78e652ad9595ef'],
+  ]) {
+    const digest = createHash('sha256').update(JSON.stringify(table.records)).digest('hex');
+    if (!isDeepStrictEqual([table.commit, table.path, table.blob, digest], [commit, path, blob, projectionDigest])) {
+      throw new Error('Lance final movement pinned source: ' + path);
+    }
+  }
+}
+
+export function finalJobMovementLines(successors, jobs, definitions, decision) {
+  const fields = ['BF_AttackDistance', 'MoveType', 'BF_MovePoint'];
+  if (!isDeepStrictEqual([decision?.schemaVersion, decision?.status, decision?.scope, decision?.heroId, decision?.surface,
+    decision?.placement, decision?.allowedFields, decision?.evidence, decision?.jobPaths],
+    [1, 'APPROVED', 'FINAL_JOB_BASE_ATTRIBUTES_ONLY', 16, HERO_16_MINIMAL_DETAIL_FRAGMENT,
+      'consecutive-plain-paragraphs-immediately-after-bond-gold-disclosure', fields, finalMovementEvidence, finalJobPathDecision])
+    || !decision.approval?.source || !decision.approval?.basis) throw new Error('Lance final movement publication scope');
+  if (decision.rows?.length !== 2) throw new Error('Lance final movement approved row missing');
+  if (successors.length !== 2 || jobs.length !== 2 || definitions.length !== 2) throw new Error('Lance final movement population');
+
+  const expected = [
+    { connection: 164, job: 405, locator: '#/256', type: 4, key: 'FLY', korean: '비행 이동', short: '비행', definition: '#/definitions/3',
+      path: '전직 · 드래곤 나이트 → 드래곤 마스터' },
+    { connection: 165, job: 306, locator: '#/195', type: 1, key: 'RIDE', korean: '기마 이동', short: '기마', definition: '#/definitions/0',
+      path: '전직 · 하이랜더 → 로열 나이트' },
+  ];
+  return successors.map(({ connectionId, jobId, pathText }, index) => {
+    const spec = expected[index];
+    if (connectionId !== spec.connection || jobId !== spec.job) {
+      throw new Error('Lance final movement requires Connection ' + spec.connection + ' -> Job ' + spec.job);
+    }
+    if (pathText !== spec.path) throw new Error('Lance final movement path attribution');
+    const job = jobs.find(row => row.ID === jobId);
+    if (job?.locator !== spec.locator) throw new Error('Lance final movement Job locator ' + jobId);
+    if (job.BF_AttackDistance !== 1) throw new Error('Lance final movement base range for Job ' + jobId);
+    if (job.BF_MovePoint !== 5) throw new Error('Lance final movement points for Job ' + jobId);
+    if (job.MoveType !== spec.type) throw new Error('Lance final movement type for Job ' + jobId);
+    const definition = definitions.find(row => row.id === job.MoveType);
+    if (!isDeepStrictEqual(definition, { locator: spec.definition, id: spec.type, key: spec.key, nameKr: spec.korean })) {
+      throw new Error('Lance final movement Korean definition for ' + spec.type + '/' + spec.key);
+    }
+    const approved = decision.rows[index];
+    const text = pathText + ' · 기본 사거리 ' + job.BF_AttackDistance + ' · ' + spec.short + ' · 이동력 ' + job.BF_MovePoint;
+    if (!isDeepStrictEqual(approved, { connectionId, jobId, attackDistance: job.BF_AttackDistance, moveType: definition.id,
+      moveLabelKo: spec.short, movePoint: job.BF_MovePoint, textKo: text })) throw new Error('Lance final movement approved row for Job ' + jobId);
+    return text;
+  });
+}
+
 export function hero16JobPathLine(decision, memberships, advancements, localizations) {
   const from = { connectionId: 160, jobId: 401 };
   const to = { connectionId: 162, jobId: 302 };

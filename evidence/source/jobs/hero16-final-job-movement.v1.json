@@ -1,0 +1,43 @@
+{
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "jobs": {
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "path": "data/configdata/ConfigDataJobInfo.json",
+    "blob": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+    "records": [
+      {
+        "locator": "#/256",
+        "ID": 405,
+        "BF_AttackDistance": 1,
+        "MoveType": 4,
+        "BF_MovePoint": 5
+      },
+      {
+        "locator": "#/195",
+        "ID": 306,
+        "BF_AttackDistance": 1,
+        "MoveType": 1,
+        "BF_MovePoint": 5
+      }
+    ]
+  },
+  "movement": {
+    "commit": "214e759b46741a534f0ffb297dd7265deb4bd5ca",
+    "path": "data/contracts/hero-soldier-movement-type-presentation.v1.json",
+    "blob": "422078f935ec57a66b4763514fa2da8f2d3fccda",
+    "records": [
+      {
+        "locator": "#/definitions/3",
+        "id": 4,
+        "key": "FLY",
+        "nameKr": "비행 이동"
+      },
+      {
+        "locator": "#/definitions/0",
+        "id": 1,
+        "key": "RIDE",
+        "nameKr": "기마 이동"
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "scope": "FINAL_JOB_BASE_ATTRIBUTES_ONLY",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "placement": "consecutive-plain-paragraphs-immediately-after-bond-gold-disclosure",
+  "allowedFields": [
+    "BF_AttackDistance",
+    "MoveType",
+    "BF_MovePoint"
+  ],
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "evidence": "evidence/source/jobs/hero16-final-job-movement.v1.json",
+  "jobPaths": "docs/decisions/hero-16-minimal-final-job-paths-publication.v1.json",
+  "rows": [
+    {
+      "connectionId": 164,
+      "jobId": 405,
+      "attackDistance": 1,
+      "moveType": 4,
+      "moveLabelKo": "비행",
+      "movePoint": 5,
+      "textKo": "전직 · 드래곤 나이트 → 드래곤 마스터 · 기본 사거리 1 · 비행 · 이동력 5"
+    },
+    {
+      "connectionId": 165,
+      "jobId": 306,
+      "attackDistance": 1,
+      "moveType": 1,
+      "moveLabelKo": "기마",
+      "movePoint": 5,
+      "textKo": "전직 · 하이랜더 → 로열 나이트 · 기본 사거리 1 · 기마 · 이동력 5"
+    }
+  ],
+  "displayReference": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+  "transformation": "Append the successor Job’s base range, movement label and movement points to its existing advancement paragraph. Select the frozen Korean definition by MoveType and use the approved short label."
+}

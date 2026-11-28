@@ -637,7 +637,7 @@ function renderHero16MinimalDetailView(data, container) {
     paragraph.textContent = line;
     bonds.append(paragraph);
   }
-  const finalPaths = ['전직 · 드래곤 나이트 → 드래곤 마스터', '전직 · 하이랜더 → 로열 나이트'].map(text => {
+  const finalPaths = ['전직 · 드래곤 나이트 → 드래곤 마스터 · 기본 사거리 1 · 비행 · 이동력 5', '전직 · 하이랜더 → 로열 나이트 · 기본 사거리 1 · 기마 · 이동력 5'].map(text => {
     const paragraph = document.createElement('p');
     paragraph.textContent = text;
     return paragraph;
