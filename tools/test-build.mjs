@@ -124,7 +124,35 @@ async function checkHeroDetailBuildFailures() {
     return {...consumerMutation('10418 '+name,'hero-16-ordinary-skills-publication-contract',windCall,replacement,reason),
       error:talentError(reason)};
   }
+  function bondDescriptionMutation(name, input, change, reason) {
+    const args = ['bondReferences', 'bondDescriptionSource', 'heroLocalization', 'bondDescriptionDecision'];
+    const call = 'lanceBondDescriptions(' + args.join(', ') + ')';
+    const index = args.indexOf(input);
+    assert.notEqual(index, -1);
+    args[index] = 'copy';
+    const replacement = `(() => { let copy = structuredClone(${input}); ${change}; return lanceBondDescriptions(${args.join(', ')}); })()`;
+    return consumerMutation(name, 'build', call, replacement, 'Lance bond descriptions: ' + reason);
+  }
   const cases = [
+    ...[
+      ['Mission references exchanged', 'bondDescriptionSource',
+        '[copy.fetters.records[0].CompletionConditions[1].Parm1,copy.fetters.records[1].CompletionConditions[1].Parm1] = [5054,5053]',
+        'Fetter 72 Mission attribution at [1]'],
+      ['Fetter 72 objects exchanged', 'bondDescriptionSource', 'copy.fetters.records[0].CompletionConditions.reverse()',
+        'Fetter 72 Mission condition misplaced at [1]'],
+      ['Fetter 72 locator', 'bondDescriptionSource', "copy.fetters.records[0].selectedLocator='#/71/CompletionConditions/0'", 'Fetter 72 selected locator'],
+      ...[72,73].map(id => ['Fetter ' + id + ' absent', 'bondReferences',
+        'copy.records=copy.records.filter(r=>!(r.heroId===16 && r.fetterId===' + id + '))', 'Hero 16 regular Fetter ' + id + ' reference']),
+      ['Fetter 72 condition type', 'bondDescriptionSource', 'copy.fetters.records[0].CompletionConditions[1].ConditionType=1', 'Fetter 72 condition type at [1]'],
+      ['Mission 5053 level changed', 'bondDescriptionSource', "copy.missions.records[0].Desc='兰斯到达31级'", 'Mission 5053 pinned Desc'],
+      ['Mission 5054 elite removed', 'bondDescriptionSource', "copy.missions.records[1].Desc='使用兰斯完成时空裂缝3-1'", 'Mission 5054 pinned Desc'],
+      ['Hero 16 Korean subject missing', 'heroLocalization', 'copy.records=copy.records.filter(r=>r.heroId!==16)', 'bond 3 Mission 5054 requires Hero 16 Korean name'],
+      ['bond translation approval status', 'bondDescriptionDecision', "copy.status='PENDING'", 'publication approval status'],
+      ['bond translation scope', 'bondDescriptionDecision', "copy.scope='RUNTIME_COMPLETION'", 'translation-only scope'],
+      ['bond translation missing decision', 'bondDescriptionDecision', 'copy=undefined', 'missing publication decision'],
+      ['bond translation Mission attribution', 'bondDescriptionDecision', '[copy.rows[0].missionId,copy.rows[1].missionId]=[5054,5053]', 'publication Mission attribution'],
+      ['bond translation elite removed', 'bondDescriptionDecision', "copy.rows[1].textKo=copy.rows[1].textKo.replace('[정예]','')", 'publication Korean text'],
+    ].map(args => bondDescriptionMutation(...args)),
     windOwnerMutation('acquisition only','canonical','changed.records = changed.records.filter(r=>r.skillId!==10418)',
       '10418 missing or incorrect Canonical acquisition 161/403 -> 1612 -> 10418'),
     windOwnerMutation('identity only','identities','changed.records = changed.records.filter(r=>r.skillId!==10418)','Skill Identity 10418 missing or duplicated'),
@@ -689,6 +717,10 @@ function lianaFetterInput(path, union) {
   const bothGroups = approvedApp.toString('utf8').match(/    \['드래곤 마스터', 'Lv\.4[^\n]+\n    \['로열 나이트', 'Lv\.4[^\n]+/)[0];
   const windList = "renderMinimalDetailList('일반 스킬', labels)";
   const rendererCases = [
+    ['Lance bond description order', 'Lance bond description placement after Heart Fetter',
+      'command, heart, ...bondDescriptions]', 'command, heart, ...bondDescriptions.reverse()]'],
+    ['Lance bond 3 missing elite', 'Lance bond description rendered text',
+      '란스를 출전시켜 시공의 균열 3-1[정예] 클리어', '란스를 출전시켜 시공의 균열 3-1 클리어'],
     ['10418 renderer threshold','10418 rendered Korean text',windList,
       "renderMinimalDetailList('일반 스킬', labels.map(line=>line.replace('생명 50% 이상','생명 50% 초과')))"],
     ['10418 renderer position','10418 rendered row must follow 격돌 and precede 구급',windList,
@@ -699,8 +731,8 @@ function lianaFetterInput(path, union) {
     ['Lance Heart incoming direction','Lance Heart effect text',dragonFour,dragonFour.replace('받는','주는')],
     ['Lance Heart incoming sign','Lance Heart effect text',royalFour,royalFour.replace('-10%','+10%')],
     ['Lance Heart threshold','Lance Heart effect text',royalSeven,royalSeven.replace('미만','이하')],
-    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart]',
-      '[jobPath, heart, discipline, bonds, ...finalPaths, command]'],
+    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions]',
+      '[jobPath, heart, discipline, bonds, ...finalPaths, command, ...bondDescriptions]'],
 
     ['Lance defense and magic defense values swapped','Soldier Command values: 방어',lanceDefense,
       "['방어', '', '+10%'],\n    ['마방', '+10%', '+25%']"],
@@ -708,9 +740,9 @@ function lianaFetterInput(path, union) {
     ...[['aria-label','name'],['aria-description','description']].map(([attribute,label]) =>
       ['Lance blank cell '+attribute,'Lance base magic defense accessible '+label,'cell.textContent = value;',
         "cell.textContent = value; if (stat === '마방' && value === '') cell.setAttribute('"+attribute+"','+0%');"]),
-    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart]);',
-      "...finalPaths, (command.append(document.createElement('p')), command), heart]);"],
-    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart]);','command, ...finalPaths, heart]);'],
+    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart, ...bondDescriptions]);',
+      "...finalPaths, (command.append(document.createElement('p')), command), heart, ...bondDescriptions]);"],
+    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart, ...bondDescriptions]);','command, ...finalPaths, heart, ...bondDescriptions]);'],
     ['Lance bond totals exchanged', 'Lance bond total paragraph attribution',
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 118,600','유대 2 · Lv.2~10 합계 골드 383,500']),
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 383,500','유대 2 · Lv.2~10 합계 골드 118,600'])],

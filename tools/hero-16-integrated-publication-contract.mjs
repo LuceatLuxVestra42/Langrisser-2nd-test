@@ -496,3 +496,64 @@ export function lanceHeartGroups(conditions, source, edges, memberships, names, 
   if (!decision.approval?.source || !decision.approval?.basis) throw new Error('Heart Fetter publication approval source');
   return display;
 }
+
+export const bond23EvidencePath = 'evidence/source/bonds/hero16-bond23-mission-descriptions.v1.json';
+export const bond23DecisionPath = 'docs/decisions/hero-16-minimal-bond23-descriptions-publication.v1.json';
+
+export function lanceBondDescriptions(references, source, names, decision) {
+  function requireValue(actual, expected, reason) {
+    if (!isDeepStrictEqual(actual, expected)) throw new Error('Lance bond descriptions: ' + reason);
+  }
+
+  requireValue([source.schemaVersion, source.repository, source.commit], [1, 'LuceatLuxVestra42/langrisser-future-guide',
+    '6475e63ee23d18adf733756c26a14fa9e3ed662c'], 'ConfigData origin');
+  for (const [table, name, blob] of [
+    [source.fetters, 'HeroFetterInfo', '1beec024e3d82e57923e59c70048c5abefd92d06'],
+    [source.missions, 'MissionInfo', '72c62b297a0664844c3c53dc10452a1b0ca4704d'],
+  ]) {
+    requireValue([table.path, table.gitBlobSha1, table.records.length],
+      ['data/configdata/ConfigData' + name + '.json', blob, 2], name + ' provenance');
+  }
+  const koreanNames = names.records.filter(row => row.heroId === 16).map(row => row.nameKo);
+  requireValue(koreanNames, ['란스'], 'bond 3 Mission 5054 requires Hero 16 Korean name');
+  const lines = ['유대 2 · 레벨 30 달성', '유대 3 · ' + koreanNames[0] + '를 출전시켜 시공의 균열 3-1[정예] 클리어'];
+  const selections = [
+    { bond: 2, fetterId: 72, missionId: 5053, slot: 1, level: 10, fetterLocator: '#/71', missionLocator: '#/370', type: 34, desc: '兰斯到达30级' },
+    { bond: 3, fetterId: 73, missionId: 5054, slot: 2, level: 15, fetterLocator: '#/72', missionLocator: '#/371', type: 5, desc: '使用兰斯完成时空裂缝精英3-1' },
+  ];
+  for (const [index, spec] of selections.entries()) {
+    const { fetterId, missionId, slot, level, fetterLocator, missionLocator, type, desc } = spec;
+    const refs = references.records.filter(row => row.heroId === 16 && row.fetterId === fetterId);
+    requireValue(refs, [{ heroId: 16, heroInformationId: 16, fetterId, referenceKind: 'HERO_FETTER_ID_REFERENCE',
+      sourceField: 'ConfigDataHeroInformationInfo.HeroFetters_ID', endpointNamespace: 'ConfigDataHeroFetterInfo.ID',
+      provenance: 'evidence/source/bonds/hero16-fetter-gold.v1.json#/information/fields/HeroFetters_ID/' + slot }],
+      'Hero 16 regular Fetter ' + fetterId + ' reference');
+    const fetter = source.fetters.records[index];
+    requireValue([fetter.ID, fetter.locator], [fetterId, fetterLocator], 'Fetter ' + fetterId + ' record');
+    requireValue(fetter.selectedLocator, fetterLocator + '/CompletionConditions/1', 'Fetter ' + fetterId + ' selected locator');
+    const conditions = fetter.CompletionConditions;
+    requireValue(conditions.length, 2, 'Fetter ' + fetterId + ' condition count');
+    const affinityCondition = { ConditionType: 1, Parm1: 16, Parm2: level };
+    if (isDeepStrictEqual(conditions[1], affinityCondition)) {
+      throw new Error('Lance bond descriptions: Fetter ' + fetterId + ' Mission condition misplaced at [1]');
+    }
+    requireValue(conditions[1].ConditionType, 2, 'Fetter ' + fetterId + ' condition type at [1]');
+    requireValue(conditions[1], { ConditionType: 2, Parm1: missionId }, 'Fetter ' + fetterId + ' Mission attribution at [1]');
+    requireValue(conditions[0], affinityCondition, 'Fetter ' + fetterId + ' first condition');
+    const mission = source.missions.records[index];
+    requireValue([mission.locator, mission.ID, mission.Title, mission.MissionType], [missionLocator, missionId, '兰斯', type], 'Mission ' + missionId + ' record');
+    requireValue(mission.Desc, desc, 'Mission ' + missionId + ' pinned Desc');
+  }
+
+  if (!decision) throw new Error('Lance bond descriptions: missing publication decision');
+  requireValue(decision.status, 'APPROVED', 'publication approval status');
+  requireValue(decision.scope, 'PROJECT_TRANSLATED_SOURCE_DESCRIPTION_ONLY', 'translation-only scope');
+  requireValue([decision.schemaVersion, decision.heroId, decision.surface, decision.placement, decision.sourceEvidence, decision.heroNameSource],
+    [1, 16, HERO_16_MINIMAL_DETAIL_FRAGMENT, 'consecutive-card-paragraphs-immediately-after-heart-fetter', bond23EvidencePath,
+      'canonical/hero-localizations-ko.v1.json#heroId=16'], 'decision subject or placement');
+  if (!decision.approval?.source || !decision.approval?.basis) throw new Error('Lance bond descriptions: publication approval source');
+  requireValue(decision.rows.map(({ bond, fetterId, missionId }) => [bond, fetterId, missionId]),
+    [[2, 72, 5053], [3, 73, 5054]], 'publication Mission attribution');
+  requireValue(decision.rows.map(row => row.textKo), lines, 'publication Korean text');
+  return lines;
+}
