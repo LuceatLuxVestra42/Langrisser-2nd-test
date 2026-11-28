@@ -119,3 +119,32 @@ export function checkLianaRegularFetters(document, consumer) {
     throw new Error('Liana ' + consumer + ' Fetter attribution mismatch');
   }
 }
+
+export const bond1LevelDecisionPath = 'docs/decisions/hero-16-minimal-bond1-level-gold-publication.v1.json';
+
+export function lanceBond1LevelLines(references, detail, levels, decision) {
+  const group = expected[0];
+  const selected = references.records.filter(row => row.heroId === 16 && row.fetterId === 71);
+  requireMatch(selected, [group.reference], 'bond 1 selection reference');
+  requireMatch(detail, group.detail, 'bond 1 detail attribution');
+  requireMatch(levels.length, group.gold.length, 'bond 1 level count');
+  const rows = group.gold.map((gold, index) => {
+    const level = index + 2;
+    const row = levels[index];
+    const claim = 'bond 1 Lv.' + level;
+    requireMatch([row.kind, row.endpointNamespace, row.level], [group.kind, group.endpointNamespace, level], claim + ' endpoint or level');
+    requireMatch(row.locator, group.recordLocator + '/LevelUpGold/' + index, claim + ' source locator');
+    requireMatch([row.gold, detail.fields.LevelUpGold[index]], [gold, gold], claim + ' evidence amount');
+    return { level, gold, textKo: 'Lv.' + level + ' · ' + row.gold.toLocaleString('ko-KR') + ' 골드' };
+  });
+  requireMatch(rows.reduce((sum, row) => sum + row.gold, 0), 118600, 'bond 1 level total');
+  if (!decision) throw new Error('Lance Fetter bond 1 level decision missing');
+  requireMatch(decision.status, 'APPROVED', 'bond 1 level approval status');
+  requireMatch([decision.schemaVersion, decision.heroId, decision.surface, decision.kind, decision.endpointId, decision.unit],
+    [1, 16, 'hero-minimal-detail-16', 'FETTER', 71, 'gold'], 'bond 1 level approval target');
+  requireMatch(decision.targetLevels, [2,3,4,5,6,7,8,9,10], 'bond 1 approved level order');
+  requireMatch(decision.rows, rows, 'bond 1 approved level rows');
+  requireMatch([decision.summary, decision.placement], ['유대 1 레벨별 골드',
+    'Closed details between the first and second bond totals, summary followed by one list.'], 'bond 1 level placement');
+  return rows.map(row => row.textKo);
+}

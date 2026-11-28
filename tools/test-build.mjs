@@ -148,7 +148,23 @@ async function checkHeroDetailBuildFailures() {
     const replacement = `(() => { const copy = structuredClone(${input}); ${change}; return finalJobMovementLines(${args.join(', ')}); })()`;
     return consumerMutation(name, 'build', original, replacement, reason);
   }
+  const levelCall = 'lanceBond1LevelLines(levelReferences, firstBondDetail, levelEvidence, levelDecision)';
+  const levelPublication = 'docs/decisions/hero-16-minimal-bond1-level-gold-publication.v1.json';
   const cases = [
+    ...[
+      ['selection absent', 'levelReferences', '{records:levelReferences.records.filter(r => !(r.heroId===16 && r.fetterId===71))}', 'bond 1 selection reference'],
+      ['Liana detail substituted', 'firstBondDetail', 'regularGoldDetails.find(r => r.heroId===15 && r.endpointId===66)', 'bond 1 detail attribution'],
+      ...[['gold','evidence amount'], ['locator','source locator']].map(([field, reason]) =>
+        [field + ' exchanged', 'levelEvidence', `levelEvidence.map((r,i) => i < 2 ? {...r, ${field}:levelEvidence[1-i].${field}} : r)`, 'bond 1 Lv.2 ' + reason]),
+    ].map(([name, input, replacement, reason]) => consumerMutation('Lance bond 1 ' + name, 'build',
+      levelCall, levelCall.replace(input, replacement), 'Lance Fetter ' + reason + ' mismatch')),
+    { decisionPath:levelPublication, name:'bond 1 level decision missing', error:() => 'Error: Lance Fetter bond 1 level decision missing' },
+    ...[
+      ['endpoint', d => { d.endpointId = 72; }, 'bond 1 level approval target'],
+      ['status', d => { d.status = 'PENDING'; }, 'bond 1 level approval status'],
+      ['target order', d => { [d.targetLevels[0], d.targetLevels[1]] = [3, 2]; }, 'bond 1 approved level order'],
+    ].map(([name, mutate, reason]) => ({name:'bond 1 level decision ' + name, decisionPath:levelPublication, mutate,
+      error:() => 'Error: Lance Fetter ' + reason + ' mismatch'})),
     ...[
       ['Lance Connection 164 wrong successor', 'successors', 'copy[0].jobId=306', 'Lance final movement requires Connection 164 -> Job 405'],
       ['Lance Connection 165 wrong successor', 'successors', 'copy[1].jobId=405', 'Lance final movement requires Connection 165 -> Job 306'],
@@ -771,6 +787,10 @@ function lianaFetterInput(path, union) {
   const royalPath = '전직 · 하이랜더 → 로열 나이트';
   const finalMovementRows = "'"+dragonPath+" · 기본 사거리 1 · 비행 · 이동력 5', '"+royalPath+" · 기본 사거리 1 · 기마 · 이동력 5'";
   const rendererCases = [
+    ['Lance bond 1 list after second total', 'Lance bond 1 level list placement',
+      "if (line.startsWith('유대 1 ·'))", "if (line.startsWith('유대 2 ·'))"],
+    ['Lance bond 1 rendered gold exchanged', 'Lance bond 1 level gold text',
+      "'Lv.2 · 1,500 골드',\n        'Lv.3 · 2,300 골드'", "'Lv.2 · 2,300 골드',\n        'Lv.3 · 1,500 골드'"],
     ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
       finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],
     ['Lance obsolete first final job paragraph', 'Lance old final job paragraph occurrence: ' + dragonPath,

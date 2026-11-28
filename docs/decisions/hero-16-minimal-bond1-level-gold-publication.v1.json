@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "kind": "FETTER",
+  "endpointId": 71,
+  "unit": "gold",
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "rows": [
+    {
+      "level": 2,
+      "gold": 1500,
+      "textKo": "Lv.2 · 1,500 골드"
+    },
+    {
+      "level": 3,
+      "gold": 2300,
+      "textKo": "Lv.3 · 2,300 골드"
+    },
+    {
+      "level": 4,
+      "gold": 3500,
+      "textKo": "Lv.4 · 3,500 골드"
+    },
+    {
+      "level": 5,
+      "gold": 5300,
+      "textKo": "Lv.5 · 5,300 골드"
+    },
+    {
+      "level": 6,
+      "gold": 8000,
+      "textKo": "Lv.6 · 8,000 골드"
+    },
+    {
+      "level": 7,
+      "gold": 12000,
+      "textKo": "Lv.7 · 12,000 골드"
+    },
+    {
+      "level": 8,
+      "gold": 18000,
+      "textKo": "Lv.8 · 18,000 골드"
+    },
+    {
+      "level": 9,
+      "gold": 27000,
+      "textKo": "Lv.9 · 27,000 골드"
+    },
+    {
+      "level": 10,
+      "gold": 41000,
+      "textKo": "Lv.10 · 41,000 골드"
+    }
+  ],
+  "summary": "유대 1 레벨별 골드",
+  "placement": "Closed details between the first and second bond totals, summary followed by one list.",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "evidence": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/0/levels",
+  "legacy": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "component": "src/components/hero-bond-materials-panel.tsx",
+    "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "fields": [
+      "level.targetLevel",
+      "level.goldCost"
+    ]
+  }
+}
