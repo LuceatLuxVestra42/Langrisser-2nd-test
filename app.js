@@ -695,6 +695,11 @@ function renderHero16MinimalDetailView(data, container) {
     paragraph.textContent = text;
     return paragraph;
   });
+  const firstBranches = ['전직 · 호크 나이트 → 드래곤 나이트', '전직 · 호크 나이트 → 소드맨'].map(text => {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    return paragraph;
+  });
   const soldiers = renderMinimalDetailList('일반 3티어 용병 (일부)', []);
   for (const [nameKo, fragment] of [
     ['근위창병', 'normal-soldier-115'],
@@ -715,7 +720,7 @@ function renderHero16MinimalDetailView(data, container) {
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers]);
+  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]);
 }
 
 async function loadHero16Talent(card) {

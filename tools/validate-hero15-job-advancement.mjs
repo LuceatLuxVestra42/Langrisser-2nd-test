@@ -1,3 +1,5 @@
+import { isDeepStrictEqual } from 'node:util';
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -38,10 +40,11 @@ function directEdge(heroId, from, to, sourceLocator) {
 }
 
 export async function expectedAdvancements(read) {
-  const [liana, first, finals] = await Promise.all([
+  const [liana, first, finals, branches] = await Promise.all([
     read(jobsDirectory + 'hero-job-tree-hero15.v1.json'),
     read(jobsDirectory + 'hero16-job-advancement-direct.v1.json'),
     read(jobsDirectory + 'hero16-final-job-advancement-direct.v1.json'),
+    read(jobsDirectory + 'hero16-first-job-branches-direct.v1.json'),
   ]);
   const lianaConnections = liana.records.jobConnections.map(record => record.fields);
   const lianaEdges = lianaConnections.flatMap(to => (to.PreJobConnectionList ?? []).map(id =>
@@ -53,7 +56,7 @@ export async function expectedAdvancements(read) {
     [connectionFile]: sourcePin.connectionBlob,
     'data/configdata/ConfigDataJobInfo.json': sourcePin.jobBlob,
   };
-  for (const evidence of [first, finals]) {
+  for (const evidence of [first, finals, branches]) {
     assert.equal(evidence.repository, sourcePin.repository);
     assert.equal(evidence.commit, sourcePin.commit);
     assert.deepEqual(evidence.sourceFiles, sourceFiles);
@@ -74,7 +77,36 @@ export async function expectedAdvancements(read) {
     const from = evidence.connections.find(row => row.ID === to.PreJobConnectionList[0]);
     return directEdge(evidence.hero.ID, from, to, connectionFile + '#/' + to.recordIndex + '/PreJobConnectionList/0');
   }
-  return [...lianaEdges, lanceEdge(first,162,160), lanceEdge(finals,164,161), lanceEdge(finals,165,162)];
+  assert.deepEqual(branches.hero, {recordIndex:15, ID:16, JobConnection_ID:160,
+    'UseableJobConnections_ID/0':161, 'UseableJobConnections_ID/2':163}, 'Lance first branch Hero selection');
+  assert.deepEqual(branches.connections.map(row => [row.recordIndex, row.ID, row.Job_ID]),
+    [[104,160,401], [105,161,403], [107,163,202]], 'Lance first branch Connection endpoints');
+  assert.deepEqual(branches.jobs.map(row => [row.recordIndex, row.ID, row.Name]),
+    [[252,401,'鹰骑士'], [254,403,'龙骑士'], [46,202,'剑士']], 'Lance first branch Job endpoints');
+  const firstBranches = branches.connections.slice(1).map(to => {
+    if (to.PreJobConnectionList?.length !== 1 || to.PreJobConnectionList[0] !== branches.hero.JobConnection_ID) {
+      throw new Error('Lance first branch ' + to.ID + '/' + to.Job_ID + ' requires predecessor 160/401');
+    }
+    const edge = lanceEdge(branches, to.ID, branches.hero.JobConnection_ID);
+    if (edge.sourceLocator !== to.sourceLocator) throw new Error('Lance first branch source locator ' + to.ID);
+    return edge;
+  });
+  return [...lianaEdges, lanceEdge(first,162,160), lanceEdge(finals,164,161), lanceEdge(finals,165,162), ...firstBranches];
+}
+
+function validateAdvancementSchema(canonical) {
+  check(canonical?.schemaVersion === 1 && canonical.scope === 'Direct prerequisite JobConnection edges for Hero 15 and five selected Hero 16 paths, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.', 'Canonical schema/scope');
+  check(JSON.stringify(Object.keys(canonical).sort()) === JSON.stringify(['records','schemaVersion','scope']), 'Canonical must not add unlock, mastery, or presentation fields');
+}
+
+export function validateAdvancementUnion(canonical, expected) {
+  validateAdvancementSchema(canonical);
+  if (!isDeepStrictEqual(canonical.records, expected)) {
+    throw new Error('Direct advancement union differs from source endpoints or locators');
+  }
+  // #350 admitted these eight rows, including their ordered source locators.
+  assert.equal(createHash('sha256').update(JSON.stringify(canonical.records.slice(0, 8))).digest('hex'),
+    'f4bcffc6e1a92caf23aa49eb4019a12ee3aec52e6902754f29f6b4d402b45b8b', 'Preserved #350 advancement rows');
 }
 
 export function validateHero15JobAdvancement({ evidence, canonical, heroJobRelations, jobLevelCanonical, integratedDecision, talentDecision } = {}) {
@@ -117,8 +149,7 @@ export function validateHero15JobAdvancement({ evidence, canonical, heroJobRelat
     check(connectionMap.get(edge.predecessorConnectionId)?.fields.Job_ID === edge.predecessorJobId && connectionMap.get(edge.successorConnectionId)?.fields.Job_ID === edge.successorJobId, 'Connection-to-Job endpoint parity');
     check(connectionMap.get(edge.successorConnectionId)?.fields.PreJobConnectionList?.includes(edge.predecessorConnectionId), 'source edge reference exists');
   }
-  check(canonical?.schemaVersion === 1 && canonical.scope === 'Direct prerequisite JobConnection edges for Hero 15 and three selected Hero 16 paths, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.', 'Canonical schema/scope');
-  check(JSON.stringify(Object.keys(canonical).sort()) === JSON.stringify(['records','schemaVersion','scope']), 'Canonical must not add unlock, mastery, or presentation fields');
+  validateAdvancementSchema(canonical);
   check(JSON.stringify(canonical.records.filter(row => row.heroId === 15)) === JSON.stringify(projected), 'Canonical exact Source Projection parity');
   const relationRows = heroJobRelations.records.filter((r) => r.heroId === 15);
   check(JSON.stringify(relationRows.map(r => [r.heroId,r.jobId]).sort((a,b)=>a[1]-b[1])) === JSON.stringify([[15,703],[15,707],[15,802],[15,803],[15,806],[15,811]]), 'Hero 15 six relation parity');

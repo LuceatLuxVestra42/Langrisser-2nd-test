@@ -12,6 +12,9 @@ const base = {
   talentDecision: await read('docs/decisions/hero-15-talent-publication.v1.json'),
 };
 validateHero15JobAdvancement(base);
+assert.throws(() => validateHero15JobAdvancement({...base, canonical: {
+  ...base.canonical, scope: base.canonical.scope.replace('five selected', 'three selected'),
+}}), /Canonical schema\/scope/);
 let count = 0;
 function reject(label, mutate) {
   const fixture = structuredClone(base);

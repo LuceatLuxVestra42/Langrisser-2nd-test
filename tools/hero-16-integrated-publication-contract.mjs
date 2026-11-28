@@ -119,12 +119,52 @@ export function lanceCommandRows(baseRow, bondRow, decision) {
 
 export const finalJobPathDecision = 'docs/decisions/hero-16-minimal-final-job-paths-publication.v1.json';
 
-export function splitJobAdvancements(advancements, expected) {
+export function splitJobAdvancements(advancements) {
   const lance = advancements.records.filter(row => row.heroId === 16);
-  if (lance.length !== 3) throw new Error('Hero 16 job path edge count mismatch');
-  if (!isDeepStrictEqual(lance[0], expected[5])) throw new Error('Hero 16 job path edge direction mismatch');
-  if (!isDeepStrictEqual(advancements.records, expected)) throw new Error('Direct advancement union differs from source endpoints or locators');
-  return { first: {records:lance.slice(0,1)}, finals:lance.slice(1) };
+  if (lance.length !== 5) throw new Error('Hero 16 job path edge count mismatch');
+  function edge(from, fromJob, to, toJob) {
+    const matches = lance.filter(row => row.predecessorConnectionId === from && row.predecessorJobId === fromJob
+      && row.successorConnectionId === to && row.successorJobId === toJob);
+    if (matches.length !== 1) throw new Error('Lance classifier expected ' + from + '/' + fromJob + ' → ' + to + '/' + toJob);
+    return matches[0];
+  }
+  return {
+    first: {records: [edge(160,401,162,302)]},
+    branches: [edge(160,401,161,403), edge(160,401,163,202)],
+    finals: [edge(161,403,164,405), edge(162,302,165,306)],
+  };
+}
+
+export const firstBranchesDecision = 'docs/decisions/hero-16-minimal-first-job-branches-publication.v1.json';
+
+export function firstJobBranchLines(edges, memberships, names, decision) {
+  function name(jobId, expected) {
+    if (memberships.records.filter(row => row.heroId === 16 && row.jobId === jobId).length !== 1) {
+      throw new Error('Lance first branch membership ' + jobId);
+    }
+    const rows = names.records.filter(row => row.jobId === jobId);
+    if (rows.length !== 1 || rows[0].evidenceClass !== 'A' || rows[0].nameKo !== expected) {
+      throw new Error('Lance first branch Korean name ' + jobId);
+    }
+    return rows[0].nameKo;
+  }
+  const start = name(401, '호크 나이트');
+  const paths = [[161,403,105,'드래곤 나이트'], [163,202,107,'소드맨']].map(([conn, job, index, label], position) => {
+    const expected = {heroId:16, predecessorConnectionId:160, predecessorJobId:401,
+      successorConnectionId:conn, successorJobId:job,
+      sourceLocator:'data/configdata/ConfigDataJobConnectionInfo.json#/' + index + '/PreJobConnectionList/0'};
+    if (!edges.some(row => isDeepStrictEqual(row, expected))) throw new Error('Lance first branch edge ' + conn + '/' + job);
+    const line = '전직 · ' + start + ' → ' + name(job, label);
+    if (!isDeepStrictEqual(edges[position], expected)) throw new Error('Lance first branch edge order');
+    return {predecessor:[160,401], successor:[conn,job], textKo:line};
+  });
+  if (edges.length !== paths.length || decision?.schemaVersion !== 1 || decision.status !== 'APPROVED'
+    || decision.heroId !== 16 || decision.surface !== HERO_16_MINIMAL_DETAIL_FRAGMENT || decision.mode !== 'NORMAL'
+    || decision.placement !== 'consecutive-plain-paragraphs-immediately-after-forward-soldier-section'
+    || decision.evidence?.admission !== 'evidence/source/jobs/hero16-first-job-branches-direct.v1.json'
+    || decision.evidence?.jobNames !== 'canonical/job-localizations-ko.v1.json'
+    || !isDeepStrictEqual(decision.paths, paths)) throw new Error('Lance first branch publication scope or order');
+  return paths.map(path => path.textKo);
 }
 
 export function finalJobPathLines(decision, memberships, edges, expected, localizations) {
