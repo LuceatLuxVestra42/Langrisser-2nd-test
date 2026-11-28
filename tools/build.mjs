@@ -747,8 +747,6 @@ const expectedJobEdges = await expectedAdvancements(readJson);
 const jobEdges = splitJobAdvancements(await readJson('canonical/hero-job-advancement-relations.v1.json'), expectedJobEdges);
 const lanceJobPath = hero16JobPathLine(await readJson(HERO_16_JOB_PATH_DECISION), heroJobRelations,
   jobEdges.first, jobLocalization);
-const finalDecision = await readJson(finalJobPathDecision);
-const finalPaths = finalJobPathLines(finalDecision, heroJobRelations, jobEdges.finals, expectedJobEdges.slice(6), jobLocalization);
 await validateLianaJobTree();
 assert.equal(createHash('sha256').update(await readFile('generated/hero-15-job-tree-internal.v1.json')).digest('hex'),
   '571086f09825bfe3e1e10067772299d174e5ee16e1b997c93e919e8a5b93a0dd', 'Preserved Liana internal Job Tree bytes');
@@ -761,6 +759,8 @@ await validateHero15SkillDetailInternal();
 assert.equal(createHash('sha256').update(await readFile('generated/hero-15-skill-detail-internal.v1.json')).digest('hex'),
   '27f12960aff3a141a4443939b024f81afe0097b3eb55f13f919ecf562748f400', 'Preserved Liana internal Skill projection bytes');
 const lanceTalent = await generateLanceTalent();
+const finalDecision = await readJson(finalJobPathDecision);
+const finalPaths = finalJobPathLines(finalDecision, heroJobRelations, jobEdges.finals, expectedJobEdges.slice(6), jobLocalization);
 assert.equal(selectTalentSkill({TalentSkill_IDs:[9999,3277,3278,3279,3280,3281]}, 2), 3277, 'Lance two-star selector must use index 1');
 const spJobIdentities = await readJson('canonical/sp-job-identities.v1.json');
 const productionIdentities = await readJson('canonical/production-identities.v1.json');
