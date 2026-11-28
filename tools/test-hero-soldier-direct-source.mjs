@@ -1,3 +1,4 @@
+import { lanceEvidencePath, validateLanceDirectRelations } from './validate-hero-soldier-relations.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { cp, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
@@ -136,9 +137,58 @@ const restores = [];
 try {
   const before = await snapshotDirectory(repo);
   expectSuccess(run(sourceValidator), 'clean SP Hero reward source validator', /SP Hero reward source evidence: PASS/);
-  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /396 admitted relations; 397 admitted provenance; 7 Hero 15 SP inherited admissions; 0 deferred Hero 15 SP candidates/);
+  expectSuccess(run(primaryValidator), 'clean Hero-Soldier relation validator', /401 admitted relations; 402 admitted provenance; 7 Hero 15 SP inherited admissions; 0 deferred Hero 15 SP candidates/);
   const after = await snapshotDirectory(repo);
   if (after !== before) throw new Error('Hero-Soldier validators mutated repository content');
+
+  // The normal validator above authenticated both source artifacts. Exercise its actual
+  // relation boundary with fresh copies so these tests cannot pass on file hash errors.
+  const readDocument = async path => JSON.parse(await readFile(full(path), 'utf8'));
+  const inputs = {
+    records: (await readDocument(canonicalPath)).records,
+    evidence: await readDocument(lanceEvidencePath),
+    retained: (await readDocument(soldierPath)).records,
+    identities: (await readDocument('canonical/soldiers.v1.json')).records,
+    names: (await readDocument('canonical/normal-soldier-localizations-ko.v1.json')).records,
+  };
+  const verify = ({records, evidence, retained, identities, names}) =>
+    validateLanceDirectRelations(records, evidence, retained, identities, names);
+  const lanceRow = (doc, id) => doc.records.find(row => row.heroId === 16 && row.soldierId === id);
+  assert.equal(verify(inputs).length, 5);
+  for (const [mutate, diagnostic] of [
+    [doc => {
+      const claims = doc.evidence.records.map(row => row.claim);
+      const first = claims.find(row => row.soldierId === 419);
+      const second = claims.find(row => row.soldierId === 402);
+      [first.fieldLocator, second.fieldLocator] = [second.fieldLocator, first.fieldLocator];
+    }, /original field locator for 16:402/],
+    [doc => { doc.retained.find(row => row.ID === 115).GetSoldierHeros_ID[4] = 15; }, /Soldier 115 must reference Hero 16/],
+    [doc => { lanceRow(doc, 115).evidenceClass = 'B'; }, /A-class direct relation required for 16:115/],
+    [doc => { lanceRow(doc, 419).provenance[0].origin.recordId = 402; }, /single direct Soldier provenance for 16:419/],
+    [doc => { doc.identities.find(row => row.id === 115).variant = 'SP'; }, /NORMAL identity for 16:115/],
+    ...[5115, 422].map(id => [doc => { lanceRow(doc, 115).soldierId = id; }, /exactly five approved NORMAL direct relation keys/]),
+    [doc => {
+      const inherited = structuredClone(doc.records.find(row => row.soldierId === 5115
+        && row.provenance.some(item => item.sourceKind === 'SP_SOLDIER_INHERIT')));
+      inherited.heroId = 16;
+      inherited.evidencePoolLocator = directManifestPath + '#heroId=16&soldierId=5115';
+      inherited.provenance[0].parentEdge.heroId = 16;
+      doc.records.push(inherited);
+    }, /exactly five approved NORMAL direct relation keys/],
+  ]) {
+    const copy = structuredClone(inputs);
+    mutate(copy);
+    assert.throws(() => verify(copy), diagnostic);
+  }
+  const prior = inputs.records.find(row => row.soldierId === 115 && row.heroId !== 16);
+  const restorePrior = await editJson(canonicalPath, doc => {
+    const row = doc.records.find(row => row.heroId === prior.heroId && row.soldierId === 115);
+    row.provenance[0].origin.recordId = 324;
+  });
+  restores.push(restorePrior);
+  expectFailure(primaryValidator, 'other Hero with same NORMAL Soldier changed',
+    new RegExp('#347 preserved provenance mismatches: ' + prior.heroId + ':115'));
+  await restorePrior(); restores.pop();
 
   const scopedSource = JSON.parse(await readFile(full(hero15DirectAdmissionPath), 'utf8'));
   for (const [heroId, soldierId, elementIndex] of [[13, 806, 0], [4, 817, 0], [4, 819, 0], [29, 817, 3], [29, 819, 2]]) {
@@ -150,7 +200,7 @@ try {
       row.evidenceClass = 'B';
       row.evidencePoolLocator = `${directManifestPath}#heroId=${heroId}&soldierId=${soldierId}`;
       doc.records.sort((a, b) => a.heroId - b.heroId || a.soldierId - b.soldierId);
-      assert.equal(doc.records.length, 396);
+      assert.equal(doc.records.length, 401);
     });
     restores.push(restore);
     expectFailure(primaryValidator, `unapproved source relationship ${heroId}:${soldierId}`,
