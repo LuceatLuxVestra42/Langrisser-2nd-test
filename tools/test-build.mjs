@@ -218,7 +218,7 @@ async function checkHeroDetailBuildFailures() {
       }, 'approved ordered destinations'],
     ].map(([name, mutate, reason]) => ({ name: 'Lance forward ' + name, decisionPath: forwardDecision, mutate,
       error: () => 'Error: Lance forward links: ' + reason })),
-    ...[[2,72,67,5000], [3,73,68,9000]].flatMap(([bond, endpoint, lianaId, firstGold], index) => {
+    ...[[2,72,67,5000], [3,73,68,9000], [4,74,69,15000], [5,75,70,20000]].flatMap(([bond, endpoint, lianaId, firstGold], index) => {
       const input = 'bondLevelInputs[' + index + ']';
       const label = 'bond ' + bond;
       const decisionPath = 'docs/decisions/hero-16-minimal-bond' + bond + '-level-gold-publication.v1.json';
@@ -235,12 +235,17 @@ async function checkHeroDetailBuildFailures() {
         ...[
           ['approval status', d => { d.status = 'PENDING'; }, 'level approval status'],
           ['target order', d => { [d.targetLevels[0],d.targetLevels[1]] = [3,2]; }, 'approved level order'],
-          ['evidence path', d => { d.evidence = goldEvidence + '#/endpoints/' + (bond === 2 ? 2 : 1) + '/levels'; }, 'decision evidence path'],
+          ['evidence path', d => { d.evidence = goldEvidence + '#/endpoints/' + ({2:2, 3:1, 4:4, 5:3}[bond]) + '/levels'; }, 'decision evidence path'],
           ['approved Lv.2 gold', d => { d.rows[0].gold = firstGold + 1; }, 'approved Lv.2 amount'],
         ].map(([name, mutate, reason]) => ({name:label + ' wrong ' + name, decisionPath, mutate,
           error:() => 'Error: Lance Fetter ' + label + ' ' + reason + ' mismatch'})),
       ];
     }),
+    levelInputMutation('Lance bonds 4 and 5 evidence inputs exchanged',
+      '[bondLevelInputs[2].levels,bondLevelInputs[3].levels] = [bondLevelInputs[3].levels,bondLevelInputs[2].levels];', 'bond 4 level evidence group'),
+    ...[[2, 4, 75], [3, 5, 74]].map(([index, bond, otherEndpoint]) =>
+      levelInputMutation('bond ' + bond + ' decision points to sibling',
+        'bondLevelInputs[' + index + '].decision.endpointId = ' + otherEndpoint + ';', 'bond ' + bond + ' level approval target')),
     levelInputMutation('Lance bonds 2 and 3 evidence inputs exchanged',
       '[bondLevelInputs[0].levels,bondLevelInputs[1].levels] = [bondLevelInputs[1].levels,bondLevelInputs[0].levels];', 'bond 2 level evidence group'),
     levelInputMutation('Lance bonds 2 and 3 decision endpoints exchanged',
@@ -901,6 +906,14 @@ function lianaFetterInput(path, union) {
     ['Lance bonds 2 and 3 lists exchanged', 'Lance bond 2 level gold text', afterBondPanel,
       'const second = bonds.children[4], third = bonds.children[6]; const a = second.children[1], b = third.children[1]; ' +
       'second.replaceChildren(second.children[0], b); third.replaceChildren(third.children[0], a);\n' + afterBondPanel],
+    ['Lance bonds 4 and 5 lists exchanged', 'Lance bond 4 level gold text', afterBondPanel,
+      'const fourth = bonds.children[8], fifth = bonds.children[10]; const a = fourth.children[1], b = fifth.children[1]; ' +
+      'fourth.replaceChildren(fourth.children[0], b); fifth.replaceChildren(fifth.children[0], a);\n' + afterBondPanel],
+    ['Lance bond 4 rendered Lv.2 and Lv.3 amounts exchanged', 'Lance bond 4 level gold text',
+      '    [15000, 23000, 35000, 53000,', '    [23000, 15000, 35000, 53000,'],
+    ['Lance bond 5 rendered Lv.2 and Lv.3 amounts exchanged', 'Lance bond 5 level gold text',
+      '    [20000, 30000, 45000, 68000,', '    [30000, 20000, 45000, 68000,'],
+    ['Lance bond 5 list after Heart total', 'Lance bond 5 level list placement', afterBondPanel, moveListAfterNextTotal(10)],
     ['Lance bond 3 list after fourth total', 'Lance bond 3 level list placement', afterBondPanel, moveListAfterNextTotal(6)],
     ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
       finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],

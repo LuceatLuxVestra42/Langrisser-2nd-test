@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "kind": "FETTER",
+  "endpointId": 74,
+  "unit": "gold",
+  "targetLevels": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "rows": [
+    {
+      "level": 2,
+      "gold": 15000,
+      "textKo": "Lv.2 · 15,000 골드"
+    },
+    {
+      "level": 3,
+      "gold": 23000,
+      "textKo": "Lv.3 · 23,000 골드"
+    },
+    {
+      "level": 4,
+      "gold": 35000,
+      "textKo": "Lv.4 · 35,000 골드"
+    },
+    {
+      "level": 5,
+      "gold": 53000,
+      "textKo": "Lv.5 · 53,000 골드"
+    },
+    {
+      "level": 6,
+      "gold": 80000,
+      "textKo": "Lv.6 · 80,000 골드"
+    },
+    {
+      "level": 7,
+      "gold": 120000,
+      "textKo": "Lv.7 · 120,000 골드"
+    },
+    {
+      "level": 8,
+      "gold": 180000,
+      "textKo": "Lv.8 · 180,000 골드"
+    },
+    {
+      "level": 9,
+      "gold": 270000,
+      "textKo": "Lv.9 · 270,000 골드"
+    },
+    {
+      "level": 10,
+      "gold": 410000,
+      "textKo": "Lv.10 · 410,000 골드"
+    }
+  ],
+  "summary": "유대 4 레벨별 골드",
+  "placement": "Closed details between the fourth and fifth bond totals, summary followed by one list.",
+  "approval": {
+    "source": "Direct user approval in the designated 이전 Work following PR #352.",
+    "basis": "Lance bond 4 and 5 level gold on the existing detail, within the published Liana scope. Independently reviewed command 728667dc-fc2f-5914-9d3f-b32bfc2902b7."
+  },
+  "evidence": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/3/levels",
+  "legacy": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "component": "src/components/hero-bond-materials-panel.tsx",
+    "url": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/",
+    "fields": [
+      "level.targetLevel",
+      "level.goldCost"
+    ]
+  }
+}

@@ -130,6 +130,8 @@ const levelPlacements = [
   'Closed details between the first and second bond totals, summary followed by one list.',
   'Closed details between the second and third bond totals, summary followed by one list.',
   'Closed details between the third and fourth bond totals, summary followed by one list.',
+  'Closed details between the fourth and fifth bond totals, summary followed by one list.',
+  'Closed details between the fifth bond total and the Heart Fetter total, summary followed by one list.',
 ];
 
 export function lanceBondLevelLines(bond, references, detail, levels, decision) {

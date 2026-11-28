@@ -90,9 +90,11 @@ for (const [appPath, lines] of [
       [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000],
       [5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000],
       [9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000],
+      [15000, 23000, 35000, 53000, 80000, 120000, 180000, 270000, 410000],
+      [20000, 30000, 45000, 68000, 100000, 150000, 230000, 350000, 530000],
     ];
     const lists = bonds.children.filter(node => node.tag === 'details');
-    assert.equal(lists.length, 3);
+    assert.equal(lists.length, expectedAmounts.length);
     for (const [index, amounts] of expectedAmounts.entries()) {
       const levels = lists[index];
       assert.equal(bonds.children[2 * (index + 1)], levels);
