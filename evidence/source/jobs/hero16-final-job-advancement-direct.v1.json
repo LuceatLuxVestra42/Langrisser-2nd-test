@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "sourceFiles": {
+    "data/configdata/ConfigDataHeroInfo.json": "728daab3370f0c7779449663ea02e638677944d4",
+    "data/configdata/ConfigDataJobConnectionInfo.json": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+    "data/configdata/ConfigDataJobInfo.json": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133"
+  },
+  "hero": {
+    "recordIndex": 15,
+    "ID": 16,
+    "UseableJobConnections_ID": [
+      161,
+      162,
+      163,
+      164,
+      165
+    ]
+  },
+  "connections": [
+    {
+      "recordIndex": 105,
+      "ID": 161,
+      "Job_ID": 403
+    },
+    {
+      "recordIndex": 106,
+      "ID": 162,
+      "Job_ID": 302
+    },
+    {
+      "recordIndex": 108,
+      "ID": 164,
+      "Job_ID": 405,
+      "PreJobConnectionList": [
+        161
+      ]
+    },
+    {
+      "recordIndex": 109,
+      "ID": 165,
+      "Job_ID": 306,
+      "PreJobConnectionList": [
+        162
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "recordIndex": 254,
+      "ID": 403,
+      "Name": "龙骑士"
+    },
+    {
+      "recordIndex": 256,
+      "ID": 405,
+      "Name": "龙骑统帅"
+    },
+    {
+      "recordIndex": 191,
+      "ID": 302,
+      "Name": "骑士长"
+    },
+    {
+      "recordIndex": 195,
+      "ID": 306,
+      "Name": "皇家骑士"
+    }
+  ],
+  "scope": "Each selected successor references its direct predecessor by JobConnection ID. The four endpoints use existing Hero–Job memberships and Korean localizations."
+}

@@ -97,7 +97,53 @@ async function checkHeroDetailBuildFailures() {
   const heartDetails = 'canonical/hero-heart-fetter-raw-details.v1.json';
   const fetterReferences = 'canonical/hero-fetter-references.v1.json';
   const groups = [71,72,73,74,75,16];
+  const finalDecision = 'docs/decisions/hero-16-minimal-final-job-paths-publication.v1.json';
+  const finalSource = 'evidence/source/jobs/hero16-final-job-advancement-direct.v1.json';
+  function consumerMutation(name, module, original, replacement, error) {
+    return {name, decisionPath:'tools/' + module + '.mjs', error:() => 'Error: ' + error,
+      mutateSource(source) {
+        assert.equal(source.split(original).length, 2, name);
+        return source.replace(original, replacement);
+      }};
+  }
+  const finalOwnerCall = 'finalJobPathLines(finalDecision, heroJobRelations, jobEdges.finals, expectedJobEdges.slice(6), jobLocalization)';
   const cases = [
+    ...[[403,'161/403 → 164/405','predecessor'], [405,'161/403 → 164/405','successor'],
+        [302,'162/302 → 165/306','predecessor'], [306,'162/302 → 165/306','successor']].map(([id,edge,role]) =>
+      consumerMutation('final path missing ' + role + ' Job ' + id, 'build', finalOwnerCall,
+        finalOwnerCall.replace('heroJobRelations','{records:heroJobRelations.records.filter(row => row.heroId !== 16 || row.jobId !== '+id+')}'),
+        'Hero 16 ' + edge + ' missing ' + role + ' Job ' + id)),
+    ...[[2,162,164],[3,161,165]].map(([index,wrong,successor]) => ({
+      name:'source predecessor for ' + successor, decisionPath:finalSource,
+      mutate:doc => {doc.connections[index].PreJobConnectionList[0] = wrong;},
+      error:() => 'Error: Hero 16 predecessor mismatch for successor ' + successor,
+    })),
+    ...[
+      ['direction','({...row,predecessorConnectionId:row.successorConnectionId,predecessorJobId:row.successorJobId,successorConnectionId:row.predecessorConnectionId,successorJobId:row.predecessorJobId})'],
+      ['successor','({...row,successorConnectionId:all[1-i].successorConnectionId,successorJobId:all[1-i].successorJobId})'],
+      ['locator','({...row,sourceLocator:all[1-i].sourceLocator})'],
+    ].map(([name, expression]) => consumerMutation('final path ' + name, 'build', finalOwnerCall,
+      finalOwnerCall.replace('jobEdges.finals','jobEdges.finals.map((row,i,all) => '+expression+')'), 'Hero 16 final path endpoint or locator mismatch')),
+    consumerMutation('final job names exchanged', 'build', finalOwnerCall,
+      finalOwnerCall.replace('jobLocalization)', '{records:jobLocalization.records.map(r => [405,306].includes(r.jobId) ? {...r,jobId:r.jobId===405?306:405} : r)})'),
+      'Hero 16 final Job localization mismatch'),
+    consumerMutation('first Lance publication receives different single edge', 'build', 'jobEdges.first, jobLocalization',
+      '{records:[jobEdges.finals[0]]}, jobLocalization', 'Hero 16 job path edge direction mismatch'),
+    {name:'missing final job decision', decisionPath:finalDecision, error:path => "Error: ENOENT: no such file or directory, open '" + path + "'"},
+    ...[['target',d => {d.heroId=15;}],['direction',d => {
+      const path=d.paths[0]; [path.predecessor,path.successor]=[path.successor,path.predecessor];
+    }],['order',d => d.paths.reverse()]].map(([name, mutate]) => ({name:'final job decision ' + name, decisionPath:finalDecision, mutate,
+      error:() => 'Error: Hero 16 final path publication scope or order mismatch'})),
+    consumerMutation('Liana internal tree receives Lance edge','hero-15-job-tree-internal',
+      'edges:{records:lianaEdges}', 'edges:{records:[...lianaEdges.slice(0,4),edges.records[6]]}',
+      'Advancement Canonical differs from its admitted evidence'),
+    consumerMutation('Liana Minimal receives different valid successor after internal rendering','hero-15-integrated-publication-contract',
+      'const paths = directEdges.map(', 'const paths = directEdges.map(row => row.successorConnectionId===154 ? {...row,successorConnectionId:155,successorJobId:707} : row).map(',
+      'Hero 15 Job paths differ from the approved direct edges'),
+    consumerMutation('Liana Full receives five rows with changed successor','hero-15-full-detail-publication-contract',
+      'canonical.jobAdvancementRelations.records.filter((row) => row.heroId === 15)',
+      'canonical.jobAdvancementRelations.records.filter((row) => row.heroId === 15).map(row => row.successorConnectionId===155 ? {...row,successorConnectionId:154,successorJobId:811} : row)',
+      'Hero 15 Full Detail Publication contract: Job membership/Advancement relation parity failed'),
     { decisionPath:goldPublication, name:'Lance bond decision missing',
       error:path => `Error: ENOENT: no such file or directory, open '${path}'` },
     ...[
@@ -548,6 +594,9 @@ function lianaFetterInput(path, union) {
        lanceCard.replaceChildren(...nodes.filter(node=>!moved.includes(node)));
        hero15MinimalDetailContainer.children[0].append(...moved);
        void loadHero16Talent(lanceCard);`],
+    ['Lance final jobs interchanged', 'Lance final job paragraph attribution',
+      "'전직 · 드래곤 나이트 → 드래곤 마스터', '전직 · 하이랜더 → 로열 나이트'",
+      "'전직 · 드래곤 나이트 → 로열 나이트', '전직 · 하이랜더 → 드래곤 마스터'"],
     ['Lance job path reversed', 'Packaged Hero 16 job path text or direction mismatch',
       '전직 · 호크 나이트 → 하이랜더', '전직 · 하이랜더 → 호크 나이트'],
     ['Lance factions 4 and 7 swapped', 'Packaged Hero 16 profile text or placement mismatch',

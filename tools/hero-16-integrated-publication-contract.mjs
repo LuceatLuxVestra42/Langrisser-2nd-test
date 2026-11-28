@@ -99,6 +99,40 @@ export async function hero16ProfileLines(decision, rarities, relations, localiza
 
 export const HERO_16_JOB_PATH_DECISION = 'docs/decisions/hero-16-minimal-job-path-publication.v1.json';
 
+export const finalJobPathDecision = 'docs/decisions/hero-16-minimal-final-job-paths-publication.v1.json';
+
+export function splitJobAdvancements(advancements, expected) {
+  const lance = advancements.records.filter(row => row.heroId === 16);
+  if (lance.length !== 3) throw new Error('Hero 16 job path edge count mismatch');
+  if (!isDeepStrictEqual(lance[0], expected[5])) throw new Error('Hero 16 job path edge direction mismatch');
+  if (!isDeepStrictEqual(advancements.records, expected)) throw new Error('Direct advancement union differs from source endpoints or locators');
+  return { first: {records:lance.slice(0,1)}, finals:lance.slice(1) };
+}
+
+export function finalJobPathLines(decision, memberships, edges, expected, localizations) {
+  if (!isDeepStrictEqual(edges, expected) || edges.length !== 2) throw new Error('Hero 16 final path endpoint or locator mismatch');
+  const names = [['드래곤 나이트','드래곤 마스터'],['하이랜더','로열 나이트']];
+  const paths = edges.map((edge, index) => {
+    const predecessor = [edge.predecessorConnectionId, edge.predecessorJobId];
+    const successor = [edge.successorConnectionId, edge.successorJobId];
+    const labels = [predecessor, successor].map(([,jobId], role) => {
+      if (memberships.records.filter(row => row.heroId === 16 && row.jobId === jobId).length !== 1) {
+        throw new Error('Hero 16 ' + predecessor.join('/') + ' → ' + successor.join('/') + ' missing '
+          + ['predecessor','successor'][role] + ' Job ' + jobId);
+      }
+      const matches = localizations.records.filter(row => row.jobId === jobId);
+      if (matches.length !== 1 || matches[0].nameKo !== names[index][role]) throw new Error('Hero 16 final Job localization mismatch');
+      return matches[0].nameKo;
+    });
+    return {predecessor, successor, textKo:'전직 · ' + labels.join(' → ')};
+  });
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 16
+    || decision.surface !== HERO_16_MINIMAL_DETAIL_FRAGMENT
+    || decision.placement !== 'consecutive-plain-paragraphs-immediately-after-bond-gold-disclosure'
+    || !isDeepStrictEqual(decision.paths, paths)) throw new Error('Hero 16 final path publication scope or order mismatch');
+  return paths.map(path => path.textKo);
+}
+
 export function hero16JobPathLine(decision, memberships, advancements, localizations) {
   const from = { connectionId: 160, jobId: 401 };
   const to = { connectionId: 162, jobId: 302 };

@@ -29,6 +29,54 @@ const sourcePin = {
   jobSha256: '2e522fc464549cfe7ed1f5974e166b3952fa7398e07d0610ec2a90b950e094cf',
 };
 
+const jobsDirectory = 'evidence/source/jobs/';
+const connectionFile = 'data/configdata/ConfigDataJobConnectionInfo.json';
+
+function directEdge(heroId, from, to, sourceLocator) {
+  return { heroId, predecessorConnectionId: from.ID, predecessorJobId: from.Job_ID,
+    successorConnectionId: to.ID, successorJobId: to.Job_ID, sourceLocator };
+}
+
+export async function expectedAdvancements(read) {
+  const [liana, first, finals] = await Promise.all([
+    read(jobsDirectory + 'hero-job-tree-hero15.v1.json'),
+    read(jobsDirectory + 'hero16-job-advancement-direct.v1.json'),
+    read(jobsDirectory + 'hero16-final-job-advancement-direct.v1.json'),
+  ]);
+  const lianaConnections = liana.records.jobConnections.map(record => record.fields);
+  const lianaEdges = lianaConnections.flatMap(to => (to.PreJobConnectionList ?? []).map(id =>
+    directEdge(15, lianaConnections.find(from => from.ID === id), to,
+      connectionFile + '#ID=' + to.ID + '/PreJobConnectionList')));
+  assert.deepEqual(lianaEdges.map(edge => Object.values(edge)), expectedEdges, 'Liana direct advancement evidence');
+  const sourceFiles = {
+    'data/configdata/ConfigDataHeroInfo.json': '728daab3370f0c7779449663ea02e638677944d4',
+    [connectionFile]: sourcePin.connectionBlob,
+    'data/configdata/ConfigDataJobInfo.json': sourcePin.jobBlob,
+  };
+  for (const evidence of [first, finals]) {
+    assert.equal(evidence.repository, sourcePin.repository);
+    assert.equal(evidence.commit, sourcePin.commit);
+    assert.deepEqual(evidence.sourceFiles, sourceFiles);
+  }
+  assert.deepEqual(first.connections.map(row => [row.recordIndex, row.ID, row.Job_ID, row.PreJobConnectionList]),
+    [[104,160,401,undefined], [106,162,302,[160]]], 'Hero 16 original job path evidence');
+  assert.deepEqual(first.hero, {recordIndex:15, ID:16, JobConnection_ID:160, 'UseableJobConnections_ID/1':162});
+  assert.deepEqual(finals.hero, {recordIndex:15, ID:16, UseableJobConnections_ID:[161,162,163,164,165]});
+  assert.deepEqual(finals.connections.map(row => [row.recordIndex,row.ID,row.Job_ID]),
+    [[105,161,403],[106,162,302],[108,164,405],[109,165,306]], 'Hero 16 final connection endpoints');
+  assert.deepEqual(finals.jobs.map(row => [row.recordIndex,row.ID,row.Name]),
+    [[254,403,'龙骑士'],[256,405,'龙骑统帅'],[191,302,'骑士长'],[195,306,'皇家骑士']], 'Hero 16 final Job source');
+  function lanceEdge(evidence, successor, prerequisite) {
+    const to = evidence.connections.find(row => row.ID === successor);
+    if (to.PreJobConnectionList?.length !== 1 || to.PreJobConnectionList[0] !== prerequisite) {
+      throw new Error('Hero 16 predecessor mismatch for successor ' + successor);
+    }
+    const from = evidence.connections.find(row => row.ID === to.PreJobConnectionList[0]);
+    return directEdge(evidence.hero.ID, from, to, connectionFile + '#/' + to.recordIndex + '/PreJobConnectionList/0');
+  }
+  return [...lianaEdges, lanceEdge(first,162,160), lanceEdge(finals,164,161), lanceEdge(finals,165,162)];
+}
+
 export function validateHero15JobAdvancement({ evidence, canonical, heroJobRelations, jobLevelCanonical, integratedDecision, talentDecision } = {}) {
   check(evidence?.schemaVersion === 1 && evidence.canonical === false && evidence.generated === false && evidence.productionRuntimeDependency === false, 'evidence metadata');
   const src = evidence.source;
@@ -69,7 +117,7 @@ export function validateHero15JobAdvancement({ evidence, canonical, heroJobRelat
     check(connectionMap.get(edge.predecessorConnectionId)?.fields.Job_ID === edge.predecessorJobId && connectionMap.get(edge.successorConnectionId)?.fields.Job_ID === edge.successorJobId, 'Connection-to-Job endpoint parity');
     check(connectionMap.get(edge.successorConnectionId)?.fields.PreJobConnectionList?.includes(edge.predecessorConnectionId), 'source edge reference exists');
   }
-  check(canonical?.schemaVersion === 1 && canonical.scope === 'Direct prerequisite JobConnection edges for Hero 15 and the selected Hero 16 path, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.', 'Canonical schema/scope');
+  check(canonical?.schemaVersion === 1 && canonical.scope === 'Direct prerequisite JobConnection edges for Hero 15 and three selected Hero 16 paths, derived from exact ConfigDataJobConnectionInfo.PreJobConnectionList references; no reachability or UI publication.', 'Canonical schema/scope');
   check(JSON.stringify(Object.keys(canonical).sort()) === JSON.stringify(['records','schemaVersion','scope']), 'Canonical must not add unlock, mastery, or presentation fields');
   check(JSON.stringify(canonical.records.filter(row => row.heroId === 15)) === JSON.stringify(projected), 'Canonical exact Source Projection parity');
   const relationRows = heroJobRelations.records.filter((r) => r.heroId === 15);

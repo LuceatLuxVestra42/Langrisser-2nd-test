@@ -94,6 +94,18 @@ try {
   await mutateAndExpectFailure('evidence/source/jobs/hero16-job-advancement-direct.v1.json',
     doc => { doc.connections[1].PreJobConnectionList = [161]; }, 'Hero 16 prerequisite source mismatch',
     /Hero 16 Job source fields or locators mismatch/);
+  for (const [label, mutate] of [
+    ['missing edge', rows => rows.pop()],
+    ['duplicate edge', rows => rows.push(rows.at(-1))],
+    ['unapproved edge', rows => rows.push({...rows.at(-1), predecessorConnectionId:160})],
+    ['successors exchanged', rows => {
+      for (const key of ['successorJobId','successorConnectionId']) [rows[6][key],rows[7][key]] = [rows[7][key],rows[6][key]];
+    }],
+    ['locators exchanged', rows => { [rows[6].sourceLocator,rows[7].sourceLocator] = [rows[7].sourceLocator,rows[6].sourceLocator]; }],
+  ]) {
+    await mutateAndExpectFailure('canonical/hero-job-advancement-relations.v1.json', doc => mutate(doc.records),
+      label, /Direct advancement union differs from source endpoints or locators/);
+  }
   const relationPath = 'canonical/hero-job-relations.v1.json';
   const identityPath = 'canonical/hero-identities.v1.json';
   const identityEvidencePath = 'evidence/source/configdata/ConfigDataHeroInfo.records-playable-identity.v1.json';

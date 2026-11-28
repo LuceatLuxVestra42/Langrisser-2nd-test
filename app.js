@@ -632,13 +632,18 @@ function renderHero16MinimalDetailView(data, container) {
     paragraph.textContent = line;
     bonds.append(paragraph);
   }
+  const finalPaths = ['전직 · 드래곤 나이트 → 드래곤 마스터', '전직 · 하이랜더 → 로열 나이트'].map(text => {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    return paragraph;
+  });
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline, bonds]);
+  }, null, null, [jobPath, discipline, bonds, ...finalPaths]);
 }
 
 async function loadHero16Talent(card) {

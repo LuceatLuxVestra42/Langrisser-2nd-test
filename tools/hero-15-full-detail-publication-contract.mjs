@@ -228,7 +228,9 @@ export function validateHero15FullDetailPublication({ decision, canonical, gener
   const expectedJobs = [802,803,806,703,811,707];
   if (!equal(jobs.map((row) => row.jobId), expectedJobs) || !equal(jobTree.jobs.map((row) => row.connectionId), expectedConnections)
     || !equal(jobTree.jobs.map((row) => row.jobId), expectedJobs)
-    || !equal(canonical.jobAdvancementRelations.records.filter((row) => row.heroId === 15).map((row) => [row.predecessorConnectionId,row.successorConnectionId]), [[150,151],[150,152],[150,153],[152,154],[153,155]])) fail('Job membership/Advancement relation parity failed');
+    || !equal(canonical.jobAdvancementRelations.records.filter((row) => row.heroId === 15)
+      .map(row => [row.predecessorConnectionId,row.predecessorJobId,row.successorConnectionId,row.successorJobId]),
+      [[150,802,151,803],[150,802,152,806],[150,802,153,703],[152,806,154,811],[153,703,155,707]])) fail('Job membership/Advancement relation parity failed');
   const jobGroup = decision.fieldGroups.find((group) => group.id === 'jobTree');
   const jobLevelGroup = decision.fieldGroups.find((group) => group.id === 'jobLevelStats');
   if (!equal(claimIds(jobGroup, 'canonical/hero-job-relations.v1.json'), expectedJobs)

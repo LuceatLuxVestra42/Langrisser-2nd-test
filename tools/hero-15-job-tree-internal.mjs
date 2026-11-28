@@ -16,10 +16,12 @@ export async function loadInputs(root=process.cwd()) {
   const [jobs,edges,evidence,localizations]=await Promise.all([
     read(root,'canonical/hero-job-relations.v1.json'),read(root,'canonical/hero-job-advancement-relations.v1.json'),
     read(root,'evidence/source/jobs/hero-job-tree-hero15.v1.json'),read(root,'canonical/job-localizations-ko.v1.json'),
-  ]); return {jobs,edges,evidence,localizations};
+  ]);
+  const lianaEdges = edges.records.filter(row => row.heroId === 15);
+  return {jobs,edges:{records:lianaEdges},evidence,localizations};
 }
 export function render({jobs,edges,evidence,localizations}) {
-  const memberships=jobs.records.filter(x=>x.heroId===15), links=edges.records.filter(x=>x.heroId===15);
+  const memberships=jobs.records.filter(x=>x.heroId===15), links=edges.records;
   const connections=evidence.claims.connectionMembership.connections;
   if(JSON.stringify(memberships.map(x=>x.jobId).sort((a,b)=>a-b))!==JSON.stringify([...JOBS].sort((a,b)=>a-b))) throw Error('Hero 15 Job population drift');
   if(JSON.stringify(connections.map(x=>x.connectionId).sort((a,b)=>a-b))!==JSON.stringify([...CONNECTIONS].sort((a,b)=>a-b))) throw Error('Hero 15 Connection scope drift');
