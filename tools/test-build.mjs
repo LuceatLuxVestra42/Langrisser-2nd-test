@@ -3,6 +3,7 @@ import { lanceTalentDecision, lanceTalentPublic } from './hero-16-talent-publica
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { cpSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { readFile, mkdtemp, mkdir, rm, cp, writeFile, symlink, copyFile, rename } from 'node:fs/promises';
@@ -71,6 +72,10 @@ async function checkHeroDetailBuildFailures() {
     assert.equal(result.status, 0, result.stderr);
   }
   assert.deepEqual(await readFile(join(normalPackage, 'app.js')), approvedApp);
+
+  // Filter the checkout once. Each negative case still receives its own writable source copy.
+  const normalSource = join(temp, 'approved-source');
+  await cp(process.cwd(), normalSource, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
 
   const skillDecisionPath = 'docs/decisions/hero-15-minimal-ordinary-skills-publication.v1.json';
   const templatePath = 'canonical/casting-law-template-raw-details.v1.json';
@@ -742,7 +747,7 @@ function lianaFetterInput(path, union) {
       const fixture = await mkdtemp(join(temp, `keys-${test.name}-`));
       const source = join(fixture, 'source');
       const destination = join(fixture, 'package');
-      await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      cpSync(normalSource, source, { recursive: true });
       if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
       const path = join(test.finalFile && mode === '--verify-dir' ? destination : source, test.decisionPath);
       if (test.mutateSource) {
@@ -767,7 +772,7 @@ function lianaFetterInput(path, union) {
     const root = await mkdtemp(join(temp, 'lance-json-missing-'));
     const source = join(root, 'source');
     const destination = join(root, 'package');
-    await cp(process.cwd(), source, {recursive:true,filter:path=>path!==join(process.cwd(),'.git')});
+    cpSync(normalSource, source, { recursive: true });
     if (mode === '--verify-dir') await cp(normalPackage,destination,{recursive:true});
     await rm(join(mode === '--verify-dir' ? destination : source, file));
     const result = run(source,mode,destination);
@@ -780,7 +785,7 @@ function lianaFetterInput(path, union) {
     const root = await mkdtemp(join(temp, 'lance-selector-'));
     const source = join(root, 'source');
     const destination = join(root, 'package');
-    await cp(process.cwd(),source,{recursive:true,filter:path=>path!==join(process.cwd(),'.git')});
+    cpSync(normalSource, source, { recursive: true });
     if (mode === '--verify-dir') await cp(normalPackage,destination,{recursive:true});
     const owner = join(source,'tools/hero-16-talent-publication-contract.mjs');
     const correct = await readFile(owner,'utf8');
@@ -936,7 +941,7 @@ function lianaFetterInput(path, union) {
       const fixture = await mkdtemp(join(temp, 'hero15-display-'));
       const source = join(fixture, 'source');
       const destination = join(fixture, 'package');
-      await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      cpSync(normalSource, source, { recursive: true });
       await changeRenderer(source, before, after);
       if (mode === '--verify-dir') {
         await cp(normalPackage, destination, { recursive: true });
@@ -998,7 +1003,7 @@ function lianaFetterInput(path, union) {
       const source = join(fixture, 'source');
       const destination = join(fixture, 'package');
       const root = mode === '--output-dir' ? source : destination;
-      await cp(process.cwd(), source, { recursive: true, filter: path => path !== join(process.cwd(), '.git') });
+      cpSync(normalSource, source, { recursive: true });
       if (mode === '--verify-dir') await cp(normalPackage, destination, { recursive: true });
       await mutate(root, mode);
       if (mode === '--verify-dir') {
