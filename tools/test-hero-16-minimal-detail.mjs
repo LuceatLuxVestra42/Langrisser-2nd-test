@@ -54,7 +54,7 @@ for (const [appPath, lines] of [
   ['app.js', ['등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가', '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오']],
 ]) {
   const app = await readFile(appPath, 'utf8');
-  const functions = ['renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name));
+  const functions = [...(appPath === 'app.js' ? ['renderSoldierCommandTable'] : []), 'renderHeroMinimalDetailView', 'renderHero16MinimalDetailView'].map(name => extractFunction(app, name));
   const element = tag => ({ tag, children: [], append(...nodes) { this.children.push(...nodes); },
     replaceChildren(...nodes) { this.children = nodes; } });
   let target;
@@ -63,11 +63,15 @@ for (const [appPath, lines] of [
   const container = element('div');
   const navigation = render(JSON.parse(generatedText), container);
   const [card] = container.children;
-  const profile = appPath === 'app.js' ? card.children.slice(0, -4) : card.children;
+  const profile = appPath === 'app.js' ? card.children.slice(0, -5) : card.children;
   if (appPath === 'app.js') {
-    assert.deepEqual(card.children.slice(-2).map(node => node.textContent),
+    assert.deepEqual(card.children.slice(-3,-1).map(node => node.textContent),
       ['전직 · 드래곤 나이트 → 드래곤 마스터','전직 · 하이랜더 → 로열 나이트']);
-    const bonds = card.children.at(-3);
+    const command = card.children.at(-1);
+    assert.equal(command.children[0].textContent, '병사 지휘 보정');
+    assert.deepEqual(command.children[1].children[1].children.map(row => row.children.map(cell => cell.textContent)),
+      [['생명','+10%','+25%'],['공격','+5%','+10%'],['방어','+10%','+25%'],['마방','','+10%']]);
+    const bonds = card.children.at(-4);
     assert.equal(bonds.tag, 'details');
     assert.deepEqual(bonds.children.map(node => node.textContent), [
       '유대 강화 골드',
@@ -78,7 +82,7 @@ for (const [appPath, lines] of [
       '유대 5 · Lv.2~10 합계 골드 1,523,000',
       '마음의 유대 · Lv.2~10 합계 골드 650,000',
     ]);
-    assert.deepEqual(card.children.at(-4).children.map(node => node.textContent), [
+    assert.deepEqual(card.children.at(-5).children.map(node => node.textContent), [
       '중앙율정',
       '상성 우세인 부대와 전투 시 모든 스탯 +15%',
       '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복',

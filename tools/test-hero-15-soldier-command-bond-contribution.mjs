@@ -5,6 +5,7 @@ const baseline = await loadInputs();
 validateHero15SoldierCommandBondContribution(baseline);
 
 const cases = [
+  ['Lance Fetter 73 given Liana Skill', ({lanceEvidence}) => { lanceEvidence.fetters[2].GotSkills_ID[9] = 70039; }],
   ['source snapshot drift', ({ evidence }) => { evidence.source.commit = '0'.repeat(40); }],
   ['wrong Hero Information in Canonical', ({ references }) => { references.records[0].heroInformationId = 16; }],
   ['Heart Fetter added to regular track set', ({ references }) => {

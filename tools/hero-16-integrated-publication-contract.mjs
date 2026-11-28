@@ -99,6 +99,23 @@ export async function hero16ProfileLines(decision, rarities, relations, localiza
 
 export const HERO_16_JOB_PATH_DECISION = 'docs/decisions/hero-16-minimal-job-path-publication.v1.json';
 
+export const commandDecisionPath = 'docs/decisions/hero-16-minimal-soldier-command-publication.v1.json';
+
+export function lanceCommandRows(baseRow, bondRow, decision) {
+  if (baseRow?.heroId !== 16 || !isDeepStrictEqual(baseRow.base,{hp:10,at:5,df:10})) throw new Error('Lance command base attribution');
+  if (bondRow?.heroId !== 16 || !isDeepStrictEqual(bondRow.contribution,{hp:25,at:10,df:25,magicDf:10})) throw new Error('Lance command bond attribution');
+  const labels = {hp:'생명',at:'공격',df:'방어',magicDf:'마방'};
+  const rows = Object.entries(labels).map(([key,label]) => [label,
+    Object.hasOwn(baseRow.base,key) ? '+'+baseRow.base[key]+'%' : '', '+'+bondRow.contribution[key]+'%']);
+  if (decision?.schemaVersion !== 1 || decision.status !== 'APPROVED' || decision.heroId !== 16
+    || decision.surface !== HERO_16_MINIMAL_DETAIL_FRAGMENT || decision.mode !== 'NORMAL'
+    || decision.placement !== 'immediately-after-second-final-job-paragraph' || decision.heading !== '병사 지휘 보정'
+    || !isDeepStrictEqual(decision.columns,['능력치','기본 지휘','최대 레벨 일반 유대']) || !isDeepStrictEqual(decision.rows,rows)) {
+    throw new Error('Lance command publication scope or values');
+  }
+  return rows;
+}
+
 export const finalJobPathDecision = 'docs/decisions/hero-16-minimal-final-job-paths-publication.v1.json';
 
 export function splitJobAdvancements(advancements, expected) {

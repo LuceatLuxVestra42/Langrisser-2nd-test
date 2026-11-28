@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "mode": "NORMAL",
+  "placement": "immediately-after-second-final-job-paragraph",
+  "heading": "병사 지휘 보정",
+  "columns": [
+    "능력치",
+    "기본 지휘",
+    "최대 레벨 일반 유대"
+  ],
+  "rows": [
+    [
+      "생명",
+      "+10%",
+      "+25%"
+    ],
+    [
+      "공격",
+      "+5%",
+      "+10%"
+    ],
+    [
+      "방어",
+      "+10%",
+      "+25%"
+    ],
+    [
+      "마방",
+      "",
+      "+10%"
+    ]
+  ],
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "sources": [
+    "evidence/source/configdata/hero-16-soldier-command-base.v1.json",
+    "evidence/source/configdata/hero-16-soldier-command-bond-contribution.v1.json"
+  ],
+  "legacyComparison": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-soldier-command-modifiers.v1.json",
+    "gitBlobSha1": "a34a20bfbc5798ec48cd467809f2ccce8c3b2591",
+    "locator": "#heroId=16/normal"
+  }
+}

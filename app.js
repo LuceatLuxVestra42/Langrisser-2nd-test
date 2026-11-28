@@ -244,6 +244,39 @@ function renderHeroMinimalDetailView(data, container, { heroId, nameKo, equipmen
   };
 }
 
+function renderSoldierCommandTable(rows) {
+  const soldierCommandSection = document.createElement('section');
+  const commandHeading = document.createElement('h4');
+  commandHeading.textContent = '병사 지휘 보정';
+  const table = document.createElement('table');
+  const head = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  for (const label of ['능력치', '기본 지휘', '최대 레벨 일반 유대']) {
+    const header = document.createElement('th');
+    header.scope = 'col';
+    header.textContent = label;
+    headerRow.append(header);
+  }
+  head.append(headerRow);
+  const body = document.createElement('tbody');
+  for (const [stat, base, bond] of rows) {
+    const row = document.createElement('tr');
+    const header = document.createElement('th');
+    header.scope = 'row';
+    header.textContent = stat;
+    row.append(header);
+    for (const value of [base, bond]) {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.append(cell);
+    }
+    body.append(row);
+  }
+  table.append(head, body);
+  soldierCommandSection.append(commandHeading, table);
+  return soldierCommandSection;
+}
+
 function renderHero15MinimalDetailView(data, talentData, container) {
   if (Object.keys(talentData ?? {}).sort().join(',') !== 'heroId,officialKrProvenanceStatus,schemaVersion,surface,talent'
     || talentData.schemaVersion !== 1 || talentData.heroId !== 15 || talentData.surface !== 'hero-minimal-detail-15'
@@ -362,40 +395,12 @@ function renderHero15MinimalDetailView(data, talentData, container) {
   ])) {
     throw new Error('Hero 15 Soldier Command consumer is malformed');
   }
-  const soldierCommandSection = document.createElement('section');
-  const commandHeading = document.createElement('h4');
-  commandHeading.textContent = '병사 지휘 보정';
-  const table = document.createElement('table');
-  const head = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  for (const label of ['능력치', '기본 지휘', '최대 레벨 일반 유대']) {
-    const header = document.createElement('th');
-    header.scope = 'col';
-    header.textContent = label;
-    headerRow.append(header);
-  }
-  head.append(headerRow);
-  const body = document.createElement('tbody');
-  for (const [stat, base, bond] of [
+  const soldierCommandSection = renderSoldierCommandTable([
     ['생명', '+15%', '+25%'],
     ['공격', '', '+10%'],
     ['방어', '', '+10%'],
     ['마방', '+15%', '+25%'],
-  ]) {
-    const row = document.createElement('tr');
-    const header = document.createElement('th');
-    header.scope = 'row';
-    header.textContent = stat;
-    row.append(header);
-    for (const value of [base, bond]) {
-      const cell = document.createElement('td');
-      cell.textContent = value;
-      row.append(cell);
-    }
-    body.append(row);
-  }
-  table.append(head, body);
-  soldierCommandSection.append(commandHeading, table);
+  ]);
   const jobSection = renderMinimalDetailList('전직', jobPaths.map(({ fromNameKo, fromRank, toNameKo, toRank, baseAttributesKo }) => {
     const label = `T${fromRank} ${fromNameKo} → T${toRank} ${toNameKo}`;
     return baseAttributesKo === undefined ? label : `${label} · ${baseAttributesKo}`;
@@ -637,13 +642,19 @@ function renderHero16MinimalDetailView(data, container) {
     paragraph.textContent = text;
     return paragraph;
   });
+  const command = renderSoldierCommandTable([
+    ['생명', '+10%', '+25%'],
+    ['공격', '+5%', '+10%'],
+    ['방어', '+10%', '+25%'],
+    ['마방', '', '+10%'],
+  ]);
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline, bonds, ...finalPaths]);
+  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command]);
 }
 
 async function loadHero16Talent(card) {

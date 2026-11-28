@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "path": "data/configdata/ConfigDataHeroInfo.json",
+    "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+    "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b",
+    "recordIndex": 15,
+    "recordLocator": "data/configdata/ConfigDataHeroInfo.json#/15"
+  },
+  "rawRecord": {
+    "ID": 16,
+    "HPCmd_INI": 1000,
+    "ATCmd_INI": 500,
+    "DFCmd_INI": 1000
+  },
+  "absentFields": [
+    "MagicDFCmd_INI"
+  ],
+  "transformation": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/contracts/hero-soldier-command-base.v1.json",
+    "gitBlobSha1": "e7f2546945db23d5cc23c7707645100acc10c52f",
+    "locator": "#projection/normalization",
+    "divisor": 100
+  },
+  "comparison": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-soldier-command-modifiers.v1.json",
+    "gitBlobSha1": "a34a20bfbc5798ec48cd467809f2ccce8c3b2591",
+    "locator": "#heroId=16/normal"
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "LuceatLuxVestra42/langrisser-future-guide",
+    "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+    "tree": "08e1e6c2773730e60b258940e31494f68d65f86a",
+    "snapshotDate": "2026-09-02T01:45:21Z",
+    "artifacts": {
+      "ConfigDataHeroInfo": {
+        "path": "data/configdata/ConfigDataHeroInfo.json",
+        "gitBlobSha1": "728daab3370f0c7779449663ea02e638677944d4",
+        "sha256": "2385599493d2598aa3f7d6b2c76ecdfd8615d91f19b6241933986282fcb17f7b"
+      },
+      "ConfigDataHeroInformationInfo": {
+        "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+        "gitBlobSha1": "49aef6be8ea1a65d5725c16a05dab94fffa73f92",
+        "sha256": "ee9f81f161f79939e771b16db97329bfaa45872edad0ecbf9dd9285587ebad7e"
+      },
+      "ConfigDataHeroFetterInfo": {
+        "path": "data/configdata/ConfigDataHeroFetterInfo.json",
+        "gitBlobSha1": "1beec024e3d82e57923e59c70048c5abefd92d06",
+        "sha256": "1c058ddd7ad2fd038e8fae73391aafa85b3dea4fe49868a2c834a490497172a6"
+      },
+      "ConfigDataSkillInfo": {
+        "path": "data/configdata/ConfigDataSkillInfo.json",
+        "gitBlobSha1": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+        "sha256": "2ff6d67e8c010037597928bccd2dc7b4b9abc0d2a78c9705d816c8218df3e741"
+      },
+      "ConfigDataBuffInfo": {
+        "path": "data/configdata/ConfigDataBuffInfo.json",
+        "gitBlobSha1": "bc7d5c7e5b4ac68b5192955a76cd21b810f36982",
+        "sha256": "ce84692846e4306dc15270ad959d9a258b5e599df5aaef352bc35992f5095225"
+      },
+      "ConfigDataPropertyModifyInfo": {
+        "path": "data/configdata/ConfigDataPropertyModifyInfo.json",
+        "gitBlobSha1": "a445111130e9110fe330f5869e4e9fe27da1a010",
+        "sha256": "50138a56ffa9f9ac2986682c162bf7ec95d910847481cf64fb618fd556ac0c2b"
+      }
+    }
+  },
+  "hero": {
+    "index": 15,
+    "ID": 16,
+    "HeroInformation_ID": 16
+  },
+  "information": {
+    "index": 15,
+    "ID": 16,
+    "HeroFetters_ID": [
+      71,
+      72,
+      73,
+      74,
+      75
+    ]
+  },
+  "fetters": [
+    {
+      "index": 70,
+      "ID": 71,
+      "MaxLevel": 10,
+      "GotSkills_ID": [
+        70000,
+        70001,
+        70002,
+        70003,
+        70004,
+        70005,
+        70006,
+        70007,
+        70008,
+        70009
+      ]
+    },
+    {
+      "index": 71,
+      "ID": 72,
+      "MaxLevel": 10,
+      "GotSkills_ID": [
+        70070,
+        70072,
+        70074,
+        70076,
+        70078,
+        70080,
+        70082,
+        70084,
+        70086,
+        70088
+      ]
+    },
+    {
+      "index": 72,
+      "ID": 73,
+      "MaxLevel": 10,
+      "GotSkills_ID": [
+        70010,
+        70011,
+        70012,
+        70013,
+        70014,
+        70015,
+        70016,
+        70017,
+        70018,
+        70019
+      ]
+    },
+    {
+      "index": 73,
+      "ID": 74,
+      "MaxLevel": 10,
+      "GotSkills_ID": [
+        70090,
+        70091,
+        70092,
+        70093,
+        70094,
+        70095,
+        70096,
+        70097,
+        70098,
+        70099
+      ]
+    },
+    {
+      "index": 74,
+      "ID": 75,
+      "MaxLevel": 10,
+      "GotSkills_ID": [
+        70100,
+        70101,
+        70102,
+        70103,
+        70104,
+        70105,
+        70106,
+        70107,
+        70108,
+        70109
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "index": 16208,
+      "ID": 70009,
+      "PassiveBuffs_ID": [
+        70009
+      ]
+    },
+    {
+      "index": 16278,
+      "ID": 70088,
+      "PassiveBuffs_ID": [
+        70088,
+        70089
+      ]
+    },
+    {
+      "index": 16218,
+      "ID": 70019,
+      "PassiveBuffs_ID": [
+        70019
+      ]
+    },
+    {
+      "index": 16288,
+      "ID": 70099,
+      "PassiveBuffs_ID": [
+        70099
+      ]
+    },
+    {
+      "index": 16298,
+      "ID": 70109,
+      "PassiveBuffs_ID": [
+        70109
+      ]
+    }
+  ],
+  "buffs": [
+    {
+      "index": 32406,
+      "ID": 70009,
+      "Property1_ID": 93,
+      "Property1_Value": 1000,
+      "Property2_ID": 94,
+      "Property2_Value": 1000,
+      "Property3_ID": 95,
+      "Property3_Value": 1000,
+      "Property4_ID": 96,
+      "Property4_Value": 1000
+    },
+    {
+      "index": 32485,
+      "ID": 70088,
+      "Property1_ID": 99,
+      "Property1_Value": 1000,
+      "Property2_ID": 101,
+      "Property2_Value": 1000,
+      "Property3_ID": 103,
+      "Property3_Value": 1000
+    },
+    {
+      "index": 32486,
+      "ID": 70089,
+      "Property1_ID": 100,
+      "Property1_Value": 1000,
+      "Property2_ID": 102,
+      "Property2_Value": 1000,
+      "Property3_ID": 104,
+      "Property3_Value": 1000
+    },
+    {
+      "index": 32416,
+      "ID": 70019,
+      "Property1_ID": 93,
+      "Property1_Value": 1500,
+      "Property2_ID": 95,
+      "Property2_Value": 1500
+    },
+    {
+      "index": 32496,
+      "ID": 70099,
+      "Property1_ID": 99,
+      "Property1_Value": 1500,
+      "Property2_ID": 101,
+      "Property2_Value": 1500,
+      "Property3_ID": 103,
+      "Property3_Value": 1500
+    },
+    {
+      "index": 32506,
+      "ID": 70109,
+      "Property1_ID": 100,
+      "Property1_Value": 1500,
+      "Property2_ID": 102,
+      "Property2_Value": 1500,
+      "Property3_ID": 104,
+      "Property3_Value": 1500
+    }
+  ],
+  "properties": [
+    {
+      "index": 93,
+      "ID": 93,
+      "PropertyModifyType": 93,
+      "IsAddType": true
+    },
+    {
+      "index": 94,
+      "ID": 94,
+      "PropertyModifyType": 94,
+      "IsAddType": true
+    },
+    {
+      "index": 95,
+      "ID": 95,
+      "PropertyModifyType": 95,
+      "IsAddType": true
+    },
+    {
+      "index": 96,
+      "ID": 96,
+      "PropertyModifyType": 96,
+      "IsAddType": true
+    },
+    {
+      "index": 99,
+      "ID": 99,
+      "PropertyModifyType": 99
+    },
+    {
+      "index": 100,
+      "ID": 100,
+      "PropertyModifyType": 100
+    },
+    {
+      "index": 101,
+      "ID": 101,
+      "PropertyModifyType": 101
+    },
+    {
+      "index": 102,
+      "ID": 102,
+      "PropertyModifyType": 102
+    },
+    {
+      "index": 103,
+      "ID": 103,
+      "PropertyModifyType": 103
+    },
+    {
+      "index": 104,
+      "ID": 104,
+      "PropertyModifyType": 104
+    }
+  ],
+  "propertyNamespace": {
+    "path": "data/metadata/dump.cs",
+    "gitBlobSha1": "201bc8004792d13c52a26afc79f73e5ed8d1c2ac",
+    "sha256": "15f2030df8a0d3f9363adfe67113b01065eb70166c13a08f04a96d5e5edb2e31",
+    "enum": "PropertyModifyType",
+    "members": {
+      "93": "Hero3_HPCmdAdd",
+      "94": "Hero3_ATCmdAdd",
+      "95": "Hero3_DFCmdAdd",
+      "96": "Hero3_MagicDFCmdAdd",
+      "99": "Hero3_HPMul",
+      "100": "Hero3_ATMul",
+      "101": "Hero3_DFMul",
+      "102": "Hero3_MagicMul",
+      "103": "Hero3_MagicDFMul",
+      "104": "Hero3_DEXMul"
+    }
+  },
+  "transformation": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/validation/hero-soldier-bond-command-contribution-r5-f.v1.json",
+    "gitBlobSha1": "5b22c27b0850023895dc9cf5a65cbb37bd954b71",
+    "locator": "#frozenSemantics",
+    "selection": "MaxLevel-th GotSkills_ID, all PassiveBuffs_ID and all matching command property occurrences",
+    "divisor": 100
+  },
+  "comparison": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "path": "data/generated/hero-soldier-command-modifiers.v1.json",
+    "gitBlobSha1": "a34a20bfbc5798ec48cd467809f2ccce8c3b2591",
+    "locator": "#heroId=16/normal"
+  }
+}

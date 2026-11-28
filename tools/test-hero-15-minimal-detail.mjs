@@ -81,6 +81,7 @@ const element = (tag) => ({
 const target = { scrollIntoView() { this.scrolled = true; } };
 const render = runInNewContext([
   extractFunction(frontend, 'renderHeroMinimalDetailView'),
+  extractFunction(frontend, 'renderSoldierCommandTable'),
   extractFunction(frontend, 'renderHero15MinimalDetailView'),
   extractFunction(frontend, 'renderMinimalDetailList'),
   extractFunction(frontend, 'makeAnchor'),
