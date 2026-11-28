@@ -174,6 +174,19 @@ async function checkHeroDetailBuildFailures() {
   }
   const keyDecision = 'docs/decisions/hero-16-minimal-bond-key-icons-publication.v1.json';
   const cases = [
+    ...[
+      ['reference missing', 'input.references = []', 'Heart selection reference mismatch'],
+      ['Liana raw detail', 'input.details = [goldDocuments.get(heartDetails).records.find(row => row.heroId === 15)]', 'Heart detail attribution mismatch'],
+      ['amounts exchanged', '[input.levels[0].gold, input.levels[1].gold] = [input.levels[1].gold, input.levels[0].gold]', 'Heart Lv.2 evidence amount mismatch'],
+      ['Liana level locator', "input.levels[0].locator = 'data/configdata/ConfigDataHeroHeartFetterInfo.json#/13/LevelUpGold/0'", 'Heart Lv.2 source locator mismatch'],
+      ['decision missing', 'input.decision = undefined', 'Heart level decision missing'],
+      ['decision endpoint', 'input.decision.endpointId = 15', 'Heart level approval target mismatch'],
+      ['decision kind', "input.decision.kind = 'FETTER'", 'Heart level approval target mismatch'],
+      ['decision pending', "input.decision.status = 'PENDING'", 'Heart level approval status mismatch'],
+    ].map(([name, change, reason]) => consumerMutation('Lance Heart levels ' + name, 'build',
+      'lanceHeartLevelLines(heartLevelInputs)',
+      '(() => { const input = structuredClone(heartLevelInputs); ' + change + '; return lanceHeartLevelLines(input); })()',
+      'Lance Fetter ' + reason)),
     ...[[71,66,3200],[72,67,3200],[73,68,3201]].flatMap(([id,liana,item]) => {
       const label = 'Lance FETTER ' + id;
       return [
@@ -930,6 +943,15 @@ function lianaFetterInput(path, union) {
   }
   const branchLayout = '[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]';
   const rendererCases = [
+    ...[
+      ['rows exchanged', '[rows[0], rows[1]] = [rows[1], rows[0]]'],
+      ['row missing', 'rows.pop()'],
+      ['row duplicated', 'rows.push(rows[0])'],
+    ].map(([name, change]) => ['Lance Heart levels ' + name, 'Lance Heart level row order or count', afterBondPanel,
+      'const list = bonds.children.at(-1).children[1]; const rows = [...list.children]; ' +
+      change + '; list.replaceChildren(...rows);\n' + afterBondPanel]),
+    ['Lance Heart levels under bond 5', 'Lance Heart level list placement', afterBondPanel,
+      'const nodes = [...bonds.children]; const list = nodes.pop(); nodes.splice(13, 0, list); bonds.replaceChildren(...nodes);\n' + afterBondPanel],
     ['Lance badge title only', 'Lance key name exposure', "icon.alt = '';",
       "icon.alt = ''; if (parent.textContent === 'Lv.2 · 5,000 골드' && id === 3200) badge.title = '순박한 마음의 열쇠';"],
     ['Lance Item 3200 local srcset only', 'Lance Item ID 3200 forbidden alternate image candidate', "icon.alt = '';",
