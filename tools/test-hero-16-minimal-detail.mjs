@@ -66,7 +66,7 @@ for (const [appPath, lines] of [
   const profile = appPath === 'app.js' ? card.children.slice(0, -10) : card.children;
   if (appPath === 'app.js') {
     assert.deepEqual(card.children.slice(-8,-6).map(node => node.textContent),
-      ['전직 · 드래곤 나이트 → 드래곤 마스터','전직 · 하이랜더 → 로열 나이트']);
+      ['전직 · 드래곤 나이트 → 드래곤 마스터 · 기본 사거리 1 · 비행 · 이동력 5','전직 · 하이랜더 → 로열 나이트 · 기본 사거리 1 · 기마 · 이동력 5']);
     assert.deepEqual(card.children.slice(-4).map(node => [node.tag, node.textContent]),
       [['p', '유대 2 · 레벨 30 달성'], ['p', '유대 3 · 란스를 출전시켜 시공의 균열 3-1[정예] 클리어'],
        ['p', '유대 4 · 나암과 함께 운명의문 4 클리어'], ['p', '유대 5 · 쉐리와 함께 운명의문 5 클리어']]);
