@@ -1,3 +1,4 @@
+import { lanceMaterialRows, materialPath, lianaMaterialInput } from './lance-bond-keys.mjs';
 import { conditionPath, lianaHeartConditions } from './lance-heart-fetter.mjs';
 import { isDeepStrictEqual as equal } from 'node:util';
 
@@ -44,6 +45,7 @@ function expectedGroup(i) {
   };
   const detail = { detailKind: kind + '_RAW_DETAIL', heroId: 16, endpointId, endpointNamespace,
     sourceRecordLocator: recordLocator, fields: { LevelUpGold: gold }, provenance: lanceFetterEvidence + '#/endpoints/' + i };
+  if (lanceMaterialRows[i]) detail.fields.LevelUpMaterials = lanceMaterialRows[i];
   return { labelKo, endpointId, kind, endpointNamespace, recordLocator, total, gold, reference, detail };
 }
 const expected = groups.map((_, i) => expectedGroup(i));
@@ -66,12 +68,13 @@ export function validateLianaReferenceRows(records) {
 
 // Each shared owner retains its original ordered Liana population and appends the Lance rows.
 export function lianaFetterInput(path, document, root = process.cwd()) {
+  if (path === materialPath) return lianaMaterialInput(document);
   if (path === conditionPath) return lianaHeartConditions(document, root);
   if (![fetterReferences, fetterDetails, heartDetails].includes(path)) return document;
   const scope = path === fetterReferences ? referenceScope : detailScope;
   const rows = path === fetterReferences ? expected.map(group => group.reference)
     : expected.filter(group => (group.kind === 'HEART_FETTER') === (path === heartDetails)).map(group => group.detail);
-  requireMatch([document.schemaVersion, document.scope, document.records.length], [1, scope + suffix, rows.length * 2], 'shared owner scope');
+  requireMatch([document.schemaVersion, document.scope, document.records.length], [1, scope + (path === fetterDetails ? ' Hero 16: explicit Fetter references and LevelUpGold; LevelUpMaterials for FETTER 71, 72, 73 only.' : suffix), rows.length * 2], 'shared owner scope');
   requireMatch(document.records.slice(rows.length), rows, 'shared owner Lance rows');
   const selected = document.records.slice(0, rows.length);
   if (path === fetterReferences) validateLianaReferenceRows(selected);
@@ -98,6 +101,7 @@ export async function readLanceFetterSource(readJson) {
     const detail = kind === 'HEART_FETTER' ? heartDetail.records[1] : regularDetails.records[5+i];
     requireMatch([raw.kind,raw.ID,raw.endpointNamespace,raw.recordLocator], [kind,endpointId,endpointNamespace,recordLocator], claim + ' source record');
     requireMatch(detail, group.detail, claim + ' detail');
+    requireMatch(raw.LevelUpMaterials, lanceMaterialRows[i], claim + ' source materials');
     requireMatch(raw.LevelUpGold, gold, claim + ' source gold');
     requireMatch(raw.levels.length, 9, claim + ' level count');
     for (const [j, value] of detail.fields.LevelUpGold.entries()) {

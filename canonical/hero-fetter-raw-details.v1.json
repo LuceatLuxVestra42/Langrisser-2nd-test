@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "Hero 15 source-native raw Fetter detail fields only; excludes gameplay rules, endpoint identity admission, and publication. Hero 16: explicit Fetter references and LevelUpGold only.",
+  "scope": "Hero 15 source-native raw Fetter detail fields only; excludes gameplay rules, endpoint identity admission, and publication. Hero 16: explicit Fetter references and LevelUpGold; LevelUpMaterials for FETTER 71, 72, 73 only.",
   "records": [
     {
       "detailKind": "FETTER_RAW_DETAIL",
@@ -926,6 +926,92 @@
           18000,
           27000,
           41000
+        ],
+        "LevelUpMaterials": [
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 1
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 2
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 3
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 4
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 5
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 1
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 6
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 2
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 7
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 3
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 8
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 4
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 9
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 5
+          }
         ]
       },
       "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/0"
@@ -947,6 +1033,116 @@
           59000,
           89000,
           130000
+        ],
+        "LevelUpMaterials": [
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 5
+          },
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 2
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 6
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 3
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 7
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 4
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3200,
+            "Count": 8
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 5
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 7
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 1
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 9
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 2
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 11
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 3
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 13
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 4
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 15
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 6
+          }
         ]
       },
       "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/1"
@@ -968,6 +1164,116 @@
           110000,
           170000,
           260000
+        ],
+        "LevelUpMaterials": [
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 5
+          },
+          {
+            "Level": 2,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 2
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 8
+          },
+          {
+            "Level": 3,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 3
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 10
+          },
+          {
+            "Level": 4,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 3
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 12
+          },
+          {
+            "Level": 5,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 4
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3201,
+            "Count": 15
+          },
+          {
+            "Level": 6,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 5
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 6
+          },
+          {
+            "Level": 7,
+            "ItemType": 6,
+            "ItemId": 3203,
+            "Count": 1
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 7
+          },
+          {
+            "Level": 8,
+            "ItemType": 6,
+            "ItemId": 3203,
+            "Count": 2
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 8
+          },
+          {
+            "Level": 9,
+            "ItemType": 6,
+            "ItemId": 3203,
+            "Count": 3
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3202,
+            "Count": 9
+          },
+          {
+            "Level": 10,
+            "ItemType": 6,
+            "ItemId": 3203,
+            "Count": 4
+          }
         ]
       },
       "provenance": "evidence/source/bonds/hero16-fetter-gold.v1.json#/endpoints/2"

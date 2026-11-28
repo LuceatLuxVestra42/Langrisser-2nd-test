@@ -122,6 +122,92 @@
           "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/70/LevelUpGold/8",
           "gold": 41000
         }
+      ],
+      "LevelUpMaterials": [
+        {
+          "Level": 2,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 1
+        },
+        {
+          "Level": 3,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 2
+        },
+        {
+          "Level": 4,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 3
+        },
+        {
+          "Level": 5,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 4
+        },
+        {
+          "Level": 6,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 5
+        },
+        {
+          "Level": 6,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 1
+        },
+        {
+          "Level": 7,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 6
+        },
+        {
+          "Level": 7,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 2
+        },
+        {
+          "Level": 8,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 7
+        },
+        {
+          "Level": 8,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 3
+        },
+        {
+          "Level": 9,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 8
+        },
+        {
+          "Level": 9,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 4
+        },
+        {
+          "Level": 10,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 9
+        },
+        {
+          "Level": 10,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 5
+        }
       ]
     },
     {
@@ -204,6 +290,116 @@
           "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/71/LevelUpGold/8",
           "gold": 130000
         }
+      ],
+      "LevelUpMaterials": [
+        {
+          "Level": 2,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 5
+        },
+        {
+          "Level": 2,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 2
+        },
+        {
+          "Level": 3,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 6
+        },
+        {
+          "Level": 3,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 3
+        },
+        {
+          "Level": 4,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 7
+        },
+        {
+          "Level": 4,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 4
+        },
+        {
+          "Level": 5,
+          "ItemType": 6,
+          "ItemId": 3200,
+          "Count": 8
+        },
+        {
+          "Level": 5,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 5
+        },
+        {
+          "Level": 6,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 7
+        },
+        {
+          "Level": 6,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 1
+        },
+        {
+          "Level": 7,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 9
+        },
+        {
+          "Level": 7,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 2
+        },
+        {
+          "Level": 8,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 11
+        },
+        {
+          "Level": 8,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 3
+        },
+        {
+          "Level": 9,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 13
+        },
+        {
+          "Level": 9,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 4
+        },
+        {
+          "Level": 10,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 15
+        },
+        {
+          "Level": 10,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 6
+        }
       ]
     },
     {
@@ -285,6 +481,116 @@
           "level": 10,
           "locator": "data/configdata/ConfigDataHeroFetterInfo.json#/72/LevelUpGold/8",
           "gold": 260000
+        }
+      ],
+      "LevelUpMaterials": [
+        {
+          "Level": 2,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 5
+        },
+        {
+          "Level": 2,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 2
+        },
+        {
+          "Level": 3,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 8
+        },
+        {
+          "Level": 3,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 3
+        },
+        {
+          "Level": 4,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 10
+        },
+        {
+          "Level": 4,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 3
+        },
+        {
+          "Level": 5,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 12
+        },
+        {
+          "Level": 5,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 4
+        },
+        {
+          "Level": 6,
+          "ItemType": 6,
+          "ItemId": 3201,
+          "Count": 15
+        },
+        {
+          "Level": 6,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 5
+        },
+        {
+          "Level": 7,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 6
+        },
+        {
+          "Level": 7,
+          "ItemType": 6,
+          "ItemId": 3203,
+          "Count": 1
+        },
+        {
+          "Level": 8,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 7
+        },
+        {
+          "Level": 8,
+          "ItemType": 6,
+          "ItemId": 3203,
+          "Count": 2
+        },
+        {
+          "Level": 9,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 8
+        },
+        {
+          "Level": 9,
+          "ItemType": 6,
+          "ItemId": 3203,
+          "Count": 3
+        },
+        {
+          "Level": 10,
+          "ItemType": 6,
+          "ItemId": 3202,
+          "Count": 9
+        },
+        {
+          "Level": 10,
+          "ItemType": 6,
+          "ItemId": 3203,
+          "Count": 4
         }
       ]
     },
@@ -535,5 +841,5 @@
       ]
     }
   ],
-  "limitation": "Source gold arrays only. No material, unlock, reward or combat semantics."
+  "limitation": "Source gold arrays and the ordered LevelUpMaterials fields of ordinary FETTER 71, 72 and 73. Counts and ItemType/ItemId references only; no consumption, unlock, reward or combat rules."
 }

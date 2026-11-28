@@ -150,7 +150,7 @@ export async function readHero15ProfileInputs(readJson) {
     readJson('docs/decisions/hero-15-minimal-bond2-key-totals-publication.v1.json'),
     readJson(bondKeyDecisionPath),
     readJson('evidence/source/bonds/hero15-fetter-references.v1.json'),
-    readJson('canonical/hero-fetter-material-relations.v1.json'),
+    readJson('canonical/hero-fetter-material-relations.v1.json').then(doc => lianaFetterInput('canonical/hero-fetter-material-relations.v1.json', doc)),
     readJson('canonical/hero-heart-fetter-raw-details.v1.json').then(doc => lianaFetterInput('canonical/hero-heart-fetter-raw-details.v1.json', doc)),
     readJson('docs/decisions/hero-15-minimal-ordinary-skill-cost-publication.v1.json'),
     readJson(ordinarySkillCostOwnerPath),

@@ -166,7 +166,46 @@ async function checkHeroDetailBuildFailures() {
   const branchSource = 'evidence/source/jobs/hero16-first-job-branches-direct.v1.json';
   const branchDecision = 'docs/decisions/hero-16-minimal-first-job-branches-publication.v1.json';
   const branchCall = 'firstJobBranchLines(jobEdges.branches, heroJobRelations, jobLocalization, await readJson(firstBranchesDecision))';
+  const keyDisplayCall = 'readLanceKeyDisplay(lanceKeyInputs, bondKeyAssets)';
+  function keyInputMutation(name, change, reason) {
+    const replacement = '(() => { const k = structuredClone(lanceKeyInputs); ' + change +
+      '; return readLanceKeyDisplay(k, bondKeyAssets); })()';
+    return { ...consumerMutation(name, 'build', keyDisplayCall, replacement, reason), error:talentError(reason) };
+  }
+  const keyDecision = 'docs/decisions/hero-16-minimal-bond-key-icons-publication.v1.json';
   const cases = [
+    ...[[71,66,3200],[72,67,3200],[73,68,3201]].flatMap(([id,liana,item]) => {
+      const label = 'Lance FETTER ' + id;
+      return [
+        keyInputMutation(label + ' key reference removed',
+          'k.references = k.references.filter(r => !(r.heroId===16 && r.fetterId==='+id+'))', label + ' key reference'),
+        keyInputMutation(label + ' key detail from Liana',
+          'k.details[k.details.findIndex(r=>r.heroId===16 && r.endpointId==='+id+')] = k.details.find(r=>r.heroId===15 && r.endpointId==='+liana+')',
+          label + ' key detail attribution'),
+        keyInputMutation(label + ' material relation replaced by Liana',
+          'const rows=k.materials.materials; const same=r=>r.targetLevel===2 && r.itemId==='+item+
+          '; rows[rows.findIndex(r=>same(r) && r.heroId===16 && r.endpointId==='+id+')] = rows.find(r=>same(r) && r.heroId===15 && r.endpointId==='+liana+')',
+          label + ' material relation attribution or locator'),
+      ];
+    }),
+    ...[
+      ['source index', 'r.sourceArrayIndex++'], ['missing row', 'rows.splice(rows.indexOf(r),1)'],
+      ['duplicate row','rows.push({...r})'], ['item type','r.itemType=7'], ['item ID','r.itemId=3201'],
+    ].map(([name, statement]) => keyInputMutation('Lance key relation ' + name,
+      'const rows=k.materials.materials;const r=rows.find(r=>r.heroId===16 && r.endpointId===71);'+statement,
+      'Lance FETTER 71 material relation attribution or locator')),
+    keyInputMutation('Lance count moved across levels with same total',
+      'const rows=k.details.find(r=>r.heroId===16 && r.endpointId===71).fields.LevelUpMaterials; [rows[0].Count,rows[1].Count]=[rows[1].Count,rows[0].Count]',
+      'Lance FETTER 71 key material counts or source rows'),
+    {name:'Lance key decision missing', decisionPath:keyDecision, error:talentError('Lance key publication decision missing')},
+    ...[
+      ['hero', d=>{d.heroId=15;}, 'target'], ['surface',d=>{d.surface='hero-minimal-detail-15';},'target'],
+      ['slot',d=>{d.groups[0].slot=1;},'groups'], ['endpoint',d=>{d.groups[0].fetterId=66;},'groups'],
+      ['levels',d=>{d.levels.reverse();},'levels'], ['placement',d=>{d.placement.reverse();},'placement'],
+      ['assets',d=>{[d.assets[0].path,d.assets[1].path]=[d.assets[1].path,d.assets[0].path];},'assets'],
+    ].map(([name,mutate,reason])=>({name:'Lance key decision '+name,decisionPath:keyDecision,mutate,
+      error:talentError('Lance key publication '+reason)})),
+
     ...[[161,403], [163,202]].flatMap(([conn,job]) => [
       {name:'branch source prerequisite ' + conn, decisionPath:branchSource,
         mutate:doc => { doc.connections.find(row => row.ID === conn).PreJobConnectionList[0] = 162; },
@@ -891,6 +930,16 @@ function lianaFetterInput(path, union) {
   }
   const branchLayout = '[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]';
   const rendererCases = [
+    ['Lance badge title only', 'Lance key name exposure', "icon.alt = '';",
+      "icon.alt = ''; if (parent.textContent === 'Lv.2 · 5,000 골드' && id === 3200) badge.title = '순박한 마음의 열쇠';"],
+    ['Lance Item 3200 local srcset only', 'Lance Item ID 3200 forbidden alternate image candidate', "icon.alt = '';",
+      "icon.alt = ''; if (parent.textContent === 'Lv.2 · 5,000 골드' && id === 3200) icon.setAttribute('srcset','./assets/bond-materials/FetterMaterial02.png 2x');"],
+    ['Lance bond 2 Lv.2 badge order only', 'Lance bond 2 Lv.2 badge order or image',
+      'appendKeyBadges(item, keyLevels[offset]);',
+      'appendKeyBadges(item, index===1 && offset===0 ? [...keyLevels[offset]].reverse() : keyLevels[offset]);'],
+    ['Lance bond 1 subtotal moved to bond 2', 'Lance bond 1 subtotal group placement', afterBondPanel,
+      'const nodes=[...bonds.children]; const subtotal=nodes.splice(2,1)[0]; nodes.splice(5,0,subtotal); bonds.replaceChildren(...nodes);\n'+afterBondPanel],
+
     ['first branch paragraphs reversed', 'Lance first branch paragraph placement', branchLayout,
       branchLayout.replace('...firstBranches', '...firstBranches.reverse()')],
     ...['discipline', '...finalPaths'].map(before => ['first branch moved before ' + before, 'Lance first branch paragraph placement',
@@ -900,21 +949,21 @@ function lianaFetterInput(path, union) {
     ['NORMAL 115 reverse Lance link', 'NORMAL 115 reverse DOM',
       'const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId);',
       "const heroLinks = makeSoldierHeroLinks(soldier.normalSoldierId); if (soldier.normalSoldierId === 115) { const item = document.createElement('li'); item.append(makeAnchor('란스 (영웅 ID 16)', 'hero-minimal-detail-16')); heroLinks.children[1].append(item); }"],
-    ['Lance bond 1 list after second total', 'Lance bond 1 level list placement', afterBondPanel, moveListAfterNextTotal(2)],
+    ['Lance bond 1 list after second total', 'Lance bond 1 level list placement', afterBondPanel, moveListAfterNextTotal(3)],
     ['Lance bond 1 rendered gold exchanged', 'Lance bond 1 level gold text',
       '    [1500, 2300, 3500, 5300,', '    [2300, 1500, 3500, 5300,'],
     ['Lance bonds 2 and 3 lists exchanged', 'Lance bond 2 level gold text', afterBondPanel,
-      'const second = bonds.children[4], third = bonds.children[6]; const a = second.children[1], b = third.children[1]; ' +
+      'const second = bonds.children[6], third = bonds.children[9]; const a = second.children[1], b = third.children[1]; ' +
       'second.replaceChildren(second.children[0], b); third.replaceChildren(third.children[0], a);\n' + afterBondPanel],
     ['Lance bonds 4 and 5 lists exchanged', 'Lance bond 4 level gold text', afterBondPanel,
-      'const fourth = bonds.children[8], fifth = bonds.children[10]; const a = fourth.children[1], b = fifth.children[1]; ' +
+      'const fourth = bonds.children[11], fifth = bonds.children[13]; const a = fourth.children[1], b = fifth.children[1]; ' +
       'fourth.replaceChildren(fourth.children[0], b); fifth.replaceChildren(fifth.children[0], a);\n' + afterBondPanel],
     ['Lance bond 4 rendered Lv.2 and Lv.3 amounts exchanged', 'Lance bond 4 level gold text',
       '    [15000, 23000, 35000, 53000,', '    [23000, 15000, 35000, 53000,'],
     ['Lance bond 5 rendered Lv.2 and Lv.3 amounts exchanged', 'Lance bond 5 level gold text',
       '    [20000, 30000, 45000, 68000,', '    [30000, 20000, 45000, 68000,'],
-    ['Lance bond 5 list after Heart total', 'Lance bond 5 level list placement', afterBondPanel, moveListAfterNextTotal(10)],
-    ['Lance bond 3 list after fourth total', 'Lance bond 3 level list placement', afterBondPanel, moveListAfterNextTotal(6)],
+    ['Lance bond 5 list after Heart total', 'Lance bond 5 level list placement', afterBondPanel, moveListAfterNextTotal(13)],
+    ['Lance bond 3 list after fourth total', 'Lance bond 3 level list placement', afterBondPanel, moveListAfterNextTotal(9)],
     ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
       finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],
     ['Lance obsolete first final job paragraph', 'Lance old final job paragraph occurrence: ' + dragonPath,
@@ -1044,6 +1093,12 @@ function lianaFetterInput(path, union) {
     ['v1 served at v2 path', root=>copyFile(join(root,ordinaryPublic),join(root,ordinaryPublicV2)), /Lance ordinary public row count/],
     ['v2 path relocated',root=>rename(join(root,ordinaryPublicV2),join(root,'generated/wrong-skill-path.json')), /ENOENT.*hero-16-ordinary-skills-public.v2/],
     ['missing PNG', (root) => rm(join(root, firstIcon)), /ENOENT.*FetterMaterial01|Public artifact file allowlist mismatch/],
+    ['same-length PNG mutation', async root => {
+      const path = join(root, firstIcon);
+      const bytes = await readFile(path);
+      bytes[bytes.length - 1] ^= 1;
+      await writeFile(path, bytes);
+    }, /Bond key icon bytes mismatch/],
     ['swapped PNG bytes', async root => {
       const [a, b] = await Promise.all([readFile(join(root, firstIcon)), readFile(join(root, secondIcon))]);
       await writeFile(join(root, firstIcon), b);
