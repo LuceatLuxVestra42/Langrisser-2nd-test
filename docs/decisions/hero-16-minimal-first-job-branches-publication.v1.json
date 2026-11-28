@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "placement": "consecutive-plain-paragraphs-immediately-after-forward-soldier-section",
+  "paths": [
+    {
+      "predecessor": [
+        160,
+        401
+      ],
+      "successor": [
+        161,
+        403
+      ],
+      "textKo": "전직 · 호크 나이트 → 드래곤 나이트"
+    },
+    {
+      "predecessor": [
+        160,
+        401
+      ],
+      "successor": [
+        163,
+        202
+      ],
+      "textKo": "전직 · 호크 나이트 → 소드맨"
+    }
+  ],
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "Standing user approval for repeated migration on an existing hero detail, applied to two source-verified NORMAL direct edges and their two plain paragraphs, following the previously published direct paths."
+  },
+  "evidence": {
+    "admission": "evidence/source/jobs/hero16-first-job-branches-direct.v1.json",
+    "jobNames": "canonical/job-localizations-ko.v1.json",
+    "corroboration": "LuceatLuxVestra42/langrisser-future-guide@57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff:data/generated/hero-detail/by-id/16.json#/normal/jobTree/branches",
+    "blob": "929798dd8019d033750e43d0af353869cc087a31",
+    "deployedDetail": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/"
+  },
+  "mode": "NORMAL"
+}

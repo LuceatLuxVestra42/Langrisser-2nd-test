@@ -111,7 +111,7 @@ async function checkHeroDetailBuildFailures() {
         return source.replace(original, replacement);
       }};
   }
-  const finalOwnerCall = 'finalJobPathLines(finalDecision, heroJobRelations, jobEdges.finals, expectedJobEdges.slice(6), jobLocalization)';
+  const finalOwnerCall = 'finalJobPathLines(finalDecision, heroJobRelations, jobEdges.finals, expectedGroups.finals, jobLocalization)';
   const commandBaseEvidence = 'evidence/source/configdata/hero-16-soldier-command-base.v1.json';
   const commandBondEvidence = 'evidence/source/configdata/hero-16-soldier-command-bond-contribution.v1.json';
   const commandDecision = 'docs/decisions/hero-16-minimal-soldier-command-publication.v1.json';
@@ -163,7 +163,43 @@ async function checkHeroDetailBuildFailures() {
   }
   const forwardDecision = 'docs/decisions/hero-16-minimal-soldier-forward-links-publication.v1.json';
   const forwardCall = 'const forwardLinks = lanceSoldierForwardLinks(forwardInputs);';
+  const branchSource = 'evidence/source/jobs/hero16-first-job-branches-direct.v1.json';
+  const branchDecision = 'docs/decisions/hero-16-minimal-first-job-branches-publication.v1.json';
+  const branchCall = 'firstJobBranchLines(jobEdges.branches, heroJobRelations, jobLocalization, await readJson(firstBranchesDecision))';
   const cases = [
+    ...[[161,403], [163,202]].flatMap(([conn,job]) => [
+      {name:'branch source prerequisite ' + conn, decisionPath:branchSource,
+        mutate:doc => { doc.connections.find(row => row.ID === conn).PreJobConnectionList[0] = 162; },
+        error:() => 'Error: Lance first branch ' + conn + '/' + job + ' requires predecessor 160/401'},
+      consumerMutation('branch edge missing ' + conn, 'build', branchCall,
+        branchCall.replace('jobEdges.branches', 'jobEdges.branches.filter(r => r.successorConnectionId !== ' + conn + ')'),
+        'Lance first branch edge ' + conn + '/' + job),
+      consumerMutation('branch membership missing ' + job, 'build', branchCall,
+        branchCall.replace('heroJobRelations', '{records:heroJobRelations.records.filter(r => r.heroId !== 16 || r.jobId !== ' + job + ')}'),
+        'Lance first branch membership ' + job),
+    ]),
+    {name:'branch source locators exchanged', decisionPath:branchSource,
+      mutate:doc => { const [,a,b] = doc.connections; [a.sourceLocator,b.sourceLocator] = [b.sourceLocator,a.sourceLocator]; },
+      error:() => 'Error: Lance first branch source locator 161'},
+    {name:'obsolete advancement scope', decisionPath:advancement,
+      mutate:doc => { doc.scope = doc.scope.replace('five selected','three selected'); },
+      error:() => 'Error: Hero 15 Job advancement validation failed: Canonical schema/scope'},
+    consumerMutation('classifier rejects wrong source of 163', 'build', 'const jobEdges = splitJobAdvancements(advancement);',
+      'const jobEdges = splitJobAdvancements({records:advancement.records.map(r => r.heroId === 16 && r.successorConnectionId === 163'
+      + ' ? {...r,predecessorConnectionId:162,predecessorJobId:302} : r)});', 'Lance classifier expected 160/401 → 163/202'),
+    consumerMutation('branch localized names exchanged', 'build', branchCall,
+      branchCall.replace('jobLocalization', '{records:jobLocalization.records.map(r => r.jobId === 403 ? {...r,nameKo:"소드맨"}'
+        + ' : r.jobId === 202 ? {...r,nameKo:"드래곤 나이트"} : r)}'), 'Lance first branch Korean name 403'),
+    {name:'branch decision missing', decisionPath:branchDecision, error:path => "Error: ENOENT: no such file or directory, open '" + path + "'"},
+    {name:'branch decision successor pairs exchanged', decisionPath:branchDecision,
+      mutate:doc => { const [a,b] = doc.paths; [a.successor,b.successor] = [b.successor,a.successor]; },
+      error:() => 'Error: Lance first branch publication scope or order'},
+    consumerMutation('first branch passed to final path owner', 'build', finalOwnerCall,
+      finalOwnerCall.replace('jobEdges.finals', '[jobEdges.branches[0], jobEdges.finals[1]]'), 'Hero 16 final path endpoint or locator mismatch'),
+    consumerMutation('first branch passed to Heart owner', 'build', heartCall,
+      heartCall.replace('jobEdges.finals', '[jobEdges.branches[0], jobEdges.finals[1]]'), 'Heart Fetter direct edge 164/405'),
+    movementMutation('first branch passed to final movement owner', 'successors',
+      'Object.assign(copy[0], {connectionId:161, jobId:403})', 'Lance final movement requires Connection 164 -> Job 405'),
     ...[
       ['Rank', 'forwardInputs.source.find(r => r.ID === 115).Rank = 2;', '115 T3 Rank mismatch'],
       ['name', 'forwardInputs.names = forwardInputs.names.filter(r => r.soldierId !== 115);', 'NORMAL 115 Korean name missing or duplicated'],
@@ -691,12 +727,12 @@ function lianaFetterInput(path, union) {
       error: () => `Error: Hero 16 job path membership mismatch for Job ${jobId}`,
     })),
     { decisionPath: advancement, name: 'lance-edge-missing', mutate: doc => { doc.records = doc.records.filter(row => row.heroId !== 16); },
-      error: () => 'Error: Hero 16 job path edge count mismatch' },
+      error: () => 'Error: Direct advancement union differs from source endpoints or locators' },
     { decisionPath: advancement, name: 'lance-edge-reversed', mutate: doc => {
       const e = doc.records.find(row => row.heroId === 16);
       [e.predecessorJobId, e.successorJobId] = [e.successorJobId, e.predecessorJobId];
       [e.predecessorConnectionId, e.successorConnectionId] = [e.successorConnectionId, e.predecessorConnectionId];
-    }, error: () => 'Error: Hero 16 job path edge direction mismatch' },
+    }, error: () => 'Error: Direct advancement union differs from source endpoints or locators' },
     { decisionPath: 'canonical/job-localizations-ko.v1.json', name: 'lance-job-names-swapped', mutate: doc => {
       const from = doc.records.find(row => row.jobId === 401);
       const to = doc.records.find(row => row.jobId === 302);
@@ -848,7 +884,12 @@ function lianaFetterInput(path, union) {
   function moveListAfterNextTotal(index) {
     return `const nodes = [...bonds.children]; [nodes[${index}],nodes[${index+1}]] = [nodes[${index+1}],nodes[${index}]]; bonds.replaceChildren(...nodes);\n` + afterBondPanel;
   }
+  const branchLayout = '[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]';
   const rendererCases = [
+    ['first branch paragraphs reversed', 'Lance first branch paragraph placement', branchLayout,
+      branchLayout.replace('...firstBranches', '...firstBranches.reverse()')],
+    ...['discipline', '...finalPaths'].map(before => ['first branch moved before ' + before, 'Lance first branch paragraph placement',
+      branchLayout, branchLayout.replace('...firstBranches', 'firstBranches[1]').replace(before, 'firstBranches[0], ' + before)]),
     ['Lance 115 link to homonymous SP', 'Lance forward destination 115',
       "['근위창병', 'normal-soldier-115']", "['근위창병', 'sp-soldier-5115']"],
     ['NORMAL 115 reverse Lance link', 'NORMAL 115 reverse DOM',
@@ -864,8 +905,8 @@ function lianaFetterInput(path, union) {
     ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
       finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],
     ['Lance obsolete first final job paragraph', 'Lance old final job paragraph occurrence: ' + dragonPath,
-      'command, heart, ...bondDescriptions, soldiers]);',
-      "command, heart, ...bondDescriptions, soldiers, Object.assign(document.createElement('p'), {textContent: '" + dragonPath + "'})]);"],
+      'command, heart, ...bondDescriptions, soldiers, ...firstBranches]);',
+      "command, heart, ...bondDescriptions, soldiers, ...firstBranches, Object.assign(document.createElement('p'), {textContent: '" + dragonPath + "'})]);"],
     ['Lance bond 4 Gate of Fate number', 'Lance bond 4 rendered Gate of Fate number or text',
       '유대 4 · 나암과 함께 운명의문 4 클리어', '유대 4 · 나암과 함께 운명의문 5 클리어'],
     ['Lance bond 5 Gate of Fate number', 'Lance bond 5 rendered Gate of Fate number or text',
@@ -874,7 +915,7 @@ function lianaFetterInput(path, union) {
       appParagraphs(['유대 4 · 나암과 함께 운명의문 4 클리어','유대 5 · 쉐리와 함께 운명의문 5 클리어']),
       appParagraphs(['유대 5 · 쉐리와 함께 운명의문 5 클리어','유대 4 · 나암과 함께 운명의문 4 클리어'])],
     ['Lance bond description order', 'Lance bond description placement after Heart Fetter',
-      'command, heart, ...bondDescriptions, soldiers]', 'command, heart, ...bondDescriptions.reverse(), soldiers]'],
+      'command, heart, ...bondDescriptions, soldiers, ...firstBranches]', 'command, heart, ...bondDescriptions.reverse(), soldiers, ...firstBranches]'],
     ['Lance bond 3 missing elite', 'Lance bond description rendered text',
       '란스를 출전시켜 시공의 균열 3-1[정예] 클리어', '란스를 출전시켜 시공의 균열 3-1 클리어'],
     ['10418 renderer threshold','10418 rendered Korean text',windList,
@@ -887,8 +928,8 @@ function lianaFetterInput(path, union) {
     ['Lance Heart incoming direction','Lance Heart effect text',dragonFour,dragonFour.replace('받는','주는')],
     ['Lance Heart incoming sign','Lance Heart effect text',royalFour,royalFour.replace('-10%','+10%')],
     ['Lance Heart threshold','Lance Heart effect text',royalSeven,royalSeven.replace('미만','이하')],
-    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers]',
-      '[jobPath, heart, discipline, bonds, ...finalPaths, command, ...bondDescriptions, soldiers]'],
+    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]',
+      '[jobPath, heart, discipline, bonds, ...finalPaths, command, ...bondDescriptions, soldiers, ...firstBranches]'],
 
     ['Lance defense and magic defense values swapped','Soldier Command values: 방어',lanceDefense,
       "['방어', '', '+10%'],\n    ['마방', '+10%', '+25%']"],
@@ -896,9 +937,9 @@ function lianaFetterInput(path, union) {
     ...[['aria-label','name'],['aria-description','description']].map(([attribute,label]) =>
       ['Lance blank cell '+attribute,'Lance base magic defense accessible '+label,'cell.textContent = value;',
         "cell.textContent = value; if (stat === '마방' && value === '') cell.setAttribute('"+attribute+"','+0%');"]),
-    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart, ...bondDescriptions, soldiers]);',
-      "...finalPaths, (command.append(document.createElement('p')), command), heart, ...bondDescriptions, soldiers]);"],
-    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart, ...bondDescriptions, soldiers]);','command, ...finalPaths, heart, ...bondDescriptions, soldiers]);'],
+    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]);',
+      "...finalPaths, (command.append(document.createElement('p')), command), heart, ...bondDescriptions, soldiers, ...firstBranches]);"],
+    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart, ...bondDescriptions, soldiers, ...firstBranches]);','command, ...finalPaths, heart, ...bondDescriptions, soldiers, ...firstBranches]);'],
     ['Lance bond totals exchanged', 'Lance bond total paragraph attribution',
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 118,600','유대 2 · Lv.2~10 합계 골드 383,500']),
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 383,500','유대 2 · Lv.2~10 합계 골드 118,600'])],
