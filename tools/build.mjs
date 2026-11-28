@@ -1709,9 +1709,9 @@ try {
   const base350 = await readFile('tools/fixtures/hero-16-first-branches-base-350-app.js');
   assert.equal(createHash('sha256').update(base350).digest('hex'),
     'ed85014ebe6f9c41eb4b9085fc95346ff0a492ae6bf15d6a873553832a7bd693', 'Merged #350 app digest');
-  const base350Requests = await checkPackagedLanceStartup(output, html, base350.toString('utf8'), ...v5Args, { ...forwardComparison, forwardLinks });
   const candidateRequests = await checkPackagedLanceStartup(output, html, app, ...v5Args,
     { ...forwardComparison, forwardLinks, firstBranches:firstBranchLines });
+  const base350Requests = await checkPackagedLanceStartup(output, html, base350.toString('utf8'), ...v5Args, { ...forwardComparison, forwardLinks });
   assert.deepEqual(candidateRequests, base350Requests, 'Lance #350 complete fetch URLs and counts');
   assert.deepEqual(candidateRequests, base349Requests, 'Lance #349 complete fetch URLs and counts');
   const base348 = await readFile(resolve('tools/fixtures/hero-16-bond23-level-gold-base-348-app.js'));
