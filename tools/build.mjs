@@ -1063,6 +1063,8 @@ const firstLevelLines = lanceBond1LevelLines(levelReferences, firstBondDetail, l
 const bondLevelInputs = await Promise.all([
   [2, 72, 'docs/decisions/hero-16-minimal-bond2-level-gold-publication.v1.json'],
   [3, 73, 'docs/decisions/hero-16-minimal-bond3-level-gold-publication.v1.json'],
+  [4, 74, 'docs/decisions/hero-16-minimal-bond4-level-gold-publication.v1.json'],
+  [5, 75, 'docs/decisions/hero-16-minimal-bond5-level-gold-publication.v1.json'],
 ].map(async ([bond, endpointId, decisionPath]) => ({
   bond,
   references: levelReferences,
@@ -1703,16 +1705,22 @@ try {
   const priorFeatures = { ...currentFeatures, bondDescriptions: allBondDescriptions };
   const base349 = await readFile('tools/fixtures/hero-16-forward-links-base-349-app.js');
   assert.equal(createHash('sha256').update(base349).digest('hex'), '7137f8a9952f05e0c41ce57470fe0a227778789057344a3c07e6ef0b6e7ccfac', 'Merged #349 app digest');
-  const forwardComparison = { ...priorFeatures, finalPaths: movementPaths, levelLines, destinations: forwardLinks, reverseCards: new Map() };
+  const forwardComparison = { ...priorFeatures, finalPaths: movementPaths, levelLines: levelLines.slice(0, 3), destinations: forwardLinks, reverseCards: new Map() };
   const base349Requests = await checkPackagedLanceStartup(output, html, base349.toString('utf8'), ...v5Args, forwardComparison);
   // app.js from merged #350, 4023e97f7ce0cb9e319ba982b935ddee25bede7d.
   const base350 = await readFile('tools/fixtures/hero-16-first-branches-base-350-app.js');
   assert.equal(createHash('sha256').update(base350).digest('hex'),
     'ed85014ebe6f9c41eb4b9085fc95346ff0a492ae6bf15d6a873553832a7bd693', 'Merged #350 app digest');
   const candidateRequests = await checkPackagedLanceStartup(output, html, app, ...v5Args,
-    { ...forwardComparison, forwardLinks, firstBranches:firstBranchLines });
+    { ...forwardComparison, levelLines, forwardLinks, firstBranches:firstBranchLines });
   const base350Requests = await checkPackagedLanceStartup(output, html, base350.toString('utf8'), ...v5Args, { ...forwardComparison, forwardLinks });
   assert.deepEqual(candidateRequests, base350Requests, 'Lance #350 complete fetch URLs and counts');
+  const base351 = await readFile('tools/fixtures/hero-16-bond45-level-gold-base-351-app.js');
+  assert.equal(createHash('sha256').update(base351).digest('hex'),
+    '2b2a19cea41d39b87a963a08c629053efdf8a5def55b263de13ac56292ca9818', 'Merged #351 app digest');
+  const base351Requests = await checkPackagedLanceStartup(output, html, base351.toString('utf8'), ...v5Args,
+    { ...forwardComparison, forwardLinks, firstBranches:firstBranchLines });
+  assert.deepEqual(candidateRequests, base351Requests, 'Lance #351 complete fetch URLs and counts');
   assert.deepEqual(candidateRequests, base349Requests, 'Lance #349 complete fetch URLs and counts');
   const base348 = await readFile(resolve('tools/fixtures/hero-16-bond23-level-gold-base-348-app.js'));
   assert.equal(createHash('sha256').update(base348).digest('hex'), '4b6027e40e52080ec7af0497f876aba91ed5fa8a3db91adfd1b3d9619425ccae', 'Merged #348 app digest');
