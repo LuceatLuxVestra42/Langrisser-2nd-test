@@ -150,7 +150,40 @@ async function checkHeroDetailBuildFailures() {
   }
   const levelCall = 'lanceBond1LevelLines(levelReferences, firstBondDetail, levelEvidence, levelDecision)';
   const levelPublication = 'docs/decisions/hero-16-minimal-bond1-level-gold-publication.v1.json';
+  // Inject only after the source and six totals have passed their normal checks.
+  const levelBoundary = 'const additionalLevelLines = bondLevelInputs.map(';
+  function levelInputMutation(name, statement, reason) {
+    return consumerMutation(name, 'build', levelBoundary, statement + '\n' + levelBoundary,
+      'Lance Fetter ' + reason + ' mismatch');
+  }
   const cases = [
+    ...[[2,72,67,5000], [3,73,68,9000]].flatMap(([bond, endpoint, lianaId, firstGold], index) => {
+      const input = 'bondLevelInputs[' + index + ']';
+      const label = 'bond ' + bond;
+      const decisionPath = 'docs/decisions/hero-16-minimal-bond' + bond + '-level-gold-publication.v1.json';
+      return [
+        levelInputMutation(label + ' reference removed',
+          `${input}.references = {records:levelReferences.records.filter(r => !(r.heroId===16 && r.fetterId===${endpoint}))};`, label + ' selection reference'),
+        levelInputMutation(label + ' Liana detail substituted',
+          `${input}.detail = regularGoldDetails.find(r => r.heroId===15 && r.endpointId===${lianaId});`, label + ' detail attribution'),
+        ...[['gold','evidence amount'], ['locator','source locator']].map(([field, reason]) => levelInputMutation(
+          label + ' exchanged ' + field,
+          `${input}.levels = ${input}.levels.map((row,i,rows) => i < 2 ? {...row, ${field}:rows[1-i].${field}} : row);`,
+          label + ' Lv.2 ' + reason)),
+        {name:label + ' missing level decision', decisionPath, error:() => 'Error: Lance Fetter ' + label + ' level decision missing'},
+        ...[
+          ['approval status', d => { d.status = 'PENDING'; }, 'level approval status'],
+          ['target order', d => { [d.targetLevels[0],d.targetLevels[1]] = [3,2]; }, 'approved level order'],
+          ['evidence path', d => { d.evidence = goldEvidence + '#/endpoints/' + (bond === 2 ? 2 : 1) + '/levels'; }, 'decision evidence path'],
+          ['approved Lv.2 gold', d => { d.rows[0].gold = firstGold + 1; }, 'approved Lv.2 amount'],
+        ].map(([name, mutate, reason]) => ({name:label + ' wrong ' + name, decisionPath, mutate,
+          error:() => 'Error: Lance Fetter ' + label + ' ' + reason + ' mismatch'})),
+      ];
+    }),
+    levelInputMutation('Lance bonds 2 and 3 evidence inputs exchanged',
+      '[bondLevelInputs[0].levels,bondLevelInputs[1].levels] = [bondLevelInputs[1].levels,bondLevelInputs[0].levels];', 'bond 2 level evidence group'),
+    levelInputMutation('Lance bonds 2 and 3 decision endpoints exchanged',
+      '[bondLevelInputs[0].decision.endpointId,bondLevelInputs[1].decision.endpointId] = [73,72];', 'bond 2 level approval target'),
     ...[
       ['selection absent', 'levelReferences', '{records:levelReferences.records.filter(r => !(r.heroId===16 && r.fetterId===71))}', 'bond 1 selection reference'],
       ['Liana detail substituted', 'firstBondDetail', 'regularGoldDetails.find(r => r.heroId===15 && r.endpointId===66)', 'bond 1 detail attribution'],
@@ -786,11 +819,18 @@ function lianaFetterInput(path, union) {
   const dragonPath = '전직 · 드래곤 나이트 → 드래곤 마스터';
   const royalPath = '전직 · 하이랜더 → 로열 나이트';
   const finalMovementRows = "'"+dragonPath+" · 기본 사거리 1 · 비행 · 이동력 5', '"+royalPath+" · 기본 사거리 1 · 기마 · 이동력 5'";
+  const afterBondPanel = '  const finalPaths = [';
+  function moveListAfterNextTotal(index) {
+    return `const nodes = [...bonds.children]; [nodes[${index}],nodes[${index+1}]] = [nodes[${index+1}],nodes[${index}]]; bonds.replaceChildren(...nodes);\n` + afterBondPanel;
+  }
   const rendererCases = [
-    ['Lance bond 1 list after second total', 'Lance bond 1 level list placement',
-      "if (line.startsWith('유대 1 ·'))", "if (line.startsWith('유대 2 ·'))"],
+    ['Lance bond 1 list after second total', 'Lance bond 1 level list placement', afterBondPanel, moveListAfterNextTotal(2)],
     ['Lance bond 1 rendered gold exchanged', 'Lance bond 1 level gold text',
-      "'Lv.2 · 1,500 골드',\n        'Lv.3 · 2,300 골드'", "'Lv.2 · 2,300 골드',\n        'Lv.3 · 1,500 골드'"],
+      '    [1500, 2300, 3500, 5300,', '    [2300, 1500, 3500, 5300,'],
+    ['Lance bonds 2 and 3 lists exchanged', 'Lance bond 2 level gold text', afterBondPanel,
+      'const second = bonds.children[4], third = bonds.children[6]; const a = second.children[1], b = third.children[1]; ' +
+      'second.replaceChildren(second.children[0], b); third.replaceChildren(third.children[0], a);\n' + afterBondPanel],
+    ['Lance bond 3 list after fourth total', 'Lance bond 3 level list placement', afterBondPanel, moveListAfterNextTotal(6)],
     ['Lance displayed movement labels exchanged', 'Lance successor Job movement mismatch: ' + dragonPath,
       finalMovementRows, finalMovementRows.replace('비행','기마').replace(royalPath+' · 기본 사거리 1 · 기마',royalPath+' · 기본 사거리 1 · 비행')],
     ['Lance obsolete first final job paragraph', 'Lance old final job paragraph occurrence: ' + dragonPath,

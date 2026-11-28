@@ -123,28 +123,47 @@ export function checkLianaRegularFetters(document, consumer) {
 export const bond1LevelDecisionPath = 'docs/decisions/hero-16-minimal-bond1-level-gold-publication.v1.json';
 
 export function lanceBond1LevelLines(references, detail, levels, decision) {
-  const group = expected[0];
-  const selected = references.records.filter(row => row.heroId === 16 && row.fetterId === 71);
-  requireMatch(selected, [group.reference], 'bond 1 selection reference');
-  requireMatch(detail, group.detail, 'bond 1 detail attribution');
-  requireMatch(levels.length, group.gold.length, 'bond 1 level count');
+  return lanceBondLevelLines(1, references, detail, levels, decision);
+}
+
+const levelPlacements = [
+  'Closed details between the first and second bond totals, summary followed by one list.',
+  'Closed details between the second and third bond totals, summary followed by one list.',
+  'Closed details between the third and fourth bond totals, summary followed by one list.',
+];
+
+export function lanceBondLevelLines(bond, references, detail, levels, decision) {
+  const placement = levelPlacements[bond - 1];
+  if (!placement) throw new Error('Unsupported Lance bond level disclosure');
+  const label = 'bond ' + bond;
+  const group = expected[bond - 1];
+  const selected = references.records.filter(row => row.heroId === 16 && row.fetterId === group.endpointId);
+  requireMatch(selected, [group.reference], label + ' selection reference');
+  requireMatch(detail, group.detail, label + ' detail attribution');
+  requireMatch(levels.length, group.gold.length, label + ' level count');
+  const prefix = group.recordLocator + '/LevelUpGold/';
+  requireMatch(levels.every(row => row.locator?.startsWith(prefix)), true, label + ' level evidence group');
   const rows = group.gold.map((gold, index) => {
     const level = index + 2;
     const row = levels[index];
-    const claim = 'bond 1 Lv.' + level;
+    const claim = label + ' Lv.' + level;
     requireMatch([row.kind, row.endpointNamespace, row.level], [group.kind, group.endpointNamespace, level], claim + ' endpoint or level');
-    requireMatch(row.locator, group.recordLocator + '/LevelUpGold/' + index, claim + ' source locator');
+    requireMatch(row.locator, prefix + index, claim + ' source locator');
     requireMatch([row.gold, detail.fields.LevelUpGold[index]], [gold, gold], claim + ' evidence amount');
     return { level, gold, textKo: 'Lv.' + level + ' · ' + row.gold.toLocaleString('ko-KR') + ' 골드' };
   });
-  requireMatch(rows.reduce((sum, row) => sum + row.gold, 0), 118600, 'bond 1 level total');
-  if (!decision) throw new Error('Lance Fetter bond 1 level decision missing');
-  requireMatch(decision.status, 'APPROVED', 'bond 1 level approval status');
+  requireMatch(rows.reduce((sum, row) => sum + row.gold, 0), group.total, label + ' level total');
+  if (!decision) throw new Error('Lance Fetter ' + label + ' level decision missing');
+  requireMatch(decision.status, 'APPROVED', label + ' level approval status');
   requireMatch([decision.schemaVersion, decision.heroId, decision.surface, decision.kind, decision.endpointId, decision.unit],
-    [1, 16, 'hero-minimal-detail-16', 'FETTER', 71, 'gold'], 'bond 1 level approval target');
-  requireMatch(decision.targetLevels, [2,3,4,5,6,7,8,9,10], 'bond 1 approved level order');
-  requireMatch(decision.rows, rows, 'bond 1 approved level rows');
-  requireMatch([decision.summary, decision.placement], ['유대 1 레벨별 골드',
-    'Closed details between the first and second bond totals, summary followed by one list.'], 'bond 1 level placement');
+    [1, 16, 'hero-minimal-detail-16', 'FETTER', group.endpointId, 'gold'], label + ' level approval target');
+  requireMatch(decision.targetLevels, [2,3,4,5,6,7,8,9,10], label + ' approved level order');
+  requireMatch(decision.evidence, lanceFetterEvidence + '#/endpoints/' + (bond - 1) + '/levels', label + ' decision evidence path');
+  requireMatch(decision.rows?.length, rows.length, label + ' approved row count');
+  for (const [index, row] of rows.entries()) {
+    requireMatch(decision.rows[index]?.gold, row.gold, label + ' approved Lv.' + row.level + ' amount');
+  }
+  requireMatch(decision.rows, rows, label + ' approved level rows');
+  requireMatch([decision.summary, decision.placement], [group.labelKo + ' 레벨별 골드', placement], label + ' level placement');
   return rows.map(row => row.textKo);
 }
