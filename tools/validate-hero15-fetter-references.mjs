@@ -1,4 +1,4 @@
-import { lianaFetterInput } from './lance-fetter-gold.mjs';
+import { lianaFetterInput, validateLianaReferenceRows } from './lance-fetter-gold.mjs';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -68,16 +68,8 @@ export function validateHero15FetterReferencesData({ evidence, canonical, heroId
   exactKeys(canonical, ['schemaVersion', 'scope', 'records'], 'canonical');
   check(canonical.schemaVersion === 1 && canonical.records.length === 6, 'canonical population drift');
   check(canonical.scope === 'Hero 15 source-native ConfigData Fetter ID references only; not an admission of stages, completion/unlock conditions, rewards, stats, skills, battle effects, Korean localization, or publication.', 'canonical scope drift');
-  const expected = [
-    ...[66,67,68,69,70].map(fetterId => ['HERO_FETTER_ID_REFERENCE',15,15,fetterId,'ConfigDataHeroInformationInfo.HeroFetters_ID','ConfigDataHeroFetterInfo.ID','evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences']),
-    ['HERO_HEART_FETTER_ID_REFERENCE',15,15,15,'ConfigDataHeroInformationInfo.HeroHeartFetterId','ConfigDataHeroHeartFetterInfo.ID','evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroHeartFetterReference']
-  ];
-  const actual = canonical.records.map(r => {
-    exactKeys(r, r.referenceKind === 'HERO_FETTER_ID_REFERENCE' ? ['referenceKind','heroId','heroInformationId','fetterId','sourceField','endpointNamespace','provenance'] : ['referenceKind','heroId','heroInformationId','heartFetterId','sourceField','endpointNamespace','provenance'], 'canonical.record');
-    return [r.referenceKind,r.heroId,r.heroInformationId,r.fetterId ?? r.heartFetterId,r.sourceField,r.endpointNamespace,r.provenance];
-  });
-  check(JSON.stringify(actual) === JSON.stringify(expected), 'canonical raw reference set, order, or provenance drift');
-  return { references: actual.length, heroFetter: 5, heroHeartFetter: 1, masteryClaims: 0, publicationClaims: 0 };
+  validateLianaReferenceRows(canonical.records);
+  return { references: canonical.records.length, heroFetter: 5, heroHeartFetter: 1, masteryClaims: 0, publicationClaims: 0 };
 }
 
 export async function validateHero15FetterReferences(root = process.cwd()) {

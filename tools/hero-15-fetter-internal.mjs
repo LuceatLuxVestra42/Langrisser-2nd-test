@@ -28,7 +28,7 @@ const LIMITATIONS = [
 
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 export async function loadInputs(root = process.cwd()) {
-  const entries = await Promise.all(Object.entries(PATHS).map(async ([key, path]) => [key, lianaFetterInput(path, await readJson(root, path))]));
+  const entries = await Promise.all(Object.entries(PATHS).map(async ([key, path]) => [key, lianaFetterInput(path, await readJson(root, path), root)]));
   return Object.fromEntries(entries);
 }
 const clone = (value) => structuredClone(value);
@@ -63,6 +63,15 @@ function validateInputs(input) {
   assert.equal(heartConditions.records.length, 4, 'Heart Fetter raw condition population drift');
   assert(heartConditions.records.every((row) => row.heroId === 15 && row.heartFetterId === 15
     && row.conditions.every((condition) => condition.conditionType === 7)), 'Heart Fetter unresolved condition scope drift');
+
+  const lianaSkills = [[70421,4,16612,[32857]],[70422,4,16613,[32858]],[70423,7,16614,[32859]],[70424,7,16615,[32860,32861]]];
+  for (const [i,row] of heartConditions.records.entries()) {
+    const [skill,level,skillIndex,buffIndices] = lianaSkills[i];
+    assert.deepEqual([row.skillId,row.heartFetterLevel,row.sourceProvenance,row.provenance],
+      [skill,level,{heartFetterSourceIndex:i,skillSourceIndex:skillIndex,passiveBuffSourceIndices:buffIndices},
+        'evidence/source/bonds/hero15-heart-fetter-raw-conditions.v1.json#claims[skillId='+skill+']'],
+      'Heart Fetter internal Skill or provenance drift');
+  }
 
   for (const [label, rows] of [
     ['Skill reference', skillReferences.records],

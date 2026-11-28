@@ -1,3 +1,4 @@
+import { conditionPath, lianaHeartConditions } from './lance-heart-fetter.mjs';
 import { isDeepStrictEqual as equal } from 'node:util';
 
 export const fetterReferences = 'canonical/hero-fetter-references.v1.json';
@@ -50,15 +51,31 @@ const suffix = ' Hero 16: explicit Fetter references and LevelUpGold only.';
 const referenceScope = 'Hero 15 source-native ConfigData Fetter ID references only; not an admission of stages, completion/unlock conditions, rewards, stats, skills, battle effects, Korean localization, or publication.';
 const detailScope = 'Hero 15 source-native raw Fetter detail fields only; excludes gameplay rules, endpoint identity admission, and publication.';
 
+export function validateLianaReferenceRows(records) {
+  const expected = [
+    ...[66,67,68,69,70].map(fetterId => ['HERO_FETTER_ID_REFERENCE',15,15,fetterId,'ConfigDataHeroInformationInfo.HeroFetters_ID','ConfigDataHeroFetterInfo.ID','evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroFetterReferences']),
+    ['HERO_HEART_FETTER_ID_REFERENCE',15,15,15,'ConfigDataHeroInformationInfo.HeroHeartFetterId','ConfigDataHeroHeartFetterInfo.ID','evidence/source/bonds/hero15-fetter-references.v1.json#claims/heroHeartFetterReference']
+  ];
+  const actual = records.map(r => {
+    const idField = r.referenceKind === 'HERO_FETTER_ID_REFERENCE' ? 'fetterId' : 'heartFetterId';
+    requireMatch(Object.keys(r).sort(), ['referenceKind','heroId','heroInformationId',idField,'sourceField','endpointNamespace','provenance'].sort(), 'Liana reference fields');
+    return [r.referenceKind,r.heroId,r.heroInformationId,r.fetterId ?? r.heartFetterId,r.sourceField,r.endpointNamespace,r.provenance];
+  });
+  requireMatch(actual, expected, 'Liana reference set, order or provenance');
+}
+
 // Each shared owner retains its original ordered Liana population and appends the Lance rows.
-export function lianaFetterInput(path, document) {
+export function lianaFetterInput(path, document, root = process.cwd()) {
+  if (path === conditionPath) return lianaHeartConditions(document, root);
   if (![fetterReferences, fetterDetails, heartDetails].includes(path)) return document;
   const scope = path === fetterReferences ? referenceScope : detailScope;
   const rows = path === fetterReferences ? expected.map(group => group.reference)
     : expected.filter(group => (group.kind === 'HEART_FETTER') === (path === heartDetails)).map(group => group.detail);
   requireMatch([document.schemaVersion, document.scope, document.records.length], [1, scope + suffix, rows.length * 2], 'shared owner scope');
   requireMatch(document.records.slice(rows.length), rows, 'shared owner Lance rows');
-  return { ...document, scope, records: document.records.slice(0, rows.length) };
+  const selected = document.records.slice(0, rows.length);
+  if (path === fetterReferences) validateLianaReferenceRows(selected);
+  return { ...document, scope, records: selected };
 }
 
 export async function readLanceFetterSource(readJson) {

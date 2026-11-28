@@ -111,7 +111,54 @@ async function checkHeroDetailBuildFailures() {
   const commandBondEvidence = 'evidence/source/configdata/hero-16-soldier-command-bond-contribution.v1.json';
   const commandDecision = 'docs/decisions/hero-16-minimal-soldier-command-publication.v1.json';
   const bondCall = 'validateHero15SoldierCommandBondContribution(bondCommand);';
+  const heartEvidence = 'evidence/source/bonds/hero16-heart-fetter-raw-conditions.v1.json';
+  const heartDecision = 'docs/decisions/hero-16-minimal-heart-fetter-effects-publication.v1.json';
+  const rawPath = 'canonical/hero-heart-fetter-raw-conditions.v1.json';
+  const heartCall = 'lanceHeartGroups(heartConditions, heartSource, jobEdges.finals, heroJobRelations, jobLocalization, await readJson(heartDecisionPath))';
   const cases = [
+    ...[
+      ['first FK',d=>{d.sources.HeroInfo.records[0].fields.HeroInformation_ID=15;},'Hero to HeroInformation FK'],
+      ['second FK',d=>{d.sources.HeroInformationInfo.records[0].fields.HeroHeartFetterId=15;},'HeroInformation to Heart Fetter FK'],
+      ['same-level Skills exchanged',d=>{
+        const [first,second] = d.sources.HeroHeartFetterInfo.records[0].fields.UnlockSkills_ID;
+        [first.SkillId,second.SkillId] = [second.SkillId,first.SkillId];
+      },'UnlockSkills_ID level and Skill attribution'],
+      ['wrong passive Buff',d=>{d.sources.SkillInfo.records[0].fields.PassiveBuffs_ID=[70226];},'Skill to Buff link'],
+      ['two job mappings exchanged',d=>{
+        const [first,second]=d.korean.mapping.rows;
+        [first[1],second[1]]=[second[1],first[1]];
+      },'frozen job mapping'],
+      ['royal Lv7 threshold changed',d=>{const row=d.korean.overlay.skills['70228'];row.descriptionKr=row.descriptionKr.replace('미만','이하');},'frozen Korean text 70228'],
+    ].map(([name,mutate,reason])=>({name,decisionPath:heartEvidence,mutate,error:()=>'Error: Heart Fetter '+reason})),
+    consumerMutation('Lance Heart relation missing only at admission','lance-heart-fetter',
+      'lanceRawRows(read(heartSourcePath),read(referencePath))',
+      'lanceRawRows(read(heartSourcePath),{records:read(referencePath).records.filter(r=>!(r.heroId===16 && r.heartFetterId===16))})',
+      'Heart Fetter missing Lance Heart Fetter 16 reference'),
+    {
+      ...consumerMutation('Liana internal receives Lance only after validator','hero-15-fetter-internal',
+        '  validateFetterInternalProjection(input, generatedText);',
+        `  const union = await readJson(root, '${rawPath}');
+  const changed = structuredClone(input.heartConditions);
+  changed.records[3] = structuredClone(union.records.find(r=>r.skillId===70228));
+  validateFetterInternalProjection({...input,heartConditions:changed}, generatedText);`,''),
+      error:()=>'AssertionError [ERR_ASSERTION]: Heart Fetter unresolved condition scope drift',
+    },
+    consumerMutation('Liana Minimal receives Lance in its effect rows','hero-15-integrated-publication-contract',
+      'projectHeartFetterEffects(effectsDecision, heartFetterLevels, directEdges)',
+      'projectHeartFetterEffects(effectsDecision, {...heartFetterLevels,records:heartFetterLevels.records.filter(r=>r.heroId===15).map(r=>r.skillId===70424 ? heartFetterLevels.records.find(x=>x.skillId===70228) : r)}, directEdges)',
+      'Hero 15 Heart Fetter display row mismatch for Skill 70424'),
+    consumerMutation('Lance royal Lv7 absent only at display','build',heartCall,
+      heartCall.replace('(heartConditions,','({records:heartConditions.records.filter(r=>r.skillId!==70228)},'),
+      'Heart Fetter 로열 나이트 Lv.7 Skill 70228 missing at #/14/UnlockSkills_ID/3, #/16419, #/32655'),
+    ...[[164,405],[165,306]].map(([connection,job])=>consumerMutation('Heart edge missing '+connection,'build',heartCall,
+      heartCall.replace('jobEdges.finals','jobEdges.finals.filter(r=>r.successorConnectionId!=='+connection+')'),
+      'Heart Fetter direct edge '+connection+'/'+job)),
+    {name:'heart decision missing',decisionPath:heartDecision,error:path=>"Error: ENOENT: no such file or directory, open '"+path+"'"},
+    ...[
+      ['job and level exchanged',d=>{const [first,,,last]=d.rows;[first.jobId,last.jobId]=[last.jobId,first.jobId];[first.level,last.level]=[last.level,first.level];}],
+      ['level ten added',d=>{d.rows.push({...d.rows[3],level:10,skillId:70110});}],
+    ].map(([name,mutate])=>({name:'heart decision '+name,decisionPath:heartDecision,mutate,error:()=>'Error: Heart Fetter Lance publication scope'})),
+
     ...[
       [commandBaseEvidence,'absent base materialized',d => {d.rawRecord.MagicDFCmd_INI=0;},'Lance explicit base fields'],
       [commandBaseEvidence,'base attack removed',d => {delete d.rawRecord.ATCmd_INI;},'Lance explicit base fields'],
@@ -598,16 +645,28 @@ function lianaFetterInput(path, union) {
   const goldDecision = JSON.parse(await readFile(lanceGoldDecision, 'utf8'));
   const appParagraphs = lines => lines.map(line => `    '${line}',`).join('\n');
   const lanceDefense = "['방어', '+10%', '+25%'],\n    ['마방', '', '+10%']";
+  const dragonFour = 'Lv.4 · 부대 생명이 100%일 시, 받는 피해 -10%';
+  const royalFour = 'Lv.4 · 공격을 받아 전투 진입 시, 받는 마법 피해 -10%';
+  const royalSeven = 'Lv.7 · 부대 생명이 70% 미만일 시, 주는 피해 +10%';
+  const bothGroups = approvedApp.toString('utf8').match(/    \['드래곤 마스터', 'Lv\.4[^\n]+\n    \['로열 나이트', 'Lv\.4[^\n]+/)[0];
   const rendererCases = [
+    ['Lance Heart Lv4 job exchange','Lance Heart job attribution',bothGroups,
+      bothGroups.replace(dragonFour,'TEMP').replace(royalFour,dragonFour).replace('TEMP',royalFour)],
+    ['Lance Heart incoming direction','Lance Heart effect text',dragonFour,dragonFour.replace('받는','주는')],
+    ['Lance Heart incoming sign','Lance Heart effect text',royalFour,royalFour.replace('-10%','+10%')],
+    ['Lance Heart threshold','Lance Heart effect text',royalSeven,royalSeven.replace('미만','이하')],
+    ['Lance Heart position only','Lance Heart placement after command','[jobPath, discipline, bonds, ...finalPaths, command, heart]',
+      '[jobPath, heart, discipline, bonds, ...finalPaths, command]'],
+
     ['Lance defense and magic defense values swapped','Soldier Command values: 방어',lanceDefense,
       "['방어', '', '+10%'],\n    ['마방', '+10%', '+25%']"],
     ['Lance absent magic defense has text','Lance unadmitted base magic defense text',"['마방', '', '+10%']","['마방', '+0%', '+10%']"],
     ...[['aria-label','name'],['aria-description','description']].map(([attribute,label]) =>
       ['Lance blank cell '+attribute,'Lance base magic defense accessible '+label,'cell.textContent = value;',
         "cell.textContent = value; if (stat === '마방' && value === '') cell.setAttribute('"+attribute+"','+0%');"]),
-    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command]);',
-      "...finalPaths, (command.append(document.createElement('p')), command)]);"],
-    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command]);','command, ...finalPaths]);'],
+    ['Lance command additional paragraph','Soldier Command table structure','...finalPaths, command, heart]);',
+      "...finalPaths, (command.append(document.createElement('p')), command), heart]);"],
+    ['Lance command section moved','Lance command must immediately follow second final job paragraph','...finalPaths, command, heart]);','command, ...finalPaths, heart]);'],
     ['Lance bond totals exchanged', 'Lance bond total paragraph attribution',
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 118,600','유대 2 · Lv.2~10 합계 골드 383,500']),
       appParagraphs(['유대 1 · Lv.2~10 합계 골드 383,500','유대 2 · Lv.2~10 합계 골드 118,600'])],

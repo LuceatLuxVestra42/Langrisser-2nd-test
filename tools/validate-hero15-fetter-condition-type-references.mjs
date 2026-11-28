@@ -38,7 +38,7 @@ export function validateHero15FetterConditionTypeReferencesData({evidence,canoni
  return {typeReferences:11,regularFetter:9,heartFetter:2,runtimePredicate:'NOT_ADMITTED',parameterSemantics:'NOT_ADMITTED',publication:false};
 }
 export async function validateHero15FetterConditionTypeReferences(root=process.cwd()){
- const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
+ const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')), root);
  const [evidence,canonical,fetterDetails,heartDetails,references,heartConditions]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-heart-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
  const result=validateHero15FetterConditionTypeReferencesData({evidence,canonical,fetterDetails,heartDetails,references,heartConditions});
  process.stdout.write('Hero 15 Fetter condition type enum references: PASS (11 type references; runtime predicates remain unadmitted)\n');return result;
