@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "scope": "PROJECT_BOND_DESCRIPTION_ONLY",
+  "heroId": 16,
+  "surface": "hero-minimal-detail-16",
+  "placement": "consecutive-card-paragraphs-immediately-after-bond-3-description",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "evidence": "evidence/source/bonds/hero16-bond45-mission-descriptions.v1.json",
+  "rows": [
+    {
+      "bondNumber": 4,
+      "fetterId": 74,
+      "missionId": 5055,
+      "companionHeroId": 11,
+      "dungeonOwnerHeroId": 16,
+      "stageId": 164,
+      "stageNameNum": "4",
+      "textKo": "유대 4 · 나암과 함께 운명의문 4 클리어"
+    },
+    {
+      "bondNumber": 5,
+      "fetterId": 75,
+      "missionId": 5056,
+      "companionHeroId": 14,
+      "dungeonOwnerHeroId": 16,
+      "stageId": 165,
+      "stageNameNum": "5",
+      "textKo": "유대 5 · 쉐리와 함께 운명의문 5 클리어"
+    }
+  ],
+  "companionNames": "canonical/hero-localizations-ko.v1.json",
+  "crossChecks": {
+    "retrace": "9231b22b2176440161a10b14ab13131cfb99c107:data/validation/hero-page-stage5-1-retrace-semantic.v1.json",
+    "legacy": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff:data/generated/hero-detail/by-id/16.json",
+    "locators": [
+      "/bonds/3/completionConditions/1",
+      "/bonds/4/completionConditions/1"
+    ],
+    "sheet": "redpanda7301/langrisser@a85bba49dcf073563e7366dc18e96b7ba67c2ae3:hero/data/란스.js#L38-L53",
+    "sheetTitles": [
+      "마물 출현",
+      "나이트"
+    ],
+    "display": "https://luceatluxvestra42.github.io/langrisser-future-guide/heroes/16/"
+  },
+  "transformation": "Use the admitted companion name and the NameNum of the mission stage owned by Lance. Preserve the deployed Korean wording for these two descriptions only.",
+  "limitations": "Official Korean stage titles and sentence provenance are unverified. No runtime completion, stage localization, or general unlock rule is admitted."
+}

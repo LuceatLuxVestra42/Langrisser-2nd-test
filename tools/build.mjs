@@ -31,7 +31,7 @@ import { validateHero15FetterRawDetails } from './validate-hero15-fetter-raw-det
 import { validateHero15HeartFetterRawDetails } from './validate-hero15-heart-fetter-raw-details.mjs';
 import { validateHero15FetterReferences } from './validate-hero15-fetter-references.mjs';
 import { conditionPath, heartDecisionPath, heartSourcePath } from './lance-heart-fetter.mjs';
-import { bond23DecisionPath, bond23EvidencePath, lanceBondDescriptions, lanceHeartGroups } from './hero-16-integrated-publication-contract.mjs';
+import { bond45DecisionPath, bond45EvidencePath, lanceCompanionBondDescriptions, bond23DecisionPath, bond23EvidencePath, lanceBondDescriptions, lanceHeartGroups } from './hero-16-integrated-publication-contract.mjs';
 import { validateHero15HeartFetterRawConditions } from './validate-hero15-heart-fetter-raw-conditions.mjs';
 import { validateHero15FetterInternal } from './hero-15-fetter-internal.mjs';
 import { validateHero15SkillDetailInternal } from './hero-15-skill-detail-internal.mjs';
@@ -393,11 +393,11 @@ function checkPackagedHero16(app, detail, profileLines, jobPath, goldLines, effe
   assert.deepEqual(Object.keys(path), Object.keys(element('p')), 'Packaged Hero 16 job path must have no additional properties');
   checkLanceCommand(card, commandRows);
   checkLanceHeart(card, heartGroups, bondDescriptions);
-  assert.deepEqual(card.children.map(node => node.tag), ['h3', 'p', 'p', 'p', 'p', 'p', 'p', 'h4', 'p', 'p', 'section', 'details', 'p', 'p','section','section','p','p']);
+  assert.deepEqual(card.children.map(node => node.tag), ['h3', 'p', 'p', 'p', 'p', 'p', 'p', 'h4', 'p', 'p', 'section', 'details', 'p', 'p','section','section','p','p','p','p']);
   checkFinalPaths(card, finalPaths);
   checkLanceBondPanel(card, bondTotals);
   checkLanceGold(card, goldLines, effectLines);
-  assert.ok(card.children.slice(0, -8).every(node => node.children.length === 0), 'Packaged Hero 16 rows must contain only text');
+  assert.ok(card.children.slice(0, -10).every(node => node.children.length === 0), 'Packaged Hero 16 rows must contain only text');
 }
 
 const oldLanceSkillLines = [
@@ -727,7 +727,7 @@ function checkLanceHeart(card, groups, bondDescriptions) {
   }
   const expected = ['유대 2 · 레벨 30 달성', '유대 3 · 란스를 출전시켜 시공의 균열 3-1[정예] 클리어'];
   if (bondDescriptions) {
-    assert.deepEqual(bondDescriptions, expected, 'Lance translated bond descriptions');
+    assert.deepEqual(bondDescriptions.slice(0, 2), expected, 'Lance translated bond descriptions');
     const first = section.nextElementSibling;
     const second = first?.nextElementSibling;
     assert.ok(first?.textContent.startsWith('유대 2 ·') && second?.textContent.startsWith('유대 3 ·'),
@@ -741,6 +741,25 @@ function checkLanceHeart(card, groups, bondDescriptions) {
   }
   for (const line of expected) {
     assert.equal(textLines(card, text => text?.includes(line)).length, bondDescriptions ? 1 : 0, 'Lance bond description occurrence');
+  }
+  const companionLines = ['유대 4 · 나암과 함께 운명의문 4 클리어', '유대 5 · 쉐리와 함께 운명의문 5 클리어'];
+  const companionDescriptions = bondDescriptions?.slice(2) ?? [];
+  if (companionDescriptions.length) {
+    assert.deepEqual(companionDescriptions, companionLines, 'Lance companion bond descriptions');
+    let previous = section.nextElementSibling.nextElementSibling;
+    for (const [index, line] of companionLines.entries()) {
+      const bond = [4, 5][index];
+      const paragraph = previous.nextElementSibling;
+      assert.ok(card.children.includes(paragraph) && paragraph?.tag === 'p' && paragraph.textContent.startsWith('유대 ' + bond + ' · '),
+        'Lance companion paragraph placement after bond ' + (bond - 1));
+      assert.equal(paragraph.textContent, line, 'Lance bond ' + bond + ' rendered Gate of Fate number or text');
+      assert.deepEqual(paragraph.childNodes, [line], 'Lance companion paragraph plain text');
+      assert.ok(!paragraph.hidden && !paragraph.attributes.size, 'Lance companion paragraph visibility');
+      previous = paragraph;
+    }
+  }
+  for (const line of companionLines) {
+    assert.equal(textLines(card, text => text?.includes(line)).length, companionDescriptions.length ? 1 : 0, 'Lance companion paragraph occurrence');
   }
 }
 
@@ -862,6 +881,10 @@ const bondReferences = await readJson('canonical/hero-fetter-references.v1.json'
 const bondDescriptionSource = await readJson(bond23EvidencePath);
 const bondDescriptionDecision = await readJson(bond23DecisionPath);
 const bondDescriptions = lanceBondDescriptions(bondReferences, bondDescriptionSource, heroLocalization, bondDescriptionDecision);
+const companionSource = await readJson(bond45EvidencePath);
+const companionDecision = await readJson(bond45DecisionPath);
+const companionDescriptions = lanceCompanionBondDescriptions(bondReferences, companionSource, heroLocalization, companionDecision);
+const allBondDescriptions = [...bondDescriptions, ...companionDescriptions];
 const heartConditions = await readJson(conditionPath);
 const heartSource = await readJson(heartSourcePath);
 const heartGroups = lanceHeartGroups(heartConditions, heartSource, jobEdges.finals, heroJobRelations, jobLocalization, await readJson(heartDecisionPath));
@@ -1442,7 +1465,7 @@ try {
   assert.equal(createHash('sha256').update(newOrdinaryText).digest('hex'),'fec251ee8db49065e1405e8cb703cf73c81ae94494fdcabcb79ea559a44a3190','Merged v2 public bytes');
   assert.equal(createHash('sha256').update(skillsV4Text).digest('hex'),'52da81c3271b97a6f89c199cc0793289f6aebfedcbd9bf4a5a7fe09bf9caac3e','Merged v4 public bytes');
   const goldLines = await readLanceGoldDisplay(readJson);
-  checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath, goldLines, effectLines, bondTotals, finalPaths, commandRows, heartGroups, bondDescriptions);
+  checkPackagedHero16(app, packagedHero16MinimalDetail, lanceLines, lanceJobPath, goldLines, effectLines, bondTotals, finalPaths, commandRows, heartGroups, allBondDescriptions);
   await Promise.all([
     validateHero15FetterInternal(), validateHero15FullDetailPublicationFromRoot(),
     validateHero15FetterMaterialRelations(), validateHero15FetterConditionTypeReferences(),
@@ -1459,7 +1482,11 @@ try {
   const startupArgs = [JSON.parse(packagedTalentText), skillsV4, skillsV3, true, goldLines, effectLines];
   const currentFeatures = { lines:bondTotals, finalPaths, commandRows, heartGroups };
   const v5Args = [JSON.parse(packagedTalentText), skillsV5, skillsV4, true, goldLines, effectLines];
-  const candidateRequests = await checkPackagedLanceStartup(output, html, app, ...v5Args, { ...currentFeatures, bondDescriptions });
+  const candidateRequests = await checkPackagedLanceStartup(output, html, app, ...v5Args, { ...currentFeatures, bondDescriptions: allBondDescriptions });
+  const base344 = await readFile(resolve('tools/fixtures/hero-16-bond45-base-344-app.js'));
+  assert.equal(createHash('sha256').update(base344).digest('hex'), '431a1a9858ae869317e316f9d1c087339ec5ec8510be1f0fabecb69e7dc63716', 'Merged #344 app digest');
+  const base344Requests = await checkPackagedLanceStartup(output, html, base344.toString('utf8'), ...v5Args, { ...currentFeatures, bondDescriptions });
+  assert.deepEqual(candidateRequests, base344Requests, 'Lance #344 complete fetch URLs and counts');
   const base343 = await readFile(resolve('tools/fixtures/hero-16-bond23-base-343-app.js'));
   assert.equal(createHash('sha256').update(base343).digest('hex'), '62f0e539e32b7b3d5cd55e3d9c663e6bb11b44ba2e37c4deec8f62af0b0562c5', 'Merged #343 app digest');
   const base343Requests = await checkPackagedLanceStartup(output, html, base343.toString('utf8'), ...v5Args, currentFeatures);
