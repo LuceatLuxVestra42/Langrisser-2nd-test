@@ -3,27 +3,28 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { loadPublicSoldierPopulation } from './validate-sp-soldier-relation.mjs';
-import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
+import { validateSoldierIdentity, readSoldier340Evidence, verifySoldier340Fields } from './validate-soldier-identity.mjs';
 
 const read = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-const [canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest] = await Promise.all([
+const [canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest] = await Promise.all([
   read('canonical/soldiers.v1.json'),
   read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json'),
+  readSoldier340Evidence(process.cwd()),
   read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
 ]);
-const args = { canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest };
+const args = { canonical, soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest };
 const result = validateSoldierIdentity(args);
 assert.equal(createHash('sha256').update(spPopulationBytes).digest('hex'),
   'ba41a6a37c873a5cc6196bd3135d2b656896e808741cd2b1df56a555ab888500');
 const spSoldierInfo = JSON.parse(spPopulationBytes.toString('utf8'));
 const existingKeys = spSoldierInfo.records.flatMap(({ ID, NormalSoliderId }) => [`SP:${ID}`, `NORMAL:${NormalSoliderId}`]);
-const privateKeys = ['NORMAL:806', 'NORMAL:817', 'NORMAL:819'];
+const privateKeys = ['NORMAL:806', 'NORMAL:817', 'NORMAL:819', 'NORMAL:340'];
 const keys = rows => rows.map(({ variant, id }) => `${variant}:${id}`).sort();
 assert.equal(new Set(existingKeys).size, 112);
-assert.equal(result.privateNormalIdentityCount, 3);
-assert.equal(result.totalIdentityCount, 115);
+assert.equal(result.privateNormalIdentityCount, 4);
+assert.equal(result.totalIdentityCount, 116);
 assert.deepEqual(keys(canonical.records), [...existingKeys, ...privateKeys].sort());
 const publicPopulation = await loadPublicSoldierPopulation();
 assert.deepEqual(keys(publicPopulation.identities.records), existingKeys.sort());
@@ -40,6 +41,29 @@ const failsCanonical = (mutate, reason) => {
   mutate(changed.records);
   assert.throws(() => validateSoldierIdentity({ ...args, canonical: changed }), reason);
 };
+failsCanonical(rows => { rows.find(row => row.id === 340).variant = 'SP'; }, /NORMAL 340 namespace mismatch/);
+failsCanonical(rows => { rows.push({ ...rows.find(row => row.id === 340) }); }, /duplicate canonical Soldier identity NORMAL:340/);
+
+// Recheck the retained projection when the original pinned SoldierInfo file is supplied.
+if (process.argv[2]) {
+  const bytes = await readFile(process.argv[2]);
+  const evidence = JSON.parse(soldier340Bytes);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), evidence.source.sha256);
+  const original = JSON.parse(bytes);
+  assert.equal(original.filter(row => row.ID === 340).length, 1);
+  function compareSourceRecord({ recordLocator, rawFields }) {
+    assert.match(recordLocator, /^\/\d+$/);
+    const row = original[Number(recordLocator.slice(1))];
+    verifySoldier340Fields(row);
+    assert.deepEqual({ ID: row.ID, Rank: row.Rank, Useable: row.Useable }, rawFields);
+  }
+  const [record] = evidence.records;
+  compareSourceRecord(record);
+  const wrongLocator = { ...structuredClone(record), recordLocator: '/80' };
+  assert.throws(() => compareSourceRecord(wrongLocator), /expected SoldierInfo ID 340, found 339/);
+  console.log('Pinned SoldierInfo: /81 matched; /80 rejected (expected ID 340, found 339)');
+}
+
 const locate = rows => rows.find(row => row.id === 806);
 failsCanonical(rows => { locate(rows).id = 999999; }, /not source-derived/);
 failsCanonical(rows => { rows.push({ ...locate(rows), id: 999999 }); }, /not source-derived/);
@@ -58,4 +82,4 @@ for (const mutate of [
   assert.throws(() => validateSoldierIdentity({ ...args, privateIdentityBytes: Buffer.from(JSON.stringify(changed)) }),
     /preserved evidence SHA-256 mismatch.*hero-15-normal-identities/);
 }
-process.stdout.write('Soldier identity population regression: PASS (115 identities, public endpoints 112, private NORMAL 3; pinned source and negative cases)\n');
+process.stdout.write('Soldier identity population regression: PASS (116 identities, public endpoints 112, private NORMAL 4; pinned source and negative cases)\n');

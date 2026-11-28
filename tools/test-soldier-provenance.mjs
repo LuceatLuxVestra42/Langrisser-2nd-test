@@ -1,14 +1,15 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { appendFile, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
-import { loadAndValidateSoldierIdentity, privateNormalIdentityEvidencePath } from './validate-soldier-identity.mjs';
+import { loadAndValidateSoldierIdentity, privateNormalIdentityEvidencePath, soldier340EvidencePath } from './validate-soldier-identity.mjs';
 import { validateSoldierProvenance } from './validate-soldier-provenance.mjs';
 
 const paths = [
   'canonical/soldiers.v1.json',
   privateNormalIdentityEvidencePath,
+  soldier340EvidencePath,
   'canonical/sp-soldier-normal-relations.v1.json',
   'canonical/sp-soldier-base-stats.v1.json',
   'canonical/sp-soldier-localizations-ko.v1.json',
@@ -48,7 +49,23 @@ const expectRejected = async (edit, pattern) => {
 };
 
 const current = await validateSoldierProvenance();
-assert.equal(current.identityCount, 115);
+assert.equal(current.identityCount, 116);
+assert.equal((await loadAndValidateSoldierIdentity()).totalIdentityCount, 116);
+for (const [label, edit, reason] of [
+  ['missing', path => rm(path), /NORMAL 340 evidence missing/],
+  ['trailing JSON space', path => appendFile(path, ' '), /NORMAL 340 evidence SHA-256 mismatch/],
+]) {
+  const root = await makeCopy();
+  try {
+    await edit(resolve(root, soldier340EvidencePath));
+    for (const validate of [loadAndValidateSoldierIdentity, validateSoldierProvenance]) {
+      await assert.rejects(validate(root), reason);
+      console.log(`${validate.name}: rejected ${label} (${reason.source})`);
+    }
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+}
 const tamperedRoot = await makeCopy();
 try {
   await editJson(tamperedRoot, privateNormalIdentityEvidencePath, doc => {

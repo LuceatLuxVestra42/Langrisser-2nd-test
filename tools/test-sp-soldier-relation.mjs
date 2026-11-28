@@ -1,20 +1,21 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { validateSoldierIdentity } from './validate-soldier-identity.mjs';
+import { validateSoldierIdentity, readSoldier340Evidence } from './validate-soldier-identity.mjs';
 import { validateSpSoldierRelation } from './validate-sp-soldier-relation.mjs';
 
 const read = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
-const [soldiers, relations, soldierInfo, spPopulationBytes, privateIdentityBytes, manifest] = await Promise.all([
+const [soldiers, relations, soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest] = await Promise.all([
   read('canonical/soldiers.v1.json'),
   read('canonical/sp-soldier-normal-relations.v1.json'),
   read('evidence/source/configdata/ConfigDataSoldierInfo.records-sp-soldier-endpoints.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSPSoldierInfo.records-all-sp-soldiers.v1.json'),
   readFile('evidence/source/configdata/ConfigDataSoldierInfo.records-hero-15-normal-identities.v1.json'),
+  readSoldier340Evidence(process.cwd()),
   read('evidence/source/configdata/sp-soldier-population.source-manifest.v1.json'),
 ]);
 const spSoldierInfo = JSON.parse(spPopulationBytes.toString('utf8'));
-const identityInputs = { soldierInfo, spPopulationBytes, privateIdentityBytes, manifest };
+const identityInputs = { soldierInfo, spPopulationBytes, privateIdentityBytes, soldier340Bytes, manifest };
 validateSoldierIdentity({ ...identityInputs, canonical: soldiers });
 validateSpSoldierRelation({ soldiers, relations, soldierInfo, spSoldierInfo, manifest });
 assert.equal(relations.records.find(row => row.spSoldierId === 5115)?.normalSoldierId, 115);
