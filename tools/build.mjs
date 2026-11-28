@@ -164,13 +164,17 @@ function textLines(node, matches) {
 }
 
 const parents = new WeakMap();
+const elementNavigation = {
+  get nextElementSibling() {
+    const siblings = parents.get(this)?.children;
+    const index = siblings?.indexOf(this) ?? -1;
+    return index < 0 ? null : siblings.slice(index+1).find(node => typeof node === 'object') ?? null;
+  },
+};
 const element = tag => ({
+  __proto__: elementNavigation,
   tag, textContent: '', children: [],
   get childNodes() { return this.textContent ? [this.textContent, ...this.children] : this.children; },
-  get nextElementSibling() {
-    const siblings = parents.get(this)?.children ?? [];
-    return siblings.slice(siblings.indexOf(this)+1).find(node => typeof node === 'object') ?? null;
-  },
   append(...nodes) {
     for (const node of nodes) if (typeof node === 'object') parents.set(node,this);
     this.children.push(...nodes);
@@ -512,7 +516,8 @@ async function checkPackagedLanceStartup(output, html, app, talent, skills, othe
     function checkProfileAttribution() {
       for (const [i,line] of nameAndVoice.entries()) {
         const matches = Array.from(roots.values()).flatMap(root=>walk(root,n=>n.textContent===line));
-        assert.deepEqual(matches,hasNameAndVoice ? [card.children[5+i]] : [],'Lance profile paragraph attribution');
+        assert.ok(hasNameAndVoice ? matches.length === 1 && matches[0] === card.children[5+i] : matches.length === 0,
+          'Lance profile paragraph attribution');
       }
     }
     checkProfileAttribution();
