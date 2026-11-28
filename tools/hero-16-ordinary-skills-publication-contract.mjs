@@ -14,6 +14,13 @@ export const ordinaryPublicV3 = 'generated/hero-16-ordinary-skills-public.v3.jso
 export const ordinaryDecisionV3 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v3.json';
 export const ordinaryPublicV4 = 'generated/hero-16-ordinary-skills-public.v4.json';
 export const ordinaryDecisionV4 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v4.json';
+export const ordinaryPublicV5 = 'generated/hero-16-ordinary-skills-public.v5.json';
+export const ordinaryDecisionV5 = 'docs/decisions/hero-16-minimal-ordinary-skills-publication.v5.json';
+const wind = {
+  id:10418, index:1876, name:'御风', type:'被动', cost:1, cd:'-', distance:'-', area:'-',
+  hash:'4936a37419238c323248d5630c740e7f8c3b0ad5f32bed0efbb73bb3c2d07dad', ko:'바람 타기',
+  description:'생명 50% 이상일 때 전투 진입 시 받는 모든 피해량 -15%.',
+};
 const original = [
   { id:10401, name:'雷光', index:1862, connection:160, job:401, level:1602, cost:2, cd:'3回合', cooldown:'쿨 3턴',
     hash:'5f2262e391467ca876a139bcf3471bcd081ba92a2a2ffa9c30908a5bf678731e', ko:'뇌광',
@@ -42,7 +49,7 @@ const added = [
     hash:'48fb062a99a6c812d60ab5bc072da5c2723c074ce4c0800bde34c46dd43344a3', ko:'제국 질풍',
     description:"[초절강화] 범위 내 모든 '제국의 빛' 아군의 공격, 방어 능력치가 크게 상승한다. 4턴 지속. 다른 초절강화와 중첩되지 않는다." },
 ];
-const approved = [...original.map(r=>({...r,type:'物理伤害',distance:'1格',area:'单体'})), ...added];
+const approved = [...original.map(r=>({...r,type:'物理伤害',distance:'1格',area:'单体'})), ...added, wind];
 const jobSources = [
   { connection:160, job:401, level:1602, skill:10401, slot:1, ci:104, li:599, membership:'evidence/source/jobs/hero16-job-advancement-direct.v1.json#/connections/0/Job_ID' },
   { connection:162, job:302, level:1622, skill:10311, slot:1, ci:106, li:609, membership:'evidence/source/jobs/hero16-job-advancement-direct.v1.json#/connections/1/Job_ID' },
@@ -51,6 +58,7 @@ const jobSources = [
   { connection:165, job:306, level:1651, skill:10305, slot:0, ci:109, li:623, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/5/Job_ID' },
   { connection:164, job:405, level:1643, skill:10105, slot:2, ci:108, li:620, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/4/Job_ID' },
   { connection:164, job:405, level:1641, skill:11819, slot:0, ci:108, li:618, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/4/Job_ID' },
+  { connection:161, job:403, level:1612, skill:10418, slot:1, ci:105, li:604, membership:'evidence/source/configdata/hero-16-talent.v1.json#/connections/1/Job_ID' },
 ];
 const readJson = async (root, path) => JSON.parse(await readFile(resolve(root,path),'utf8'));
 
@@ -64,7 +72,7 @@ export async function readOrdinarySkillEvidence(root) {
     JobLevel:{path:'data/configdata/ConfigDataJobLevelInfo.json',blob:'e9c978f78a96372db6e7b142512b69a8d0ab3182'},
     Skill:{path:'data/configdata/ConfigDataSkillInfo.json',blob:'dbd7f8f94702bb43d2ceb0091e9755c9aebaed19'},
   });
-  assert.deepEqual(e.hero,{index:15,ID:16,'Skills_ID/0':10403,'UseableJobConnections_ID/2':163,'UseableJobConnections_ID/3':164,'UseableJobConnections_ID/4':165},
+  assert.deepEqual(e.hero,{index:15,ID:16,'Skills_ID/0':10403,JobConnection_ID:160,'UseableJobConnections_ID/0':161,'UseableJobConnections_ID/2':163,'UseableJobConnections_ID/3':164,'UseableJobConnections_ID/4':165},
     'Lance Hero 16 direct skill or usable connection source mismatch');
   const connections = new Map();
   for (const r of jobSources) {
@@ -81,7 +89,7 @@ export async function readOrdinarySkillEvidence(root) {
   assert.deepEqual(e.skills.map(r=>r.ID),approved.map(r=>r.id),'Lance ordinary Skill source locators');
   for (const r of approved) {
     const {Desc,...metadata} = e.skills.find(skill=>skill.ID===r.id);
-    assert.equal(createHash('sha256').update(Desc,'utf8').digest('hex'),r.hash,'Lance ordinary Desc hash mismatch');
+    assert.equal(createHash('sha256').update(Desc,'utf8').digest('hex'),r.hash,r.id===10418 ? '10418 pinned Chinese Desc hash mismatch' : 'Lance ordinary Desc hash mismatch');
     assert.deepEqual(metadata,{index:r.index,ID:r.id,Name:r.name,TypeText:r.type,SkillCost:r.cost,CDText:r.cd,DistanceText:r.distance,RangeText:r.area},
       `Lance ordinary Skill ${r.id} source metadata`);
   }
@@ -93,6 +101,49 @@ export function ordinaryIdentities(e) {
     const path = `${ordinaryEvidence}#/skills/${i}`;
     return {skillId:ID,nameCn:Name,descriptionCn:Desc,provenance:{identity:path+'/ID',name:path+'/Name',description:path+'/Desc'}};
   });
+}
+
+function publishWindSkill(evidence, acquisitions, identities, jobs, decision, v4, scopeV4) {
+  const source = evidence.skills.find(row => row.ID === wind.id);
+  assert.equal(evidence.hero.ID,16,'10418 Hero source');
+  assert.equal(evidence.hero['UseableJobConnections_ID/0'],161,'10418 Hero usable Connection 161');
+  assert.equal(evidence.hero.JobConnection_ID,160,'10418 default and usable Connection attribution');
+  const connection = evidence.connections.find(row=>row.index===105 && row.ID===161 && row.Job_ID===403);
+  assert.equal(connection?.['JobLevels_ID/1'],1612,'10418 Connection 161 JobLevels_ID[1]');
+  const level = evidence.levels.find(row=>row.index===604 && row.ID===1612);
+  assert.equal(level?.GotSkill_ID,10418,'10418 JobLevel 1612 acquisition');
+  assert.deepEqual(jobs.records.filter(row=>row.heroId===16 && row.jobId===403),
+    [{heroId:16,jobId:403,provenance:'evidence/source/configdata/hero-16-talent.v1.json#/connections/1/Job_ID'}],'10418 Hero 16 Job 403 membership');
+  const acquisition = acquisitions.records.filter(row=>row.skillId===10418);
+  assert.deepEqual(acquisition,[{heroId:16,connectionId:161,jobId:403,jobLevelIndex:1,jobLevelId:1612,skillId:10418,
+    TypeText:'被动',SkillCost:1,CDText:'-',DistanceText:'-',RangeText:'-',provenance:{
+      connection:ordinaryEvidence+'#/connections/5',acquisition:ordinaryEvidence+'#/levels/7/GotSkill_ID',metadata:ordinaryEvidence+'#/skills/8',
+    }}],'10418 missing or incorrect Canonical acquisition 161/403 -> 1612 -> 10418');
+  const identity = identities.records.filter(row=>row.skillId===10418);
+  assert.equal(identity.length,1,'Skill Identity 10418 missing or duplicated');
+  assert.equal(source?.index,1876,'10418 Skill source locator');
+  assert.equal(createHash('sha256').update(source.Desc).digest('hex'),wind.hash,'10418 pinned Chinese Desc hash mismatch');
+  assert.deepEqual(identity[0],{skillId:10418,nameCn:'御风',descriptionCn:source.Desc,provenance:{
+    identity:ordinaryEvidence+'#/skills/8/ID',name:ordinaryEvidence+'#/skills/8/Name',description:ordinaryEvidence+'#/skills/8/Desc',
+  }},'10418 Skill Identity source or provenance');
+  const {approval,windBoundary,rows,...scope} = decision;
+  const {userConfirmation,...boundary} = windBoundary ?? {};
+  assert.ok(approval?.source && approval?.basis,'10418 publication approval missing');
+  assert.ok(userConfirmation?.reference,'10418 missing user evidence for inclusive 50% Korean display');
+  assert.equal(userConfirmation.kind,'DIRECT_USER_CONFIRMATION','10418 Korean display evidence must come from user confirmation');
+  assert.equal(userConfirmation.scope,'HERO_16_ORDINARY_SKILL_10418_KOREAN_DISPLAY_ONLY','10418 Korean display scope cannot establish combat runtime');
+  assert.equal(userConfirmation.includesExactly50Percent,true,'10418 Korean display must include exactly 50%');
+  assert.deepEqual(boundary,{heroId:16,skillId:10418,sourceLocator:'data/configdata/ConfigDataSkillInfo.json#/1876/Desc',
+    sourceOperator:'大于',sheetAndCatalogKo:'50% 이상',runtimeVerification:'unverified'},'10418 boundary subject or source scope');
+  const {catalog,sheet} = scopeV4.localization;
+  assert.deepEqual(scope,{...scopeV4,schemaVersion:5,publicPath:ordinaryPublicV5,
+    localization:{catalog:{...catalog,locator:[...catalog.locator,'10418 御风 L1112-L1117']},sheet:{...sheet,locator:[...sheet.locator,'L447-L456']}},
+    corroboration:{...scopeV4.corroboration,locator:[...scopeV4.corroboration.locator,'/normal/skills/jobLevelAcquisitions/2']},
+  },'10418 v5 publication scope');
+  const row = {skillId:identity[0].skillId,nameKo:wind.ko,typeLabelKo:'패시브',cost:acquisition[0].SkillCost,descriptionKo:wind.description};
+  const expected = [...v4.ordinarySkills.slice(0,3),row,...v4.ordinarySkills.slice(3)];
+  assert.deepEqual(rows,expected,'10418 Korean display decision or row order');
+  return {...v4,schemaVersion:5,ordinarySkills:expected};
 }
 
 export async function generateOrdinarySkills(root=process.cwd()) {
@@ -191,14 +242,18 @@ export async function generateOrdinarySkills(root=process.cwd()) {
     },
     corroboration:{...scopeV3.corroboration,locator:[...scopeV3.corroboration.locator,'/normal/skills/jobLevelAcquisitions/6']},
   },'Lance ordinary v4 publication scope mismatch');
+  const v4 = {...v1,schemaVersion:4,ordinarySkills:expectedV4};
+  const decisionV5 = await readJson(root,ordinaryDecisionV5);
+  const v5 = publishWindSkill(e, canonical, identities, jobs, decisionV5, v4, scopeV4);
   return {v1,v2:{...v1,schemaVersion:2,ordinarySkills:rows},v3:{...v1,schemaVersion:3,ordinarySkills:v3Rows},
-    v4:{...v1,schemaVersion:4,ordinarySkills:expectedV4}};
+    v4,v5};
 
 }
 
 export function validateOrdinaryPublic(text, expected) {
   const doc = JSON.parse(text);
   assert.deepEqual(Object.keys(doc).sort(),Object.keys(expected).sort(),'Lance ordinary public root fields');
+  if (expected.schemaVersion===5) assert.equal(doc.schemaVersion,5,'10418 public v5 schema version');
   assert.equal(doc.ordinarySkills.length,expected.ordinarySkills.length,'Lance ordinary public row count');
   for (const [i,row] of doc.ordinarySkills.entries()) assert.deepEqual(Object.keys(row).sort(),Object.keys(expected.ordinarySkills[i]).sort(),'Lance ordinary public row fields');
   if (expected.schemaVersion===1) {

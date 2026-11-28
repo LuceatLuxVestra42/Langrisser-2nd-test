@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "sourceScope": "CN ConfigData snapshot 2026-09-02",
-  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 8 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 2 explicit Central Discipline SkillInfo identities (Hero 15 and Hero 16); ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
+  "scope": "Selected source-native Skill identity subset: 17 pinned Hero Talent identities, 30 explicitly selected Soldier SkillInfo records, 9 directly referenced Hero 16 ordinary SkillInfo identities, 9 directly referenced Hero 15 general SkillInfo identities, 54 Hero 15 Fetter SkillInfo identities, 1 directly referenced Hero 15 Awakening SkillInfo identity, 1 explicitly referenced Hero 15 Heart Fetter Skill identity, 1 explicit Hero 15 Heart Fetter Lv10 SkillInfo identity, and 2 explicit Central Discipline SkillInfo identities (Hero 15 and Hero 16); ID/Name/Desc only, not a complete Skill population, combat-rule, acquisition, or unlock model.",
   "records": [
     {
       "skillId": 3067,
@@ -1231,6 +1231,16 @@
         "identity": "evidence/source/configdata/hero-16-central-discipline-skill.v1.json#skillInfo/rawRecord/ID",
         "name": "evidence/source/configdata/hero-16-central-discipline-skill.v1.json#skillInfo/rawRecord/Name",
         "description": "evidence/source/configdata/hero-16-central-discipline-skill.v1.json#skillInfo/rawRecord/Desc"
+      }
+    },
+    {
+      "skillId": 10418,
+      "nameCn": "御风",
+      "descriptionCn": "[被动]生命大于<color=#DC143C>50%</color>进入战斗时，遭受所有伤害降低<color=#DC143C>15%</color>。",
+      "provenance": {
+        "identity": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/8/ID",
+        "name": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/8/Name",
+        "description": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/8/Desc"
       }
     }
   ]

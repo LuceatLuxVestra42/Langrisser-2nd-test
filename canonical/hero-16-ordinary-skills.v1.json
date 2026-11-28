@@ -140,6 +140,24 @@
         "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/6/GotSkill_ID",
         "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/7"
       }
+    },
+    {
+      "heroId": 16,
+      "connectionId": 161,
+      "jobId": 403,
+      "jobLevelIndex": 1,
+      "jobLevelId": 1612,
+      "skillId": 10418,
+      "TypeText": "被动",
+      "SkillCost": 1,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-",
+      "provenance": {
+        "connection": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/connections/5",
+        "acquisition": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/levels/7/GotSkill_ID",
+        "metadata": "evidence/source/configdata/hero-16-ordinary-skills.v1.json#/skills/8"
+      }
     }
   ]
 }

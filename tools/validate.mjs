@@ -1,5 +1,5 @@
 import { readLanceGoldSource } from './hero-16-integrated-publication-contract.mjs';
-import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, ordinaryPublicV4, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { generateOrdinarySkills, ordinaryPublic, ordinaryPublicV2, ordinaryPublicV3, ordinaryPublicV4, ordinaryPublicV5, validateOrdinaryPublic } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { validateHero15CanonicalPopulation } from './hero-full-detail-population-migration-contract.mjs';
 import { validateFromRoot as validateHero15SoldierInternal } from './validate-hero-15-soldier-internal.mjs';
 import { validateFromRoot as validateHero15AwakeningInternal } from './validate-hero-15-awakening-internal.mjs';
@@ -668,6 +668,7 @@ check(generated === expectedGenerated, 'generated consumer is stale or non-deter
 const ordinarySkills = await generateOrdinarySkills(root);
 validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublic), 'utf8'), ordinarySkills.v1);
 validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublicV2), 'utf8'), ordinarySkills.v2);
+validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublicV5), 'utf8'), ordinarySkills.v5);
 validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublicV4), 'utf8'), ordinarySkills.v4);
 validateOrdinaryPublic(await readFile(resolve(root,ordinaryPublicV3), 'utf8'), ordinarySkills.v3);
 const hero15TalentGenerated = await readFile(resolve(root, HERO_15_TALENT_PUBLIC_PATH), 'utf8');

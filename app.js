@@ -699,18 +699,19 @@ async function loadHero16Talent(card) {
 
 async function loadHero16OrdinarySkills(card) {
   try {
-    const response = await fetch('./generated/hero-16-ordinary-skills-public.v4.json');
+    const response = await fetch('./generated/hero-16-ordinary-skills-public.v5.json');
     if (!response.ok) return;
     const data = await response.json();
     if (Object.keys(data).sort().join(',') !== 'heroId,officialKrProvenanceStatus,ordinarySkills,schemaVersion,surface'
-      || data.schemaVersion !== 4 || data.heroId !== 16 || data.surface !== 'hero-minimal-detail-16'
+      || data.schemaVersion !== 5 || data.heroId !== 16 || data.surface !== 'hero-minimal-detail-16'
       || data.officialKrProvenanceStatus !== 'unverified' || !Array.isArray(data.ordinarySkills)
-      || data.ordinarySkills.length !== 8) return;
+      || data.ordinarySkills.length !== 9) return;
 
     const expected = [
       [10403, "바람의 분노", "물리 피해", 2, "쿨 2턴", "사거리 자신", "범위 주위 1칸", "주위 1칸 내 모든 적에게 0.3배 범위 피해를 주고 각 대상에게 무작위 디버프를 부여한다."],
       [10401, "뇌광", "물리 피해", 2, "쿨 3턴", "사거리 1칸", "범위 단일", "단일 적 부대를 공격해 1.5배 피해를 준다. 이 스킬로 적을 처치하면 스킬 쿨타임 -3."],
       [10311, "격돌", "물리 피해", 1, "쿨 2턴", "사거리 1칸", "범위 단일", "단일 적 부대를 공격해 1.2배 피해를 준다. 대상을 2칸 밀쳐내고 이동력 -2와 호위 불가를 1턴 부여한다."],
+      [10418, "바람 타기", "패시브", 1, "생명 50% 이상일 때 전투 진입 시 받는 모든 피해량 -15%."],
       [5025, "구급", "치료", 1, "쿨 3턴", "사거리 자신", "범위 단일", "자신 부대 생명 100% 회복."],
       [10305, "공격 지휘", "패시브", 2, "주위 2칸 내 모든 아군의 공격, 지력 +10%."],
       [10303, "돌진", "패시브", 1, "공격 전 이동 1칸마다 공격 +5%, 최대 +15%."],
