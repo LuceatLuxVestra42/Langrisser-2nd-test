@@ -1,4 +1,4 @@
-import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic, ordinaryPublicV2, ordinaryDecisionV2, ordinaryDecisionV3, ordinaryPublicV3, ordinaryDecisionV4, ordinaryPublicV4 } from './hero-16-ordinary-skills-publication-contract.mjs';
+import { ordinaryCanonical, ordinaryDecision, ordinaryEvidence, ordinaryPublic, ordinaryPublicV2, ordinaryDecisionV2, ordinaryDecisionV3, ordinaryPublicV3, ordinaryDecisionV4, ordinaryPublicV4, ordinaryDecisionV5, ordinaryPublicV5 } from './hero-16-ordinary-skills-publication-contract.mjs';
 import { lanceTalentDecision, lanceTalentPublic } from './hero-16-talent-publication-contract.mjs';
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC } from './hero-15-soldier-text-publication-contract.mjs';
 import assert from 'node:assert/strict';
@@ -115,7 +115,45 @@ async function checkHeroDetailBuildFailures() {
   const heartDecision = 'docs/decisions/hero-16-minimal-heart-fetter-effects-publication.v1.json';
   const rawPath = 'canonical/hero-heart-fetter-raw-conditions.v1.json';
   const heartCall = 'lanceHeartGroups(heartConditions, heartSource, jobEdges.finals, heroJobRelations, jobLocalization, await readJson(heartDecisionPath))';
+  const v4Text = await readFile(ordinaryPublicV4,'utf8');
+  const windCall = 'publishWindSkill(e, canonical, identities, jobs, decisionV5, v4, scopeV4)';
+  function windOwnerMutation(name, input, statement, reason) {
+    const args = ['e','canonical','identities','jobs','decisionV5','v4','scopeV4'];
+    args[args.indexOf(input)] = 'changed';
+    const replacement = `(() => { const changed = structuredClone(${input}); ${statement}; return publishWindSkill(${args.join(', ')}); })()`;
+    return {...consumerMutation('10418 '+name,'hero-16-ordinary-skills-publication-contract',windCall,replacement,reason),
+      error:talentError(reason)};
+  }
   const cases = [
+    windOwnerMutation('acquisition only','canonical','changed.records = changed.records.filter(r=>r.skillId!==10418)',
+      '10418 missing or incorrect Canonical acquisition 161/403 -> 1612 -> 10418'),
+    windOwnerMutation('identity only','identities','changed.records = changed.records.filter(r=>r.skillId!==10418)','Skill Identity 10418 missing or duplicated'),
+    windOwnerMutation('confirmation missing','decisionV5','delete changed.windBoundary.userConfirmation',
+      '10418 missing user evidence for inclusive 50% Korean display'),
+    windOwnerMutation('official KR promotion','decisionV5',"changed.windBoundary.userConfirmation.kind='OFFICIAL_KR'",
+      '10418 Korean display evidence must come from user confirmation'),
+    windOwnerMutation('combat runtime promotion','decisionV5',"changed.windBoundary.userConfirmation.scope='COMBAT_RUNTIME_VERIFIED'",
+      '10418 Korean display scope cannot establish combat runtime'),
+    windOwnerMutation('membership only','jobs','changed.records=changed.records.filter(r=>!(r.heroId===16 && r.jobId===403))','10418 Hero 16 Job 403 membership'),
+    windOwnerMutation('usable Connection only','e',"changed.hero['UseableJobConnections_ID/0']=162",'10418 Hero usable Connection 161'),
+    windOwnerMutation('JobLevel slot only','e',"changed.connections.find(r=>r.ID===161)['JobLevels_ID/1']=1613",'10418 Connection 161 JobLevels_ID[1]'),
+    windOwnerMutation('GotSkill only','e',"changed.levels.find(r=>r.ID===1612).GotSkill_ID=10311",'10418 JobLevel 1612 acquisition'),
+    {name:'10418 source operator',decisionPath:ordinaryEvidence,mutate:d=>{
+      const row = d.skills.find(r=>r.ID===10418); row.Desc=row.Desc.replace('大于','大于等于');
+    },error:talentError('10418 pinned Chinese Desc hash mismatch')},
+    {name:'10418 missing decision',decisionPath:ordinaryDecisionV5,error:path=>"Error: ENOENT: no such file or directory, open '"+path+"'"},
+    ...[
+      ['description',d=>{d.rows[3].descriptionKo=d.rows[3].descriptionKo.replace('50% 이상','50% 초과');},'10418 Korean display decision or row order'],
+      ['other Hero',d=>{d.windBoundary.heroId=15;},'10418 boundary subject or source scope'],
+      ['other Skill',d=>{d.windBoundary.skillId=10303;},'10418 boundary subject or source scope'],
+    ].map(([name,mutate,message])=>({name:'10418 decision '+name,decisionPath:ordinaryDecisionV5,mutate,error:talentError(message)})),
+    ...[
+      ['v4 at v5 path',d=>Object.assign(d,JSON.parse(v4Text)),'10418 public v5 schema version'],
+      ['row order',d=>{[d.ordinarySkills[2],d.ordinarySkills[3]]=[d.ordinarySkills[3],d.ordinarySkills[2]];},'Lance ordinary public row fields'],
+      ['duplicate',d=>{d.ordinarySkills.push(d.ordinarySkills[3]);},'Lance ordinary public row count'],
+      ...['cooldownLabelKo','distanceLabelKo','areaLabelKo'].map(key=>[key,d=>{d.ordinarySkills[3][key]='-';},'Lance ordinary public row fields']),
+    ].map(([name,mutate,message])=>({name:'10418 package '+name,decisionPath:ordinaryPublicV5,finalFile:true,mutate,error:talentError(message)})),
+
     ...[
       ['first FK',d=>{d.sources.HeroInfo.records[0].fields.HeroInformation_ID=15;},'Hero to HeroInformation FK'],
       ['second FK',d=>{d.sources.HeroInformationInfo.records[0].fields.HeroHeartFetterId=15;},'HeroInformation to Heart Fetter FK'],
@@ -464,9 +502,9 @@ function lianaFetterInput(path, union) {
     { decisionPath:ordinaryPublic, finalFile:true, name:'final ordinary iconPath',
       mutate:doc=>{doc.ordinarySkills[1].iconPath='unexpected.png';}, error:talentError('Lance ordinary public row fields') },
 
-    { decisionPath: membership, name: 'Lance Talent Job 403 omitted',
-      mutate: doc => { doc.records = doc.records.filter(r=>!(r.heroId===16 && r.jobId===403)); },
-      error: talentError('Lance Talent Job membership') },
+    { ...consumerMutation('Lance Talent Job 403 omitted','hero-16-talent-publication-contract',
+      'assert.deepEqual(jobs.records.filter(r => r.heroId === 16)', 'assert.deepEqual(jobs.records.filter(r => r.heroId === 16 && r.jobId !== 403)',
+      'Lance Talent Job membership'), error:talentError('Lance Talent Job membership') },
     { decisionPath:'canonical/hero-talent-star-skills.v1.json', name:'Lance two-star relation missing',
       mutate: doc => { doc.records = doc.records.filter(r=>!(r.heroId===16 && r.star===2)); }, error:talentError('Lance Talent star relations') },
     { decisionPath:'canonical/skills.v1.json', name:'Lance CN Skill 3277 missing',
@@ -597,7 +635,7 @@ function lianaFetterInput(path, union) {
     }
   }
 
-  for (const file of [lanceTalentPublic,ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3,ordinaryPublicV4]) for (const mode of modes) {
+  for (const file of [lanceTalentPublic,ordinaryPublic,ordinaryPublicV2,ordinaryPublicV3,ordinaryPublicV4,ordinaryPublicV5]) for (const mode of modes) {
     const root = await mkdtemp(join(temp, 'lance-json-missing-'));
     const source = join(root, 'source');
     const destination = join(root, 'package');
@@ -649,7 +687,13 @@ function lianaFetterInput(path, union) {
   const royalFour = 'Lv.4 · 공격을 받아 전투 진입 시, 받는 마법 피해 -10%';
   const royalSeven = 'Lv.7 · 부대 생명이 70% 미만일 시, 주는 피해 +10%';
   const bothGroups = approvedApp.toString('utf8').match(/    \['드래곤 마스터', 'Lv\.4[^\n]+\n    \['로열 나이트', 'Lv\.4[^\n]+/)[0];
+  const windList = "renderMinimalDetailList('일반 스킬', labels)";
   const rendererCases = [
+    ['10418 renderer threshold','10418 rendered Korean text',windList,
+      "renderMinimalDetailList('일반 스킬', labels.map(line=>line.replace('생명 50% 이상','생명 50% 초과')))"],
+    ['10418 renderer position','10418 rendered row must follow 격돌 and precede 구급',windList,
+      "renderMinimalDetailList('일반 스킬', [...labels.slice(0,2),labels[3],labels[2],...labels.slice(4)])"],
+
     ['Lance Heart Lv4 job exchange','Lance Heart job attribution',bothGroups,
       bothGroups.replace(dragonFour,'TEMP').replace(royalFour,dragonFour).replace('TEMP',royalFour)],
     ['Lance Heart incoming direction','Lance Heart effect text',dragonFour,dragonFour.replace('받는','주는')],
@@ -676,7 +720,7 @@ function lianaFetterInput(path, union) {
     ['Lance second effect after gold', 'Lance central effect order or placement',
       appParagraphs([secondFrozenLine, ...goldDecision.paragraphs]), appParagraphs([...goldDecision.paragraphs, secondFrozenLine])],
     ['Lance storm and defense threat descriptions exchanged','Packaged Lance ordinary skill row text or placement',
-      '...range, row.descriptionKo].join', '...range, (i===6 || i===7) ? data.ordinarySkills[13-i].descriptionKo : row.descriptionKo].join'],
+      '...range, row.descriptionKo].join', '...range, (i===7 || i===8) ? data.ordinarySkills[15-i].descriptionKo : row.descriptionKo].join'],
 
     ["Lance armor and head gold exchanged", "Lance gold paragraph attribution", "    '갑옷 · Lv.1~10 소계 골드 3,600,000',\n    '투구 · Lv.1~10 소계 골드 1,800,000',", "    '갑옷 · Lv.1~10 소계 골드 1,800,000',\n    '투구 · Lv.1~10 소계 골드 3,600,000',"],
     ["Lance weapon labels exchanged", "Lance gold paragraph attribution", "    '무기 1 · Lv.1~10 소계 골드 1,800,000',\n    '무기 2 · Lv.1~10 소계 골드 1,800,000',", "    '무기 2 · Lv.1~10 소계 골드 1,800,000',\n    '무기 1 · Lv.1~10 소계 골드 1,800,000',"],
@@ -687,10 +731,10 @@ function lianaFetterInput(path, union) {
       'labels.push([row.nameKo, row.typeLabelKo,', "labels.push([row.nameKo, row.skillId === 10311 ? '패시브' : row.typeLabelKo,"],
 
     ...[
-      ['attack command after charge', '[...labels.slice(0,4),labels[5],labels[4],...labels.slice(6)]'],
-      ['passive descriptions exchanged', 'labels.map((line,i)=>(i===4 || i===7) ? line.replace(data.ordinarySkills[i].descriptionKo,data.ordinarySkills[11-i].descriptionKo) : line)'],
+      ['attack command after charge', '[...labels.slice(0,5),labels[6],labels[5],...labels.slice(7)]'],
+      ['passive descriptions exchanged', 'labels.map((line,i)=>(i===5 || i===8) ? line.replace(data.ordinarySkills[i].descriptionKo,data.ordinarySkills[13-i].descriptionKo) : line)'],
       ['order', 'labels.reverse()'], ['duplication', '[...labels, labels[0]]'],
-      ['description attribution', 'labels.map((line,i)=>i===0 ? line.replace(data.ordinarySkills[0].descriptionKo,data.ordinarySkills[3].descriptionKo) : line)'],
+      ['description attribution', 'labels.map((line,i)=>i===0 ? line.replace(data.ordinarySkills[0].descriptionKo,data.ordinarySkills[4].descriptionKo) : line)'],
     ].map(([name,expression])=>['Lance v3 '+name,'Packaged Lance ordinary skill row text or placement',
       "renderMinimalDetailList('일반 스킬', labels)",`renderMinimalDetailList('일반 스킬', ${expression})`]),
     ['Lance original names and CV exchanged','Packaged Hero 16 profile text or placement mismatch',

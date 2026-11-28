@@ -51,6 +51,12 @@
       "Job_ID": 405,
       "JobLevels_ID/2": 1643,
       "JobLevels_ID/0": 1641
+    },
+    {
+      "index": 105,
+      "ID": 161,
+      "Job_ID": 403,
+      "JobLevels_ID/1": 1612
     }
   ],
   "levels": [
@@ -88,6 +94,11 @@
       "index": 618,
       "ID": 1641,
       "GotSkill_ID": 11819
+    },
+    {
+      "index": 604,
+      "ID": 1612,
+      "GotSkill_ID": 10418
     }
   ],
   "skills": [
@@ -178,6 +189,17 @@
       "CDText": "3回合",
       "DistanceText": "自身",
       "RangeText": "全场"
+    },
+    {
+      "index": 1876,
+      "ID": 10418,
+      "Name": "御风",
+      "Desc": "[被动]生命大于<color=#DC143C>50%</color>进入战斗时，遭受所有伤害降低<color=#DC143C>15%</color>。",
+      "TypeText": "被动",
+      "SkillCost": 1,
+      "CDText": "-",
+      "DistanceText": "-",
+      "RangeText": "-"
     }
   ],
   "hero": {
@@ -186,6 +208,8 @@
     "Skills_ID/0": 10403,
     "UseableJobConnections_ID/2": 163,
     "UseableJobConnections_ID/4": 165,
-    "UseableJobConnections_ID/3": 164
+    "UseableJobConnections_ID/3": 164,
+    "JobConnection_ID": 160,
+    "UseableJobConnections_ID/0": 161
   }
 }
