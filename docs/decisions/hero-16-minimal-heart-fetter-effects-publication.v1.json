@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "APPROVED",
+  "heroId": 16,
+  "heartFetterId": 16,
+  "surface": "hero-minimal-detail-16",
+  "placement": "immediately-after-soldier-command",
+  "displayStatus": "PROJECT_DISPLAY_ONLY",
+  "officialKrProvenanceStatus": "unverified",
+  "approval": {
+    "source": "https://chatgpt.com/?messageId=Sentinel_1b50121b85848191b3ab27b9166f6246",
+    "basis": "User-verified excerpt of the original Dot statement covering repeated work on an existing hero detail."
+  },
+  "evidence": "evidence/source/bonds/hero16-heart-fetter-raw-conditions.v1.json",
+  "rows": [
+    {
+      "connectionId": 164,
+      "jobId": 405,
+      "level": 4,
+      "skillId": 70225,
+      "descriptionKo": "부대 생명이 100%일 시, 받는 피해 -10%"
+    },
+    {
+      "connectionId": 164,
+      "jobId": 405,
+      "level": 7,
+      "skillId": 70227,
+      "descriptionKo": "부대 생명이 100%일 시, 주는 피해 +10%"
+    },
+    {
+      "connectionId": 165,
+      "jobId": 306,
+      "level": 4,
+      "skillId": 70226,
+      "descriptionKo": "공격을 받아 전투 진입 시, 받는 마법 피해 -10%"
+    },
+    {
+      "connectionId": 165,
+      "jobId": 306,
+      "level": 7,
+      "skillId": 70228,
+      "descriptionKo": "부대 생명이 70% 미만일 시, 주는 피해 +10%"
+    }
+  ]
+}

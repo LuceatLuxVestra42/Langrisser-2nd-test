@@ -24,7 +24,7 @@ export function validateHero15FetterRewardTypeReferencesData({evidence,canonical
  return {rewardTypeReferences:5,enumNamespace:'BlackJack.ConfigData.GoodsType',goodsTypeCode:2,enumMember:'GoodsType_Crystal',rewardIdentity:'NOT_ADMITTED',payoutSemantics:'NOT_ADMITTED',publication:false};
 }
 export async function validateHero15FetterRewardTypeReferences(root=process.cwd()){
- const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')));
+ const read=async p=>lianaFetterInput(p, JSON.parse(await readFile(resolve(root,p),'utf8')), root);
  const [evidence,canonical,fetterDetails,references,heartConditions]=await Promise.all([read(E),read(C),read('canonical/hero-fetter-raw-details.v1.json'),read('canonical/hero-fetter-references.v1.json'),read('canonical/hero-heart-fetter-raw-conditions.v1.json')]);
  const result=validateHero15FetterRewardTypeReferencesData({evidence,canonical,fetterDetails,references,heartConditions});
  process.stdout.write('Hero 15 Fetter reward GoodsType references: PASS (5 enum references; no payout semantics)\n');return result;

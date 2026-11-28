@@ -648,13 +648,32 @@ function renderHero16MinimalDetailView(data, container) {
     ['방어', '+10%', '+25%'],
     ['마방', '', '+10%'],
   ]);
+  const heart = document.createElement('section');
+  const heading = document.createElement('h4');
+  heading.textContent = '마음의 유대';
+  heart.append(heading);
+  for (const [job, ...lines] of [
+    ['드래곤 마스터', 'Lv.4 · 부대 생명이 100%일 시, 받는 피해 -10%', 'Lv.7 · 부대 생명이 100%일 시, 주는 피해 +10%'],
+    ['로열 나이트', 'Lv.4 · 공격을 받아 전투 진입 시, 받는 마법 피해 -10%', 'Lv.7 · 부대 생명이 70% 미만일 시, 주는 피해 +10%'],
+  ]) {
+    const group = document.createElement('section');
+    const title = document.createElement('h5');
+    title.textContent = job;
+    group.append(title);
+    for (const line of lines) {
+      const paragraph = document.createElement('p');
+      paragraph.textContent = line;
+      group.append(paragraph);
+    }
+    heart.append(group);
+  }
   return renderHeroMinimalDetailView(data, container, {
     heroId: 16, nameKo: '란스', equipmentId: 418, equipmentNameKo: '칼자스의 왕관',
     profileLines: [
       '등급 · SR', '진영 · 빛의 군단 · 제국의 빛 · 전략의 대가',
       '중국어명 · 兰斯 / 영문명 · Lance', '성우 · 모가미 츠구오',
     ],
-  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command]);
+  }, null, null, [jobPath, discipline, bonds, ...finalPaths, command, heart]);
 }
 
 async function loadHero16Talent(card) {

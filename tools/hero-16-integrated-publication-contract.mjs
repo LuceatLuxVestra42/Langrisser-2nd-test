@@ -1,3 +1,4 @@
+import { heartSkills, heartSourcePath, requireHeart } from './lance-heart-fetter.mjs';
 import { readLanceFetterSource, lanceFetterDecision } from './lance-fetter-gold.mjs';
 import { lanceCentralEvidence, lanceCentralSource, lanceDescDigest } from './validate-hero15-skill-references.mjs';
 import { lianaCastingInput } from './liana-casting-input.mjs';
@@ -446,4 +447,52 @@ export async function readLanceFetterTotals(readJson) {
     if (!isDeepStrictEqual(decision[field], value)) throw new Error('Lance Fetter publication scope mismatch');
   }
   return approved.map(group => group.paragraph);
+}
+
+export function lanceHeartGroups(conditions, source, edges, memberships, names, decision) {
+  const { sources, korean } = source;
+  requireHeart([korean.commit,korean.mapping.path,korean.mapping.locator,korean.mapping.blob,korean.overlay.path,korean.overlay.blob,korean.overlay.status],
+    ['57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff','data/generated/hero-heart-fetter-site-consumer/hero-map-001.json','#/heroes/16',
+      'a7941ba92b6a91bd752d7791cdcd39ebc9c5af27','data/presentation/hero-heart-fetter-effect-kr.v1.json',
+      'b884f7594636800233aea40566918487d919a4d9','AUTO_TRANSLATED_REVIEWABLE'],'frozen Korean provenance');
+  const descriptions = [
+    '00ed8e1331b6b958bd91c4d9dddb01c3134dbf8c3cc968749add5d20975caa3a','4461dc2fdb3855301e85eea193c50b37c4b0dfeb3995e57d1c59697a5f03a34b',
+    '3f397eb11d2fb74c4864adb76a0e7fa9975b215d7a2af2da8050c0646d67355f','8a19f82eda60a992a5f1307066c6f4e804715c2b352abe87b134cfab4623b00a',
+  ];
+  requireHeart(korean.sheet,{repository:'redpanda7301/langrisser',commit:'a85bba49dcf073563e7366dc18e96b7ba67c2ae3',
+    path:'hero/data/란스.js',royalKnightLines:[136,137],dragonMasterLines:[168,169]},'sheet provenance');
+  requireHeart(korean.mapping.rows.length,4,'frozen job population');
+  const publication = [];
+  const groups = [[164,405,161,403,108,256,'龙骑统帅','드래곤 마스터'],[165,306,162,302,109,195,'皇家骑士','로열 나이트']];
+  const display = groups.map(([connectionId,jobId,predecessor,fromJob,connectionIndex,jobIndex,nameCn,nameKo],g) => {
+    const edge = edges.filter(row => row.heroId === 16 && row.successorConnectionId === connectionId);
+    requireHeart(edge.map(r=>[r.predecessorConnectionId,r.predecessorJobId,r.successorJobId,r.sourceLocator]),
+      [[predecessor,fromJob,jobId,'data/configdata/ConfigDataJobConnectionInfo.json#/'+connectionIndex+'/PreJobConnectionList/0']],'direct edge '+connectionId+'/'+jobId);
+    requireHeart(sources.HeroInfo.records[0].fields.UseableJobConnections_ID[3+g],connectionId,'Hero Job Connection');
+    requireHeart(sources.JobConnectionInfo.records[g],{index:connectionIndex,fields:{ID:connectionId,Job_ID:jobId,PreJobConnectionList:[predecessor]}},'Job Connection source');
+    requireHeart(sources.JobInfo.records[g],{index:jobIndex,fields:{ID:jobId,Name:nameCn}},'Job name source');
+    requireHeart(memberships.records.filter(r=>r.heroId===16 && r.jobId===jobId).length,1,'Job membership');
+    requireHeart(names.records.filter(r=>r.jobId===jobId).map(r=>r.nameKo),[nameKo],'Job localization');
+    const lines = [];
+    for (const [i,[skillId,level,job,skillIndex,buffIndex,text]] of heartSkills.entries()) {
+      if (job !== jobId) continue;
+      const rows = conditions.records.filter(r=>r.heroId===16 && r.heartFetterId===16 && r.heartFetterLevel===level && r.skillId===skillId);
+      requireHeart(rows.map(r=>r.sourceProvenance),[{heartFetterSourceIndex:i,skillSourceIndex:skillIndex,passiveBuffSourceIndices:[buffIndex]}],
+        nameKo+' Lv.'+level+' Skill '+skillId+' missing at #/14/UnlockSkills_ID/'+i+', #/'+skillIndex+', #/'+buffIndex);
+      requireHeart(korean.mapping.rows.filter(r=>r[2]===skillId),[[level,jobId,skillId,'VALIDATED_DEFAULT']],'frozen job mapping');
+      const cn = sources.SkillInfo.records[i].fields.Desc;
+      const translation = korean.overlay.skills[skillId];
+      requireHeart([cn.startsWith('职业为'+nameCn+'生效:'),createHash('sha256').update(cn).digest('hex')],[true,descriptions[i]],'Skill description');
+      requireHeart([translation?.descriptionCn,translation?.descriptionKr],[cn,text],'frozen Korean text '+skillId);
+      publication.push({connectionId,jobId,level,skillId,descriptionKo:text});
+      lines.push('Lv.'+level+' · '+text);
+    }
+    return [nameKo,...lines];
+  });
+  requireHeart([decision.schemaVersion,decision.status,decision.heroId,decision.heartFetterId,decision.surface,
+    decision.placement,decision.displayStatus,decision.officialKrProvenanceStatus,decision.evidence,decision.rows],
+    [1,'APPROVED',16,16,'hero-minimal-detail-16','immediately-after-soldier-command','PROJECT_DISPLAY_ONLY','unverified',heartSourcePath,publication],
+    'Lance publication scope');
+  if (!decision.approval?.source || !decision.approval?.basis) throw new Error('Heart Fetter publication approval source');
+  return display;
 }

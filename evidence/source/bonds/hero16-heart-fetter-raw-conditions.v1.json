@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "repository": "LuceatLuxVestra42/langrisser-future-guide",
+  "commit": "6475e63ee23d18adf733756c26a14fa9e3ed662c",
+  "sources": {
+    "HeroInfo": {
+      "path": "data/configdata/ConfigDataHeroInfo.json",
+      "blob": "728daab3370f0c7779449663ea02e638677944d4",
+      "records": [
+        {
+          "index": 15,
+          "fields": {
+            "ID": 16,
+            "HeroInformation_ID": 16,
+            "UseableJobConnections_ID": [
+              161,
+              162,
+              163,
+              164,
+              165
+            ]
+          }
+        }
+      ]
+    },
+    "HeroInformationInfo": {
+      "path": "data/configdata/ConfigDataHeroInformationInfo.json",
+      "blob": "49aef6be8ea1a65d5725c16a05dab94fffa73f92",
+      "records": [
+        {
+          "index": 15,
+          "fields": {
+            "ID": 16,
+            "HeroHeartFetterId": 16
+          }
+        }
+      ]
+    },
+    "HeroHeartFetterInfo": {
+      "path": "data/configdata/ConfigDataHeroHeartFetterInfo.json",
+      "blob": "be61dd6fb14662d70335e833c4c857dda5105f74",
+      "records": [
+        {
+          "index": 14,
+          "fields": {
+            "ID": 16,
+            "UnlockSkills_ID": [
+              {
+                "SkillId": 70225,
+                "HeartFetterLevel": 4
+              },
+              {
+                "SkillId": 70226,
+                "HeartFetterLevel": 4
+              },
+              {
+                "SkillId": 70227,
+                "HeartFetterLevel": 7
+              },
+              {
+                "SkillId": 70228,
+                "HeartFetterLevel": 7
+              },
+              {
+                "SkillId": 70110,
+                "HeartFetterLevel": 10
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "SkillInfo": {
+      "path": "data/configdata/ConfigDataSkillInfo.json",
+      "blob": "dbd7f8f94702bb43d2ceb0091e9755c9aebaed19",
+      "records": [
+        {
+          "index": 16416,
+          "fields": {
+            "ID": 70225,
+            "Desc": "职业为龙骑统帅生效:部队血量<color=#DC143C>100%</color>时，遭受伤害降低<color=#DC143C>10%</color>。",
+            "PassiveBuffs_ID": [
+              70225
+            ]
+          }
+        },
+        {
+          "index": 16417,
+          "fields": {
+            "ID": 70226,
+            "Desc": "职业为皇家骑士生效:受到攻击进入战斗时，遭受魔法伤害降低<color=#DC143C>10%</color>。",
+            "PassiveBuffs_ID": [
+              70226
+            ]
+          }
+        },
+        {
+          "index": 16418,
+          "fields": {
+            "ID": 70227,
+            "Desc": "职业为龙骑统帅生效:部队血量<color=#DC143C>100%</color>时，伤害提高<color=#DC143C>10%</color>。",
+            "PassiveBuffs_ID": [
+              70227
+            ]
+          }
+        },
+        {
+          "index": 16419,
+          "fields": {
+            "ID": 70228,
+            "Desc": "职业为皇家骑士生效:部队血量低于<color=#DC143C>70%</color>时，伤害提升<color=#DC143C>10%</color>。",
+            "PassiveBuffs_ID": [
+              70228
+            ]
+          }
+        }
+      ]
+    },
+    "BuffInfo": {
+      "path": "data/configdata/ConfigDataBuffInfo.json",
+      "blob": "bc7d5c7e5b4ac68b5192955a76cd21b810f36982",
+      "records": [
+        {
+          "index": 32652,
+          "fields": {
+            "ID": 70225,
+            "ConditionType": 7,
+            "ConditionParam": [
+              405
+            ]
+          }
+        },
+        {
+          "index": 32653,
+          "fields": {
+            "ID": 70226,
+            "ConditionType": 7,
+            "ConditionParam": [
+              306
+            ]
+          }
+        },
+        {
+          "index": 32654,
+          "fields": {
+            "ID": 70227,
+            "ConditionType": 7,
+            "ConditionParam": [
+              405
+            ]
+          }
+        },
+        {
+          "index": 32655,
+          "fields": {
+            "ID": 70228,
+            "ConditionType": 7,
+            "ConditionParam": [
+              306
+            ]
+          }
+        }
+      ]
+    },
+    "JobConnectionInfo": {
+      "path": "data/configdata/ConfigDataJobConnectionInfo.json",
+      "blob": "cdad8d6fda6edd30c92fbcda53e0f63af1903139",
+      "records": [
+        {
+          "index": 108,
+          "fields": {
+            "ID": 164,
+            "Job_ID": 405,
+            "PreJobConnectionList": [
+              161
+            ]
+          }
+        },
+        {
+          "index": 109,
+          "fields": {
+            "ID": 165,
+            "Job_ID": 306,
+            "PreJobConnectionList": [
+              162
+            ]
+          }
+        }
+      ]
+    },
+    "JobInfo": {
+      "path": "data/configdata/ConfigDataJobInfo.json",
+      "blob": "4cbcac591ff5bc8d7cf2dcbf971cf2465f0cb133",
+      "records": [
+        {
+          "index": 256,
+          "fields": {
+            "ID": 405,
+            "Name": "龙骑统帅"
+          }
+        },
+        {
+          "index": 195,
+          "fields": {
+            "ID": 306,
+            "Name": "皇家骑士"
+          }
+        }
+      ]
+    }
+  },
+  "conditionType7Meaning": "MANUAL_REVIEW",
+  "korean": {
+    "commit": "57fb1b1262f475d24a3ddd8dc0d5883c2eabe4ff",
+    "overlay": {
+      "path": "data/presentation/hero-heart-fetter-effect-kr.v1.json",
+      "blob": "b884f7594636800233aea40566918487d919a4d9",
+      "status": "AUTO_TRANSLATED_REVIEWABLE",
+      "skills": {
+        "70225": {
+          "descriptionCn": "职业为龙骑统帅生效:部队血量<color=#DC143C>100%</color>时，遭受伤害降低<color=#DC143C>10%</color>。",
+          "descriptionKr": "부대 생명이 100%일 시, 받는 피해 -10%",
+          "method": "RULE_BASED_EQUIPMENT_STYLE_V1"
+        },
+        "70226": {
+          "descriptionCn": "职业为皇家骑士生效:受到攻击进入战斗时，遭受魔法伤害降低<color=#DC143C>10%</color>。",
+          "descriptionKr": "공격을 받아 전투 진입 시, 받는 마법 피해 -10%",
+          "method": "RULE_BASED_EQUIPMENT_STYLE_V1"
+        },
+        "70227": {
+          "descriptionCn": "职业为龙骑统帅生效:部队血量<color=#DC143C>100%</color>时，伤害提高<color=#DC143C>10%</color>。",
+          "descriptionKr": "부대 생명이 100%일 시, 주는 피해 +10%",
+          "method": "RULE_BASED_EQUIPMENT_STYLE_V1"
+        },
+        "70228": {
+          "descriptionCn": "职业为皇家骑士生效:部队血量低于<color=#DC143C>70%</color>时，伤害提升<color=#DC143C>10%</color>。",
+          "descriptionKr": "부대 생명이 70% 미만일 시, 주는 피해 +10%",
+          "method": "RULE_BASED_EQUIPMENT_STYLE_V1"
+        }
+      }
+    },
+    "mapping": {
+      "path": "data/generated/hero-heart-fetter-site-consumer/hero-map-001.json",
+      "blob": "a7941ba92b6a91bd752d7791cdcd39ebc9c5af27",
+      "locator": "#/heroes/16",
+      "rows": [
+        [
+          4,
+          306,
+          70226,
+          "VALIDATED_DEFAULT"
+        ],
+        [
+          4,
+          405,
+          70225,
+          "VALIDATED_DEFAULT"
+        ],
+        [
+          7,
+          306,
+          70228,
+          "VALIDATED_DEFAULT"
+        ],
+        [
+          7,
+          405,
+          70227,
+          "VALIDATED_DEFAULT"
+        ]
+      ]
+    },
+    "sheet": {
+      "repository": "redpanda7301/langrisser",
+      "commit": "a85bba49dcf073563e7366dc18e96b7ba67c2ae3",
+      "path": "hero/data/란스.js",
+      "royalKnightLines": [
+        136,
+        137
+      ],
+      "dragonMasterLines": [
+        168,
+        169
+      ]
+    }
+  }
+}
