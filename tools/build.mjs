@@ -52,7 +52,7 @@ import { HERO_15_TALENT_PUBLICATION_PATH, HERO_15_TALENT_PUBLIC_PATH, validateHe
 import { HERO_15_SOLDIER_TEXT_DECISION, HERO_15_SOLDIER_TEXT_PUBLIC, readHero15SoldierTextInputs, validateHero15SoldierText, validateHero15SoldierTextBytes, validateHero15SoldierTextDecision } from './hero-15-soldier-text-publication-contract.mjs';
 const defaultHero15TalentDecision = validateHero15TalentDecision(JSON.parse(readFileSync(resolve(HERO_15_TALENT_PUBLICATION_PATH), 'utf8')));
 
-import { fetterReferences, fetterDetails, lanceFetterEvidence, bond1LevelDecisionPath, lanceBond1LevelLines } from './lance-fetter-gold.mjs';
+import { fetterReferences, fetterDetails, lanceFetterEvidence, bond1LevelDecisionPath, lanceBond1LevelLines, lanceBondLevelLines } from './lance-fetter-gold.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(resolve(path), 'utf8'));
 const exactKeys = (value, expected, label) => {
@@ -363,20 +363,26 @@ function checkLanceBondPanel(card, lines, open = false, levelLines) {
   assert.deepEqual(totals.map(node => node.tag), ['summary', ...lines.map(() => 'p')]);
   assert.deepEqual(totals.map(node => node.textContent), ['유대 강화 골드', ...lines], 'Lance bond total paragraph attribution');
   const nested = panel.children.filter(node => node.tag === 'details');
-  assert.equal(nested.length, levelLines ? 1 : 0, 'Lance bond 1 level disclosure count');
-  if (levelLines) {
-    const [levels] = nested;
-    assert.equal(panel.children[2], levels, 'Lance bond 1 level list placement');
+  const groups = levelLines ?? [];
+  assert.equal(nested.length, groups.length, 'Lance bond level disclosure count');
+  const names = nested.map(node => node.name).filter(Boolean);
+  assert.equal(new Set(names).size, names.length, 'Lance bond lists must open independently');
+  for (const [index, rows] of groups.entries()) {
+    const levels = nested[index];
+    const bond = index + 1;
+    const label = 'Lance bond ' + bond;
+    assert.equal(totals[bond].nextElementSibling, levels, label + ' level list placement');
+    assert.equal(levels.nextElementSibling, totals[bond + 1], label + ' level list placement');
     assert.equal(levels.hasAttribute('open'), false);
     assert.equal(levels.open, false);
     assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul']);
     const [summary, list] = levels.children;
-    assert.equal(summary.textContent, '유대 1 레벨별 골드');
+    assert.equal(summary.textContent, '유대 ' + bond + ' 레벨별 골드');
     assert.equal(summary.children.length, 0);
-    assert.deepEqual(list.children.map(node => node.tag), levelLines.map(() => 'li'));
-    assert.deepEqual(list.children.map(node => node.textContent), levelLines, 'Lance bond 1 level gold text');
+    assert.deepEqual(list.children.map(node => node.tag), rows.map(() => 'li'));
+    assert.deepEqual(list.children.map(node => node.textContent), rows, label + ' level gold text');
     assert.ok(list.children.every(node => !node.children.length && !node.attributes.size && !node.hidden));
-    assert.deepEqual(textLines(card, text => levelLines.includes(text)), levelLines, 'Lance bond 1 level row occurrences');
+    assert.deepEqual(textLines(card, text => rows.includes(text)), rows, label + ' level row occurrences');
   }
   assert.ok(totals.every(node => !node.attributes.size && !node.children.length && !node.ariaLabel && !node.hidden));
   assert.deepEqual(textLines(card, text => lines.some(line => text?.includes(line))), lines, 'Lance bond total occurrences');
@@ -930,11 +936,29 @@ const levelReferences = goldDocuments.get(fetterReferences);
 const regularGoldDetails = goldDocuments.get(fetterDetails).records;
 const firstBondDetail = regularGoldDetails.find(row => row.heroId === 16 && row.endpointId === 71);
 const levelEvidence = goldDocuments.get(lanceFetterEvidence).endpoints[0].levels;
-const levelDecision = await readJson(bond1LevelDecisionPath).catch(error => {
-  if (error.code === 'ENOENT') return undefined;
-  throw error;
-});
-const levelLines = lanceBond1LevelLines(levelReferences, firstBondDetail, levelEvidence, levelDecision);
+async function readLevelDecision(path) {
+  try {
+    return await readJson(path);
+  } catch (error) {
+    if (error.code === 'ENOENT') return undefined;
+    throw error;
+  }
+}
+const levelDecision = await readLevelDecision(bond1LevelDecisionPath);
+const firstLevelLines = lanceBond1LevelLines(levelReferences, firstBondDetail, levelEvidence, levelDecision);
+const bondLevelInputs = await Promise.all([
+  [2, 72, 'docs/decisions/hero-16-minimal-bond2-level-gold-publication.v1.json'],
+  [3, 73, 'docs/decisions/hero-16-minimal-bond3-level-gold-publication.v1.json'],
+].map(async ([bond, endpointId, decisionPath]) => ({
+  bond,
+  references: levelReferences,
+  detail: regularGoldDetails.find(row => row.heroId === 16 && row.endpointId === endpointId),
+  levels: goldDocuments.get(lanceFetterEvidence).endpoints[bond - 1].levels,
+  decision: await readLevelDecision(decisionPath),
+})));
+const additionalLevelLines = bondLevelInputs.map(({ bond, references, detail, levels, decision }) =>
+  lanceBondLevelLines(bond, references, detail, levels, decision));
+const levelLines = [firstLevelLines, ...additionalLevelLines];
 await Promise.all([validateHero15FetterReferences(), validateHero15FetterRawDetails(), validateHero15HeartFetterRawDetails()]);
 await validateHero15HeartFetterRawConditions();
 const bondReferences = await readJson('canonical/hero-fetter-references.v1.json');
@@ -1551,6 +1575,11 @@ try {
   const v5Args = [JSON.parse(packagedTalentText), skillsV5, skillsV4, true, goldLines, effectLines];
   const priorFeatures = { ...currentFeatures, bondDescriptions: allBondDescriptions };
   const candidateRequests = await checkPackagedLanceStartup(output, html, app, ...v5Args, { ...priorFeatures, finalPaths: movementPaths, levelLines });
+  const base348 = await readFile(resolve('tools/fixtures/hero-16-bond23-level-gold-base-348-app.js'));
+  assert.equal(createHash('sha256').update(base348).digest('hex'), '4b6027e40e52080ec7af0497f876aba91ed5fa8a3db91adfd1b3d9619425ccae', 'Merged #348 app digest');
+  const base348Requests = await checkPackagedLanceStartup(output, html, base348.toString('utf8'), ...v5Args,
+    { ...priorFeatures, finalPaths: movementPaths, levelLines: [firstLevelLines] });
+  assert.deepEqual(candidateRequests, base348Requests, 'Lance #348 requests across bond 2 and 3 level displays');
   const base346 = await readFile(resolve('tools/fixtures/hero-16-bond1-level-gold-base-346-app.js'));
   assert.equal(createHash('sha256').update(base346).digest('hex'), 'b4b6f783e4d047f15f472e5880dadf7a48a1eaea1e885635bdce9df4fe7453c1', 'Merged #346 app digest');
   const base346Requests = await checkPackagedLanceStartup(output, html, base346.toString('utf8'), ...v5Args, { ...priorFeatures, finalPaths: movementPaths });

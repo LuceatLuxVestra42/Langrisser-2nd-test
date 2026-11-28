@@ -79,22 +79,22 @@ for (const [appPath, lines] of [
       [['생명','+10%','+25%'],['공격','+5%','+10%'],['방어','+10%','+25%'],['마방','','+10%']]);
     const bonds = card.children.at(-9);
     assert.equal(bonds.tag, 'details');
-    const levels = bonds.children[2];
-    assert.equal(levels.tag, 'details');
-    assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul']);
-    assert.equal(levels.children[0].textContent, '유대 1 레벨별 골드');
-    assert.deepEqual(levels.children[1].children.map(node => node.textContent), [
-      'Lv.2 · 1,500 골드',
-      'Lv.3 · 2,300 골드',
-      'Lv.4 · 3,500 골드',
-      'Lv.5 · 5,300 골드',
-      'Lv.6 · 8,000 골드',
-      'Lv.7 · 12,000 골드',
-      'Lv.8 · 18,000 골드',
-      'Lv.9 · 27,000 골드',
-      'Lv.10 · 41,000 골드',
-    ]);
-    assert.deepEqual(bonds.children.filter(node => node !== levels).map(node => node.textContent), [
+    const expectedAmounts = [
+      [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000],
+      [5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000],
+      [9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000],
+    ];
+    const lists = bonds.children.filter(node => node.tag === 'details');
+    assert.equal(lists.length, 3);
+    for (const [index, amounts] of expectedAmounts.entries()) {
+      const levels = lists[index];
+      assert.equal(bonds.children[2 * (index + 1)], levels);
+      assert.deepEqual(levels.children.map(node => node.tag), ['summary', 'ul']);
+      assert.equal(levels.children[0].textContent, '유대 ' + (index + 1) + ' 레벨별 골드');
+      assert.deepEqual(levels.children[1].children.map(node => node.textContent),
+        amounts.map((gold, offset) => 'Lv.' + (offset + 2) + ' · ' + gold.toLocaleString('ko-KR') + ' 골드'));
+    }
+    assert.deepEqual(bonds.children.filter(node => node.tag !== 'details').map(node => node.textContent), [
       '유대 강화 골드',
       '유대 1 · Lv.2~10 합계 골드 118,600',
       '유대 2 · Lv.2~10 합계 골드 383,500',

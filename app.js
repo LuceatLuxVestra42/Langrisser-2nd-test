@@ -625,35 +625,30 @@ function renderHero16MinimalDetailView(data, container) {
   const summary = document.createElement('summary');
   summary.textContent = '유대 강화 골드';
   bonds.append(summary);
-  for (const line of [
+  const levelGold = [
+    [1500, 2300, 3500, 5300, 8000, 12000, 18000, 27000, 41000],
+    [5000, 7500, 11000, 17000, 26000, 39000, 59000, 89000, 130000],
+    [9000, 14000, 21000, 32000, 48000, 72000, 110000, 170000, 260000],
+  ];
+  for (const [index, line] of [
     '유대 1 · Lv.2~10 합계 골드 118,600',
     '유대 2 · Lv.2~10 합계 골드 383,500',
     '유대 3 · Lv.2~10 합계 골드 736,000',
     '유대 4 · Lv.2~10 합계 골드 1,186,000',
     '유대 5 · Lv.2~10 합계 골드 1,523,000',
     '마음의 유대 · Lv.2~10 합계 골드 650,000',
-  ]) {
+  ].entries()) {
     const paragraph = document.createElement('p');
     paragraph.textContent = line;
     bonds.append(paragraph);
-    if (line.startsWith('유대 1 ·')) {
+    if (index < levelGold.length) {
       const levels = document.createElement('details');
       const heading = document.createElement('summary');
-      heading.textContent = '유대 1 레벨별 골드';
+      heading.textContent = '유대 ' + (index + 1) + ' 레벨별 골드';
       const list = document.createElement('ul');
-      for (const text of [
-        'Lv.2 · 1,500 골드',
-        'Lv.3 · 2,300 골드',
-        'Lv.4 · 3,500 골드',
-        'Lv.5 · 5,300 골드',
-        'Lv.6 · 8,000 골드',
-        'Lv.7 · 12,000 골드',
-        'Lv.8 · 18,000 골드',
-        'Lv.9 · 27,000 골드',
-        'Lv.10 · 41,000 골드',
-      ]) {
+      for (const [offset, gold] of levelGold[index].entries()) {
         const item = document.createElement('li');
-        item.textContent = text;
+        item.textContent = 'Lv.' + (offset + 2) + ' · ' + gold.toLocaleString('ko-KR') + ' 골드';
         list.append(item);
       }
       levels.append(heading, list);
