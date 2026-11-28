@@ -63,9 +63,11 @@ for (const [appPath, lines] of [
   const container = element('div');
   const navigation = render(JSON.parse(generatedText), container);
   const [card] = container.children;
-  const profile = appPath === 'app.js' ? card.children.slice(0, -2) : card.children;
+  const profile = appPath === 'app.js' ? card.children.slice(0, -4) : card.children;
   if (appPath === 'app.js') {
-    const bonds = card.children.at(-1);
+    assert.deepEqual(card.children.slice(-2).map(node => node.textContent),
+      ['전직 · 드래곤 나이트 → 드래곤 마스터','전직 · 하이랜더 → 로열 나이트']);
+    const bonds = card.children.at(-3);
     assert.equal(bonds.tag, 'details');
     assert.deepEqual(bonds.children.map(node => node.textContent), [
       '유대 강화 골드',
@@ -76,7 +78,7 @@ for (const [appPath, lines] of [
       '유대 5 · Lv.2~10 합계 골드 1,523,000',
       '마음의 유대 · Lv.2~10 합계 골드 650,000',
     ]);
-    assert.deepEqual(card.children.at(-2).children.map(node => node.textContent), [
+    assert.deepEqual(card.children.at(-4).children.map(node => node.textContent), [
       '중앙율정',
       '상성 우세인 부대와 전투 시 모든 스탯 +15%',
       '혼합부대로 구성 시 이동력 +2, 전투 후 피해량의 20%만큼 회복',

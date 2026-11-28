@@ -1,3 +1,4 @@
+import { expectedAdvancements } from './validate-hero15-job-advancement.mjs';
 import { lanceTalentEvidence, readLanceTalentSource } from './hero-16-talent-publication-contract.mjs';
 import { projectApprovedFullDetailRecords } from './full-detail-public-population-contract.mjs';
 import { readFile } from 'node:fs/promises';
@@ -615,12 +616,8 @@ export async function validateHeroSemanticCanonicals(root = process.cwd()) {
     const i = talentSource.connections.indexOf(row);
     addExpectedRelation(16, row.Job_ID, `${lanceTalentEvidence}#/connections/${i}/Job_ID`, 'Lance Talent Job endpoint');
   }
-  const [from, to] = lance.connections;
-  check(isDeepStrictEqual(advancement.records.filter(row => row.heroId !== 15), [{
-    heroId: lance.hero.ID, predecessorConnectionId: to.PreJobConnectionList[0], predecessorJobId: from.Job_ID,
-    successorConnectionId: to.ID, successorJobId: to.Job_ID,
-    sourceLocator: `data/configdata/ConfigDataJobConnectionInfo.json#/${to.recordIndex}/PreJobConnectionList/0`,
-  }]), 'Hero 16 direct advancement differs from the selected source reference');
+  const expectedEdges = await expectedAdvancements(readJson);
+  check(isDeepStrictEqual(advancement.records, expectedEdges), 'Direct advancement union differs from source endpoints or locators');
   check(classicEvidence.records.length === 18 && spEvidence.records.length === 25, 'existing selected/SP relation evidence scope drift');
   check(expectedRelations.size === classicEvidence.records.length + expansionEvidence.records.length + presentationEvidence.records.length + batch2Evidence.records.length + hero13Evidence.records.length + batch3Evidence.records.length + batch4Evidence.records.length + hero11Evidence.records.length + hero7Evidence.records.length + hero26Evidence.records.length + hero60Evidence.records.length + hero4Evidence.records.length + batch5Evidence.records.length + spEvidence.records.length + hero15JobEvidence.selectedRelations.length + lance.connections.length + additionalConnections.length, 'current evidence-backed relation scope has duplicate or missing pairs');
 
