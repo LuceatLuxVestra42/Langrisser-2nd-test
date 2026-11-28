@@ -88,5 +88,14 @@
     "claimCount": 3,
     "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SoldierID>",
     "admissionAuthority": false
+  },
+  "hero16DirectAdmissionEvidence": {
+    "artifactPath": "evidence/source/configdata/hero-soldier-normal-direct-hero16.v1.json",
+    "claimType": "hero-soldier-normal-direct-relations",
+    "evidenceClass": "A",
+    "sourceKind": "BASE_SOLDIER_HERO",
+    "claimCount": 5,
+    "locatorFormat": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=<HeroID>&soldierId=<SoldierID>",
+    "admissionAuthority": false
   }
 }

@@ -4722,6 +4722,101 @@
       ]
     },
     {
+      "heroId": 16,
+      "soldierId": 115,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=16&soldierId=115",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 115,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID",
+            "fieldLocator": "/9/GetSoldierHeros_ID/4"
+          }
+        }
+      ]
+    },
+    {
+      "heroId": 16,
+      "soldierId": 324,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=16&soldierId=324",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 324,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID",
+            "fieldLocator": "/68/GetSoldierHeros_ID/1"
+          }
+        }
+      ]
+    },
+    {
+      "heroId": 16,
+      "soldierId": 402,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=16&soldierId=402",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 402,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID",
+            "fieldLocator": "/85/GetSoldierHeros_ID/3"
+          }
+        }
+      ]
+    },
+    {
+      "heroId": 16,
+      "soldierId": 419,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=16&soldierId=419",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 419,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID",
+            "fieldLocator": "/97/GetSoldierHeros_ID/0"
+          }
+        }
+      ]
+    },
+    {
+      "heroId": 16,
+      "soldierId": 423,
+      "evidenceClass": "A",
+      "evidencePoolLocator": "evidence/source/configdata/hero-soldier-direct-source-evidence.v1.json#heroId=16&soldierId=423",
+      "provenance": [
+        {
+          "sourceKind": "BASE_SOLDIER_HERO",
+          "sourceClass": "DIRECT",
+          "origin": {
+            "table": "ConfigDataSoldierInfo",
+            "recordId": 423,
+            "recordKeyField": "ID",
+            "field": "GetSoldierHeros_ID",
+            "fieldLocator": "/101/GetSoldierHeros_ID/1"
+          }
+        }
+      ]
+    },
+    {
       "heroId": 25,
       "soldierId": 115,
       "evidenceClass": "B",
